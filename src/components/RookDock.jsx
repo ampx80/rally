@@ -14,8 +14,13 @@ import {
   getCurrentUser, userName, contactName, pipelineValue, weightedForecast, winRate,
   openDeals, slippingDeals, myDayQueue, getCompanies, getDealsForCompany, getContactsForCompany,
   getDeal, getContact, getCompany, stageById, OPEN_STAGES,
+  getContacts, getDeals, getActivities, getUsers, wonThisMonth,
   createCompany, createContact, createDeal, createActivity, moveDealStage,
 } from '../lib/store.js';
+import {
+  getLeads, getProducts, getQuotes, getInvoices, getCampaigns, getSequences, getTickets, getWorkflows,
+  arOutstanding, arOverdue, arPaid, campaignRevenue, openTickets, qualifiedLeads,
+} from '../lib/store-ext.js';
 
 function RookGlyph({ size = 22, color = '#fff' }) {
   return (
@@ -71,22 +76,82 @@ const actionIconName = (k) => ({
   navigate: 'chevronRight',
 }[k] || 'chevronRight');
 
-/* Build a compact, live snapshot of the book of business for grounding. */
+/* Build a COMPLETE live snapshot of the whole workspace for grounding. Exact
+   counts of every object plus full records, so Rook can answer any inventory,
+   lookup, or count question precisely. Rook is blind to whatever is not here. */
 function buildSnapshot(path) {
   const cu = getCurrentUser();
+  const allDeals = getDeals();
   const opens = openDeals();
+  const allContacts = getContacts();
+  const allCompanies = getCompanies();
+  const allActs = getActivities();
+  const leads = getLeads();
+  const tickets = getTickets();
+
+  const counts = {
+    contacts: allContacts.length,
+    companies: allCompanies.length,
+    deals: allDeals.length,
+    openDeals: opens.length,
+    wonDeals: allDeals.filter(d => d.status === 'won').length,
+    lostDeals: allDeals.filter(d => d.status === 'lost').length,
+    activities: allActs.length,
+    openTasks: allActs.filter(a => !a.done && a.type !== 'note').length,
+    users: getUsers().length,
+    leads: leads.length,
+    qualifiedLeads: qualifiedLeads().length,
+    products: getProducts().length,
+    quotes: getQuotes().length,
+    invoices: getInvoices().length,
+    campaigns: getCampaigns().length,
+    sequences: getSequences().length,
+    tickets: tickets.length,
+    openTickets: openTickets().length,
+    workflows: getWorkflows().length,
+  };
+
   const stageBreakdown = OPEN_STAGES.map(s => {
     const list = opens.filter(d => d.stage === s.id);
     return { stage: s.name, count: list.length, value: list.reduce((a, d) => a + d.value, 0) };
   });
-  const companies = getCompanies().slice(0, 45).map(c => ({
-    id: c.id, name: c.name, industry: c.industry, health: c.health,
+
+  const companies = allCompanies.map(c => ({
+    id: c.id, name: c.name, industry: c.industry, size: c.size, health: c.health, owner: userName(c.ownerId),
+    contacts: getContactsForCompany(c.id).length,
     openPipeline: getDealsForCompany(c.id).filter(d => d.status === 'open').reduce((a, d) => a + d.value, 0),
   }));
-  const deals = opens.slice(0, 60).map(d => ({
-    id: d.id, name: d.name, value: d.value, stage: stageById(d.stage)?.name,
-    probability: d.probability, closeDate: d.closeDate, owner: userName(d.ownerId),
+
+  const contacts = allContacts.map(c => ({
+    id: c.id, name: contactName(c), title: c.title, company: getCompany(c.companyId)?.name || null,
+    email: c.email, owner: userName(c.ownerId), lastActivity: c.lastActivityAt,
   }));
+
+  const deals = allDeals.map(d => ({
+    id: d.id, name: d.name, company: getCompany(d.companyId)?.name || null, value: d.value,
+    stage: stageById(d.stage)?.name, status: d.status, probability: d.probability, closeDate: d.closeDate, owner: userName(d.ownerId),
+  }));
+
+  const activityByType = {};
+  for (const a of allActs) activityByType[a.type] = (activityByType[a.type] || 0) + 1;
+
+  const revenue = {
+    pipeline: pipelineValue(), forecast: Math.round(weightedForecast()), winRate: winRate(),
+    wonThisMonth: wonThisMonth().reduce((a, d) => a + d.value, 0),
+    arOutstanding: arOutstanding(), arOverdue: arOverdue(), collected: arPaid(),
+    campaignRevenue: campaignRevenue(),
+  };
+
+  const modules = {
+    leads: leads.map(l => ({ name: l.name, company: l.company, status: l.status, score: l.score, source: l.source, owner: userName(l.ownerId) })),
+    quotes: getQuotes().map(q => ({ number: q.number, company: q.companyName, amount: q.amount, status: q.status })),
+    invoices: getInvoices().map(i => ({ number: i.number, company: i.companyName, amount: i.amount, status: i.status })),
+    tickets: tickets.map(t => ({ number: t.number, subject: t.subject, company: t.companyName, priority: t.priority, status: t.status, assignee: userName(t.assigneeId) })),
+    campaigns: getCampaigns().map(c => ({ name: c.name, channel: c.channel, status: c.status, revenue: c.revenue, leads: c.leads })),
+    products: getProducts().map(p => ({ name: p.name, category: p.category, price: p.price, billing: p.billing })),
+    workflows: getWorkflows().map(w => ({ name: w.name, trigger: w.trigger, active: w.active })),
+  };
+
   const slipping = slippingDeals().map(d => ({ id: d.id, name: d.name, value: d.value, closeDate: d.closeDate }));
   const myDay = myDayQueue(cu?.id).map(a => ({ type: a.type, subject: a.subject, due: a.dueAt }));
 
@@ -105,8 +170,8 @@ function buildSnapshot(path) {
 
   return {
     currentUser: { name: cu?.name, title: cu?.title },
-    totals: { pipeline: pipelineValue(), forecast: Math.round(weightedForecast()), winRate: winRate(), openDeals: opens.length },
-    stageBreakdown, companies, deals, slipping, myDay, focus,
+    counts, revenue, stageBreakdown, companies, contacts, deals, activityByType,
+    slipping, myDay, modules, focus,
   };
 }
 

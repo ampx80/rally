@@ -55,42 +55,72 @@ function snapshotToText(s) {
   if (!s) return 'No snapshot provided.';
   const lines = [];
   lines.push(`Signed in as: ${s.currentUser?.name || 'the user'} (${s.currentUser?.title || 'rep'}).`);
-  if (s.totals) lines.push(`Pipeline: ${fmtMoney(s.totals.pipeline)} open across ${s.totals.openDeals} deals. Weighted forecast: ${fmtMoney(s.totals.forecast)}. Win rate: ${s.totals.winRate}%.`);
-  if (s.stageBreakdown) lines.push('By stage: ' + s.stageBreakdown.map(b => `${b.stage} ${b.count} (${fmtMoney(b.value)})`).join(', ') + '.');
+
+  if (s.counts) {
+    const c = s.counts;
+    lines.push('WORKSPACE TOTALS (exact counts - use these for any "how many" question):');
+    lines.push(`- Contacts: ${c.contacts} | Companies: ${c.companies} | Deals: ${c.deals} (open ${c.openDeals}, won ${c.wonDeals}, lost ${c.lostDeals})`);
+    lines.push(`- Activities: ${c.activities} (open tasks ${c.openTasks}) | Team members: ${c.users}`);
+    lines.push(`- Leads: ${c.leads} (qualified ${c.qualifiedLeads}) | Products: ${c.products} | Quotes: ${c.quotes} | Invoices: ${c.invoices}`);
+    lines.push(`- Campaigns: ${c.campaigns} | Sequences: ${c.sequences} | Tickets: ${c.tickets} (open ${c.openTickets}) | Workflows: ${c.workflows}`);
+  }
+  if (s.revenue) {
+    const r = s.revenue;
+    lines.push(`REVENUE: pipeline ${fmtMoney(r.pipeline)}, weighted forecast ${fmtMoney(r.forecast)}, win rate ${r.winRate}%, won this month ${fmtMoney(r.wonThisMonth)}. AR outstanding ${fmtMoney(r.arOutstanding)} (overdue ${fmtMoney(r.arOverdue)}), collected ${fmtMoney(r.collected)}. Campaign revenue influenced ${fmtMoney(r.campaignRevenue)}.`);
+  }
+  if (s.stageBreakdown) lines.push('Pipeline by stage: ' + s.stageBreakdown.map(b => `${b.stage} ${b.count} (${fmtMoney(b.value)})`).join(', ') + '.');
   if (s.focus) lines.push(`The user is currently viewing this ${s.focus.type}: ${JSON.stringify(s.focus)}.`);
+
   if (Array.isArray(s.companies) && s.companies.length) {
-    lines.push('COMPANIES (id | name | industry | health | open pipeline):');
-    for (const c of s.companies.slice(0, 45)) lines.push(`- ${c.id} | ${c.name} | ${c.industry} | ${c.health} | ${fmtMoney(c.openPipeline)}`);
+    lines.push(`COMPANIES (${s.companies.length}) [id | name | industry | size | health | owner | #contacts | open pipeline]:`);
+    for (const c of s.companies) lines.push(`- ${c.id} | ${c.name} | ${c.industry} | ${c.size} | ${c.health} | ${c.owner} | ${c.contacts} | ${fmtMoney(c.openPipeline)}`);
+  }
+  if (Array.isArray(s.contacts) && s.contacts.length) {
+    lines.push(`CONTACTS (${s.contacts.length}) [id | name | title | company | email | owner]:`);
+    for (const c of s.contacts) lines.push(`- ${c.id} | ${c.name} | ${c.title || ''} | ${c.company || 'no company'} | ${c.email || ''} | ${c.owner}`);
   }
   if (Array.isArray(s.deals) && s.deals.length) {
-    lines.push('OPEN DEALS (id | name | value | stage | prob | close | owner):');
-    for (const d of s.deals.slice(0, 60)) lines.push(`- ${d.id} | ${d.name} | ${fmtMoney(d.value)} | ${d.stage} | ${d.probability}% | ${d.closeDate?.slice(0, 10)} | ${d.owner}`);
+    lines.push(`DEALS (${s.deals.length}) [id | name | company | value | stage | status | prob | close | owner]:`);
+    for (const d of s.deals) lines.push(`- ${d.id} | ${d.name} | ${d.company || ''} | ${fmtMoney(d.value)} | ${d.stage} | ${d.status} | ${d.probability}% | ${d.closeDate?.slice(0, 10)} | ${d.owner}`);
   }
+  if (s.activityByType) lines.push('Activities by type: ' + Object.entries(s.activityByType).map(([k, v]) => `${k} ${v}`).join(', ') + '.');
   if (Array.isArray(s.slipping) && s.slipping.length) {
-    lines.push('SLIPPING (open, past close date): ' + s.slipping.slice(0, 12).map(d => `${d.name} (${fmtMoney(d.value)}, was due ${d.closeDate?.slice(0, 10)})`).join('; ') + '.');
+    lines.push('SLIPPING (open, past close date): ' + s.slipping.slice(0, 20).map(d => `${d.name} (${fmtMoney(d.value)}, was due ${d.closeDate?.slice(0, 10)})`).join('; ') + '.');
   }
   if (Array.isArray(s.myDay) && s.myDay.length) {
-    lines.push('MY DAY (open tasks): ' + s.myDay.slice(0, 12).map(a => `${a.type}: ${a.subject} (due ${a.due?.slice(0, 10)})`).join('; ') + '.');
+    lines.push('MY DAY (open tasks): ' + s.myDay.slice(0, 15).map(a => `${a.type}: ${a.subject} (due ${a.due?.slice(0, 10)})`).join('; ') + '.');
+  }
+  if (s.modules) {
+    const mo = s.modules;
+    if (mo.leads?.length) lines.push(`LEADS (${mo.leads.length}): ` + mo.leads.map(l => `${l.name} @ ${l.company} [${l.status}, score ${l.score}, ${l.source}]`).join('; ') + '.');
+    if (mo.quotes?.length) lines.push(`QUOTES (${mo.quotes.length}): ` + mo.quotes.map(q => `${q.number} ${q.company} ${fmtMoney(q.amount)} [${q.status}]`).join('; ') + '.');
+    if (mo.invoices?.length) lines.push(`INVOICES (${mo.invoices.length}): ` + mo.invoices.map(i => `${i.number} ${i.company} ${fmtMoney(i.amount)} [${i.status}]`).join('; ') + '.');
+    if (mo.tickets?.length) lines.push(`TICKETS (${mo.tickets.length}): ` + mo.tickets.map(t => `#${t.number} ${t.subject} (${t.company}) [${t.priority}/${t.status}]`).join('; ') + '.');
+    if (mo.campaigns?.length) lines.push(`CAMPAIGNS (${mo.campaigns.length}): ` + mo.campaigns.map(c => `${c.name} [${c.channel}, ${c.status}, ${fmtMoney(c.revenue)}, ${c.leads} leads]`).join('; ') + '.');
+    if (mo.products?.length) lines.push(`PRODUCTS (${mo.products.length}): ` + mo.products.map(p => `${p.name} [${p.category}, ${fmtMoney(p.price)} ${p.billing}]`).join('; ') + '.');
+    if (mo.workflows?.length) lines.push(`WORKFLOWS (${mo.workflows.length}): ` + mo.workflows.map(w => `${w.name} [${w.active ? 'on' : 'off'}]`).join('; ') + '.');
   }
   return lines.join('\n');
 }
 
 const SYSTEM = (snapText, path) => [
-  'You are Rook, the AI operator inside Rally, an AI-native revenue platform (CRM + pipeline + activities + dashboards).',
-  'You are a sharp, calm revenue chief of staff: you know the book of business cold, answer in plain language, and turn intent into action. Never invent companies, deals, or numbers - only reference the SNAPSHOT below. When you use an id in an action, use the exact id from the snapshot.',
+  'You are Rook, the AI operator inside Rally, an AI-native revenue platform. You can see the ENTIRE workspace below: the CRM (contacts, companies, deals, activities) plus leads, products, quotes, invoices, campaigns, sequences, tickets, and workflows.',
+  'You are a sharp, calm revenue chief of staff. You know every record and every count cold. Answer in plain language, cite exact names and numbers from the SNAPSHOT, and turn intent into action. You have FULL access to the whole workspace - never say you cannot see something or lack access. Do not invent records; if something genuinely is not in the snapshot, say so plainly. When you use an id in an action, use the exact id from the snapshot.',
   '',
-  'PAGES (attach a navigate action or nav link whenever you mention a screen):',
-  '- Command center: /   | Deals pipeline: /deals   | a specific deal: /deals/<dealId>',
-  '- Contacts: /contacts | a contact: /contacts/<contactId>',
-  '- Companies: /companies | a company: /companies/<companyId>',
-  '- My day (activities): /activities   | Dashboards: /dashboards',
+  'PAGES (attach a navigate action whenever you name a screen or record):',
+  '- Command center: /   | Leads: /leads   | Deals: /deals   | a deal: /deals/<dealId>',
+  '- Contacts: /contacts | a contact: /contacts/<contactId>   | Companies: /companies | a company: /companies/<companyId>',
+  '- My day: /activities | Forecasting: /forecasting | Dashboards: /dashboards | Reports: /reports',
+  '- Campaigns: /campaigns | Sequences: /sequences | Inbox (tickets): /inbox',
+  '- Products: /products | Quotes: /quotes | Billing: /invoices | Workflows: /workflows | Team: /team',
   '',
   'HOW TO RESPOND:',
-  '- ALWAYS LINK PAGES: any time you name a screen or a specific record, attach a navigate action (kind:"navigate", label, to). Never mention a destination without a button to it.',
-  '- GROUNDED Q&A: answer questions like "which deals are slipping?", "what is my forecast?", "who have we not contacted at Vertex?" straight from the snapshot. Cite real names and numbers.',
-  '- ACTIONS (propose, user confirms). To create a company use create_company with a company object. To create a person use create_contact (include companyId if known). To create a deal use create_deal (value in dollars, stage one of lead/qualified/discovery/proposal/negotiation, companyId if known). To log a task/call/email/meeting use log_activity (activity: type, subject, dueInDays, relatedType deal|contact|company, relatedId). To advance a deal use move_stage (deal_id + stage). To draft an email use draft_email (email: to, subject, body - write a real, ready-to-send follow-up grounded in the deal/contact). To build a QBR deck use generate_deck (company_id).',
-  '- CAPTURE DETAILS FIRST: if the user wants to create something but key details are missing, ask ONE short clarifying question in reply and propose nothing yet. For a deal you need at least a name/company and a value.',
-  '- JUGGERNAUT: if the user wants to "set up", "stand up", "onboard", or "create a whole account" (a company plus contacts plus a deal plus first tasks), do NOT use the individual create actions. Return a SINGLE build_account action with a one-sentence goal capturing everything they said. Tell them in reply you will build the whole account and to hit the button.',
+  '- COUNTS + INVENTORY: for any "how many", "how much", "list", or "what do we have" question, answer PRECISELY from WORKSPACE TOTALS and the full lists. Example: "You have 132 contacts across 41 companies." Be exact, never vague, never estimate when the exact number is right there.',
+  '- GROUNDED Q&A: answer questions ("which deals are slipping?", "what is my forecast?", "who at Vertex have we not contacted?", "how many overdue invoices?") straight from the snapshot with real names and numbers.',
+  '- ALWAYS LINK PAGES: any time you name a screen or a specific record, attach a navigate action (kind:"navigate", label, to).',
+  '- ACTIONS (propose, user confirms): create_company, create_contact (companyId if known), create_deal (value in dollars, stage one of lead/qualified/discovery/proposal/negotiation, companyId if known), log_activity (activity: type, subject, dueInDays, relatedType deal|contact|company, relatedId), move_stage (deal_id + stage), draft_email (email: to, subject, body - a real ready-to-send follow-up grounded in the record), generate_deck (company_id).',
+  '- CAPTURE DETAILS FIRST: if the user wants to create something but key details are missing, ask ONE short clarifying question and propose nothing yet.',
+  '- JUGGERNAUT: if the user wants to "set up", "stand up", "onboard", or "create a whole account", return a SINGLE build_account action with a one-sentence goal. Tell them you will build the whole account and to hit the button.',
   '- Keep reply tight (2-4 sentences). Offer 2 to 3 suggestions.',
   'Absolute rule: never use an em dash or en dash. Use a normal hyphen.',
   '',
