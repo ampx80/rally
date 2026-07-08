@@ -358,3 +358,51 @@ tr:hover .reveal, .row-host:hover .reveal { opacity: 1; }
 @keyframes launchLoad { from { width: 8%; } to { width: 100%; } }
 @keyframes launchOut { to { opacity: 0; visibility: hidden; transform: scale(1.04); } }
 @media (prefers-reduced-motion: reduce) { .launch { animation: launchOut .3s .8s forwards; } .launch__mark, .launch__word, .launch__tag, .launch__bar, .launch__bar i { animation: none; opacity: 1; } }
+
+/* ============================================================
+   RESPONSIVE SHELL - real mobile, not an afterthought.
+   Desktop: fixed command rail. Mobile: off-canvas drawer with a
+   hamburger + scrim, content goes full width and single column.
+   ============================================================ */
+.rl-rail { width: var(--sidebar-w); z-index: 40; transition: transform .28s var(--ease); }
+.rl-main { margin-left: var(--sidebar-w); }
+.rl-content { padding: 1.75rem; width: 100%; max-width: var(--maxw); margin: 0 auto; flex: 1; }
+.rl-burger { display: none; }
+.rl-scrim { display: none; }
+.mobile-only { display: none !important; }
+
+/* Never let anything (ambient blobs, wide tables) push horizontal scroll or
+   expand the layout viewport on mobile. clip keeps sticky headers working. */
+html, body { overflow-x: clip; max-width: 100%; }
+.ambient { max-width: 100vw; }
+
+@media (max-width: 860px) {
+  /* width + chrome only; the open/closed transform is driven inline from React
+     state so it can never be lost to a cascade or emulator quirk. */
+  .rl-rail { width: min(86vw, 320px); box-shadow: var(--shadow-lg); z-index: 60; }
+  .rl-main { margin-left: 0; }
+  .rl-content { padding: 1rem 1rem 5rem; }
+  .rl-burger { display: inline-flex; }
+  .rl-scrim { display: block; position: fixed; inset: 0; background: rgba(10,13,19,.5); backdrop-filter: blur(2px); z-index: 50; animation: scrimIn .2s ease; }
+  .desktop-only { display: none !important; }
+  .mobile-only { display: inline-flex !important; }
+
+  /* everything reflows to a single column on phones */
+  main .grid { grid-template-columns: 1fr !important; }
+
+  /* fluid type down a notch so headings do not blow out narrow screens */
+  h1 { font-size: clamp(1.55rem, 7vw, 2.1rem); }
+  h2 { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+  .stat-value { font-size: clamp(1.9rem, 9vw, 2.5rem) !important; }
+  .section-head { flex-wrap: wrap; }
+  .container { padding: 0 1rem; }
+
+  /* keep the top bar tidy on small screens */
+  .rl-topbar { padding: .6rem 1rem !important; gap: .5rem !important; }
+}
+@keyframes scrimIn { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 520px) {
+  .hide-520 { display: none !important; }
+  .rl-content { padding: .85rem .85rem 5rem; }
+}

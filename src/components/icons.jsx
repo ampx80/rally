@@ -56,6 +56,7 @@ const PATHS = {
   rocket: 'M5 13c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 8-10c1.5 0 3 0 4 1s1 2.5 1 4a22 22 0 0 1-10 8zM15 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z',
   bolt: 'M13 2 3 14h9l-1 8 10-12h-9l1-8z',
   sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+  menu: 'M3 6h18M3 12h18M3 18h18',
 };
 
 export function Icon({ name, size = 18, stroke = 1.75, className = '', style, fill = 'none' }) {
