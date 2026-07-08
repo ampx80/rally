@@ -29,6 +29,7 @@ import Reports from './pages/Reports.jsx';
 import Workflows from './pages/Workflows.jsx';
 import Team from './pages/Team.jsx';
 import Settings from './pages/Settings.jsx';
+import Projects from './pages/Projects.jsx';
 
 const NAV_SECTIONS = [
   { label: null, items: [{ to: '/', label: 'Command center', icon: 'home', end: true }] },
@@ -44,6 +45,7 @@ const NAV_SECTIONS = [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
     { to: '/sequences', label: 'Sequences', icon: 'layers' },
   ] },
+  { label: 'Deliver', items: [{ to: '/projects', label: 'Projects', icon: 'grid' }] },
   { label: 'Service', items: [{ to: '/inbox', label: 'Inbox', icon: 'inbox' }] },
   { label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -200,6 +202,7 @@ export default function App() {
               <Route path="/forecasting" element={<Forecasting />} />
               <Route path="/campaigns" element={<Campaigns />} />
               <Route path="/sequences" element={<Sequences />} />
+              <Route path="/projects" element={<Projects />} />
               <Route path="/inbox" element={<Inbox />} />
               <Route path="/products" element={<Products />} />
               <Route path="/quotes" element={<Quotes />} />
