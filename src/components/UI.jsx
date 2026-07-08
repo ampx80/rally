@@ -190,6 +190,101 @@ export function Ring({ value = 0, size = 56, stroke = 6, color = 'var(--accent)'
   );
 }
 
+/* ---------- Sparkline ---------- inline SVG trend line */
+export function Sparkline({ data = [], w = 120, h = 34, color = 'var(--accent)', fill = true, strokeWidth = 2 }) {
+  if (!data.length) return null;
+  const min = Math.min(...data), max = Math.max(...data);
+  const span = max - min || 1;
+  const pts = data.map((v, i) => [(i / (data.length - 1 || 1)) * w, h - ((v - min) / span) * (h - 4) - 2]);
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+  const area = `${line} L${w},${h} L0,${h} Z`;
+  const id = 'sg' + Math.round(pts[0][1] * 1000 + w);
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block', overflow: 'visible' }}>
+      {fill && (<><defs><linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={color} stopOpacity="0.24" /><stop offset="100%" stopColor={color} stopOpacity="0" /></linearGradient></defs><path d={area} fill={`url(#${id})`} /></>)}
+      <path d={line} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* ---------- MiniBars ---------- tiny bar chart */
+export function MiniBars({ data = [], w = 120, h = 34, color = 'var(--accent)', gap = 2 }) {
+  if (!data.length) return null;
+  const max = Math.max(...data) || 1;
+  const bw = (w - gap * (data.length - 1)) / data.length;
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }}>
+      {data.map((v, i) => { const bh = Math.max(2, (v / max) * (h - 2)); return <rect key={i} x={i * (bw + gap)} y={h - bh} width={bw} height={bh} rx={Math.min(2, bw / 2)} fill={color} opacity={0.35 + 0.65 * (v / max)} />; })}
+    </svg>
+  );
+}
+
+/* ---------- GradientText ---------- */
+export function GradientText({ children, style, className = '' }) {
+  return <span className={className} style={{ background: 'linear-gradient(100deg, var(--accent), #a855f7 60%, #0ea5a3)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', ...style }}>{children}</span>;
+}
+
+/* ---------- Trend chip ---------- */
+export function Trend({ value, suffix = '%' }) {
+  if (value == null) return null;
+  const up = value >= 0;
+  return (
+    <span className="row" style={{ gap: 3, fontSize: '.82rem', fontWeight: 700, color: up ? 'var(--ok)' : 'var(--risk)' }}>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{ transform: up ? 'none' : 'scaleY(-1)' }}><path d="M4 16l6-6 4 4 6-8" /><path d="M16 6h4v4" /></svg>
+      {up ? '+' : ''}{value}{suffix}
+    </span>
+  );
+}
+
+/* ---------- Segmented control ---------- */
+export function Segmented({ options, value, onChange }) {
+  return (
+    <div className="row" style={{ background: 'var(--n-100)', borderRadius: 'var(--r-sm)', padding: 3, gap: 2 }}>
+      {options.map(o => {
+        const v = typeof o === 'string' ? o : o.value; const label = typeof o === 'string' ? o : o.label;
+        const on = v === value;
+        return <button key={v} onClick={() => onChange(v)} className="btn btn-sm" style={{ background: on ? 'var(--paper)' : 'transparent', color: on ? 'var(--ink)' : 'var(--n-600)', boxShadow: on ? 'var(--shadow-sm)' : 'none', fontWeight: on ? 700 : 600, padding: '.4rem .8rem' }}>{label}</button>;
+      })}
+    </div>
+  );
+}
+
+/* ---------- Progress bar ---------- */
+export function ProgressBar({ value = 0, color = 'var(--accent)', height = 8, track = 'var(--n-100)' }) {
+  return (
+    <div style={{ background: track, borderRadius: 999, height, overflow: 'hidden', width: '100%' }}>
+      <div style={{ width: `${Math.max(0, Math.min(100, value))}%`, height: '100%', background: color, borderRadius: 999, transition: 'width .7s var(--ease)' }} />
+    </div>
+  );
+}
+
+/* ---------- Keyboard hint ---------- */
+export function Kbd({ children }) {
+  return <span style={{ fontFamily: 'var(--font-mono)', fontSize: '.72rem', fontWeight: 600, padding: '.1rem .4rem', border: '1px solid var(--line-strong)', borderBottomWidth: 2, borderRadius: 5, background: 'var(--paper)', color: 'var(--n-600)' }}>{children}</span>;
+}
+
+/* ---------- StatCard ---------- a premium KPI tile with optional spark + trend + glow */
+export function StatCard({ label, value, format, trend, spark, sparkColor, icon, accent = 'var(--accent)', onClick, sub }) {
+  return (
+    <div onClick={onClick} className="card card-pad" style={{ cursor: onClick ? 'pointer' : 'default', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: -30, right: -30, width: 110, height: 110, borderRadius: '50%', background: accent, opacity: .07, filter: 'blur(8px)' }} />
+      <div className="row between" style={{ position: 'relative' }}>
+        <div className="stat-label">{label}</div>
+        {icon && <span style={{ color: accent }}>{icon}</span>}
+      </div>
+      <div className="row between" style={{ alignItems: 'flex-end', marginTop: 6, position: 'relative' }}>
+        <div className="col gap-1">
+          <div className="stat-value" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.5rem)' }}>
+            <AnimatedNumber value={value} format={format} />
+          </div>
+          {trend != null ? <Trend value={trend} /> : (sub && <div className="t-xs muted">{sub}</div>)}
+        </div>
+        {spark && <div style={{ opacity: .95 }}><Sparkline data={spark} color={sparkColor || accent} w={96} h={38} /></div>}
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Toast ---------- */
 export function useToast() {
   const show = (msg, tone = 'ok') => {

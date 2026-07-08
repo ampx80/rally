@@ -289,3 +289,72 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 .clip { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .link { color: var(--accent-600); font-weight: 600; cursor: pointer; }
 .link:hover { text-decoration: underline; }
+
+/* ============================================================
+   DARK MODE - set data-theme="dark" on <html>. The command rail
+   was already dark; here the content surface flips to a deep,
+   premium slate. One toggle, whole product re-skins.
+   ============================================================ */
+[data-theme="dark"] {
+  --ink: #eef1f6;
+  --ink-2: #aeb8c6;
+  --page: #0a0d13;
+  --paper: #141924;
+  --line: #232a38;
+  --line-strong: #303a4b;
+  --accent-50: #201d44;
+  --accent-300: #7b6ef0;
+  --ok-bg: #0f2a1e; --warn-bg: #2c2411; --risk-bg: #2f1613; --info-bg: #0f2135;
+  --n-0: #141924; --n-25: #171d29; --n-50: #1b212e; --n-100: #232a38;
+  --n-200: #303a4b; --n-400: #6d7889; --n-600: #97a1b2; --n-700: #b6bfcd; --n-800: #d6dce4; --n-900: #eef1f6;
+  --nav: #0a0d13; --nav-2: #12161f; --nav-line: #20262f; --nav-active: #1b212c;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3);
+  --shadow-md: 0 6px 18px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,.6), 0 8px 24px rgba(0,0,0,.4);
+}
+[data-theme="dark"] .ambient .b1 { background: radial-gradient(circle, rgba(91,75,245,.26), transparent 70%); }
+[data-theme="dark"] .ambient .b2 { background: radial-gradient(circle, rgba(20,184,166,.20), transparent 70%); }
+[data-theme="dark"] .ambient .b3 { background: radial-gradient(circle, rgba(168,85,247,.18), transparent 70%); }
+html { transition: none; }
+body, .card, .panel, .table th, .table td, .input, .select, .textarea { transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
+
+/* ============================================================
+   PREMIUM SURFACES + CONTROLS
+   ============================================================ */
+.glass { background: color-mix(in srgb, var(--paper) 72%, transparent); backdrop-filter: blur(12px) saturate(1.2); border: 1px solid var(--line); }
+.hairline { border-bottom: 1px solid var(--line); }
+.grad-accent { background: linear-gradient(120deg, var(--accent-700), var(--accent) 55%, #7c5cf7); }
+.grad-rev { background: linear-gradient(120deg, #3d31c2, #5b4bf5 45%, #0ea5a3); }
+.glow-ring { box-shadow: 0 0 0 3px var(--accent-50), var(--accent-glow); }
+
+/* Command-rail section label */
+.nav-sec { font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--nav-muted); padding: .9rem .8rem .3rem; opacity: .7; }
+.nav-item-badge { margin-left: auto; font-size: .68rem; font-weight: 700; padding: .05rem .4rem; border-radius: 999px; background: rgba(255,255,255,.08); color: var(--nav-text); }
+
+/* Toggle switch */
+.switch { position: relative; width: 42px; height: 24px; border-radius: 999px; background: var(--n-200); cursor: pointer; transition: background .2s var(--ease); flex: none; border: none; padding: 0; }
+.switch.on { background: var(--accent); }
+.switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .22s var(--ease); }
+.switch.on::after { transform: translateX(18px); }
+
+/* Kanban card hover already styled inline; keep a class hook */
+.kb-card:hover { border-color: var(--accent-300); }
+
+/* Row hover reveal (for row actions) */
+.reveal { opacity: 0; transition: opacity .15s; }
+tr:hover .reveal, .row-host:hover .reveal { opacity: 1; }
+
+/* ============================================================
+   LAUNCH SCREEN - the first-impression moment
+   ============================================================ */
+.launch { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.2rem;
+  background: radial-gradient(1200px 700px at 50% 40%, #1a1636, #0a0d13 70%); color: #fff; animation: launchOut .6s var(--ease) 1.9s forwards; }
+.launch__mark { width: 78px; height: 78px; border-radius: 20px; display: grid; place-items: center; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); box-shadow: 0 20px 60px -12px rgba(91,75,245,.7); animation: launchPop .7s var(--ease) both, floaty 4s ease-in-out infinite 1s; }
+.launch__word { font-size: 2.6rem; font-weight: 800; letter-spacing: -.03em; opacity: 0; animation: fadeUp .6s var(--ease) .25s both; }
+.launch__tag { color: #a99ff9; font-weight: 600; letter-spacing: .02em; opacity: 0; animation: fadeUp .6s var(--ease) .42s both; }
+.launch__bar { width: 200px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; opacity: 0; animation: fadeUp .5s var(--ease) .6s both; }
+.launch__bar i { display: block; height: 100%; width: 40%; border-radius: 999px; background: linear-gradient(90deg, #a99ff9, #0ea5a3); animation: launchLoad 1.5s var(--ease) .5s forwards; }
+@keyframes launchPop { from { transform: scale(.6) rotate(-8deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes launchLoad { from { width: 8%; } to { width: 100%; } }
+@keyframes launchOut { to { opacity: 0; visibility: hidden; transform: scale(1.04); } }
+@media (prefers-reduced-motion: reduce) { .launch { animation: launchOut .3s .8s forwards; } .launch__mark, .launch__word, .launch__tag, .launch__bar, .launch__bar i { animation: none; opacity: 1; } }
