@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
+import './marketing.css';
 
 /* Reveal children on scroll into view. */
 export function Reveal({ children, delay = 0, as: As = 'div', className = '', style }) {
@@ -79,7 +80,7 @@ function MktFooter() {
     { h: 'Product', links: [['Features', '/features'], ['Rook AI operator', '/product/rook'], ['Pricing', '/pricing'], ['Security', '/security'], ['Launch app', '/app']] },
     { h: 'Compare', links: [['vs Salesforce', '/compare/salesforce'], ['vs HubSpot', '/compare/hubspot'], ['vs Zoho', '/compare/zoho'], ['vs NetSuite', '/compare/netsuite'], ['vs Pipedrive', '/compare/pipedrive']] },
     { h: 'Company', links: [['Manifesto', '/manifesto'], ['Security', '/security'], ['Get started', '/app']] },
-    { h: 'Resources', links: [['Product tour', '/features'], ['Why Rally', '/manifesto'], ['Rook', '/product/rook']] },
+    { h: 'Resources', links: [['Product tour', '/features'], ['Why Rally', '/manifesto'], ['Rook', '/product/rook'], ['All pages', '/pages']] },
   ];
   return (
     <footer className="mkt-footer">

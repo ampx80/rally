@@ -38,6 +38,7 @@ import Compare from './marketing/Compare.jsx';
 import Pricing from './marketing/Pricing.jsx';
 import Security from './marketing/Security.jsx';
 import Manifesto from './marketing/Manifesto.jsx';
+import SiteMap from './marketing/SiteMap.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings']);
@@ -206,6 +207,7 @@ export default function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/security" element={<Security />} />
             <Route path="/manifesto" element={<Manifesto />} />
+            <Route path="/pages" element={<SiteMap />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
