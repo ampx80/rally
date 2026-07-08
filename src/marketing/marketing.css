@@ -72,6 +72,12 @@
 .mkt-lead { font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.5; color: var(--m-ink2); }
 .mkt-body { font-size: 1.05rem; line-height: 1.6; color: var(--m-ink2); }
 
+/* The product's global index.css sets `h1{color:var(--ink)}` app-wide, which is
+   near-black in light theme and would render marketing headings invisible on the
+   dark canvas. Scope heading color under .mkt so it always wins. */
+.mkt h1, .mkt h2, .mkt h3, .mkt h4, .mkt h5, .mkt-h1, .mkt-h2, .mkt-h3 { color: var(--m-ink); }
+.mkt .mkt-grad { color: transparent; }
+
 /* --- Sections --- */
 .mkt-section { padding: 96px 0; position: relative; }
 .mkt-section-sm { padding: 64px 0; }
