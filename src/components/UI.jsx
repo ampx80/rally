@@ -19,6 +19,24 @@ function useCountUp(value, dur = 900) {
   return numeric ? Math.round(n).toLocaleString() : n;
 }
 
+/* Number that flips from its previous value to the new one whenever it changes
+   (pipeline sums as deals move). Pass a format fn (e.g. moneyK). */
+export function AnimatedNumber({ value, format, dur = 650, className = '', style }) {
+  const [display, setDisplay] = useState(value);
+  const prev = useRef(value);
+  useEffect(() => {
+    const from = prev.current, to = value; prev.current = value;
+    if (typeof to !== 'number' || typeof from !== 'number' || from === to) { setDisplay(to); return; }
+    let raf, start;
+    const step = (t) => { if (!start) start = t; const p = Math.min(1, (t - start) / dur); setDisplay(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+    const fb = setTimeout(() => setDisplay(to), dur + 80);
+    return () => { cancelAnimationFrame(raf); clearTimeout(fb); };
+  }, [value, dur]);
+  const out = typeof display === 'number' ? (format ? format(display) : Math.round(display).toLocaleString()) : display;
+  return <span className={className} style={style}>{out}</span>;
+}
+
 /* ---------- Button ----------
    variant: 'primary' | 'accent' | 'ghost' | 'quiet' | 'danger'   size: 'sm'|'md'|'lg' */
 export function Button({ variant = 'primary', size = 'md', as: As = 'button', className = '', children, ...rest }) {

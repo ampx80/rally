@@ -15,6 +15,7 @@ import {
   moneyK, money, longDate, useToast,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import { celebrate } from '../lib/celebrate.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
 
 const STAGE_COLOR = {
@@ -96,7 +97,8 @@ export default function DealDetail() {
 
   const move = (stageId) => {
     const r = moveDealStage(deal.id, stageId);
-    toast(r.error ? r.message : 'Deal moved to ' + stageById(stageId).name, r.error ? 'risk' : 'ok');
+    if (!r.error && stageId === 'won') celebrate();
+    toast(r.error ? r.message : (stageId === 'won' ? 'Deal won! ' : 'Deal moved to ') + stageById(stageId).name, r.error ? 'risk' : 'ok');
   };
 
   const patch = (p) => {

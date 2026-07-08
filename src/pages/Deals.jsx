@@ -14,6 +14,7 @@ import {
   moneyK, monthDay, relTime, useToast,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import { celebrate } from '../lib/celebrate.js';
 import KanbanBoard from '../components/KanbanBoard.jsx';
 import DataTable from '../components/DataTable.jsx';
 
@@ -126,7 +127,7 @@ export default function Deals() {
   ];
 
   const bulkActions = [
-    { label: 'Mark won', onClick: (ids) => { ids.forEach(id => moveDealStage(id, 'won')); toast(`${ids.length} marked won`); } },
+    { label: 'Mark won', onClick: (ids) => { ids.forEach(id => moveDealStage(id, 'won')); celebrate(); toast(`${ids.length} marked won!`); } },
     { label: 'Mark lost', onClick: (ids) => { ids.forEach(id => moveDealStage(id, 'lost')); toast(`${ids.length} marked lost`); } },
   ];
 
@@ -165,7 +166,8 @@ export default function Deals() {
           ownerName={userName}
           onMove={(dealId, stageId) => {
             const r = moveDealStage(dealId, stageId);
-            toast(r.error ? r.message : 'Deal moved to ' + stageById(stageId).name, r.error ? 'risk' : 'ok');
+            if (!r.error && stageId === 'won') celebrate();
+            toast(r.error ? r.message : (stageId === 'won' ? 'Deal won! ' : 'Deal moved to ') + stageById(stageId).name, r.error ? 'risk' : 'ok');
           }}
         />
       ) : (

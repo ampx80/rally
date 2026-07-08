@@ -9,6 +9,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from './icons.jsx';
 import { moneyK } from './UI.jsx';
+import { celebrate } from '../lib/celebrate.js';
 import {
   getCurrentUser, userName, contactName, pipelineValue, weightedForecast, winRate,
   openDeals, slippingDeals, myDayQueue, getCompanies, getDealsForCompany, getContactsForCompany,
@@ -224,6 +225,7 @@ export default function RookDock() {
       push(`Scheduled ${made} first activities ✓`);
       await pause(150);
 
+      celebrate({ x: window.innerWidth - 90, y: window.innerHeight - 90, count: 90 });
       push(`Done. ${co.name} is a live account now - company, buying committee, a ${moneyK(deal.value)} deal, and your first tasks. What next?`, {
         actions: [
           { kind: 'navigate', label: `Open ${co.name}`, to: `/companies/${co.id}` },
