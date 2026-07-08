@@ -8,7 +8,7 @@ import { Avatar, moneyK } from './UI.jsx';
 import { getContacts, getCompanies, getDeals, getCompany, contactName, stageById } from '../lib/store.js';
 
 const NAV_COMMANDS = [
-  { kind: 'nav', label: 'Command center', to: '/', icon: 'home' },
+  { kind: 'nav', label: 'Command center', to: '/app', icon: 'home' },
   { kind: 'nav', label: 'Deals pipeline', to: '/deals', icon: 'target' },
   { kind: 'nav', label: 'Contacts', to: '/contacts', icon: 'users' },
   { kind: 'nav', label: 'Companies', to: '/companies', icon: 'building' },

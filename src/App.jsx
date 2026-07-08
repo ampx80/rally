@@ -30,9 +30,20 @@ import Workflows from './pages/Workflows.jsx';
 import Team from './pages/Team.jsx';
 import Settings from './pages/Settings.jsx';
 import Projects from './pages/Projects.jsx';
+import { MarketingShell } from './marketing/kit.jsx';
+import Home from './marketing/Home.jsx';
+import Features from './marketing/Features.jsx';
+import RookPage from './marketing/RookPage.jsx';
+import Compare from './marketing/Compare.jsx';
+import Pricing from './marketing/Pricing.jsx';
+import Security from './marketing/Security.jsx';
+import Manifesto from './marketing/Manifesto.jsx';
+
+// First path segment maps to the product app (everything else = marketing site).
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings']);
 
 const NAV_SECTIONS = [
-  { label: null, items: [{ to: '/', label: 'Command center', icon: 'home', end: true }] },
+  { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }] },
   { label: 'Sell', items: [
     { to: '/leads', label: 'Leads', icon: 'funnel' },
     { to: '/deals', label: 'Deals', icon: 'target' },
@@ -179,6 +190,29 @@ export default function App() {
   // Lock body scroll while the drawer is open on mobile.
   useEffect(() => { document.body.style.overflow = navOpen ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [navOpen]);
 
+  // Marketing site owns the root; the product app lives under known segments.
+  const seg = loc.pathname.split('/')[1] || '';
+  const isApp = PRODUCT_SEGS.has(seg);
+
+  if (!isApp) {
+    return (
+      <MarketingShell>
+        <div key={loc.pathname}>
+          <Routes location={loc}>
+            <Route path="/" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/product/rook" element={<RookPage />} />
+            <Route path="/compare/:slug" element={<Compare />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="/manifesto" element={<Manifesto />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </MarketingShell>
+    );
+  }
+
   return (
     <div>
       <LaunchScreen />
@@ -190,7 +224,7 @@ export default function App() {
         <main className="rl-content">
           <div key={loc.pathname} className="page-in">
             <Routes location={loc}>
-              <Route path="/" element={<CommandCenter />} />
+              <Route path="/app" element={<CommandCenter />} />
               <Route path="/leads" element={<Leads />} />
               <Route path="/deals" element={<Deals />} />
               <Route path="/deals/:id" element={<DealDetail />} />
@@ -213,7 +247,7 @@ export default function App() {
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/team" element={<Team />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
           </div>
         </main>
