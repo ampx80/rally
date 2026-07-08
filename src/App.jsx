@@ -14,6 +14,7 @@ import Companies from './pages/Companies.jsx';
 import CompanyDetail from './pages/CompanyDetail.jsx';
 import Activities from './pages/Activities.jsx';
 import Dashboards from './pages/Dashboards.jsx';
+import Integrations from './pages/Integrations.jsx';
 
 const NAV = [
   { to: '/', label: 'Command center', icon: 'home', end: true },
@@ -22,6 +23,7 @@ const NAV = [
   { to: '/companies', label: 'Companies', icon: 'building' },
   { to: '/activities', label: 'My day', icon: 'activity' },
   { to: '/dashboards', label: 'Dashboards', icon: 'chart' },
+  { to: '/integrations', label: 'Integrations', icon: 'plug' },
 ];
 
 function Rail() {
@@ -114,6 +116,7 @@ export default function App() {
             <Route path="/companies/:id" element={<CompanyDetail />} />
             <Route path="/activities" element={<Activities />} />
             <Route path="/dashboards" element={<Dashboards />} />
+            <Route path="/integrations" element={<Integrations />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

@@ -35,6 +35,7 @@ const PATHS = {
   dollar: 'M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
   clock: 'M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2',
   zap: 'M13 2 3 14h9l-1 8 10-12h-9l1-8z',
+  plug: 'M9 2v6M15 2v6M7 8h10v3a5 5 0 0 1-10 0V8zM12 16v6',
   grid: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
   list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
 };
