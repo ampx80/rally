@@ -164,14 +164,15 @@ export default function Home() {
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 26 }}>
-              <Pill>Now with Rook Autopilot</Pill>
+              <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
             </div>
-            <h1 className="mkt-h1" style={{ maxWidth: 960, margin: '0 auto' }}>
-              The revenue platform that <span className="mkt-grad">runs itself.</span>
+            <h1 className="mkt-h1" style={{ maxWidth: 1000, margin: '0 auto' }}>
+              The new AI-powered CRM <span className="mkt-grad">is here.</span>
             </h1>
-            <p className="mkt-lead" style={{ maxWidth: 640, margin: '24px auto 0' }}>
-              An AI-native CRM that is alive on the very first load. Meet Rook, the operator
-              that reads your book of business and does the work for you.
+            <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
+              Meet Rally. It comes alive on the first load, and Rook, your AI operator, does the
+              actual work: builds the accounts, drafts the emails, moves the deals, and tells you
+              the next move. The system of record just became the system that acts.
             </p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
               <MktButton to="/app" size="lg">Get started free <Icon name="chevronRight" size={18} /></MktButton>
