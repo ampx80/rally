@@ -102,23 +102,28 @@ export default function App() {
 
   return (
     <div>
+      {/* Ambient floating color field - the "wow" that drifts behind everything. */}
+      <div className="ambient" aria-hidden><span className="b1" /><span className="b2" /><span className="b3" /></div>
       <Rail />
-      <div style={{ marginLeft: 'var(--sidebar-w)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ marginLeft: 'var(--sidebar-w)', minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
         <Topbar onOpenSearch={() => setSearchOpen(true)} />
         <main style={{ flex: 1, padding: '1.75rem', maxWidth: 'var(--maxw)', width: '100%', margin: '0 auto' }}>
-          <Routes>
-            <Route path="/" element={<CommandCenter />} />
-            <Route path="/deals" element={<Deals />} />
-            <Route path="/deals/:id" element={<DealDetail />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/contacts/:id" element={<ContactDetail />} />
-            <Route path="/companies" element={<Companies />} />
-            <Route path="/companies/:id" element={<CompanyDetail />} />
-            <Route path="/activities" element={<Activities />} />
-            <Route path="/dashboards" element={<Dashboards />} />
-            <Route path="/integrations" element={<Integrations />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          {/* keyed on the route so every navigation animates in */}
+          <div key={loc.pathname} className="page-in">
+            <Routes location={loc}>
+              <Route path="/" element={<CommandCenter />} />
+              <Route path="/deals" element={<Deals />} />
+              <Route path="/deals/:id" element={<DealDetail />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/contacts/:id" element={<ContactDetail />} />
+              <Route path="/companies" element={<Companies />} />
+              <Route path="/companies/:id" element={<CompanyDetail />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/dashboards" element={<Dashboards />} />
+              <Route path="/integrations" element={<Integrations />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
         </main>
       </div>
       <CommandK open={searchOpen} onClose={() => setSearchOpen(false)} />

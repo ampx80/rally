@@ -1,6 +1,23 @@
 // Rally shared UI primitives. Every page composes from here so the whole
 // product feels like one surface. Keep prop shapes stable.
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+/* Count a number up from 0 on mount (wow-factor for dashboard stats). Only
+   runs for finite numbers; formatted strings render as-is. rAF with a timeout
+   fallback so the final value always lands even if frames are throttled. */
+function useCountUp(value, dur = 900) {
+  const numeric = typeof value === 'number' && isFinite(value);
+  const [n, setN] = useState(numeric ? 0 : value);
+  useEffect(() => {
+    if (!numeric) { setN(value); return; }
+    let raf, start;
+    const step = (t) => { if (!start) start = t; const p = Math.min(1, (t - start) / dur); setN(value * (1 - Math.pow(1 - p, 3))); if (p < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+    const fb = setTimeout(() => setN(value), dur + 80);
+    return () => { cancelAnimationFrame(raf); clearTimeout(fb); };
+  }, [value, numeric, dur]);
+  return numeric ? Math.round(n).toLocaleString() : n;
+}
 
 /* ---------- Button ----------
    variant: 'primary' | 'accent' | 'ghost' | 'quiet' | 'danger'   size: 'sm'|'md'|'lg' */
@@ -18,10 +35,11 @@ export function Card({ pad = true, hover = false, className = '', children, ...r
 /* ---------- Stat ---------- */
 export function Stat({ value, label, sub, trend, icon, onClick }) {
   const trendColor = trend == null ? '' : trend >= 0 ? 'var(--ok)' : 'var(--risk)';
+  const shown = useCountUp(value);
   return (
     <div className="col gap-1" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
       {icon && <div style={{ color: 'var(--accent-600)', marginBottom: 2 }}>{icon}</div>}
-      <div className="stat-value">{value}</div>
+      <div className="stat-value">{shown}</div>
       <div className="stat-label">{label}</div>
       {sub != null && <div className="t-sm muted">{sub}</div>}
       {trend != null && (

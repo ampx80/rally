@@ -228,6 +228,60 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
 
 /* ============================================================
+   MOTION SYSTEM - Wonka-grade wow, boardroom-safe.
+   Ambient drift, page transitions, stagger, lift, shine. Every
+   surface inherits this; no per-page wiring. Fully disabled under
+   prefers-reduced-motion.
+   ============================================================ */
+
+/* Ambient floating color field behind all content */
+.ambient { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.ambient span { position: absolute; border-radius: 50%; filter: blur(64px); will-change: transform; }
+.ambient .b1 { width: 460px; height: 460px; top: -110px; left: 6%; background: radial-gradient(circle, rgba(91,75,245,.20), transparent 70%); animation: floatA 24s ease-in-out infinite; }
+.ambient .b2 { width: 400px; height: 400px; bottom: -90px; right: 8%; background: radial-gradient(circle, rgba(20,184,166,.15), transparent 70%); animation: floatB 28s ease-in-out infinite; }
+.ambient .b3 { width: 340px; height: 340px; top: 42%; left: 46%; background: radial-gradient(circle, rgba(168,85,247,.13), transparent 70%); animation: floatC 32s ease-in-out infinite; }
+@keyframes floatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(46px,54px) scale(1.12); } }
+@keyframes floatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-54px,-42px) scale(1.16); } }
+@keyframes floatC { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(34px,-44px) scale(1.1); } }
+
+/* Page transition on every route change */
+@keyframes pageIn { from { opacity: 0; transform: translateY(12px) scale(.994); } to { opacity: 1; transform: none; } }
+.page-in { animation: pageIn .44s var(--ease) both; }
+
+/* Stagger direct children into view (add .stagger to a grid/list) */
+.stagger > * { animation: fadeUp .5s var(--ease) both; }
+.stagger > *:nth-child(1){animation-delay:.03s}.stagger > *:nth-child(2){animation-delay:.07s}
+.stagger > *:nth-child(3){animation-delay:.11s}.stagger > *:nth-child(4){animation-delay:.15s}
+.stagger > *:nth-child(5){animation-delay:.19s}.stagger > *:nth-child(6){animation-delay:.23s}
+.stagger > *:nth-child(7){animation-delay:.27s}.stagger > *:nth-child(8){animation-delay:.31s}
+.stagger > *:nth-child(n+9){animation-delay:.35s}
+
+/* Every card gets a soft lift + glow on hover */
+.card { transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease); }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+
+/* Primary/accent buttons get a light sweep on hover */
+.btn { position: relative; overflow: hidden; }
+.btn-primary::after, .btn-accent::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.38) 50%, transparent 75%); transform: translateX(-130%); transition: transform .6s var(--ease); pointer-events: none; }
+.btn-primary:hover::after, .btn-accent:hover::after { transform: translateX(130%); }
+.btn-primary, .btn-accent { transition: transform .16s var(--ease), background .18s, box-shadow .18s; }
+.btn-primary:hover, .btn-accent:hover { transform: translateY(-1px); }
+
+/* Count-up numbers land with a gentle pop */
+@keyframes popNum { from { transform: scale(.94); opacity: .6; } to { transform: none; opacity: 1; } }
+.stat-value { animation: popNum .5s var(--ease) both; }
+
+/* A gentle idle float for accent glyphs (opt-in via .floaty) */
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.floaty { animation: floaty 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient span, .page-in, .stagger > *, .btn-primary::after, .btn-accent::after, .stat-value, .floaty { animation: none !important; }
+  .page-in { opacity: 1; transform: none; }
+  .card:hover, .btn-primary:hover, .btn-accent:hover { transform: none; }
+}
+
+/* ============================================================
    UTILITY TEXT
    ============================================================ */
 .t-sm { font-size: .88rem; } .t-xs { font-size: .78rem; } .t-lg { font-size: 1.15rem; }

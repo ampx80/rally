@@ -322,7 +322,7 @@ export default function Integrations() {
           <p className="t-sm" style={{ color: 'var(--n-600)', marginTop: 6 }}>Keep typing - if it exists anywhere, it shows up above to request. We wire new connectors within a day.</p>
         </Card>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 14 }}>
+        <div className="stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 14 }}>
           {filtered.map(item => (
             <IntegrationCard key={item.domain} item={item} effectiveStatus={statusOf(item)} onAct={act} />
           ))}
