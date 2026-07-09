@@ -146,15 +146,17 @@ export default function Home() {
         <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(52% 46% at 50% 34%, rgba(255,255,255,.88), rgba(255,255,255,.35) 62%, rgba(255,255,255,0) 100%)' }} />
         <div className="mkt-wrap" style={{ position: 'relative', zIndex: 1 }}>
           <Reveal>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 26 }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
               <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
             </div>
-            <h1 className="mkt-h1" style={{ maxWidth: 980, margin: '0 auto' }}>
-              The new AI-powered CRM <span className="mkt-grad m-shine">is here.</span>
+            <div className="mkt-eyebrow mkt-center" style={{ marginBottom: 16 }}>The AI revenue platform</div>
+            <h1 className="mkt-h1" style={{ maxWidth: 1000, margin: '0 auto' }}>
+              Everyone sells you a CRM. <span className="mkt-grad m-shine">We run your revenue.</span>
             </h1>
-            <p className="mkt-lead" style={{ maxWidth: 660, margin: '24px auto 0' }}>
-              Rally runs your pipeline, your forecast, and your follow-ups. You run the deals.
-              Alive on first load, with Rook, the AI operator that does the actual work.
+            <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
+              Rally replaces your CRM, CPQ, billing, and marketing stack with one platform - run by
+              Rook, the AI operator that does the actual work. Pipeline, forecast, and follow-ups,
+              handled. You close the deals.
             </p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
               <span className="m-magnet" style={{ display: 'inline-flex' }}>
@@ -250,8 +252,10 @@ export default function Home() {
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-center" style={{ maxWidth: 760, margin: '0 auto 48px' }}>
-              <h2 className="mkt-h2">Your CRM was supposed to save time. Count the tabs.</h2>
+            <div className="mkt-center" style={{ maxWidth: 780, margin: '0 auto 48px' }}>
+              <span className="mkt-eyebrow">The switch</span>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Their CRM needs a team to run it. Rally runs itself.</h2>
+              <p className="mkt-lead" style={{ marginTop: 18 }}>Same deal. One screen instead of eleven tabs, and the follow-up is already written.</p>
             </div>
           </Reveal>
           <Reveal delay={80}>
@@ -277,7 +281,10 @@ export default function Home() {
               </div>
               {/* the rally way */}
               <div className="mkt-card mkt-card-glow">
-                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-accent)', marginBottom: 16 }}>THE RALLY WAY</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-accent)' }}>THE RALLY WAY</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 700, color: 'var(--m-teal)' }}><span className="mkt-dot m-pulse" style={{ background: 'var(--m-teal)' }} /> LIVE IN 3 SECONDS</span>
+                </div>
                 <div style={{ background: '#fff', border: '1px solid var(--m-line2)', borderRadius: 14, padding: 16, boxShadow: 'var(--m-shadow-sm)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
                     <span style={{ fontWeight: 700, fontSize: 15, minWidth: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Meridian Health - platform rollout</span>
@@ -294,6 +301,33 @@ export default function Home() {
                 <p className="mkt-body" style={{ margin: '20px 0 0', fontSize: 14.5 }}>
                   One card, everything on it, and the follow-up already written. That is the whole workflow.
                 </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S3b. THE NO-BRAINER BAND */}
+      <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-card mkt-card-glow" style={{ padding: 'clamp(24px, 3vw, 40px)', textAlign: 'center' }}>
+              <h2 className="mkt-h2" style={{ margin: 0 }}>Cancel <span className="mkt-grad">6 tools</span>. Fire the <span className="mkt-grad">admin retainer</span>. Keep <span className="mkt-grad">all your data</span>.</h2>
+              <p className="mkt-lead" style={{ margin: '16px auto 0', maxWidth: 720 }}>
+                Rally is your CRM, CPQ, billing, marketing, and analytics stack in one login - for less than
+                one seat of Salesforce, with a free migration and a 60-day rollback. There is no version of the
+                math where you lose.
+              </p>
+              <div style={{ display: 'flex', gap: 22, justifyContent: 'center', flexWrap: 'wrap', marginTop: 24 }}>
+                <CheckRow>Replaces 6+ tools</CheckRow>
+                <CheckRow>No admins, no setup fees</CheckRow>
+                <CheckRow>Free white-glove migration</CheckRow>
+                <CheckRow>60-day rollback</CheckRow>
+              </div>
+              <div style={{ marginTop: 26 }}>
+                <span className="m-magnet" style={{ display: 'inline-flex' }}>
+                  <MktButton to="/app" size="lg">Switch to Rally <Icon name="chevronRight" size={18} /></MktButton>
+                </span>
               </div>
             </div>
           </Reveal>
@@ -356,9 +390,11 @@ export default function Home() {
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-center" style={{ maxWidth: 720, margin: '0 auto 44px' }}>
-              <h2 className="mkt-h2">The whole revenue suite. Alive on first load.</h2>
+              <span className="mkt-eyebrow">One platform</span>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Fourteen modules that replace your whole stack.</h2>
               <p className="mkt-lead" style={{ marginTop: 18 }}>
-                Leads to billing, forecast to delivery. Fourteen modules, one operator, zero glue code.
+                Leads to billing, forecast to delivery, service to automation. One operator, one login,
+                zero glue code. Alive on first load with realistic data.
               </p>
             </div>
           </Reveal>
