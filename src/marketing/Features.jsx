@@ -56,7 +56,7 @@ function KanbanMock() {
     { name: 'Closing', tint: 'rgba(20,224,200,.5)', cards: [['Beacon migrate', '$91k'], ['Orbit seats', '$34k']] },
   ];
   return (
-    <div className="mkt-glass" style={{ padding: 18 }}>
+    <div className="mkt-glass m-tilt" style={{ padding: 18 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, padding: '0 4px' }}>
         <span style={{ fontWeight: 700, fontSize: 14 }}>Pipeline</span>
         <span className="mkt-pill" style={{ fontSize: 12, padding: '4px 10px' }}>
@@ -154,7 +154,7 @@ function Account360Mock() {
 
 function RookMock() {
   return (
-    <div className="mkt-glass mkt-card-glow" style={{ padding: 20 }}>
+    <div className="mkt-glass mkt-card-glow m-tilt" style={{ padding: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14 }}>
         <span className="mkt-logo-mark" style={{ width: 30, height: 30 }}><Icon name="sparkles" size={17} fill="#fff" stroke={0} /></span>
         <span style={{ fontWeight: 700, fontSize: 14 }}>Rook</span>
@@ -306,7 +306,7 @@ export default function Features() {
           </Reveal>
           <Reveal delay={60}>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
-              Everything a revenue team needs. <span className="mkt-grad">Nothing it doesn't.</span>
+              Everything a revenue team needs. <span className="mkt-grad m-shine">Nothing it doesn't.</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
@@ -440,10 +440,10 @@ export default function Features() {
               </h2>
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3">
+          <div className="mkt-grid mkt-grid-3 m-cascade">
             {MATRIX.map(([ic, title, body], i) => (
               <Reveal key={title} delay={(i % 3) * 70}>
-                <div className="mkt-card mkt-card-glow" style={{ height: '100%' }}>
+                <div className="mkt-card mkt-card-glow m-magnet" style={{ height: '100%' }}>
                   <div className="mkt-icon" style={{ marginBottom: 16 }}><Icon name={ic} size={22} /></div>
                   <h3 className="mkt-h3" style={{ fontSize: '1.25rem' }}>{title}</h3>
                   <p className="mkt-body" style={{ marginTop: 8, marginBottom: 0 }}>{body}</p>

@@ -30,7 +30,7 @@ export default function Compare() {
           <Reveal>
             <Pill>Comparison</Pill>
             <h1 className="mkt-h1" style={{ marginTop: 22 }}>
-              Rally vs <span className="mkt-grad">{c.name}</span>
+              Rally vs <span className="mkt-grad m-shine">{c.name}</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 720, margin: '20px auto 0' }}>{c.tagline}</p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 32 }}>
@@ -45,7 +45,7 @@ export default function Compare() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-grid mkt-grid-2">
+            <div className="mkt-grid mkt-grid-2 m-cascade">
               <div className="mkt-card">
                 <div className="mkt-icon" style={{ background: 'rgba(90,96,118,.14)', color: '#8a90a6', borderColor: 'var(--m-line2)' }}>
                   <Icon name="x" size={22} />
@@ -69,7 +69,7 @@ export default function Compare() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {c.rallyWins.map((t, i) => (
                     <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                      <span className="mkt-yes" style={{ marginTop: 2, flexShrink: 0 }}><Icon name="check" size={18} /></span>
+                      <span className="mkt-yes m-pop" style={{ marginTop: 2, flexShrink: 0, animationDelay: `${0.3 + i * 0.09}s` }}><Icon name="check" size={18} /></span>
                       <span style={{ color: 'var(--m-ink)', lineHeight: 1.5 }}>{t}</span>
                     </li>
                   ))}

@@ -29,7 +29,7 @@ function PullQuote({ children }) {
       <div className="mkt-wrap">
         <Reveal>
           <div style={{ maxWidth: 940, margin: '0 auto', textAlign: 'center' }}>
-            <h3 className="mkt-h3 mkt-grad" style={{ fontSize: 'clamp(1.7rem, 3.6vw, 2.6rem)', lineHeight: 1.15, fontWeight: 800 }}>
+            <h3 className="mkt-h3 mkt-grad m-shine" style={{ fontSize: 'clamp(1.7rem, 3.6vw, 2.6rem)', lineHeight: 1.15, fontWeight: 800 }}>
               {children}
             </h3>
           </div>
@@ -50,7 +50,7 @@ export default function Manifesto() {
               <Pill>Manifesto</Pill>
             </div>
             <h1 className="mkt-h1" style={{ maxWidth: 960, margin: '0 auto' }}>
-              The incumbents bolted AI on. <span className="mkt-grad">We started there.</span>
+              The incumbents bolted AI on. <span className="mkt-grad m-shine">We started there.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
               Every CRM on the market was built for a world before AI, then had a chatbot stapled to the side.
@@ -141,7 +141,7 @@ export default function Manifesto() {
             <div className="mkt-cta-band" style={{ padding: '72px 40px' }}>
               <p className="mkt-eyebrow" style={{ marginBottom: 18 }}>Chapter 06 / The bet</p>
               <h2 className="mkt-h2" style={{ maxWidth: 860, margin: '0 auto' }}>
-                The winning revenue platform will be the one where <span className="mkt-grad">the AI does the work.</span>
+                The winning revenue platform will be the one where <span className="mkt-grad m-shine">the AI does the work.</span>
               </h2>
               <p className="mkt-lead" style={{ maxWidth: 620, margin: '20px auto 0' }}>
                 We are betting the company on it, and we intend to be that platform. Not a CRM with AI features.

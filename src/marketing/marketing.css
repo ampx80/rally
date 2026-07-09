@@ -161,7 +161,71 @@
   .mkt-footcols { grid-template-columns: 1fr; }
   .mkt-wrap { padding: 0 18px; }
 }
+/* ============================================================
+   MOTION VOCABULARY - the juggernaut layer. Named primitives so
+   every section choreographs from the same physics. CSS-first,
+   spring easing, 60fps transform/opacity only.
+   ============================================================ */
+.mkt { --spring: cubic-bezier(.34, 1.56, .64, 1); --glide: cubic-bezier(.22, 1, .36, 1); }
+
+/* float-drift: ambient levitation for decorative cards */
+@keyframes mFloatA { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-14px) rotate(-1deg); } }
+@keyframes mFloatB { 0%,100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-20px) rotate(3deg); } }
+@keyframes mFloatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.m-float-a { animation: mFloatA 7s ease-in-out infinite; }
+.m-float-b { animation: mFloatB 9s ease-in-out infinite; }
+.m-float-c { animation: mFloatC 6s ease-in-out infinite; }
+
+/* card-arrive: spring entrance for UI artifacts the agent creates */
+@keyframes mArrive { 0% { opacity: 0; transform: translateY(26px) scale(.86); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+.m-arrive { animation: mArrive .6s var(--spring) both; }
+@keyframes mArriveL { 0% { opacity: 0; transform: translateX(-30px) scale(.9); } 100% { opacity: 1; transform: none; } }
+.m-arrive-l { animation: mArriveL .55s var(--spring) both; }
+@keyframes mPopIn { 0% { opacity: 0; transform: scale(.4); } 70% { transform: scale(1.12); } 100% { opacity: 1; transform: scale(1); } }
+.m-pop { animation: mPopIn .5s var(--spring) both; }
+
+/* type-cursor: the agent typing */
+@keyframes mBlink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.m-cursor { display: inline-block; width: 2px; height: 1.05em; background: var(--m-accent); vertical-align: text-bottom; margin-left: 2px; animation: mBlink .85s step-end infinite; }
+
+/* thinking dots */
+@keyframes mThink { 0%,60%,100% { opacity: .25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+.m-think span { width: 7px; height: 7px; border-radius: 50%; background: var(--m-accent); display: inline-block; margin-right: 4px; animation: mThink 1.1s infinite; }
+.m-think span:nth-child(2) { animation-delay: .18s; } .m-think span:nth-child(3) { animation-delay: .36s; }
+
+/* progress-sweep for stage bars */
+@keyframes mSweep { from { width: 0; } }
+.m-sweep { animation: mSweep 1s var(--glide) both; }
+
+/* won-flash: celebratory ring pulse */
+@keyframes mWonRing { 0% { box-shadow: 0 0 0 0 rgba(14,159,154,.5); } 100% { box-shadow: 0 0 0 18px rgba(14,159,154,0); } }
+.m-won { animation: mWonRing .9s ease-out 2; }
+
+/* stagger-cascade: children enter one after another */
+.m-cascade > * { animation: mArrive .55s var(--glide) both; }
+.m-cascade > *:nth-child(1){animation-delay:.05s}.m-cascade > *:nth-child(2){animation-delay:.13s}
+.m-cascade > *:nth-child(3){animation-delay:.21s}.m-cascade > *:nth-child(4){animation-delay:.29s}
+.m-cascade > *:nth-child(5){animation-delay:.37s}.m-cascade > *:nth-child(6){animation-delay:.45s}
+
+/* magnet-hover for CTAs */
+.m-magnet { transition: transform .18s var(--spring), box-shadow .2s; }
+.m-magnet:hover { transform: translateY(-3px) scale(1.02); }
+
+/* shimmer-text: a light sweep across the gradient headline */
+@keyframes mShine { to { background-position: 200% center; } }
+.m-shine { background-size: 200% auto; animation: mShine 6s linear infinite; }
+
+/* tilt frame for the theater */
+.m-tilt { transform: perspective(1400px) rotateX(2.5deg); transform-origin: center top; transition: transform .6s var(--glide); }
+.m-tilt:hover { transform: perspective(1400px) rotateX(0deg); }
+
+/* soft-pulse live dot */
+@keyframes mPulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+.m-pulse { animation: mPulse 2s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
-  .mkt-aurora span, .mkt-marquee-track { animation: none !important; }
+  .mkt-aurora span, .mkt-marquee-track, .m-float-a, .m-float-b, .m-float-c, .m-cursor, .m-think span,
+  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > *, .m-shine, .m-pulse, .m-won { animation: none !important; }
   .reveal { opacity: 1; transform: none; }
+  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > * { opacity: 1; }
 }

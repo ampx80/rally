@@ -94,7 +94,7 @@ export default function Pricing() {
           <Reveal>
             <Pill>Pricing</Pill>
             <h1 className="mkt-h1" style={{ marginTop: 22 }}>
-              Simple pricing. <span className="mkt-grad">Serious power.</span>
+              Simple pricing. <span className="mkt-grad m-shine">Serious power.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 640, margin: '20px auto 0' }}>
               One clean price. One design. One operator across every module. No consultants, no bolt-on AI tax.
@@ -136,7 +136,7 @@ export default function Pricing() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-grid mkt-grid-3">
+            <div className="mkt-grid mkt-grid-3 m-cascade">
               {TIERS.map((t) => {
                 const isPaid = !t.custom && t.monthly > 0;
                 const price = t.custom
@@ -148,7 +148,7 @@ export default function Pricing() {
                 return (
                   <div
                     key={t.name}
-                    className={`mkt-card${t.popular ? ' mkt-card-glow' : ''}`}
+                    className={`mkt-card${t.popular ? ' mkt-card-glow m-float-c' : ''}`}
                     style={t.popular ? { borderColor: 'rgba(109,92,247,.6)', boxShadow: '0 0 0 1px rgba(109,92,247,.3), 0 30px 80px -30px rgba(109,92,247,.5)' } : undefined}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 26 }}>
@@ -170,7 +170,7 @@ export default function Pricing() {
                       ))}
                     </ul>
                     <div style={{ marginTop: 26 }}>
-                      <MktButton to={t.to} variant={t.popular ? 'primary' : 'ghost'}>
+                      <MktButton to={t.to} variant={t.popular ? 'primary' : 'ghost'} className="m-magnet">
                         {t.cta} <Icon name="chevronRight" size={18} />
                       </MktButton>
                     </div>

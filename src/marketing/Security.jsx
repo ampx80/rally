@@ -63,7 +63,7 @@ export default function Security() {
               </p>
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3">
+          <div className="mkt-grid mkt-grid-3 m-cascade">
             {CAPS.map((c, i) => (
               <Reveal key={c.title} delay={(i % 3) * 80}>
                 <div className="mkt-card" style={{ height: '100%' }}>

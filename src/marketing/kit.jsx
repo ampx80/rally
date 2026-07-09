@@ -31,8 +31,8 @@ export function Logo({ size = 32 }) {
   );
 }
 
-export function MktButton({ to, variant = 'primary', size = 'md', children, onClick }) {
-  const cls = `mkt-btn mkt-btn-${variant}${size === 'lg' ? ' mkt-btn-lg' : ''}`;
+export function MktButton({ to, variant = 'primary', size = 'md', children, onClick, className = '' }) {
+  const cls = `mkt-btn mkt-btn-${variant}${size === 'lg' ? ' mkt-btn-lg' : ''}${className ? ` ${className}` : ''}`;
   if (to) return <Link to={to} className={cls}>{children}</Link>;
   return <button className={cls} onClick={onClick}>{children}</button>;
 }

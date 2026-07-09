@@ -33,13 +33,13 @@ function ChatRook({ children }) {
 
 function BigChatMock() {
   return (
-    <div className="mkt-glass mkt-card-glow" style={{ maxWidth: 620, margin: '0 auto', padding: 0 }}>
+    <div className="mkt-glass mkt-card-glow m-tilt" style={{ maxWidth: 620, margin: '0 auto', padding: 0 }}>
       {/* dock header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '15px 18px', borderBottom: '1px solid var(--m-line)' }}>
         <span className="mkt-logo-mark" style={{ width: 28, height: 28 }}><Icon name="sparkles" size={16} fill="#fff" stroke={0} /></span>
         <span style={{ fontWeight: 700, fontSize: 15 }}>Rook</span>
         <span style={{ fontSize: 12, color: 'var(--m-ink3)' }}>revenue operator</span>
-        <span className="mkt-dot" style={{ marginLeft: 'auto' }} />
+        <span className="mkt-dot m-pulse" style={{ marginLeft: 'auto' }} />
       </div>
       {/* thread */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '20px 18px' }}>
@@ -228,7 +228,7 @@ export default function RookPage() {
           </Reveal>
           <Reveal delay={60}>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
-              Rook. Your AI revenue <span className="mkt-grad">operator.</span>
+              Rook. Your AI revenue <span className="mkt-grad m-shine">operator.</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
@@ -313,7 +313,7 @@ export default function RookPage() {
               </h2>
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3">
+          <div className="mkt-grid mkt-grid-3 m-cascade">
             {CAPS.map(([ic, title, body], i) => (
               <Reveal key={title} delay={(i % 3) * 70}>
                 <div className="mkt-card mkt-card-glow" style={{ height: '100%' }}>

@@ -1,254 +1,234 @@
-// RALLY marketing homepage - the Juggernaut landing page.
-// Dark, cinematic, bold. Returns page sections in a fragment; the router
-// wraps this in MarketingShell (nav + footer + aurora). NO em-dash / en-dash.
+// RALLY marketing homepage - creative-director rebuild. Light premium canvas,
+// motion everywhere, the self-playing AgentTheater is the hero centerpiece.
+// Returns page sections in a fragment; the router wraps this in MarketingShell.
+// NO em-dash / en-dash. ASCII hyphen only.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
+import AgentTheater from './AgentTheater.jsx';
 import { Icon } from '../components/icons.jsx';
 
-/* Tiny inline sparkline drawn from a set of points. */
-function Spark({ points, color = 'var(--m-teal)', w = 84, h = 26 }) {
-  const max = Math.max(...points), min = Math.min(...points);
-  const span = max - min || 1;
-  const step = w / (points.length - 1);
-  const d = points
-    .map((p, i) => `${i === 0 ? 'M' : 'L'}${(i * step).toFixed(1)} ${(h - ((p - min) / span) * h).toFixed(1)}`)
-    .join(' ');
-  const area = `${d} L${w} ${h} L0 ${h} Z`;
-  const id = 'sg' + points.join('');
-  return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }} aria-hidden="true">
-      <defs>
-        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.35" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path d={area} fill={`url(#${id})`} />
-      <path d={d} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-const KPIS = [
-  { label: 'Pipeline', value: '$8.2M', delta: '+18%', pts: [3, 5, 4, 6, 7, 6, 9, 11], color: 'var(--m-teal)' },
-  { label: 'Win rate', value: '64%', delta: '+6pt', pts: [4, 4, 5, 5, 6, 7, 7, 8], color: '#a855f7' },
-  { label: 'New deals', value: '312', delta: '+41', pts: [2, 4, 3, 5, 6, 8, 7, 10], color: '#6d5cf7' },
-  { label: 'Forecast', value: '$3.1M', delta: '+12%', pts: [5, 4, 6, 5, 7, 8, 9, 9], color: 'var(--m-teal)' },
-];
-
-const STAGES = [
-  { name: 'Qualified', color: '#6d5cf7', deals: [['Northwind Freight', '$180K'], ['Vertex Labs', '$92K']] },
-  { name: 'Proposal', color: '#a855f7', deals: [['Cobalt Mfg', '$240K'], ['Harbor Point', '$58K']] },
-  { name: 'Negotiation', color: '#14e0c8', deals: [['Solace Health', '$410K'], ['Ridgeline', '$120K']] },
-  { name: 'Closing', color: '#f0a94a', deals: [['Atlas Retail', '$275K']] },
-];
-
-const ROOK_LOG = [
-  'Created Northwind Freight',
-  'Added 4 stakeholders',
-  'Opened a $180K deal',
-  'Scheduled 6 tasks',
-];
-
-const FEATURES = [
-  { icon: 'funnel', title: 'Deals & pipeline', copy: 'Drag-and-drop stages, weighted forecast, and win insights that update live.' },
-  { icon: 'users', title: 'Contacts & companies', copy: 'A full book of business with relationship graphs and enrichment built in.' },
-  { icon: 'sparkles', title: 'Rook AI operator', copy: 'An agent that reads, decides, and does the work across every module.' },
-  { icon: 'workflow', title: 'Automations', copy: 'Trigger sequences, routing, and follow-ups without a single admin.' },
-  { icon: 'chart', title: 'Dashboards & reports', copy: 'Boardroom-grade analytics with drill-down on every number.' },
-  { icon: 'layers', title: 'Projects', copy: 'Turn a closed deal into delivery. Tasks, owners, and timelines in one place.' },
-  { icon: 'megaphone', title: 'Outreach & sequences', copy: 'Multi-touch campaigns that Rook personalizes and paces for you.' },
-  { icon: 'receipt', title: 'Quotes & billing', copy: 'Generate quotes, invoices, and revenue schedules from the deal itself.' },
-  { icon: 'inbox', title: 'Service inbox', copy: 'Support and success threads tied to the same customer record.' },
-];
-
-const SPOKES = [
-  { icon: 'layers', label: 'PM' },
-  { icon: 'megaphone', label: 'Outreach' },
-  { icon: 'grid', label: 'Studio' },
-  { icon: 'receipt', label: 'Billing' },
-];
-
-const STATS = [
-  { value: 'Minutes', label: 'To first value' },
-  { value: '1', label: 'Operator, every module' },
-  { value: '0', label: 'Admins required' },
-  { value: '100%', label: 'AI-native' },
-];
-
-const DIFFERENTIATORS = [
-  {
-    eyebrow: 'Alive on first load',
-    title: 'A book of business, seeded on day one.',
-    copy: 'No blank slate. Rally opens with a real pipeline, real contacts, and real dashboards so you feel the platform working before you type a thing.',
-    mock: 'seed',
-  },
-  {
-    eyebrow: 'Rook does the work',
-    title: 'Ask once. It executes everything.',
-    copy: 'Rook is agentic. Describe an outcome and it creates the accounts, opens the deals, adds the stakeholders, and schedules the tasks in one run.',
-    mock: 'agent',
-  },
-  {
-    eyebrow: 'Built to be beautiful',
-    title: 'The polish of Linear. The depth of a platform.',
-    copy: 'Every surface is fast, considered, and dense with capability. Rally feels like software people actually want to open every morning.',
-    mock: 'polish',
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Data                                                                 */
+/* ------------------------------------------------------------------ */
 
 const COMPETITORS = ['Salesforce', 'HubSpot', 'Zoho', 'NetSuite', 'Pipedrive', 'Zendesk', 'Copper'];
 
-/* ---- small mock visuals for the differentiator rows ---- */
-function MiniMock({ kind }) {
-  if (kind === 'seed') {
-    return (
-      <div className="mkt-glass" style={{ padding: 18 }}>
-        {[['Acme Robotics', '$220K', 78], ['Delta Systems', '$140K', 54], ['Pinnacle Group', '$96K', 40]].map(([n, v, w]) => (
-          <div key={n} style={{ padding: '12px 4px', borderBottom: '1px solid var(--m-line)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 14.5, fontWeight: 600 }}>
-              <span>{n}</span><span className="mkt-muted">{v}</span>
-            </div>
-            <div style={{ height: 6, borderRadius: 999, background: 'var(--m-line)', overflow: 'hidden' }}>
-              <div style={{ width: `${w}%`, height: '100%', background: 'var(--m-grad)' }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-  if (kind === 'agent') {
-    return (
-      <div className="mkt-glass" style={{ padding: 18 }}>
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
-          <span className="mkt-icon" style={{ width: 34, height: 34 }}><Icon name="sparkles" size={18} /></span>
-          <span style={{ fontWeight: 700 }}>Rook</span>
-          <span className="mkt-pill" style={{ marginLeft: 'auto', padding: '4px 10px', fontSize: 12 }}><span className="mkt-dot" />Running</span>
-        </div>
-        {['Analyzing request', 'Creating records', 'Scheduling follow-ups'].map((s, i) => (
-          <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 0', fontSize: 14.5 }}>
-            <span style={{ color: 'var(--m-teal)', display: 'grid', placeItems: 'center' }}><Icon name="check" size={17} /></span>
-            <span className="mkt-muted">{s}</span>
-          </div>
-        ))}
-      </div>
-    );
-  }
+const STATS = [
+  { value: '0', label: 'hours of data entry per rep' },
+  { value: '1', label: 'sentence to set up a full account' },
+  { value: '1', label: 'weekend to switch from Salesforce' },
+  { value: '14', label: 'modules, one login' },
+];
+
+const ROOK_CARDS = [
+  { icon: 'chart', title: 'Reads everything', copy: 'Every deal, email, and note in your workspace. Ask anything and it answers with exact numbers, not vibes.' },
+  { icon: 'bolt', title: 'Acts on command', copy: 'Moves deals, drafts emails, builds whole accounts from one sentence. You approve, it executes.' },
+  { icon: 'rocket', title: 'Runs autopilot', copy: 'Every morning it surfaces the 3 moves that matter most, with the work already teed up.' },
+];
+
+const CONSTELLATION = [
+  { icon: 'sparkles', title: 'Grounded answers', copy: 'Ask about any deal, quarter, or rep. Rook answers from your live data with the receipts attached.' },
+  { icon: 'rocket', title: 'Juggernaut setup', copy: 'One sentence becomes a full account: company, committee, deal, tasks. Built in seconds, not sessions.' },
+  { icon: 'mail', title: 'Email drafting', copy: 'Follow-ups, save emails, and sequences drafted in your voice, waiting in your outbox for a yes.' },
+  { icon: 'fileText', title: 'QBR deck generation', copy: 'Quarterly reviews assembled from real pipeline data. The deck writes itself before the meeting does.' },
+  { icon: 'bolt', title: 'Deal autopilot', copy: 'Stalled deals get flagged, next steps get scheduled, and slipping forecasts get a rescue plan.' },
+  { icon: 'workflow', title: 'Visual workflows', copy: 'Routing, triggers, and handoffs you can see. Automation a human can read at a glance.' },
+];
+
+const MODULES = [
+  ['funnel', 'Leads'], ['target', 'Deals'], ['users', 'Contacts'], ['building', 'Companies'],
+  ['trendUp', 'Forecasting'], ['megaphone', 'Campaigns'], ['activity', 'Sequences'], ['layers', 'Projects'],
+  ['inbox', 'Inbox'], ['fileText', 'Quotes'], ['receipt', 'Billing'], ['grid', 'Dashboards'],
+  ['chart', 'Reports'], ['workflow', 'Workflows'],
+];
+
+const OLD_ROWS = [92, 64, 78, 55, 84, 48, 70, 60];
+
+/* ------------------------------------------------------------------ */
+/* Small building blocks                                                */
+/* ------------------------------------------------------------------ */
+
+function FloatCard({ cls, style, children }) {
   return (
-    <div className="mkt-glass" style={{ padding: 0 }}>
-      <div style={{ display: 'flex', gap: 6, padding: '12px 16px', borderBottom: '1px solid var(--m-line)' }}>
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: '#f0605a' }} />
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: '#f0a94a' }} />
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: '#14e0c8' }} />
-      </div>
-      <div style={{ padding: 18, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-        {['trendUp', 'pie', 'users', 'target'].map((ic, i) => (
-          <div key={ic} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--m-line)', borderRadius: 12, padding: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span className="mkt-icon" style={{ width: 30, height: 30 }}><Icon name={ic} size={16} /></span>
-            <div style={{ height: 8, flex: 1, borderRadius: 999, background: 'var(--m-line)', overflow: 'hidden' }}>
-              <div style={{ width: `${55 + i * 12}%`, height: '100%', background: 'var(--m-grad)' }} />
-            </div>
-          </div>
+    <div className={cls} style={{
+      position: 'absolute', zIndex: 2, background: '#fff',
+      border: '1px solid var(--m-line2)', borderRadius: 14, padding: '10px 12px',
+      boxShadow: 'var(--m-shadow-md)', fontSize: 12.5, textAlign: 'left', ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+function CheckRow({ children }) {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14.5, fontWeight: 600, color: 'var(--m-ink2)' }}>
+      <span style={{ width: 19, height: 19, borderRadius: 6, background: 'rgba(14,159,154,.12)', color: 'var(--m-teal)', display: 'inline-grid', placeItems: 'center', flex: 'none' }}>
+        <Icon name="check" size={12} stroke={3} />
+      </span>
+      {children}
+    </span>
+  );
+}
+
+/* Micro-visuals for the migration weekend cards */
+function MicroFriday() {
+  const rows = [['Account', 'Company'], ['Opportunity', 'Deal'], ['Stage', 'Stage']];
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 7, marginTop: 18 }}>
+      {rows.map(([a, b]) => (
+        <div key={a} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 600 }}>
+          <span style={{ flex: 1, background: 'var(--m-bg2)', border: '1px solid var(--m-line)', borderRadius: 8, padding: '6px 9px', color: 'var(--m-ink3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{a}</span>
+          <span style={{ color: 'var(--m-ink3)' }}><Icon name="chevronRight" size={13} /></span>
+          <span style={{ flex: 1, background: '#fff', border: '1px solid var(--m-line2)', borderRadius: 8, padding: '6px 9px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{b}</span>
+          <span style={{ width: 18, height: 18, borderRadius: 999, background: 'var(--m-teal)', color: '#fff', display: 'grid', placeItems: 'center', flex: 'none' }}><Icon name="check" size={11} stroke={3} /></span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MicroSaturday() {
+  const chips = [['building', 'Accounts'], ['users', 'Contacts'], ['target', 'Deals']];
+  return (
+    <div style={{ marginTop: 18 }}>
+      <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
+        {chips.map(([ic, l]) => (
+          <span key={l} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, background: 'var(--m-bg2)', border: '1px solid var(--m-line)', borderRadius: 999, padding: '5px 11px', color: 'var(--m-ink2)' }}>
+            <Icon name={ic} size={12} /> {l}
+          </span>
         ))}
+      </div>
+      <div style={{ marginTop: 12, fontSize: 15, fontWeight: 800, color: 'var(--m-ink)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span className="mkt-dot m-pulse" /> 12,482 records migrated
       </div>
     </div>
   );
 }
 
+function MicroMonday() {
+  return (
+    <div style={{ marginTop: 18 }}>
+      <div style={{ background: 'var(--m-bg2)', border: '1px solid var(--m-line)', borderRadius: 10, padding: '9px 11px', fontSize: 12, fontWeight: 600, color: 'var(--m-ink2)' }}>
+        <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em', color: 'var(--m-ink3)', marginBottom: 5 }}>MONDAY STANDUP</div>
+        Rook briefed the team: 3 hot deals, 2 renewals due, zero setup left.
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', background: 'var(--m-teal)', padding: '4px 11px', borderRadius: 999, letterSpacing: '.05em' }}>WON</span>
+        <span style={{ fontSize: 12, color: 'var(--m-ink3)', marginLeft: 9, fontWeight: 600 }}>First deal closed by lunch</span>
+      </div>
+    </div>
+  );
+}
+
+const MIGRATION_STEPS = [
+  { day: 'Friday', title: 'We take it from here.', copy: 'Connect read-only. We map every object, field, and stage. You approve over coffee.', Micro: MicroFriday },
+  { day: 'Saturday', title: 'Your data moves. Nothing breaks.', copy: 'Accounts, contacts, deals, history migrate while your old CRM keeps running side by side.', Micro: MicroSaturday },
+  { day: 'Monday', title: 'Your team logs in and it already works.', copy: 'Deals, notes, next steps there. Rook already briefed. 60-day rollback, no questions.', Micro: MicroMonday },
+];
+
+/* ------------------------------------------------------------------ */
+/* Page                                                                 */
+/* ------------------------------------------------------------------ */
+
 export default function Home() {
   return (
     <>
-      {/* 1. HERO */}
+      <style>{`@media (max-width: 900px) { .m-floats { display: none !important; } }`}</style>
+
+      {/* S1. HERO + AGENT THEATER */}
       <section className="mkt-hero">
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 26 }}>
               <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
             </div>
-            <h1 className="mkt-h1" style={{ maxWidth: 1000, margin: '0 auto' }}>
-              The new AI-powered CRM <span className="mkt-grad">is here.</span>
+            <h1 className="mkt-h1" style={{ maxWidth: 980, margin: '0 auto' }}>
+              The new AI-powered CRM <span className="mkt-grad m-shine">is here.</span>
             </h1>
-            <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
-              Meet Rally. It comes alive on the first load, and Rook, your AI operator, does the
-              actual work: builds the accounts, drafts the emails, moves the deals, and tells you
-              the next move. The system of record just became the system that acts.
+            <p className="mkt-lead" style={{ maxWidth: 660, margin: '24px auto 0' }}>
+              Rally runs your pipeline, your forecast, and your follow-ups. You run the deals.
+              Alive on first load, with Rook, the AI operator that does the actual work.
             </p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
-              <MktButton to="/app" size="lg">Get started free <Icon name="chevronRight" size={18} /></MktButton>
-              <MktButton to="/product/rook" variant="ghost" size="lg"><Icon name="sparkles" size={18} /> Watch Rook work</MktButton>
+              <span className="m-magnet" style={{ display: 'inline-flex' }}>
+                <MktButton to="/app" size="lg">Start free <Icon name="chevronRight" size={18} /></MktButton>
+              </span>
+              <a href="#theater" className="mkt-btn mkt-btn-ghost mkt-btn-lg m-magnet">
+                <Icon name="sparkles" size={18} /> Watch Rook work
+              </a>
             </div>
           </Reveal>
 
-          {/* Product mock */}
-          <Reveal delay={120}>
-            <div
-              className="mkt-glass"
-              style={{ marginTop: 62, textAlign: 'left', transform: 'perspective(1600px) rotateX(3deg)', transformOrigin: 'center top' }}
-            >
-              {/* top bar */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 20px', borderBottom: '1px solid var(--m-line)' }}>
-                <span style={{ display: 'flex', gap: 6 }}>
-                  <span style={{ width: 11, height: 11, borderRadius: 999, background: '#f0605a' }} />
-                  <span style={{ width: 11, height: 11, borderRadius: 999, background: '#f0a94a' }} />
-                  <span style={{ width: 11, height: 11, borderRadius: 999, background: '#14e0c8' }} />
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 8, marginLeft: 6, fontWeight: 700, fontSize: 14 }}>
-                  <span className="mkt-icon" style={{ width: 24, height: 24, borderRadius: 7 }}><Icon name="zap" size={13} fill="#b7aefb" stroke={0} /></span>
-                  Rally
-                </span>
-                <span style={{ marginLeft: 16, display: 'flex', gap: 14, fontSize: 13.5 }} className="mkt-dim">
-                  <span style={{ color: 'var(--m-ink)' }}>Pipeline</span><span>Contacts</span><span>Reports</span><span>Rook</span>
-                </span>
-                <span className="mkt-pill" style={{ marginLeft: 'auto', padding: '5px 12px', fontSize: 12.5 }}><span className="mkt-dot" />Live</span>
-              </div>
+          <Reveal delay={140}>
+            <div id="theater" style={{ marginTop: 56, position: 'relative' }}>
+              <AgentTheater />
 
-              {/* KPI tiles */}
-              <div className="mkt-grid mkt-grid-4" style={{ padding: 20, gap: 14 }}>
-                {KPIS.map(k => (
-                  <div key={k.label} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--m-line)', borderRadius: 14, padding: 16 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="mkt-dim" style={{ fontSize: 12.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.06em' }}>{k.label}</span>
-                      <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--m-teal)' }}>{k.delta}</span>
-                    </div>
-                    <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-.02em', margin: '8px 0 10px' }}>{k.value}</div>
-                    <Spark points={k.pts} color={k.color} />
+              {/* floating record cards - hidden under 900px */}
+              <FloatCard cls="m-floats m-float-a" style={{ top: -26, left: -40, width: 178 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                  <span style={{ width: 30, height: 30, borderRadius: '50%', background: '#5b4bf5', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 11.5, fontWeight: 700, flex: 'none' }}>DW</span>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Dana Whitfield</div>
+                    <div style={{ fontSize: 11, color: 'var(--m-ink3)' }}>VP Ops, Meridian</div>
+                  </div>
+                </div>
+              </FloatCard>
+
+              <FloatCard cls="m-floats m-float-b" style={{ top: 40, right: -46, width: 186, border: '1px solid rgba(14,159,154,.45)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ width: 26, height: 26, borderRadius: 8, background: 'var(--m-teal)', color: '#fff', display: 'grid', placeItems: 'center', flex: 'none' }}><Icon name="check" size={14} stroke={3} /></span>
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--m-teal)' }}>Deal won +$64K</div>
+                    <div style={{ fontSize: 11, color: 'var(--m-ink3)' }}>Harbor Point - closed</div>
+                  </div>
+                </div>
+              </FloatCard>
+
+              <FloatCard cls="m-floats m-float-c" style={{ bottom: -24, left: -34, width: 190 }}>
+                <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '.1em', color: 'var(--m-ink3)' }}>FORECAST</div>
+                <div style={{ fontSize: 19, fontWeight: 800, letterSpacing: '-.02em', margin: '3px 0 5px' }}>$563K <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--m-teal)' }}>108% of target</span></div>
+                <div style={{ height: 5, borderRadius: 99, background: 'var(--m-line)', overflow: 'hidden' }}>
+                  <div style={{ width: '82%', height: '100%', background: 'var(--m-grad)', borderRadius: 99 }} />
+                </div>
+              </FloatCard>
+
+              <FloatCard cls="m-floats m-float-a" style={{ bottom: 30, right: -38, width: 196 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontWeight: 700, fontSize: 12.5, marginBottom: 6 }}>
+                  <span style={{ color: 'var(--m-accent)', display: 'grid', placeItems: 'center' }}><Icon name="mail" size={14} /></span>
+                  Draft ready
+                </div>
+                <div style={{ fontSize: 11.5, color: 'var(--m-ink2)', lineHeight: 1.45 }}>
+                  "Hi Dana, following up on Thursday's demo..."
+                </div>
+                <div style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--m-accent)', marginTop: 6 }}>ROOK DRAFTED THIS</div>
+              </FloatCard>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S2. STATS STRIP */}
+      <section className="mkt-section-sm">
+        <div className="mkt-wrap">
+          <Reveal>
+            <div style={{ borderTop: '2px solid transparent', borderImage: 'var(--m-grad) 1', paddingTop: 44 }}>
+              <div className="mkt-grid mkt-grid-4 m-cascade" style={{ gap: 22 }}>
+                {STATS.map(s => (
+                  <div key={s.label} className="mkt-center">
+                    <div className="mkt-stat-value">{s.value}</div>
+                    <div className="mkt-stat-label" style={{ marginTop: 10 }}>{s.label}</div>
                   </div>
                 ))}
-              </div>
-
-              {/* mini pipeline board */}
-              <div style={{ padding: '0 20px 22px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0 14px' }}>
-                  <span style={{ fontWeight: 700, fontSize: 15 }}>Pipeline</span>
-                  <span className="mkt-dim" style={{ fontSize: 13 }}>Q3 forecast</span>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
-                  {STAGES.map(st => (
-                    <div key={st.name} style={{ background: 'rgba(255,255,255,.02)', border: '1px solid var(--m-line)', borderRadius: 12, padding: 12, minWidth: 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 12 }}>
-                        <span style={{ width: 8, height: 8, borderRadius: 999, background: st.color, flexShrink: 0 }} />
-                        <span style={{ fontSize: 12.5, fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>{st.name}</span>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        {st.deals.map(([dn, dv]) => (
-                          <div key={dn} style={{ background: 'var(--m-panel)', border: '1px solid var(--m-line)', borderRadius: 9, padding: '9px 10px' }}>
-                            <div style={{ fontSize: 12.5, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{dn}</div>
-                            <div style={{ fontSize: 12, marginTop: 3, color: 'var(--m-teal)', fontWeight: 700 }}>{dv}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* 2. MARQUEE */}
-      <section className="mkt-section-sm">
+      {/* MARQUEE - built to beat the incumbents */}
+      <section className="mkt-section-sm" style={{ paddingTop: 20 }}>
         <div className="mkt-wrap mkt-center" style={{ marginBottom: 30 }}>
           <span className="mkt-eyebrow">Built to beat the incumbents</span>
         </div>
@@ -261,82 +241,104 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. ROOK */}
-      <section className="mkt-section">
-        <div className="mkt-wrap">
-          <div className="mkt-grid mkt-grid-2" style={{ gap: 46, alignItems: 'center' }}>
-            <Reveal>
-              <div>
-                <span className="mkt-eyebrow">The operator</span>
-                <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>
-                  Meet Rook. Not a chatbot. An <span className="mkt-grad">operator.</span>
-                </h2>
-                <p className="mkt-lead" style={{ margin: '20px 0 0' }}>
-                  Give Rook an outcome in plain language and it runs the whole play. It creates
-                  the accounts, opens the deals, wires up stakeholders, and schedules the work,
-                  all in a single agentic run.
-                </p>
-                <div style={{ marginTop: 28 }}>
-                  <MktButton to="/product/rook" variant="ghost"><Icon name="sparkles" size={18} /> Explore Rook</MktButton>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={100}>
-              <div className="mkt-glass" style={{ padding: 20 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingBottom: 16, borderBottom: '1px solid var(--m-line)' }}>
-                  <span className="mkt-icon" style={{ width: 36, height: 36 }}><Icon name="sparkles" size={19} /></span>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: 15 }}>Rook</div>
-                    <div className="mkt-dim" style={{ fontSize: 12.5 }}>Autopilot run</div>
-                  </div>
-                  <span className="mkt-pill" style={{ marginLeft: 'auto', padding: '5px 12px', fontSize: 12 }}><span className="mkt-dot" />Working</span>
-                </div>
-
-                {/* user bubble */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '18px 0' }}>
-                  <div style={{ maxWidth: '82%', background: 'linear-gradient(100deg, #6d5cf7, #7c5cf7)', color: '#fff', padding: '12px 15px', borderRadius: '14px 14px 4px 14px', fontSize: 14.5, lineHeight: 1.5, fontWeight: 500 }}>
-                    Set up Northwind Freight as an enterprise account with a 180k deal and a first-call task Friday
-                  </div>
-                </div>
-
-                {/* assistant checks */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {ROOK_LOG.map((line, i) => (
-                    <Reveal key={line} delay={i * 90}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 11, background: 'rgba(20,224,200,.06)', border: '1px solid rgba(20,224,200,.18)', borderRadius: 11, padding: '11px 13px' }}>
-                        <span style={{ color: 'var(--m-teal)', display: 'grid', placeItems: 'center', flexShrink: 0 }}><Icon name="check" size={18} /></span>
-                        <span style={{ fontSize: 14.5, fontWeight: 600 }}>{line}</span>
-                      </div>
-                    </Reveal>
-                  ))}
-                </div>
-                <div className="mkt-dim" style={{ fontSize: 12.5, marginTop: 16, textAlign: 'center' }}>Done in 4 seconds</div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. FEATURE GRID */}
+      {/* S3. OLD WAY vs RALLY WAY */}
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-center" style={{ maxWidth: 720, margin: '0 auto 48px' }}>
-              <span className="mkt-eyebrow">The whole stack</span>
-              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Everything, in one platform.</h2>
+            <div className="mkt-center" style={{ maxWidth: 760, margin: '0 auto 48px' }}>
+              <h2 className="mkt-h2">Your CRM was supposed to save time. Count the tabs.</h2>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mkt-grid mkt-grid-2" style={{ gap: 26, alignItems: 'stretch' }}>
+              {/* the old way */}
+              <div className="mkt-card" style={{ filter: 'grayscale(.9)', opacity: .92 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-ink3)', marginBottom: 16 }}>THE OLD WAY</div>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+                  <span style={{ fontSize: 11.5, fontWeight: 700, background: 'var(--m-bg2)', border: '1px solid var(--m-line2)', borderRadius: 999, padding: '4px 11px', color: 'var(--m-ink2)' }}>Setup: month 7 of 11</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 700, background: 'var(--m-bg2)', border: '1px solid var(--m-line2)', borderRadius: 999, padding: '4px 11px', color: 'var(--m-ink2)' }}>3 admins required</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+                  {OLD_ROWS.map((w, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ width: 22, height: 22, borderRadius: 6, background: 'var(--m-line)', flex: 'none' }} />
+                      <span style={{ height: 10, width: `${w}%`, borderRadius: 99, background: i % 3 === 0 ? 'var(--m-line2)' : 'var(--m-line)' }} />
+                    </div>
+                  ))}
+                </div>
+                <p className="mkt-body" style={{ margin: '20px 0 0', fontSize: 14.5 }}>
+                  Eleven tabs, four required fields nobody understands, and a consultant on retainer.
+                </p>
+              </div>
+              {/* the rally way */}
+              <div className="mkt-card mkt-card-glow">
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-accent)', marginBottom: 16 }}>THE RALLY WAY</div>
+                <div style={{ background: '#fff', border: '1px solid var(--m-line2)', borderRadius: 14, padding: 16, boxShadow: 'var(--m-shadow-sm)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontWeight: 700, fontSize: 15, minWidth: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Meridian Health - platform rollout</span>
+                    <span style={{ fontWeight: 800, fontSize: 17, color: 'var(--m-accent)', flex: 'none' }}>$240K</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 12, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: '#2563a8', background: 'rgba(37,99,168,.1)', padding: '4px 10px', borderRadius: 999 }}>QUALIFIED</span>
+                    <span style={{ fontSize: 12.5, color: 'var(--m-ink2)', fontWeight: 600 }}>Next step: exec demo Thursday</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 14, background: 'rgba(91,75,245,.07)', border: '1px solid rgba(91,75,245,.2)', borderRadius: 10, padding: '8px 11px', fontSize: 12.5, fontWeight: 700, color: 'var(--m-accent)' }}>
+                    <Icon name="sparkles" size={14} /> Rook drafted your follow-up
+                  </div>
+                </div>
+                <p className="mkt-body" style={{ margin: '20px 0 0', fontSize: 14.5 }}>
+                  One card, everything on it, and the follow-up already written. That is the whole workflow.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S4. MEET ROOK */}
+      <section className="mkt-section" style={{ paddingTop: 40 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 720, margin: '0 auto 46px' }}>
+              <span className="mkt-eyebrow">The operator</span>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Meet Rook. It does the work.</h2>
               <p className="mkt-lead" style={{ marginTop: 18 }}>
-                Nine modules that used to be nine tools. One operator across all of them.
+                Grounded in your whole workspace. Not a chatbot bolted on top.
               </p>
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <div className="mkt-grid mkt-grid-3">
-              {FEATURES.map(f => (
-                <div key={f.title} className="mkt-card mkt-card-glow">
+            <div className="mkt-grid mkt-grid-3 m-cascade">
+              {ROOK_CARDS.map(c => (
+                <div key={c.title} className="mkt-card">
+                  <span className="mkt-icon"><Icon name={c.icon} size={22} /></span>
+                  <h3 className="mkt-h3" style={{ margin: '16px 0 8px' }}>{c.title}</h3>
+                  <p className="mkt-body" style={{ margin: 0, fontSize: 15.5 }}>{c.copy}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mkt-center" style={{ marginTop: 34 }}>
+              <MktButton to="/product/rook" variant="ghost"><Icon name="sparkles" size={18} /> Explore Rook</MktButton>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S5. FEATURE CONSTELLATION */}
+      <section className="mkt-section" style={{ paddingTop: 40 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 680, margin: '0 auto 46px' }}>
+              <h2 className="mkt-h2">AI-native means everywhere.</h2>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mkt-grid mkt-grid-3 m-cascade">
+              {CONSTELLATION.map(f => (
+                <div key={f.title} className="mkt-card m-magnet">
                   <span className="mkt-icon"><Icon name={f.icon} size={22} /></span>
-                  <h3 className="mkt-h3" style={{ margin: '18px 0 8px' }}>{f.title}</h3>
-                  <p className="mkt-body" style={{ margin: 0 }}>{f.copy}</p>
+                  <h3 className="mkt-h3" style={{ margin: '16px 0 8px' }}>{f.title}</h3>
+                  <p className="mkt-body" style={{ margin: 0, fontSize: 15.5 }}>{f.copy}</p>
                 </div>
               ))}
             </div>
@@ -344,87 +346,160 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SUITE DIAGRAM */}
-      <section className="mkt-section">
+      {/* S6. PLATFORM MAP */}
+      <section className="mkt-section" style={{ paddingTop: 40 }}>
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-center" style={{ maxWidth: 680, margin: '0 auto 52px' }}>
-              <span className="mkt-eyebrow">One brain, many modules</span>
-              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>One operator across the entire suite.</h2>
+            <div className="mkt-center" style={{ maxWidth: 720, margin: '0 auto 44px' }}>
+              <h2 className="mkt-h2">The whole revenue suite. Alive on first load.</h2>
+              <p className="mkt-lead" style={{ marginTop: 18 }}>
+                Leads to billing, forecast to delivery. Fourteen modules, one operator, zero glue code.
+              </p>
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <div style={{ maxWidth: 760, margin: '0 auto' }}>
-              {/* central hub */}
+            <div style={{ maxWidth: 860, margin: '0 auto' }}>
               <div className="mkt-center" style={{ marginBottom: 8 }}>
                 <div className="mkt-node mkt-node-accent" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, padding: '18px 26px' }}>
                   <span className="mkt-icon" style={{ width: 40, height: 40 }}><Icon name="sparkles" size={22} /></span>
                   <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800, fontSize: 18 }}>Rally HQ</div>
-                    <div className="mkt-dim" style={{ fontSize: 13 }}>Rook operates here</div>
+                    <div style={{ fontWeight: 800, fontSize: 18 }}>Rally + Rook</div>
+                    <div className="mkt-dim" style={{ fontSize: 13 }}>One operator, every module</div>
                   </div>
                 </div>
               </div>
-              {/* connector */}
               <div className="mkt-center" aria-hidden>
-                <div style={{ width: 2, height: 34, margin: '0 auto', background: 'linear-gradient(var(--m-accent), transparent)' }} />
+                <div style={{ width: 2, height: 30, margin: '0 auto', background: 'linear-gradient(var(--m-accent), transparent)' }} />
               </div>
-              {/* spokes */}
-              <div className="mkt-grid mkt-grid-4" style={{ gap: 14 }}>
-                {SPOKES.map(s => (
-                  <div key={s.label} className="mkt-node" style={{ display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
-                    <span className="mkt-icon" style={{ width: 36, height: 36 }}><Icon name={s.icon} size={18} /></span>
-                    <span style={{ fontWeight: 700, fontSize: 16 }}>{s.label}</span>
-                  </div>
+              <div className="m-cascade" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+                {MODULES.map(([ic, label]) => (
+                  <span key={label} className="mkt-node" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 15px', fontSize: 13.5, fontWeight: 700 }}>
+                    <span style={{ color: 'var(--m-accent)', display: 'grid', placeItems: 'center' }}><Icon name={ic} size={14} /></span>
+                    {label}
+                  </span>
                 ))}
               </div>
-              <p className="mkt-center mkt-muted" style={{ marginTop: 30, maxWidth: 560, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.6 }}>
-                Rook threads through every module. Close a deal and it spins up the project,
-                fires the outreach, and drafts the invoice. One operator, end to end.
+              <p className="mkt-center mkt-dim" style={{ marginTop: 28, fontSize: 15 }}>
+                Sign up and it is already full. Explore with realistic data before you import a single row.
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* 6. STATS BAND */}
-      <section className="mkt-section-sm">
+      {/* S7. SWITCH IN A WEEKEND */}
+      <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-grid mkt-grid-4" style={{ gap: 20 }}>
-              {STATS.map(s => (
-                <div key={s.label} className="mkt-center">
-                  <div className="mkt-stat-value mkt-grad">{s.value}</div>
-                  <div className="mkt-stat-label" style={{ marginTop: 10 }}>{s.label}</div>
+            <div className="mkt-center" style={{ maxWidth: 740, margin: '0 auto 48px' }}>
+              <span className="mkt-eyebrow">Migration</span>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Switch in a weekend. Seriously.</h2>
+              <p className="mkt-lead" style={{ marginTop: 18 }}>
+                Free white-glove migration from Salesforce, HubSpot, Zoho, or NetSuite.
+                Your data mapped in a day. Your team live by Monday.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mkt-grid mkt-grid-3 m-cascade">
+              {MIGRATION_STEPS.map(({ day, title, copy, Micro }) => (
+                <div key={day} className="mkt-card">
+                  <div style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-.02em' }} className="mkt-grad">{day}</div>
+                  <h3 className="mkt-h3" style={{ margin: '10px 0 8px', fontSize: '1.15rem' }}>{title}</h3>
+                  <p className="mkt-body" style={{ margin: 0, fontSize: 14.5 }}>{copy}</p>
+                  <Micro />
                 </div>
               ))}
+            </div>
+          </Reveal>
+          <Reveal delay={140}>
+            <div style={{ display: 'flex', gap: 26, justifyContent: 'center', flexWrap: 'wrap', marginTop: 38 }}>
+              <CheckRow>Free white-glove migration</CheckRow>
+              <CheckRow>Side-by-side runoff</CheckRow>
+              <CheckRow>60-day rollback</CheckRow>
+              <CheckRow>Export anytime</CheckRow>
+            </div>
+            <div className="mkt-center" style={{ marginTop: 30 }}>
+              <span className="m-magnet" style={{ display: 'inline-flex' }}>
+                <MktButton to="/pricing" size="lg">Book your migration weekend <Icon name="chevronRight" size={18} /></MktButton>
+              </span>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* 7. DIFFERENTIATORS */}
-      <section className="mkt-section">
-        <div className="mkt-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 72 }}>
-          {DIFFERENTIATORS.map((d, i) => (
-            <Reveal key={d.eyebrow}>
-              <div className="mkt-grid mkt-grid-2" style={{ gap: 46, alignItems: 'center', direction: i % 2 ? 'rtl' : 'ltr' }}>
-                <div style={{ direction: 'ltr' }}>
-                  <span className="mkt-eyebrow">{d.eyebrow}</span>
-                  <h2 className="mkt-h2" style={{ margin: '16px 0 0', fontSize: 'clamp(1.7rem, 3.4vw, 2.6rem)' }}>{d.title}</h2>
-                  <p className="mkt-lead" style={{ margin: '18px 0 0' }}>{d.copy}</p>
-                </div>
-                <div style={{ direction: 'ltr' }}>
-                  <MiniMock kind={d.mock} />
-                </div>
+      {/* S8. PRICING TEASER */}
+      <section className="mkt-section" style={{ paddingTop: 30 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 640, margin: '0 auto 40px' }}>
+              <h2 className="mkt-h2">One price. No admin tax.</h2>
+              <p className="mkt-lead" style={{ marginTop: 16 }}>
+                Every module, every seat gets Rook. No per-feature upsell ladder.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="mkt-card mkt-card-glow m-float-c" style={{ maxWidth: 460, margin: '0 auto', padding: 34, textAlign: 'center' }}>
+              <div style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-.03em' }}>$49<span style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink3)' }}> / seat / month</span></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 11, alignItems: 'flex-start', maxWidth: 300, margin: '24px auto 0' }}>
+                <CheckRow>All 14 modules included</CheckRow>
+                <CheckRow>Rook on every seat</CheckRow>
+                <CheckRow>Free white-glove migration</CheckRow>
+                <CheckRow>No setup fees, no admins</CheckRow>
               </div>
-            </Reveal>
-          ))}
+              <div style={{ marginTop: 26 }}>
+                <MktButton to="/pricing">See pricing <Icon name="chevronRight" size={16} /></MktButton>
+              </div>
+            </div>
+            <p className="mkt-center mkt-dim" style={{ marginTop: 24, fontSize: 14 }}>
+              Compare it to your current per-seat plus add-ons plus an admin salary. We will wait.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* 8. CTA BAND */}
-      <CtaBand />
+      {/* S9. MANIFESTO PULL QUOTE */}
+      <section className="mkt-section">
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center">
+              <p style={{ fontSize: 'clamp(1.9rem, 4.6vw, 3.4rem)', fontWeight: 800, letterSpacing: '-.03em', lineHeight: 1.14, maxWidth: 900, margin: '0 auto', color: 'var(--m-ink)' }}>
+                CRMs got so big they needed administrators. <span className="mkt-grad">Software that needs a staff is not software.</span> It is a job you bought.
+              </p>
+              <div className="mkt-dim" style={{ marginTop: 22, fontSize: 15, fontWeight: 600 }}>The Rally team</div>
+              <div style={{ marginTop: 18 }}>
+                <Link to="/manifesto" style={{ fontWeight: 700, color: 'var(--m-accent)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  Read the manifesto <Icon name="chevronRight" size={16} />
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S10. TRUST STRIP */}
+      <section className="mkt-section-sm" style={{ paddingTop: 0 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-dim" style={{ display: 'flex', gap: 26, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center', fontSize: 13.5, fontWeight: 600 }}>
+              <span>Encrypted in transit and at rest</span>
+              <span>Role-based access</span>
+              <span>Your data never trains outside models</span>
+              <span>Export anytime</span>
+              <Link to="/security" style={{ color: 'var(--m-accent)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                Security details <Icon name="chevronRight" size={14} />
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S11. CTA BAND */}
+      <CtaBand
+        title="Your pipeline is already waiting."
+        sub="Free to start. A full, live workspace in under a minute. Ask Rook and watch it move."
+      />
     </>
   );
 }
