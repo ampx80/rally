@@ -3,6 +3,7 @@ import { Routes, Route, NavLink, Navigate, useNavigate, useLocation } from 'reac
 import { Icon } from './components/icons.jsx';
 import { Avatar, useToast } from './components/UI.jsx';
 import { getCurrentUser } from './lib/store.js';
+import { useModules, moduleForRoute } from './lib/modules.js';
 import { applyTheme, useTheme, toggleTheme } from './lib/theme.js';
 import CommandK from './components/CommandK.jsx';
 import RookDock from './components/RookDock.jsx';
@@ -90,6 +91,7 @@ function useIsMobile() {
 }
 
 function Rail({ open, mobile, onClose }) {
+  const mods = useModules();
   // Transform is the single source of truth for open/closed, computed straight
   // from state so no cascade or emulator can lose it.
   const transform = !mobile ? 'none' : (open ? 'translateX(0)' : 'translateX(-101%)');
@@ -110,10 +112,14 @@ function Rail({ open, mobile, onClose }) {
         </button>
       </div>
       <nav className="col" style={{ padding: '.25rem .7rem .8rem', flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
-        {NAV_SECTIONS.map((sec, si) => (
+        {NAV_SECTIONS.map((sec, si) => {
+          // Hide items whose module is turned off; drop a section that empties out.
+          const items = sec.items.filter(n => { const k = moduleForRoute(n.to); return !k || mods[k] !== false; });
+          if (items.length === 0) return null;
+          return (
           <div key={si} className="col gap-1" style={{ marginBottom: '.15rem' }}>
             {sec.label && <div className="nav-sec">{sec.label}</div>}
-            {sec.items.map(n => (
+            {items.map(n => (
               <NavLink key={n.to} to={n.to} end={n.end} onClick={onClose} className="row gap-2"
                 style={({ isActive }) => ({
                   padding: '.55rem .7rem', borderRadius: 'var(--r-sm)', fontWeight: 600, fontSize: '.96rem',
@@ -127,7 +133,8 @@ function Rail({ open, mobile, onClose }) {
               </NavLink>
             ))}
           </div>
-        ))}
+          );
+        })}
       </nav>
       <div style={{ padding: '.7rem', borderTop: '1px solid var(--nav-line)', flex: 'none' }}>
         <div className="row gap-2" style={{ padding: '.35rem .5rem' }}>

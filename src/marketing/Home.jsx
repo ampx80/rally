@@ -6,6 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
 import AgentTheater from './AgentTheater.jsx';
+import HeroCurrent from './HeroCurrent.jsx';
 import { Icon } from '../components/icons.jsx';
 
 /* ------------------------------------------------------------------ */
@@ -138,8 +139,12 @@ export default function Home() {
       <style>{`@media (max-width: 900px) { .m-floats { display: none !important; } }`}</style>
 
       {/* S1. HERO + AGENT THEATER */}
-      <section className="mkt-hero">
-        <div className="mkt-wrap">
+      <section className="mkt-hero" style={{ overflow: 'hidden' }}>
+        {/* The Revenue Current - a living pipeline flowing behind the copy */}
+        <HeroCurrent />
+        {/* soft veil so the headline stays crisp over the flow */}
+        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(52% 46% at 50% 34%, rgba(255,255,255,.88), rgba(255,255,255,.35) 62%, rgba(255,255,255,0) 100%)' }} />
+        <div className="mkt-wrap" style={{ position: 'relative', zIndex: 1 }}>
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 26 }}>
               <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>

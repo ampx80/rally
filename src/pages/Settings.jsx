@@ -10,6 +10,7 @@ import {
   useToast,
 } from '../components/UI';
 import { Icon } from '../components/icons';
+import { MODULES, setModule, enabledCount, useModules } from '../lib/modules';
 
 const ACCENT = '#5b4bf5';
 const STAGE_COLOR = {
@@ -57,6 +58,7 @@ function ToggleRow({ label, hint, checked, onChange }) {
 
 const TABS = [
   { key: 'workspace', label: 'Workspace' },
+  { key: 'modules', label: 'Modules' },
   { key: 'pipeline', label: 'Pipeline' },
   { key: 'notifications', label: 'Notifications' },
   { key: 'branding', label: 'Branding' },
@@ -67,6 +69,7 @@ const SWATCHES = ['#5b4bf5', '#0ea5a3', '#e0752d', '#c0392b', '#2563a8', '#8b3fd
 
 export default function Settings() {
   useStore(); // subscribe for reactivity
+  const mods = useModules(); // re-render on module toggle
   const toast = useToast();
   const [tab, setTab] = useState('workspace');
 
@@ -85,6 +88,29 @@ export default function Settings() {
       <SectionHeader title="Settings" sub="Workspace configuration and preferences." />
 
       <Tabs tabs={TABS} active={tab} onChange={setTab} />
+
+      {/* ---------- MODULES (the CRM control panel) ---------- */}
+      {tab === 'modules' && (
+        <Card className="col" style={{ gap: '1.4rem' }}>
+          <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
+            <div className="col gap-1">
+              <h4 style={{ margin: 0 }}>Modules</h4>
+              <span className="muted t-sm" style={{ maxWidth: '52ch' }}>Turn modules on or off for this workspace. Disabled modules disappear from the sidebar. The CRM core (Command center, Deals, Contacts, Companies, My day) is always on.</span>
+            </div>
+            <Badge tone="accent">{enabledCount()} of {MODULES.length} on</Badge>
+          </div>
+          {[...new Set(MODULES.map(m => m.section))].map(section => (
+            <div key={section} className="col">
+              <div className="eyebrow" style={{ marginBottom: '.15rem' }}>{section}</div>
+              {MODULES.filter(m => m.section === section).map(m => (
+                <ToggleRow key={m.key} label={m.label} hint={m.desc}
+                  checked={mods[m.key] !== false}
+                  onChange={(v) => { setModule(m.key, v); toast(v ? `${m.label} turned on` : `${m.label} turned off`); }} />
+              ))}
+            </div>
+          ))}
+        </Card>
+      )}
 
       {/* ---------- WORKSPACE ---------- */}
       {tab === 'workspace' && (

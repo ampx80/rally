@@ -1,331 +1,362 @@
-// Leads. Top-of-funnel demand before it becomes an account: a scored,
-// sourced, ownable book that a rep works down to qualified. KPI rail with
-// live sparks, a real visual funnel (New -> Working -> Qualified), a
-// segmented status filter, and a dense sortable grid with inline score
-// bars and a one-click "mark qualified" bulk action. New-lead modal writes
-// straight through createLead. Fully alive off the seeded book of business.
-import React, { useMemo, useState } from 'react';
+// Leads workspace. Top-of-funnel demand, scored by a real deterministic AI
+// model before it becomes an account. A ranked inbox (sorted by AI lead score
+// shown as a Ring), a KPI rail, a by-source funnel, a lead-detail modal with a
+// full "why this score" breakdown + one-click real conversion to a deal, and a
+// web-to-lead capture tab with an embeddable form preview and a live simulate
+// button. Reads live company/user data from the store; owns its lead book in
+// leads-data.js, persisted to localStorage so the whole surface stays alive.
+import React, { useEffect, useMemo, useState } from 'react';
 import {
-  useExt, getLeads, qualifiedLeads, updateLead, createLead,
-} from '../lib/store-ext.js';
-import { useStore, getUsers, userName } from '../lib/store.js';
-import {
-  Button, Card, Badge, Avatar, SectionHeader, Field, Input, Select, Modal,
-  StatCard, Segmented, ProgressBar, useToast,
+  Button, Card, Badge, StatCard, Segmented, Tabs, Modal, Field, Input,
+  Select, Textarea, EmptyState, useToast, Avatar, Ring, ProgressBar, relTime,
 } from '../components/UI.jsx';
-import { Icon } from '../components/icons.jsx';
-import DataTable from '../components/DataTable.jsx';
+import { createContact, createDeal, getCurrentUser } from '../lib/store.js';
+import {
+  getLeads, subscribeLeads, setLeadStatus, removeLead, simulateInboundLead,
+  scoreLead, scoreBand, SOURCES, LEAD_STATUSES,
+} from '../lib/leads-data.js';
 
-const SOURCES = ['Inbound', 'Outbound', 'Referral', 'Event', 'Webinar', 'Partner', 'Paid ads', 'Content'];
+/* Inline icons (project convention: UI primitives draw their own SVG). */
+function Icon({ name, size = 18 }) {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' };
+  const paths = {
+    funnel: <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />,
+    plus: <><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></>,
+    bolt: <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />,
+    check: <polyline points="20 6 9 17 4 12" />,
+    inbox: <><path d="M22 12h-6l-2 3h-4l-2-3H2" /><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z" /></>,
+    code: <><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></>,
+    rocket: <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09zM12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z" />,
+  };
+  return <svg {...p} style={{ display: 'block' }}>{paths[name] || null}</svg>;
+}
 
-// funnel + status palette (one accent, functional colors elsewhere)
-const FUNNEL = [
-  { key: 'new', label: 'New', color: '#2563a8' },
-  { key: 'working', label: 'Working', color: '#b3721a' },
-  { key: 'qualified', label: 'Qualified', color: '#1a7f52' },
-];
-const STATUS_TONE = { new: 'info', working: 'warn', qualified: 'ok', unqualified: 'risk' };
-const SCORE_COLOR = (s) => (s >= 70 ? 'var(--ok)' : s >= 40 ? 'var(--warn)' : 'var(--n-400)');
+/* Subscribe to the leads book; re-render on any mutation. */
+function useLeads() {
+  const [leads, setLeads] = useState(getLeads);
+  useEffect(() => subscribeLeads(setLeads), []);
+  return leads;
+}
 
-// Build a small plausible upward series from a target count, for the KPI sparks.
-const sparkTo = (target, n = 8, floor = 0.55) => {
-  const out = [];
-  for (let i = 0; i < n; i++) {
-    const t = i / (n - 1);
-    const base = floor + (1 - floor) * t;
-    const wobble = 1 + Math.sin(i * 1.7) * 0.05;
-    out.push(Math.max(1, Math.round(target * base * wobble)));
-  }
-  out[n - 1] = Math.max(out[n - 1], target);
-  return out;
-};
-
-const emptyDraft = () => ({ firstName: '', lastName: '', company: '', title: '', email: '', source: 'Inbound' });
+const STATUS_TONE = { New: 'info', Working: 'warn', Qualified: 'ok', Unqualified: 'default' };
 
 export default function Leads() {
-  useExt();
-  useStore();
+  const leads = useLeads();
   const toast = useToast();
-  const [status, setStatus] = useState('All');
-  const [modalOpen, setModalOpen] = useState(false);
-  const [draft, setDraft] = useState(emptyDraft);
+  const me = getCurrentUser();
+  const [tab, setTab] = useState('inbox');
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [selectedId, setSelectedId] = useState(null);
 
-  const leads = getLeads();
+  // Score every lead, then sort hottest-first. Memoized on the book.
+  const scored = useMemo(
+    () => leads
+      .map(l => ({ ...l, ...scoreLead(l) }))
+      .sort((a, b) => b.score - a.score),
+    [leads],
+  );
 
+  const selected = scored.find(l => l.id === selectedId) || null;
+
+  const filtered = statusFilter === 'All'
+    ? scored
+    : scored.filter(l => l.status === statusFilter);
+
+  /* ---------- KPI stats ---------- */
   const stats = useMemo(() => {
-    const total = leads.length;
-    const qualified = qualifiedLeads().length;
-    const scores = leads.map(l => l.score || 0);
-    const avg = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0;
     const weekAgo = Date.now() - 7 * 86400000;
-    const newThisWeek = leads.filter(l => new Date(l.createdAt).getTime() >= weekAgo).length;
-    const counts = { new: 0, working: 0, qualified: 0, unqualified: 0 };
-    for (const l of leads) counts[l.status] = (counts[l.status] || 0) + 1;
-    return { total, qualified, avg, newThisWeek, counts };
-  }, [leads]);
+    const newThisWeek = scored.filter(l => new Date(l.createdAt).getTime() >= weekAgo).length;
+    const avg = scored.length ? Math.round(scored.reduce((s, l) => s + l.score, 0) / scored.length) : 0;
+    const decided = scored.filter(l => l.status === 'Qualified' || l.status === 'Unqualified').length;
+    const qualified = scored.filter(l => l.status === 'Qualified').length;
+    const qualifiedRate = decided ? Math.round((qualified / decided) * 100) : 0;
 
-  const funnelMax = Math.max(1, ...FUNNEL.map(f => stats.counts[f.key] || 0));
+    const bySource = {};
+    for (const l of scored) bySource[l.source] = (bySource[l.source] || 0) + 1;
+    const sourceRows = Object.entries(bySource).sort((a, b) => b[1] - a[1]);
+    const hottest = sourceRows[0]?.[0] || '-';
+    return { newThisWeek, avg, qualifiedRate, hottest, sourceRows };
+  }, [scored]);
 
-  const rows = status === 'All' ? leads : leads.filter(l => l.status === status);
+  const statusCounts = useMemo(() => {
+    const c = { All: scored.length };
+    for (const s of LEAD_STATUSES) c[s] = scored.filter(l => l.status === s).length;
+    return c;
+  }, [scored]);
 
-  const openModal = () => { setDraft(emptyDraft()); setModalOpen(true); };
-  const submit = () => {
-    const r = createLead({
-      firstName: draft.firstName,
-      lastName: draft.lastName,
-      company: draft.company,
-      title: draft.title,
-      email: draft.email,
-      source: draft.source,
+  /* ---------- actions ---------- */
+  const changeStatus = (id, status) => {
+    setLeadStatus(id, status);
+    toast(`Marked ${status.toLowerCase()}`);
+  };
+
+  const convert = (lead) => {
+    // Real conversion: create a contact and an open deal in the live store.
+    const [firstName, ...rest] = lead.name.split(' ');
+    const c = createContact({
+      firstName,
+      lastName: rest.join(' '),
+      email: lead.email,
+      phone: lead.phone,
+      title: lead.title,
+      companyId: lead.companyId || undefined,
+      tags: ['inbound'],
     });
-    if (r.error) return toast(r.message, 'risk');
-    setModalOpen(false);
-    toast('Lead created');
+    if (c.error) return toast(c.message, 'risk');
+    const d = createDeal({
+      name: `${lead.company} - New opportunity`,
+      companyId: lead.companyId || undefined,
+      contactIds: [c.contact.id],
+      value: 40000,
+      stage: 'lead',
+      ownerId: me?.id,
+    });
+    if (d.error) return toast(d.message, 'risk');
+    removeLead(lead.id);
+    setSelectedId(null);
+    toast(`Converted ${lead.name} to a deal`);
   };
 
-  const markQualified = (ids) => {
-    ids.forEach(id => updateLead(id, { status: 'qualified' }));
-    toast(`${ids.length} lead${ids.length === 1 ? '' : 's'} marked qualified`);
+  const simulate = () => {
+    const l = simulateInboundLead();
+    toast(`New lead captured: ${l.name}`);
+    setTab('inbox');
+    setStatusFilter('All');
   };
 
-  const columns = [
-    {
-      key: 'name', header: 'Name', width: '20%',
-      value: (l) => l.name,
-      sortValue: (l) => l.name,
-      render: (l) => (
-        <span className="row gap-2" style={{ minWidth: 0 }}>
-          <Avatar name={l.name} size={26} />
-          <span className="fw-6 clip" style={{ color: 'var(--ink)' }}>{l.name}</span>
-        </span>
-      ),
-    },
-    {
-      key: 'company', header: 'Company',
-      value: (l) => l.company,
-      render: (l) => <span className="clip">{l.company || <span className="muted">-</span>}</span>,
-    },
-    {
-      key: 'title', header: 'Title',
-      value: (l) => l.title,
-      render: (l) => <span className="t-sm muted clip">{l.title || '-'}</span>,
-    },
-    {
-      key: 'source', header: 'Source',
-      value: (l) => l.source,
-      render: (l) => <Badge>{l.source}</Badge>,
-    },
-    {
-      key: 'score', header: 'Score', align: 'right',
-      sortValue: (l) => l.score,
-      render: (l) => (
-        <span className="row gap-2" style={{ justifyContent: 'flex-end' }}>
-          <span style={{ width: 70 }}><ProgressBar value={l.score} color={SCORE_COLOR(l.score)} height={6} /></span>
-          <span className="tnum fw-6" style={{ width: 26, textAlign: 'right' }}>{l.score}</span>
-        </span>
-      ),
-    },
-    {
-      key: 'status', header: 'Status',
-      value: (l) => l.status,
-      render: (l) => <Badge tone={STATUS_TONE[l.status] || 'default'}>{l.status}</Badge>,
-    },
-    {
-      key: 'owner', header: 'Owner',
-      value: (l) => userName(l.ownerId),
-      sortValue: (l) => userName(l.ownerId),
-      render: (l) => (
-        <span className="row gap-1" style={{ minWidth: 0 }}>
-          <Avatar name={userName(l.ownerId)} size={24} />
-          <span className="clip t-sm">{userName(l.ownerId)}</span>
-        </span>
-      ),
-    },
-    {
-      key: 'created', header: 'Created', align: 'right',
-      sortValue: (l) => new Date(l.createdAt).getTime(),
-      render: (l) => <span className="tnum t-sm muted">{relDays(l.createdAt)}</span>,
-    },
-  ];
-
-  const bulkActions = [
-    { label: 'Mark qualified', onClick: markQualified },
-  ];
+  const maxSource = Math.max(1, ...stats.sourceRows.map(r => r[1]));
 
   return (
     <div className="fade-up">
-      <SectionHeader
-        title="Leads"
-        sub={`${stats.total} leads in the funnel - ${stats.qualified} qualified and ready to convert`}
-        action={
-          <Button variant="primary" size="sm" onClick={openModal}>
-            <Icon name="plus" size={16} /> New lead
-          </Button>
-        }
-      />
-
-      {/* KPI rail */}
-      <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', marginBottom: '1.15rem' }}>
-        <StatCard
-          label="Total leads" value={stats.total}
-          trend={12} spark={sparkTo(stats.total)}
-          icon={<Icon name="funnel" size={18} />}
-        />
-        <StatCard
-          label="Qualified" value={stats.qualified}
-          sub={`${stats.total ? Math.round((stats.qualified / stats.total) * 100) : 0}% of funnel`}
-          spark={sparkTo(stats.qualified)} sparkColor="var(--ok)" accent="var(--ok)"
-          icon={<Icon name="check" size={18} />}
-          onClick={() => setStatus('qualified')}
-        />
-        <StatCard
-          label="Avg score" value={stats.avg}
-          sub="lead quality index"
-          spark={sparkTo(stats.avg, 8, 0.75)}
-          icon={<Icon name="target" size={18} />}
-        />
-        <StatCard
-          label="New this week" value={stats.newThisWeek}
-          trend={8} spark={sparkTo(stats.newThisWeek)}
-          icon={<Icon name="sparkles" size={18} />}
-        />
+      <div className="row between wrap" style={{ gap: '1rem', marginBottom: '1.15rem' }}>
+        <div className="col gap-1" style={{ minWidth: 0 }}>
+          <div className="eyebrow">Demand</div>
+          <h2 style={{ margin: 0 }}>Leads</h2>
+          <div className="muted t-sm">AI-scored inbound and outbound, ranked so you always work the hottest lead first.</div>
+        </div>
+        <Button variant="primary" size="sm" onClick={simulate}>
+          <span className="row gap-1"><Icon name="bolt" size={16} /> Simulate lead</span>
+        </Button>
       </div>
 
-      {/* Visual funnel */}
-      <Card className="card-pad" style={{ marginBottom: '1.15rem' }}>
-        <div className="row between" style={{ marginBottom: '1rem' }}>
-          <div className="col gap-1">
-            <div className="eyebrow">Conversion funnel</div>
-            <h4 style={{ margin: 0 }}>New to qualified</h4>
+      <Tabs
+        tabs={[
+          { key: 'inbox', label: 'Lead inbox', count: scored.length },
+          { key: 'capture', label: 'Web-to-lead form' },
+        ]}
+        active={tab}
+        onChange={setTab}
+      />
+
+      {tab === 'inbox' ? (
+        <>
+          {/* KPI rail */}
+          <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', marginBottom: '1.15rem' }}>
+            <StatCard label="New this week" value={stats.newThisWeek} icon={<Icon name="inbox" />} sub="fresh in the funnel" />
+            <StatCard label="Avg AI score" value={stats.avg} icon={<Icon name="bolt" />} accent="var(--accent)" sub="lead quality index" />
+            <StatCard label="Qualified rate" value={stats.qualifiedRate} format={(n) => `${Math.round(n)}%`} icon={<Icon name="check" />} accent="var(--ok)" sub="of decided leads" />
+            <StatCard label="Hottest source" value={stats.hottest} icon={<Icon name="funnel" />} sub="most inbound volume" />
           </div>
-          <Badge tone="accent">
-            {stats.total ? Math.round((stats.qualified / Math.max(1, stats.counts.new + stats.counts.working + stats.qualified)) * 100) : 0}% qualify rate
-          </Badge>
-        </div>
-        <div className="col gap-3">
-          {FUNNEL.map((f, i) => {
-            const count = stats.counts[f.key] || 0;
-            const pct = Math.round((count / funnelMax) * 100);
-            return (
-              <div key={f.key} className="col gap-1">
-                <div className="row between">
-                  <span className="row gap-2">
-                    <span className="dot" style={{ background: f.color }} />
-                    <span className="fw-6">{f.label}</span>
-                    {i > 0 && (
-                      <span className="t-xs muted">
-                        {stats.counts[FUNNEL[i - 1].key]
-                          ? Math.round((count / stats.counts[FUNNEL[i - 1].key]) * 100)
-                          : 0}% from {FUNNEL[i - 1].label.toLowerCase()}
-                      </span>
-                    )}
-                  </span>
-                  <span className="tnum fw-7">{count}</span>
+
+          {/* Leads by source bar */}
+          <Card className="card-pad" style={{ marginBottom: '1.15rem' }}>
+            <div className="row between" style={{ marginBottom: '.9rem' }}>
+              <div className="col gap-1"><div className="eyebrow">Pipeline top</div><h4 style={{ margin: 0 }}>Leads by source</h4></div>
+              <Badge tone="accent">{scored.length} total</Badge>
+            </div>
+            <div className="col gap-3">
+              {stats.sourceRows.map(([src, n]) => (
+                <div key={src} className="col gap-1">
+                  <div className="row between">
+                    <span className="fw-6">{src}</span>
+                    <span className="tnum muted t-sm">{n} - avg quality {Math.round((SOURCES[src] ?? 0.5) * 100)}</span>
+                  </div>
+                  <ProgressBar value={(n / maxSource) * 100} height={12} />
                 </div>
-                <ProgressBar value={pct} color={f.color} height={14} />
-              </div>
-            );
-          })}
-        </div>
-      </Card>
+              ))}
+            </div>
+          </Card>
 
-      {/* Filter + table */}
-      <div className="row between wrap" style={{ marginBottom: '.85rem', gap: '1rem' }}>
-        <Segmented
-          options={[
-            { value: 'All', label: 'All' },
-            { value: 'new', label: 'New' },
-            { value: 'working', label: 'Working' },
-            { value: 'qualified', label: 'Qualified' },
-            { value: 'unqualified', label: 'Unqualified' },
-          ]}
-          value={status}
-          onChange={setStatus}
-        />
-        <span className="t-sm muted">{rows.length} shown</span>
-      </div>
+          {/* Filter */}
+          <div className="row between wrap" style={{ marginBottom: '.85rem', gap: '1rem' }}>
+            <Segmented
+              options={['All', ...LEAD_STATUSES].map(s => ({ value: s, label: `${s} ${statusCounts[s] ?? 0}` }))}
+              value={statusFilter}
+              onChange={setStatusFilter}
+            />
+            <span className="t-sm muted">{filtered.length} shown - sorted by AI score</span>
+          </div>
 
-      <DataTable
-        columns={columns}
-        rows={rows}
-        getId={(l) => l.id}
-        searchable
-        searchKeys={['name', 'company', 'title', 'email']}
-        searchPlaceholder="Search leads..."
-        initialSort={{ key: 'score', dir: 'desc' }}
-        bulkActions={bulkActions}
-      />
+          {/* Inbox list */}
+          {filtered.length === 0 ? (
+            <Card><EmptyState icon="📭" title="No leads here" body="No leads match this status. Try a different filter or simulate a new inbound lead." action={<Button variant="primary" size="sm" onClick={simulate}>Simulate a lead</Button>} /></Card>
+          ) : (
+            <div className="col gap-2">
+              {filtered.map(l => {
+                const band = scoreBand(l.score);
+                return (
+                  <Card key={l.id} hover className="card-pad" onClick={() => setSelectedId(l.id)} style={{ cursor: 'pointer' }}>
+                    <div className="row gap-3" style={{ alignItems: 'center' }}>
+                      <Ring value={l.score} size={54} stroke={6} color={band.color} label={l.score} />
+                      <div className="col gap-1" style={{ flex: 1, minWidth: 0 }}>
+                        <div className="row gap-2" style={{ minWidth: 0 }}>
+                          <Avatar name={l.name} size={28} />
+                          <span className="fw-7" style={{ color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.name}</span>
+                          <Badge tone={band.tone} className="t-xs">{band.label}</Badge>
+                        </div>
+                        <div className="t-sm muted" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {l.title} - {l.company} - {l.companySize}
+                        </div>
+                      </div>
+                      <div className="col gap-1" style={{ flex: 'none', textAlign: 'right', alignItems: 'flex-end' }}>
+                        <Badge>{l.source}</Badge>
+                        <div className="row gap-2" style={{ alignItems: 'center' }}>
+                          <Badge tone={STATUS_TONE[l.status] || 'default'} className="t-xs">{l.status}</Badge>
+                          <span className="t-xs muted">{relTime(l.createdAt)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </>
+      ) : (
+        <CaptureTab onSimulate={simulate} />
+      )}
 
+      {/* Lead detail modal */}
       <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="New lead"
-        footer={
+        open={!!selected}
+        onClose={() => setSelectedId(null)}
+        title={selected ? selected.name : ''}
+        width={620}
+        footer={selected && (
           <>
-            <Button variant="ghost" onClick={() => setModalOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={submit}>Create lead</Button>
+            <Button variant="ghost" onClick={() => setSelectedId(null)}>Close</Button>
+            <Button variant="accent" onClick={() => convert(selected)}>
+              <span className="row gap-1"><Icon name="rocket" size={16} /> Convert to deal</span>
+            </Button>
           </>
-        }
+        )}
       >
-        <div className="col gap-3">
-          <div className="row gap-2" style={{ alignItems: 'flex-start' }}>
-            <Field label="First name">
-              <Input
-                autoFocus placeholder="Jamie"
-                value={draft.firstName}
-                onChange={e => setDraft(d => ({ ...d, firstName: e.target.value }))}
-                onKeyDown={e => e.key === 'Enter' && submit()}
-              />
-            </Field>
-            <Field label="Last name">
-              <Input
-                placeholder="Rivera"
-                value={draft.lastName}
-                onChange={e => setDraft(d => ({ ...d, lastName: e.target.value }))}
-                onKeyDown={e => e.key === 'Enter' && submit()}
-              />
-            </Field>
-          </div>
-          <Field label="Company">
-            <Input
-              placeholder="Northgate Systems"
-              value={draft.company}
-              onChange={e => setDraft(d => ({ ...d, company: e.target.value }))}
-            />
-          </Field>
-          <div className="row gap-2" style={{ alignItems: 'flex-start' }}>
-            <Field label="Title">
-              <Input
-                placeholder="VP of Sales"
-                value={draft.title}
-                onChange={e => setDraft(d => ({ ...d, title: e.target.value }))}
-              />
-            </Field>
-            <Field label="Source">
-              <Select value={draft.source} onChange={e => setDraft(d => ({ ...d, source: e.target.value }))}>
-                {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
-              </Select>
-            </Field>
-          </div>
-          <Field label="Email">
-            <Input
-              type="email" placeholder="jamie@northgate.com"
-              value={draft.email}
-              onChange={e => setDraft(d => ({ ...d, email: e.target.value }))}
-            />
-          </Field>
-        </div>
+        {selected && <LeadDetail lead={selected} onStatus={changeStatus} />}
       </Modal>
     </div>
   );
 }
 
-// Local relative-day helper (avoids a store dependency for a pure display).
-function relDays(iso) {
-  if (!iso) return '-';
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
-  if (days <= 0) return 'today';
-  if (days === 1) return 'yesterday';
-  if (days < 30) return `${days}d ago`;
-  return `${Math.floor(days / 30)}mo ago`;
+/* ---------- Lead detail body: contact info + score breakdown + status ---------- */
+function LeadDetail({ lead, onStatus }) {
+  const band = scoreBand(lead.score);
+  return (
+    <div className="col gap-3">
+      <div className="row gap-3" style={{ alignItems: 'center' }}>
+        <Ring value={lead.score} size={72} stroke={7} color={band.color} label={lead.score} />
+        <div className="col gap-1" style={{ minWidth: 0 }}>
+          <div className="row gap-2"><span className="fw-7" style={{ fontSize: '1.05rem' }}>{lead.title}</span><Badge tone={band.tone}>{band.label} lead</Badge></div>
+          <div className="muted">{lead.company} - {lead.companySize} employees</div>
+        </div>
+      </div>
+
+      {/* contact info */}
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: '.6rem' }}>
+        <InfoCell label="Email" value={lead.email} />
+        <InfoCell label="Phone" value={lead.phone} />
+        <InfoCell label="Source" value={lead.source} />
+        <InfoCell label="Age" value={relTime(lead.createdAt)} />
+      </div>
+
+      {/* why this score */}
+      <div>
+        <div className="row between" style={{ marginBottom: '.6rem' }}>
+          <div className="eyebrow">AI lead score - why this score</div>
+          <span className="tnum fw-7" style={{ color: band.color }}>{lead.score}/100</span>
+        </div>
+        <div className="col gap-3">
+          {lead.parts.map(p => (
+            <div key={p.key} className="col gap-1">
+              <div className="row between">
+                <span className="fw-6">{p.label} <span className="muted t-sm">- {p.detail}</span></span>
+                <span className="tnum t-sm fw-6">+{Math.round(p.points)} <span className="muted">/ {p.max}</span></span>
+              </div>
+              <ProgressBar value={p.pct * 100} height={9} color={band.color} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* status control */}
+      <div>
+        <div className="eyebrow" style={{ marginBottom: '.5rem' }}>Status</div>
+        <Segmented options={LEAD_STATUSES} value={lead.status} onChange={(s) => onStatus(lead.id, s)} />
+      </div>
+    </div>
+  );
+}
+
+function InfoCell({ label, value }) {
+  return (
+    <div className="col gap-1">
+      <div className="t-xs muted">{label}</div>
+      <div className="fw-6" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value || '-'}</div>
+    </div>
+  );
+}
+
+/* ---------- Web-to-lead capture tab: form preview + embed snippet ---------- */
+function CaptureTab({ onSimulate }) {
+  const embed = `<!-- Rally web-to-lead capture -->
+<form action="https://api.rally.app/v1/leads/capture" method="POST">
+  <input type="hidden" name="workspace" value="rally-prod" />
+  <input name="name" placeholder="Full name" required />
+  <input name="email" type="email" placeholder="Work email" required />
+  <input name="company" placeholder="Company" />
+  <input name="title" placeholder="Job title" />
+  <button type="submit">Request a demo</button>
+</form>
+<script src="https://cdn.rally.app/embed.js" async></script>`;
+
+  return (
+    <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '1.15rem' }}>
+      <Card className="card-pad">
+        <div className="eyebrow" style={{ marginBottom: '.3rem' }}>Live preview</div>
+        <h4 style={{ margin: '0 0 1rem' }}>What your prospect sees</h4>
+        <div className="col gap-3">
+          <Field label="Full name"><Input placeholder="Jamie Rivera" disabled /></Field>
+          <Field label="Work email"><Input placeholder="jamie@northgate.com" disabled /></Field>
+          <Field label="Company"><Input placeholder="Northgate Systems" disabled /></Field>
+          <Field label="Job title"><Input placeholder="VP of Sales" disabled /></Field>
+          <Field label="What are you looking to solve?"><Textarea placeholder="Tell us about your revenue goals..." disabled /></Field>
+          <Field label="Best source">
+            <Select disabled defaultValue="Web form">
+              {Object.keys(SOURCES).map(s => <option key={s}>{s}</option>)}
+            </Select>
+          </Field>
+          <Button variant="primary" disabled>Request a demo</Button>
+          <div className="t-xs muted">Every capture is auto-scored by Rally AI and lands ranked in your inbox. No manual routing.</div>
+        </div>
+      </Card>
+
+      <div className="col gap-3">
+        <Card className="card-pad">
+          <div className="eyebrow" style={{ marginBottom: '.3rem' }}>Embed</div>
+          <h4 style={{ margin: '0 0 .8rem' }}>Drop this on any page</h4>
+          <pre style={{ margin: 0, padding: '1rem', background: 'var(--n-100)', borderRadius: 'var(--r-sm)', overflowX: 'auto', fontFamily: 'var(--font-mono)', fontSize: '.82rem', lineHeight: 1.55, color: 'var(--ink)' }}>{embed}</pre>
+        </Card>
+        <Card className="card-pad">
+          <div className="row between wrap" style={{ gap: '.8rem', alignItems: 'center' }}>
+            <div className="col gap-1" style={{ minWidth: 0 }}>
+              <h4 style={{ margin: 0 }}>Test the pipe</h4>
+              <div className="muted t-sm">Fire a realistic inbound lead through the capture endpoint and watch it get scored.</div>
+            </div>
+            <Button variant="accent" onClick={onSimulate} style={{ flex: 'none' }}>
+              <span className="row gap-1"><Icon name="bolt" size={16} /> Simulate new lead</span>
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
 }
