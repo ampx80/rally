@@ -44,9 +44,9 @@ export function Pill({ children }) {
 const NAV = [
   { label: 'Product', to: '/features' },
   { label: 'Rook AI', to: '/product/rook' },
-  { label: 'Compare', to: '/compare/salesforce' },
+  { label: 'Compare', to: '/pages/rally-vs-salesforce' },
+  { label: 'Library', to: '/pages' },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Security', to: '/security' },
 ];
 
 function MktNav() {
@@ -78,7 +78,7 @@ function MktNav() {
 function MktFooter() {
   const cols = [
     { h: 'Product', links: [['Features', '/features'], ['Rook AI operator', '/product/rook'], ['Pricing', '/pricing'], ['Security', '/security'], ['Launch app', '/app']] },
-    { h: 'Compare', links: [['vs Salesforce', '/compare/salesforce'], ['vs HubSpot', '/compare/hubspot'], ['vs Zoho', '/compare/zoho'], ['vs NetSuite', '/compare/netsuite'], ['vs Pipedrive', '/compare/pipedrive']] },
+    { h: 'Compare', links: [['vs Salesforce', '/pages/rally-vs-salesforce'], ['vs HubSpot', '/pages/rally-vs-hubspot'], ['vs Zoho', '/pages/rally-vs-zoho'], ['vs NetSuite', '/pages/rally-vs-netsuite'], ['vs Pipedrive', '/pages/rally-vs-pipedrive'], ['All comparisons', '/pages']] },
     { h: 'Company', links: [['Manifesto', '/manifesto'], ['Security', '/security'], ['Get started', '/app']] },
     { h: 'Resources', links: [['Product tour', '/features'], ['Why Rally', '/manifesto'], ['Rook', '/product/rook'], ['All pages', '/pages']] },
   ];

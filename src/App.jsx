@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, NavLink, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, NavLink, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Icon } from './components/icons.jsx';
 import { Avatar, useToast } from './components/UI.jsx';
 import { getCurrentUser } from './lib/store.js';
@@ -39,11 +39,12 @@ import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
 import RookPage from './marketing/RookPage.jsx';
-import Compare from './marketing/Compare.jsx';
 import Pricing from './marketing/Pricing.jsx';
 import Security from './marketing/Security.jsx';
 import Manifesto from './marketing/Manifesto.jsx';
-import SiteMap from './marketing/SiteMap.jsx';
+import PagesHub from './marketing/PagesHub.jsx';
+import SeoPage from './marketing/SeoPage.jsx';
+import ComingSoon, { isUnlocked } from './gate/ComingSoon.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit']);
@@ -82,6 +83,13 @@ const NAV_SECTIONS = [
     { to: '/settings', label: 'Settings', icon: 'settings' },
   ] },
 ];
+
+// Legacy /compare/:slug now lives at /pages/rally-vs-:slug. Redirect so link
+// equity + bookmarks land on the single canonical URL (no duplicate content).
+function CompareRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={`/pages/rally-vs-${slug}`} replace />;
+}
 
 function useIsMobile() {
   const q = '(max-width: 860px)';
@@ -190,6 +198,7 @@ function Topbar({ onOpenSearch, onBurger }) {
 export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [unlocked, setUnlocked] = useState(isUnlocked);
   const mobile = useIsMobile();
   const loc = useLocation();
 
@@ -216,17 +225,23 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/features" element={<Features />} />
             <Route path="/product/rook" element={<RookPage />} />
-            <Route path="/compare/:slug" element={<Compare />} />
+            <Route path="/compare/:slug" element={<CompareRedirect />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/security" element={<Security />} />
             <Route path="/manifesto" element={<Manifesto />} />
-            <Route path="/pages" element={<SiteMap />} />
+            <Route path="/pages" element={<PagesHub />} />
+            <Route path="/pages/:slug" element={<SeoPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </MarketingShell>
     );
   }
+
+  // The product app is gated behind the coming-soon waitlist. Marketing and
+  // the SEO library above stay public (crawlable); the product unlocks only
+  // with the access code, verified server-side against ACCESS_CODE.
+  if (!unlocked) return <ComingSoon onUnlock={() => setUnlocked(true)} />;
 
   return (
     <div>
