@@ -33,6 +33,8 @@ import Team from './pages/Team.jsx';
 import Settings from './pages/Settings.jsx';
 import Projects from './pages/Projects.jsx';
 import AuditLog from './pages/AuditLog.jsx';
+import Studio from './pages/Studio.jsx';
+import DocBuilder from './pages/DocBuilder.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -65,6 +67,7 @@ const NAV_SECTIONS = [
   { label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
     { to: '/quotes', label: 'Quotes', icon: 'receipt' },
+    { to: '/studio', label: 'Studio', icon: 'sparkles' },
     { to: '/invoices', label: 'Billing', icon: 'dollar' },
   ] },
   { label: 'Intelligence', items: [
@@ -253,6 +256,8 @@ export default function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/quotes" element={<Quotes />} />
               <Route path="/quotes/:id" element={<QuoteDetail />} />
+              <Route path="/studio" element={<Studio />} />
+              <Route path="/studio/:id" element={<DocBuilder />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/dashboards" element={<Dashboards />} />
               <Route path="/reports" element={<Reports />} />
