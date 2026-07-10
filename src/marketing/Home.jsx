@@ -386,13 +386,13 @@ export default function Home() {
               <OrbitDiagram />
               <div className="m-cascade" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center', marginTop: 12 }}>
                 {MODULES.map(([ic, label]) => (
-                  <span key={label} className="mkt-node" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 15px', fontSize: 13.5, fontWeight: 700 }}>
+                  <span key={label} className="mkt-node" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 17px', fontSize: 15.5, fontWeight: 700 }}>
                     <span style={{ color: 'var(--m-accent)', display: 'grid', placeItems: 'center' }}><Icon name={ic} size={14} /></span>
                     {label}
                   </span>
                 ))}
               </div>
-              <p className="mkt-center mkt-dim" style={{ marginTop: 28, fontSize: 15 }}>
+              <p className="mkt-center mkt-dim" style={{ marginTop: 28, fontSize: 17 }}>
                 Sign up and it is already full. Explore with realistic data before you import a single row.
               </p>
             </div>
@@ -419,7 +419,7 @@ export default function Home() {
                 <div key={day} className="mkt-card">
                   <div style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-.02em' }} className="mkt-grad">{day}</div>
                   <h3 className="mkt-h3" style={{ margin: '10px 0 8px', fontSize: '1.15rem' }}>{title}</h3>
-                  <p className="mkt-body" style={{ margin: 0, fontSize: 14.5 }}>{copy}</p>
+                  <p className="mkt-body" style={{ margin: 0, fontSize: 16 }}>{copy}</p>
                   <Micro />
                 </div>
               ))}

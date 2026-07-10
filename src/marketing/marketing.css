@@ -75,9 +75,9 @@
 /* --- Type --- */
 .mkt-h1 { font-size: clamp(2.7rem, 6.5vw, 5rem); font-weight: 800; line-height: 1.02; letter-spacing: -.038em; margin: 0; }
 .mkt-h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; line-height: 1.06; letter-spacing: -.03em; margin: 0; }
-.mkt-h3 { font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-weight: 700; letter-spacing: -.02em; margin: 0; }
-.mkt-lead { font-size: clamp(1.12rem, 2vw, 1.4rem); line-height: 1.5; color: var(--m-ink2); }
-.mkt-body { font-size: 1.05rem; line-height: 1.62; color: var(--m-ink2); }
+.mkt-h3 { font-size: clamp(1.42rem, 2.5vw, 1.9rem); font-weight: 700; letter-spacing: -.02em; margin: 0; }
+.mkt-lead { font-size: clamp(1.24rem, 2.1vw, 1.62rem); line-height: 1.55; color: var(--m-ink2); }
+.mkt-body { font-size: 1.18rem; line-height: 1.62; color: var(--m-ink2); }
 
 /* --- Sections --- */
 .mkt-section { padding: 100px 0; position: relative; }
