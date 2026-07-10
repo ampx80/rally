@@ -6,9 +6,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   useStore, getDeals, getCompany, getCompanies, getUsers, userName,
-  moveDealStage, updateDeal, createDeal, stageById,
+  moveDealStage, updateDeal, createDeal, stageById, getCurrentUser,
   pipelineValue, openDeals, OPEN_STAGES,
 } from '../lib/store.js';
+import ViewBar from '../components/ViewBar.jsx';
+import { applyView } from '../lib/views.js';
 import {
   Button, Card, Badge, Avatar, SectionHeader, Field, Input, Select, Modal,
   moneyK, monthDay, relTime, useToast,
@@ -44,10 +46,11 @@ export default function Deals() {
   const toast = useToast();
   const [params, setParams] = useSearchParams();
   const [view, setView] = useState('board'); // 'board' | 'table'
+  const [savedView, setSavedView] = useState(null);
   const [modalOpen, setModalOpen] = useState(params.get('new') === '1');
   const [draft, setDraft] = useState(emptyDraft);
 
-  const deals = getDeals();
+  const deals = applyView(getDeals(), savedView, 'deal', { currentUserId: getCurrentUser().id });
   const open = openDeals();
 
   const openModal = () => { setDraft(emptyDraft()); setModalOpen(true); };
@@ -158,6 +161,8 @@ export default function Deals() {
           </>
         }
       />
+
+      <ViewBar objectType="deal" onView={setSavedView} />
 
       {view === 'board' ? (
         <KanbanBoard

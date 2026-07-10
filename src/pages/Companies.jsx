@@ -9,6 +9,8 @@ import {
   getCurrentUser, createCompany, updateCompany,
 } from '../lib/store.js';
 import DataTable from '../components/DataTable.jsx';
+import ViewBar from '../components/ViewBar.jsx';
+import { applyView } from '../lib/views.js';
 import { SectionHeader, Button, Badge, Field, Input, Select, Modal, useToast, HealthDot, moneyK } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
@@ -32,7 +34,9 @@ export default function Companies() {
   useStore();                       // subscribe for reactivity
   const navigate = useNavigate();
   const toast = useToast();
-  const companies = getCompanies();
+  const [view, setView] = useState(null);
+  const allCompanies = getCompanies();
+  const companies = applyView(allCompanies, view, 'company', { currentUserId: getCurrentUser().id });
 
   const [open, setOpen] = useState(false);
   const emptyForm = { name: '', domain: '', industry: 'SaaS', size: '51-200', location: '', ownerId: getCurrentUser().id, health: 'green' };
@@ -95,9 +99,11 @@ export default function Companies() {
     <div className="col gap-3">
       <SectionHeader
         title="Companies"
-        sub={`${companies.length} accounts in your book of business`}
+        sub={`${companies.length} of ${allCompanies.length} accounts`}
         action={<Button variant="primary" onClick={() => setOpen(true)}><Icon name="plus" size={16} /> New company</Button>}
       />
+
+      <ViewBar objectType="company" onView={setView} />
 
       <DataTable
         columns={columns}

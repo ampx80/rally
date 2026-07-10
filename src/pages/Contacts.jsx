@@ -8,6 +8,8 @@ import {
   getUsers, userName, getCurrentUser, createContact, updateContact,
 } from '../lib/store.js';
 import DataTable from '../components/DataTable.jsx';
+import ViewBar from '../components/ViewBar.jsx';
+import { applyView } from '../lib/views.js';
 import { SectionHeader, Button, Avatar, Badge, Field, Input, Select, Modal, useToast, relTime } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
@@ -15,7 +17,9 @@ export default function Contacts() {
   useStore();                       // subscribe for reactivity
   const navigate = useNavigate();
   const toast = useToast();
-  const contacts = getContacts();
+  const [view, setView] = useState(null);
+  const allContacts = getContacts();
+  const contacts = applyView(allContacts, view, 'contact', { currentUserId: getCurrentUser().id });
 
   const [open, setOpen] = useState(false);
   const emptyForm = { firstName: '', lastName: '', email: '', phone: '', title: '', companyId: '', ownerId: getCurrentUser().id };
@@ -85,9 +89,11 @@ export default function Contacts() {
     <div className="col gap-3">
       <SectionHeader
         title="Contacts"
-        sub={`${contacts.length} people across your book of business`}
+        sub={`${contacts.length} of ${allContacts.length} people`}
         action={<Button variant="primary" onClick={() => setOpen(true)}><Icon name="plus" size={16} /> New contact</Button>}
       />
+
+      <ViewBar objectType="contact" onView={setView} />
 
       <DataTable
         columns={columns}
