@@ -7,10 +7,16 @@ import { useStore, STAGES, resetStore } from '../lib/store';
 import { resetExt } from '../lib/store-ext';
 import {
   Card, Button, Badge, SectionHeader, Tabs, ProgressBar, Field, Input, Select,
-  useToast,
+  Textarea, Modal, useToast,
 } from '../components/UI';
 import { Icon } from '../components/icons';
 import { MODULES, setModule, enabledCount, useModules } from '../lib/modules';
+import {
+  OBJECT_TYPES, CUSTOM_FIELD_TYPES, fieldTypeLabel, typeHasOptions,
+  getFieldSections, getSystemFields, getCustomFields, useFields,
+  addCustomField, updateCustomField, removeCustomField, getFieldOptions,
+} from '../lib/fields';
+import { resetAudit } from '../lib/audit';
 
 const ACCENT = '#5b4bf5';
 const STAGE_COLOR = {
@@ -59,6 +65,7 @@ function ToggleRow({ label, hint, checked, onChange }) {
 const TABS = [
   { key: 'workspace', label: 'Workspace' },
   { key: 'modules', label: 'Modules' },
+  { key: 'fields', label: 'Fields' },
   { key: 'pipeline', label: 'Pipeline' },
   { key: 'notifications', label: 'Notifications' },
   { key: 'branding', label: 'Branding' },
@@ -66,6 +73,170 @@ const TABS = [
 ];
 
 const SWATCHES = ['#5b4bf5', '#0ea5a3', '#e0752d', '#c0392b', '#2563a8', '#8b3fd4', '#1a7f52', '#d4a017'];
+
+/* ---------- Fields tab: the field registry manager (Wave 1) ----------
+   Pick an object type, browse its canonical sections (system rows are
+   read-only), and add / edit / delete custom fields - the same registry
+   the record editors and views engine read. */
+function FieldModal({ open, onClose, objectType, field, sections, onSaved }) {
+  const toast = useToast();
+  const editing = !!field;
+  const [label, setLabel] = useState(field?.label || '');
+  const [type, setType] = useState(field?.type || 'text');
+  const [section, setSection] = useState(field?.section || 'Custom fields');
+  const [optionsText, setOptionsText] = useState(
+    field ? getFieldOptions(field).map(o => o.label).join('\n') : ''
+  );
+
+  const save = () => {
+    const def = {
+      label, type, section,
+      options: typeHasOptions(type)
+        ? optionsText.split('\n').map(s => s.trim()).filter(Boolean)
+        : undefined,
+    };
+    const res = editing
+      ? updateCustomField(objectType, field.id, def)
+      : addCustomField(objectType, def);
+    if (res.error) { toast(res.message, 'risk'); return; }
+    toast(editing ? 'Field updated' : `Field "${res.field.label}" added`);
+    onSaved?.();
+    onClose();
+  };
+
+  const sectionChoices = [...new Set([...sections, 'Custom fields'])];
+  return (
+    <Modal open={open} onClose={onClose} title={editing ? 'Edit custom field' : 'New custom field'} width={600}
+      footer={
+        <>
+          <Button variant="ghost" size="sm" onClick={onClose}>Cancel</Button>
+          <Button size="sm" onClick={save}>{editing ? 'Save field' : 'Add field'}</Button>
+        </>
+      }>
+      <div className="col gap-2">
+        <Field label="Field label">
+          <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="e.g. Contract vehicle" autoFocus />
+        </Field>
+        <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <Field label="Type">
+            <Select value={type} onChange={(e) => setType(e.target.value)}>
+              {CUSTOM_FIELD_TYPES.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+            </Select>
+          </Field>
+          <Field label="Section">
+            <Select value={section} onChange={(e) => setSection(e.target.value)}>
+              {sectionChoices.map(s => <option key={s} value={s}>{s}</option>)}
+            </Select>
+          </Field>
+        </div>
+        {typeHasOptions(type) && (
+          <Field label="Picklist values" hint="One value per line.">
+            <Textarea value={optionsText} onChange={(e) => setOptionsText(e.target.value)} rows={5}
+              placeholder={'Tier 1\nTier 2\nTier 3'} />
+          </Field>
+        )}
+      </div>
+    </Modal>
+  );
+}
+
+function FieldsTab() {
+  const toast = useToast();
+  useFields(); // re-render on registry changes
+  const [objectType, setObjectType] = useState('contact');
+  const [openSections, setOpenSections] = useState({ 0: true });
+  const [modal, setModal] = useState(null); // null | { field? }
+
+  const sections = getFieldSections(objectType);
+  const sectionNames = sections.map(s => s.section);
+  const systemCount = getSystemFields(objectType).length;
+  const customCount = getCustomFields(objectType).length;
+  const toggle = (i) => setOpenSections(s => ({ ...s, [i]: !s[i] }));
+
+  const remove = (field) => {
+    if (!window.confirm(`Delete the custom field "${field.label}"? Stored values stay on records but stop rendering.`)) return;
+    const res = removeCustomField(objectType, field.id);
+    if (res.error) toast(res.message, 'risk'); else toast('Field deleted');
+  };
+
+  return (
+    <Card className="col" style={{ gap: '1.1rem' }}>
+      <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
+        <div className="col gap-1">
+          <h4 style={{ margin: 0 }}>Fields</h4>
+          <span className="muted t-sm" style={{ maxWidth: '56ch' }}>
+            The field registry behind every record editor, filter, and view. Canonical fields are
+            system-owned; add custom fields and they behave exactly the same everywhere.
+          </span>
+        </div>
+        <Button size="sm" onClick={() => setModal({})}>
+          <Icon name="plus" size={15} /> Add custom field
+        </Button>
+      </div>
+
+      <div className="row gap-2 wrap" style={{ alignItems: 'center' }}>
+        <div style={{ minWidth: 220 }}>
+          <Select value={objectType} onChange={(e) => { setObjectType(e.target.value); setOpenSections({ 0: true }); }}>
+            {OBJECT_TYPES.map(o => <option key={o.id} value={o.id}>{o.label}</option>)}
+          </Select>
+        </div>
+        <Badge tone="accent">{systemCount} system</Badge>
+        <Badge>{customCount} custom</Badge>
+      </div>
+
+      <div className="col">
+        {sections.map((s, i) => {
+          const open = !!openSections[i];
+          return (
+            <div key={s.section} style={{ borderTop: '1px solid var(--line)' }}>
+              <button onClick={() => toggle(i)} className="row between gap-2"
+                style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', padding: '.8rem 0', textAlign: 'left' }}>
+                <span className="row gap-2" style={{ alignItems: 'center' }}>
+                  <Icon name={open ? 'chevronDown' : 'chevronRight'} size={15} />
+                  <span className="fw-7">{s.section}</span>
+                </span>
+                <span className="muted t-sm tnum">{s.fields.length} fields</span>
+              </button>
+              {open && (
+                <div className="col" style={{ paddingBottom: '.6rem' }}>
+                  {s.fields.map(fd => (
+                    <div key={fd.key} className="row gap-2" style={{ alignItems: 'center', padding: '.42rem 0 .42rem 1.55rem' }}>
+                      <div className="col" style={{ minWidth: 0, flex: 1, gap: 1 }}>
+                        <span className="fw-6" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{fd.label}</span>
+                        <span className="t-xs muted" style={{ fontFamily: 'var(--font-mono)' }}>{fd.key}</span>
+                      </div>
+                      <Badge className="t-xs" style={{ flex: 'none' }}>{fieldTypeLabel(fd.type)}</Badge>
+                      {fd.computed && <Badge tone="info" className="t-xs" style={{ flex: 'none' }}>System-computed</Badge>}
+                      {fd.required && <Badge tone="warn" className="t-xs" style={{ flex: 'none' }}>Required</Badge>}
+                      {fd.system ? (
+                        <Badge className="t-xs" style={{ flex: 'none' }}>System</Badge>
+                      ) : (
+                        <span className="row gap-1" style={{ flex: 'none' }}>
+                          <Badge tone="accent" className="t-xs">Custom</Badge>
+                          <Button variant="quiet" size="sm" aria-label={`Edit ${fd.label}`} onClick={() => setModal({ field: fd })}>
+                            <Icon name="edit" size={14} />
+                          </Button>
+                          <Button variant="quiet" size="sm" aria-label={`Delete ${fd.label}`} onClick={() => remove(fd)}>
+                            <Icon name="trash" size={14} />
+                          </Button>
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {modal && (
+        <FieldModal open onClose={() => setModal(null)} objectType={objectType}
+          field={modal.field} sections={sectionNames} />
+      )}
+    </Card>
+  );
+}
 
 export default function Settings() {
   useStore(); // subscribe for reactivity
@@ -79,6 +250,7 @@ export default function Settings() {
   const resetDemo = () => {
     resetStore();
     resetExt();
+    resetAudit(); // audit entries point at reseeded record ids
     toast('Demo data reset');
     setTimeout(() => location.reload(), 400);
   };
@@ -111,6 +283,9 @@ export default function Settings() {
           ))}
         </Card>
       )}
+
+      {/* ---------- FIELDS (the registry manager) ---------- */}
+      {tab === 'fields' && <FieldsTab />}
 
       {/* ---------- WORKSPACE ---------- */}
       {tab === 'workspace' && (

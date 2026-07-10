@@ -7,6 +7,7 @@
 // describing the live equivalent (tables namespaced rally_*).
 // ============================================================
 import { useEffect, useState } from 'react';
+import { logChange } from './audit.js';
 
 const LS_KEY = 'rally_state_v1';   // bump to force a clean reseed
 
@@ -283,10 +284,41 @@ let state = load();
 const subs = new Set();
 
 function load() {
-  try { const raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch {}
-  const seed = buildSeed();
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const s = migrate(JSON.parse(raw));
+      try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
+      return s;
+    }
+  } catch {}
+  const seed = migrate(buildSeed());
   try { localStorage.setItem(LS_KEY, JSON.stringify(seed)); } catch {}
   return seed;
+}
+
+/* Wave 1 migration shim: single-entity status model (spec Section 0.1 + 1.4).
+   Contacts + companies gain lifecycleStage, derived from existing data:
+   won deal -> customer, open deal -> opportunity, otherwise sql (worked, in
+   the book of business). Contacts inherit their company's stage; orphan
+   contacts start at lead. record.fieldValues initializes lazily on first
+   write. Idempotent - existing values are never overwritten. */
+function migrate(s) {
+  try {
+    const wonCo = new Set(), openCo = new Set();
+    for (const d of s.deals || []) {
+      if (d.status === 'won') wonCo.add(d.companyId);
+      else if (d.status === 'open') openCo.add(d.companyId);
+    }
+    for (const co of s.companies || []) {
+      if (!co.lifecycleStage) co.lifecycleStage = wonCo.has(co.id) ? 'customer' : openCo.has(co.id) ? 'opportunity' : 'sql';
+    }
+    const coStage = new Map((s.companies || []).map(c => [c.id, c.lifecycleStage]));
+    for (const c of s.contacts || []) {
+      if (!c.lifecycleStage) c.lifecycleStage = c.companyId ? (coStage.get(c.companyId) || 'sql') : 'lead';
+    }
+  } catch {}
+  return s;
 }
 function commit(next) {
   state = next;
@@ -407,14 +439,34 @@ function touchContact(id) {
   if (c) c.lastActivityAt = new Date().toISOString();
 }
 
+/* Shared patch applier for update writers. Splits a `fieldValues` map out of
+   the patch and merges it into record.fieldValues (initialized lazily) so
+   registry-driven fields (src/lib/fields.js) persist alongside store columns.
+   Every changed field is written to the org-wide audit log (src/lib/audit.js). */
+function applyPatch(objectType, record, patch = {}) {
+  const { fieldValues, ...rest } = patch;
+  const who = getCurrentUser()?.name || 'You';
+  for (const [k, v] of Object.entries(rest)) {
+    if (record[k] !== v) logChange(objectType, record.id, k, record[k], v, who);
+  }
+  Object.assign(record, rest);
+  if (fieldValues && typeof fieldValues === 'object') {
+    if (!record.fieldValues) record.fieldValues = {};
+    for (const [k, v] of Object.entries(fieldValues)) {
+      if (record.fieldValues[k] !== v) logChange(objectType, record.id, k, record.fieldValues[k], v, who);
+      record.fieldValues[k] = v;
+    }
+  }
+}
+
 // SUPABASE: from('rally_companies').insert(row).select().single()
-export function createCompany({ name, domain, industry, size, location, ownerId, health = 'green' }) {
+export function createCompany({ name, domain, industry, size, location, ownerId, health = 'green', lifecycleStage = 'lead' }) {
   if (!name || !name.trim()) return { error: 'name', message: 'Company name is required.' };
   const co = {
     id: newId('co'), name: name.trim(),
     domain: domain || name.toLowerCase().replace(/[^a-z]/g, '') + '.com',
     industry: industry || 'SaaS', size: size || '51-200', location: location || '',
-    ownerId: ownerId || state.currentUserId, health,
+    ownerId: ownerId || state.currentUserId, health, lifecycleStage,
     createdAt: new Date().toISOString(),
   };
   commit({ ...state, companies: [co, ...state.companies] });
@@ -423,13 +475,13 @@ export function createCompany({ name, domain, industry, size, location, ownerId,
 export function updateCompany(id, patch) {
   const co = getCompany(id);
   if (!co) return { error: 'missing', message: 'Company not found.' };
-  Object.assign(co, patch);
+  applyPatch('company', co, patch);
   commit({ ...state });
   return { company: co };
 }
 
 // SUPABASE: from('rally_contacts').insert(row).select().single()
-export function createContact({ firstName, lastName, email, phone, title, companyId, ownerId, tags = [] }) {
+export function createContact({ firstName, lastName, email, phone, title, companyId, ownerId, tags = [], lifecycleStage }) {
   if (!firstName || !firstName.trim()) return { error: 'firstName', message: 'First name is required.' };
   const co = companyId ? getCompany(companyId) : null;
   const c = {
@@ -439,6 +491,7 @@ export function createContact({ firstName, lastName, email, phone, title, compan
     phone: phone || '', title: title || '',
     companyId: companyId || null,
     ownerId: ownerId || state.currentUserId,
+    lifecycleStage: lifecycleStage || (co ? co.lifecycleStage : 'lead') || 'lead',
     tags, lastActivityAt: new Date().toISOString(), createdAt: new Date().toISOString(),
   };
   commit({ ...state, contacts: [c, ...state.contacts] });
@@ -447,7 +500,7 @@ export function createContact({ firstName, lastName, email, phone, title, compan
 export function updateContact(id, patch) {
   const c = getContact(id);
   if (!c) return { error: 'missing', message: 'Contact not found.' };
-  Object.assign(c, patch);
+  applyPatch('contact', c, patch);
   commit({ ...state });
   return { contact: c };
 }
@@ -477,9 +530,9 @@ export function updateDeal(id, patch) {
   if (patch.value != null) {
     const v = Number(patch.value);
     if (!Number.isFinite(v) || v < 0) return { error: 'value', message: 'Enter a valid deal value.' };
-    patch.value = v;
+    patch = { ...patch, value: v };
   }
-  Object.assign(d, patch);
+  applyPatch('deal', d, patch);
   commit({ ...state });
   return { deal: d };
 }
