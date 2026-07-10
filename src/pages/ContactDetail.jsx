@@ -9,7 +9,10 @@ import {
   getDealsForContact, getUsers, userName, updateContact, stageById,
 } from '../lib/store.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
-import { Card, Button, Avatar, Badge, Field, Input, Select, Modal, EmptyState, useToast, moneyK } from '../components/UI.jsx';
+import RecordFields, { LifecycleStagePill } from '../components/RecordFields.jsx';
+import AuditPanel from '../components/AuditPanel.jsx';
+import { getFields } from '../lib/fields.js';
+import { Card, Button, Avatar, Badge, Field, Input, Select, Modal, EmptyState, Tabs, useToast, moneyK } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
 const STAGE_DOT = {
@@ -25,6 +28,7 @@ export default function ContactDetail() {
   const c = getContact(id);
 
   const [editing, setEditing] = useState(false);
+  const [tab, setTab] = useState('overview');
 
   if (!c) {
     return (
@@ -58,7 +62,17 @@ export default function ContactDetail() {
               <Avatar name={contactName(c)} size={64} />
               <div className="col gap-1" style={{ flex: 1, minWidth: 0 }}>
                 <div className="row between gap-2 wrap">
-                  <h2 style={{ margin: 0 }}>{contactName(c)}</h2>
+                  <div className="row gap-2 wrap" style={{ alignItems: 'center', minWidth: 0 }}>
+                    <h2 style={{ margin: 0 }}>{contactName(c)}</h2>
+                    <LifecycleStagePill
+                      value={c.lifecycleStage}
+                      onChange={(v) => {
+                        const r = updateContact(c.id, { lifecycleStage: v });
+                        if (r.error) return toast(r.message, 'risk');
+                        toast('Lifecycle stage updated');
+                      }}
+                    />
+                  </div>
                   <Button variant="ghost" size="sm" onClick={() => setEditing(true)}><Icon name="edit" size={15} /> Edit</Button>
                 </div>
                 {c.title && <div className="muted fw-6">{c.title}</div>}
@@ -89,6 +103,33 @@ export default function ContactDetail() {
             </div>
           </Card>
 
+          <Tabs
+            tabs={[
+              { key: 'overview', label: 'Overview' },
+              { key: 'fields', label: 'All fields', count: getFields('contact').length },
+              { key: 'history', label: 'History' },
+            ]}
+            active={tab}
+            onChange={setTab}
+          />
+
+          {tab === 'fields' && (
+            <Card>
+              <RecordFields objectType="contact" record={c} onPatch={(patch) => updateContact(c.id, patch)} />
+            </Card>
+          )}
+
+          {tab === 'history' && (
+            <Card>
+              <div className="row gap-2" style={{ alignItems: 'center', marginBottom: '.9rem' }}>
+                <Icon name="clock" size={18} style={{ color: 'var(--accent-600)' }} />
+                <h4 style={{ margin: 0 }}>History</h4>
+              </div>
+              <AuditPanel objectType="contact" recordId={c.id} />
+            </Card>
+          )}
+
+          {tab === 'overview' && (
           <Card>
             <div className="row between" style={{ marginBottom: '.9rem' }}>
               <h4 style={{ margin: 0 }}>Related deals</h4>
@@ -116,6 +157,7 @@ export default function ContactDetail() {
               </div>
             )}
           </Card>
+          )}
         </div>
 
         {/* RIGHT RAIL */}
