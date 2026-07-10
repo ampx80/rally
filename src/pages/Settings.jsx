@@ -17,6 +17,7 @@ import {
   addCustomField, updateCustomField, removeCustomField, getFieldOptions,
 } from '../lib/fields';
 import { resetAudit } from '../lib/audit';
+import MailboxManager from '../components/MailboxManager.jsx';
 import {
   ROLES, CAPABILITIES, CAP_GROUPS, FIELD_SECURITY, roleMeta,
   getMatrix, grantCount, setGrant, resetRole, hasOverrides,
@@ -72,6 +73,7 @@ const TABS = [
   { key: 'modules', label: 'Modules' },
   { key: 'fields', label: 'Fields' },
   { key: 'roles', label: 'Roles' },
+  { key: 'email', label: 'Email' },
   { key: 'pipeline', label: 'Pipeline' },
   { key: 'notifications', label: 'Notifications' },
   { key: 'branding', label: 'Branding' },
@@ -451,7 +453,9 @@ export default function Settings() {
   useStore(); // subscribe for reactivity
   const mods = useModules(); // re-render on module toggle
   const toast = useToast();
-  const [tab, setTab] = useState('workspace');
+  const [tab, setTab] = useState(() => {
+    try { return new URLSearchParams(window.location.search).get('tab') || 'workspace'; } catch { return 'workspace'; }
+  });
 
   const [notif, setNotif] = useState({ won: true, task: true, mention: true, digest: false });
   const setN = (k) => (v) => setNotif(s => ({ ...s, [k]: v }));
@@ -498,6 +502,9 @@ export default function Settings() {
 
       {/* ---------- ROLES (RBAC matrix + view-as) ---------- */}
       {tab === 'roles' && <RolesTab />}
+
+      {/* ---------- EMAIL (connected mailboxes) ---------- */}
+      {tab === 'email' && <MailboxManager />}
 
       {/* ---------- WORKSPACE ---------- */}
       {tab === 'workspace' && (

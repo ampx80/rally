@@ -33,6 +33,7 @@ import Team from './pages/Team.jsx';
 import Settings from './pages/Settings.jsx';
 import Projects from './pages/Projects.jsx';
 import AuditLog from './pages/AuditLog.jsx';
+import ImportData from './pages/ImportData.jsx';
 import Studio from './pages/Studio.jsx';
 import DocBuilder from './pages/DocBuilder.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
@@ -47,7 +48,7 @@ import SeoPage from './marketing/SeoPage.jsx';
 import ComingSoon, { isUnlocked } from './gate/ComingSoon.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import']);
 
 const NAV_SECTIONS = [
   { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }] },
@@ -79,6 +80,7 @@ const NAV_SECTIONS = [
   { label: 'Admin', items: [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/team', label: 'Team', icon: 'users' },
+    { to: '/import', label: 'Import data', icon: 'download' },
     { to: '/audit', label: 'Audit log', icon: 'history' },
     { to: '/settings', label: 'Settings', icon: 'settings' },
   ] },
@@ -280,6 +282,7 @@ export default function App() {
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/team" element={<Team />} />
               <Route path="/audit" element={<AuditLog />} />
+              <Route path="/import" element={<ImportData />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
