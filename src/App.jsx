@@ -25,6 +25,7 @@ import Sequences from './pages/Sequences.jsx';
 import Inbox from './pages/Inbox.jsx';
 import Products from './pages/Products.jsx';
 import Quotes from './pages/Quotes.jsx';
+import QuoteDetail from './pages/QuoteDetail.jsx';
 import Invoices from './pages/Invoices.jsx';
 import Reports from './pages/Reports.jsx';
 import Workflows from './pages/Workflows.jsx';
@@ -249,6 +250,7 @@ export default function App() {
               <Route path="/inbox" element={<Inbox />} />
               <Route path="/products" element={<Products />} />
               <Route path="/quotes" element={<Quotes />} />
+              <Route path="/quotes/:id" element={<QuoteDetail />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/dashboards" element={<Dashboards />} />
               <Route path="/reports" element={<Reports />} />
