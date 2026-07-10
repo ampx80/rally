@@ -20,6 +20,7 @@ import {
   useSeoHead, metaFor, canonicalFor, orgLd, breadcrumbLd, faqLd, articleLd,
   definedTermLd, itemListLd,
 } from './seo/head.js';
+import SeoVisual from './seo/SeoVisual.jsx';
 
 function StatRow({ stats }) {
   const list = stats || [];
@@ -80,11 +81,18 @@ export default function SeoPage() {
 
       {/* Hero */}
       <header>
-        {entry.eyebrow && <div className="mkt-eyebrow" style={{ marginBottom: 12 }}>{entry.eyebrow}</div>}
-        {!entry.eyebrow && <div className="mkt-eyebrow" style={{ marginBottom: 12 }}>{entry.category}</div>}
-        <h1 className="mkt-h1" style={{ fontSize: 'clamp(2.1rem,4.6vw,3.4rem)', maxWidth: 900 }}>{entry.h1 || entry.title}</h1>
-        {entry.intro && <div style={{ marginTop: 18 }}><Paragraphs text={entry.intro} className="mkt-lead" /></div>}
-        <StatRow stats={stats} />
+        <div className="sv-hero">
+          <div className="sv-hero-copy">
+            {entry.eyebrow && <div className="mkt-eyebrow" style={{ marginBottom: 12 }}>{entry.eyebrow}</div>}
+            {!entry.eyebrow && <div className="mkt-eyebrow" style={{ marginBottom: 12 }}>{entry.category}</div>}
+            <h1 className="mkt-h1" style={{ fontSize: 'clamp(2.4rem,4.8vw,3.6rem)', maxWidth: 900 }}>{entry.h1 || entry.title}</h1>
+            {entry.intro && <div style={{ marginTop: 18 }}><Paragraphs text={entry.intro} className="mkt-lead" /></div>}
+            <StatRow stats={stats} />
+          </div>
+          <div className="sv-hero-viz">
+            <SeoVisual entry={entry} />
+          </div>
+        </div>
       </header>
 
       <ShortAnswer text={entry.shortAnswer} />

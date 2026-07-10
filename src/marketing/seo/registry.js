@@ -12,6 +12,7 @@ import DATASETS from './data/index.js';
 export const TYPE_META = {
   glossary:    { category: 'Definitions',  group: 'Learn',    icon: 'fileText', blurb: 'Plain-English definitions of the terms revenue teams actually use.' },
   howto:       { category: 'Guides',       group: 'Learn',    icon: 'checkSquare', blurb: 'Step-by-step playbooks for running a modern revenue org.' },
+  guide:       { category: 'Guides',       group: 'Learn',    icon: 'checkSquare', blurb: 'Step-by-step playbooks for running a modern revenue org.' },
   template:    { category: 'Templates',    group: 'Learn',    icon: 'copy',     blurb: 'Ready-to-use frameworks, scripts, and templates.' },
   usecase:     { category: 'Use cases',    group: 'Solutions', icon: 'target',  blurb: 'How teams put Rally to work for a specific job.' },
   industry:    { category: 'By industry',  group: 'Solutions', icon: 'building', blurb: 'The right CRM setup for your industry.' },

@@ -10,6 +10,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { Reveal, MktButton, CtaBand } from './kit.jsx';
+import { HeroStats, CategoryTiles, Constellation } from './viz2/PagesHubViz.jsx';
 import { ENTRIES, GROUP_ORDER, categoriesFor, featured, stats, TYPE_META } from './seo/registry.js';
 import { useSeoHead, orgLd, breadcrumbLd, canonicalFor, SITE } from './seo/head.js';
 
@@ -49,6 +50,19 @@ export default function PagesHub() {
   const feat = useMemo(() => featured(6), []);
   const needle = q.trim().toLowerCase();
 
+  const heroStats = useMemo(() => [
+    { value: s.total, suffix: '+', label: 'total pages', grad: true },
+    { value: s.categories, label: 'categories' },
+    { value: (s.byType.ranking || 0) + (s.byType.versus || 0), label: 'comparisons + rankings' },
+  ], [s]);
+
+  const groupTiles = useMemo(() => GROUP_ORDER.map((group) => {
+    const cats = categoriesFor(group);
+    const count = cats.reduce((n, c) => n + c.entries.length, 0);
+    const gm = GROUP_META[group] || {};
+    return { name: group, count, icon: gm.icon || 'layers', blurb: gm.blurb, to: `/pages#${group.toLowerCase()}` };
+  }).filter((t) => t.count > 0), []);
+
   const filtered = useMemo(() => {
     if (!needle) return null;
     return ENTRIES.filter(e => e.title.toLowerCase().includes(needle) || e.category.toLowerCase().includes(needle)).slice(0, 60);
@@ -68,8 +82,9 @@ export default function PagesHub() {
   return (
     <div>
       {/* Hero */}
-      <section className="mkt-hero" style={{ paddingBottom: 24 }}>
-        <div className="mkt-wrap">
+      <section className="mkt-hero" style={{ paddingBottom: 24, overflow: 'hidden' }}>
+        <Constellation />
+        <div className="mkt-wrap" style={{ position: 'relative', zIndex: 1 }}>
           <Reveal>
             <span className="mkt-pill" style={{ marginBottom: 20 }}><span className="mkt-dot" /> The Rally library</span>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
@@ -80,10 +95,8 @@ export default function PagesHub() {
             </p>
           </Reveal>
           <Reveal delay={80}>
-            <div style={{ display: 'flex', gap: 26, justifyContent: 'center', flexWrap: 'wrap', margin: '30px 0 8px' }}>
-              <div><div className="mkt-stat-value">{s.total}+</div><div className="mkt-stat-label">total pages</div></div>
-              <div><div className="mkt-stat-value">{s.categories}</div><div className="mkt-stat-label">categories</div></div>
-              <div><div className="mkt-stat-value">{(s.byType.ranking || 0) + (s.byType.versus || 0)}</div><div className="mkt-stat-label">comparisons + rankings</div></div>
+            <div style={{ margin: '34px 0 8px' }}>
+              <HeroStats stats={heroStats} />
             </div>
           </Reveal>
           <Reveal delay={140}>
@@ -111,6 +124,17 @@ export default function PagesHub() {
                 ))}
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* Browse by category */}
+      {!filtered && groupTiles.length > 0 && (
+        <section className="mkt-section-sm">
+          <div className="mkt-wrap">
+            <Reveal><h2 className="mkt-h2" style={{ marginBottom: 6 }}>Browse by category</h2>
+              <p className="mkt-lead" style={{ marginBottom: 24 }}>Three shelves, every page filed. Jump straight to the one you need.</p></Reveal>
+            <CategoryTiles tiles={groupTiles} />
           </div>
         </section>
       )}
@@ -143,7 +167,7 @@ export default function PagesHub() {
         if (!cats.length) return null;
         const gm = GROUP_META[group] || {};
         return (
-          <section key={group} className="mkt-section-sm" style={{ borderTop: '1px solid var(--m-line)' }}>
+          <section key={group} id={group.toLowerCase()} className="mkt-section-sm" style={{ borderTop: '1px solid var(--m-line)', scrollMarginTop: 90 }}>
             <div className="mkt-wrap">
               <Reveal style={{ display: 'flex', gap: 14, alignItems: 'center', marginBottom: 6 }}>
                 <span className="mkt-icon" style={{ flex: 'none' }}><Icon name={gm.icon || 'layers'} size={22} /></span>

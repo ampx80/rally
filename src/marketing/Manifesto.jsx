@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { Reveal, Pill, CtaBand } from './kit.jsx';
+import { KineticHeadline, Throughline, ShimmerQuote } from './viz2/ManifestoViz.jsx';
 
 function Section({ eyebrow, title, children, delay = 0 }) {
   return (
@@ -29,9 +30,7 @@ function PullQuote({ children }) {
       <div className="mkt-wrap">
         <Reveal>
           <div style={{ maxWidth: 940, margin: '0 auto', textAlign: 'center' }}>
-            <h3 className="mkt-h3 mkt-grad m-shine" style={{ fontSize: 'clamp(1.7rem, 3.6vw, 2.6rem)', lineHeight: 1.15, fontWeight: 800 }}>
-              {children}
-            </h3>
+            <ShimmerQuote>{children}</ShimmerQuote>
           </div>
         </Reveal>
       </div>
@@ -49,9 +48,13 @@ export default function Manifesto() {
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
               <Pill>Manifesto</Pill>
             </div>
-            <h1 className="mkt-h1" style={{ maxWidth: 960, margin: '0 auto' }}>
-              The incumbents bolted AI on. <span className="mkt-grad m-shine">We started there.</span>
-            </h1>
+            <KineticHeadline
+              style={{ maxWidth: 960, margin: '0 auto', display: 'block' }}
+              parts={[
+                { text: 'The incumbents bolted AI on.' },
+                { text: 'We started there.', grad: true },
+              ]}
+            />
             <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
               Every CRM on the market was built for a world before AI, then had a chatbot stapled to the side.
               Rally is what you build when the AI is the point, not the patch.
@@ -61,6 +64,21 @@ export default function Manifesto() {
       </section>
 
       <div className="mkt-wrap"><hr className="mkt-rule" /></div>
+
+      {/* The through-line: three eras of the CRM */}
+      <section className="mkt-section" style={{ paddingTop: 72, paddingBottom: 24 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div style={{ maxWidth: 760, margin: '0 auto 8px' }}>
+              <p className="mkt-eyebrow" style={{ marginBottom: 16 }}>The through-line</p>
+              <h2 className="mkt-h2">How the CRM got here, and where it goes next.</h2>
+            </div>
+          </Reveal>
+          <div style={{ marginTop: 20 }}>
+            <Throughline />
+          </div>
+        </div>
+      </section>
 
       {/* 1 */}
       <Section eyebrow="Chapter 01" title="The CRM became a system of record that reps hate.">

@@ -1,0 +1,355 @@
+/* ============================================================
+   SEO VISUAL - per-type animated hero diagrams for /pages/:slug.
+   One component (SeoVisual.jsx) renders a different beautiful,
+   animated schematic per entry.type. Every rule is scoped under
+   .mkt .sv-* so it can never leak into the product app. Motion is
+   transform / opacity / stroke-dashoffset only, 60fps, and frozen
+   under prefers-reduced-motion. NO em-dash / en-dash. ASCII only.
+   ============================================================ */
+
+.mkt .sv-wrap { width: 100%; max-width: 460px; margin: 0 auto; }
+
+/* Hero: copy on the left, animated diagram on the right; stacks on mobile. */
+.mkt .sv-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 44px; align-items: center; }
+.mkt .sv-hero-copy { min-width: 0; }
+.mkt .sv-hero-copy .mkt-lead { font-size: clamp(1.18rem, 2.1vw, 1.5rem); }
+.mkt .sv-hero-viz { min-width: 0; animation: svkRise .7s var(--spring) both; }
+@media (max-width: 900px) {
+  .mkt .sv-hero { grid-template-columns: 1fr; gap: 30px; }
+  .mkt .sv-hero-viz { order: 2; }
+  .mkt .sv-wrap { max-width: 460px; }
+}
+
+/* Shared premium frame so every diagram reads as one system. */
+.mkt .sv-frame {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border: 1px solid var(--m-line2);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: var(--m-shadow-lg);
+  overflow: hidden;
+}
+.mkt .sv-frame::before {
+  content: '';
+  position: absolute; top: -45%; right: -30%;
+  width: 60%; height: 80%;
+  background: radial-gradient(circle, rgba(91,75,245,.10), transparent 70%);
+  pointer-events: none;
+}
+.mkt .sv-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--m-ink3);
+  margin-bottom: 14px;
+}
+.mkt .sv-head .sv-live {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+  color: var(--m-teal); letter-spacing: .04em;
+}
+.mkt .sv-dot {
+  width: 7px; height: 7px; border-radius: 999px; background: var(--m-teal);
+  box-shadow: 0 0 8px 1px rgba(14,159,154,.55);
+  animation: svkPulse 2s ease-in-out infinite;
+}
+
+/* Building blocks reused across diagrams. */
+.mkt .sv-mono {
+  width: 44px; height: 44px; border-radius: 12px; flex: none;
+  display: grid; place-items: center; color: #fff;
+  font-weight: 800; font-size: 15px; letter-spacing: -.02em;
+  background: linear-gradient(135deg, #3d4453, #232833);
+  box-shadow: var(--m-shadow-sm);
+}
+.mkt .sv-mono-rally {
+  background: linear-gradient(135deg, #6d5cf7, #4a3ce0);
+  box-shadow: 0 8px 20px -6px rgba(91,75,245,.6);
+}
+.mkt .sv-nodename { font-size: 12px; font-weight: 800; color: var(--m-ink); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt .sv-nodesub { font-size: 10px; font-weight: 700; color: var(--m-ink3); }
+
+.mkt .sv-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* ---------- keyframes ---------- */
+@keyframes svkPulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes svkRise { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+@keyframes svkPop { 0% { opacity: 0; transform: scale(.3); } 70% { transform: scale(1.15); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes svkFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes svkDraw { to { stroke-dashoffset: 0; } }
+
+/* record chip streaming through the migration pipe (SVG userspace px) */
+@keyframes svkStream {
+  0%   { opacity: 0; transform: translateX(0); }
+  12%  { opacity: 1; }
+  80%  { opacity: 1; }
+  92%  { opacity: 0; transform: translateX(150px); }
+  100% { opacity: 0; transform: translateX(150px); }
+}
+/* bar fill (dueling + ranking): fills, holds, resets so it loops "alive" */
+@keyframes svkFill {
+  0% { width: 0; }
+  26% { width: var(--sv-w, 60%); }
+  90% { width: var(--sv-w, 60%); }
+  100% { width: 0; }
+}
+/* checkmark row ticks on one by one and holds */
+@keyframes svkTick {
+  0%, 6% { opacity: 0; transform: scale(.4); }
+  18%, 90% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.4); }
+}
+@keyframes svkRowLift {
+  0%, 6% { color: var(--m-ink3); }
+  18%, 100% { color: var(--m-ink2); }
+}
+/* integration data dots pulsing both ways (SVG) */
+@keyframes svkDotR { 0% { opacity: 0; transform: translateX(0); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(96px); } }
+@keyframes svkDotL { 0% { opacity: 0; transform: translateX(0); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translateX(-96px); } }
+/* alternative: source dims, rally lights */
+@keyframes svkDim { 0%,20% { opacity: 1; filter: grayscale(0); } 60%,100% { opacity: .42; filter: grayscale(1); } }
+@keyframes svkLight { 0%,20% { box-shadow: var(--m-shadow-sm); border-color: var(--m-line2); } 60%,100% { box-shadow: 0 18px 40px -18px rgba(91,75,245,.55); border-color: rgba(91,75,245,.5); } }
+@keyframes svkCross { 0%,15% { opacity: 0; transform: translateX(0); } 35% { opacity: 1; } 70% { opacity: 1; } 90%,100% { opacity: 0; transform: translateX(148px); } }
+/* feature toggle knob */
+@keyframes svkToggleBg { 0%,30% { background: var(--m-line2); } 55%,100% { background: var(--m-accent); } }
+@keyframes svkToggleKnob { 0%,30% { transform: translateX(0); } 55%,100% { transform: translateX(18px); } }
+@keyframes svkRowGlow { 0%,40% { background: transparent; } 60%,88% { background: rgba(91,75,245,.08); } 100% { background: transparent; } }
+/* seam clash for versus */
+@keyframes svkSeam { 0%,100% { opacity: .3; transform: scaleY(.8); } 50% { opacity: 1; transform: scaleY(1.05); } }
+/* funnel bar grow */
+@keyframes svkFunnel { 0% { transform: scaleX(0); opacity: 0; } 55% { opacity: 1; } 100% { transform: scaleX(1); opacity: 1; } }
+/* step light-up */
+@keyframes svkStep {
+  0%, 8% { opacity: .4; }
+  22%, 100% { opacity: 1; }
+}
+@keyframes svkStepDot {
+  0%, 8% { background: var(--m-bg2); border-color: var(--m-line2); color: transparent; }
+  22%, 100% { background: var(--m-teal); border-color: var(--m-teal); color: #fff; }
+}
+@keyframes svkCrown { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-3px) rotate(4deg); } }
+
+/* ============================================================
+   MIGRATION
+   ============================================================ */
+.mkt .sv-map { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.mkt .sv-map li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: var(--m-ink2);
+  animation: svkRowLift 5s ease-in-out infinite;
+}
+.mkt .sv-map .sv-from { color: var(--m-ink3); }
+.mkt .sv-map .sv-arrow { color: var(--m-accent); display: inline-flex; }
+.mkt .sv-map .sv-to { color: var(--m-ink); }
+.mkt .sv-map .sv-mapcheck {
+  margin-left: auto; width: 18px; height: 18px; border-radius: 6px; flex: none;
+  display: grid; place-items: center; color: #fff; background: var(--m-teal);
+  animation: svkTick 5s ease-in-out infinite;
+}
+.mkt .sv-map li:nth-child(1) .sv-mapcheck { animation-delay: .0s; }
+.mkt .sv-map li:nth-child(2) .sv-mapcheck { animation-delay: .5s; }
+.mkt .sv-map li:nth-child(3) .sv-mapcheck { animation-delay: 1.0s; }
+.mkt .sv-map li:nth-child(1) { animation-delay: .0s; }
+.mkt .sv-map li:nth-child(2) { animation-delay: .5s; }
+.mkt .sv-map li:nth-child(3) { animation-delay: 1.0s; }
+
+/* ============================================================
+   VERSUS / COMPARISON - dueling bars
+   ============================================================ */
+.mkt .sv-duel { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mkt .sv-duel-seam {
+  position: absolute; top: 6%; bottom: 6%; left: 50%; width: 2px; transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, var(--m-accent), transparent);
+  transform-origin: center; animation: svkSeam 1.8s ease-in-out infinite;
+}
+.mkt .sv-duel-vs {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 11px; font-weight: 900; color: #fff; letter-spacing: .02em;
+  background: linear-gradient(135deg, #6d5cf7, #4a3ce0);
+  box-shadow: 0 8px 18px -6px rgba(91,75,245,.6); z-index: 2;
+}
+.mkt .sv-panel-name { font-size: 12.5px; font-weight: 800; color: var(--m-ink); margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt .sv-bars { display: flex; flex-direction: column; gap: 9px; }
+.mkt .sv-bar-track { height: 8px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.mkt .sv-bar-fill { display: block; height: 100%; border-radius: 99px; width: 0; animation: svkFill 4.5s var(--glide) infinite; }
+.mkt .sv-bar-a .sv-bar-fill { background: linear-gradient(90deg, #7c8399, #454c5e); }
+.mkt .sv-bar-b .sv-bar-fill { background: linear-gradient(90deg, #9aa0b0, #6b7182); }
+.mkt .sv-winner { margin-top: 14px; }
+.mkt .sv-winner-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.mkt .sv-winner-name { font-size: 12.5px; font-weight: 800; color: var(--m-accent); }
+.mkt .sv-winner-tag { margin-left: auto; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--m-teal); background: rgba(14,159,154,.12); padding: 3px 8px; border-radius: 999px; }
+.mkt .sv-winner-track { height: 10px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.mkt .sv-winner-fill { display: block; height: 100%; border-radius: 99px; width: 0; background: var(--m-grad); box-shadow: 0 4px 12px -3px rgba(91,75,245,.5); animation: svkFill 4.5s var(--glide) infinite; animation-delay: .3s; }
+
+/* ============================================================
+   RANKING - ranked bars, #1 crowned
+   ============================================================ */
+.mkt .sv-rank { display: flex; flex-direction: column; gap: 11px; }
+.mkt .sv-rank-row { display: grid; grid-template-columns: 20px 1fr auto; align-items: center; gap: 10px; }
+.mkt .sv-rank-num { font-size: 12px; font-weight: 900; color: var(--m-ink3); text-align: center; }
+.mkt .sv-rank-body { min-width: 0; }
+.mkt .sv-rank-name { font-size: 12px; font-weight: 800; color: var(--m-ink2); margin-bottom: 5px; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt .sv-rank-track { height: 8px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.mkt .sv-rank-fill { display: block; height: 100%; border-radius: 99px; width: 0; background: linear-gradient(90deg, #9aa0b0, #6b7182); animation: svkFill 5s var(--glide) infinite; }
+.mkt .sv-rank-score { font-size: 12px; font-weight: 800; color: var(--m-ink3); font-variant-numeric: tabular-nums; }
+.mkt .sv-rank-row.is-top .sv-rank-fill { background: var(--m-grad); box-shadow: 0 4px 12px -3px rgba(91,75,245,.5); }
+.mkt .sv-rank-row.is-top .sv-rank-name { color: var(--m-ink); }
+.mkt .sv-rank-row.is-top .sv-rank-num { color: var(--m-accent); }
+.mkt .sv-rank-row.is-top .sv-rank-score { color: var(--m-accent); }
+.mkt .sv-crown { color: #e0a52d; display: inline-flex; animation: svkCrown 2.4s ease-in-out infinite; transform-origin: center; }
+
+/* ============================================================
+   ALTERNATIVE - leaving X, Rally lights up
+   ============================================================ */
+.mkt .sv-alt { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+.mkt .sv-alt-card { border: 1px solid var(--m-line2); border-radius: 14px; padding: 13px; background: #fff; box-shadow: var(--m-shadow-sm); }
+.mkt .sv-alt-src { animation: svkDim 5s ease-in-out infinite; }
+.mkt .sv-alt-rally { animation: svkLight 5s ease-in-out infinite; position: relative; }
+.mkt .sv-alt-top { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; }
+.mkt .sv-alt-item { height: 8px; border-radius: 99px; background: var(--m-line); margin-top: 7px; }
+.mkt .sv-alt-item.w1 { width: 88%; } .mkt .sv-alt-item.w2 { width: 66%; } .mkt .sv-alt-item.w3 { width: 78%; }
+.mkt .sv-alt-rally .sv-alt-item { background: linear-gradient(90deg, rgba(91,75,245,.5), rgba(168,85,247,.35)); }
+.mkt .sv-cross { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 100%; pointer-events: none; }
+.mkt .sv-cross span {
+  position: absolute; top: 50%; left: 8%;
+  width: 26px; height: 10px; border-radius: 99px;
+  background: linear-gradient(90deg, var(--m-accent), var(--m-accent2));
+  box-shadow: 0 4px 10px -3px rgba(91,75,245,.5);
+  animation: svkCross 3.4s ease-in-out infinite;
+}
+.mkt .sv-cross span:nth-child(1) { top: 34%; animation-delay: .0s; }
+.mkt .sv-cross span:nth-child(2) { top: 50%; animation-delay: .5s; }
+.mkt .sv-cross span:nth-child(3) { top: 66%; animation-delay: 1.0s; }
+
+/* ============================================================
+   GLOSSARY - funnel + count-up
+   ============================================================ */
+.mkt .sv-metric { text-align: center; margin-bottom: 16px; }
+.mkt .sv-metric-value { font-size: clamp(2.4rem, 7vw, 3.2rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; color: var(--m-ink); font-variant-numeric: tabular-nums; }
+.mkt .sv-metric-value b { background: var(--m-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mkt .sv-metric-label { font-size: 12px; font-weight: 700; color: var(--m-ink3); margin-top: 6px; text-transform: capitalize; }
+.mkt .sv-funnel { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.mkt .sv-funnel-bar {
+  height: 22px; border-radius: 8px; background: var(--m-grad);
+  display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 800;
+  transform-origin: center; animation: svkFunnel 4s var(--glide) infinite;
+  box-shadow: 0 6px 14px -8px rgba(91,75,245,.5);
+}
+.mkt .sv-funnel-bar:nth-child(1) { width: 100%; opacity: 1; animation-delay: .0s; }
+.mkt .sv-funnel-bar:nth-child(2) { width: 78%; opacity: .9; animation-delay: .18s; }
+.mkt .sv-funnel-bar:nth-child(3) { width: 55%; opacity: .8; animation-delay: .36s; }
+.mkt .sv-funnel-bar:nth-child(4) { width: 34%; opacity: .72; animation-delay: .54s; }
+
+/* ============================================================
+   FEATURE - mini product demo card
+   ============================================================ */
+.mkt .sv-demo-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.mkt .sv-demo-title { font-size: 13.5px; font-weight: 800; color: var(--m-ink); letter-spacing: -.01em; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt .sv-toggle { margin-left: auto; width: 40px; height: 22px; border-radius: 999px; position: relative; flex: none; animation: svkToggleBg 4s ease-in-out infinite; }
+.mkt .sv-toggle span { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgba(16,20,32,.25); animation: svkToggleKnob 4s ease-in-out infinite; }
+.mkt .sv-demo-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.mkt .sv-demo-row { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--m-line); }
+.mkt .sv-demo-row.is-hot { animation: svkRowGlow 4s ease-in-out infinite; border-color: rgba(91,75,245,.25); }
+.mkt .sv-demo-avatar { width: 22px; height: 22px; border-radius: 50%; flex: none; background: linear-gradient(135deg, #6d5cf7, #a855f7); color: #fff; display: grid; place-items: center; font-size: 9px; font-weight: 800; }
+.mkt .sv-demo-line { height: 7px; border-radius: 99px; background: var(--m-line2); }
+.mkt .sv-demo-chip { margin-left: auto; font-size: 9.5px; font-weight: 800; color: var(--m-accent); background: rgba(91,75,245,.1); padding: 3px 8px; border-radius: 999px; flex: none; }
+.mkt .sv-spark { width: 100%; height: 48px; display: block; }
+.mkt .sv-spark-line { stroke-dasharray: 320; stroke-dashoffset: 320; animation: svkDraw 1.6s var(--glide) infinite alternate; }
+
+/* ============================================================
+   INDUSTRY - mini KPI dashboard
+   ============================================================ */
+.mkt .sv-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.mkt .sv-kpi { border: 1px solid var(--m-line); border-radius: 12px; padding: 11px 10px; background: #fff; animation: svkRise .6s var(--spring) both; }
+.mkt .sv-kpi:nth-child(2) { animation-delay: .1s; } .mkt .sv-kpi:nth-child(3) { animation-delay: .2s; }
+.mkt .sv-kpi-value { font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--m-ink); font-variant-numeric: tabular-nums; }
+.mkt .sv-kpi-label { font-size: 9.5px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--m-ink3); margin-top: 3px; }
+.mkt .sv-kpi-value.accent { color: var(--m-accent); }
+
+/* ============================================================
+   ROLE - day in the life task flow
+   ============================================================ */
+.mkt .sv-flow { display: flex; flex-direction: column; gap: 9px; }
+.mkt .sv-flow-item {
+  display: flex; align-items: center; gap: 11px;
+  font-size: 12.5px; font-weight: 700; color: var(--m-ink2);
+  padding: 9px 11px; border-radius: 10px; border: 1px solid var(--m-line);
+  animation: svkStep 5s ease-in-out infinite;
+}
+.mkt .sv-flow-dot {
+  width: 22px; height: 22px; border-radius: 7px; flex: none;
+  display: grid; place-items: center; font-size: 11px; font-weight: 900;
+  background: var(--m-bg2); border: 1px solid var(--m-line2); color: var(--m-ink3);
+  animation: svkStepDot 5s ease-in-out infinite;
+}
+.mkt .sv-flow-item:nth-child(1), .mkt .sv-flow-item:nth-child(1) .sv-flow-dot { animation-delay: .0s; }
+.mkt .sv-flow-item:nth-child(2), .mkt .sv-flow-item:nth-child(2) .sv-flow-dot { animation-delay: .5s; }
+.mkt .sv-flow-item:nth-child(3), .mkt .sv-flow-item:nth-child(3) .sv-flow-dot { animation-delay: 1.0s; }
+.mkt .sv-flow-item:nth-child(4), .mkt .sv-flow-item:nth-child(4) .sv-flow-dot { animation-delay: 1.5s; }
+.mkt .sv-flow-item:nth-child(5), .mkt .sv-flow-item:nth-child(5) .sv-flow-dot { animation-delay: 2.0s; }
+
+/* ============================================================
+   INTEGRATION - two-node connector (SVG)
+   ============================================================ */
+.mkt .sv-int-node { fill: #fff; stroke: var(--m-line2); stroke-width: 1.5; filter: drop-shadow(0 8px 16px rgba(16,20,32,.10)); }
+.mkt .sv-int-core { filter: drop-shadow(0 10px 22px rgba(74,60,224,.45)); }
+.mkt .sv-int-label { font-size: 11px; font-weight: 800; fill: var(--m-ink2); }
+.mkt .sv-int-mono { font-size: 15px; font-weight: 800; fill: #fff; }
+.mkt .sv-int-wire { stroke: var(--m-line2); stroke-width: 2; stroke-dasharray: 4 5; }
+.mkt .sv-int-dotr { animation: svkDotR 1.8s linear infinite; }
+.mkt .sv-int-dotr.d2 { animation-delay: .9s; }
+.mkt .sv-int-dotl { animation: svkDotL 1.8s linear infinite; animation-delay: .45s; }
+.mkt .sv-int-dotl.d2 { animation-delay: 1.35s; }
+
+/* ============================================================
+   GUIDE / USECASE - numbered step flow (reuses .sv-flow)
+   TEMPLATE - typewriter doc + copy
+   ============================================================ */
+.mkt .sv-doc { border: 1px solid var(--m-line); border-radius: 12px; background: #fff; padding: 14px; box-shadow: var(--m-shadow-sm); }
+.mkt .sv-doc-head { display: flex; align-items: center; gap: 8px; padding-bottom: 11px; margin-bottom: 12px; border-bottom: 1px solid var(--m-line); font-size: 11.5px; font-weight: 800; color: var(--m-ink2); }
+.mkt .sv-doc-head .sv-doc-ic { color: var(--m-accent); display: inline-flex; }
+.mkt .sv-doc-body { font-size: 12.5px; line-height: 1.6; color: var(--m-ink2); min-height: 5.2em; font-weight: 500; }
+.mkt .sv-doc-cursor { display: inline-block; width: 2px; height: 1.05em; background: var(--m-accent); vertical-align: text-bottom; margin-left: 1px; animation: svkPulse .85s step-end infinite; }
+.mkt .sv-doc-foot { display: flex; align-items: center; justify-content: flex-end; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--m-line); }
+.mkt .sv-copy { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); border-radius: 8px; padding: 6px 12px; box-shadow: 0 8px 16px -8px rgba(91,75,245,.6); transition: opacity .3s, transform .3s; }
+.mkt .sv-copy.is-off { opacity: .4; transform: scale(.96); }
+
+/* ============================================================
+   DEFAULT - Rook builds card
+   ============================================================ */
+.mkt .sv-rook { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.mkt .sv-rook-mark { width: 40px; height: 40px; border-radius: 11px; flex: none; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); box-shadow: 0 8px 18px -6px rgba(91,75,245,.6); animation: svkFloat 6s ease-in-out infinite; }
+.mkt .sv-rook-title { font-size: 13px; font-weight: 800; color: var(--m-ink); }
+.mkt .sv-think span { width: 6px; height: 6px; border-radius: 50%; background: var(--m-accent); display: inline-block; margin-right: 4px; animation: svkThink 1.1s infinite; }
+.mkt .sv-think span:nth-child(2) { animation-delay: .18s; } .mkt .sv-think span:nth-child(3) { animation-delay: .36s; }
+@keyframes svkThink { 0%,60%,100% { opacity: .25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
+/* ============================================================
+   REDUCED MOTION - freeze everything at a legible final state
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .mkt .sv-dot, .mkt .sv-map li, .mkt .sv-map .sv-mapcheck, .mkt .sv-bar-fill, .mkt .sv-winner-fill,
+  .mkt .sv-rank-fill, .mkt .sv-duel-seam, .mkt .sv-alt-src, .mkt .sv-alt-rally, .mkt .sv-cross span,
+  .mkt .sv-funnel-bar, .mkt .sv-toggle, .mkt .sv-toggle span, .mkt .sv-demo-row.is-hot, .mkt .sv-spark-line,
+  .mkt .sv-kpi, .mkt .sv-flow-item, .mkt .sv-flow-dot, .mkt .sv-int-dotr, .mkt .sv-int-dotl,
+  .mkt .sv-crown, .mkt .sv-rook-mark, .mkt .sv-think span, .mkt .sv-doc-cursor, .mkt .sv-mig-rec {
+    animation: none !important;
+  }
+  .mkt .sv-bar-fill, .mkt .sv-winner-fill, .mkt .sv-rank-fill { width: var(--sv-w, 60%) !important; }
+  .mkt .sv-funnel-bar { transform: none !important; opacity: 1 !important; }
+  .mkt .sv-spark-line { stroke-dashoffset: 0 !important; }
+  .mkt .sv-map .sv-mapcheck { opacity: 1 !important; transform: none !important; }
+  .mkt .sv-flow-item { opacity: 1 !important; }
+  .mkt .sv-flow-dot { background: var(--m-teal) !important; border-color: var(--m-teal) !important; color: #fff !important; }
+  .mkt .sv-toggle { background: var(--m-accent) !important; }
+  .mkt .sv-toggle span { transform: translateX(18px) !important; }
+  .mkt .sv-alt-src { opacity: .42 !important; filter: grayscale(1) !important; }
+  .mkt .sv-mig-rec { opacity: 1 !important; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 980px) {
+  .mkt .sv-wrap { max-width: 520px; }
+}

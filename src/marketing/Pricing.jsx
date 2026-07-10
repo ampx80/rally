@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
 import { Icon } from '../components/icons.jsx';
+import { PlanCards, RoiCompare } from './viz2/PricingViz.jsx';
 
 const TIERS = [
   {
@@ -135,52 +136,24 @@ export default function Pricing() {
       {/* Tier cards */}
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
+          <PlanCards tiers={TIERS} annual={annual} />
+          <p className="mkt-dim" style={{ fontSize: 13.5, textAlign: 'center', marginTop: 24 }}>
+            Pricing is illustrative for this preview.
+          </p>
+        </div>
+      </section>
+
+      {/* ROI / comparison */}
+      <section className="mkt-section-sm">
+        <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-grid mkt-grid-3 m-cascade">
-              {TIERS.map((t) => {
-                const isPaid = !t.custom && t.monthly > 0;
-                const price = t.custom
-                  ? 'Custom'
-                  : t.monthly === 0
-                    ? '$0'
-                    : `$${annual ? annualPerMonth(t.monthly) : t.monthly}`;
-                const unit = isPaid ? (annual ? 'per seat / mo, billed annually' : t.unit) : t.unit;
-                return (
-                  <div
-                    key={t.name}
-                    className={`mkt-card${t.popular ? ' mkt-card-glow m-float-c' : ''}`}
-                    style={t.popular ? { borderColor: 'rgba(109,92,247,.6)', boxShadow: '0 0 0 1px rgba(109,92,247,.3), 0 30px 80px -30px rgba(109,92,247,.5)' } : undefined}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 26 }}>
-                      <h3 className="mkt-h3">{t.name}</h3>
-                      {t.popular && <span className="mkt-pill" style={{ padding: '4px 12px', fontSize: 12 }}>Most popular</span>}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 18 }}>
-                      <span className="mkt-stat-value" style={{ fontSize: 'clamp(2.4rem, 4vw, 3rem)' }}>{price}</span>
-                    </div>
-                    <div className="mkt-dim" style={{ fontSize: 14, fontWeight: 600, marginTop: 4 }}>{unit}</div>
-                    <p className="mkt-muted" style={{ marginTop: 14, lineHeight: 1.5 }}>{t.line}</p>
-                    <hr className="mkt-rule" style={{ margin: '22px 0' }} />
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 13 }}>
-                      {t.features.map((f, i) => (
-                        <li key={i} style={{ display: 'flex', gap: 11, alignItems: 'flex-start' }}>
-                          <span className="mkt-yes" style={{ marginTop: 1, flexShrink: 0 }}><Icon name="check" size={18} /></span>
-                          <span style={{ color: 'var(--m-ink)', lineHeight: 1.45 }}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div style={{ marginTop: 26 }}>
-                      <MktButton to={t.to} variant={t.popular ? 'primary' : 'ghost'} className="m-magnet">
-                        {t.cta} <Icon name="chevronRight" size={18} />
-                      </MktButton>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="mkt-center" style={{ maxWidth: 640, margin: '0 auto 34px' }}>
+              <p className="mkt-eyebrow">The math</p>
+              <h2 className="mkt-h2" style={{ marginTop: 12 }}>See what the bolt-on tax really costs.</h2>
             </div>
-            <p className="mkt-dim" style={{ fontSize: 13.5, textAlign: 'center', marginTop: 22 }}>
-              Pricing is illustrative for this preview.
-            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <RoiCompare />
           </Reveal>
         </div>
       </section>

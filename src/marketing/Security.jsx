@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { Reveal, Pill, CtaBand } from './kit.jsx';
+import { ShieldAssemble, DataFlow, ComplianceBadges, EncryptChip } from './viz2/SecurityViz.jsx';
 
 const CAPS = [
   { icon: 'zap', title: 'Encryption in transit and at rest', line: 'TLS 1.2+ on every request. Data encrypted at rest with AES-256. No plaintext at any layer.' },
@@ -46,6 +47,35 @@ export default function Security() {
               Your revenue data is the most sensitive data you have. We treat it that way, from the first
               commit to every action Rook takes on your behalf.
             </p>
+          </Reveal>
+          <Reveal delay={120}>
+            <ShieldAssemble />
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 22 }}>
+              <EncryptChip />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Data-flow diagram */}
+      <section className="mkt-section" style={{ paddingTop: 0 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 660, margin: '0 auto 40px' }}>
+              <p className="mkt-eyebrow">In transit and at rest</p>
+              <h2 className="mkt-h2" style={{ marginTop: 12 }}>Encrypted end to end.</h2>
+              <p className="mkt-body" style={{ marginTop: 14 }}>
+                Every request rides TLS 1.2+ to the Rally edge, and every record lands encrypted with AES-256.
+                Your data is never in the clear at any layer.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={90}>
+            <div style={{ maxWidth: 860, margin: '0 auto' }}>
+              <DataFlow />
+            </div>
           </Reveal>
         </div>
       </section>
@@ -131,17 +161,7 @@ export default function Security() {
               </p>
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3">
-            {COMPLIANCE.map((c, i) => (
-              <Reveal key={c.label} delay={i * 80}>
-                <div className="mkt-card mkt-center" style={{ height: '100%' }}>
-                  <div className="mkt-icon" style={{ margin: '0 auto' }}><Icon name={c.icon} size={22} /></div>
-                  <div className="mkt-h3" style={{ marginTop: 16 }}>{c.label}</div>
-                  <div style={{ marginTop: 8, color: 'var(--m-teal)', fontWeight: 700, fontSize: 15 }}>{c.status}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <ComplianceBadges items={COMPLIANCE} />
           <Reveal delay={120}>
             <p className="mkt-dim mkt-center" style={{ fontSize: 14, marginTop: 28, maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
               Have a security question or need our latest documentation? <Link to="/app" className="mkt-grad" style={{ fontWeight: 700 }}>Get in touch</Link> and we will

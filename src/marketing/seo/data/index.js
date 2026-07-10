@@ -14,9 +14,15 @@ import usecases from './usecases.js';
 import glossary from './glossary.js';
 import guides from './guides.js';
 import templates from './templates.js';
+import pipelineTopics from './pipeline-topics.js';
+import outreachTopics from './outreach-topics.js';
+import metricsTopics from './metrics-topics.js';
+import dataOpsTopics from './data-ops-topics.js';
+import processTopics from './process-topics.js';
 
 export default [
   rankings, versus, comparisons, alternatives, migrations,
   features, industries, roles, integrations, usecases,
   glossary, guides, templates,
+  pipelineTopics, outreachTopics, metricsTopics, dataOpsTopics, processTopics,
 ];
