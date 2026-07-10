@@ -9,6 +9,7 @@ import AgentTheater from './AgentTheater.jsx';
 import HeroCurrent from './HeroCurrent.jsx';
 import HeroStage from './HeroStage.jsx';
 import OrbitDiagram from './OrbitDiagram.jsx';
+import SwitchScene from './SwitchScene.jsx';
 import { Icon } from '../components/icons.jsx';
 
 /* ------------------------------------------------------------------ */
@@ -284,50 +285,7 @@ export default function Home() {
             </div>
           </Reveal>
           <Reveal delay={80}>
-            <div className="mkt-grid mkt-grid-2" style={{ gap: 26, alignItems: 'stretch' }}>
-              {/* the old way */}
-              <div className="mkt-card" style={{ filter: 'grayscale(.9)', opacity: .92 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-ink3)', marginBottom: 16 }}>THE OLD WAY</div>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-                  <span style={{ fontSize: 11.5, fontWeight: 700, background: 'var(--m-bg2)', border: '1px solid var(--m-line2)', borderRadius: 999, padding: '4px 11px', color: 'var(--m-ink2)' }}>Setup: month 7 of 11</span>
-                  <span style={{ fontSize: 11.5, fontWeight: 700, background: 'var(--m-bg2)', border: '1px solid var(--m-line2)', borderRadius: 999, padding: '4px 11px', color: 'var(--m-ink2)' }}>3 admins required</span>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  {OLD_ROWS.map((w, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ width: 22, height: 22, borderRadius: 6, background: 'var(--m-line)', flex: 'none' }} />
-                      <span style={{ height: 10, width: `${w}%`, borderRadius: 99, background: i % 3 === 0 ? 'var(--m-line2)' : 'var(--m-line)' }} />
-                    </div>
-                  ))}
-                </div>
-                <p className="mkt-body" style={{ margin: '20px 0 0', fontSize: 14.5 }}>
-                  Eleven tabs, four required fields nobody understands, and a consultant on retainer.
-                </p>
-              </div>
-              {/* the rally way */}
-              <div className="mkt-card mkt-card-glow">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.12em', color: 'var(--m-accent)' }}>THE RALLY WAY</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 700, color: 'var(--m-teal)' }}><span className="mkt-dot m-pulse" style={{ background: 'var(--m-teal)' }} /> LIVE IN 3 SECONDS</span>
-                </div>
-                <div style={{ background: '#fff', border: '1px solid var(--m-line2)', borderRadius: 14, padding: 16, boxShadow: 'var(--m-shadow-sm)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
-                    <span style={{ fontWeight: 700, fontSize: 15, minWidth: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Meridian Health - platform rollout</span>
-                    <span style={{ fontWeight: 800, fontSize: 17, color: 'var(--m-accent)', flex: 'none' }}>$240K</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 12, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: '#2563a8', background: 'rgba(37,99,168,.1)', padding: '4px 10px', borderRadius: 999 }}>QUALIFIED</span>
-                    <span style={{ fontSize: 12.5, color: 'var(--m-ink2)', fontWeight: 600 }}>Next step: exec demo Thursday</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 14, background: 'rgba(91,75,245,.07)', border: '1px solid rgba(91,75,245,.2)', borderRadius: 10, padding: '8px 11px', fontSize: 12.5, fontWeight: 700, color: 'var(--m-accent)' }}>
-                    <Icon name="sparkles" size={14} /> Rook drafted your follow-up
-                  </div>
-                </div>
-                <p className="mkt-body" style={{ margin: '20px 0 0', fontSize: 14.5 }}>
-                  One card, everything on it, and the follow-up already written. That is the whole workflow.
-                </p>
-              </div>
-            </div>
+            <SwitchScene />
           </Reveal>
         </div>
       </section>

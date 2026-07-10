@@ -369,3 +369,75 @@
   .mkt-stage-metrics { gap: 12px; }
   .mkt-hero-trust { gap: 16px; }
 }
+
+/* ============================================================
+   SWITCH SCENE - old way (thrashing) vs Rally way (assembles).
+   All scoped under .mkt. Motion contrast IS the message.
+   ============================================================ */
+.mkt-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; }
+.mkt-switch-card { background: #fff; border: 1px solid var(--m-line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; box-shadow: var(--m-shadow-sm); position: relative; overflow: hidden; }
+.mkt-switch-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.mkt-switch-kicker { font-size: 12px; font-weight: 800; letter-spacing: .13em; }
+.mkt-oldway-kicker { color: var(--m-ink3); }
+.mkt-rally-kicker { color: var(--m-accent); }
+.mkt-switch-cap { margin: 18px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--m-ink2); }
+
+/* --- OLD WAY --- */
+.mkt-oldway { background: linear-gradient(180deg, #fbfbfd, #f5f6f9); }
+.mkt-oldway-loading { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; color: #b23b3b; }
+.mkt-spinner { width: 13px; height: 13px; border-radius: 50%; border: 2px solid rgba(178,59,59,.25); border-top-color: #b23b3b; display: inline-block; animation: mktSpin .8s linear infinite; }
+@keyframes mktSpin { to { transform: rotate(360deg); } }
+
+.mkt-oldtabs { display: flex; gap: 3px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--m-line2); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+.mkt-oldtab { flex: none; font-size: 11px; font-weight: 700; color: var(--m-ink3); background: #eef0f4; border: 1px solid var(--m-line2); border-bottom: none; border-radius: 7px 7px 0 0; padding: 6px 10px; white-space: nowrap; filter: grayscale(1); }
+.mkt-oldtab.is-active { background: #fff; color: var(--m-ink2); box-shadow: 0 -2px 0 #c9ccd6 inset; }
+.mkt-oldtab-more { background: transparent; border-style: dashed; }
+
+.mkt-oldbar-wrap { margin-bottom: 16px; }
+.mkt-oldbar-row { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: var(--m-ink3); margin-bottom: 6px; }
+.mkt-oldbar-pct { font-variant-numeric: tabular-nums; }
+.mkt-oldbar-track { height: 7px; border-radius: 99px; background: #e6e8ee; overflow: hidden; }
+.mkt-oldbar-fill { display: block; height: 100%; border-radius: 99px; background: repeating-linear-gradient(45deg, #b9bdc8, #b9bdc8 6px, #aab0bd 6px, #aab0bd 12px); width: 63%; animation: mktCreep 5s ease-in-out infinite; }
+@keyframes mktCreep { 0%,100% { width: 61%; } 45% { width: 64%; } 55% { width: 63%; } }
+
+.mkt-oldform { display: flex; flex-direction: column; gap: 11px; }
+.mkt-oldrow { display: flex; flex-direction: column; gap: 6px; }
+.mkt-oldfield { display: flex; align-items: center; gap: 8px; }
+.mkt-sk { height: 10px; border-radius: 99px; background: linear-gradient(90deg, #e7e9ef 0%, #f2f3f7 20%, #e7e9ef 40%); background-size: 220% 100%; animation: mktSkel 1.5s linear infinite; display: block; }
+.mkt-sk-label { height: 8px; opacity: .8; }
+.mkt-sk-input { height: 16px; border-radius: 7px; }
+@keyframes mktSkel { 0% { background-position: 120% 0; } 100% { background-position: -120% 0; } }
+.mkt-req { flex: none; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #b23b3b; background: rgba(178,59,59,.1); border: 1px solid rgba(178,59,59,.28); border-radius: 5px; padding: 2px 6px; }
+.mkt-olderror { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 12.5px; font-weight: 700; color: #b23b3b; background: rgba(178,59,59,.07); border: 1px solid rgba(178,59,59,.2); border-radius: 9px; padding: 8px 11px; }
+.mkt-olderror-glyph { width: 16px; height: 16px; border-radius: 50%; background: #b23b3b; color: #fff; display: inline-grid; place-items: center; font-size: 11px; font-weight: 900; flex: none; }
+
+/* --- RALLY WAY --- */
+.mkt-rallyway { border-color: rgba(91,75,245,.35); box-shadow: 0 24px 60px -28px rgba(91,75,245,.5); background: linear-gradient(180deg, #ffffff, #fbfaff); }
+.mkt-rallyway::before { content: ''; position: absolute; top: -40%; right: -30%; width: 60%; height: 80%; background: radial-gradient(circle, rgba(91,75,245,.12), transparent 70%); pointer-events: none; }
+.mkt-rally-live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--m-teal); }
+
+.mkt-dealcard { background: #fff; border: 1px solid var(--m-line2); border-radius: 14px; padding: 16px; box-shadow: var(--m-shadow-md); opacity: 0; transform: translateY(16px) scale(.96); }
+.mkt-dealcard.is-in { animation: mktSpring .6s cubic-bezier(.34,1.56,.64,1) forwards; }
+@keyframes mktSpring { 0% { opacity: 0; transform: translateY(16px) scale(.96); } 60% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+.mkt-dealcard-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.mkt-dealcard-name { font-weight: 700; font-size: 15px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt-dealcard-amt { font-weight: 800; font-size: 18px; color: var(--m-accent); flex: none; }
+.mkt-dealcard-meta { display: flex; gap: 9px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+.mkt-dealcard-stage { font-size: 11px; font-weight: 800; letter-spacing: .03em; color: #2563a8; background: rgba(37,99,168,.11); padding: 4px 10px; border-radius: 999px; }
+.mkt-dealcard-next { font-size: 12.5px; color: var(--m-ink2); font-weight: 600; }
+
+.mkt-rook-mail { margin-top: 14px; background: linear-gradient(180deg, rgba(91,75,245,.06), rgba(91,75,245,.03)); border: 1px solid rgba(91,75,245,.22); border-radius: 11px; padding: 11px 12px; }
+.mkt-rook-mailhead { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--m-accent); }
+.mkt-rook-ready { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; color: var(--m-teal); background: rgba(14,159,154,.12); border-radius: 999px; padding: 2px 8px; animation: mPopIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+.mkt-rook-mailbody { margin-top: 8px; font-size: 12.7px; line-height: 1.5; color: var(--m-ink2); min-height: 3.5em; }
+.mkt-rook-mailfoot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(91,75,245,.14); }
+.mkt-rook-to { font-size: 11.5px; font-weight: 600; color: var(--m-ink3); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt-rook-send { flex: none; display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); border-radius: 8px; padding: 6px 12px; opacity: .4; transform: scale(.97); transition: opacity .3s, transform .3s; box-shadow: 0 8px 18px -8px rgba(91,75,245,.6); }
+.mkt-rook-send.is-on { opacity: 1; transform: none; }
+
+@media (max-width: 900px) { .mkt-switch { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .mkt-spinner, .mkt-oldbar-fill, .mkt-sk, .mkt-dealcard, .mkt-rook-ready { animation: none !important; }
+  .mkt-dealcard { opacity: 1; transform: none; }
+  .mkt-sk { background-position: 0 0; }
+}
