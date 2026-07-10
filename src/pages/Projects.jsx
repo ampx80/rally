@@ -6,11 +6,12 @@ import React, { useMemo, useState } from 'react';
 import {
   getProjects, getProject, getAllTasks, createProject,
   addTask, updateTask, moveTask, deleteTask, useDepth,
+  setTaskColumn, toggleSubitem, getProjectGroups,
 } from '../lib/store-depth.js';
 import { getUsers, userName, useStore } from '../lib/store.js';
 import {
   Button, Badge, Avatar, SectionHeader, Field, Input, Select,
-  Modal, EmptyState, ProgressBar, Segmented, StatCard, useToast, relTime,
+  Modal, EmptyState, ProgressBar, Segmented, StatCard, useToast, relTime, monthDay,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
@@ -177,6 +178,104 @@ function Column({ col, tasks, showProject, dragId, isOver, onSetOver, onLeave, o
 }
 
 /* ============================================================
+   TABLE VIEW  (Boards 2.0 - grouped rows, rich inline columns,
+   expandable subitems). The Monday signature.
+   ============================================================ */
+const STATUS_META = { todo: { label: 'To do', color: '#98a1b0' }, doing: { label: 'Doing', color: '#2563a8' }, blocked: { label: 'Blocked', color: '#c0392b' }, done: { label: 'Done', color: '#1a7f52' } };
+
+function StatusCell({ task }) {
+  const m = STATUS_META[task.status] || STATUS_META.todo;
+  return (
+    <select value={task.status} onChange={(e) => setTaskColumn(task.id, 'status', e.target.value)}
+      style={{ background: m.color, color: '#fff', border: 'none', borderRadius: 6, padding: '.3rem .55rem', fontWeight: 700, fontSize: '.8rem', cursor: 'pointer' }}>
+      {COLUMNS.map(c => <option key={c.id} value={c.id} style={{ background: '#fff', color: '#111' }}>{c.label}</option>)}
+    </select>
+  );
+}
+function PriorityCell({ task }) {
+  return (
+    <select value={task.priority} onChange={(e) => setTaskColumn(task.id, 'priority', e.target.value)}
+      style={{ border: '1px solid var(--line-strong)', borderRadius: 6, padding: '.26rem .45rem', fontSize: '.82rem', color: PRIORITY_COLOR[task.priority] || 'var(--n-600)', fontWeight: 700, cursor: 'pointer', background: 'var(--paper)' }}>
+      {PRIORITY_OPTS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+    </select>
+  );
+}
+function PeopleCell({ task }) {
+  const ids = (task.assigneeIds && task.assigneeIds.length) ? task.assigneeIds : [task.assigneeId].filter(Boolean);
+  return <span className="row" style={{ gap: 0 }}>{ids.map((id, i) => <span key={id + i} style={{ marginLeft: i ? -8 : 0 }} title={userName(id)}><Avatar name={userName(id)} size={26} /></span>)}</span>;
+}
+
+function TableBoard({ tasks, project, onOpen }) {
+  const [openSub, setOpenSub] = useState({});
+  let rows = [];
+  if (project) {
+    const groups = getProjectGroups(project.id);
+    const list = groups.length ? groups : [{ id: '__none', name: 'Tasks', color: '#98a1b0' }];
+    const map = list.map(g => ({ group: g, tasks: [] }));
+    const first = map[0];
+    for (const t of tasks) { (map.find(r => r.group.id === t.groupId) || first).tasks.push(t); }
+    rows = map;
+  } else {
+    const byProj = {};
+    for (const t of tasks) (byProj[t.projectId] = byProj[t.projectId] || { group: { id: t.projectId, name: t.projectName, color: t.projectColor }, tasks: [] }).tasks.push(t);
+    rows = Object.values(byProj);
+  }
+  return (
+    <div className="col gap-3" style={{ overflowX: 'auto', paddingBottom: '.75rem' }}>
+      {rows.map(({ group, tasks: gt }) => (
+        <div key={group.id} className="card" style={{ padding: 0, overflow: 'hidden', minWidth: 760 }}>
+          <div className="row gap-2" style={{ padding: '.7rem .9rem', borderLeft: `4px solid ${group.color}`, alignItems: 'center' }}>
+            <span className="dot" style={{ background: group.color, width: 10, height: 10 }} />
+            <span className="fw-7 clip">{group.name}</span>
+            <Badge className="t-xs">{gt.length}</Badge>
+          </div>
+          <table className="table" style={{ width: '100%' }}>
+            <thead><tr>
+              <th style={{ width: '34%' }}>Task</th><th>Owner</th><th>Status</th><th>Timeline</th><th>Priority</th><th style={{ minWidth: 130 }}>Progress</th>
+            </tr></thead>
+            <tbody>
+              {gt.map(t => (
+                <React.Fragment key={t.id}>
+                  <tr>
+                    <td>
+                      <span className="row gap-1" style={{ minWidth: 0 }}>
+                        {t.subitems && t.subitems.length
+                          ? <button onClick={() => setOpenSub(s => ({ ...s, [t.id]: !s[t.id] }))} className="btn btn-quiet btn-sm" style={{ padding: '.1rem .2rem' }}><Icon name={openSub[t.id] ? 'chevronDown' : 'chevronRight'} size={14} /></button>
+                          : <span style={{ width: 22, display: 'inline-block' }} />}
+                        <span className="fw-6 clip" onClick={() => onOpen(t)} style={{ color: 'var(--ink)', cursor: 'pointer' }}>{t.title}</span>
+                        {t.subitems && t.subitems.length ? <span className="t-xs muted">{t.subitems.filter(s => s.done).length}/{t.subitems.length}</span> : null}
+                      </span>
+                    </td>
+                    <td><PeopleCell task={t} /></td>
+                    <td><StatusCell task={t} /></td>
+                    <td className="t-sm muted" style={{ whiteSpace: 'nowrap' }}>{t.startDate ? monthDay(t.startDate) : '-'}{t.due ? ' - ' + monthDay(t.due) : ''}</td>
+                    <td><PriorityCell task={t} /></td>
+                    <td><span className="row gap-1" style={{ alignItems: 'center' }}><span style={{ flex: 1, minWidth: 60 }}><ProgressBar value={t.progress || 0} height={7} /></span><span className="t-xs muted tnum">{t.progress || 0}%</span></span></td>
+                  </tr>
+                  {openSub[t.id] && (t.subitems || []).map(si => (
+                    <tr key={si.id} style={{ background: 'var(--n-25)' }}>
+                      <td style={{ paddingLeft: '2.6rem' }}>
+                        <span className="row gap-1">
+                          <button onClick={() => toggleSubitem(t.id, si.id)} style={{ width: 16, height: 16, borderRadius: 4, border: '1.5px solid ' + (si.done ? 'var(--ok)' : 'var(--line-strong)'), background: si.done ? 'var(--ok)' : 'transparent', color: '#fff', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{si.done && <Icon name="check" size={10} stroke={3} />}</button>
+                          <span className="t-sm" style={{ textDecoration: si.done ? 'line-through' : 'none', color: si.done ? 'var(--n-500)' : 'var(--ink-2)' }}>{si.title}</span>
+                        </span>
+                      </td>
+                      <td><Avatar name={userName(si.assigneeId)} size={22} /></td>
+                      <td colSpan={4} />
+                    </tr>
+                  ))}
+                </React.Fragment>
+              ))}
+              {gt.length === 0 && <tr><td colSpan={6} className="muted t-sm" style={{ textAlign: 'center', padding: '1rem' }}>No tasks in this group</td></tr>}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ============================================================
    PAGE
    ============================================================ */
 export default function Projects() {
@@ -187,6 +286,7 @@ export default function Projects() {
 
   const projects = getProjects();
   const [activeId, setActiveId] = useState('all');   // 'all' or a project id
+  const [boardView, setBoardView] = useState('board'); // 'board' | 'table'
   const active = activeId === 'all' ? null : getProject(activeId);
 
   // Tasks for the active board (all work, or one project's tasks enriched
@@ -315,16 +415,29 @@ export default function Projects() {
               sub={blocked ? 'Needs attention' : 'Nothing blocked'} />
           </div>
 
-          {/* THE BOARD */}
-          <div className="row" style={{ gap: '.85rem', overflowX: 'auto', alignItems: 'flex-start', paddingBottom: '.75rem' }}>
-            {COLUMNS.map(col => (
-              <Column key={col.id} col={col} tasks={byStatus[col.id] || []} showProject={activeId === 'all'}
-                dragId={dragId} isOver={overCol === col.id}
-                onSetOver={setOverCol} onLeave={(id) => setOverCol(s => s === id ? null : s)}
-                onDrop={handleDrop} onDragStart={setDragId} onDragEnd={() => { setDragId(null); setOverCol(null); }}
-                onOpen={openEdit} onQuickDone={quickDone} onAdd={addTaskTo} canAdd={canAddInline} />
-            ))}
+          {/* VIEW SWITCHER */}
+          <div className="row" style={{ marginBottom: '.9rem' }}>
+            <Segmented
+              options={[{ value: 'board', label: 'Board' }, { value: 'table', label: 'Table' }]}
+              value={boardView}
+              onChange={setBoardView}
+            />
           </div>
+
+          {/* THE BOARD */}
+          {boardView === 'board' ? (
+            <div className="row" style={{ gap: '.85rem', overflowX: 'auto', alignItems: 'flex-start', paddingBottom: '.75rem' }}>
+              {COLUMNS.map(col => (
+                <Column key={col.id} col={col} tasks={byStatus[col.id] || []} showProject={activeId === 'all'}
+                  dragId={dragId} isOver={overCol === col.id}
+                  onSetOver={setOverCol} onLeave={(id) => setOverCol(s => s === id ? null : s)}
+                  onDrop={handleDrop} onDragStart={setDragId} onDragEnd={() => { setDragId(null); setOverCol(null); }}
+                  onOpen={openEdit} onQuickDone={quickDone} onAdd={addTaskTo} canAdd={canAddInline} />
+              ))}
+            </div>
+          ) : (
+            <TableBoard tasks={tasks} project={active} onOpen={openEdit} />
+          )}
         </>
       )}
 
