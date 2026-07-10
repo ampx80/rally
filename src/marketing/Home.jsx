@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
 import AgentTheater from './AgentTheater.jsx';
 import HeroCurrent from './HeroCurrent.jsx';
+import HeroStage from './HeroStage.jsx';
+import OrbitDiagram from './OrbitDiagram.jsx';
 import { Icon } from '../components/icons.jsx';
 
 /* ------------------------------------------------------------------ */
@@ -138,38 +140,61 @@ export default function Home() {
     <>
       <style>{`@media (max-width: 900px) { .m-floats { display: none !important; } }`}</style>
 
-      {/* S1. HERO + AGENT THEATER */}
-      <section className="mkt-hero" style={{ overflow: 'hidden' }}>
-        {/* The Revenue Current - a living pipeline flowing behind the copy */}
-        <HeroCurrent />
-        {/* soft veil so the headline stays crisp over the flow */}
-        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(52% 46% at 50% 34%, rgba(255,255,255,.88), rgba(255,255,255,.35) 62%, rgba(255,255,255,0) 100%)' }} />
-        <div className="mkt-wrap" style={{ position: 'relative', zIndex: 1 }}>
-          <Reveal>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-              <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
-            </div>
-            <div className="mkt-eyebrow mkt-center" style={{ marginBottom: 16 }}>The AI revenue platform</div>
-            <h1 className="mkt-h1" style={{ maxWidth: 1000, margin: '0 auto' }}>
-              Everyone sells you a CRM. <span className="mkt-grad m-shine">We run your revenue.</span>
-            </h1>
-            <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
-              Rally replaces your CRM, CPQ, billing, and marketing stack with one platform - run by
-              Rook, the AI operator that does the actual work. Pipeline, forecast, and follow-ups,
-              handled. You close the deals.
-            </p>
-            <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
-              <span className="m-magnet" style={{ display: 'inline-flex' }}>
-                <MktButton to="/app" size="lg">Start free <Icon name="chevronRight" size={18} /></MktButton>
-              </span>
-              <a href="#theater" className="mkt-btn mkt-btn-ghost mkt-btn-lg m-magnet">
-                <Icon name="sparkles" size={18} /> Watch Rook work
-              </a>
-            </div>
-          </Reveal>
+      {/* S1. HERO - split: copy left, live self-assembling Rook stage right */}
+      <section className="mkt-hero" style={{ overflow: 'hidden', paddingTop: 88, textAlign: 'left' }}>
+        {/* mesh-gradient + faint grid backdrop for the whole hero */}
+        <div className="mkt-hero-mesh" aria-hidden />
+        <div className="mkt-hero-gridbg" aria-hidden />
+        {/* The Revenue Current - a living pipeline flowing as ambient background */}
+        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: .4, pointerEvents: 'none' }}>
+          <HeroCurrent />
+        </div>
+        {/* soft veil so the copy stays crisp over the flow */}
+        <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'radial-gradient(60% 60% at 26% 40%, rgba(255,255,255,.9), rgba(255,255,255,.35) 62%, rgba(255,255,255,0) 100%)' }} />
 
-          <Reveal delay={140}>
-            <div id="theater" style={{ marginTop: 56, position: 'relative' }}>
+        <div className="mkt-wrap">
+          <div className="mkt-hero-split">
+            {/* LEFT - copy */}
+            <Reveal className="mkt-hero-copy">
+              <div style={{ marginBottom: 18 }}>
+                <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
+              </div>
+              <div className="mkt-eyebrow" style={{ marginBottom: 14 }}>The AI revenue platform</div>
+              <h1 className="mkt-h1">
+                Everyone sells you a CRM. <span className="mkt-grad m-shine">We run your revenue.</span>
+              </h1>
+              <p className="mkt-lead" style={{ marginTop: 22 }}>
+                Rally replaces your CRM, CPQ, billing, and marketing stack with one platform, run by
+                Rook, the AI operator that does the actual work. You close the deals.
+              </p>
+              <div className="mkt-hero-cta">
+                <span className="m-magnet" style={{ display: 'inline-flex' }}>
+                  <MktButton to="/app" size="lg">Start free <Icon name="chevronRight" size={18} /></MktButton>
+                </span>
+                <a href="#theater" className="mkt-btn mkt-btn-ghost mkt-btn-lg m-magnet">
+                  <Icon name="sparkles" size={18} /> Watch Rook work
+                </a>
+              </div>
+              <div className="mkt-hero-trust">
+                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="bolt" size={16} /></span> Live account in one sentence</span>
+                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="layers" size={16} /></span> 14 modules, one login</span>
+                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="shield" size={16} /></span> Free migration, 60-day rollback</span>
+              </div>
+            </Reveal>
+
+            {/* RIGHT - the live stage */}
+            <Reveal delay={140} style={{ position: 'relative', zIndex: 3 }}>
+              <HeroStage />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* S1b. AGENT THEATER - the full self-playing Rook session */}
+      <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div id="theater" style={{ position: 'relative' }}>
               <AgentTheater />
 
               {/* floating record cards - hidden under 900px */}
@@ -400,19 +425,8 @@ export default function Home() {
           </Reveal>
           <Reveal delay={80}>
             <div style={{ maxWidth: 860, margin: '0 auto' }}>
-              <div className="mkt-center" style={{ marginBottom: 8 }}>
-                <div className="mkt-node mkt-node-accent" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, padding: '18px 26px' }}>
-                  <span className="mkt-icon" style={{ width: 40, height: 40 }}><Icon name="sparkles" size={22} /></span>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800, fontSize: 18 }}>Rally + Rook</div>
-                    <div className="mkt-dim" style={{ fontSize: 13 }}>One operator, every module</div>
-                  </div>
-                </div>
-              </div>
-              <div className="mkt-center" aria-hidden>
-                <div style={{ width: 2, height: 30, margin: '0 auto', background: 'linear-gradient(var(--m-accent), transparent)' }} />
-              </div>
-              <div className="m-cascade" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+              <OrbitDiagram />
+              <div className="m-cascade" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center', marginTop: 12 }}>
                 {MODULES.map(([ic, label]) => (
                   <span key={label} className="mkt-node" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '9px 15px', fontSize: 13.5, fontWeight: 700 }}>
                     <span style={{ color: 'var(--m-accent)', display: 'grid', placeItems: 'center' }}><Icon name={ic} size={14} /></span>

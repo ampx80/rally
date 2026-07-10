@@ -223,9 +223,149 @@
 @keyframes mPulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
 .m-pulse { animation: mPulse 2s ease-in-out infinite; }
 
+/* spring-in: a punchier entrance for artifacts Rook materializes */
+@keyframes mSpringIn { 0% { opacity: 0; transform: translateY(22px) scale(.9); } 55% { opacity: 1; transform: translateY(-4px) scale(1.02); } 100% { opacity: 1; transform: none; } }
+.m-spring { animation: mSpringIn .58s var(--spring) both; }
+
+/* sparkline self-draw */
+@keyframes mDraw { from { stroke-dashoffset: 360; } to { stroke-dashoffset: 0; } }
+
 @media (prefers-reduced-motion: reduce) {
   .mkt-aurora span, .mkt-marquee-track, .m-float-a, .m-float-b, .m-float-c, .m-cursor, .m-think span,
-  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > *, .m-shine, .m-pulse, .m-won { animation: none !important; }
+  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > *, .m-shine, .m-pulse, .m-won, .m-spring,
+  .mkt-spark-line, .mkt-orbit-ring, .mkt-orbit-flow, .mkt-orbit-node, .mkt-orbit-corepulse { animation: none !important; }
   .reveal { opacity: 1; transform: none; }
-  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > * { opacity: 1; }
+  .m-arrive, .m-arrive-l, .m-pop, .m-cascade > *, .m-spring { opacity: 1; }
+  .mkt-spark-line { stroke-dashoffset: 0 !important; }
+}
+
+/* ============================================================
+   HERO STAGE + BACKDROP - the split hero. Left copy, right a
+   live self-assembling "Rook builds an account" theater. All
+   scoped under .mkt. Transform/opacity/dash motion only.
+   ============================================================ */
+
+/* split layout */
+.mkt-hero-split { display: grid; grid-template-columns: 1.02fr .98fr; gap: 46px; align-items: center; position: relative; z-index: 2; }
+.mkt-hero-copy { max-width: 560px; }
+.mkt-hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+
+/* trust row */
+.mkt-hero-trust { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 30px; }
+.mkt-trust-item { display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; color: var(--m-ink2); }
+.mkt-trust-item .mkt-trust-ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(91,75,245,.12), rgba(168,85,247,.12)); color: var(--m-accent); border: 1px solid rgba(91,75,245,.16); flex: none; }
+
+/* mesh-gradient + faint grid backdrop behind the whole hero */
+.mkt-hero-mesh { position: absolute; inset: -10% -10% auto -10%; height: 118%; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(46% 40% at 78% 16%, rgba(168,85,247,.20), transparent 62%),
+    radial-gradient(40% 44% at 90% 60%, rgba(14,159,154,.14), transparent 60%),
+    radial-gradient(52% 48% at 8% 8%, rgba(91,75,245,.16), transparent 60%); }
+.mkt-hero-gridbg { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .6;
+  background-image: linear-gradient(var(--m-line) 1px, transparent 1px), linear-gradient(90deg, var(--m-line) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(80% 70% at 60% 30%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(80% 70% at 60% 30%, #000 0%, transparent 78%); }
+
+/* the stage panel */
+.mkt-stage { position: relative; z-index: 3; background: linear-gradient(180deg, #ffffff, #fbfbff);
+  border: 1px solid var(--m-line2); border-radius: 22px; padding: 16px; box-shadow: var(--m-shadow-lg);
+  transform: perspective(1600px) rotateX(3deg) rotateY(-3deg); transition: transform .6s var(--glide); }
+.mkt-stage:hover { transform: perspective(1600px) rotateX(0deg) rotateY(0deg); }
+
+/* command bar */
+.mkt-stage-bar { display: flex; align-items: center; gap: 11px; background: #fff; border: 1px solid var(--m-line); border-radius: 14px; padding: 11px 13px; box-shadow: var(--m-shadow-sm); }
+.mkt-stage-rook { width: 32px; height: 32px; border-radius: 9px; flex: none; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); box-shadow: 0 6px 16px -6px rgba(91,75,245,.6); }
+.mkt-stage-prompt { flex: 1; min-width: 0; }
+.mkt-stage-promptlabel { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--m-ink3); }
+.mkt-stage-typed { font-size: 14px; font-weight: 600; color: var(--m-ink); line-height: 1.35; min-height: 20px; }
+.mkt-stage-think { margin-left: 6px; }
+.mkt-stage-live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--m-teal); flex: none; }
+
+/* workspace grid where cards land */
+.mkt-stage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; min-height: 320px; align-content: start; }
+.mkt-stage-card { background: #fff; border: 1px solid var(--m-line); border-radius: 14px; padding: 13px 14px; box-shadow: var(--m-shadow-md); }
+
+.mkt-stage-mono { width: 38px; height: 38px; border-radius: 10px; flex: none; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 14px; letter-spacing: -.02em; background: linear-gradient(135deg, #5b4bf5, #a855f7); }
+.mkt-stage-title { font-weight: 800; font-size: 14.5px; letter-spacing: -.01em; color: var(--m-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt-stage-sub { font-size: 11.5px; color: var(--m-ink3); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mkt-stage-badge { margin-left: auto; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; color: var(--m-teal); background: rgba(14,159,154,.12); padding: 3px 8px; border-radius: 999px; flex: none; }
+.mkt-stage-metrics { display: flex; gap: 14px; margin-top: 12px; }
+.mkt-stage-metrics > div { display: flex; flex-direction: column; }
+.mkt-stage-metric { font-size: 16px; font-weight: 800; letter-spacing: -.02em; color: var(--m-ink); }
+.mkt-stage-metriclabel { font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--m-ink3); }
+
+.mkt-stage-cardhead { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--m-ink2); }
+.mkt-stage-cardhead > svg { color: var(--m-accent); }
+.mkt-stage-count { margin-left: auto; font-size: 10.5px; font-weight: 800; color: var(--m-accent); background: rgba(91,75,245,.1); padding: 2px 8px; border-radius: 999px; }
+.mkt-stage-avatars { display: flex; margin-top: 11px; }
+.mkt-stage-avwrap { margin-left: -8px; display: inline-flex; }
+.mkt-stage-avwrap:first-child { margin-left: 0; }
+
+.mkt-stage-amount { font-size: 18px; font-weight: 800; letter-spacing: -.02em; color: var(--m-accent); flex: none; }
+.mkt-stage-lane { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 13px; }
+.mkt-stage-lanecell { display: flex; flex-direction: column; gap: 5px; }
+.mkt-stage-lanebar { height: 5px; border-radius: 99px; background: var(--m-line); overflow: hidden; position: relative; }
+.mkt-stage-lanefill { position: absolute; inset: 0; border-radius: 99px; background: var(--m-grad); }
+.mkt-stage-lanelabel { font-size: 10px; font-weight: 700; color: var(--m-ink3); white-space: nowrap; }
+.mkt-stage-lanecell.is-on .mkt-stage-lanelabel { color: var(--m-ink2); }
+.mkt-stage-lanecell.is-cur .mkt-stage-lanelabel { color: var(--m-accent); }
+
+.mkt-stage-trend { margin-left: auto; font-size: 10.5px; font-weight: 800; color: var(--m-teal); background: rgba(14,159,154,.1); padding: 2px 8px; border-radius: 999px; }
+.mkt-stage-forecast { font-size: 21px; font-weight: 800; letter-spacing: -.03em; color: var(--m-ink); margin: 7px 0 4px; }
+.mkt-spark { width: 100%; height: 46px; display: block; }
+.mkt-spark-line { stroke-dasharray: 360; stroke-dashoffset: 360; }
+.mkt-spark-line.m-draw { animation: mDraw 1.2s var(--glide) forwards; }
+
+.mkt-stage-tasks { display: flex; flex-direction: column; gap: 7px; margin-top: 11px; }
+.mkt-stage-task { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 600; color: var(--m-ink3); transition: color .3s; }
+.mkt-stage-task.is-done { color: var(--m-ink2); }
+.mkt-stage-check { width: 18px; height: 18px; border-radius: 6px; flex: none; display: grid; place-items: center; background: var(--m-bg2); border: 1px solid var(--m-line2); color: transparent; transition: background .3s, border-color .3s; }
+.mkt-stage-task.is-done .mkt-stage-check { background: var(--m-teal); border-color: var(--m-teal); color: #fff; }
+
+/* success stamp */
+.mkt-stage-stamp { display: flex; align-items: center; gap: 12px; margin-top: 13px; padding: 12px 14px; border-radius: 14px; background: linear-gradient(100deg, rgba(91,75,245,.08), rgba(14,159,154,.08)); border: 1px solid rgba(91,75,245,.2); opacity: 0; transform: translateY(10px); transition: opacity .5s var(--glide), transform .5s var(--glide); }
+.mkt-stage-stamp.is-in { opacity: 1; transform: none; }
+.mkt-stage-stampring { width: 34px; height: 34px; border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; background: var(--m-teal); }
+.mkt-stage-stamptitle { font-size: 15px; font-weight: 800; letter-spacing: -.01em; color: var(--m-ink); }
+
+/* ============================================================
+   ORBIT DIAGRAM - Rook at the center of every module.
+   ============================================================ */
+.mkt-orbit { width: 100%; max-width: 720px; margin: 0 auto; }
+.mkt-orbit-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.mkt-orbit-ring { transform-box: view-box; transform-origin: 360px 300px; }
+.mkt-orbit-ring-a { animation: mktOrbitSpin 64s linear infinite; }
+.mkt-orbit-ring-b { animation: mktOrbitSpin 46s linear infinite reverse; }
+@keyframes mktOrbitSpin { to { transform: rotate(360deg); } }
+
+@keyframes mktOrbitFlow { to { stroke-dashoffset: -70; } }
+.mkt-orbit-flow { opacity: .55; animation: mktOrbitFlow 2.4s linear infinite; }
+
+.mkt-orbit-nodebg { fill: #fff; stroke: var(--m-line2); stroke-width: 1.5; filter: drop-shadow(0 8px 18px rgba(16,20,32,.12)); }
+.mkt-orbit-node { transform-box: fill-box; transform-origin: center; animation: mktOrbitBob 6s ease-in-out infinite; }
+@keyframes mktOrbitBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.mkt-orbit-nodeinner { width: 68px; height: 68px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.mkt-orbit-nodeicon { color: var(--m-accent); display: grid; place-items: center; }
+.mkt-orbit-nodelabel { font-size: 10.5px; font-weight: 800; letter-spacing: -.01em; color: var(--m-ink2); }
+
+.mkt-orbit-corepulse { fill: rgba(91,75,245,.14); animation: mktCorePulse 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes mktCorePulse { 0%,100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.14); opacity: .3; } }
+.mkt-orbit-core { filter: drop-shadow(0 16px 34px rgba(74,60,224,.5)); }
+.mkt-orbit-coreinner { width: 104px; height: 104px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.mkt-orbit-coreicon { color: #fff; display: grid; place-items: center; }
+.mkt-orbit-corelabel { font-size: 15px; font-weight: 800; letter-spacing: -.02em; color: #fff; }
+
+/* hero-split responsive */
+@media (max-width: 980px) {
+  .mkt-hero-split { grid-template-columns: 1fr; gap: 40px; }
+  .mkt-hero-copy { max-width: 620px; }
+  .mkt-stage { transform: none; }
+  .mkt-stage:hover { transform: none; }
+}
+@media (max-width: 560px) {
+  .mkt-stage-grid { grid-template-columns: 1fr; min-height: 0; }
+  .mkt-stage-metrics { gap: 12px; }
+  .mkt-hero-trust { gap: 16px; }
 }
