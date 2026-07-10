@@ -898,7 +898,11 @@ const GROUP4 = [
   },
 ];
 
-const R = [].concat(GROUP1, GROUP2, GROUP3, GROUP4);
+const GROUP5 = [];
+
+const GROUP6 = [];
+
+const R = [].concat(GROUP1, GROUP2, GROUP3, GROUP4, GROUP5, GROUP6);
 
 export default R.map((r, i) => ({
   slug: r.slug,

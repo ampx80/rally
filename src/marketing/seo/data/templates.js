@@ -2280,7 +2280,751 @@ const TEMPLATES = [
       { q: `How often should I revisit my territory plan?`, a: `Quarterly, and whenever the territory or targets change. Markets, account priorities, and your own pipeline shift, so a territory plan should be a living document that guides where your time goes each week.` },
     ],
   },
-  /*__ENTRIES__*/
+  {
+    slug: `sales-forecast-template`,
+    title: `Sales forecast template`,
+    kw: `pipeline forecast, categories, methods`,
+    desc: `A sales forecast template with forecast categories, weighting, and a roll-up method. Structure to produce a number your leadership can actually trust.`,
+    shortAnswer: `A sales forecast template turns your pipeline into a trustworthy number using forecast categories (commit, best case, pipeline) or stage-weighted probabilities. Below is the template with the categories, an example roll-up, and the discipline that keeps a forecast honest.`,
+    intro: [
+      `A forecast is a commitment, not a wish. Categories force reps to distinguish what they will close from what they hope to.`,
+      `Consistency matters more than the method; pick one and apply it the same way every week.`,
+    ],
+    sections: [
+      { h: `Forecast categories`, body: `The category discipline.`, table: {
+        columns: [`Category`, `Meaning`, `Typical close likelihood`],
+        rows: [
+          [`Commit`, `You will close this; you would bet on it`, `90%+`],
+          [`Best case`, `Realistic upside if things go well`, `50 to 75%`],
+          [`Pipeline`, `Qualified but not yet dependable`, `20 to 40%`],
+          [`Omitted`, `In pipeline but not this period`, `n/a`],
+        ],
+      } },
+      { h: `Example roll-up and discipline`, body: `From deals to a number.`, bullets: [
+        `Sum Commit as your floor, add a realistic slice of Best case for the forecast.`,
+        `Every deal in Commit needs a next step, a date, and no open red flags.`,
+        `Review weekly: what moved in, what moved out, and why. Slippage is the metric to watch.`,
+      ] },
+    ],
+    keyPoints: [
+      `Use categories (commit, best case, pipeline) to separate will-close from hope.`,
+      `Require a next step and a date for every deal in commit.`,
+      `Pick one method and apply it identically every week; consistency beats precision.`,
+      `Track slippage (deals moving out) as the leading forecast-accuracy signal.`,
+    ],
+    faqs: [
+      { q: `What are sales forecast categories?`, a: `Labels that separate deals by confidence: commit (you will close it), best case (realistic upside), and pipeline (qualified but not dependable). Categories force honest distinctions and produce a floor plus an upside number.` },
+      { q: `How do I make a sales forecast accurate?`, a: `Apply one method consistently, require a next step and date for every commit deal, and review slippage weekly. Accuracy comes from disciplined, repeatable categorization, not from a clever formula applied unevenly.` },
+      { q: `What is the difference between weighted and category forecasting?`, a: `Weighted forecasting multiplies each deal by a stage probability; category forecasting sorts deals into commit, best case, and pipeline buckets. Categories rely on rep judgment; weighting relies on historical stage conversion. Many teams use both.` },
+    ],
+  },
+  {
+    slug: `commission-plan-template`,
+    title: `Sales commission plan template`,
+    kw: `comp plan, quota, accelerators`,
+    desc: `A sales commission plan template with base, variable, quota, rate, and accelerators. Structure a comp plan that motivates the right behavior. Example included.`,
+    shortAnswer: `A commission plan template defines how reps are paid: base salary, on-target variable, quota, commission rate, and accelerators for overperformance. A good plan is simple, aligned to company goals, and motivating. Below is the template with each component and a worked example.`,
+    intro: [
+      `Comp plans drive behavior more than any pep talk. Keep them simple enough that a rep can calculate their own paycheck.`,
+      `Reward the outcomes the business actually needs.`,
+    ],
+    sections: [
+      { h: `The components`, body: `What a comp plan defines.`, table: {
+        columns: [`Component`, `Definition`, `Example`],
+        rows: [
+          [`Base salary`, `Fixed pay`, `$70,000`],
+          [`On-target variable`, `Commission at 100% of quota`, `$70,000`],
+          [`OTE`, `Base plus on-target variable`, `$140,000`],
+          [`Quota`, `The number to hit`, `$700,000 / year`],
+          [`Commission rate`, `Variable divided by quota`, `10%`],
+          [`Accelerator`, `Higher rate above quota`, `15% over 100%`],
+        ],
+      } },
+      { h: `Design principles`, body: `Keep it clean and fair.`, bullets: [
+        `Simplicity: a rep should be able to compute their commission in their head.`,
+        `Alignment: pay more for the deals the business values (new logo, multi-year, strategic products).`,
+        `Accelerators reward overperformance; avoid caps, which cap effort.`,
+      ] },
+    ],
+    keyPoints: [
+      `Keep the plan simple enough for reps to self-calculate.`,
+      `Align payouts to the outcomes the business needs most.`,
+      `Use accelerators above quota; avoid commission caps.`,
+      `Set OTE and quota so a typical strong rep can realistically hit it.`,
+    ],
+    faqs: [
+      { q: `What is OTE in a commission plan?`, a: `On-target earnings: the total a rep makes at 100 percent of quota, combining base salary and on-target variable commission. A 50/50 split between base and variable is common for full-cycle sales roles.` },
+      { q: `How do I calculate a commission rate?`, a: `Divide the on-target variable pay by the annual quota. If variable is $70,000 and quota is $700,000, the base commission rate is 10 percent. Accelerators then raise the rate on revenue above quota.` },
+      { q: `Should a commission plan have a cap?`, a: `Generally no. Caps tell your best reps to stop selling once they hit the ceiling. Accelerators above quota do the opposite, rewarding overperformance and keeping top performers motivated all period.` },
+    ],
+  },
+  {
+    slug: `sales-onboarding-checklist`,
+    title: `Sales onboarding checklist`,
+    kw: `new rep ramp, 30-60-90, template`,
+    desc: `A sales onboarding checklist that ramps new reps faster: week-one setup, product and pitch certification, and 30-60-90 milestones. Copy and adapt.`,
+    shortAnswer: `A sales onboarding checklist gets a new rep productive faster by sequencing what to learn and do across the first 90 days: tools and setup, product and pitch certification, shadowing, then live selling with milestones. Below is the checklist organized by phase.`,
+    intro: [
+      `Ramp time is expensive. A structured checklist replaces "figure it out" with a clear path to first deal.`,
+      `Certify on pitch and product before a rep goes live, not after.`,
+    ],
+    sections: [
+      { h: `Week one and first 30 days`, body: `Setup and foundations.`, bullets: [
+        `Week 1: accounts and tools set up, CRM access, comp plan reviewed, team intros, ICP and product overview.`,
+        `Days 1 to 30: product certification, pitch certification (role-play passed), shadow 5 calls, learn the sales process and CRM hygiene.`,
+      ] },
+      { h: `Days 30 to 90`, body: `From learning to producing.`, bullets: [
+        `Days 30 to 60: run discovery calls with a coach, build first pipeline, get reverse-shadowed and coached.`,
+        `Days 60 to 90: own the full cycle, hit a ramped pipeline target, first closed deal, certified on objection handling.`,
+        `Milestone check: is the rep hitting activity and pipeline ramp targets? If not, diagnose and adjust.`,
+      ] },
+    ],
+    keyPoints: [
+      `Sequence onboarding by phase: setup, certify, shadow, then sell live.`,
+      `Certify on product and pitch via role-play before live calls.`,
+      `Set 30-60-90 milestones so ramp is measured, not assumed.`,
+      `Diagnose early if a rep misses ramp targets; do not wait for quarter end.`,
+    ],
+    faqs: [
+      { q: `What should a sales onboarding checklist include?`, a: `Tools and setup, product and pitch certification, sales-process training, call shadowing, and live selling with 30-60-90 milestones. Sequencing the ramp turns a vague first quarter into a measurable path to first deal.` },
+      { q: `How long should sales onboarding take?`, a: `The structured program usually runs 90 days, though full ramp to quota varies by deal complexity. Certifying reps on pitch and product in the first 30 days lets them start building real pipeline sooner.` },
+      { q: `How do I know if a new rep is ramping well?`, a: `Measure against 30-60-90 milestones: certifications passed, activity levels, pipeline built, and first deals. Missing a milestone is a signal to coach immediately rather than hope the next month improves on its own.` },
+    ],
+  },
+  {
+    slug: `qbr-template`,
+    title: `QBR template (quarterly business review)`,
+    kw: `customer review, agenda, structure`,
+    desc: `A QBR template that drives renewal and expansion: results vs goals, usage, roadmap, and a plan for next quarter. Agenda and structure included.`,
+    shortAnswer: `A quarterly business review (QBR) is a strategic check-in that reviews results against the customer's goals, shows value delivered, and plans the next quarter. Done well it drives renewal and expansion. Below is the QBR template with the agenda and what each section should cover.`,
+    intro: [
+      `A QBR is not a status meeting; it is where you prove value and shape the next quarter's plan.`,
+      `Bring data and a point of view, not just a recap.`,
+    ],
+    sections: [
+      { h: `The QBR agenda`, body: `Value first, plan second.`, bullets: [
+        `1. Recap the customer's goals set last quarter.`,
+        `2. Results vs goals, with usage and outcome data.`,
+        `3. Wins and value delivered, in their metrics.`,
+        `4. Challenges and areas to improve.`,
+        `5. Roadmap and what is coming that helps them.`,
+        `6. Plan and goals for next quarter, with owners.`,
+      ] },
+      { h: `Running a QBR that lands`, body: `Make it strategic.`, bullets: [
+        `Tie every number to the customer's own goals, not your product usage for its own sake.`,
+        `Bring one or two ideas to get more value next quarter; a QBR should move the account forward.`,
+        `Include the economic buyer when you can; QBRs are a natural expansion and renewal moment.`,
+      ] },
+    ],
+    keyPoints: [
+      `Anchor the QBR on the customer's goals and results, not feature usage.`,
+      `Bring data and a point of view, not a passive status recap.`,
+      `Use it to plan next quarter with clear owners and goals.`,
+      `Invite the economic buyer; QBRs drive renewal and expansion.`,
+    ],
+    faqs: [
+      { q: `What is a QBR?`, a: `A quarterly business review: a strategic meeting with a customer to review results against their goals, demonstrate value delivered, and plan the next quarter. It is a retention and expansion tool, not a routine status update.` },
+      { q: `What should a QBR cover?`, a: `The customer's goals, results and usage against them, wins delivered in their metrics, challenges, relevant roadmap, and a plan for next quarter with owners. Every section should connect to what the customer is trying to achieve.` },
+      { q: `Who should attend a QBR?`, a: `Your champion and, when possible, the economic buyer, alongside your account team. Having the budget owner in the room makes the QBR a natural moment to discuss expansion and secure the next renewal.` },
+    ],
+  },
+  {
+    slug: `sales-report-template`,
+    title: `Sales report template`,
+    kw: `weekly, monthly, metrics to include`,
+    desc: `A sales report template with the metrics that matter: pipeline, conversion, forecast, and activity. Weekly and monthly structures leaders can act on.`,
+    shortAnswer: `A useful sales report shows the few metrics leaders act on: pipeline created and coverage, conversion by stage, forecast vs quota, and key activity. It highlights change and next actions, not a data dump. Below are weekly and monthly report structures and the metrics each should carry.`,
+    intro: [
+      `A report that lists every number gets ignored. A report that highlights what changed and what to do gets read.`,
+      `Lead with the number vs the goal, then the story behind it.`,
+    ],
+    sections: [
+      { h: `Weekly report structure`, body: `Operational and short.`, bullets: [
+        `Number vs target for the period, and pace to goal.`,
+        `Pipeline created this week and total coverage (pipeline / quota).`,
+        `Deals that moved forward, slipped, or were lost, and why.`,
+        `Top risks and the actions planned this week.`,
+      ] },
+      { h: `Monthly report structure`, body: `Strategic and trend-focused.`, bullets: [
+        `Revenue vs quota, and trend over recent months.`,
+        `Conversion rate by stage, flagging the weakest.`,
+        `Win rate, average deal size, and sales cycle length.`,
+        `Forecast for next period with confidence and key assumptions.`,
+      ] },
+    ],
+    keyPoints: [
+      `Report the few metrics leaders act on, not every available number.`,
+      `Lead with actual vs goal, then the change and the reason.`,
+      `Always include next actions and risks, not just status.`,
+      `Keep weekly reports operational and monthly reports trend-focused.`,
+    ],
+    faqs: [
+      { q: `What metrics should a sales report include?`, a: `Pipeline created and coverage, conversion by stage, win rate, average deal size, cycle length, and forecast vs quota. Choose the handful leaders act on and highlight change rather than dumping every metric.` },
+      { q: `How often should I send a sales report?`, a: `Weekly for operational reports focused on this period's deals and actions, and monthly for strategic reports focused on trends and forecast. Match the cadence to the decisions the audience needs to make.` },
+      { q: `What makes a sales report actually useful?`, a: `Highlighting what changed and what to do about it. A report that leads with actual-versus-goal, explains slippage, and names next actions drives decisions; a passive table of numbers gets skimmed and forgotten.` },
+    ],
+  },
+  {
+    slug: `icp-template`,
+    title: `Ideal customer profile (ICP) template`,
+    kw: `ICP, firmographics, fit criteria`,
+    desc: `An ideal customer profile template: firmographics, triggers, pain, and disqualifiers. Define the accounts worth pursuing so the team targets the right ones.`,
+    shortAnswer: `An ideal customer profile (ICP) defines the accounts most likely to buy, stay, and expand: firmographics, the pain you solve, buying triggers, and clear disqualifiers. A sharp ICP focuses the whole team's time. Below is the template with each dimension and how to build it from your best customers.`,
+    intro: [
+      `An ICP is about the account, not the person. Build it from your best current customers, not your aspirations.`,
+      `Disqualifiers are as valuable as qualifiers; they save wasted effort.`,
+    ],
+    sections: [
+      { h: `The ICP dimensions`, body: `What to define.`, bullets: [
+        `Firmographics: industry, company size, revenue, geography.`,
+        `Technographics and context: tools they use, team structure, maturity.`,
+        `Pain: the specific problem you solve better than anyone.`,
+        `Triggers: events that create urgency (growth, funding, new leadership).`,
+        `Value fit: why they get outsized value and stay.`,
+        `Disqualifiers: traits that predict churn or a bad fit.`,
+      ] },
+      { h: `Building it from your best customers`, body: `Data over guesswork.`, bullets: [
+        `List your happiest, highest-value, longest-tenured customers and find the common traits.`,
+        `Cross-check against churned or unhappy accounts to define disqualifiers.`,
+        `Keep the ICP tight; a broad ICP is the same as no ICP.`,
+      ] },
+    ],
+    keyPoints: [
+      `Define the account, then layer personas on top for individuals.`,
+      `Build the ICP from your best real customers, not aspirations.`,
+      `Include disqualifiers; knowing who to avoid saves as much time as knowing who to chase.`,
+      `Keep it tight so it actually focuses targeting.`,
+    ],
+    faqs: [
+      { q: `What is an ideal customer profile?`, a: `A definition of the accounts most likely to buy, succeed, and expand, based on firmographics, the pain you solve, buying triggers, and disqualifiers. It focuses prospecting and marketing on the accounts worth pursuing.` },
+      { q: `What is the difference between an ICP and a buyer persona?`, a: `An ICP describes the ideal account (company-level traits); a buyer persona describes the individuals within it (roles, goals, objections). You target accounts that fit the ICP and message the personas inside them.` },
+      { q: `How do I build an ICP?`, a: `Analyze your best current customers for shared traits, cross-check against churned accounts to define disqualifiers, and keep the profile tight. Grounding the ICP in real outcomes beats defining it from who you wish you sold to.` },
+    ],
+  },
+  {
+    slug: `buyer-persona-template`,
+    title: `Buyer persona template`,
+    kw: `persona, goals, objections`,
+    desc: `A buyer persona template: role, goals, pains, objections, and where they get information. Structure your messaging around the people who actually decide.`,
+    shortAnswer: `A buyer persona captures the person you sell to: their role and goals, the pains they feel, their objections, what they value, and where they get information. Personas sharpen messaging and discovery. Below is the template with each field and how to build personas from real conversations.`,
+    intro: [
+      `Personas make your outreach specific. A message written for "everyone" persuades no one.`,
+      `Build them from real buyer conversations, not internal assumptions.`,
+    ],
+    sections: [
+      { h: `The persona fields`, body: `Capture what changes how you sell.`, bullets: [
+        `Role and seniority: title, who they report to, what they own.`,
+        `Goals: what success looks like for them personally and professionally.`,
+        `Pains: the problems that keep them up at night.`,
+        `Objections: what makes them hesitate to buy.`,
+        `Value drivers: what they care about most (time, risk, growth, cost).`,
+        `Information sources: where they learn and who they trust.`,
+      ] },
+      { h: `Building personas from real data`, body: `Interviews beat assumptions.`, bullets: [
+        `Interview real buyers and users; note the language they use for their problems.`,
+        `Distinguish the economic buyer, the champion, and the user; each needs different messaging.`,
+        `Keep two to four personas; more than that dilutes focus.`,
+      ] },
+    ],
+    keyPoints: [
+      `Build personas from real buyer interviews, not internal guesses.`,
+      `Separate the economic buyer, champion, and user; message each differently.`,
+      `Capture objections and value drivers, not just demographics.`,
+      `Keep to a handful of personas so the team can actually use them.`,
+    ],
+    faqs: [
+      { q: `What is a buyer persona?`, a: `A profile of a person you sell to, covering their role, goals, pains, objections, value drivers, and information sources. Personas sharpen messaging and discovery by grounding them in what a specific buyer actually cares about.` },
+      { q: `How many buyer personas should I have?`, a: `Two to four for most B2B products, typically the economic buyer, the champion, and the end user. More than that dilutes focus; the goal is enough distinction to tailor messaging, not a persona for every job title.` },
+      { q: `How do I create accurate buyer personas?`, a: `Interview real buyers and users and capture the exact language they use for their problems. Personas built from real conversations reflect true objections and motivations, while ones invented internally tend to flatter the product.` },
+    ],
+  },
+  {
+    slug: `sales-cadence-template`,
+    title: `Sales cadence template`,
+    kw: `outreach rhythm, multi-touch, examples`,
+    desc: `A sales cadence template with a proven multi-touch, multi-channel rhythm over 2 to 3 weeks. Day-by-day steps across email, call, and social. Copy and run.`,
+    shortAnswer: `A sales cadence is the scheduled rhythm of touches you make to reach a prospect across channels: email, phone, and social, over two to three weeks. A good cadence mixes channels and spaces touches deliberately. Below is a day-by-day cadence you can run and adapt.`,
+    intro: [
+      `Consistency is what a cadence buys you. Most replies come after several touches, so a defined rhythm beats sporadic effort.`,
+      `Mix channels; a prospect who ignores email may answer a call.`,
+    ],
+    sections: [
+      { h: `A proven 8-touch cadence`, body: `Over roughly two to three weeks.`, bullets: [
+        `Day 1: email 1 (intro) + connect on LinkedIn.`,
+        `Day 3: call 1 + voicemail, then email 2 (value).`,
+        `Day 5: email 3 (case study or resource).`,
+        `Day 8: call 2 + voicemail.`,
+        `Day 11: LinkedIn message or engage with their content.`,
+        `Day 14: email 4 (different angle).`,
+        `Day 18: call 3.`,
+        `Day 21: break-up email.`,
+      ] },
+      { h: `Cadence design rules`, body: `Keep it effective and human.`, bullets: [
+        `Mix at least two channels; email-only cadences underperform.`,
+        `Space touches so you are persistent, not a pest; widen the gaps over time.`,
+        `Every touch should add value or a new angle, never just "following up."`,
+      ] },
+    ],
+    keyPoints: [
+      `Run 6 to 10 touches over 2 to 3 weeks; most replies come mid-cadence.`,
+      `Mix email, phone, and social; single-channel cadences underperform.`,
+      `Give each touch a distinct angle, not a repeated "checking in."`,
+      `End with a break-up touch to capture the loss-aversion reply.`,
+    ],
+    faqs: [
+      { q: `What is a sales cadence?`, a: `The scheduled sequence of outreach touches, across email, phone, and social, that you make to reach a prospect over a set period, usually two to three weeks. It replaces sporadic follow-up with a deliberate, repeatable rhythm.` },
+      { q: `How many touches should a sales cadence have?`, a: `Six to ten across two to three weeks for cold outreach. Most positive replies come in the middle of the cadence, so stopping after one or two touches leaves the majority of responses uncaptured.` },
+      { q: `What is the difference between a cadence and a sequence?`, a: `The terms are often used interchangeably. When distinguished, a cadence is the overall multi-channel rhythm and a sequence is the specific automated series of steps, often email-focused, inside a sales engagement tool.` },
+    ],
+  },
+  {
+    slug: `sales-sequence-template`,
+    title: `Sales sequence template`,
+    kw: `email sequence, steps, automation`,
+    desc: `A sales sequence template with a step-by-step automated series that pauses on reply. Cold, inbound, and re-engagement sequences you can build and run.`,
+    shortAnswer: `A sales sequence is an automated series of steps, mostly emails with calls and social touches, that runs until a prospect replies. The best sequences pause on reply, personalize the opener, and vary the angle each step. Below are templates for a cold, an inbound, and a re-engagement sequence.`,
+    intro: [
+      `A sequence is a cadence you automate. The automation only works if it pauses the moment a prospect responds.`,
+      `Personalize the first line of each email even when the rest is templated.`,
+    ],
+    sections: [
+      { h: `A cold outbound sequence`, body: `Five steps over two weeks.`, bullets: [
+        `Step 1 (day 1): trigger or insight email.`,
+        `Step 2 (day 3): call + voicemail.`,
+        `Step 3 (day 5): value email with a proof point.`,
+        `Step 4 (day 9): different-angle email or a resource.`,
+        `Step 5 (day 14): break-up email.`,
+      ] },
+      { h: `Inbound and re-engagement sequences`, body: `Match the intent.`, bullets: [
+        `Inbound (fast, warm): reply within minutes, then day 1 call, day 2 value email, day 4 call, day 6 recap. Speed to lead is the biggest lever.`,
+        `Re-engagement: day 1 "what changed" email, day 4 trigger-based email, day 8 break-up. Lead every step with something new.`,
+      ] },
+    ],
+    keyPoints: [
+      `Automate the rhythm but pause the sequence the instant a prospect replies.`,
+      `Personalize each email's opener even when the body is templated.`,
+      `Vary the angle per step; do not send the same message five times.`,
+      `Match the sequence to intent: fast for inbound, patient for cold.`,
+    ],
+    faqs: [
+      { q: `What is a sales sequence?`, a: `An automated series of outreach steps, mostly emails with calls and social touches, that runs on a schedule until a prospect replies. It lets a rep run consistent, multi-touch outreach across many prospects without manual tracking.` },
+      { q: `Should sequences be automated?`, a: `The scheduling and reminders, yes, but each email's opener should be personalized and the sequence must pause on reply. Fully generic automation that keeps sending after a prospect answers reads as robotic and damages trust.` },
+      { q: `How is speed-to-lead relevant to inbound sequences?`, a: `For inbound leads, responding within minutes dramatically raises connect and conversion rates. An inbound sequence should trigger an immediate reply or call, because the value of a fresh inbound lead decays by the hour.` },
+    ],
+  },
+  {
+    slug: `sales-battlecard-template`,
+    title: `Sales battlecard template`,
+    kw: `competitor card, objections, positioning`,
+    desc: `A sales battlecard template that arms reps against a competitor: positioning, strengths, weaknesses, traps, and objection responses. One-page structure.`,
+    shortAnswer: `A sales battlecard is a one-page reference that helps reps win against a specific competitor: how to position against them, their strengths and weaknesses, landmines to set, and responses to their claims. Below is the template with each section and how to keep battlecards current.`,
+    intro: [
+      `A battlecard turns competitive knowledge into something a rep can use live on a call.`,
+      `Be honest about competitor strengths; reps who overclaim lose credibility.`,
+    ],
+    sections: [
+      { h: `The one-page battlecard sections`, body: `What a rep needs at a glance.`, bullets: [
+        `Positioning: one line on how you win against this competitor.`,
+        `Their strengths: where they genuinely do well (acknowledge honestly).`,
+        `Their weaknesses: gaps that matter to your buyers.`,
+        `Landmines: questions to plant that expose their weaknesses.`,
+        `Their claims and your responses: how to answer their pitch.`,
+        `Proof: a win against them, with the reason you won.`,
+      ] },
+      { h: `Landmine and response examples`, body: `Turn knowledge into questions.`, bullets: [
+        `Landmine: "When you evaluate options, ask how long until you are actually live with real data. That trips up a lot of tools."`,
+        `Response to "they are cheaper": "On the sticker, yes. Ask what the add-ons and premium AI tiers cost once you scale; the all-in number usually flips."`,
+      ] },
+    ],
+    keyPoints: [
+      `Keep it to one page a rep can scan mid-call.`,
+      `Acknowledge competitor strengths honestly to protect credibility.`,
+      `Plant landmines as questions that surface competitor weaknesses.`,
+      `Update battlecards from won and lost deals as the market shifts.`,
+    ],
+    faqs: [
+      { q: `What is a sales battlecard?`, a: `A one-page reference that arms reps to win against a specific competitor, covering positioning, the competitor's strengths and weaknesses, landmines to plant, and responses to their claims. It makes competitive knowledge usable live on a call.` },
+      { q: `What should a competitive battlecard include?`, a: `How you position against the competitor, their honest strengths and weaknesses, questions that expose their gaps, responses to their common claims, and proof from a real win. Keep it to one scannable page.` },
+      { q: `How often should battlecards be updated?`, a: `Whenever the competitor changes pricing, features, or positioning, and continuously from your own win-loss data. A stale battlecard is dangerous because it gives reps outdated claims that a well-informed buyer can dismantle.` },
+    ],
+  },
+  {
+    slug: `win-loss-analysis-template`,
+    title: `Win-loss analysis template`,
+    kw: `deal review, interview questions, patterns`,
+    desc: `A win-loss analysis template with interview questions and a scoring structure to learn why deals are really won and lost. Turn outcomes into a playbook.`,
+    shortAnswer: `A win-loss analysis systematically studies why deals are won and lost by interviewing buyers and reviewing the deal, then finding patterns to act on. Below is the template with the interview questions for wins and losses and the factors to track so the findings improve your playbook.`,
+    intro: [
+      `Reps rationalize losses ("price") that were really something else. Structured win-loss analysis finds the truth.`,
+      `Interview the buyer when you can; their reasons differ from the rep's.`,
+    ],
+    sections: [
+      { h: `Win and loss interview questions`, body: `Ask the buyer, not just the rep.`, bullets: [
+        `Why did you decide to make a change at all?`,
+        `What criteria mattered most in your decision?`,
+        `Why did you choose us / the other option?`,
+        `Where did our process help or hurt?`,
+        `What almost changed your mind?`,
+      ] },
+      { h: `Factors to track and act on`, body: `Turn stories into patterns.`, bullets: [
+        `Tag each deal with the primary win or loss reason (product, price, process, relationship, timing, competitor).`,
+        `Look for patterns by segment, competitor, and rep.`,
+        `Feed findings into battlecards, messaging, and product priorities.`,
+      ] },
+    ],
+    keyPoints: [
+      `Interview the buyer; their real reasons differ from the rep's rationalization.`,
+      `Tag every deal with a primary win or loss reason for pattern analysis.`,
+      `Look for patterns by segment, competitor, and stage.`,
+      `Feed findings back into battlecards, messaging, and the product roadmap.`,
+    ],
+    faqs: [
+      { q: `What is win-loss analysis?`, a: `A structured study of why deals are won and lost, based on buyer interviews and deal review, used to find actionable patterns. It replaces reps' anecdotal explanations with evidence you can act on across the go-to-market.` },
+      { q: `Who should conduct win-loss interviews?`, a: `Ideally someone other than the deal's rep, so buyers speak candidly, whether an enablement lead, a product marketer, or a third party. Buyers often share the real reason with a neutral interviewer that they would not tell the seller.` },
+      { q: `What do I do with win-loss findings?`, a: `Feed them into battlecards, messaging, sales training, and product priorities. The value of win-loss analysis is in acting on the patterns, closing the gaps that cost you deals and doubling down on what wins them.` },
+    ],
+  },
+  {
+    slug: `sales-playbook-template`,
+    title: `Sales playbook template`,
+    kw: `process, plays, enablement`,
+    desc: `A sales playbook template that documents how your team sells: process, personas, plays, messaging, and objection handling in one place. Structure included.`,
+    shortAnswer: `A sales playbook documents how your team sells so results stop depending on which rep caught the deal: the process, personas, plays by stage, messaging, and objection handling in one place. Below is the template with each section and how to keep the playbook a living tool reps actually use.`,
+    intro: [
+      `A playbook turns your best reps' instincts into a repeatable system everyone can follow.`,
+      `It must live where reps work, or it becomes a document no one opens.`,
+    ],
+    sections: [
+      { h: `The core sections`, body: `What a playbook contains.`, bullets: [
+        `Sales process: stages, exit criteria, and required actions.`,
+        `ICP and personas: who to target and how they think.`,
+        `Value proposition and messaging: how to talk about the product.`,
+        `Plays by stage: the exact actions, scripts, and assets for each step.`,
+        `Objection handling: responses to the common objections.`,
+        `Tools and hygiene: how to run the CRM and what "good" looks like.`,
+      ] },
+      { h: `Keeping it alive`, body: `Make it used, not shelved.`, bullets: [
+        `Embed plays in the CRM at the relevant stage so reps see them in context.`,
+        `Update from win-loss analysis and what top reps actually do.`,
+        `Coach to the playbook in deal reviews so it becomes the standard.`,
+      ] },
+    ],
+    keyPoints: [
+      `Document the process, personas, plays, messaging, and objections in one place.`,
+      `Embed plays in the CRM where reps work, not in a static doc.`,
+      `Build it from what your best reps actually do, then standardize it.`,
+      `Update it continuously and coach to it in every deal review.`,
+    ],
+    faqs: [
+      { q: `What is a sales playbook?`, a: `A document or system that captures how your team sells: the process, personas, plays by stage, messaging, and objection handling. It makes success repeatable so outcomes depend on the method, not on which rep happened to catch the deal.` },
+      { q: `What should a sales playbook include?`, a: `The sales process with exit criteria, the ICP and personas, value messaging, specific plays and scripts by stage, objection responses, and CRM hygiene standards. Everything a rep needs to run a deal the way your best reps do.` },
+      { q: `How do I get reps to use the playbook?`, a: `Embed the plays in the CRM at the relevant stage, keep it current from real deal data, and coach to it in reviews. Playbooks that live only in a slide deck get ignored; ones embedded in the workflow get used.` },
+    ],
+  },
+  {
+    slug: `deal-review-template`,
+    title: `Deal review template`,
+    kw: `opportunity review, questions, structure`,
+    desc: `A deal review template with the questions that expose risk: qualification gaps, next steps, and the path to close. Structure for productive one-on-ones.`,
+    shortAnswer: `A deal review inspects a single opportunity to find risk and decide the next move. A good one asks about qualification gaps, the decision process, and the close plan, not just "how does it feel?" Below is the template with the questions to ask and how to run a review that advances the deal.`,
+    intro: [
+      `Deal reviews go wrong when they become status updates. The goal is to find the one gap that could lose the deal.`,
+      `Ask questions that expose risk, not ones that let the rep sound optimistic.`,
+    ],
+    sections: [
+      { h: `The questions that expose risk`, body: `Inspect, do not narrate.`, bullets: [
+        `What is the compelling reason to buy, and what does inaction cost them?`,
+        `Have you met the economic buyer? What do they care about?`,
+        `Who is your champion, and can they sell this internally?`,
+        `What is the exact decision and paper process, with dates?`,
+        `What is the single biggest risk to this deal right now?`,
+      ] },
+      { h: `Running a productive review`, body: `Leave with actions.`, bullets: [
+        `Focus on the weakest qualification element; that is the next action.`,
+        `End with a specific, owned next step and a date, not a vibe.`,
+        `Skip deals that are healthy and on track; spend time on the ones at risk.`,
+      ] },
+    ],
+    keyPoints: [
+      `Inspect qualification gaps and the close plan, not the rep's optimism.`,
+      `Always identify the single biggest risk to the deal.`,
+      `End every review with a specific, owned, dated next action.`,
+      `Spend time on at-risk deals, not the ones already on track.`,
+    ],
+    faqs: [
+      { q: `What is a deal review?`, a: `A focused inspection of a single opportunity to surface risk and decide the next move. Unlike a pipeline review, which scans many deals, a deal review goes deep on one to test qualification and the path to close.` },
+      { q: `What questions should I ask in a deal review?`, a: `Ones that expose risk: the compelling reason to buy, whether you have met the economic buyer, the strength of the champion, the exact decision and paper process, and the single biggest risk. Avoid questions that let the rep just sound confident.` },
+      { q: `How is a deal review different from a pipeline review?`, a: `A deal review inspects one opportunity in depth; a pipeline review scans the whole pipeline for movement, coverage, and stalled deals. Use pipeline reviews to spot problems and deal reviews to solve them.` },
+    ],
+  },
+  {
+    slug: `pipeline-review-template`,
+    title: `Pipeline review template`,
+    kw: `pipeline meeting, agenda, questions`,
+    desc: `A pipeline review template that keeps deals moving: coverage, stalled deals, movement, and forecast. Agenda and questions for a tight weekly review.`,
+    shortAnswer: `A pipeline review inspects the whole pipeline for health: coverage against quota, deals that moved or stalled, and forecast confidence. A good one focuses on movement, not deal count. Below is the template with the agenda, the metrics to check, and the questions that keep reps honest.`,
+    intro: [
+      `A pipeline review is about the system, not one deal. Look for stalls, thin coverage, and slippage.`,
+      `Keep it to 30 minutes and focus on what is not moving.`,
+    ],
+    sections: [
+      { h: `The review agenda`, body: `Health, then action.`, bullets: [
+        `Coverage: is qualified pipeline at least 3x the quota gap?`,
+        `Movement: what advanced, what slipped, what was lost this week?`,
+        `Stalled deals: which have no next step or no activity in 30-plus days?`,
+        `Forecast: what is commit vs best case, and did it change?`,
+        `Actions: the top plays for the week.`,
+      ] },
+      { h: `Questions that keep it honest`, body: `Focus on the stuck.`, bullets: [
+        `"This deal has not moved in three weeks. What is the actual blocker?"`,
+        `"What is the next step and its date? If there is not one, why is this still open?"`,
+        `"What would have to be true for this to close this quarter?"`,
+      ] },
+    ],
+    keyPoints: [
+      `Focus on movement and stalls, not the raw count of deals.`,
+      `Check coverage (roughly 3x the quota gap) every review.`,
+      `Flag any deal with no next step or no recent activity.`,
+      `Keep it to 30 minutes and leave with owned actions.`,
+    ],
+    faqs: [
+      { q: `What is a pipeline review?`, a: `A recurring meeting that inspects the whole pipeline for health: coverage against quota, deal movement, stalled opportunities, and forecast confidence. It catches systemic problems like thin coverage or widespread slippage early.` },
+      { q: `How often should I run a pipeline review?`, a: `Weekly for most sales teams. A weekly rhythm catches stalls and slippage while there is still time to act, and it keeps reps accountable for moving deals forward rather than letting them age quietly.` },
+      { q: `What should a pipeline review focus on?`, a: `Movement and health, not deal count. Look at coverage, what advanced or slipped, deals with no next step, and forecast changes. A review that just reads the list without probing stalls does not improve outcomes.` },
+    ],
+  },
+  {
+    slug: `30-60-90-day-sales-plan-template`,
+    title: `30-60-90 day sales plan template`,
+    kw: `new rep plan, onboarding, interview`,
+    desc: `A 30-60-90 day sales plan template for new reps and interviews: learn, then contribute, then own. Milestones for each phase you can copy and adapt.`,
+    shortAnswer: `A 30-60-90 day sales plan lays out a new rep's first three months in three phases: learn (days 1 to 30), contribute (31 to 60), and own (61 to 90). It is used for onboarding and to stand out in interviews. Below is the template with goals and milestones for each phase.`,
+    intro: [
+      `A clear 30-60-90 plan turns an overwhelming first quarter into a sequence of achievable goals.`,
+      `In interviews, presenting one signals you think like an owner.`,
+    ],
+    sections: [
+      { h: `Days 1 to 30: learn`, body: `Absorb the product, market, and process.`, bullets: [
+        `Complete product and pitch certification.`,
+        `Learn the ICP, personas, and competitive landscape.`,
+        `Shadow calls and study the sales process and CRM.`,
+        `Meet the team and key cross-functional partners.`,
+      ] },
+      { h: `Days 31 to 60: contribute`, body: `Start doing the work with support.`, bullets: [
+        `Run discovery calls with coaching and build first pipeline.`,
+        `Hit ramped activity targets and get feedback loops going.`,
+        `Own a small set of accounts or leads end to end.`,
+      ] },
+      { h: `Days 61 to 90: own`, body: `Operate independently and produce.`, bullets: [
+        `Run the full cycle solo and hit a ramped pipeline or revenue target.`,
+        `Close a first deal and refine what is working.`,
+        `Set goals for the next quarter based on early data.`,
+      ] },
+    ],
+    keyPoints: [
+      `Structure the first quarter as learn, contribute, own.`,
+      `Attach concrete milestones to each phase, not vague intentions.`,
+      `Certify on product and pitch in the first 30 days to start producing sooner.`,
+      `In interviews, a specific 30-60-90 plan signals ownership and preparation.`,
+    ],
+    faqs: [
+      { q: `What is a 30-60-90 day sales plan?`, a: `A structured plan for a rep's first three months, split into learning (days 1 to 30), contributing (31 to 60), and owning (61 to 90). It gives a new hire a clear path from ramp to independent production.` },
+      { q: `How do I use a 30-60-90 plan in an interview?`, a: `Present a specific plan for how you would ramp in the role: what you would learn first, how you would start contributing, and what you would own by day 90. It signals ownership and preparation that generic answers do not.` },
+      { q: `What should a new rep achieve by day 90?`, a: `Independent operation of the full sales cycle, a ramped pipeline or revenue target, and ideally a first closed deal. Day 90 is where a rep transitions from supported learning to accountable production.` },
+    ],
+  },
+  {
+    slug: `value-proposition-template`,
+    title: `Value proposition template`,
+    kw: `positioning, formula, examples`,
+    desc: `A value proposition template and formula: for a target customer, the outcome you deliver, and why you are different. Build messaging that actually lands.`,
+    shortAnswer: `A value proposition states, in one clear statement, who you help, the outcome you deliver, and why you are different or better. The template below gives you a fill-in formula, a worked example, and the test that separates a real value proposition from a vague slogan.`,
+    intro: [
+      `A value proposition is not a tagline; it is a claim about the outcome you deliver for a specific customer.`,
+      `If a competitor could say the same sentence, it is not sharp enough.`,
+    ],
+    sections: [
+      { h: `The formula`, body: `Specific, outcome-led, differentiated.`, bullets: [
+        `"For {target customer} who {need}, {product} is a {category} that {key benefit}. Unlike {alternative}, we {differentiator}."`,
+        `Example: "For revenue teams who are tired of CRMs that take months to set up, Rally is an AI-native CRM that is alive with data on day one. Unlike legacy tools, our operator does the work instead of just storing it."`,
+      ] },
+      { h: `The test`, body: `Is it real or a slogan?`, bullets: [
+        `Specific: names a real customer and a real outcome, not "the best solution."`,
+        `Differentiated: a competitor could not honestly claim the same thing.`,
+        `Provable: you can back it with evidence, not adjectives.`,
+      ] },
+    ],
+    keyPoints: [
+      `Name the target customer and the outcome, not just the product category.`,
+      `Include a differentiator a competitor could not honestly claim.`,
+      `Make it provable with evidence, not adjectives.`,
+      `Test it against every competitor; sameness means it is too vague.`,
+    ],
+    faqs: [
+      { q: `What is a value proposition?`, a: `A clear statement of who you help, the outcome you deliver, and why you are different or better. It is the core of your positioning and messaging, and it should be specific enough that a competitor could not honestly say the same thing.` },
+      { q: `How is a value proposition different from a tagline?`, a: `A tagline is a memorable phrase for brand recall; a value proposition is a specific, provable claim about the outcome you deliver for a target customer. Taglines evoke; value propositions persuade and can be backed with evidence.` },
+      { q: `How do I know if my value proposition is strong?`, a: `Test whether it is specific, differentiated, and provable. If it names a real customer and outcome, a competitor could not honestly claim it, and you can back it with evidence, it is strong. If it is interchangeable with rivals, sharpen it.` },
+    ],
+  },
+  {
+    slug: `lead-scoring-template`,
+    title: `Lead scoring template`,
+    kw: `fit and engagement, model, thresholds`,
+    desc: `A lead scoring template that prioritizes the right leads: fit points plus engagement points, with thresholds for MQL and SQL. Example model included.`,
+    shortAnswer: `A lead scoring model ranks leads by combining fit (how well they match your ICP) and engagement (how much interest they show). Scoring both dimensions tells reps who to call first. Below is the template with example point values and the thresholds for marketing- and sales-qualified leads.`,
+    intro: [
+      `Lead scoring answers one question: who do I work first? Score fit and engagement separately so a high-interest bad-fit lead does not jump the queue.`,
+      `Start simple and tune from real conversion data.`,
+    ],
+    sections: [
+      { h: `Example scoring model`, body: `Fit points plus engagement points.`, table: {
+        columns: [`Signal`, `Type`, `Points`],
+        rows: [
+          [`Title matches buyer persona`, `Fit`, `+20`],
+          [`Company size in ICP range`, `Fit`, `+15`],
+          [`Industry in ICP`, `Fit`, `+10`],
+          [`Out-of-ICP industry`, `Fit`, `-15`],
+          [`Requested a demo`, `Engagement`, `+30`],
+          [`Opened 3+ emails / visited pricing`, `Engagement`, `+15`],
+          [`No activity in 30 days`, `Engagement`, `-10`],
+        ],
+      } },
+      { h: `Thresholds and use`, body: `Turn scores into action.`, bullets: [
+        `MQL: fit is acceptable and engagement crosses a set bar (for example, 40+ total).`,
+        `SQL: strong fit plus a high-intent action like a demo request.`,
+        `Route the highest fit-plus-engagement leads to reps first; nurture the rest.`,
+      ] },
+    ],
+    keyPoints: [
+      `Score fit and engagement separately so a bad-fit lead cannot jump the queue.`,
+      `Use negative points for disqualifying signals, not just positive ones.`,
+      `Set clear MQL and SQL thresholds to hand off leads consistently.`,
+      `Tune the model from real conversion data over time.`,
+    ],
+    faqs: [
+      { q: `What is lead scoring?`, a: `A method of ranking leads by combining fit (match to your ICP) and engagement (interest shown), so reps work the most promising leads first. Scoring both dimensions prevents a high-interest but poor-fit lead from being over-prioritized.` },
+      { q: `What signals should a lead scoring model use?`, a: `Fit signals like title, company size, and industry, plus engagement signals like demo requests, pricing-page visits, and email opens. Include negative points for disqualifiers such as out-of-ICP industry or long inactivity.` },
+      { q: `What is the difference between an MQL and an SQL?`, a: `A marketing-qualified lead has enough fit and engagement to warrant sales attention; a sales-qualified lead has been vetted by a rep as a real opportunity worth pursuing. Clear score thresholds keep the handoff between the two consistent.` },
+    ],
+  },
+  {
+    slug: `close-plan-template`,
+    title: `Close plan template`,
+    kw: `path to signature, steps, dates`,
+    desc: `A close plan template that maps the exact steps to signature: milestones, owners, and dates working back from the go-live date. Keep deals on track.`,
+    shortAnswer: `A close plan is the seller's map of the exact steps, owners, and dates required to get a specific deal from where it is now to signature. Built backward from the buyer's target date, it exposes risk and keeps momentum. Below is the template and how it differs from a mutual action plan.`,
+    intro: [
+      `A close plan is how a rep de-risks a deal in the final stretch. Every step gets an owner and a date.`,
+      `Share it with the buyer to turn it into a mutual commitment.`,
+    ],
+    sections: [
+      { h: `The steps to signature`, body: `Work backward from the target date.`, table: {
+        columns: [`Step`, `Owner`, `Target date`],
+        rows: [
+          [`Final proposal reviewed`, `Both`, `{date}`],
+          [`Business case approved by economic buyer`, `Buyer`, `{date}`],
+          [`Security and technical review`, `Buyer`, `{date}`],
+          [`Legal redlines resolved`, `Both`, `{date}`],
+          [`Procurement and PO issued`, `Buyer`, `{date}`],
+          [`Signature`, `Buyer`, `{date}`],
+          [`Kickoff and go-live`, `Both`, `{date}`],
+        ],
+      } },
+      { h: `Working the close plan`, body: `Keep it honest and shared.`, bullets: [
+        `Work backward from the buyer's go-live date so the dates are real.`,
+        `Assign an owner to every step, including buyer-side ones.`,
+        `A buyer who will not engage with the dates is signaling the deal is not ready.`,
+      ] },
+    ],
+    keyPoints: [
+      `Map every step to signature with an owner and a date.`,
+      `Build the plan backward from the buyer's target go-live date.`,
+      `Include buyer-side steps like security, legal, and procurement.`,
+      `Share it with the buyer to convert it into a joint commitment.`,
+    ],
+    faqs: [
+      { q: `What is a close plan?`, a: `A seller's map of the specific steps, owners, and dates needed to move a deal from its current stage to signature, built backward from the buyer's target date. It exposes hidden steps and keeps a late-stage deal from slipping.` },
+      { q: `What is the difference between a close plan and a mutual action plan?`, a: `They are closely related. A close plan is often the seller's internal view of the path to signature, while a mutual action plan is the same plan built and shared jointly with the buyer. Sharing a close plan effectively turns it into a mutual action plan.` },
+      { q: `When should I build a close plan?`, a: `Once a deal is qualified and there is a target date, typically in the proposal or negotiation stage. Building it surfaces buyer-side steps like legal and procurement early, so a verbally-closed deal does not slip on paperwork.` },
+    ],
+  },
+  {
+    slug: `negotiation-planning-template`,
+    title: `Negotiation planning template`,
+    kw: `prepare to negotiate, BATNA, give-gets`,
+    desc: `A negotiation planning template: goals, walk-away, BATNA, tradeables, and give-gets. Prepare before the call so you never improvise a concession.`,
+    shortAnswer: `A negotiation planning template forces you to prepare before the conversation: your target and walk-away, your BATNA, the other side's likely position, and your planned give-gets. Preparation is what keeps you from conceding on reflex. Below is the template and how to use each part.`,
+    intro: [
+      `Most bad negotiation outcomes are decided before the call, by failing to prepare. This template fixes that.`,
+      `Know your walk-away and your trades before you pick up the phone.`,
+    ],
+    sections: [
+      { h: `What to plan`, body: `Fill this in before you negotiate.`, bullets: [
+        `Target: the outcome you want (price, terms, timeline).`,
+        `Walk-away: the point past which no deal is better than this deal.`,
+        `BATNA: your best alternative if this deal falls through.`,
+        `Their position: their likely goals, pressures, and constraints.`,
+        `Tradeables: what you can give that costs you little but they value.`,
+        `Give-gets: each concession paired with what you will ask in return.`,
+      ] },
+      { h: `Using the plan`, body: `Trade, do not cave.`, bullets: [
+        `Never give a concession without getting something; consult your give-get list.`,
+        `Anchor first when you have information; it frames the range.`,
+        `If you hit your walk-away, be willing to pause or exit calmly.`,
+      ] },
+    ],
+    keyPoints: [
+      `Set your target and walk-away before the conversation.`,
+      `Know your BATNA; it is your real source of leverage.`,
+      `List tradeables that cost you little but the buyer values.`,
+      `Pair every concession with a give-get so you never cave for free.`,
+    ],
+    faqs: [
+      { q: `What is a BATNA?`, a: `Your best alternative to a negotiated agreement, the option you would take if this deal fell through. A strong BATNA is your real leverage: it lets you walk away, which prevents you from accepting terms worse than your alternatives.` },
+      { q: `How do I prepare for a sales negotiation?`, a: `Define your target and walk-away, know your BATNA, anticipate the other side's position, and plan your tradeables and give-gets in advance. Most negotiation outcomes are decided by preparation, not by improvisation on the call.` },
+      { q: `What is a give-get in negotiation?`, a: `A concession offered only in exchange for something of value, like a discount for a longer term or faster signature. Planning give-gets ahead of time keeps every concession earning its way into a better overall deal.` },
+    ],
+  },
+  {
+    slug: `sales-kpi-dashboard-template`,
+    title: `Sales KPI dashboard template`,
+    kw: `metrics, dashboard, what to track`,
+    desc: `A sales KPI dashboard template with the metrics that matter: pipeline, conversion, velocity, and forecast. What to track by role and how to read it.`,
+    shortAnswer: `A sales KPI dashboard shows the handful of metrics a team steers by: pipeline coverage, conversion rates, win rate, sales velocity, and forecast attainment. Tracking too many metrics buries the signal. Below is the template with the core KPIs, how each is calculated, and which role watches which.`,
+    intro: [
+      `A dashboard is for decisions, not decoration. Track the metrics you would actually change behavior over.`,
+      `Different roles need different views; do not show a rep the board's metrics.`,
+    ],
+    sections: [
+      { h: `The core KPIs`, body: `What to track and how it is calculated.`, table: {
+        columns: [`KPI`, `How it is calculated`, `Watched by`],
+        rows: [
+          [`Pipeline coverage`, `Open pipeline / quota gap`, `Manager, rep`],
+          [`Win rate`, `Won deals / total closed`, `Manager, leader`],
+          [`Conversion by stage`, `Deals advancing / entering each stage`, `Manager`],
+          [`Sales velocity`, `Deals x win rate x deal size / cycle length`, `Leader`],
+          [`Average deal size`, `Total revenue / deals won`, `Leader`],
+          [`Forecast attainment`, `Actual / forecast`, `Leader`],
+        ],
+      } },
+      { h: `Designing the dashboard`, body: `Signal over noise.`, bullets: [
+        `Show each metric against a goal or trend, not just a raw value.`,
+        `Give reps activity and pipeline views; give leaders trend and forecast views.`,
+        `Limit the top-level dashboard to five or six KPIs; drill-downs for the rest.`,
+      ] },
+    ],
+    keyPoints: [
+      `Track the few KPIs you would actually change behavior over.`,
+      `Show every metric against a goal or trend, not in isolation.`,
+      `Tailor the view to the role; reps and leaders need different metrics.`,
+      `Cap the top-level dashboard at five or six KPIs to protect the signal.`,
+    ],
+    faqs: [
+      { q: `What KPIs should a sales dashboard track?`, a: `The core set is pipeline coverage, win rate, conversion by stage, sales velocity, average deal size, and forecast attainment. These few metrics let a team steer; adding dozens more buries the signal that drives decisions.` },
+      { q: `What is sales velocity?`, a: `A measure of how fast revenue moves through your pipeline, calculated as the number of deals times win rate times average deal size, divided by the average sales cycle length. Improving any input raises velocity.` },
+      { q: `How many metrics should a sales dashboard show?`, a: `Five or six at the top level, with drill-downs for detail. A dashboard is for decisions, so it should surface the metrics a team acts on and push everything else into secondary views to keep the main view readable.` },
+    ],
+  },
 ];
 
 const RALLY_NOTE = (t) => ({
