@@ -14,6 +14,8 @@ import {
   Modal, EmptyState, ProgressBar, Segmented, StatCard, useToast, relTime, monthDay,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import ProjectTimeline from '../components/ProjectTimeline.jsx';
+import ProjectCalendar from '../components/ProjectCalendar.jsx';
 
 /* ---------- status + priority config ---------- */
 const COLUMNS = [
@@ -418,7 +420,7 @@ export default function Projects() {
           {/* VIEW SWITCHER */}
           <div className="row" style={{ marginBottom: '.9rem' }}>
             <Segmented
-              options={[{ value: 'board', label: 'Board' }, { value: 'table', label: 'Table' }]}
+              options={[{ value: 'board', label: 'Board' }, { value: 'table', label: 'Table' }, { value: 'timeline', label: 'Timeline' }, { value: 'calendar', label: 'Calendar' }]}
               value={boardView}
               onChange={setBoardView}
             />
@@ -435,8 +437,12 @@ export default function Projects() {
                   onOpen={openEdit} onQuickDone={quickDone} onAdd={addTaskTo} canAdd={canAddInline} />
               ))}
             </div>
-          ) : (
+          ) : boardView === 'table' ? (
             <TableBoard tasks={tasks} project={active} onOpen={openEdit} />
+          ) : boardView === 'timeline' ? (
+            <ProjectTimeline tasks={tasks} project={active} onOpen={openEdit} />
+          ) : (
+            <ProjectCalendar tasks={tasks} onOpen={openEdit} />
           )}
         </>
       )}
