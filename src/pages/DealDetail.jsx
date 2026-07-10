@@ -28,6 +28,7 @@ import {
 import { Icon } from '../components/icons.jsx';
 import { celebrate } from '../lib/celebrate.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
+import RecordDetailPanel from '../components/RecordDetailPanel.jsx';
 
 const STAGE_COLOR = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -686,6 +687,7 @@ export default function DealDetail() {
           </Field>
         </div>
       </Modal>
+      <RecordDetailPanel objectType="deal" record={deal} onPatch={(p) => updateDeal(deal.id, p)} />
     </div>
   );
 }

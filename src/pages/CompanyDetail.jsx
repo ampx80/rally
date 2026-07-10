@@ -9,6 +9,7 @@ import {
   getUsers, userName, contactName, stageById, updateCompany,
 } from '../lib/store.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
+import RecordDetailPanel from '../components/RecordDetailPanel.jsx';
 import {
   Card, Button, Badge, Avatar, Stat, Field, Input, Select, Modal,
   EmptyState, useToast, HealthDot, moneyK,
@@ -249,6 +250,7 @@ export default function CompanyDetail() {
           </div>
         )}
       </Modal>
+      <RecordDetailPanel objectType="company" record={co} onPatch={(p) => updateCompany(co.id, p)} />
     </div>
   );
 }
