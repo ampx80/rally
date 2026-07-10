@@ -17,6 +17,11 @@ import {
   addCustomField, updateCustomField, removeCustomField, getFieldOptions,
 } from '../lib/fields';
 import { resetAudit } from '../lib/audit';
+import {
+  ROLES, CAPABILITIES, CAP_GROUPS, FIELD_SECURITY, roleMeta,
+  getMatrix, grantCount, setGrant, resetRole, hasOverrides,
+  getActiveRole, setActiveRole, isViewingAs, useRbac,
+} from '../lib/rbac';
 
 const ACCENT = '#5b4bf5';
 const STAGE_COLOR = {
@@ -66,6 +71,7 @@ const TABS = [
   { key: 'workspace', label: 'Workspace' },
   { key: 'modules', label: 'Modules' },
   { key: 'fields', label: 'Fields' },
+  { key: 'roles', label: 'Roles' },
   { key: 'pipeline', label: 'Pipeline' },
   { key: 'notifications', label: 'Notifications' },
   { key: 'branding', label: 'Branding' },
@@ -238,6 +244,209 @@ function FieldsTab() {
   );
 }
 
+/* ---------- Roles tab: RBAC matrix + View-as switcher (Wave 8) ----------
+   The permission matrix is the heart of enterprise access control. Rows are
+   capabilities grouped by area; columns are the four roles. Click any cell to
+   grant/revoke (Admin is locked all-on). The View-as switcher re-renders the
+   whole app as the chosen role so you can prove the gates work. */
+function RoleCell({ roleId, capId, on, locked, onToggle }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      disabled={locked}
+      onClick={() => onToggle(roleId, capId, !on)}
+      title={locked ? 'Admin always has every permission' : on ? 'Granted - click to revoke' : 'Denied - click to grant'}
+      style={{
+        width: 30, height: 30, borderRadius: 8, flex: 'none', margin: '0 auto', display: 'grid', placeItems: 'center',
+        cursor: locked ? 'not-allowed' : 'pointer', padding: 0,
+        border: on ? 'none' : '1.5px solid var(--line)',
+        background: on ? (locked ? 'color-mix(in srgb, ' + roleMeta(roleId).color + ' 55%, var(--n-400))' : roleMeta(roleId).color) : 'transparent',
+        color: '#fff', opacity: locked && !on ? .4 : 1,
+        transition: 'transform .12s var(--ease), background .15s var(--ease)',
+      }}
+      onMouseDown={(e) => { if (!locked) e.currentTarget.style.transform = 'scale(.86)'; }}
+      onMouseUp={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+    >
+      {on ? <Icon name="check" size={16} /> : <span style={{ width: 8, height: 2, borderRadius: 2, background: 'var(--n-300)' }} />}
+    </button>
+  );
+}
+
+function RolesTab() {
+  useRbac(); // re-render on grant / view-as changes
+  const toast = useToast();
+  const matrix = getMatrix();
+  const active = getActiveRole();
+
+  const toggle = (roleId, capId, on) => { setGrant(roleId, capId, on); };
+  const viewAs = (roleId) => {
+    setActiveRole(roleId);
+    toast(roleId === 'admin' ? 'Viewing as Admin (full access)' : `Now viewing Rally as ${roleMeta(roleId).label}`);
+  };
+
+  return (
+    <div className="col gap-3">
+      {/* View-as banner */}
+      <Card className="col" style={{ gap: '1rem' }}>
+        <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
+          <div className="col gap-1">
+            <div className="row gap-2" style={{ alignItems: 'center' }}>
+              <Icon name="eye" size={18} />
+              <h4 style={{ margin: 0 }}>View as role</h4>
+            </div>
+            <span className="muted t-sm" style={{ maxWidth: '54ch' }}>
+              See Rally exactly as another role would. Gated pages (like the audit log) and
+              field-level security respond live. Switch back to Admin to regain full control.
+            </span>
+          </div>
+          {isViewingAs() && (
+            <Badge tone="warn" style={{ flex: 'none' }}>
+              <Icon name="eye" size={13} /> Viewing as {roleMeta(active).label}
+            </Badge>
+          )}
+        </div>
+        <div className="row gap-2 wrap">
+          {ROLES.map(r => {
+            const on = active === r.id;
+            return (
+              <button key={r.id} type="button" onClick={() => viewAs(r.id)}
+                style={{
+                  flex: '1 1 200px', textAlign: 'left', cursor: 'pointer', borderRadius: 12, padding: '.85rem 1rem',
+                  border: on ? `2px solid ${r.color}` : '1.5px solid var(--line)',
+                  background: on ? `color-mix(in srgb, ${r.color} 9%, var(--paper))` : 'var(--paper)',
+                  transition: 'border-color .15s var(--ease), background .15s var(--ease)',
+                }}>
+                <div className="row between" style={{ alignItems: 'center' }}>
+                  <span className="row gap-2" style={{ alignItems: 'center' }}>
+                    <span style={{ width: 10, height: 10, borderRadius: 3, background: r.color, flex: 'none' }} />
+                    <span className="fw-7">{r.label}</span>
+                  </span>
+                  {on && <Icon name="check" size={16} style={{ color: r.color }} />}
+                </div>
+                <span className="t-xs muted" style={{ display: 'block', marginTop: 4 }}>{r.desc}</span>
+              </button>
+            );
+          })}
+        </div>
+      </Card>
+
+      {/* Permission matrix */}
+      <Card pad={false}>
+        <div className="row between wrap gap-2" style={{ padding: '1rem 1.25rem', borderBottom: '1px solid var(--line)', alignItems: 'flex-start' }}>
+          <div className="col gap-1">
+            <div className="row gap-2" style={{ alignItems: 'center' }}>
+              <Icon name="shield" size={18} />
+              <h4 style={{ margin: 0 }}>Permission matrix</h4>
+            </div>
+            <span className="muted t-sm" style={{ maxWidth: '58ch' }}>
+              Click a cell to grant or revoke. Admin is locked to full access. Changes apply instantly
+              across the workspace and persist locally.
+            </span>
+          </div>
+        </div>
+
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 620 }}>
+            <thead>
+              <tr>
+                <th style={{ padding: '.75rem 1.25rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--paper)' }}></th>
+                {ROLES.map(r => (
+                  <th key={r.id} style={{ padding: '.65rem .5rem', textAlign: 'center', minWidth: 96 }}>
+                    <div className="col center" style={{ gap: 3 }}>
+                      <span style={{ width: 10, height: 10, borderRadius: 3, background: r.color }} />
+                      <span className="fw-7 t-sm">{r.label}</span>
+                      <span className="t-xs muted tnum">{grantCount(r.id)}/{CAPABILITIES.length}</span>
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {CAP_GROUPS.map(group => (
+                <React.Fragment key={group}>
+                  <tr>
+                    <td colSpan={ROLES.length + 1} style={{ padding: '.7rem 1.25rem .3rem', background: 'color-mix(in srgb, var(--n-500) 5%, var(--paper))' }}>
+                      <span className="eyebrow" style={{ margin: 0 }}>{group}</span>
+                    </td>
+                  </tr>
+                  {CAPABILITIES.filter(c => c.group === group).map(cap => (
+                    <tr key={cap.id} style={{ borderTop: '1px solid var(--line)' }}>
+                      <td style={{ padding: '.6rem 1.25rem', position: 'sticky', left: 0, background: 'var(--paper)' }}>
+                        <div className="col" style={{ gap: 1 }}>
+                          <span className="fw-6 row gap-1" style={{ alignItems: 'center' }}>
+                            {cap.label}
+                            {cap.sensitive && <Icon name="lock" size={12} style={{ color: 'var(--warn)' }} />}
+                          </span>
+                          <span className="t-xs muted">{cap.desc}</span>
+                        </div>
+                      </td>
+                      {ROLES.map(r => (
+                        <td key={r.id} style={{ padding: '.45rem .5rem', textAlign: 'center' }}>
+                          <RoleCell roleId={r.id} capId={cap.id} on={matrix[r.id][cap.id]} locked={r.id === 'admin'} onToggle={toggle} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="row between wrap gap-2" style={{ padding: '.85rem 1.25rem', borderTop: '1px solid var(--line)' }}>
+          <span className="t-xs muted">Field-level security below restricts individual sensitive fields on top of these page permissions.</span>
+          <div className="row gap-1">
+            {ROLES.filter(r => r.id !== 'admin' && hasOverrides(r.id)).map(r => (
+              <Button key={r.id} variant="quiet" size="sm" onClick={() => { resetRole(r.id); toast(`${roleMeta(r.id).label} reset to defaults`); }}>
+                Reset {roleMeta(r.id).label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </Card>
+
+      {/* Field-level security */}
+      <Card className="col" style={{ gap: '.9rem' }}>
+        <div className="col gap-1">
+          <div className="row gap-2" style={{ alignItems: 'center' }}>
+            <Icon name="key" size={17} />
+            <h4 style={{ margin: 0 }}>Field-level security</h4>
+          </div>
+          <span className="muted t-sm" style={{ maxWidth: '58ch' }}>
+            The minimum role required to see or edit each protected field. Reps never see deal margin;
+            personal contact emails are manager-and-up. Enforced everywhere the field renders.
+          </span>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 440 }}>
+            <thead>
+              <tr style={{ textAlign: 'left', color: 'var(--n-600)', fontSize: '.8rem', textTransform: 'uppercase', letterSpacing: '.03em' }}>
+                <th style={{ padding: '.5rem .75rem' }}>Field</th>
+                <th style={{ padding: '.5rem .75rem' }}>Object</th>
+                <th style={{ padding: '.5rem .75rem' }}>Can view</th>
+                <th style={{ padding: '.5rem .75rem' }}>Can edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {FIELD_SECURITY.map(f => (
+                <tr key={f.objectType + f.key} style={{ borderTop: '1px solid var(--line)' }}>
+                  <td style={{ padding: '.6rem .75rem', fontWeight: 600 }}>{f.label}</td>
+                  <td style={{ padding: '.6rem .75rem', textTransform: 'capitalize' }} className="muted">{f.objectType}</td>
+                  <td style={{ padding: '.6rem .75rem' }}><Badge style={{ background: `color-mix(in srgb, ${roleMeta(f.view).color} 14%, transparent)`, color: roleMeta(f.view).color }}>{roleMeta(f.view).label}+</Badge></td>
+                  <td style={{ padding: '.6rem .75rem' }}><Badge style={{ background: `color-mix(in srgb, ${roleMeta(f.edit).color} 14%, transparent)`, color: roleMeta(f.edit).color }}>{roleMeta(f.edit).label}+</Badge></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 export default function Settings() {
   useStore(); // subscribe for reactivity
   const mods = useModules(); // re-render on module toggle
@@ -286,6 +495,9 @@ export default function Settings() {
 
       {/* ---------- FIELDS (the registry manager) ---------- */}
       {tab === 'fields' && <FieldsTab />}
+
+      {/* ---------- ROLES (RBAC matrix + view-as) ---------- */}
+      {tab === 'roles' && <RolesTab />}
 
       {/* ---------- WORKSPACE ---------- */}
       {tab === 'workspace' && (

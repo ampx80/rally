@@ -32,6 +32,7 @@ import Workflows from './pages/Workflows.jsx';
 import Team from './pages/Team.jsx';
 import Settings from './pages/Settings.jsx';
 import Projects from './pages/Projects.jsx';
+import AuditLog from './pages/AuditLog.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -43,7 +44,7 @@ import Manifesto from './marketing/Manifesto.jsx';
 import SiteMap from './marketing/SiteMap.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit']);
 
 const NAV_SECTIONS = [
   { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }] },
@@ -74,6 +75,7 @@ const NAV_SECTIONS = [
   { label: 'Admin', items: [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/team', label: 'Team', icon: 'users' },
+    { to: '/audit', label: 'Audit log', icon: 'history' },
     { to: '/settings', label: 'Settings', icon: 'settings' },
   ] },
 ];
@@ -257,6 +259,7 @@ export default function App() {
               <Route path="/workflows" element={<Workflows />} />
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/audit" element={<AuditLog />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
