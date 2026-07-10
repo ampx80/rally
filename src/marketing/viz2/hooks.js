@@ -30,7 +30,7 @@ export function useInView(options) {
     if (typeof IntersectionObserver === 'undefined') { setInView(true); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) { setInView(true); io.unobserve(el); } });
-    }, { threshold: 0.2, rootMargin: '0px 0px -6% 0px', ...(options || {}) });
+    }, { threshold: 0.05, rootMargin: '0px 0px 14% 0px', ...(options || {}) });
     io.observe(el);
     return () => io.disconnect();
   }, []);

@@ -13,7 +13,7 @@ export function Reveal({ children, delay = 0, as: As = 'div', className = '', st
     const el = ref.current; if (!el) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { setSeen(true); io.unobserve(el); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 18% 0px' });
     io.observe(el);
     return () => io.disconnect();
   }, []);

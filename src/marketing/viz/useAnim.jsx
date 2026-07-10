@@ -21,7 +21,7 @@ export function useReducedMotion() {
 
 // Returns [ref, inView]. inView flips true when at least `threshold` of the node
 // is visible and false when it leaves, so loops can pause off screen.
-export function useInView(threshold = 0.35) {
+export function useInView(threshold = 0.15) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
@@ -29,7 +29,7 @@ export function useInView(threshold = 0.35) {
     if (!el || typeof IntersectionObserver === 'undefined') { setInView(true); return; }
     const io = new IntersectionObserver(
       (entries) => entries.forEach(e => setInView(e.isIntersecting)),
-      { threshold, rootMargin: '0px 0px -6% 0px' }
+      { threshold, rootMargin: '0px 0px 14% 0px' }
     );
     io.observe(el);
     return () => io.disconnect();
