@@ -234,6 +234,23 @@ export function updateQuote(id, patch) {
   const q = state.quotes.find(x => x.id === id); if (!q) return { error: 'missing' };
   Object.assign(q, patch); commit({ ...state }); return { quote: q };
 }
+// SUPABASE: rally_quotes.insert(row).select().single()
+export function createQuote({ companyId, dealId = null, ownerId, amount = 0, seats = 0, status = 'draft', expiresAt } = {}) {
+  if (!companyId) return { error: 'companyId', message: 'Pick an account for the quote.' };
+  const co = getCompany(companyId);
+  const nums = state.quotes.map(q => parseInt(String(q.number).replace(/\D/g, ''), 10)).filter(Number.isFinite);
+  const next = (nums.length ? Math.max(...nums) : 2400) + 1;
+  const q = {
+    id: newId('q'), number: 'Q-' + next, companyId,
+    companyName: co ? co.name : 'Unknown account', dealId,
+    amount: Number(amount) || 0, seats: Number(seats) || 0, status,
+    ownerId: ownerId || (co ? co.ownerId : getUsers()[0].id),
+    createdAt: new Date().toISOString(),
+    expiresAt: expiresAt || new Date(Date.now() + 30 * 86400000).toISOString(),
+  };
+  commit({ ...state, quotes: [q, ...state.quotes] });
+  return { quote: q };
+}
 export function updateInvoice(id, patch) {
   const i = state.invoices.find(x => x.id === id); if (!i) return { error: 'missing' };
   Object.assign(i, patch); commit({ ...state }); return { invoice: i };

@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { getDeals, getDeal, getContactsForCompany, getUsers, contactName, userName, getCompany, stageById } from './store.js';
 import { getProducts } from './store-ext.js';
 
-const LS_KEY = 'rally_depth_v1';
+const LS_KEY = 'rally_depth_v2';   // v2: Boards 2.0 - groups, subitems, rich columns
 
 function mulberry32(a) {
   return function () {
@@ -39,6 +39,10 @@ const PROJECT_SEED = [
 ];
 const TASK_TITLES = ['Kickoff call', 'Build mutual action plan', 'Provision seats', 'Import historical data', 'Train the team', 'Configure pipeline stages', 'Set up integrations', 'Executive check-in', 'Draft success criteria', 'Review week 1 usage', 'Send welcome sequence', 'Schedule QBR', 'Migrate contacts', 'Approve budget', 'Finalize scope'];
 const TASK_STATUS = ['todo', 'doing', 'blocked', 'done'];
+const GROUP_NAMES = ['Planning', 'In progress', 'This week', 'Up next', 'Launch prep', 'Follow-ups', 'Backlog', 'Wrapping up'];
+const GROUP_COLORS = ['#5b4bf5', '#0ea5a3', '#2563a8', '#b3721a', '#8b3fd4', '#c0392b', '#1a7f52', '#d4a017'];
+const TAG_POOL = ['onboarding', 'urgent', 'customer', 'internal', 'q3', 'revenue', 'launch', 'design', 'quick-win', 'follow-up'];
+const SUBITEM_TITLES = ['Draft the doc', 'Get sign-off', 'Send calendar invite', 'Review with team', 'Update the tracker', 'Confirm with client', 'Prep the deck', 'QA the flow', 'Loop in legal', 'Book the room'];
 
 function buildSeed() {
   const rnd = mulberry32(20260710);
@@ -93,32 +97,75 @@ function buildSeed() {
     };
   }
 
-  // Projects (team boards)
+  // Projects (team boards) - Boards 2.0: colored groups, rich columns, subitems
   const users = getUsers();
   const projects = PROJECT_SEED.map((p, pi) => {
-    const nTasks = range(4, 8);
+    const nGroups = range(2, 3);
+    const groups = sampleN(GROUP_NAMES, nGroups).map((name, gi) => ({
+      id: `pg_${pi}_${gi}`, name, color: GROUP_COLORS[(pi * 2 + gi) % GROUP_COLORS.length],
+    }));
+    const nTasks = range(6, 10);
     const tasks = [];
     for (let i = 0; i < nTasks; i++) {
       const status = pick(TASK_STATUS);
+      const group = pick(groups);
+      const primary = pick(users);
+      const extra = chance(0.32) ? pick(users) : null;
+      const assigneeIds = extra && extra.id !== primary.id ? [primary.id, extra.id] : [primary.id];
+      const dueDays = range(-6, 26);
+      const progress = status === 'done' ? 100 : status === 'todo' ? range(0, 15) : status === 'blocked' ? range(10, 45) : range(30, 85);
+      const nSub = chance(0.45) ? range(1, 3) : 0;
+      const subitems = [];
+      for (let s = 0; s < nSub; s++) subitems.push({ id: `ps_${pi}_${i}_${s}`, title: pick(SUBITEM_TITLES), done: chance(0.5), assigneeId: pick(users).id });
       tasks.push({
-        id: `pt_${pi}_${i}`, title: pick(TASK_TITLES),
-        assigneeId: pick(users).id, status,
+        id: `pt_${pi}_${i}`, groupId: group.id, title: pick(TASK_TITLES),
+        assigneeId: primary.id, assigneeIds, status,
         priority: pick(['low', 'medium', 'medium', 'high']),
-        due: d(range(-6, 20)),
+        startDate: d(dueDays - range(2, 12)), due: d(dueDays),
+        progress, number: chance(0.6) ? range(1, 13) : null,
+        tags: chance(0.55) ? sampleN(TAG_POOL, range(1, 2)) : [],
+        notes: '', subitems,
       });
     }
-    return { id: `pj_${pi + 1}`, name: p.name, color: p.color, ownerId: pick(users).id, createdAt: d(-range(3, 40)), tasks };
+    return { id: `pj_${pi + 1}`, name: p.name, color: p.color, ownerId: pick(users).id, createdAt: d(-range(3, 40)), groups, tasks };
   });
 
   return { seededAt: new Date(now).toISOString(), dealExtras, projects };
+}
+
+/* Boards 2.0 normalizer: guarantees every project has >=1 group and every task
+   carries the rich column shape, even for state written by an older build or by
+   addTask before all fields were required. Idempotent + defensive. */
+function normalizeTask(t, groupId) {
+  return {
+    startDate: null, progress: t.status === 'done' ? 100 : 0,
+    number: null, notes: '',
+    ...t,
+    assigneeIds: Array.isArray(t.assigneeIds) && t.assigneeIds.length ? t.assigneeIds : (t.assigneeId ? [t.assigneeId] : []),
+    subitems: Array.isArray(t.subitems) ? t.subitems : [],
+    tags: Array.isArray(t.tags) ? t.tags : [],
+    groupId: groupId || t.groupId || null,
+  };
+}
+function migrate(s) {
+  if (!s || !Array.isArray(s.projects)) return s;
+  for (const p of s.projects) {
+    if (!Array.isArray(p.groups) || !p.groups.length) {
+      p.groups = [{ id: `pg_${p.id}_0`, name: 'Tasks', color: p.color || '#5b4bf5' }];
+    }
+    const ids = new Set(p.groups.map(g => g.id));
+    const first = p.groups[0].id;
+    p.tasks = (p.tasks || []).map(t => normalizeTask(t, ids.has(t.groupId) ? t.groupId : first));
+  }
+  return s;
 }
 
 /* persistence + pub/sub */
 let state = load();
 const subs = new Set();
 function load() {
-  try { const raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch {}
-  const seed = buildSeed();
+  try { const raw = localStorage.getItem(LS_KEY); if (raw) return migrate(JSON.parse(raw)); } catch {}
+  const seed = migrate(buildSeed());
   try { localStorage.setItem(LS_KEY, JSON.stringify(seed)); } catch {}
   return seed;
 }
@@ -225,26 +272,126 @@ export function dealInsight(deal) {
 /* ---------- projects (in-CRM team board) ---------- */
 export const getProjects = () => state.projects;
 export const getProject = (id) => state.projects.find(p => p.id === id);
-export const getAllTasks = () => state.projects.flatMap(p => p.tasks.map(t => ({ ...t, projectId: p.id, projectName: p.name, projectColor: p.color })));
+const groupMeta = (p, gid) => (p.groups || []).find(g => g.id === gid) || {};
+export const getAllTasks = () => state.projects.flatMap(p => p.tasks.map(t => ({
+  ...t, projectId: p.id, projectName: p.name, projectColor: p.color,
+  groupName: groupMeta(p, t.groupId).name, groupColor: groupMeta(p, t.groupId).color,
+})));
+function findTask(taskId) {
+  for (const p of state.projects) { const t = p.tasks.find(x => x.id === taskId); if (t) return { project: p, task: t }; }
+  return null;
+}
 
 export function createProject({ name, color = '#5b4bf5', ownerId, companyId }) {
   if (!name || !name.trim()) return { error: 'name', message: 'Project name is required.' };
-  const p = { id: nid('pj'), name: name.trim(), color, ownerId: ownerId || getUsers()[0].id, companyId: companyId || null, createdAt: nowISO(), tasks: [] };
+  const p = {
+    id: nid('pj'), name: name.trim(), color, ownerId: ownerId || getUsers()[0].id,
+    companyId: companyId || null, createdAt: nowISO(),
+    groups: [{ id: nid('pg'), name: 'This week', color }, { id: nid('pg'), name: 'Up next', color: '#0ea5a3' }],
+    tasks: [],
+  };
   commit({ ...state, projects: [p, ...state.projects] });
   return { project: p };
 }
-export function addTask(projectId, { title, assigneeId, status = 'todo', priority = 'medium', due }) {
+
+/* ---- tasks ---- */
+export function addTask(projectId, { title, assigneeId, status = 'todo', priority = 'medium', due, groupId, startDate, progress, tags, number } = {}) {
   if (!title || !title.trim()) return { error: 'title', message: 'Task title is required.' };
   const p = getProject(projectId); if (!p) return { error: 'missing' };
-  p.tasks = [...p.tasks, { id: nid('pt'), title: title.trim(), assigneeId: assigneeId || getUsers()[0].id, status, priority, due: due || new Date(Date.now() + 7 * 86400000).toISOString() }];
-  commit({ ...state }); return { ok: true };
+  const gId = groupId && (p.groups || []).some(g => g.id === groupId) ? groupId : (p.groups?.[0]?.id || null);
+  const aid = assigneeId || getUsers()[0].id;
+  const task = {
+    id: nid('pt'), groupId: gId, title: title.trim(),
+    assigneeId: aid, assigneeIds: [aid], status, priority,
+    startDate: startDate || null, due: due || new Date(Date.now() + 7 * 86400000).toISOString(),
+    progress: progress != null ? progress : (status === 'done' ? 100 : 0),
+    number: number != null ? number : null, tags: tags || [], notes: '', subitems: [],
+  };
+  p.tasks = [...p.tasks, task];
+  commit({ ...state }); return { ok: true, task };
 }
 export function updateTask(taskId, patch) {
-  for (const p of state.projects) { const t = p.tasks.find(x => x.id === taskId); if (t) { Object.assign(t, patch); commit({ ...state }); return { ok: true }; } }
-  return { error: 'missing' };
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  Object.assign(hit.task, patch);
+  if (Array.isArray(patch.assigneeIds)) hit.task.assigneeId = patch.assigneeIds[0] || hit.task.assigneeId;
+  if (patch.status === 'done' && patch.progress == null) hit.task.progress = 100;
+  commit({ ...state }); return { ok: true };
 }
 export function moveTask(taskId, status) { return updateTask(taskId, { status }); }
 export function deleteTask(taskId) {
   for (const p of state.projects) { const n = p.tasks.length; p.tasks = p.tasks.filter(x => x.id !== taskId); if (p.tasks.length !== n) { commit({ ...state }); return { ok: true }; } }
   return { error: 'missing' };
+}
+
+/* Generic column setter for inline table editing (status/people/timeline/etc). */
+export function setTaskColumn(taskId, key, value) {
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  let v = value;
+  if (key === 'progress') v = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+  else if (key === 'number') v = (value === '' || value == null) ? null : Number(value);
+  hit.task[key] = v;
+  if (key === 'assigneeIds' && Array.isArray(v)) hit.task.assigneeId = v[0] || hit.task.assigneeId;
+  if (key === 'status' && v === 'done') hit.task.progress = 100;
+  if (key === 'progress' && v === 100 && hit.task.status !== 'done') hit.task.status = 'done';
+  commit({ ...state }); return { ok: true };
+}
+
+/* Reorder within a project's task list (drag reorder + optional group move). */
+export function reorderTask(taskId, targetIndex, groupId) {
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  const p = hit.project;
+  const arr = [...p.tasks];
+  const from = arr.findIndex(t => t.id === taskId);
+  if (from < 0) return { error: 'missing' };
+  const [moved] = arr.splice(from, 1);
+  if (groupId != null && (p.groups || []).some(g => g.id === groupId)) moved.groupId = groupId;
+  const idx = Math.max(0, Math.min(arr.length, targetIndex));
+  arr.splice(idx, 0, moved);
+  p.tasks = arr;
+  commit({ ...state }); return { ok: true };
+}
+
+/* ---- groups ---- */
+export const getProjectGroups = (projectId) => getProject(projectId)?.groups || [];
+export function addGroup(projectId, { name, color = '#5b4bf5' } = {}) {
+  const p = getProject(projectId); if (!p) return { error: 'missing' };
+  if (!name || !name.trim()) return { error: 'name', message: 'Group name is required.' };
+  const g = { id: nid('pg'), name: name.trim(), color };
+  p.groups = [...(p.groups || []), g];
+  commit({ ...state }); return { group: g };
+}
+export function updateGroup(projectId, groupId, patch) {
+  const p = getProject(projectId); if (!p) return { error: 'missing' };
+  p.groups = (p.groups || []).map(g => g.id === groupId ? { ...g, ...patch } : g);
+  commit({ ...state }); return { ok: true };
+}
+export function renameGroup(projectId, groupId, name) {
+  if (!name || !name.trim()) return { error: 'name' };
+  return updateGroup(projectId, groupId, { name: name.trim() });
+}
+export function removeGroup(projectId, groupId) {
+  const p = getProject(projectId); if (!p) return { error: 'missing' };
+  if ((p.groups || []).length <= 1) return { error: 'last', message: 'A project needs at least one group.' };
+  const fallback = p.groups.find(g => g.id !== groupId)?.id;
+  p.groups = p.groups.filter(g => g.id !== groupId);
+  p.tasks = p.tasks.map(t => t.groupId === groupId ? { ...t, groupId: fallback } : t);
+  commit({ ...state }); return { ok: true };
+}
+
+/* ---- subitems ---- */
+export function addSubitem(taskId, { title, assigneeId } = {}) {
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  if (!title || !title.trim()) return { error: 'title' };
+  hit.task.subitems = [...(hit.task.subitems || []), { id: nid('ps'), title: title.trim(), done: false, assigneeId: assigneeId || hit.task.assigneeId }];
+  commit({ ...state }); return { ok: true };
+}
+export function toggleSubitem(taskId, subitemId) {
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  hit.task.subitems = (hit.task.subitems || []).map(s => s.id === subitemId ? { ...s, done: !s.done } : s);
+  commit({ ...state }); return { ok: true };
+}
+export function removeSubitem(taskId, subitemId) {
+  const hit = findTask(taskId); if (!hit) return { error: 'missing' };
+  hit.task.subitems = (hit.task.subitems || []).filter(s => s.id !== subitemId);
+  commit({ ...state }); return { ok: true };
 }
