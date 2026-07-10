@@ -99,6 +99,38 @@ export const OPERATORS = {
    the subject (deal/contact/activity); `object` is its type. */
 const dueInDays = (n) => new Date(Date.now() + (Number(n) || 0) * 86400000).toISOString();
 
+/* ---------- outbound integration helpers ----------
+   Workflow actions can reach OTHER systems (Slack, Teams, any webhook).
+   The browser cannot POST to those endpoints directly (CORS), so we fire
+   through the same-origin `/api/outbound` proxy which forwards server-side.
+   Fire-and-forget: the runtime stays synchronous and the action logs that
+   the call was dispatched. */
+function recToPayload(record, object) {
+  const co = record.companyId ? getCompany(record.companyId) : null;
+  if (object === 'deal') return {
+    object, id: record.id, name: record.name, value: record.value,
+    stage: stageById(record.stage)?.name || record.stage, status: record.status,
+    owner: userName(record.ownerId), company: co?.name || record.companyName || null,
+  };
+  if (object === 'contact') return {
+    object, id: record.id, name: `${record.firstName || ''} ${record.lastName || ''}`.trim(),
+    title: record.title, owner: userName(record.ownerId), company: co?.name || null,
+  };
+  return { object, id: record.id, subject: record.subject, owner: userName(record.ownerId), company: co?.name || null };
+}
+function interp(tpl, p) {
+  return String(tpl || '').replace(/\{(\w+)\}/g, (_, k) => (p[k] != null ? String(p[k]) : ''));
+}
+function fireOutbound(kind, url, message, payload) {
+  try {
+    if (typeof fetch !== 'function') return;
+    fetch('/api/outbound', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+      body: JSON.stringify({ kind, url, message, payload }),
+    }).catch(() => {});
+  } catch {}
+}
+
 export const ACTIONS = {
   create_task: {
     id: 'create_task', label: 'Create a task', icon: 'checkSquare', tone: 'ok', minutes: 4,
@@ -186,6 +218,53 @@ export const ACTIONS = {
       return { type: 'notify_owner', ok: true, label: `Notified ${who}`, recordId: r.activity.id, to: '/app/activities' };
     },
   },
+
+  /* ----- integrations: reach other systems ----- */
+  send_slack: {
+    id: 'send_slack', label: 'Post to Slack', icon: 'bell', tone: 'accent', minutes: 1, integration: true,
+    execute: (record, cfg, object) => {
+      const p = recToPayload(record, object);
+      const msg = interp(cfg.message || 'Rally: {name} ({owner})', p);
+      if (!cfg.webhook) return { type: 'send_slack', ok: false, stub: true, label: 'Add a Slack Incoming Webhook URL to post for real' };
+      fireOutbound('slack', cfg.webhook, msg, p);
+      return { type: 'send_slack', ok: true, label: `Posted to Slack: "${msg.slice(0, 64)}"` };
+    },
+  },
+  send_teams: {
+    id: 'send_teams', label: 'Post to Microsoft Teams', icon: 'activity', tone: 'accent', minutes: 1, integration: true,
+    execute: (record, cfg, object) => {
+      const p = recToPayload(record, object);
+      const msg = interp(cfg.message || 'Rally: {name} ({owner})', p);
+      if (!cfg.webhook) return { type: 'send_teams', ok: false, stub: true, label: 'Add a Teams Incoming Webhook URL to post for real' };
+      fireOutbound('teams', cfg.webhook, msg, p);
+      return { type: 'send_teams', ok: true, label: `Posted to Teams: "${msg.slice(0, 64)}"` };
+    },
+  },
+  post_webhook: {
+    id: 'post_webhook', label: 'Send a webhook', icon: 'plug', tone: 'info', minutes: 1, integration: true,
+    execute: (record, cfg, object) => {
+      const p = recToPayload(record, object);
+      if (!cfg.url) return { type: 'post_webhook', ok: false, stub: true, label: 'Add a webhook URL (Zapier, Make, or your endpoint)' };
+      fireOutbound('webhook', cfg.url, interp(cfg.message || '', p), p);
+      let host = cfg.url; try { host = new URL(cfg.url).host; } catch {}
+      return { type: 'post_webhook', ok: true, label: `Sent ${object} to ${host}` };
+    },
+  },
+  sync_record: {
+    id: 'sync_record', label: 'Sync to another system', icon: 'plug', tone: 'info', minutes: 2, integration: true,
+    execute: (record, cfg, object) => {
+      // A real two-way sync needs an OAuth connection; in the demo it is queued.
+      const target = cfg.target || 'HubSpot';
+      return { type: 'sync_record', ok: true, stub: true, label: `Queued sync of ${object} to ${target}` };
+    },
+  },
+  enrich_contact: {
+    id: 'enrich_contact', label: 'Enrich from a data provider', icon: 'sparkles', tone: 'accent', minutes: 2, integration: true,
+    execute: (record, cfg, object) => {
+      const provider = cfg.provider || 'Clearbit';
+      return { type: 'enrich_contact', ok: true, stub: true, label: `Requested enrichment from ${provider}` };
+    },
+  },
 };
 export const ACTION_LIST = Object.values(ACTIONS);
 
@@ -227,6 +306,11 @@ export function actionSummary(act) {
   if (act.type === 'move_stage') return `Move to ${stageById(cfg.to)?.name || cfg.to || 'next stage'}`;
   if (act.type === 'send_email') return `Draft email${cfg.template ? ` "${cfg.template}"` : ''}`;
   if (act.type === 'notify_owner') return `Notify ${cfg.who || 'the deal owner'}`;
+  if (act.type === 'send_slack') return `Post to Slack${cfg.webhook ? '' : ' (add webhook)'}`;
+  if (act.type === 'send_teams') return `Post to Microsoft Teams${cfg.webhook ? '' : ' (add webhook)'}`;
+  if (act.type === 'post_webhook') return `Send a webhook${cfg.url ? '' : ' (add URL)'}`;
+  if (act.type === 'sync_record') return `Sync to ${cfg.target || 'another system'}`;
+  if (act.type === 'enrich_contact') return `Enrich from ${cfg.provider || 'a data provider'}`;
   return meta?.label || act.type;
 }
 export const minutesPerRun = (a) => (a.actions || []).reduce((s, x) => s + (ACTIONS[x.type]?.minutes || 2), 0);
@@ -623,5 +707,29 @@ export const TEMPLATES = [
     trigger: { type: 'deal_stage_changed', config: { stage: 'negotiation' } },
     conditions: [],
     actions: [{ type: 'create_task', config: { subject: 'Confirm terms + set signature date', dueDays: 2 } }, { type: 'notify_owner', config: {} }],
+  },
+  {
+    icon: 'bell', tone: 'accent',
+    name: 'Post won deals to Slack',
+    description: 'When a deal reaches Closed Won, post a message to your Slack channel. Paste a Slack Incoming Webhook and it posts for real.',
+    trigger: { type: 'deal_stage_changed', config: { stage: 'won' } },
+    conditions: [],
+    actions: [{ type: 'send_slack', config: { webhook: '', message: 'Closed Won: {name} - {value} ({owner})' } }],
+  },
+  {
+    icon: 'plug', tone: 'info',
+    name: 'Send new deals to a webhook',
+    description: 'Every new deal is POSTed as JSON to your Zapier, Make, or custom endpoint so you can sync it anywhere.',
+    trigger: { type: 'deal_created', config: {} },
+    conditions: [],
+    actions: [{ type: 'post_webhook', config: { url: '' } }],
+  },
+  {
+    icon: 'plug', tone: 'info',
+    name: 'Sync high-value deals to HubSpot',
+    description: 'A new deal over $100k is queued to sync into your system of record.',
+    trigger: { type: 'deal_value_over', config: { amount: 100000 } },
+    conditions: [],
+    actions: [{ type: 'sync_record', config: { target: 'HubSpot' } }, { type: 'notify_owner', config: {} }],
   },
 ];

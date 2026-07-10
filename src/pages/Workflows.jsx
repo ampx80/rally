@@ -521,6 +521,41 @@ function RuleBuilder({ open, initial, onClose, onSave }) {
                         <Input value={a.config?.who || ''} placeholder="Deal owner" onChange={(e) => setAction(i, { config: { ...a.config, who: e.target.value } })} />
                       </Field>
                     )}
+                    {(a.type === 'send_slack' || a.type === 'send_teams') && (
+                      <>
+                        <div style={{ flexBasis: '100%' }}>
+                          <Field label={a.type === 'send_slack' ? 'Slack Incoming Webhook URL' : 'Teams Incoming Webhook URL'} hint="Paste your webhook and this posts for real. Leave blank to preview only.">
+                            <Input value={a.config?.webhook || ''} placeholder="https://hooks.slack.com/services/..." onChange={(e) => setAction(i, { config: { ...a.config, webhook: e.target.value } })} />
+                          </Field>
+                        </div>
+                        <div style={{ flexBasis: '100%' }}>
+                          <Field label="Message" hint="Tokens: {name} {value} {stage} {owner} {company}">
+                            <Input value={a.config?.message || ''} placeholder="Closed Won: {name} - {value} ({owner})" onChange={(e) => setAction(i, { config: { ...a.config, message: e.target.value } })} />
+                          </Field>
+                        </div>
+                      </>
+                    )}
+                    {a.type === 'post_webhook' && (
+                      <div style={{ flexBasis: '100%' }}>
+                        <Field label="Webhook URL" hint="Zapier, Make, or any https endpoint. The record is POSTed as JSON.">
+                          <Input value={a.config?.url || ''} placeholder="https://hooks.zapier.com/hooks/catch/..." onChange={(e) => setAction(i, { config: { ...a.config, url: e.target.value } })} />
+                        </Field>
+                      </div>
+                    )}
+                    {a.type === 'sync_record' && (
+                      <Field label="Target system">
+                        <Select value={a.config?.target || 'HubSpot'} onChange={(e) => setAction(i, { config: { ...a.config, target: e.target.value } })}>
+                          {['HubSpot', 'Salesforce', 'Pipedrive', 'Zoho', 'QuickBooks', 'NetSuite', 'Segment', 'Snowflake'].map(s => <option key={s} value={s}>{s}</option>)}
+                        </Select>
+                      </Field>
+                    )}
+                    {a.type === 'enrich_contact' && (
+                      <Field label="Data provider">
+                        <Select value={a.config?.provider || 'Clearbit'} onChange={(e) => setAction(i, { config: { ...a.config, provider: e.target.value } })}>
+                          {['Clearbit', 'Apollo', 'ZoomInfo', 'Cognism', 'Lusha', '6sense'].map(s => <option key={s} value={s}>{s}</option>)}
+                        </Select>
+                      </Field>
+                    )}
                   </div>
                 </BuilderStep>
               </React.Fragment>
