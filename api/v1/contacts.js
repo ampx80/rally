@@ -10,6 +10,7 @@ import {
   authenticate, rateLimit, sendData, sendError, ensureMethod,
   parseQuery, paginate, demoContacts, newId, hasDatastore, DATASTORE_NOTE,
 } from '../_lib-v1.js';
+import { gateWrite } from '../_lib-authz.js';
 
 function idFromPath(req) {
   try {
@@ -50,7 +51,12 @@ export default withErrorHandling(async (req, res) => {
     return sendData(res, page, { meta, rate });
   }
 
-  // POST create
+  // POST create. Server-enforced RBAC: writes need rep+ when auth is
+  // configured; in demo mode (no Supabase) this is a no-op, so behavior is
+  // identical to today. GET above stays open regardless.
+  const gate = await gateWrite(req, 'rep');
+  if (gate.blocked) return sendError(res, gate.status, gate.code, gate.error, { rate });
+
   const body = (req.body && typeof req.body === 'object') ? req.body
     : (typeof req.body === 'string' ? safeJson(req.body) : {});
   const firstName = String(body.first_name || body.firstName || '').trim();

@@ -1,0 +1,102 @@
+/* Report Builder v2 - scoped styles. Every selector is prefixed .rb-
+   so nothing here leaks into the rest of the product. ASCII only.
+   NO em-dash / en-dash. */
+
+.rb-shell { display: grid; grid-template-columns: 232px 1fr 300px; gap: 1rem; align-items: start; }
+@media (max-width: 1100px) { .rb-shell { grid-template-columns: 1fr; } }
+
+/* ---- panes ---- */
+.rb-pane {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 1rem;
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.rb-pane-title { font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--n-600); }
+
+/* ---- field palette chips (draggable) ---- */
+.rb-fieldgroup { display: flex; flex-direction: column; gap: .4rem; }
+.rb-field {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .5rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--page);
+  cursor: grab; user-select: none;
+  font-size: .9rem; font-weight: 600;
+  transition: border-color .12s, transform .08s, box-shadow .12s;
+}
+.rb-field:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.rb-field:active { cursor: grabbing; transform: scale(.98); }
+.rb-field.rb-dragging { opacity: .45; }
+.rb-field .rb-grip { color: var(--n-400); flex: none; }
+.rb-field-role {
+  margin-left: auto; font-size: .64rem; font-weight: 800; letter-spacing: .05em;
+  text-transform: uppercase; padding: .1rem .35rem; border-radius: 5px;
+}
+.rb-role-dim { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent-600); }
+.rb-role-measure { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.rb-role-date { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+
+/* ---- canvas dropzones ---- */
+.rb-dropzone {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  padding: .6rem;
+  min-height: 46px;
+  display: flex; flex-wrap: wrap; gap: .4rem; align-items: center;
+  transition: border-color .12s, background .12s;
+}
+.rb-dropzone.rb-over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.rb-dropzone-hint { color: var(--n-400); font-size: .82rem; font-weight: 600; }
+
+.rb-token {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .35rem .55rem; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent-600); font-weight: 700; font-size: .84rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.rb-token button { background: none; border: none; color: inherit; cursor: pointer; line-height: 1; font-size: 1rem; padding: 0; display: flex; }
+.rb-token.rb-token-measure { background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--ok); border-color: color-mix(in srgb, var(--ok) 30%, transparent); }
+
+/* ---- viz type switch ---- */
+.rb-viz-switch { display: flex; flex-wrap: wrap; gap: .35rem; }
+.rb-viz-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .4rem .6rem; border-radius: var(--r-sm);
+  border: 1px solid var(--line); background: var(--page);
+  font-weight: 600; font-size: .84rem; cursor: pointer; color: var(--n-600);
+  transition: all .12s;
+}
+.rb-viz-btn.rb-on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent-600); }
+
+/* ---- filter rows ---- */
+.rb-filter-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: .4rem; align-items: center; }
+@media (max-width: 520px) { .rb-filter-row { grid-template-columns: 1fr 1fr; } }
+
+/* ---- KPI single value ---- */
+.rb-kpi { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1rem; text-align: center; gap: .5rem; }
+.rb-kpi-value { font-size: clamp(2.6rem, 7vw, 4rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; color: var(--ink); }
+
+/* ---- cohort grid ---- */
+.rb-cohort-wrap { overflow-x: auto; }
+.rb-cohort { border-collapse: separate; border-spacing: 3px; font-size: .82rem; }
+.rb-cohort th { font-weight: 700; color: var(--n-600); padding: .3rem .5rem; text-align: center; white-space: nowrap; font-size: .76rem; }
+.rb-cohort th.rb-cohort-rowhead, .rb-cohort td.rb-cohort-rowhead { text-align: left; position: sticky; left: 0; background: var(--paper); z-index: 1; }
+.rb-cohort-cell {
+  min-width: 58px; padding: .5rem .4rem; border-radius: 7px; text-align: center;
+  font-weight: 700; font-variant-numeric: tabular-nums; color: #fff;
+}
+.rb-cohort-size { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.rb-cohort-empty { color: var(--n-400); }
+
+/* ---- schedule list ---- */
+.rb-sched { display: flex; align-items: center; gap: .75rem; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--page); }
+.rb-sched.rb-off { opacity: .55; }
+.rb-recip { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .5rem; border-radius: 999px; background: var(--n-100); font-size: .78rem; font-weight: 600; }
+.rb-recip button { background: none; border: none; cursor: pointer; color: var(--n-600); line-height: 1; display: flex; }
+
+/* small helper */
+.rb-muted { color: var(--n-600); font-size: .85rem; }

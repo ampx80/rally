@@ -1,0 +1,82 @@
+/* ============================================================
+   Automation Template Library - scoped styles (prefix .atpl-)
+   Additive. Reuses Rally CSS variables (--accent, --line, --paper,
+   --ink, --r-md, --shadow-sm, --ease). ASCII hyphen only.
+   ============================================================ */
+
+/* ---- category rail ---- */
+.atpl-cats { display: flex; gap: .5rem; flex-wrap: wrap; }
+.atpl-cat {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .5rem .8rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--paper); color: var(--n-600);
+  font-weight: 600; font-size: .88rem; line-height: 1;
+  transition: all .15s var(--ease); white-space: nowrap;
+}
+.atpl-cat:hover { border-color: var(--accent-300); color: var(--ink); transform: translateY(-1px); }
+.atpl-cat.is-on {
+  background: var(--accent-50); border-color: var(--accent-300); color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent-300);
+}
+.atpl-cat .atpl-count {
+  font-size: .74rem; font-weight: 700; padding: .05rem .4rem; border-radius: 999px;
+  background: var(--n-100); color: var(--n-600);
+}
+.atpl-cat.is-on .atpl-count { background: var(--accent); color: #fff; }
+
+/* ---- template grid ---- */
+.atpl-grid {
+  display: grid; gap: 1.1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+/* ---- template card ---- */
+.atpl-card {
+  display: flex; flex-direction: column; gap: .85rem; height: 100%;
+  transition: transform .16s var(--ease), box-shadow .16s var(--ease), border-color .16s var(--ease);
+}
+.atpl-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md, var(--shadow-sm)); }
+.atpl-card.is-installed { border-color: var(--ok) !important; }
+.atpl-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.atpl-card-title { font-weight: 700; font-size: 1.02rem; line-height: 1.3; color: var(--ink); }
+.atpl-card-desc { font-size: .9rem; line-height: 1.45; color: var(--n-600); }
+.atpl-card-foot { display: flex; align-items: center; gap: .6rem; margin-top: auto; }
+
+/* ---- flow preview ---- */
+.atpl-flow { display: flex; flex-direction: column; align-items: stretch; }
+.atpl-step {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .5rem .65rem; border-radius: var(--r-sm, 8px);
+  background: var(--n-50, #f7f8fb); border: 1px solid var(--line);
+}
+.atpl-step-body { min-width: 0; display: flex; flex-direction: column; gap: .05rem; }
+.atpl-step-eyebrow {
+  font-size: .64rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+}
+.atpl-step-text {
+  font-size: .84rem; font-weight: 600; color: var(--ink); line-height: 1.25;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.atpl-step-chip {
+  width: 26px; height: 26px; flex: none; border-radius: 7px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.atpl-connector {
+  width: 2px; height: 12px; margin-left: 1.45rem;
+  background: var(--line-strong, #cfd4de); border-radius: 2px;
+}
+
+/* ---- installed banner + search ---- */
+.atpl-searchrow { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+.atpl-search { position: relative; flex: 1; min-width: 220px; }
+.atpl-search .atpl-search-ico {
+  position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); color: var(--n-400);
+  pointer-events: none;
+}
+.atpl-search input { padding-left: 2.1rem !important; width: 100%; }
+
+.atpl-empty { padding: 3rem 1.5rem; text-align: center; }
+
+@media (max-width: 620px) {
+  .atpl-grid { grid-template-columns: 1fr; }
+}

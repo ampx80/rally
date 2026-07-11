@@ -9,6 +9,7 @@ import {
   SectionHeader, Card, Button, Badge, Select, EmptyState, useToast,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import MigratePanel from '../components/migrate/MigratePanel.jsx';
 import {
   IMPORT_OBJECTS, importObject, SOURCES, parseCsv, autoMap, targetFields, runImport,
 } from '../lib/importer.js';
@@ -249,6 +250,7 @@ export default function ImportData() {
           </div>
         )}
       </Card>
+      <MigratePanel />
     </div>
   );
 }

@@ -54,6 +54,15 @@ import Notifications from './pages/Notifications.jsx';
 import Developers from './pages/Developers.jsx';
 import BillingPlans from './pages/BillingPlans.jsx';
 import Onboarding from './pages/Onboarding.jsx';
+import Signatures from './pages/Signatures.jsx';
+import SignDocument from './pages/SignDocument.jsx';
+import ReportBuilder from './pages/ReportBuilder.jsx';
+import AutomationLibrary from './pages/AutomationLibrary.jsx';
+import Welcome from './pages/Welcome.jsx';
+import HelpCenter from './marketing/help/HelpCenter.jsx';
+import HelpArticle from './marketing/help/HelpArticle.jsx';
+import StatusPage from './marketing/StatusPage.jsx';
+import HelpWidget from './components/HelpWidget.jsx';
 import NotificationBell from './components/notif/NotificationBell.jsx';
 import Customers from './marketing/Customers.jsx';
 import About from './marketing/About.jsx';
@@ -67,7 +76,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome']);
 
 const NAV_SECTIONS = [
   { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }, { to: '/notifications', label: 'Notifications', icon: 'bell' }] },
@@ -92,14 +101,16 @@ const NAV_SECTIONS = [
     { to: '/products', label: 'Products', icon: 'box' },
     { to: '/quotes', label: 'Quotes', icon: 'receipt' },
     { to: '/studio', label: 'Studio', icon: 'sparkles' },
+    { to: '/signatures', label: 'Signatures', icon: 'edit' },
     { to: '/invoices', label: 'Billing', icon: 'dollar' },
   ] },
   { label: 'Intelligence', items: [
     { to: '/intelligence', label: 'Intelligence', icon: 'sparkles' },
+    { to: '/report-builder', label: 'Report builder', icon: 'pie' },
     { to: '/dashboards', label: 'Dashboards', icon: 'chart' },
     { to: '/reports', label: 'Reports', icon: 'pie' },
   ] },
-  { label: 'Automate', items: [{ to: '/workflows', label: 'Workflows', icon: 'workflow' }] },
+  { label: 'Automate', items: [{ to: '/workflows', label: 'Workflows', icon: 'workflow' }, { to: '/workflows/library', label: 'Templates', icon: 'layers' }] },
   { label: 'Admin', items: [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/team', label: 'Team', icon: 'users' },
@@ -265,6 +276,10 @@ export default function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot" element={<ForgotPassword />} />
+            <Route path="/sign/:reqId" element={<SignDocument />} />
+            <Route path="/help" element={<HelpCenter />} />
+            <Route path="/help/:slug" element={<HelpArticle />} />
+            <Route path="/status" element={<StatusPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -324,12 +339,17 @@ export default function App() {
               <Route path="/developers" element={<Developers />} />
               <Route path="/billing-plans" element={<BillingPlans />} />
               <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/signatures" element={<Signatures />} />
+              <Route path="/report-builder" element={<ReportBuilder />} />
+              <Route path="/workflows/library" element={<AutomationLibrary />} />
+              <Route path="/welcome" element={<Welcome />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
           </div>
         </main>
       </div>
       <CommandK open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <HelpWidget />
       <RookDock />
     </div>
   );

@@ -1,0 +1,149 @@
+/* ============================================================
+   RALLY E-SIGN  (scoped styles for the signing flow)
+   Prefix: .es-  - never touches product or marketing globals.
+   Leans on the app's shared CSS variables (--ink, --paper, --line,
+   --accent, radii, shadows) so it themes light/dark for free.
+   ============================================================ */
+
+/* ---------- status pills (shared: sign page, list, detail) ---------- */
+.es-status { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .6rem;
+  border-radius: var(--r-pill, 999px); font-size: .74rem; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
+.es-status-default { background: var(--n-100); color: var(--n-600); }
+.es-status-info { background: var(--info-bg, #e6effb); color: var(--info, #2563a8); }
+.es-status-warn { background: var(--warn-bg, #fdf1dc); color: var(--warn, #b3721a); }
+.es-status-ok { background: var(--ok-bg, #e4f5ec); color: var(--ok, #1a7f52); }
+.es-status-risk { background: var(--risk-bg, #fbe8e6); color: var(--risk, #c0392b); }
+
+/* ============================================================
+   SIGNATURE BLOCK (draw / type)
+   ============================================================ */
+.es-sig { display: flex; flex-direction: column; gap: .5rem; }
+.es-sig-modes { display: flex; align-items: center; gap: .4rem; }
+.es-sig-mode { display: inline-flex; align-items: center; gap: .35rem; padding: .38rem .7rem; border-radius: var(--r-sm);
+  border: 1px solid var(--line-strong); background: var(--paper); color: var(--n-600); font-weight: 600; font-size: .85rem; cursor: pointer; }
+.es-sig-mode.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.es-sig-spacer { flex: 1; }
+.es-sig-clear { border: none; background: transparent; color: var(--n-600); font-weight: 600; font-size: .85rem; cursor: pointer; }
+.es-sig-clear:disabled { opacity: .4; cursor: not-allowed; }
+.es-sig-clear:not(:disabled):hover { color: var(--risk); }
+
+.es-sig-pad, .es-sig-typewrap { position: relative; border: 1.5px dashed var(--line-strong); border-radius: var(--r-md);
+  background: var(--n-25); overflow: hidden; }
+.es-sig-canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.es-sig-hint { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--n-400);
+  font-size: 1.1rem; font-style: italic; pointer-events: none; }
+.es-sig-baseline { position: absolute; left: 8%; right: 8%; bottom: 26%; border-bottom: 1.5px solid var(--line-strong); pointer-events: none; }
+.es-sig-typewrap { display: flex; align-items: center; }
+.es-sig-typed { flex: 1; border: none; background: transparent; text-align: center; color: var(--ink);
+  font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 2.4rem; padding: 0 1rem; outline: none; }
+.es-sig-done { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--paper); padding: .6rem; display: flex; justify-content: center; }
+.es-sig-img { max-width: 100%; }
+
+/* ============================================================
+   REQUEST MODAL (compose + sent)
+   ============================================================ */
+.es-reqmodal .es-signer { display: flex; align-items: flex-start; gap: .55rem; }
+.es-signer-num { flex: none; width: 26px; height: 26px; margin-top: .45rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-50); color: var(--accent-700, var(--accent)); font-weight: 800; font-size: .82rem; }
+.es-signer-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: 1.1fr 1.3fr .8fr; gap: .4rem; }
+@media (max-width: 620px) { .es-signer-grid { grid-template-columns: 1fr; } }
+
+.es-fieldrow { display: grid; grid-template-columns: 1fr 1.2fr 1.1fr auto auto; gap: .4rem; align-items: center; }
+@media (max-width: 620px) { .es-fieldrow { grid-template-columns: 1fr 1fr; } }
+.es-req-toggle { display: inline-flex; align-items: center; gap: .3rem; font-size: .78rem; font-weight: 600; color: var(--n-600); white-space: nowrap; }
+
+.es-icon-btn { flex: none; width: 30px; height: 30px; border-radius: var(--r-sm); display: grid; place-items: center; cursor: pointer;
+  border: 1px solid var(--line-strong); background: var(--paper); color: var(--n-600); }
+.es-icon-btn:hover { color: var(--ink); border-color: var(--accent); }
+.es-icon-btn:disabled { opacity: .35; cursor: not-allowed; }
+.es-del:hover { color: #fff; background: var(--risk); border-color: var(--risk); }
+
+.es-note { display: flex; gap: .55rem; align-items: flex-start; padding: .75rem .9rem; border-radius: var(--r-md);
+  background: var(--accent-50); color: var(--accent-700, var(--accent)); font-size: .85rem; line-height: 1.45; }
+
+.es-sent-banner { display: flex; gap: .7rem; align-items: center; padding: 1rem 1.1rem; border-radius: var(--r-md);
+  background: var(--ok-bg, #e4f5ec); }
+.es-sent-mark { flex: none; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--ok, #1a7f52); color: #fff; }
+.es-linkrow { display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: .7rem .85rem;
+  border: 1px solid var(--line); border-radius: var(--r-md); background: var(--n-25); }
+
+/* ============================================================
+   PUBLIC SIGN PAGE
+   ============================================================ */
+.es-sign-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.1rem 3rem; display: flex; flex-direction: column; gap: 1.15rem; }
+@media (max-width: 640px) { .es-sign-wrap { padding: 1rem .8rem 2.5rem; } }
+
+.es-eyebrow { display: inline-flex; align-items: center; gap: .35rem; font-size: .72rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--n-600); }
+.es-sign-head { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.3rem 1.4rem; box-shadow: var(--shadow-sm); }
+.es-sign-head-in { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+.es-sign-title { margin: .35rem 0 0; font-size: clamp(1.4rem, 3.4vw, 1.9rem); letter-spacing: -.02em; line-height: 1.15; }
+.es-sign-sub { color: var(--n-600); font-size: .95rem; }
+.es-message { display: flex; gap: .55rem; align-items: flex-start; margin-top: 1rem; padding: .8rem 1rem; border-radius: var(--r-md);
+  background: var(--accent-50); color: var(--accent-700, var(--accent)); font-size: .92rem; line-height: 1.5; }
+
+.es-doc-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 1.6rem 1.5rem; box-shadow: var(--shadow-sm); }
+@media (max-width: 640px) { .es-doc-card { padding: 1rem .9rem; } }
+
+.es-sign-panel { background: var(--paper); border: 1.5px solid var(--accent-300, var(--accent)); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md); overflow: hidden; }
+.es-panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+  padding: .95rem 1.15rem; border-bottom: 1px solid var(--line); background: var(--n-25); }
+.es-flabel { font-size: .8rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--n-600); }
+.es-req { color: var(--risk); margin-left: 3px; }
+.es-error { display: flex; align-items: center; gap: .4rem; color: var(--risk); font-size: .9rem; font-weight: 600; }
+.es-consent { display: flex; gap: .5rem; align-items: flex-start; font-size: .82rem; color: var(--n-600); line-height: 1.5; }
+.es-sign-btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: none; cursor: pointer;
+  background: linear-gradient(135deg, #6d5cf7, #4a3ce0); color: #fff; font-weight: 700; font-size: 1.02rem; padding: .85rem 1.5rem;
+  border-radius: var(--r-sm); box-shadow: var(--accent-glow, 0 8px 24px -6px rgba(91,75,245,.55)); transition: transform .15s var(--ease); }
+.es-sign-btn:hover { transform: translateY(-1px); }
+
+.es-confirm { display: flex; gap: .9rem; align-items: center; padding: 1.15rem 1.3rem; border-radius: var(--r-lg);
+  background: var(--info-bg, #e6effb); border: 1px solid var(--info, #2563a8); }
+.es-confirm-done { background: var(--ok-bg, #e4f5ec); border-color: var(--ok, #1a7f52); }
+.es-confirm-mark { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--info, #2563a8); color: #fff; }
+.es-confirm-done .es-confirm-mark { background: var(--ok, #1a7f52); }
+
+.es-empty { text-align: center; display: flex; flex-direction: column; align-items: center; gap: .7rem; padding: 3rem 1rem; }
+.es-foot { display: flex; align-items: center; justify-content: center; gap: .4rem; color: var(--n-600); font-size: .85rem; font-weight: 600; padding-top: .5rem; }
+
+/* ============================================================
+   AUDIT TRAIL
+   ============================================================ */
+.es-audit { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.es-audit-head { display: flex; align-items: center; gap: .5rem; width: 100%; padding: .95rem 1.15rem; cursor: pointer;
+  background: transparent; border: none; color: var(--ink); font-size: 1rem; }
+.es-audit-head strong { flex: none; }
+.es-audit-caret { margin-left: auto; color: var(--n-600); transition: transform .15s var(--ease); }
+.es-audit-list { list-style: none; margin: 0; padding: .3rem 1.15rem 1.1rem; display: flex; flex-direction: column; }
+.es-audit-inset { padding: 0; }
+.es-audit-item { position: relative; display: flex; gap: .7rem; padding: .55rem 0 .55rem .2rem; }
+.es-audit-item + .es-audit-item { border-top: 1px dashed var(--line); }
+.es-audit-dot { flex: none; width: 11px; height: 11px; margin-top: .3rem; border-radius: 50%; background: var(--n-400);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--n-400) 25%, transparent); }
+.es-audit-created { background: var(--n-600); box-shadow: 0 0 0 3px color-mix(in srgb, var(--n-600) 22%, transparent); }
+.es-audit-sent { background: var(--info, #2563a8); box-shadow: 0 0 0 3px color-mix(in srgb, var(--info, #2563a8) 22%, transparent); }
+.es-audit-viewed { background: var(--warn, #b3721a); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn, #b3721a) 22%, transparent); }
+.es-audit-field_filled { background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.es-audit-signed { background: var(--ok, #1a7f52); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok, #1a7f52) 22%, transparent); }
+.es-audit-completed { background: var(--ok, #1a7f52); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok, #1a7f52) 30%, transparent); }
+.es-audit-voided { background: var(--risk, #c0392b); box-shadow: 0 0 0 3px color-mix(in srgb, var(--risk, #c0392b) 22%, transparent); }
+.es-audit-label { font-size: .92rem; }
+
+/* ============================================================
+   SIGNATURES LIST + DETAIL (product)
+   ============================================================ */
+.es-chip { display: inline-flex; align-items: center; gap: .3rem; max-width: 160px; padding: .22rem .55rem;
+  border-radius: var(--r-pill, 999px); font-size: .76rem; font-weight: 600; border: 1px solid var(--line-strong); background: var(--n-25); color: var(--n-600); }
+.es-chip-signed { background: var(--ok-bg, #e4f5ec); color: var(--ok, #1a7f52); border-color: transparent; }
+.es-chip-viewed { background: var(--warn-bg, #fdf1dc); color: var(--warn, #b3721a); border-color: transparent; }
+.es-chip-pending { }
+
+.es-detail-signer { display: flex; align-items: center; gap: .7rem; padding: .7rem .85rem; border: 1px solid var(--line);
+  border-radius: var(--r-md); background: var(--n-25); }
+.es-detail-sig { flex: none; height: 44px; max-width: 160px; object-fit: contain; background: var(--paper);
+  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 2px 6px; }
+.es-voidbar { display: flex; align-items: center; justify-content: space-between; gap: .8rem; flex-wrap: wrap;
+  padding: .9rem 1rem; border-radius: var(--r-md); background: var(--risk-bg, #fbe8e6); color: var(--risk, #c0392b); font-size: .9rem; font-weight: 600; }

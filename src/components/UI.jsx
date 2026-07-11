@@ -1,6 +1,7 @@
 // Rally shared UI primitives. Every page composes from here so the whole
 // product feels like one surface. Keep prop shapes stable.
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import { useFocusTrap, useEscapeKey, announce } from '../lib/a11y.js';
 
 /* Count a number up from 0 on mount (wow-factor for dashboard stats). Only
    runs for finite numbers; formatted strings render as-is. rAF with a timeout
@@ -54,8 +55,18 @@ export function Card({ pad = true, hover = false, className = '', children, ...r
 export function Stat({ value, label, sub, trend, icon, onClick }) {
   const trendColor = trend == null ? '' : trend >= 0 ? 'var(--ok)' : 'var(--risk)';
   const shown = useCountUp(value);
+  const interactive = onClick
+    ? {
+        role: 'button',
+        tabIndex: 0,
+        'aria-label': typeof label === 'string' ? label : undefined,
+        onClick,
+        onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } },
+        style: { cursor: 'pointer' },
+      }
+    : {};
   return (
-    <div className="col gap-1" onClick={onClick} style={onClick ? { cursor: 'pointer' } : undefined}>
+    <div className="col gap-1" {...interactive}>
       {icon && <div style={{ color: 'var(--accent-600)', marginBottom: 2 }}>{icon}</div>}
       <div className="stat-value">{shown}</div>
       <div className="stat-label">{label}</div>
@@ -106,12 +117,23 @@ export function SectionHeader({ title, sub, action, eyebrow }) {
 }
 
 /* ---------- Field / Input / Select / Textarea ---------- */
-export function Field({ label, hint, children }) {
+export function Field({ label, hint, id: fixedId, children }) {
+  const autoId = useId();
+  const id = fixedId || autoId;
+  const hintId = hint ? `${id}-hint` : undefined;
+  // Associate the label with its control and wire aria-describedby to the hint.
+  // Only clones a single valid React element child; other children pass through.
+  const child = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        id: children.props.id || id,
+        'aria-describedby': [children.props['aria-describedby'], hintId].filter(Boolean).join(' ') || undefined,
+      })
+    : children;
   return (
     <div className="field">
-      {label && <label>{label}</label>}
-      {children}
-      {hint && <span className="t-xs muted">{hint}</span>}
+      {label && <label htmlFor={id}>{label}</label>}
+      {child}
+      {hint && <span id={hintId} className="t-xs muted">{hint}</span>}
     </div>
   );
 }
@@ -121,20 +143,24 @@ export const Textarea = (p) => <textarea className="textarea" rows={4} {...p} />
 
 /* ---------- Modal ---------- */
 export function Modal({ open, onClose, title, children, footer, width = 560 }) {
+  const panelRef = useRef(null);
+  const titleId = useId();
+  // Trap focus inside the panel while open and restore it to the trigger on
+  // close (both handled by useFocusTrap). Escape closes via useEscapeKey.
+  useFocusTrap(panelRef, open);
+  useEscapeKey(() => onClose?.(), open);
   useEffect(() => {
     if (!open) return;
-    const h = (e) => e.key === 'Escape' && onClose?.();
-    window.addEventListener('keydown', h);
     document.body.style.overflow = 'hidden';
-    return () => { window.removeEventListener('keydown', h); document.body.style.overflow = ''; };
-  }, [open, onClose]);
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
   if (!open) return null;
   return (
-    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 70, background: 'rgba(16,20,30,.5)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-      <div onClick={(e) => e.stopPropagation()} className="fade-up" style={{ width: '100%', maxWidth: width, background: 'var(--paper)', borderRadius: 'var(--r-lg)', boxShadow: 'var(--shadow-lg)', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
+    <div role="presentation" onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 70, background: 'rgba(16,20,30,.5)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+      <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined} onClick={(e) => e.stopPropagation()} className="fade-up" style={{ width: '100%', maxWidth: width, background: 'var(--paper)', borderRadius: 'var(--r-lg)', boxShadow: 'var(--shadow-lg)', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
         {title && (
           <div className="row between" style={{ padding: '1.15rem 1.4rem', borderBottom: '1px solid var(--line)' }}>
-            <h4 style={{ margin: 0 }}>{title}</h4>
+            <h4 id={titleId} style={{ margin: 0 }}>{title}</h4>
             <button onClick={onClose} className="btn btn-quiet" aria-label="Close" style={{ fontSize: '1.3rem', padding: '.1rem .5rem', lineHeight: 1 }}>&times;</button>
           </div>
         )}
@@ -265,8 +291,16 @@ export function Kbd({ children }) {
 
 /* ---------- StatCard ---------- a premium KPI tile with optional spark + trend + glow */
 export function StatCard({ label, value, format, trend, spark, sparkColor, icon, accent = 'var(--accent)', onClick, sub }) {
+  const interactive = onClick
+    ? {
+        role: 'button',
+        tabIndex: 0,
+        'aria-label': typeof label === 'string' ? label : undefined,
+        onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } },
+      }
+    : {};
   return (
-    <div onClick={onClick} className="card card-pad" style={{ cursor: onClick ? 'pointer' : 'default', position: 'relative', overflow: 'hidden' }}>
+    <div onClick={onClick} {...interactive} className="card card-pad" style={{ cursor: onClick ? 'pointer' : 'default', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: -30, right: -30, width: 110, height: 110, borderRadius: '50%', background: accent, opacity: .07, filter: 'blur(8px)' }} />
       <div className="row between" style={{ position: 'relative' }}>
         <div className="stat-label">{label}</div>
@@ -288,6 +322,9 @@ export function StatCard({ label, value, format, trend, spark, sparkColor, icon,
 /* ---------- Toast ---------- */
 export function useToast() {
   const show = (msg, tone = 'ok') => {
+    // Announce through the aria-live region so screen readers hear the toast.
+    // Errors are assertive; confirmations are polite.
+    announce(msg, { assertive: tone === 'risk' });
     const el = document.createElement('div');
     el.textContent = msg;
     el.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:99;padding:.75rem 1.25rem;border-radius:var(--r-sm);font-weight:600;box-shadow:var(--shadow-lg);background:${tone === 'risk' ? 'var(--risk)' : tone === 'warn' ? 'var(--warn)' : 'var(--ink)'};color:#fff;animation:fadeUp .3s var(--ease)`;

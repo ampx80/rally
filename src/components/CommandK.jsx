@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon, typeIcon } from './icons.jsx';
 import { Avatar, moneyK } from './UI.jsx';
 import { getContacts, getCompanies, getDeals, getCompany, contactName, stageById } from '../lib/store.js';
+import { useFocusTrap } from '../lib/a11y.js';
 
 const NAV_COMMANDS = [
   { kind: 'nav', label: 'Command center', to: '/app', icon: 'home' },
@@ -21,6 +22,8 @@ export default function CommandK({ open, onClose }) {
   const [q, setQ] = useState('');
   const [active, setActive] = useState(0);
   const inputRef = useRef(null);
+  const panelRef = useRef(null);
+  useFocusTrap(panelRef, open);
 
   useEffect(() => {
     if (open) { setQ(''); setActive(0); setTimeout(() => inputRef.current?.focus(), 30); }
@@ -70,18 +73,21 @@ export default function CommandK({ open, onClose }) {
 
   return (
     <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 80, background: 'rgba(16,20,30,.5)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '12vh' }}>
-      <div onClick={(e) => e.stopPropagation()} className="fade-up" style={{ width: '100%', maxWidth: 620, background: 'var(--paper)', borderRadius: 'var(--r-lg)', boxShadow: 'var(--shadow-lg)', overflow: 'hidden' }}>
+      <div ref={panelRef} role="dialog" aria-modal="true" aria-label="Global search" onClick={(e) => e.stopPropagation()} className="fade-up" style={{ width: '100%', maxWidth: 620, background: 'var(--paper)', borderRadius: 'var(--r-lg)', boxShadow: 'var(--shadow-lg)', overflow: 'hidden' }}>
         <div className="row gap-2" style={{ padding: '.9rem 1.1rem', borderBottom: '1px solid var(--line)' }}>
           <Icon name="search" size={20} style={{ color: 'var(--n-400)' }} />
           <input ref={inputRef} value={q} onChange={e => setQ(e.target.value)} onKeyDown={onKey}
+            role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list"
+            aria-activedescendant={results.length ? `cmdk-opt-${active}` : undefined}
+            aria-label="Search contacts, companies, deals, or jump to a page"
             placeholder="Search contacts, companies, deals, or jump to a page..."
             style={{ flex: 1, border: 'none', outline: 'none', fontSize: '1.05rem', background: 'transparent' }} />
           <span className="badge">esc</span>
         </div>
-        <div style={{ maxHeight: '52vh', overflowY: 'auto', padding: '.4rem' }}>
+        <div id="cmdk-list" role="listbox" aria-label="Search results" style={{ maxHeight: '52vh', overflowY: 'auto', padding: '.4rem' }}>
           {results.length === 0 && <div className="muted" style={{ padding: '1.4rem', textAlign: 'center' }}>No matches for "{q}"</div>}
           {results.map((r, i) => (
-            <div key={r.kind + (r.id || r.to) + i} onClick={() => go(r)} onMouseEnter={() => setActive(i)}
+            <div key={r.kind + (r.id || r.to) + i} id={`cmdk-opt-${i}`} role="option" aria-selected={i === active} onClick={() => go(r)} onMouseEnter={() => setActive(i)}
               className="row gap-2" style={{ padding: '.6rem .75rem', borderRadius: 'var(--r-sm)', cursor: 'pointer', background: i === active ? 'var(--accent-50)' : 'transparent' }}>
               <span className="row center" style={{ width: 30, height: 30, borderRadius: 'var(--r-sm)', background: 'var(--n-50)', color: 'var(--accent-600)', flex: 'none' }}>
                 <Icon name={iconFor(r)} size={16} />

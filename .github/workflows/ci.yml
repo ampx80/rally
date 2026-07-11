@@ -1,0 +1,128 @@
+# ============================================================
+# Rally CI
+# - build  : the REQUIRED gate. npm ci + npm run build must stay green.
+# - lint   : module smoke test - node --check across every api/*.js file.
+# - test   : RESILIENT / opt-in. Runs Vitest + Playwright, but every test
+#            step is guarded so it is a no-op until the test deps are added
+#            to package.json. It never blocks the build gate.
+# Additive: adding test deps later lights these steps up automatically.
+# NO em-dash / en-dash. ASCII hyphen only.
+# ============================================================
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # --------------------------------------------------------
+  # Required gate: the app must build (vite build + prerender-seo).
+  # --------------------------------------------------------
+  build:
+    name: Build (required)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 3
+
+  # --------------------------------------------------------
+  # Module smoke test: every serverless function must at least parse.
+  # --------------------------------------------------------
+  lint:
+    name: Lint (api module smoke)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: node --check every api/*.js
+        run: |
+          set -e
+          shopt -s nullglob
+          fail=0
+          for f in api/*.js api/**/*.js; do
+            if ! node --check "$f"; then
+              echo "::error file=$f::node --check failed"
+              fail=1
+            fi
+          done
+          if [ "$fail" -ne 0 ]; then exit 1; fi
+          echo "api module smoke: all files parsed clean"
+
+  # --------------------------------------------------------
+  # Resilient test job. Guarded: no-op until vitest / @playwright/test are
+  # present in package.json. Never a required gate.
+  # --------------------------------------------------------
+  test:
+    name: Tests (opt-in until deps added)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+
+      # Detect which test tooling is available so the steps below stay inert
+      # until the deps are actually added to package.json.
+      - name: Detect test tooling
+        id: detect
+        run: |
+          if node -e "require.resolve('vitest')" 2>/dev/null; then
+            echo "vitest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "vitest=false" >> "$GITHUB_OUTPUT"
+            echo "vitest not installed - skipping unit tests"
+          fi
+          if node -e "require.resolve('@playwright/test')" 2>/dev/null; then
+            echo "playwright=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "playwright=false" >> "$GITHUB_OUTPUT"
+            echo "@playwright/test not installed - skipping e2e"
+          fi
+
+      # ---- Unit tests (Vitest) ----
+      - name: Unit tests (vitest)
+        if: steps.detect.outputs.vitest == 'true'
+        run: npx vitest run
+
+      # ---- End-to-end tests (Playwright) ----
+      - name: Build app for e2e
+        if: steps.detect.outputs.playwright == 'true'
+        run: npm run build
+      - name: Install Playwright browser
+        if: steps.detect.outputs.playwright == 'true'
+        run: npx playwright install --with-deps chromium
+      - name: Run Playwright e2e
+        if: steps.detect.outputs.playwright == 'true'
+        run: npx playwright test
+      - name: Upload Playwright report
+        if: steps.detect.outputs.playwright == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

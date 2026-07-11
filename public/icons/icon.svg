@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Rally">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6a5bff"/>
+      <stop offset="1" stop-color="#4a3ce0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <path d="M170 132h108c50 0 84 30 84 78 0 34-18 59-48 71l58 99h-70l-50-90h-24v90h-58V132zm58 52v66h46c22 0 35-12 35-33s-13-33-35-33h-46z" fill="#ffffff"/>
+</svg>
