@@ -1,0 +1,69 @@
+/* ============================================================
+   TERRITORIES MODULE - scoped styles (prefix .terr-)
+   CSS-only motion. Never touches global surfaces.
+   ============================================================ */
+
+/* territory grid card lift */
+.terr-card { transition: transform .18s var(--ease), box-shadow .18s var(--ease); }
+.terr-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+/* animated horizontal bar fill (attainment / capacity) */
+.terr-bar-track {
+  position: relative; width: 100%; height: 10px; border-radius: 999px;
+  background: var(--n-100); overflow: hidden;
+}
+.terr-bar-fill {
+  position: absolute; inset: 0 auto 0 0; height: 100%; border-radius: 999px;
+  width: 0; transform-origin: left center;
+  animation: terrGrow .9s var(--ease) forwards;
+}
+@keyframes terrGrow { from { width: 0; } }
+
+/* pace marker (expected-to-date) sitting on a bar */
+.terr-pace-mark {
+  position: absolute; top: -3px; width: 2px; height: 16px;
+  background: var(--n-600); border-radius: 2px; transform: translateX(-50%);
+}
+
+/* mini load meter inside a territory card */
+.terr-load {
+  height: 6px; border-radius: 999px; background: var(--n-100); overflow: hidden;
+}
+.terr-load > span {
+  display: block; height: 100%; border-radius: 999px;
+  animation: terrGrow .8s var(--ease) forwards;
+}
+
+/* balance gauge sweep */
+.terr-gauge-arc {
+  transition: stroke-dashoffset 1s var(--ease);
+}
+.terr-gauge-needle {
+  transform-box: fill-box; transform-origin: bottom center;
+  transition: transform 1s var(--ease);
+}
+
+/* rebalance suggestion chip - gentle attention pulse */
+.terr-suggest { position: relative; overflow: hidden; }
+.terr-suggest::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(91,75,245,.10) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: terrSweep 3.2s var(--ease) infinite;
+  pointer-events: none;
+}
+@keyframes terrSweep { to { transform: translateX(100%); } }
+
+.terr-dot { width: 9px; height: 9px; border-radius: 999px; flex: none; display: inline-block; }
+
+/* ramp pill */
+.terr-ramp {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: .72rem; font-weight: 700; padding: .12rem .5rem; border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terr-card, .terr-bar-fill, .terr-load > span, .terr-gauge-arc,
+  .terr-gauge-needle, .terr-suggest::after { animation: none !important; transition: none !important; }
+  .terr-bar-fill, .terr-load > span { width: var(--terr-w, 0); }
+}

@@ -1,0 +1,117 @@
+/* ============================================================
+   COMMAND CENTER - the exec cockpit (home, /app)
+   All rules scoped to the .cc wrapper so nothing here leaks into
+   the rest of the product. Motion is transform/opacity only (plus
+   a single mount-time scaleY on the pulse bars) so it holds 60fps
+   and stays boardroom-safe. Fully neutralized under
+   prefers-reduced-motion. NO em-dash or en-dash. ASCII hyphen only.
+   ============================================================ */
+
+.cc { position: relative; }
+
+/* ---------- shared entrance ---------- */
+.cc-rise { animation: ccRise .55s var(--ease) both; }
+@keyframes ccRise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes ccFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============================================================
+   HERO - the first-impression moment on login
+   ============================================================ */
+.cc-hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: var(--r-xl);
+  padding: 1.9rem 2rem 1.7rem;
+  color: #fff;
+  background: linear-gradient(125deg, #201a5e 0%, #3d31c2 32%, #5b4bf5 58%, #0e8f8a 122%);
+  box-shadow: var(--shadow-lg);
+}
+.cc-hero > * { position: relative; z-index: 1; }
+
+/* ambient color field drifting behind the hero copy */
+.cc-hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 0; pointer-events: none; will-change: transform; }
+.cc-hero-blob.b1 { width: 340px; height: 340px; top: -130px; right: 4%; background: radial-gradient(circle, rgba(168,85,247,.75), transparent 70%); animation: ccFloatA 19s ease-in-out infinite; }
+.cc-hero-blob.b2 { width: 320px; height: 320px; bottom: -150px; left: 10%; background: radial-gradient(circle, rgba(14,159,154,.6), transparent 70%); animation: ccFloatB 23s ease-in-out infinite; }
+@keyframes ccFloatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-32px,28px) scale(1.12); } }
+@keyframes ccFloatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(36px,-24px) scale(1.14); } }
+
+/* slow light sheen sweeping across the panel */
+.cc-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.10) 50%, transparent 58%);
+  transform: translateX(-100%);
+  animation: ccSheen 8s var(--ease) 1.4s infinite;
+}
+@keyframes ccSheen { 0% { transform: translateX(-100%); } 55%,100% { transform: translateX(100%); } }
+
+.cc-hero-eyebrow { font-size: .74rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.74); }
+.cc-hero-title { margin: .25rem 0 0; font-size: clamp(1.95rem, 3.6vw, 2.9rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; color: #fff; }
+.cc-hero-name { background: linear-gradient(100deg, #fff, #dcd6ff 55%, #8ff0e6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cc-hero-sub { margin: .5rem 0 0; color: rgba(255,255,255,.84); font-size: 1.08rem; }
+
+/* live status pill */
+.cc-live { display: inline-flex; align-items: center; gap: .5rem; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.92); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); padding: .38rem .78rem; border-radius: 999px; }
+.cc-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 0 rgba(110,231,183,.6); animation: ccPulseDot 2.4s ease-in-out infinite; }
+@keyframes ccPulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(110,231,183,.55); } 50% { box-shadow: 0 0 0 7px rgba(110,231,183,0); } }
+
+/* Rook button on the hero */
+.cc-hero-rook { display: inline-flex; align-items: center; gap: .5rem; flex: none; font-weight: 700; padding: .68rem 1.15rem; border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.14); color: #fff; cursor: pointer; transition: background .18s var(--ease), transform .16s var(--ease), border-color .18s var(--ease); }
+.cc-hero-rook:hover { background: #fff; color: var(--accent-700); border-color: #fff; transform: translateY(-1px); }
+
+/* Rook brief - the top 3 moves that matter */
+.cc-brief { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.35rem; }
+.cc-brief-card { position: relative; text-align: left; border-radius: var(--r-md); padding: .95rem 1.05rem; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); color: #fff; cursor: pointer; overflow: hidden; transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease); }
+.cc-brief-card:hover { transform: translateY(-3px); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); }
+.cc-brief-rank { display: inline-flex; align-items: center; gap: .35rem; font-size: .68rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,255,255,.66); }
+.cc-brief-val { margin-top: .3rem; font-size: clamp(1.55rem, 2.5vw, 2rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.04; font-variant-numeric: tabular-nums; }
+.cc-brief-label { margin-top: .15rem; font-size: .92rem; color: rgba(255,255,255,.86); line-height: 1.3; }
+.cc-brief-ico { position: absolute; top: .85rem; right: .9rem; opacity: .45; }
+@media (max-width: 860px) { .cc-brief { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   KPI TILES
+   ============================================================ */
+.cc-kpi { position: relative; overflow: hidden; text-align: left; width: 100%; cursor: pointer; border: 1px solid var(--line); }
+.cc-kpi:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,75,245,.18); }
+.cc-kpi-glow { position: absolute; top: -34px; right: -34px; width: 118px; height: 118px; border-radius: 50%; opacity: .09; filter: blur(6px); }
+.cc-kpi-val { font-size: clamp(1.95rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.cc-trend { display: inline-flex; align-items: center; gap: 3px; font-size: .82rem; font-weight: 700; }
+.cc-kpi-spark { animation: ccFadeIn .7s var(--ease) .35s both; }
+
+/* ============================================================
+   PIPELINE PULSE
+   ============================================================ */
+.cc-pulse { display: flex; gap: .8rem; align-items: stretch; }
+.cc-pulse-col { flex: 1; min-width: 88px; cursor: pointer; }
+.cc-pulse-track { height: 112px; display: flex; align-items: flex-end; border-radius: 8px 8px 0 0; }
+.cc-pulse-bar { width: 100%; border-radius: 8px 8px 0 0; position: relative; overflow: hidden; transform-origin: bottom; animation: ccGrow .95s var(--ease) both; }
+.cc-pulse-bar::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.30), transparent 46%); }
+@keyframes ccGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.cc-pulse-col:hover .cc-pulse-bar { filter: brightness(1.09); }
+.cc-pulse-meta { margin-top: .55rem; }
+
+/* ============================================================
+   LEADERBOARD + FEEDS
+   ============================================================ */
+.cc-row { display: flex; align-items: center; gap: .9rem; padding: .7rem 0; border-top: 1px solid var(--n-50); }
+.cc-row:first-child { border-top: none; }
+.cc-rank { width: 26px; height: 26px; flex: none; border-radius: 8px; display: grid; place-items: center; font-size: .82rem; font-weight: 800; background: var(--n-100); color: var(--n-600); }
+.cc-rank.gold { background: linear-gradient(135deg, #f6d365, #e0a80f); color: #3a2a00; }
+.cc-rank.silver { background: linear-gradient(135deg, #dfe4ec, #b9c1cf); color: #2a303b; }
+.cc-rank.bronze { background: linear-gradient(135deg, #edb98a, #c67c3c); color: #3a1f00; }
+
+/* recent wins celebration */
+.cc-win { position: relative; overflow: hidden; }
+.cc-win-medal { width: 34px; height: 34px; flex: none; border-radius: 50%; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--ok), #14a06a); box-shadow: 0 3px 10px rgba(26,127,82,.35); }
+.cc-win::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--ok), transparent); transform: translateX(-100%); animation: ccShine 4.5s var(--ease) infinite; }
+@keyframes ccShine { 0% { transform: translateX(-100%); } 40%,100% { transform: translateX(100%); } }
+
+.cc-actico { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--accent-50); color: var(--accent-600); }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .cc-rise, .cc-hero::after, .cc-hero-blob, .cc-live-dot, .cc-kpi-spark,
+  .cc-pulse-bar, .cc-win::before { animation: none !important; }
+  .cc-pulse-bar { transform: none !important; }
+}

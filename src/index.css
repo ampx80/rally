@@ -406,3 +406,7 @@ html, body { overflow-x: clip; max-width: 100%; }
   .hide-520 { display: none !important; }
   .rl-content { padding: .85rem .85rem 5rem; }
 }
+
+/* Keyboard focus visibility (a11y - WCAG 2.4.7) */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.btn:focus-visible, a:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

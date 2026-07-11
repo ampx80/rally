@@ -15,10 +15,16 @@ import {
   repLeaderboard, STAGES,
 } from '../lib/store';
 import {
-  Card, Button, Badge, SectionHeader, StatCard, Sparkline,
-  Modal, Field, Input, Select, EmptyState, useToast, money, moneyK, shortDate,
+  Card, Button, Badge, SectionHeader, Sparkline,
+  Modal, Field, Input, Select, useToast, money, moneyK, shortDate,
 } from '../components/UI';
 import { Icon } from '../components/icons';
+import PageTransition from '../components/motion/PageTransition';
+import Reveal from '../components/motion/Reveal';
+import AnimatedStat from '../components/motion/AnimatedStat';
+import EmptyState from '../components/motion/EmptyState';
+import { SkeletonChart } from '../components/motion/Skeleton';
+import { useInView } from '../components/motion/useInView';
 import {
   SOURCES, metricsFor, dimensionsFor, CHART_TYPES,
   computeReport, allReports, saveReport, duplicateReport, deleteReport,
@@ -40,6 +46,13 @@ function fmt(v, kind) {
   if (kind === 'money') return moneyK(v);
   if (kind === 'percent') return Math.round(v) + '%';
   return typeof v === 'number' ? v.toLocaleString() : v;
+}
+
+/* ---- draw-on-view chart mount: shimmer placeholder until the chart is
+   scrolled into view, then the real recharts mounts and draws itself in ---- */
+function InViewChart({ height = 320, children }) {
+  const [ref, seen] = useInView({ once: true });
+  return <div ref={ref}>{seen ? children : <SkeletonChart height={height} />}</div>;
 }
 
 /* ---- shared chart renderer, drives every report view + preview ---- */
@@ -258,7 +271,7 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
   const computed = useMemo(() => computeReport(def), [def.source, def.metric, def.groupBy, def.chart]);
 
   return (
-    <div className="fade-up col gap-3">
+    <PageTransition className="col gap-3">
       <div className="row between wrap gap-2">
         <div className="row gap-2" style={{ alignItems: 'center', minWidth: 0 }}>
           <Button variant="ghost" size="sm" onClick={onBack}>&larr; Back</Button>
@@ -286,10 +299,15 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
         </div>
       </div>
 
+      <Reveal>
       <Card className="col" style={{ gap: '1rem' }}>
-        <ReportChart def={def} computed={computed} height={340} />
+        <InViewChart height={340}>
+          <ReportChart def={def} computed={computed} height={340} />
+        </InViewChart>
       </Card>
+      </Reveal>
 
+      <Reveal delay={80}>
       <Card className="col" style={{ gap: '.75rem' }}>
         <div className="row between">
           <span className="fw-7">Breakdown</span>
@@ -297,7 +315,8 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
         </div>
         <ReportTable def={def} computed={computed} />
       </Card>
-    </div>
+      </Reveal>
+    </PageTransition>
   );
 }
 
@@ -369,47 +388,60 @@ export default function Reports() {
   }
 
   return (
-    <div className="fade-up col gap-3">
+    <PageTransition className="col gap-3">
       <SectionHeader
         title="Reports"
         sub="A live view of the business, plus a builder for any question you can ask."
         action={<Button onClick={() => setBuilder(true)}><Icon name="plus" size={16} /> New report</Button>}
       />
 
-      {/* ---------- DASHBOARD: live KPIs ---------- */}
+      {/* ---------- DASHBOARD: live KPIs (count up + spark draw on view) ---------- */}
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
-        <StatCard label="Open pipeline" value={pipeline} format={moneyK} icon={<Icon name="funnel" size={18} />} spark={monthSpark} sub={`${openDeals().length} open deals`} />
-        <StatCard label="Weighted forecast" value={forecast} format={moneyK} icon={<Icon name="trendUp" size={18} />} spark={monthSpark} sparkColor="#0ea5a3" sub="value x probability" />
-        <StatCard label="Win rate" value={rate} format={(v) => Math.round(v) + '%'} icon={<Icon name="target" size={18} />} sub="won / (won + lost)" />
-        <StatCard label="Closing this month" value={closingValue} format={moneyK} icon={<Icon name="dollar" size={18} />} sub={`${closingThis.length} deals in play`} />
+        <AnimatedStat label="Open pipeline" value={pipeline} format={moneyK} icon={<Icon name="funnel" size={18} />} spark={monthSpark} sub={`${openDeals().length} open deals`} />
+        <AnimatedStat label="Weighted forecast" value={forecast} format={moneyK} icon={<Icon name="trendUp" size={18} />} spark={monthSpark} sparkColor="#0ea5a3" sub="value x probability" />
+        <AnimatedStat label="Win rate" value={rate} format={(v) => Math.round(v) + '%'} icon={<Icon name="target" size={18} />} sub="won / (won + lost)" />
+        <AnimatedStat label="Closing this month" value={closingValue} format={moneyK} icon={<Icon name="dollar" size={18} />} sub={`${closingThis.length} deals in play`} />
       </div>
 
       {/* ---------- DASHBOARD: charts ---------- */}
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1rem' }}>
+        <Reveal>
         <Card className="col" style={{ gap: '.75rem' }}>
           <div className="row between">
             <span className="fw-7">Forecast by rep</span>
             <span className="muted t-sm">open pipeline each rep carries</span>
           </div>
-          <ReportChart def={{ chart: 'bar' }} computed={repForecast} height={240} />
+          <InViewChart height={240}>
+            <ReportChart def={{ chart: 'bar' }} computed={repForecast} height={240} />
+          </InViewChart>
         </Card>
+        </Reveal>
+        <Reveal delay={60}>
         <Card className="col" style={{ gap: '.75rem' }}>
           <div className="row between">
             <span className="fw-7">Deals by industry</span>
             <span className="muted t-sm">where pipeline concentrates</span>
           </div>
-          <ReportChart def={{ chart: 'pie' }} computed={dealsByIndustry} height={240} />
+          <InViewChart height={240}>
+            <ReportChart def={{ chart: 'pie' }} computed={dealsByIndustry} height={240} />
+          </InViewChart>
         </Card>
+        </Reveal>
+        <Reveal delay={120}>
         <Card className="col" style={{ gap: '.75rem' }}>
           <div className="row between">
             <span className="fw-7">Win rate by rep</span>
             <span className="muted t-sm">closed-won conversion</span>
           </div>
-          <ReportChart def={{ chart: 'bar' }} computed={winByRep} height={240} />
+          <InViewChart height={240}>
+            <ReportChart def={{ chart: 'bar' }} computed={winByRep} height={240} />
+          </InViewChart>
         </Card>
+        </Reveal>
       </div>
 
       {/* ---------- GALLERY ---------- */}
+      <Reveal>
       <div className="col gap-2">
         <div className="row between" style={{ alignItems: 'flex-end' }}>
           <div className="col gap-1">
@@ -420,19 +452,20 @@ export default function Reports() {
         </div>
 
         {reports.length === 0 ? (
-          <EmptyState title="No reports yet" body="Build your first report to see it here." action={<Button onClick={() => setBuilder(true)}><Icon name="plus" size={16} /> New report</Button>} />
+          <EmptyState icon="chart" title="No reports yet" body="Build your first report and it will land right here, ready to run." action={<Button onClick={() => setBuilder(true)}><Icon name="plus" size={16} /> New report</Button>} />
         ) : (
           <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
             {reports.map(def => <GalleryCard key={def.id} def={def} onOpen={setView} />)}
           </div>
         )}
       </div>
+      </Reveal>
 
       <BuilderModal
         open={builder}
         onClose={() => setBuilder(false)}
         onSaved={(saved) => { refresh(); setView(saved); }}
       />
-    </div>
+    </PageTransition>
   );
 }

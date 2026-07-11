@@ -1,0 +1,84 @@
+/* ============================================================
+   Customer Success - scoped motion only.
+   Everything is namespaced under .cs-root so nothing here leaks
+   into the rest of the app. No color/token overrides live here;
+   colors come from the shared theme variables. Motion respects
+   prefers-reduced-motion.
+   ============================================================ */
+
+.cs-root { --cs-ease: cubic-bezier(.22, 1, .36, 1); }
+
+/* Heatmap cell entrance + hover lift */
+@keyframes csCellIn {
+  from { opacity: 0; transform: scale(.86); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.cs-cell {
+  animation: csCellIn .42s var(--cs-ease) both;
+  transition: transform .18s var(--cs-ease), box-shadow .18s var(--cs-ease), outline-color .18s;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  cursor: pointer;
+}
+.cs-cell:hover { transform: translateY(-3px) scale(1.03); box-shadow: var(--shadow-md); z-index: 2; }
+.cs-cell.cs-selected { outline-color: var(--accent); }
+
+/* Risk pulse - draws the eye to the highest-exposure accounts */
+@keyframes csPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, .0); }
+  50%      { box-shadow: 0 0 0 5px rgba(192, 57, 43, .16); }
+}
+.cs-pulse { animation: csPulse 2.4s ease-in-out infinite; }
+
+/* Timeline / bar sweep */
+@keyframes csGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.cs-bar-grow { transform-origin: left center; animation: csGrow .7s var(--cs-ease) both; }
+
+/* Ring draw */
+@keyframes csRing {
+  from { stroke-dashoffset: var(--cs-dash); }
+}
+.cs-ring-draw { animation: csRing 1s var(--cs-ease) both; }
+
+/* Row stagger for lists */
+@keyframes csRowIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cs-row-in { animation: csRowIn .38s var(--cs-ease) both; }
+
+/* Detail panel slide-in */
+@keyframes csPanelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cs-panel-in { animation: csPanelIn .34s var(--cs-ease) both; }
+
+/* Playbook step check cascade */
+@keyframes csStepIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.cs-step-in { animation: csStepIn .3s var(--cs-ease) both; }
+
+/* Rook flag shimmer on the callout accent */
+@keyframes csShimmer {
+  0% { background-position: -140% 0; }
+  100% { background-position: 240% 0; }
+}
+.cs-shimmer {
+  background-image: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+  background-size: 220% 100%;
+  animation: csShimmer 3.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-cell, .cs-pulse, .cs-bar-grow, .cs-ring-draw, .cs-row-in,
+  .cs-panel-in, .cs-step-in, .cs-shimmer {
+    animation: none !important;
+    transition: none !important;
+  }
+}

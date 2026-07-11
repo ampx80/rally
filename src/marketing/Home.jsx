@@ -10,6 +10,7 @@ import HeroCurrent from './HeroCurrent.jsx';
 import HeroStage from './HeroStage.jsx';
 import OrbitDiagram from './OrbitDiagram.jsx';
 import SwitchScene from './SwitchScene.jsx';
+import InteractiveDemo from './InteractiveDemo.jsx';
 import { Icon } from '../components/icons.jsx';
 
 /* ------------------------------------------------------------------ */
@@ -342,6 +343,21 @@ export default function Home() {
             <div className="mkt-center" style={{ marginTop: 34 }}>
               <MktButton to="/product/rook" variant="ghost"><Icon name="sparkles" size={18} /> Explore Rook</MktButton>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* S4b. TRY IT YOURSELF - interactive Rook demo */}
+      <section className="mkt-section" style={{ paddingTop: 40 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 680, margin: '0 auto 40px' }}>
+              <span className="mkt-eyebrow">Try it yourself</span>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Ask Rook a question. No signup.</h2>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div style={{ maxWidth: 880, margin: '0 auto' }}><InteractiveDemo /></div>
           </Reveal>
         </div>
       </section>

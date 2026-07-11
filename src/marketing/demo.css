@@ -1,0 +1,298 @@
+/* ============================================================
+   RALLY DEMO - the self-guided interactive product tour. A faux
+   Rally workspace the prospect drives through: pipeline, a deal,
+   Rook answering + acting, a forecast, a proposal assembling.
+   Scoped under .mkt (renders inside MarketingShell) so it inherits
+   the marketing tokens. Own keyframes are dmo* prefixed. Reuses
+   the shared motion vocabulary (m-arrive / m-pop / m-spring /
+   m-cascade / m-cursor / m-think / mkt-spark-line) from
+   marketing.css. 60fps: transform/opacity only. Reduced-motion
+   safe. NO em-dash / en-dash. ASCII hyphen only.
+   ============================================================ */
+
+/* --- Page hero band --- */
+.dmo-hero { padding: 84px 0 26px; text-align: center; position: relative; }
+.dmo-hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--m-accent); background: rgba(91,75,245,.09); border: 1px solid rgba(91,75,245,.2); border-radius: 999px; padding: 7px 15px; }
+
+/* ============================================================
+   WORKSPACE SHELL - framed faux app (chrome + sidebar + main)
+   ============================================================ */
+.dmo-shell { background: #fff; border: 1px solid var(--m-line2); border-radius: 22px; box-shadow: var(--m-shadow-lg); overflow: hidden; position: relative; }
+
+.dmo-chrome { display: flex; align-items: center; gap: 11px; padding: 12px 18px; border-bottom: 1px solid var(--m-line); background: linear-gradient(180deg, #fff, #fbfbff); }
+.dmo-chrome-dots { display: flex; gap: 6px; }
+.dmo-chrome-dots i { width: 11px; height: 11px; border-radius: 99px; display: block; }
+.dmo-chrome-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14.5px; letter-spacing: -.01em; }
+.dmo-chrome-mark { width: 23px; height: 23px; border-radius: 7px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); }
+.dmo-chrome-live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--m-teal); }
+
+.dmo-body { display: grid; grid-template-columns: 208px minmax(0, 1fr); min-height: 468px; }
+
+/* --- sidebar --- */
+.dmo-side { border-right: 1px solid var(--m-line); background: var(--m-bg2); padding: 14px 12px; display: flex; flex-direction: column; gap: 3px; }
+.dmo-side-sec { font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--m-ink3); padding: 12px 10px 6px; }
+.dmo-side-sec:first-child { padding-top: 2px; }
+.dmo-side-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--m-ink2); transition: background .14s, color .14s; position: relative; }
+.dmo-side-item > svg { color: var(--m-ink3); transition: color .14s; flex: none; }
+.dmo-side-item.is-active { background: #fff; color: var(--m-ink); box-shadow: var(--m-shadow-sm), inset 3px 0 0 var(--m-accent); }
+.dmo-side-item.is-active > svg { color: var(--m-accent); }
+.dmo-side-spacer { flex: 1; min-height: 14px; }
+.dmo-side-rook { display: flex; align-items: center; gap: 10px; padding: 10px 11px; border-radius: 11px; font-size: 13.5px; font-weight: 700; color: #fff; background: linear-gradient(120deg, #5b4bf5, #7c5cf7); box-shadow: 0 10px 22px -10px rgba(91,75,245,.6); transition: transform .16s var(--spring), box-shadow .2s; }
+.dmo-side-rook.is-active { box-shadow: 0 14px 30px -10px rgba(91,75,245,.75); transform: translateY(-1px); }
+.dmo-side-rook-ic { width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; background: rgba(255,255,255,.2); flex: none; }
+
+/* --- main content region --- */
+.dmo-main { padding: 22px 24px 24px; display: flex; flex-direction: column; min-width: 0; }
+.dmo-scenehead { margin-bottom: 18px; }
+.dmo-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--m-accent); }
+.dmo-scenetitle { font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--m-ink); margin: 7px 0 0; }
+.dmo-scenesub { font-size: 14.5px; line-height: 1.5; color: var(--m-ink2); margin: 7px 0 0; max-width: 560px; }
+.dmo-stage { flex: 1; min-width: 0; }
+
+/* --- hint chip (subtle "do this" nudge) --- */
+.dmo-hint { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--m-accent); background: rgba(91,75,245,.08); border: 1px solid rgba(91,75,245,.18); border-radius: 999px; padding: 6px 13px; }
+.dmo-hint .dmo-hint-pulse { width: 8px; height: 8px; border-radius: 999px; background: var(--m-accent); animation: dmoPulse 1.6s ease-in-out infinite; }
+
+/* ============================================================
+   SCENE - PIPELINE (kanban)
+   ============================================================ */
+.dmo-kpi { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: linear-gradient(100deg, rgba(91,75,245,.06), rgba(14,159,154,.05)); border: 1px solid rgba(91,75,245,.16); border-radius: 14px; padding: 12px 16px; margin-bottom: 16px; }
+.dmo-kpi-big { font-size: 26px; font-weight: 800; letter-spacing: -.03em; color: var(--m-ink); font-variant-numeric: tabular-nums; }
+.dmo-kpi-label { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--m-ink3); }
+.dmo-kpi-chip { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--m-teal); background: rgba(14,159,154,.12); border-radius: 999px; padding: 5px 12px; }
+
+.dmo-kanban { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(184px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.dmo-col { background: var(--m-bg2); border: 1px solid var(--m-line); border-radius: 14px; padding: 11px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.dmo-colhead { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: var(--m-ink2); }
+.dmo-colhead .dmo-coldot { width: 8px; height: 8px; border-radius: 99px; flex: none; }
+.dmo-colcount { margin-left: auto; font-size: 10.5px; font-weight: 800; color: var(--m-ink3); background: #fff; border: 1px solid var(--m-line2); border-radius: 999px; padding: 1px 8px; }
+
+.dmo-deal { background: #fff; border: 1px solid var(--m-line2); border-radius: 11px; padding: 11px 12px; box-shadow: var(--m-shadow-sm); text-align: left; cursor: default; transition: transform .16s var(--glide), box-shadow .2s, border-color .2s; }
+.dmo-deal-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.dmo-deal-name { font-weight: 700; font-size: 13px; color: var(--m-ink); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dmo-deal-amt { font-weight: 800; font-size: 13.5px; color: var(--m-accent); flex: none; }
+.dmo-deal-meta { display: flex; align-items: center; gap: 7px; margin-top: 9px; }
+.dmo-deal-av { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 9px; font-weight: 700; flex: none; }
+.dmo-deal-days { font-size: 10.5px; font-weight: 600; color: var(--m-ink3); }
+.dmo-deal.is-star { cursor: pointer; border-color: rgba(91,75,245,.5); box-shadow: 0 12px 26px -14px rgba(91,75,245,.5); }
+.dmo-deal.is-star:hover { transform: translateY(-3px); box-shadow: 0 18px 34px -14px rgba(91,75,245,.6); }
+.dmo-deal-open { display: inline-flex; align-items: center; gap: 4px; margin-top: 9px; font-size: 10.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--m-accent); }
+
+/* ============================================================
+   SCENE - DEAL DETAIL
+   ============================================================ */
+.dmo-detail { display: flex; flex-direction: column; gap: 14px; }
+.dmo-detail-head { display: flex; align-items: center; gap: 13px; }
+.dmo-detail-mono { width: 46px; height: 46px; border-radius: 12px; flex: none; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 16px; letter-spacing: -.02em; background: linear-gradient(135deg, #5b4bf5, #a855f7); box-shadow: 0 10px 22px -10px rgba(91,75,245,.5); }
+.dmo-detail-title { font-weight: 800; font-size: 18px; letter-spacing: -.02em; color: var(--m-ink); }
+.dmo-detail-sub { font-size: 12.5px; font-weight: 600; color: var(--m-ink3); margin-top: 1px; }
+.dmo-detail-amt { margin-left: auto; text-align: right; flex: none; }
+.dmo-detail-amt b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -.03em; color: var(--m-accent); }
+.dmo-detail-amt span { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--m-ink3); }
+
+.dmo-lane { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.dmo-lanecell { display: flex; flex-direction: column; gap: 5px; }
+.dmo-lanebar { height: 6px; border-radius: 99px; background: var(--m-line); overflow: hidden; position: relative; }
+.dmo-lanefill { position: absolute; inset: 0; border-radius: 99px; background: var(--m-grad); transform-origin: left; }
+.dmo-lanelabel { font-size: 10px; font-weight: 700; color: var(--m-ink3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dmo-lanecell.is-on .dmo-lanelabel { color: var(--m-ink2); }
+.dmo-lanecell.is-cur .dmo-lanelabel { color: var(--m-accent); font-weight: 800; }
+
+.dmo-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.dmo-panel { background: #fff; border: 1px solid var(--m-line); border-radius: 13px; padding: 13px 14px; box-shadow: var(--m-shadow-sm); }
+.dmo-panel-head { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; color: var(--m-ink2); margin-bottom: 11px; }
+.dmo-panel-head > svg { color: var(--m-accent); }
+.dmo-panel-head .dmo-panel-count { margin-left: auto; font-size: 10.5px; font-weight: 800; color: var(--m-accent); background: rgba(91,75,245,.1); border-radius: 999px; padding: 1px 8px; }
+
+.dmo-person { display: flex; align-items: center; gap: 9px; padding: 5px 0; }
+.dmo-person-av { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 10.5px; font-weight: 700; flex: none; }
+.dmo-person-n { font-size: 12.5px; font-weight: 700; color: var(--m-ink); line-height: 1.2; }
+.dmo-person-r { font-size: 11px; font-weight: 600; color: var(--m-ink3); }
+
+.dmo-tl { display: flex; flex-direction: column; }
+.dmo-tl-item { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; }
+.dmo-tl-ic { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; flex: none; background: var(--m-bg2); border: 1px solid var(--m-line2); color: var(--m-accent); }
+.dmo-tl-txt { font-size: 12px; font-weight: 600; color: var(--m-ink2); line-height: 1.35; }
+.dmo-tl-when { font-size: 10.5px; font-weight: 600; color: var(--m-ink3); margin-top: 1px; }
+
+/* ============================================================
+   SCENE - ROOK CONSOLE (the centerpiece interaction)
+   ============================================================ */
+.dmo-rook { display: flex; flex-direction: column; gap: 14px; }
+.dmo-rook-chipslabel { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--m-ink3); }
+.dmo-rook-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.dmo-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--m-ink2); background: #fff; border: 1px solid var(--m-line2); border-radius: 999px; padding: 8px 14px; cursor: pointer; box-shadow: var(--m-shadow-sm); transition: transform .16s var(--spring), box-shadow .2s, border-color .2s, color .2s, background .2s; }
+.dmo-chip:hover { transform: translateY(-2px); border-color: rgba(91,75,245,.4); color: var(--m-ink); box-shadow: var(--m-shadow-md); }
+.dmo-chip > svg { color: var(--m-accent); flex: none; }
+.dmo-chip.is-active { color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); border-color: transparent; box-shadow: 0 10px 22px -10px rgba(91,75,245,.6); }
+.dmo-chip.is-active > svg { color: #fff; }
+
+.dmo-thread { background: linear-gradient(180deg, var(--m-bg2), #fff); border: 1px solid var(--m-line); border-radius: 15px; padding: 15px 16px; min-height: 232px; display: flex; flex-direction: column; gap: 13px; }
+.dmo-thread-empty { flex: 1; display: grid; place-items: center; text-align: center; color: var(--m-ink3); font-size: 13.5px; font-weight: 600; gap: 10px; }
+.dmo-thread-emptyic { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; color: var(--m-accent); background: rgba(91,75,245,.1); border: 1px solid rgba(91,75,245,.2); margin: 0 auto 4px; }
+
+.dmo-q { align-self: flex-end; max-width: 90%; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); color: #fff; padding: 10px 14px; border-radius: 14px 14px 4px 14px; font-size: 13.5px; line-height: 1.45; font-weight: 500; box-shadow: 0 10px 22px -12px rgba(91,75,245,.6); min-height: 20px; }
+.dmo-a-row { display: flex; gap: 10px; align-items: flex-start; }
+.dmo-a-av { width: 28px; height: 28px; border-radius: 8px; flex: none; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); margin-top: 1px; box-shadow: 0 6px 14px -6px rgba(91,75,245,.6); }
+.dmo-a-body { min-width: 0; flex: 1; }
+.dmo-a-txt { background: #fff; border: 1px solid var(--m-line); padding: 11px 14px; border-radius: 14px 14px 14px 4px; font-size: 13.5px; line-height: 1.5; color: var(--m-ink); box-shadow: var(--m-shadow-sm); }
+.dmo-think { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--m-ink3); padding: 2px 0; }
+
+/* --- Rook artifact cards (assemble as the answer lands) --- */
+.dmo-art { margin-top: 11px; display: flex; flex-direction: column; gap: 8px; }
+.dmo-art-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--m-line2); border-radius: 11px; padding: 9px 12px; box-shadow: var(--m-shadow-sm); }
+.dmo-art-row.is-flag { border-color: #f2d4cd; }
+.dmo-art-badge { margin-left: auto; font-size: 10px; font-weight: 800; letter-spacing: .04em; padding: 3px 9px; border-radius: 999px; flex: none; }
+.dmo-art-badge.b-influence { color: var(--m-accent); background: rgba(91,75,245,.1); }
+.dmo-art-badge.b-warn { color: #c0392b; background: rgba(192,57,43,.09); }
+.dmo-art-badge.b-ok { color: var(--m-teal); background: rgba(14,159,154,.12); }
+
+.dmo-mail { background: linear-gradient(180deg, rgba(91,75,245,.05), #fff); border: 1px solid rgba(91,75,245,.22); border-radius: 12px; padding: 12px 14px; box-shadow: var(--m-shadow-sm); }
+.dmo-mail-head { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: var(--m-accent); }
+.dmo-mail-ready { margin-left: auto; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--m-teal); background: rgba(14,159,154,.12); border-radius: 999px; padding: 2px 9px; }
+.dmo-mail-sub { font-size: 12px; font-weight: 700; color: var(--m-ink2); margin-top: 9px; }
+.dmo-mail-body { font-size: 12.5px; line-height: 1.55; color: var(--m-ink2); margin-top: 6px; }
+.dmo-mail-foot { display: flex; align-items: center; gap: 10px; margin-top: 11px; padding-top: 10px; border-top: 1px solid rgba(91,75,245,.14); }
+.dmo-mail-to { font-size: 11px; font-weight: 600; color: var(--m-ink3); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dmo-mail-send { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); border-radius: 8px; padding: 6px 13px; flex: none; box-shadow: 0 8px 18px -8px rgba(91,75,245,.6); }
+
+.dmo-riskbar { display: flex; align-items: center; gap: 10px; margin-top: 9px; }
+.dmo-riskbar-track { flex: 1; height: 7px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.dmo-riskbar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #e0752d, #c0392b); transform-origin: left; }
+.dmo-riskbar-val { font-size: 11.5px; font-weight: 800; color: #c0392b; flex: none; }
+
+/* ============================================================
+   SCENE - FORECAST
+   ============================================================ */
+.dmo-fc { display: flex; flex-direction: column; gap: 16px; }
+.dmo-fc-toggle { display: inline-flex; gap: 4px; background: var(--m-bg2); border: 1px solid var(--m-line2); border-radius: 11px; padding: 4px; align-self: flex-start; }
+.dmo-fc-seg { font-size: 12.5px; font-weight: 700; color: var(--m-ink2); border-radius: 8px; padding: 7px 15px; cursor: pointer; transition: color .16s; }
+.dmo-fc-seg.is-on { color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); box-shadow: 0 8px 18px -9px rgba(91,75,245,.6); }
+
+.dmo-fc-top { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; align-items: center; }
+.dmo-fc-num { }
+.dmo-fc-numlabel { font-size: 11.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--m-ink3); }
+.dmo-fc-big { font-size: 46px; font-weight: 800; letter-spacing: -.035em; color: var(--m-ink); line-height: 1; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.dmo-fc-delta { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 800; color: var(--m-teal); background: rgba(14,159,154,.12); border-radius: 999px; padding: 4px 11px; margin-top: 12px; }
+.dmo-fc-spark { width: 100%; height: 92px; display: block; }
+
+.dmo-fc-bars { display: flex; flex-direction: column; gap: 11px; }
+.dmo-fc-bar { }
+.dmo-fc-barhead { display: flex; align-items: baseline; justify-content: space-between; font-size: 12.5px; font-weight: 700; color: var(--m-ink2); margin-bottom: 6px; }
+.dmo-fc-barhead b { color: var(--m-ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+.dmo-fc-bartrack { height: 10px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.dmo-fc-barfill { height: 100%; border-radius: 99px; transform-origin: left; transition: transform .9s var(--glide); }
+
+/* ============================================================
+   SCENE - PROPOSAL
+   ============================================================ */
+.dmo-prop { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.dmo-prop-left { display: flex; flex-direction: column; gap: 13px; }
+.dmo-prop-gen { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14.5px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #5b4bf5, #7c5cf7); border: none; border-radius: 12px; padding: 13px 20px; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(91,75,245,.6); transition: transform .16s var(--spring), box-shadow .2s; align-self: flex-start; }
+.dmo-prop-gen:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 18px 38px -12px rgba(91,75,245,.7); }
+.dmo-prop-gen:disabled { opacity: .6; cursor: default; }
+
+.dmo-prop-steps { display: flex; flex-direction: column; gap: 8px; }
+.dmo-prop-step { display: flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 600; color: var(--m-ink3); transition: color .3s; }
+.dmo-prop-step.is-done { color: var(--m-ink2); }
+.dmo-prop-stepbox { width: 20px; height: 20px; border-radius: 6px; flex: none; display: grid; place-items: center; background: var(--m-bg2); border: 1px solid var(--m-line2); color: transparent; transition: background .3s, border-color .3s; }
+.dmo-prop-step.is-done .dmo-prop-stepbox { background: var(--m-teal); border-color: var(--m-teal); color: #fff; }
+.dmo-prop-step.is-active .dmo-prop-stepbox { border-color: var(--m-accent); }
+
+.dmo-prog { height: 8px; border-radius: 99px; background: var(--m-line); overflow: hidden; }
+.dmo-prog-fill { height: 100%; border-radius: 99px; background: var(--m-grad); transform-origin: left; transition: transform .5s var(--glide); }
+
+/* the assembling document sheet */
+.dmo-doc { background: #fff; border: 1px solid var(--m-line2); border-radius: 14px; box-shadow: var(--m-shadow-md); overflow: hidden; }
+.dmo-doc-bar { height: 6px; background: var(--m-grad); }
+.dmo-doc-in { padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; min-height: 300px; }
+.dmo-doc-empty { flex: 1; display: grid; place-items: center; text-align: center; color: var(--m-ink3); font-size: 13px; font-weight: 600; }
+.dmo-doc-cover { }
+.dmo-doc-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--m-accent); }
+.dmo-doc-title { font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--m-ink); margin-top: 4px; }
+.dmo-doc-for { font-size: 12px; font-weight: 600; color: var(--m-ink3); margin-top: 3px; }
+.dmo-doc-rule { height: 1px; background: var(--m-line); }
+.dmo-doc-li { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 13px; }
+.dmo-doc-li-name { font-weight: 600; color: var(--m-ink2); min-width: 0; }
+.dmo-doc-li-amt { font-weight: 800; color: var(--m-ink); flex: none; font-variant-numeric: tabular-nums; }
+.dmo-doc-total { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.dmo-doc-total span { font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--m-ink3); }
+.dmo-doc-total b { font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--m-accent); font-variant-numeric: tabular-nums; }
+.dmo-doc-terms { font-size: 11.5px; line-height: 1.5; color: var(--m-ink3); }
+.dmo-doc-sign { display: flex; align-items: center; gap: 10px; }
+.dmo-doc-sign-line { flex: 1; height: 30px; border: 1px dashed var(--m-line2); border-radius: 8px; }
+
+.dmo-prop-stamp { display: flex; align-items: center; gap: 11px; padding: 12px 14px; border-radius: 13px; background: linear-gradient(100deg, rgba(91,75,245,.08), rgba(14,159,154,.08)); border: 1px solid rgba(91,75,245,.2); }
+.dmo-prop-stampring { width: 34px; height: 34px; border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; background: var(--m-teal); }
+.dmo-prop-stamptitle { font-size: 15px; font-weight: 800; letter-spacing: -.01em; color: var(--m-ink); }
+.dmo-prop-stampsub { font-size: 12px; font-weight: 600; color: var(--m-ink3); }
+
+/* ============================================================
+   PROGRESS DOTS + NAV
+   ============================================================ */
+.dmo-controls { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 22px; }
+.dmo-steps { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; flex: 1; min-width: 0; }
+.dmo-step { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; cursor: pointer; border: 1px solid transparent; transition: background .16s, border-color .16s; }
+.dmo-step:hover { background: var(--m-bg2); }
+.dmo-step.is-active { background: #fff; border-color: var(--m-line2); box-shadow: var(--m-shadow-sm); }
+.dmo-stepdot { width: 22px; height: 22px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: var(--m-ink3); background: var(--m-bg2); border: 1px solid var(--m-line2); transition: background .2s, color .2s, border-color .2s; }
+.dmo-step.is-active .dmo-stepdot { color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); border-color: transparent; }
+.dmo-step.is-done .dmo-stepdot { color: #fff; background: var(--m-teal); border-color: transparent; }
+.dmo-steplabel { font-size: 12.5px; font-weight: 700; color: var(--m-ink2); white-space: nowrap; }
+.dmo-step.is-active .dmo-steplabel { color: var(--m-ink); }
+.dmo-navbtns { display: flex; gap: 10px; flex: none; }
+
+/* ============================================================
+   EMBEDDABLE COMPACT WIDGET (InteractiveDemo)
+   ============================================================ */
+.dmo-embed { background: #fff; border: 1px solid var(--m-line2); border-radius: 20px; box-shadow: var(--m-shadow-lg); overflow: hidden; text-align: left; }
+.dmo-embed-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--m-line); background: linear-gradient(180deg, #fff, #fbfbff); }
+.dmo-embed-mark { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0); flex: none; }
+.dmo-embed-title { font-weight: 800; font-size: 14px; letter-spacing: -.01em; }
+.dmo-embed-live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--m-teal); }
+.dmo-embed-body { display: grid; grid-template-columns: 1fr 1fr; min-height: 300px; }
+.dmo-embed-left { padding: 16px; border-right: 1px solid var(--m-line); display: flex; flex-direction: column; gap: 11px; }
+.dmo-embed-right { padding: 16px; background: linear-gradient(180deg, var(--m-bg2), #fff); display: flex; flex-direction: column; }
+.dmo-embed-label { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--m-ink3); }
+.dmo-embed-chips { display: flex; flex-direction: column; gap: 8px; }
+.dmo-embed-canvas { flex: 1; min-width: 0; }
+.dmo-embed-empty { height: 100%; display: grid; place-items: center; text-align: center; color: var(--m-ink3); font-size: 12.5px; font-weight: 600; }
+.dmo-embed-foot { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border-top: 1px solid var(--m-line); background: #fff; flex-wrap: wrap; }
+.dmo-embed-foot-note { font-size: 12px; font-weight: 600; color: var(--m-ink3); }
+
+/* ============================================================
+   KEYFRAMES (dmo-scoped; the rest reuse marketing.css motion)
+   ============================================================ */
+@keyframes dmoPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
+@keyframes dmoGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.dmo-grow { animation: dmoGrowX .9s var(--glide) both; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .dmo-body { grid-template-columns: 1fr; min-height: 0; }
+  .dmo-side { flex-direction: row; align-items: center; gap: 6px; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--m-line); padding: 10px 12px; }
+  .dmo-side-sec, .dmo-side-spacer { display: none; }
+  .dmo-side-item { flex: none; padding: 8px 12px; white-space: nowrap; }
+  .dmo-side-rook { flex: none; }
+  .dmo-main { padding: 18px 16px 20px; }
+  .dmo-grid2, .dmo-fc-top, .dmo-prop { grid-template-columns: 1fr; }
+  .dmo-embed-body { grid-template-columns: 1fr; }
+  .dmo-embed-left { border-right: none; border-bottom: 1px solid var(--m-line); }
+}
+@media (max-width: 560px) {
+  .dmo-controls { flex-direction: column; align-items: stretch; }
+  .dmo-navbtns { justify-content: space-between; }
+  .dmo-fc-big { font-size: 38px; }
+  .dmo-scenetitle { font-size: 19px; }
+}
+
+/* ============================================================
+   REDUCED MOTION - land on the assembled state, no motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .dmo-grow, .dmo-hint .dmo-hint-pulse { animation: none !important; }
+  .dmo-grow, .dmo-lanefill, .dmo-riskbar-fill, .dmo-fc-barfill, .dmo-prog-fill, .dmo-doc-bar { transform: none !important; }
+  .dmo-fc-barfill, .dmo-prog-fill { transition: none !important; }
+}

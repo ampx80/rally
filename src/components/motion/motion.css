@@ -1,0 +1,78 @@
+/* ============================================================
+   RALLY IN-APP MOTION SYSTEM
+   Scoped .pm-* classes + keyframes so the product feels as
+   alive as the marketing site, without ever touching the
+   global index.css. Every animation is transform/opacity or
+   stroke based (cheap, no layout thrash) and fully disabled
+   under prefers-reduced-motion.
+   ASCII only. No em-dash / en-dash.
+   ============================================================ */
+
+:root { --pm-ease: cubic-bezier(.22, 1, .36, 1); }
+
+/* ---- Scroll reveal (fade + rise). Toggled by .pm-in ---- */
+.pm-reveal {
+  opacity: 0;
+  transform: translateY(var(--pm-y, 14px));
+  transition: opacity .6s var(--pm-ease), transform .6s var(--pm-ease);
+  transition-delay: var(--pm-delay, 0ms);
+  will-change: opacity, transform;
+}
+.pm-reveal.pm-in { opacity: 1; transform: none; }
+
+/* ---- Route-mount page transition ---- */
+@keyframes pmPageIn { from { opacity: 0; transform: translateY(10px) scale(.995); } to { opacity: 1; transform: none; } }
+.pm-page { animation: pmPageIn .44s var(--pm-ease) both; }
+
+/* ---- Skeleton shimmer ---- */
+@keyframes pmShimmer { 0% { background-position: -440px 0; } 100% { background-position: 440px 0; } }
+.pm-skel {
+  display: block;
+  background: linear-gradient(90deg, var(--n-50) 25%, var(--n-100) 37%, var(--n-50) 63%);
+  background-size: 880px 100%;
+  animation: pmShimmer 1.5s ease infinite;
+  border-radius: var(--r-sm, 7px);
+}
+.pm-skel-chart { display: flex; align-items: flex-end; gap: 10px; width: 100%; }
+.pm-skel-chart .pm-skel { border-radius: 6px 6px 3px 3px; }
+
+/* ---- Sparkline / chart line draw-in ---- */
+.pm-spark-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.pm-spark-area { opacity: 0; transition: opacity .8s var(--pm-ease) .18s; }
+.pm-spark.pm-in .pm-spark-line { animation: pmDraw 1.15s var(--pm-ease) forwards; }
+.pm-spark.pm-in .pm-spark-area { opacity: 1; }
+@keyframes pmDraw { to { stroke-dashoffset: 0; } }
+
+/* ---- Animated stat card ---- */
+.pm-stat { position: relative; overflow: hidden; }
+.pm-stat__blob {
+  position: absolute; top: -30px; right: -30px;
+  width: 110px; height: 110px; border-radius: 50%;
+  opacity: .07; filter: blur(8px); pointer-events: none;
+}
+
+/* ---- Delightful empty state ---- */
+.pm-empty__glyph {
+  position: relative; width: 76px; height: 76px;
+  display: grid; place-items: center; margin: 0 auto;
+  border-radius: 50%;
+}
+.pm-empty__glyph::before, .pm-empty__glyph::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid var(--accent-300); opacity: 0;
+  animation: pmRipple 2.8s var(--pm-ease) infinite;
+}
+.pm-empty__glyph::after { animation-delay: 1.4s; }
+.pm-empty__icon { animation: pmBob 3.6s ease-in-out infinite; }
+@keyframes pmRipple { 0% { transform: scale(.82); opacity: .5; } 70% { opacity: 0; } 100% { transform: scale(1.55); opacity: 0; } }
+@keyframes pmBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* ---- Reduced motion: land everything at its final state ---- */
+@media (prefers-reduced-motion: reduce) {
+  .pm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .pm-page { animation: none !important; }
+  .pm-skel { animation: none !important; }
+  .pm-spark-line { stroke-dashoffset: 0 !important; animation: none !important; }
+  .pm-spark-area { opacity: 1 !important; transition: none !important; }
+  .pm-empty__glyph::before, .pm-empty__glyph::after, .pm-empty__icon { animation: none !important; }
+}

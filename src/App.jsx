@@ -46,12 +46,31 @@ import Manifesto from './marketing/Manifesto.jsx';
 import PagesHub from './marketing/PagesHub.jsx';
 import SeoPage from './marketing/SeoPage.jsx';
 import ComingSoon, { isUnlocked } from './gate/ComingSoon.jsx';
+import Intelligence from './pages/Intelligence.jsx';
+import CustomerSuccess from './pages/CustomerSuccess.jsx';
+import Territories from './pages/Territories.jsx';
+import Goals from './pages/Goals.jsx';
+import Notifications from './pages/Notifications.jsx';
+import Developers from './pages/Developers.jsx';
+import BillingPlans from './pages/BillingPlans.jsx';
+import Onboarding from './pages/Onboarding.jsx';
+import NotificationBell from './components/notif/NotificationBell.jsx';
+import Customers from './marketing/Customers.jsx';
+import About from './marketing/About.jsx';
+import Changelog from './marketing/Changelog.jsx';
+import Careers from './marketing/Careers.jsx';
+import Blog from './marketing/Blog.jsx';
+import BlogPost from './marketing/BlogPost.jsx';
+import DemoPage from './marketing/DemoPage.jsx';
+import SignIn from './pages/SignIn.jsx';
+import SignUp from './pages/SignUp.jsx';
+import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding']);
 
 const NAV_SECTIONS = [
-  { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }] },
+  { label: null, items: [{ to: '/app', label: 'Command center', icon: 'home', end: true }, { to: '/notifications', label: 'Notifications', icon: 'bell' }] },
   { label: 'Sell', items: [
     { to: '/leads', label: 'Leads', icon: 'funnel' },
     { to: '/deals', label: 'Deals', icon: 'target' },
@@ -59,12 +78,15 @@ const NAV_SECTIONS = [
     { to: '/companies', label: 'Companies', icon: 'building' },
     { to: '/activities', label: 'My day', icon: 'activity' },
     { to: '/forecasting', label: 'Forecasting', icon: 'trendUp' },
+    { to: '/goals', label: 'Goals', icon: 'rocket' },
+    { to: '/territories', label: 'Territories', icon: 'grid' },
   ] },
   { label: 'Marketing', items: [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
     { to: '/sequences', label: 'Sequences', icon: 'layers' },
   ] },
   { label: 'Deliver', items: [{ to: '/projects', label: 'Projects', icon: 'grid' }] },
+  { label: 'Retain', items: [{ to: '/success', label: 'Customer success', icon: 'shield' }] },
   { label: 'Service', items: [{ to: '/inbox', label: 'Inbox', icon: 'inbox' }] },
   { label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -73,6 +95,7 @@ const NAV_SECTIONS = [
     { to: '/invoices', label: 'Billing', icon: 'dollar' },
   ] },
   { label: 'Intelligence', items: [
+    { to: '/intelligence', label: 'Intelligence', icon: 'sparkles' },
     { to: '/dashboards', label: 'Dashboards', icon: 'chart' },
     { to: '/reports', label: 'Reports', icon: 'pie' },
   ] },
@@ -81,6 +104,8 @@ const NAV_SECTIONS = [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/team', label: 'Team', icon: 'users' },
     { to: '/import', label: 'Import data', icon: 'download' },
+    { to: '/developers', label: 'Developers', icon: 'command' },
+    { to: '/billing-plans', label: 'Plans', icon: 'zap' },
     { to: '/audit', label: 'Audit log', icon: 'history' },
     { to: '/settings', label: 'Settings', icon: 'settings' },
   ] },
@@ -185,10 +210,7 @@ function Topbar({ onOpenSearch, onBurger }) {
         <button onClick={toggleTheme} className="btn btn-quiet" title="Toggle theme" aria-label="Toggle theme" style={{ padding: '.5rem' }}>
           <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
         </button>
-        <button onClick={() => toast('You are all caught up. No new notifications.')} className="btn btn-quiet hide-520" title="Notifications" aria-label="Notifications" style={{ padding: '.5rem', position: 'relative' }}>
-          <Icon name="bell" size={18} />
-          <span style={{ position: 'absolute', top: 6, right: 7, width: 7, height: 7, borderRadius: 999, background: 'var(--accent)', border: '2px solid var(--page)' }} />
-        </button>
+        <NotificationBell />
         <button onClick={() => nav('/deals?new=1')} className="btn btn-primary btn-sm" style={{ marginLeft: '.25rem' }}>
           <Icon name="plus" size={16} /> <span className="hide-520">New deal</span>
         </button>
@@ -233,6 +255,16 @@ export default function App() {
             <Route path="/manifesto" element={<Manifesto />} />
             <Route path="/pages" element={<PagesHub />} />
             <Route path="/pages/:slug" element={<SeoPage />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/changelog" element={<Changelog />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/demo" element={<DemoPage />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot" element={<ForgotPassword />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -284,6 +316,14 @@ export default function App() {
               <Route path="/audit" element={<AuditLog />} />
               <Route path="/import" element={<ImportData />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/intelligence" element={<Intelligence />} />
+              <Route path="/success" element={<CustomerSuccess />} />
+              <Route path="/territories" element={<Territories />} />
+              <Route path="/goals" element={<Goals />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/developers" element={<Developers />} />
+              <Route path="/billing-plans" element={<BillingPlans />} />
+              <Route path="/onboarding" element={<Onboarding />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
           </div>

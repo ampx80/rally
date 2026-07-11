@@ -186,7 +186,7 @@ export function runImport({ objectType, records, mapping, dedupe = true }) {
         rec = r.company; id = rec.id;
       } else if (objectType === 'deal') {
         if (!mapped.name) { skipped++; return; }
-        const r = createDeal({ name: mapped.name, value: Number(mapped.value) || 0, stage: mapped.stage, closeDate: mapped.closeDate });
+        const r = createDeal({ name: mapped.name, value: Number(mapped.value ?? mapped.amount) || 0, stage: mapped.stage, closeDate: mapped.closeDate });
         if (r.error) { errors.push(`Row ${idx + 2}: ${r.message}`); return; }
         rec = r.deal; id = rec.id;
       } else { // lead

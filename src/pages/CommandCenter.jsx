@@ -1,195 +1,148 @@
 // ============================================================
-// COMMAND CENTER  (the home page, /)
-// The revenue cockpit. Gradient hero, KPI cards with live
-// sparklines, a pipeline pulse strip, a "My day" work queue, and
-// closing / slipping rails. First impression = category-defining.
+// COMMAND CENTER  (the home page, /app)
+// The revenue cockpit. A gradient greeting hero with a live Rook
+// brief (the 3 moves that matter, count-up numbers), animated KPI
+// tiles with sparklines + trend arrows, a pipeline pulse funnel, a
+// live "Today" work queue with quick-complete, a team leaderboard,
+// and recent wins + activity. First impression = category-defining.
+// Motion lives in command-center.css, scoped to the .cc wrapper.
+// NO em-dash or en-dash anywhere. ASCII hyphen only.
 // ============================================================
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-  useStore, getCurrentUser,
-  pipelineValue, weightedForecast, winRate, wonThisMonth,
+  useStore, getCurrentUser, getDeals, openDeals,
+  pipelineValue, weightedForecast, winRate,
   dealsClosingThisMonth, slippingDeals, myDayQueue,
-  getDeal, getContact, getCompany, contactName,
-  createActivity, toggleActivity, stageById,
-  dealsByStage, OPEN_STAGES,
+  dealsByStage, OPEN_STAGES, repLeaderboard, getActivities,
 } from '../lib/store.js';
-import { Card, StatCard, Badge, SectionHeader, Input, GradientText, moneyK, longDate, relTime } from '../components/UI.jsx';
-import { Icon, typeIcon } from '../components/icons.jsx';
+import { SectionHeader, moneyK } from '../components/UI.jsx';
+import { Icon } from '../components/icons.jsx';
+import RookBrief from '../components/home/RookBrief.jsx';
+import KpiTile from '../components/home/KpiTile.jsx';
+import PipelinePulse from '../components/home/PipelinePulse.jsx';
+import TodayPanel from '../components/home/TodayPanel.jsx';
+import TeamLeaderboard from '../components/home/TeamLeaderboard.jsx';
+import RecentWins from '../components/home/RecentWins.jsx';
+import ActivityFeed from '../components/home/ActivityFeed.jsx';
+import './command-center.css';
 
-function greeting() {
-  const h = new Date().getHours();
-  if (h < 12) return 'Good morning';
-  if (h < 18) return 'Good afternoon';
-  return 'Good evening';
-}
-// Decorative trend line for a KPI (demo data - the app's own modeled history).
+const STAGE_COLOR = { lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5', proposal: '#b3721a', negotiation: '#0ea5a3' };
+
+// Decorative trend line for a KPI (the app's own modeled history off the seed).
 function spark(seed, up = true) {
   const out = []; let v = 40 + (seed % 20);
   for (let i = 0; i < 12; i++) { v += (Math.sin(seed + i) * 6) + (up ? 2.2 : -1.4); out.push(Math.max(8, Math.round(v))); }
   return out;
 }
-const stageColor = { lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5', proposal: '#b3721a', negotiation: '#0ea5a3' };
-
-function relatedFor(a) {
-  if (a.relatedType === 'deal') { const d = getDeal(a.relatedId); if (d) return { label: d.name, to: `/deals/${d.id}` }; }
-  if (a.relatedType === 'contact') { const c = getContact(a.relatedId); if (c) return { label: contactName(c), to: `/contacts/${c.id}` }; }
-  if (a.companyId) { const co = getCompany(a.companyId); if (co) return { label: co.name, to: `/companies/${co.id}` }; }
-  return null;
-}
-
-function Check({ done, onClick }) {
-  return (
-    <button onClick={onClick} aria-label={done ? 'Mark not done' : 'Mark done'} className="row center"
-      style={{ width: 24, height: 24, flex: 'none', borderRadius: '50%', cursor: 'pointer', border: `2px solid ${done ? 'var(--accent)' : 'var(--n-200)'}`, background: done ? 'var(--accent)' : 'transparent', color: '#fff', transition: 'border-color .15s, background .15s' }}>
-      {done && <Icon name="check" size={13} stroke={3} />}
-    </button>
-  );
-}
-
-function DayRow({ a }) {
-  const rel = relatedFor(a);
-  const overdue = a.dueAt && new Date(a.dueAt).getTime() < Date.now();
-  return (
-    <div className="row gap-2" style={{ padding: '.7rem 0', borderTop: '1px solid var(--n-50)' }}>
-      <Check done={a.done} onClick={() => toggleActivity(a.id)} />
-      <span className="row center" style={{ width: 30, height: 30, flex: 'none', borderRadius: '50%', background: 'var(--accent-50)', color: 'var(--accent-600)' }}>
-        <Icon name={typeIcon[a.type]} size={15} />
-      </span>
-      <div className="col" style={{ minWidth: 0, flex: 1, lineHeight: 1.3 }}>
-        <span className="fw-6 clip">{a.subject}</span>
-        {rel && <Link to={rel.to} className="t-sm clip" style={{ color: 'var(--n-600)' }}>{rel.label}</Link>}
-      </div>
-      <span className="t-sm fw-6" style={{ flex: 'none', color: overdue ? 'var(--risk)' : 'var(--n-600)' }}>{relTime(a.dueAt)}</span>
-    </div>
-  );
-}
 
 export default function CommandCenter() {
-  useStore();
+  useStore(); // subscribe: any store mutation re-renders the cockpit
   const nav = useNavigate();
   const me = getCurrentUser();
   const first = (me?.name || 'there').split(' ')[0];
+  const openRook = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } }));
 
+  /* ---- live figures ---- */
+  const pipeline = pipelineValue();
+  const forecast = weightedForecast();
+  const rate = winRate();
   const queue = myDayQueue();
   const closing = dealsClosingThisMonth();
   const slipping = slippingDeals();
-  const won = wonThisMonth();
-  const wonSum = won.reduce((s, d) => s + d.value, 0);
-  const byStage = dealsByStage();
-  const maxStage = Math.max(1, ...OPEN_STAGES.map(s => (byStage[s.id] || []).reduce((a, d) => a + d.value, 0)));
+  const open = openDeals();
 
-  const [task, setTask] = useState('');
-  const addTask = (e) => { e.preventDefault(); if (!task.trim()) return; createActivity({ type: 'task', subject: task.trim(), ownerId: me.id, dueAt: new Date().toISOString() }); setTask(''); };
-  const openRook = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } }));
+  const now = new Date();
+  const qtr = Math.floor(now.getMonth() / 3);
+  const wonQuarter = getDeals().filter(d => {
+    if (d.status !== 'won') return false;
+    const dt = new Date(d.closeDate);
+    return dt.getFullYear() === now.getFullYear() && Math.floor(dt.getMonth() / 3) === qtr;
+  });
+  const wonQuarterSum = wonQuarter.reduce((s, d) => s + d.value, 0);
 
-  const kpis = [
-    { value: pipelineValue(), format: moneyK, label: 'Pipeline value', trend: 8, spark: spark(3), icon: <Icon name="target" size={18} />, to: '/deals' },
-    { value: weightedForecast(), format: moneyK, label: 'Weighted forecast', trend: 5, spark: spark(7), icon: <Icon name="trendUp" size={18} />, to: '/forecasting' },
-    { value: winRate(), format: (n) => `${Math.round(n)}%`, label: 'Win rate', trend: 3, spark: spark(11), icon: <Icon name="pie" size={18} />, to: '/dashboards' },
-    { value: wonSum, format: moneyK, label: 'Won this month', sub: `${won.length} deal${won.length === 1 ? '' : 's'} closed`, spark: spark(5), sparkColor: 'var(--ok)', icon: <Icon name="check" size={18} />, to: '/deals' },
+  /* ---- Rook brief: the 3 moves that matter (with robust fallbacks) ---- */
+  const marquee = [...closing].sort((a, b) => b.value - a.value)[0]
+    || [...open].sort((a, b) => b.value - a.value)[0];
+  const slipRisk = slipping.reduce((s, d) => s + d.value, 0);
+  const moves = [
+    marquee
+      ? { key: 'close', icon: 'target', value: marquee.value, format: moneyK, label: `Advance ${marquee.name}`, to: `/deals/${marquee.id}` }
+      : { key: 'close', icon: 'target', value: pipeline, format: moneyK, label: 'Open pipeline to work', to: '/deals' },
+    slipping.length
+      ? { key: 'slip', icon: 'clock', value: slipRisk, format: moneyK, label: `${slipping.length} deal${slipping.length === 1 ? '' : 's'} slipping, re-engage now`, to: '/deals' }
+      : { key: 'forecast', icon: 'trendUp', value: forecast, format: moneyK, label: 'Weighted forecast on track', to: '/forecasting' },
+    { key: 'today', icon: 'checkSquare', value: queue.length, format: (n) => String(Math.round(n)), label: queue.length ? `task${queue.length === 1 ? '' : 's'} due today` : 'tasks due, you are clear', to: '/activities' },
   ];
 
+  /* ---- KPI tiles ---- */
+  const kpis = [
+    { key: 'pipe', label: 'Pipeline value', value: pipeline, format: moneyK, trend: 8, spark: spark(3), icon: <Icon name="target" size={18} />, accent: 'var(--accent)', to: '/deals' },
+    { key: 'fcast', label: 'Weighted forecast', value: forecast, format: moneyK, trend: 5, spark: spark(7), icon: <Icon name="trendUp" size={18} />, accent: '#8b3fd4', to: '/forecasting' },
+    { key: 'wonq', label: 'Won this quarter', value: wonQuarterSum, format: moneyK, trend: 12, spark: spark(5, true), sparkColor: 'var(--ok)', icon: <Icon name="check" size={18} />, accent: 'var(--ok)', to: '/deals' },
+    { key: 'winrate', label: 'Win rate', value: rate, format: (n) => `${Math.round(n)}%`, trend: 3, spark: spark(11), icon: <Icon name="pie" size={18} />, accent: '#0ea5a3', to: '/dashboards' },
+  ];
+
+  /* ---- pipeline pulse ---- */
+  const byStage = dealsByStage();
+  const pulseStages = OPEN_STAGES.map(s => {
+    const list = byStage[s.id] || [];
+    return { id: s.id, name: s.name, color: STAGE_COLOR[s.id], value: list.reduce((a, d) => a + d.value, 0), count: list.length };
+  });
+
+  /* ---- leaderboard + feeds ---- */
+  const repRows = repLeaderboard().filter(r => r.won > 0 || r.pipeline > 0).slice(0, 5);
+  const wins = getDeals()
+    .filter(d => d.status === 'won')
+    .sort((a, b) => new Date(b.closeDate) - new Date(a.closeDate))
+    .slice(0, 5);
+  const recentActivity = getActivities()
+    .filter(a => a.done)
+    .sort((a, b) => new Date(b.dueAt || b.createdAt) - new Date(a.dueAt || a.createdAt))
+    .slice(0, 6);
+
   return (
-    <div className="col gap-4" style={{ paddingBottom: '1rem' }}>
-      {/* Hero */}
-      <header className="col gap-1 fade-up">
-        <div className="eyebrow">{longDate(Date.now())}</div>
-        <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 4vw, 2.9rem)' }}>{greeting()}, <GradientText>{first}</GradientText></h1>
-        <p className="muted t-lg" style={{ margin: 0 }}>Here is where your revenue stands today.</p>
-      </header>
+    <div className="cc page-in col gap-4" style={{ paddingBottom: '1rem' }}>
+      {/* Hero + Rook brief */}
+      <RookBrief name={first} moves={moves} onOpenRook={openRook} onMove={(m) => nav(m.to)} />
 
       {/* KPI row */}
-      <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))' }}>
-        {kpis.map((k) => (
-          <StatCard key={k.label} label={k.label} value={k.value} format={k.format} trend={k.trend} sub={k.sub} spark={k.spark} sparkColor={k.sparkColor} icon={k.icon} onClick={() => nav(k.to)} />
-        ))}
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))' }}>
+        {kpis.map((k, i) => {
+          const { key, ...rest } = k;
+          return <KpiTile key={key} {...rest} delay={i * 70} onClick={() => nav(k.to)} />;
+        })}
       </div>
 
-      {/* Pipeline pulse strip */}
-      <Card>
-        <SectionHeader title="Pipeline pulse" sub="Open value by stage, live" action={<Link to="/deals" className="link t-sm row gap-1">Open pipeline <Icon name="chevronRight" size={14} /></Link>} />
-        <div className="row gap-2 wrap" style={{ alignItems: 'stretch' }}>
-          {OPEN_STAGES.map(s => {
-            const list = byStage[s.id] || [];
-            const val = list.reduce((a, d) => a + d.value, 0);
-            return (
-              <div key={s.id} onClick={() => nav('/deals')} className="col gap-1" style={{ flex: 1, minWidth: 120, cursor: 'pointer' }}>
-                <div style={{ height: 90, display: 'flex', alignItems: 'flex-end' }}>
-                  <div style={{ width: '100%', height: `${Math.max(6, (val / maxStage) * 100)}%`, background: `linear-gradient(180deg, ${stageColor[s.id]}, ${stageColor[s.id]}bb)`, borderRadius: '8px 8px 0 0', transition: 'height .7s var(--ease)' }} />
-                </div>
-                <div className="row gap-1" style={{ alignItems: 'center' }}><span className="dot" style={{ background: stageColor[s.id] }} /><span className="t-xs fw-6 clip">{s.name}</span></div>
-                <span className="t-xs muted tnum">{moneyK(val)} - {list.length}</span>
-              </div>
-            );
-          })}
-        </div>
-      </Card>
+      {/* Pipeline pulse */}
+      <div className="card card-pad cc-rise">
+        <SectionHeader
+          title="Pipeline pulse"
+          sub="Open value by stage, live off the book"
+          action={<Link to="/deals" className="link t-sm row gap-1">Open pipeline <Icon name="chevronRight" size={14} /></Link>}
+        />
+        <PipelinePulse stages={pulseStages} onOpen={() => nav('/deals')} />
+      </div>
 
-      {/* Main grid */}
+      {/* Today + team leaderboard */}
       <div className="grid" style={{ gridTemplateColumns: 'minmax(0, 1.55fr) minmax(0, 1fr)', alignItems: 'start' }}>
-        <Card className="col" style={{ minHeight: 0 }}>
-          <SectionHeader title="My day" sub={`${queue.length} open task${queue.length === 1 ? '' : 's'}`} action={<Link to="/activities" className="link t-sm row gap-1">View all <Icon name="chevronRight" size={14} /></Link>} />
-          {queue.length === 0 ? (
-            <div className="col center gap-2" style={{ padding: '2.5rem 1rem', textAlign: 'center' }}>
-              <span className="row center" style={{ width: 46, height: 46, borderRadius: '50%', background: 'var(--ok-bg)', color: 'var(--ok)' }}><Icon name="check" size={24} stroke={2.5} /></span>
-              <div className="fw-6">You are all caught up.</div>
-            </div>
-          ) : (
-            <div className="col" style={{ marginTop: '-.35rem' }}>{queue.slice(0, 6).map((a) => <DayRow key={a.id} a={a} />)}</div>
-          )}
-          <form onSubmit={addTask} className="row gap-2" style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--line)' }}>
-            <span className="row center" style={{ color: 'var(--n-400)', flex: 'none' }}><Icon name="plus" size={18} /></span>
-            <Input value={task} onChange={(e) => setTask(e.target.value)} placeholder="Add a task for today..." style={{ flex: 1 }} />
-            <button type="submit" className="btn btn-ghost btn-sm" disabled={!task.trim()}>Add</button>
-          </form>
-        </Card>
+        <TodayPanel queue={queue} me={me} />
+        <TeamLeaderboard
+          rows={repRows}
+          action={<Link to="/dashboards" className="link t-sm row gap-1">Dashboards <Icon name="chevronRight" size={14} /></Link>}
+        />
+      </div>
 
-        <div className="col gap-3" style={{ minWidth: 0 }}>
-          <Card>
-            <SectionHeader title="Closing this month" sub={`${closing.length} deal${closing.length === 1 ? '' : 's'}`} action={<Link to="/deals" className="link t-sm">Deals</Link>} />
-            {closing.length === 0 ? (
-              <div className="muted t-sm" style={{ padding: '.5rem 0' }}>Nothing scheduled to close this month.</div>
-            ) : (
-              <div className="col">
-                {closing.slice(0, 6).map((d) => {
-                  const co = getCompany(d.companyId); const st = stageById(d.stage);
-                  return (
-                    <div key={d.id} className="row gap-2" style={{ padding: '.65rem 0', borderTop: '1px solid var(--n-50)' }}>
-                      <div className="col" style={{ minWidth: 0, flex: 1, lineHeight: 1.3 }}>
-                        <Link to={`/deals/${d.id}`} className="fw-6 clip link" style={{ color: 'var(--ink)' }}>{d.name}</Link>
-                        <span className="t-sm muted clip">{co?.name || 'No company'}</span>
-                      </div>
-                      <div className="col" style={{ flex: 'none', alignItems: 'flex-end', gap: '.25rem' }}>
-                        <span className="fw-7 tnum">{moneyK(d.value)}</span>
-                        <span className="row gap-1" style={{ flex: 'none' }}><Badge tone="accent" className="t-xs">{st?.name}</Badge><span className="t-xs muted">{relTime(d.closeDate)}</span></span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </Card>
-
-          <Card style={slipping.length ? { borderColor: 'var(--risk)', boxShadow: '0 0 0 1px var(--risk-bg)' } : undefined}>
-            <SectionHeader title="Needs attention" sub={slipping.length ? `${slipping.length} slipping` : 'All on track'} />
-            {slipping.length === 0 ? (
-              <div className="row gap-2" style={{ padding: '.5rem 0', color: 'var(--ok)' }}><Icon name="check" size={18} stroke={2.5} /><span className="fw-6">No slipping deals. Nice.</span></div>
-            ) : (
-              <div className="col">
-                {slipping.slice(0, 5).map((d) => (
-                  <div key={d.id} className="row gap-2" style={{ padding: '.6rem 0', borderTop: '1px solid var(--n-50)' }}>
-                    <div className="col" style={{ minWidth: 0, flex: 1, lineHeight: 1.3 }}>
-                      <Link to={`/deals/${d.id}`} className="fw-6 clip link" style={{ color: 'var(--ink)' }}>{d.name}</Link>
-                      <span className="t-sm muted tnum">{moneyK(d.value)}</span>
-                    </div>
-                    <Badge tone="risk" className="t-xs" style={{ flex: 'none' }}>overdue {relTime(d.closeDate)}</Badge>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Card>
-        </div>
+      {/* Recent wins + recent activity */}
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', alignItems: 'start' }}>
+        <RecentWins
+          wins={wins}
+          action={<Link to="/deals" className="link t-sm row gap-1">All deals <Icon name="chevronRight" size={14} /></Link>}
+        />
+        <ActivityFeed
+          items={recentActivity}
+          action={<Link to="/activities" className="link t-sm row gap-1">All activity <Icon name="chevronRight" size={14} /></Link>}
+        />
       </div>
 
       {/* Ask Rook banner */}

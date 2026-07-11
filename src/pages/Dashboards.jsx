@@ -12,8 +12,14 @@ import {
   winRate, repLeaderboard, activityLeaderboard, dealsClosingThisMonth, getDeals,
   getCompany, stageById,
 } from '../lib/store';
-import { Card, Stat, Badge, SectionHeader, money, moneyK, relTime } from '../components/UI';
+import { Card, Badge, SectionHeader, money, moneyK, relTime } from '../components/UI';
 import { Icon } from '../components/icons';
+import PageTransition from '../components/motion/PageTransition';
+import Reveal from '../components/motion/Reveal';
+import AnimatedStat from '../components/motion/AnimatedStat';
+import EmptyState from '../components/motion/EmptyState';
+import { SkeletonChart } from '../components/motion/Skeleton';
+import { useInView } from '../components/motion/useInView';
 
 /* stage -> color (matches the shared palette) */
 const STAGE_COLOR = {
@@ -41,6 +47,14 @@ function ChartCard({ title, explainer, note, children }) {
       {note && <div className="t-xs muted" style={{ borderTop: '1px solid var(--line)', paddingTop: '.6rem' }}>{note}</div>}
     </Card>
   );
+}
+
+/* ---------- draw-on-view chart mount ----------
+   Holds a shimmer placeholder until the chart scrolls into view, then mounts
+   the real recharts so its own draw-in animation fires exactly when seen. */
+function InViewChart({ height = 300, children }) {
+  const [ref, seen] = useInView({ once: true });
+  return <div ref={ref}>{seen ? children : <SkeletonChart height={height} />}</div>;
 }
 
 /* ---------- shared tooltip look ---------- */
@@ -109,42 +123,41 @@ export default function Dashboards() {
   /* ---- 6. Deals closing this month ---- */
   const closing = dealsClosingThisMonth();
 
+  /* ---- KPI spark series, all off real pipeline data ---- */
+  const pipelineSpark = pipelineByStage.map(d => d.value);
+  const forecastSpark = weightedByStage.map(d => d.value);
+  const openSpark = pipelineByStage.map(d => d.count);
+
   return (
-    <div className="fade-up col gap-3">
+    <PageTransition className="col gap-3">
       <SectionHeader
         title="Dashboards"
         sub="Live off your pipeline. Every number here traces back to a record."
       />
 
-      {/* KPI strip */}
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
-        <Card>
-          <Stat icon={<Icon name="chart" size={20} />} value={moneyK(pipeline)} label="Pipeline"
-            sub={`${openCount} open deals`} />
-        </Card>
-        <Card>
-          <Stat icon={<Icon name="target" size={20} />} value={moneyK(forecast)} label="Weighted forecast"
-            sub="value x probability" />
-        </Card>
-        <Card>
-          <Stat icon={<Icon name="activity" size={20} />} value={rate + '%'} label="Win rate"
-            sub={`${wonCount} won / ${lostCount} lost`} />
-        </Card>
-        <Card>
-          <Stat icon={<Icon name="dollar" size={20} />} value={openCount} label="Open deals"
-            sub={money(pipeline) + ' in flight'} />
-        </Card>
+      {/* KPI strip - each tile counts up + draws its sparkline when seen */}
+      <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+        <AnimatedStat icon={<Icon name="chart" size={20} />} value={pipeline} format={moneyK}
+          label="Pipeline" sub={`${openCount} open deals`} spark={pipelineSpark} />
+        <AnimatedStat icon={<Icon name="target" size={20} />} value={forecast} format={moneyK}
+          label="Weighted forecast" sub="value x probability" spark={forecastSpark} sparkColor="#0ea5a3" />
+        <AnimatedStat icon={<Icon name="activity" size={20} />} value={rate} format={(v) => v + '%'}
+          label="Win rate" sub={`${wonCount} won / ${lostCount} lost`} />
+        <AnimatedStat icon={<Icon name="dollar" size={20} />} value={openCount}
+          label="Open deals" sub={money(pipeline) + ' in flight'} spark={openSpark} sparkColor="#e0752d" />
       </div>
 
       {/* Charts grid: 2 per row on wide, stack on narrow */}
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))' }}>
 
         {/* 1. Pipeline by stage */}
+        <Reveal>
         <ChartCard
           title="Pipeline by stage"
           explainer="Total open deal value sitting in each stage right now."
           note="Bar height = sum of open deal values in that stage. Hover for deal count."
         >
+          <InViewChart height={300}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={pipelineByStage} margin={{ top: 8, right: 8, left: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} vertical={false} />
@@ -169,14 +182,18 @@ export default function Dashboards() {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+          </InViewChart>
         </ChartCard>
+        </Reveal>
 
         {/* 2. Weighted forecast by stage */}
+        <Reveal delay={60}>
         <ChartCard
           title="Weighted forecast by stage"
           explainer="Each stage's value discounted by its win probability."
           note="Weighted = value x probability. Later stages convert more, so they carry more forecast per dollar."
         >
+          <InViewChart height={300}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={weightedByStage} margin={{ top: 8, right: 8, left: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} vertical={false} />
@@ -198,9 +215,12 @@ export default function Dashboards() {
               <Bar dataKey="value" fill={ACCENT} radius={[5, 5, 0, 0]} maxBarSize={64} />
             </BarChart>
           </ResponsiveContainer>
+          </InViewChart>
         </ChartCard>
+        </Reveal>
 
         {/* 3. Win rate donut */}
+        <Reveal delay={120}>
         <ChartCard
           title="Win rate"
           explainer="Closed won versus closed lost across all deals."
@@ -247,13 +267,16 @@ export default function Dashboards() {
             </div>
           </div>
         </ChartCard>
+        </Reveal>
 
         {/* 4. Rep leaderboard (closed won) */}
+        <Reveal>
         <ChartCard
           title="Rep leaderboard (closed won)"
           explainer="Total value each rep has closed and won."
           note="Sum of won deal value per owner. Click a bar to open that rep's closed pipeline is a next step."
         >
+          <InViewChart height={Math.max(220, repData.length * 46)}>
           <ResponsiveContainer width="100%" height={Math.max(220, repData.length * 46)}>
             <BarChart data={repData} layout="vertical" margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} horizontal={false} />
@@ -275,14 +298,18 @@ export default function Dashboards() {
               <Bar dataKey="won" fill={ACCENT} radius={[0, 5, 5, 0]} maxBarSize={26} />
             </BarChart>
           </ResponsiveContainer>
+          </InViewChart>
         </ChartCard>
+        </Reveal>
 
         {/* 5. Activity leaderboard */}
+        <Reveal delay={60}>
         <ChartCard
           title="Activity leaderboard"
           explainer="Completed versus still-open activities per rep."
           note="Stacked bars: done (solid) + open (light). Notes are counted as done."
         >
+          <InViewChart height={Math.max(220, actData.length * 46)}>
           <ResponsiveContainer width="100%" height={Math.max(220, actData.length * 46)}>
             <BarChart data={actData} layout="vertical" margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} horizontal={false} />
@@ -306,20 +333,23 @@ export default function Dashboards() {
               <Bar dataKey="open" stackId="a" fill="#d7dce3" radius={[0, 5, 5, 0]} maxBarSize={26} />
             </BarChart>
           </ResponsiveContainer>
+          </InViewChart>
         </ChartCard>
+        </Reveal>
 
         {/* 6. Deals closing this month (list, not a chart) */}
+        <Reveal delay={120}>
         <ChartCard
           title="Deals closing this month"
           explainer="Open deals with a close date inside the current month."
           note="Sorted by close date, soonest first. Click a deal to open its record."
         >
           {closing.length === 0 ? (
-            <div className="col center gap-1" style={{ padding: '2.5rem 1rem', textAlign: 'center' }}>
-              <Icon name="calendar" size={28} style={{ color: 'var(--n-400)' }} />
-              <div className="fw-6">Nothing closing this month</div>
-              <div className="muted t-sm">No open deals have a close date inside the current month.</div>
-            </div>
+            <EmptyState
+              icon="calendar"
+              title="Nothing closing this month"
+              body="No open deals have a close date inside the current month. As deals get a close date this month, they will show up here."
+            />
           ) : (
             <div className="col" style={{ maxHeight: 300, overflowY: 'auto' }}>
               {closing.map((d, i) => {
@@ -352,7 +382,8 @@ export default function Dashboards() {
             </div>
           )}
         </ChartCard>
+        </Reveal>
       </div>
-    </div>
+    </PageTransition>
   );
 }
