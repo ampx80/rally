@@ -1,0 +1,142 @@
+/* ============================================================
+   NIGHT SHIFT / DIFF OF RECORD - scoped styles (.ns-*)
+   Dark-enterprise review surface. Reuses app tokens only. All
+   motion respects prefers-reduced-motion. No app-wide rules.
+   ============================================================ */
+
+.ns-hero {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 6%, var(--paper)), var(--paper));
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.ns-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 100% at 0% 100%, color-mix(in srgb, var(--accent-teal) 10%, transparent), transparent 60%);
+  pointer-events: none;
+}
+/* Slow drifting star seam - the "night" motif. */
+.ns-stars {
+  position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 30%, color-mix(in srgb, var(--accent-300) 90%, #fff), transparent),
+    radial-gradient(1.5px 1.5px at 42% 62%, color-mix(in srgb, var(--accent) 70%, #fff), transparent),
+    radial-gradient(1.5px 1.5px at 68% 22%, color-mix(in srgb, var(--accent-teal) 80%, #fff), transparent),
+    radial-gradient(1.5px 1.5px at 85% 70%, color-mix(in srgb, var(--accent-300) 80%, #fff), transparent),
+    radial-gradient(1.5px 1.5px at 26% 82%, color-mix(in srgb, var(--accent) 60%, #fff), transparent);
+  animation: ns-drift 26s linear infinite;
+}
+@keyframes ns-drift { from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; } to { background-position: 40px 0, -30px 10px, 24px -12px, -20px 8px, 16px -6px; } }
+
+.ns-run-btn { position: relative; overflow: hidden; }
+.ns-run-btn .ns-sweep {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.ns-run-btn:hover .ns-sweep { animation: ns-sweep 1.1s var(--ease); }
+@keyframes ns-sweep { to { transform: translateX(120%); } }
+
+/* Stat chips inside the hero */
+.ns-chip {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  border-radius: var(--r-md, 10px);
+  padding: .7rem .9rem;
+  min-width: 0;
+}
+.ns-chip .v { font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; line-height: 1; }
+.ns-chip .l { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--n-600); margin-top: .35rem; }
+
+/* Diff entry card */
+.ns-entry {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform .16s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease), opacity .2s var(--ease);
+}
+.ns-entry:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.ns-entry::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-teal));
+}
+.ns-entry[data-kind="advance"]::before { background: linear-gradient(180deg, var(--ok), var(--accent-teal)); }
+.ns-entry[data-kind="draft"]::before { background: linear-gradient(180deg, var(--accent), var(--accent-purple)); }
+.ns-entry[data-kind="task"]::before { background: linear-gradient(180deg, var(--warn), var(--accent)); }
+.ns-entry[data-status="approved"] { border-color: color-mix(in srgb, var(--ok) 40%, var(--line)); }
+.ns-entry[data-status="reverted"], .ns-entry[data-status="rejected"] { opacity: .62; }
+
+/* git-style diff block */
+.ns-diff { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; font-variant-numeric: tabular-nums; }
+.ns-diff__row { display: flex; gap: .55rem; align-items: flex-start; padding: .5rem .7rem; font-size: .9rem; line-height: 1.35; }
+.ns-diff__row .gut { font-weight: 800; flex: none; width: .9rem; text-align: center; opacity: .8; }
+.ns-diff__row.del { background: var(--risk-bg); color: color-mix(in srgb, var(--risk) 88%, #000); }
+.ns-diff__row.add { background: var(--ok-bg); color: color-mix(in srgb, var(--ok) 90%, #000); }
+
+/* provenance / receipts */
+.ns-prov { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+.ns-prov li { position: relative; padding-left: 1.05rem; font-size: .86rem; color: var(--n-600); line-height: 1.4; }
+.ns-prov li::before { content: ''; position: absolute; left: 2px; top: .5rem; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .7; }
+
+.ns-draft {
+  white-space: pre-wrap; font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: .82rem; line-height: 1.5; color: var(--ink);
+  background: var(--code-bg, color-mix(in srgb, var(--accent) 5%, var(--paper)));
+  border: 1px dashed var(--line-strong); border-radius: var(--r-sm); padding: .7rem .85rem; margin: 0;
+}
+
+.ns-kind {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  padding: .22rem .5rem; border-radius: 999px;
+}
+.ns-kind[data-kind="advance"] { background: var(--ok-bg); color: var(--ok); }
+.ns-kind[data-kind="draft"] { background: var(--accent-50); color: var(--accent-600); }
+.ns-kind[data-kind="task"] { background: var(--warn-bg); color: var(--warn); }
+
+/* sticky approve-all bar */
+.ns-actionbar {
+  position: sticky; bottom: 1rem; z-index: 5;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.ns-escalation {
+  border: 1px solid color-mix(in srgb, var(--warn) 38%, var(--line));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--warn) 7%, var(--paper)), var(--paper));
+  border-radius: var(--r-lg);
+}
+
+/* mandate dial */
+.ns-mandate { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--paper); box-shadow: var(--shadow-sm); }
+.ns-toggle {
+  display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px; padding: .3rem .7rem .3rem .35rem;
+  background: var(--paper); font-weight: 600; font-size: .86rem; user-select: none;
+  transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+.ns-toggle[data-on="true"] { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); background: var(--accent-50); color: var(--accent-700); }
+.ns-toggle .dot { width: 30px; height: 18px; border-radius: 999px; background: var(--n-100); position: relative; flex: none; transition: background .15s var(--ease); }
+.ns-toggle[data-on="true"] .dot { background: var(--accent); }
+.ns-toggle .dot::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .16s var(--ease); }
+.ns-toggle[data-on="true"] .dot::after { transform: translateX(12px); }
+
+.ns-fadein { animation: ns-fade .4s var(--ease) both; }
+@keyframes ns-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-stars, .ns-run-btn:hover .ns-sweep, .ns-fadein { animation: none !important; }
+  .ns-entry { transition: none; }
+  .ns-entry:hover { transform: none; }
+}

@@ -1,0 +1,140 @@
+/* ============================================================
+   Pipeline Fork Studio. Dark-enterprise, #5b4bf5 accent.
+   Transitions are transform/opacity only (60fps) and disabled
+   under prefers-reduced-motion.
+   ============================================================ */
+.fk-page { padding-bottom: 3rem; }
+
+/* ---------- branch bar ---------- */
+.fk-branchbar {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin: .25rem 0 1.15rem;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid var(--line);
+}
+.fk-branch {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .5rem .85rem; border-radius: 999px;
+  background: var(--paper); border: 1px solid var(--line);
+  color: var(--n-800); cursor: pointer;
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+.fk-branch:hover { transform: translateY(-1px); border-color: var(--accent-300); }
+.fk-branch.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), var(--accent-glow);
+}
+.fk-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+/* ---------- delta strip ---------- */
+.fk-delta-grid {
+  display: grid; gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  margin-bottom: 1.1rem;
+}
+.fk-delta {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: .3rem;
+  padding: .85rem .95rem; border-radius: var(--r-md);
+  background: var(--paper); border: 1px solid var(--line);
+  animation: fk-rise .34s ease both;
+}
+.fk-delta::before {
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 3px;
+  background: var(--n-400); opacity: .55;
+}
+.fk-delta-up::before { background: var(--ok); opacity: 1; }
+.fk-delta-down::before { background: var(--risk); opacity: 1; }
+.fk-delta-val { font-size: 1.55rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+.fk-delta-chip {
+  display: inline-flex; align-items: center; gap: .25rem;
+  font-size: .8rem; font-weight: 700; width: fit-content;
+  padding: .1rem .45rem; border-radius: 999px;
+}
+.fk-delta-up .fk-delta-chip { color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, transparent); }
+.fk-delta-down .fk-delta-chip { color: var(--risk); background: color-mix(in srgb, var(--risk) 14%, transparent); }
+.fk-delta-flat .fk-delta-chip { color: var(--n-600); }
+.fk-delta-from { opacity: .8; }
+
+@keyframes fk-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- moves toolbar ---------- */
+.fk-moves { margin-bottom: 1.1rem; }
+.fk-move-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.fk-move-cluster {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .25rem .35rem; border-radius: var(--r-sm);
+  background: var(--n-25); border: 1px solid var(--line);
+}
+.fk-move-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .5rem .8rem; border-radius: var(--r-sm);
+  background: var(--paper); border: 1px solid var(--line);
+  color: var(--n-800); font-weight: 650; font-size: .9rem; cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+.fk-move-btn:hover { transform: translateY(-1px); border-color: var(--accent); color: var(--accent); }
+.fk-move-btn:active { transform: translateY(0); }
+.fk-num { width: 62px; text-align: center; padding: .45rem .3rem; }
+.fk-sel { padding: .45rem .5rem; min-width: 118px; }
+
+.fk-moves-log { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .85rem; }
+.fk-move-chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .78rem; font-weight: 650;
+  padding: .28rem .55rem; border-radius: 999px;
+  color: var(--accent-700); background: var(--accent-50);
+  border: 1px solid var(--accent-300);
+}
+
+/* ---------- narrative ---------- */
+.fk-narrative { margin-bottom: 1.1rem; }
+.fk-rook-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 8px; flex: none;
+  color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0);
+  box-shadow: var(--accent-glow);
+}
+
+/* ---------- per-rep attainment ---------- */
+.fk-reptable { display: flex; flex-direction: column; gap: .55rem; margin-top: .3rem; }
+.fk-reprow {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: .55rem .3rem; border-bottom: 1px solid var(--line);
+}
+.fk-reprow:last-child { border-bottom: none; }
+.fk-repbars { flex: 2 1 220px; display: flex; flex-direction: column; gap: 5px; min-width: 160px; }
+.fk-bar-track { height: 8px; border-radius: 999px; background: var(--n-100); overflow: hidden; }
+.fk-bar { display: block; height: 100%; border-radius: 999px; transition: width .5s cubic-bezier(.22,.61,.36,1); }
+.fk-bar-main { background: var(--n-400); }
+.fk-repnums { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex: 0 0 auto; min-width: 96px; }
+.fk-repdelta { font-size: .82rem; font-weight: 750; }
+
+/* ---------- diff table cells ---------- */
+.fk-tag {
+  width: fit-content; font-size: .66rem; font-weight: 750; text-transform: uppercase;
+  letter-spacing: .05em; padding: .05rem .4rem; border-radius: 5px;
+}
+.fk-tag-changed { color: var(--accent-700); background: var(--accent-50); }
+.fk-tag-added { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); }
+.fk-tag-removed { color: var(--risk); background: color-mix(in srgb, var(--risk) 12%, transparent); }
+.fk-change { display: inline-flex; align-items: center; gap: .35rem; }
+.fk-from { color: var(--n-600); text-decoration: line-through; opacity: .75; }
+.fk-to { font-weight: 700; color: var(--n-900); }
+.fk-pos { color: var(--ok); }
+.fk-neg { color: var(--risk); }
+
+/* ---------- empty hero ---------- */
+.fk-empty { text-align: center; padding: 2.6rem 1.5rem; }
+.fk-empty-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 60px; height: 60px; border-radius: 16px; margin-bottom: 1rem;
+  color: #fff; background: linear-gradient(135deg, #6d5cf7, #4a3ce0);
+  box-shadow: var(--accent-glow);
+  animation: fk-float 4s ease-in-out infinite;
+}
+@keyframes fk-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fk-branch, .fk-move-btn, .fk-bar, .fk-delta, .fk-empty-mark { transition: none !important; animation: none !important; }
+}

@@ -328,6 +328,21 @@ function commit(next) {
 export function resetStore() { try { localStorage.removeItem(LS_KEY); } catch {} state = load(); subs.forEach(fn => fn(state)); }
 export function getState() { return state; }
 
+/* ADDITIVE (Pipeline Fork). Run a pure, synchronous read against an alternate
+   state without disturbing the live singleton. The Fork Studio (src/lib/fork.js)
+   structuredClones getState() into a named branch, then reuses the EXISTING pure
+   selectors + the forecasting / intelligence engines against that clone simply by
+   swapping the module `state` for the duration of one synchronous read and
+   restoring it in `finally`. No subscriber is notified and no writer runs, so
+   every existing export behaves byte-for-byte as it does today. The callback MUST
+   be synchronous and read-only (never call a writer/commit inside it). */
+export function withState(altState, fn) {
+  if (!altState) return fn();
+  const prev = state;
+  state = altState;
+  try { return fn(); } finally { state = prev; }
+}
+
 export function useStore(selector = (s) => s) {
   const [snap, setSnap] = useState(() => selector(state));
   useEffect(() => {
@@ -592,4 +607,13 @@ export function updateActivity(id, patch) {
   Object.assign(a, patch);
   commit({ ...state });
   return { activity: a };
+}
+// SUPABASE: from('rally_activities').delete().eq('id', id)
+// Additive writer. Used by reversible operators (e.g. Night Shift) so a
+// created activity has a true inverse. Safe no-op when the id is unknown.
+export function deleteActivity(id) {
+  const a = getActivity(id);
+  if (!a) return { error: 'missing', message: 'Activity not found.' };
+  commit({ ...state, activities: state.activities.filter(x => x.id !== id) });
+  return { ok: true, id };
 }
