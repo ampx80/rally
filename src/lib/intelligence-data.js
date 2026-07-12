@@ -47,7 +47,9 @@ function activityIndex() {
 
 // Risk model. Returns a 0..96 score, a tier, ranked human reasons, and the
 // raw factors so a card can show the receipts. Higher = more likely to slip.
-function scoreDeal(d, ctx) {
+// Exported (pure) so the Wind Tunnel backtest can re-score counterfactual
+// deal states with the exact same deterministic model the live surface uses.
+export function scoreDeal(d, ctx) {
   const now = ctx.now;
   const st = stageById(d.stage);
   const order = st?.order || 1;

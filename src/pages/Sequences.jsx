@@ -14,11 +14,13 @@ import {
   getContacts, getCompanies, contactName, getCurrentUser,
 } from '../lib/store.js';
 import {
-  STEP_TYPES, stepMeta, useSequenceStore,
+  STEP_TYPES, stepMeta, useSequenceStore, useSequenceRunner,
   getSequences, getSequence, enrollmentsForSequence, sequenceStats, fleetStats,
   createSequence, toggleSequence, deleteSequence,
   addStep, updateStep, deleteStep, moveStep,
-  enrollContacts, unenroll, renderTemplate,
+  enrollContacts, enrollContactsLive, unenroll, renderTemplate,
+  advanceEnrollment, pauseEnrollment, resumeEnrollment,
+  runDueForSequence, liveEnrollmentCount, nextDueAt, simulateReply,
 } from '../lib/sequences-data.js';
 
 const TEAL = '#0ea5a3';
@@ -60,6 +62,17 @@ function StepGlyph({ type, size = 34 }) {
 
 const delayLabel = (d) => d === 0 ? 'Day 0 - immediately' : `Day ${d}`;
 const companyName = (companyId, companies) => companies.find(c => c.id === companyId)?.name;
+
+// Short human label for a step's due time (past = "due now", future = date).
+function dueLabel(ts) {
+  if (ts == null) return null;
+  const now = Date.now();
+  if (ts <= now) return 'due now';
+  const days = Math.round((ts - now) / 86400000);
+  if (days <= 0) return 'due today';
+  if (days === 1) return 'due in 1 day';
+  return `due in ${days} days`;
+}
 
 /* ============================================================
    LIST VIEW
@@ -228,8 +241,9 @@ function EnrollModal({ open, onClose, seqId }) {
   const enrolledIds = useMemo(() => new Set(enrollmentsForSequence(seqId).map(e => e.contactId)), [seqId, open]);
   const [q, setQ] = useState('');
   const [picked, setPicked] = useState(() => new Set());
+  const [live, setLive] = useState(false);
 
-  React.useEffect(() => { if (open) { setPicked(new Set()); setQ(''); } }, [open]);
+  React.useEffect(() => { if (open) { setPicked(new Set()); setQ(''); setLive(false); } }, [open]);
 
   const rows = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -251,8 +265,16 @@ function EnrollModal({ open, onClose, seqId }) {
   });
 
   const submit = () => {
-    const n = enrollContacts(seqId, [...picked]);
-    toast(n ? `Enrolled ${n} contact${n === 1 ? '' : 's'}` : 'Those contacts are already enrolled', n ? 'ok' : 'warn');
+    const ids = [...picked];
+    const n = live ? enrollContactsLive(seqId, ids) : enrollContacts(seqId, ids);
+    toast(
+      n
+        ? live
+          ? `Enrolled ${n} and started sending`
+          : `Enrolled ${n} contact${n === 1 ? '' : 's'}`
+        : 'Those contacts are already enrolled',
+      n ? 'ok' : 'warn',
+    );
     onClose();
   };
 
@@ -299,6 +321,14 @@ function EnrollModal({ open, onClose, seqId }) {
             );
           })}
         </div>
+
+        <label className="row between" style={{ gap: '.75rem', cursor: 'pointer', alignItems: 'center' }}>
+          <div className="col" style={{ minWidth: 0 }}>
+            <span className="fw-6">Start sending now</span>
+            <span className="t-xs muted">Schedules the cadence live. Day-0 email steps deliver immediately when email is configured; later steps fire on schedule. Call and task steps become real activities.</span>
+          </div>
+          <Switch on={live} onClick={() => setLive(v => !v)} />
+        </label>
       </div>
     </Modal>
   );
@@ -307,6 +337,27 @@ function EnrollModal({ open, onClose, seqId }) {
 /* ============================================================
    DETAIL / EDITOR VIEW
    ============================================================ */
+
+// Inline live controls for a running enrollment. Rendered ONLY for enrollments
+// that have been started (enr.live), so seeded/normal rows are untouched.
+function LiveControls({ enr }) {
+  const toast = useToast();
+  const running = enr.status === 'active';
+  const advance = () => {
+    const did = advanceEnrollment(enr.id);
+    toast(did ? 'Sent next step' : 'Nothing left to send', did ? 'ok' : 'warn');
+  };
+  return (
+    <div className="row gap-1" style={{ flex: 'none', alignItems: 'center' }}>
+      {running && (enr.paused
+        ? <Button variant="quiet" size="sm" aria-label="Resume sending" title="Resume" onClick={() => resumeEnrollment(enr.id)}><Icon name="bolt" size={14} /></Button>
+        : <Button variant="quiet" size="sm" aria-label="Pause sending" title="Pause" onClick={() => pauseEnrollment(enr.id)}><Icon name="clock" size={14} /></Button>
+      )}
+      {running && <Button variant="quiet" size="sm" aria-label="Send next step now" title="Send next step now" onClick={advance}><Icon name="send" size={14} /></Button>}
+      {running && <Button variant="quiet" size="sm" aria-label="Simulate reply" title="Simulate a reply (stops the cadence)" onClick={() => { simulateReply(enr.id); toast('Reply logged - cadence stopped', 'ok'); }}><Icon name="mail" size={14} /></Button>}
+    </div>
+  );
+}
 
 function StepAnalyticsBar({ step }) {
   if (step.type !== 'email') return null;
@@ -370,6 +421,12 @@ function EnrollmentRow({ enr, seq }) {
   const co = contact ? companyName(contact.companyId, companies) : null;
   const pct = seq.steps.length ? Math.round((Math.min(enr.stepIndex, seq.steps.length) / seq.steps.length) * 100) : 0;
   const tone = enr.status === 'replied' ? 'ok' : enr.status === 'finished' ? 'accent' : 'info';
+  const due = enr.live ? nextDueAt(enr) : null;
+  const liveNote = enr.live
+    ? (enr.paused ? 'paused'
+      : enr.status !== 'active' ? enr.status
+      : dueLabel(due))
+    : null;
   return (
     <div className="row between" style={{ gap: '.75rem', padding: '.7rem 0', borderBottom: '1px solid var(--line)' }}>
       <div className="row gap-2" style={{ minWidth: 0, alignItems: 'center', flex: 1 }}>
@@ -385,7 +442,14 @@ function EnrollmentRow({ enr, seq }) {
           <Badge tone={tone}>{enr.status}</Badge>
         </div>
         <ProgressBar value={pct} height={6} color={enr.status === 'replied' ? TEAL : 'var(--accent)'} />
+        {liveNote && (
+          <div className="row gap-1 t-xs" style={{ alignItems: 'center', color: 'var(--accent-600)' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: enr.paused ? 'var(--n-400,#9aa)' : 'var(--accent)', flex: 'none' }} />
+            <span className="tnum">{liveNote}</span>
+          </div>
+        )}
       </div>
+      {enr.live && <LiveControls enr={enr} />}
       <Button variant="quiet" size="sm" aria-label="Remove from sequence" onClick={() => unenroll(enr.id)} style={{ flex: 'none' }}><Icon name="x" size={15} /></Button>
     </div>
   );
@@ -400,6 +464,7 @@ function SequenceDetail({ seq, onBack }) {
 
   const s = sequenceStats(seq);
   const enrollments = enrollmentsForSequence(seq.id);
+  const liveCount = liveEnrollmentCount(seq.id);
 
   // Preview context uses a real enrolled contact when possible.
   const previewCtx = useMemo(() => {
@@ -479,6 +544,18 @@ function SequenceDetail({ seq, onBack }) {
               <EmptyState icon="✨" title="No one enrolled yet" body="Pick real contacts from your book and drop them into this cadence." action={<Button variant="primary" onClick={() => setEnrollOpen(true)}><Icon name="plus" size={15} /> Enroll contacts</Button>} />
             ) : (
               <div className="col">
+                {liveCount > 0 && (
+                  <div className="row between" style={{ gap: '.5rem', flexWrap: 'wrap', paddingBottom: '.6rem', marginBottom: '.2rem', borderBottom: '1px solid var(--line)' }}>
+                    <span className="t-sm muted row gap-1" style={{ alignItems: 'center' }}>
+                      <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', flex: 'none' }} />
+                      {liveCount} live enrollment{liveCount === 1 ? '' : 's'} running
+                    </span>
+                    <Button variant="ghost" size="sm" onClick={() => {
+                      const n = runDueForSequence(seq.id);
+                      toast(n ? `Ran ${n} due step${n === 1 ? '' : 's'}` : 'No steps are due right now', n ? 'ok' : 'info');
+                    }}><Icon name="bolt" size={14} /> Run due steps</Button>
+                  </div>
+                )}
                 {enrollments.map(e => <EnrollmentRow key={e.id} enr={e} seq={seq} />)}
               </div>
             )}
@@ -498,6 +575,7 @@ function SequenceDetail({ seq, onBack }) {
 
 export default function Sequences() {
   useSequenceStore();               // subscribe: re-render on any mutation
+  useSequenceRunner();              // advance due live steps while the page is open
   const [openId, setOpenId] = useState(null);
   const [newOpen, setNewOpen] = useState(false);
 

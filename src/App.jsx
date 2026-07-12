@@ -39,6 +39,8 @@ import DocBuilder from './pages/DocBuilder.jsx';
 import ForkStudio from './pages/ForkStudio.jsx';
 import NightShift from './pages/NightShift.jsx';
 import DealFilm from './pages/DealFilm.jsx';
+import WindTunnel from './pages/WindTunnel.jsx';
+import MarketingAutomations from './pages/MarketingAutomations.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -79,7 +81,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -107,6 +109,7 @@ const NAV_GROUPS = [
   { id: 'marketing', label: 'Marketing', items: [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
     { to: '/sequences', label: 'Sequences', icon: 'layers' },
+    { to: '/automations', label: 'Automations', icon: 'send' },
   ] },
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
@@ -125,6 +128,7 @@ const NAV_GROUPS = [
     { to: '/reports', label: 'Reports', icon: 'pie' },
     { to: '/intelligence', label: 'Intelligence', icon: 'sparkles' },
     { to: '/fork', label: 'Pipeline Fork', icon: 'gitBranch' },
+    { to: '/wind-tunnel', label: 'Wind Tunnel', icon: 'bolt' },
   ] },
   { id: 'automation', label: 'Automation', items: [
     { to: '/workflows', label: 'Workflows', icon: 'workflow' },
@@ -402,8 +406,10 @@ export default function App() {
               <Route path="/forecasting" element={<Forecasting />} />
               <Route path="/fork" element={<ForkStudio />} />
               <Route path="/film" element={<DealFilm />} />
+              <Route path="/wind-tunnel" element={<WindTunnel />} />
               <Route path="/campaigns" element={<Campaigns />} />
               <Route path="/sequences" element={<Sequences />} />
+              <Route path="/automations" element={<MarketingAutomations />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/inbox" element={<Inbox />} />
               <Route path="/products" element={<Products />} />

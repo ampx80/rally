@@ -8,7 +8,9 @@
 //           rally_sequence_enrollments.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { getContacts } from './store.js';
+import {
+  getContacts, getContact, getCompany, getCurrentUser, contactName, createActivity,
+} from './store.js';
 
 const LS_KEY = 'rally_sequences_v1';   // bump to force a clean reseed
 
@@ -352,4 +354,285 @@ export function renderTemplate(text, { contact, companyName, senderName }) {
     .replaceAll('{{company}}', companyName || 'your team')
     .replaceAll('{{senderName}}', senderName || 'the Rally team')
     .replaceAll('{{title}}', contact?.title || '');
+}
+
+/* ============================================================
+   RUNNER  (additive - makes cadences EXECUTE FOR REAL)
+   ------------------------------------------------------------
+   Seeded + normal enrollments are inert to this engine: they
+   carry no `live` flag, so tickSequences() never touches them
+   and the page renders exactly as before. Only enrollments that
+   are explicitly STARTED (enrollContactsLive / startEnrollment)
+   are scheduled and advanced. A due EMAIL step is sent for real
+   through /api/sequence-tick -> sendEmail() (a safe no-op when
+   RESEND_API_KEY is unset). A due CALL / TASK / LINKEDIN step
+   generates a real CRM task activity via store.createActivity.
+   Reply / open events branch the cadence (reply stops it by
+   default). All additive fields on an enrollment:
+     live, paused, dueAt, history[], lastEmailStepId,
+     lastSend{}, opens, replies.
+   ============================================================ */
+
+export const DAY_MS = 86400000;
+const SEND_ENDPOINT = '/api/sequence-tick';
+
+// Per-step branching config with sensible defaults. A step may carry
+//   { branch: { onReply: 'stop'|'continue', onOpen: 'continue'|'accelerate' } }
+// Absent config -> reply STOPS the cadence, open keeps the schedule.
+export function stepBranch(step) {
+  const b = (step && step.branch) || {};
+  return { onReply: b.onReply || 'stop', onOpen: b.onOpen || 'continue' };
+}
+
+// Absolute due time of step `idx` = enrollment time + the step's delay (days).
+// This matches the seed semantics ("Delay = days after enrollment").
+function scheduledDueAt(seq, enr, idx) {
+  const step = seq && seq.steps && seq.steps[idx];
+  if (!step) return null;
+  return enr.enrolledAt + (Number(step.delay) || 0) * DAY_MS;
+}
+
+// Full per-step schedule for the enrollment manager UI.
+export function enrollmentSchedule(seq, enr) {
+  if (!seq || !enr) return [];
+  return seq.steps.map((st, i) => ({
+    step: st, index: i,
+    dueAt: enr.enrolledAt + (Number(st.delay) || 0) * DAY_MS,
+    done: i < enr.stepIndex,
+    current: i === enr.stepIndex && enr.status === 'active',
+  }));
+}
+
+// Timestamp the current step is due (or null when nothing is pending).
+export function nextDueAt(enr) {
+  if (!enr || enr.status !== 'active') return null;
+  const seq = getSequence(enr.sequenceId);
+  if (!seq) return null;
+  return enr.dueAt != null ? enr.dueAt : scheduledDueAt(seq, enr, enr.stepIndex);
+}
+
+/* ---------- low-level immutable patches (each commits once) ---------- */
+function patchEnrollment(id, patch) {
+  const enrollments = data.enrollments.map(e => e.id === id ? { ...e, ...patch } : e);
+  commit({ ...data, enrollments });
+}
+function bumpStep(seqId, stepId, d) {
+  const sequences = data.sequences.map(s => {
+    if (s.id !== seqId) return s;
+    return {
+      ...s,
+      steps: s.steps.map(st => st.id === stepId ? {
+        ...st,
+        sent: (st.sent || 0) + (d.sent || 0),
+        opened: (st.opened || 0) + (d.opened || 0),
+        replied: (st.replied || 0) + (d.replied || 0),
+      } : st),
+    };
+  });
+  commit({ ...data, sequences });
+}
+
+// Merge context for template rendering + a real recipient.
+function mergeCtx(enr) {
+  const contact = getContact(enr.contactId);
+  const company = contact && contact.companyId ? getCompany(contact.companyId) : null;
+  const sender = getCurrentUser();
+  return { contact, companyName: company && company.name, senderName: sender && sender.name };
+}
+
+// Fire the real email for an email step (best-effort, never throws). The
+// server no-ops without RESEND_API_KEY; the cadence still advances so the
+// timeline stays truthful in the local-first demo. Idempotency key is stable
+// per (enrollment, step) so a retry (client re-run OR the cron outbox) never
+// double-sends.
+function dispatchStepEmail(seq, step, enr) {
+  const { contact, companyName, senderName } = mergeCtx(enr);
+  const to = contact && contact.email;
+  const subject = renderTemplate(step.subject, { contact, companyName, senderName });
+  const text = renderTemplate(step.body || step.subject, { contact, companyName, senderName });
+  const idempotencyKey = `seq_${enr.id}_${step.id}`;
+
+  if (typeof fetch !== 'function' || !to) {
+    patchEnrollment(enr.id, { lastSend: { at: Date.now(), to: to || null, ok: false, skipped: to ? 'no-fetch' : 'no-email' } });
+    return;
+  }
+  patchEnrollment(enr.id, { lastSend: { at: Date.now(), to, skipped: 'pending' } });
+  fetch(SEND_ENDPOINT, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+    body: JSON.stringify({
+      action: 'send', to, subject, text, idempotencyKey,
+      sequenceName: seq.name, contactName: contact ? contactName(contact) : '',
+    }),
+  })
+    .then(r => r.json().catch(() => ({ ok: false })))
+    .then(j => patchEnrollment(enr.id, { lastSend: { at: Date.now(), to, ok: !!j.ok, id: j.id || null, skipped: j.skipped || null } }))
+    .catch(e => patchEnrollment(enr.id, { lastSend: { at: Date.now(), to, ok: false, error: (e && e.message) || 'network' } }));
+}
+
+// Execute the enrollment's CURRENT step, then advance. Returns true if a step
+// ran. `force` bypasses the due-time check (used by the manual "send next now"
+// control). Only ONE step runs per call so a tick can never burst a whole
+// cadence in a single pass.
+function executeStepInternal(enr, opts = {}) {
+  const force = !!opts.force;
+  const seq = getSequence(enr.sequenceId);
+  if (!seq || enr.status !== 'active') return false;
+  const idx = enr.stepIndex;
+  const step = seq.steps[idx];
+  if (!step) { patchEnrollment(enr.id, { status: 'finished', dueAt: null }); return false; }
+
+  const now = Date.now();
+  const due = enr.dueAt != null ? enr.dueAt : scheduledDueAt(seq, enr, idx);
+  if (!force && due != null && due > now) return false;
+
+  const historyEntry = { stepIndex: idx, stepId: step.id, type: step.type, at: now };
+  let lastEmailStepId = null;
+
+  if (step.type === 'email') {
+    dispatchStepEmail(seq, step, enr);
+    bumpStep(seq.id, step.id, { sent: 1 });
+    historyEntry.action = 'email_sent';
+    lastEmailStepId = step.id;
+  } else {
+    const { contact, companyName, senderName } = mergeCtx(enr);
+    const subject = renderTemplate(step.subject, { contact, companyName, senderName });
+    const body = renderTemplate(step.body, { contact, companyName, senderName });
+    const r = createActivity({
+      type: step.type === 'call' ? 'call' : 'task',
+      subject: subject || `${stepMeta(step.type).label} step`,
+      body: body || `Auto-created by sequence "${seq.name}".`,
+      dueAt: new Date().toISOString(), done: false,
+      relatedType: 'contact', relatedId: enr.contactId,
+    });
+    historyEntry.action = 'task_created';
+    historyEntry.activityId = (r && r.activity && r.activity.id) || null;
+  }
+
+  const nextIdx = idx + 1;
+  const done = nextIdx >= seq.steps.length;
+  const patch = { stepIndex: nextIdx, history: [...(enr.history || []), historyEntry] };
+  if (lastEmailStepId) patch.lastEmailStepId = lastEmailStepId;
+  if (done) { patch.status = 'finished'; patch.dueAt = null; }
+  else { patch.dueAt = scheduledDueAt(seq, enr, nextIdx); }
+  patchEnrollment(enr.id, patch);
+  return true;
+}
+
+/* ---------- enrollment manager (public) ---------- */
+
+// Turn an existing enrollment into a live, scheduled one and fire anything
+// already due (a fresh live enrollment's day-0 step sends immediately).
+export function startEnrollment(id) {
+  const enr = data.enrollments.find(e => e.id === id);
+  if (!enr) return;
+  const seq = getSequence(enr.sequenceId);
+  patchEnrollment(id, {
+    live: true, paused: false,
+    status: enr.status === 'finished' ? 'finished' : 'active',
+    dueAt: scheduledDueAt(seq, enr, enr.stepIndex),
+    history: enr.history || [],
+  });
+  tickSequences();
+}
+
+// Enroll + immediately start the freshly-created enrollments (live send).
+export function enrollContactsLive(seqId, contactIds) {
+  const before = new Set(enrollmentsForSequence(seqId).map(e => e.id));
+  const n = enrollContacts(seqId, contactIds);
+  const created = enrollmentsForSequence(seqId).filter(e => !before.has(e.id));
+  for (const e of created) startEnrollment(e.id);
+  return n;
+}
+
+export function pauseEnrollment(id) { patchEnrollment(id, { paused: true }); }
+export function resumeEnrollment(id) {
+  const enr = data.enrollments.find(e => e.id === id);
+  if (!enr) return;
+  const seq = getSequence(enr.sequenceId);
+  patchEnrollment(id, { paused: false, dueAt: enr.dueAt != null ? enr.dueAt : scheduledDueAt(seq, enr, enr.stepIndex) });
+  tickSequences();
+}
+
+// Force the current step to run now (manual advance). Live-only guard so a
+// seeded enrollment can never be mutated by the manager UI.
+export function advanceEnrollment(id) {
+  const enr = data.enrollments.find(e => e.id === id);
+  if (!enr || !enr.live) return false;
+  return executeStepInternal(enr, { force: true });
+}
+
+// Process every genuinely-due live step across the book. One step per
+// enrollment per pass. Returns how many steps executed.
+export function tickSequences() {
+  let count = 0;
+  const live = data.enrollments.filter(e => e.live && !e.paused && e.status === 'active');
+  for (const snap of live) {
+    const enr = data.enrollments.find(e => e.id === snap.id);
+    if (enr && executeStepInternal(enr)) count++;
+  }
+  return count;
+}
+
+// Run only the due steps for a single sequence (people-tab "Run due" button).
+export function runDueForSequence(seqId) {
+  let count = 0;
+  const live = data.enrollments.filter(e => e.sequenceId === seqId && e.live && !e.paused && e.status === 'active');
+  for (const snap of live) {
+    const enr = data.enrollments.find(e => e.id === snap.id);
+    if (enr && executeStepInternal(enr)) count++;
+  }
+  return count;
+}
+
+export function liveEnrollmentCount(seqId) {
+  return data.enrollments.filter(e => e.sequenceId === seqId && e.live).length;
+}
+
+/* ---------- open / reply branching hooks (public) ----------
+   Callable by the UI (simulate buttons) or a real inbound signal (e.g. a
+   Resend open/click webhook that resolves to an enrollment). recordReply
+   stops the cadence by default and surfaces a real follow-up task. */
+export function recordOpen(id) {
+  const enr = data.enrollments.find(e => e.id === id);
+  if (!enr) return;
+  const seq = getSequence(enr.sequenceId);
+  if (enr.lastEmailStepId) bumpStep(seq.id, enr.lastEmailStepId, { opened: 1 });
+  const step = seq && seq.steps.find(s => s.id === enr.lastEmailStepId);
+  const patch = { opens: (enr.opens || 0) + 1, history: [...(enr.history || []), { type: 'open', at: Date.now() }] };
+  if (step && stepBranch(step).onOpen === 'accelerate' && enr.status === 'active') patch.dueAt = Date.now();
+  patchEnrollment(id, patch);
+  if (patch.dueAt) tickSequences();
+}
+
+export function recordReply(id) {
+  const enr = data.enrollments.find(e => e.id === id);
+  if (!enr) return;
+  const seq = getSequence(enr.sequenceId);
+  if (enr.lastEmailStepId) bumpStep(seq.id, enr.lastEmailStepId, { replied: 1 });
+  const step = seq && seq.steps.find(s => s.id === enr.lastEmailStepId);
+  const action = step ? stepBranch(step).onReply : 'stop';
+  const patch = { replies: (enr.replies || 0) + 1, history: [...(enr.history || []), { type: 'reply', at: Date.now() }] };
+  if (action === 'stop') { patch.status = 'replied'; patch.dueAt = null; }
+  patchEnrollment(id, patch);
+  const contact = getContact(enr.contactId);
+  createActivity({
+    type: 'task',
+    subject: `Reply from ${contact ? contactName(contact) : 'contact'} - follow up`,
+    body: `Auto-created by sequence "${seq ? seq.name : ''}" after a reply came in.`,
+    dueAt: new Date().toISOString(), done: false,
+    relatedType: 'contact', relatedId: enr.contactId,
+  });
+}
+
+export const simulateOpen = recordOpen;
+export const simulateReply = recordReply;
+
+// Mount-scoped ticker: advances due live steps while the page is open, and
+// once immediately on mount. Safe no-op when nothing is live.
+export function useSequenceRunner(intervalMs = 15000) {
+  useEffect(() => {
+    try { tickSequences(); } catch {}
+    const t = setInterval(() => { try { tickSequences(); } catch {} }, intervalMs);
+    return () => clearInterval(t);
+  }, [intervalMs]);
 }
