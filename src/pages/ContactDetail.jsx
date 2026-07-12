@@ -14,6 +14,7 @@ import AuditPanel from '../components/AuditPanel.jsx';
 import { getFields } from '../lib/fields.js';
 import { Card, Button, Avatar, Badge, Field, Input, Select, Modal, EmptyState, Tabs, useToast, moneyK } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import DraftWithAI from '../components/outreach/DraftWithAI.jsx';
 
 const STAGE_DOT = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -73,7 +74,10 @@ export default function ContactDetail() {
                       }}
                     />
                   </div>
-                  <Button variant="ghost" size="sm" onClick={() => setEditing(true)}><Icon name="edit" size={15} /> Edit</Button>
+                  <div className="row gap-1" style={{ flex: 'none', alignItems: 'center' }}>
+                    <DraftWithAI contact={c} company={co} />
+                    <Button variant="ghost" size="sm" onClick={() => setEditing(true)}><Icon name="edit" size={15} /> Edit</Button>
+                  </div>
                 </div>
                 {c.title && <div className="muted fw-6">{c.title}</div>}
                 {co && (

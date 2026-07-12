@@ -43,6 +43,10 @@ import WindTunnel from './pages/WindTunnel.jsx';
 import MarketingAutomations from './pages/MarketingAutomations.jsx';
 import GhostDeals from './pages/GhostDeals.jsx';
 import AskCanvas from './pages/AskCanvas.jsx';
+import Forms from './pages/Forms.jsx';
+import LandingPages from './pages/LandingPages.jsx';
+import Lists from './pages/Lists.jsx';
+import SmsAlerts from './pages/SmsAlerts.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -78,12 +82,14 @@ import Careers from './marketing/Careers.jsx';
 import Blog from './marketing/Blog.jsx';
 import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
+import HostedForm from './marketing/HostedForm.jsx';
+import HostedLanding from './marketing/HostedLanding.jsx';
 import SignIn from './pages/SignIn.jsx';
 import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -113,6 +119,9 @@ const NAV_GROUPS = [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
     { to: '/sequences', label: 'Sequences', icon: 'layers' },
     { to: '/automations', label: 'Automations', icon: 'send' },
+    { to: '/forms', label: 'Forms', icon: 'list' },
+    { to: '/landing-pages', label: 'Landing pages', icon: 'grid' },
+    { to: '/lists', label: 'Lists', icon: 'filter' },
   ] },
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
@@ -138,6 +147,7 @@ const NAV_GROUPS = [
     { to: '/workflows', label: 'Workflows', icon: 'workflow' },
     { to: '/workflows/library', label: 'Templates', icon: 'copy' },
     { to: '/night-shift', label: 'Night Shift', icon: 'moon' },
+    { to: '/sms', label: 'SMS Alerts', icon: 'phone' },
   ] },
   { id: 'admin', label: 'Admin', defaultClosed: true, items: [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
@@ -375,6 +385,8 @@ export default function App() {
             <Route path="/help" element={<HelpCenter />} />
             <Route path="/help/:slug" element={<HelpArticle />} />
             <Route path="/status" element={<StatusPage />} />
+            <Route path="/f/:formId" element={<HostedForm />} />
+            <Route path="/l/:slug" element={<HostedLanding />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -445,6 +457,10 @@ export default function App() {
               <Route path="/workflows/library" element={<AutomationLibrary />} />
               <Route path="/night-shift" element={<NightShift />} />
               <Route path="/welcome" element={<Welcome />} />
+              <Route path="/forms" element={<Forms />} />
+              <Route path="/landing-pages" element={<LandingPages />} />
+              <Route path="/lists" element={<Lists />} />
+              <Route path="/sms" element={<SmsAlerts />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
           </div>

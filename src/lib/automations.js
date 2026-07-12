@@ -28,6 +28,7 @@ import {
   createActivity, updateDeal, moveDealStage, useStore,
 } from './store.js';
 import { createProject, addTask } from './store-depth.js';
+import { fireSms, getAlertPhone } from './sms.js';
 
 const LS_RULES = 'rally_automations_v1';
 const LS_LOG = 'rally_automation_runlog_v1';
@@ -263,6 +264,21 @@ export const ACTIONS = {
     execute: (record, cfg, object) => {
       const provider = cfg.provider || 'Clearbit';
       return { type: 'enrich_contact', ok: true, stub: true, label: `Requested enrichment from ${provider}` };
+    },
+  },
+  send_sms: {
+    id: 'send_sms', label: 'Send an SMS alert', icon: 'phone', tone: 'accent', minutes: 1, integration: true,
+    execute: (record, cfg, object) => {
+      // Fires through /api/sms-send (Twilio, env-gated). The recipient is the
+      // rule's explicit number, or the account alert number set on the SMS
+      // Alerts page. With neither, it degrades to a stub prompt (like Slack
+      // with no webhook). Tokens: {name} {value} {stage} {owner} {company}.
+      const p = recToPayload(record, object);
+      const msg = interp(cfg.message || 'Rally alert: {name} ({owner})', p);
+      const to = (cfg.to || getAlertPhone() || '').trim();
+      if (!to) return { type: 'send_sms', ok: false, stub: true, label: 'Add a mobile number on the SMS Alerts page to text for real' };
+      fireSms({ to, body: msg, category: 'automation' });
+      return { type: 'send_sms', ok: true, label: `Texted ${to}: "${msg.slice(0, 48)}"`, to: '/sms' };
     },
   },
 };

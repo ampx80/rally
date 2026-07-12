@@ -5,3 +5,9 @@ dist
 .vercel
 *.log
 .DS_Store
+
+# Playwright e2e artifacts
+e2e/.auth
+test-results
+playwright-report
+playwright/.cache

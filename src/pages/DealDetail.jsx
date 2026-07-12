@@ -29,6 +29,7 @@ import { Icon } from '../components/icons.jsx';
 import { celebrate } from '../lib/celebrate.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
 import RecordDetailPanel from '../components/RecordDetailPanel.jsx';
+import DraftWithAI from '../components/outreach/DraftWithAI.jsx';
 
 const STAGE_COLOR = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -621,9 +622,12 @@ export default function DealDetail() {
         <div className="col gap-2" style={{ flex: '1 1 340px', minWidth: 0, maxWidth: 400 }}>
           <div className="row between" style={{ alignItems: 'center' }}>
             <div className="eyebrow">Activity</div>
-            <Button variant="ghost" size="sm" onClick={() => setEmailOpen(true)}>
-              <Icon name="mail" size={15} /> Draft email
-            </Button>
+            <div className="row gap-1" style={{ alignItems: 'center' }}>
+              <DraftWithAI deal={deal} />
+              <Button variant="ghost" size="sm" onClick={() => setEmailOpen(true)}>
+                <Icon name="mail" size={15} /> Draft email
+              </Button>
+            </div>
           </div>
           <ActivityTimeline relatedType="deal" relatedId={deal.id} companyId={deal.companyId} />
         </div>
