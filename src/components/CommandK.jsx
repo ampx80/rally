@@ -8,14 +8,67 @@ import { Avatar, moneyK } from './UI.jsx';
 import { getContacts, getCompanies, getDeals, getCompany, contactName, stageById } from '../lib/store.js';
 import { useFocusTrap } from '../lib/a11y.js';
 
+// Every product route, so the palette can jump anywhere. Keywords widen the
+// match surface (e.g. "billing" finds Invoices, "cpq" finds Quotes).
 const NAV_COMMANDS = [
-  { kind: 'nav', label: 'Command center', to: '/app', icon: 'home' },
-  { kind: 'nav', label: 'Deals pipeline', to: '/deals', icon: 'target' },
-  { kind: 'nav', label: 'Contacts', to: '/contacts', icon: 'users' },
-  { kind: 'nav', label: 'Companies', to: '/companies', icon: 'building' },
-  { kind: 'nav', label: 'My day', to: '/activities', icon: 'activity' },
-  { kind: 'nav', label: 'Dashboards', to: '/dashboards', icon: 'chart' },
+  { kind: 'nav', label: 'Command center', to: '/app', icon: 'home', kw: 'dashboard overview' },
+  { kind: 'nav', label: 'My day', to: '/activities', icon: 'activity', kw: 'activities tasks today' },
+  { kind: 'nav', label: 'Inbox', to: '/inbox', icon: 'inbox', kw: 'conversations messages' },
+  { kind: 'nav', label: 'Notifications', to: '/notifications', icon: 'bell', kw: 'alerts' },
+  { kind: 'nav', label: 'Leads', to: '/leads', icon: 'funnel', kw: 'prospects inbound' },
+  { kind: 'nav', label: 'Contacts', to: '/contacts', icon: 'users', kw: 'people' },
+  { kind: 'nav', label: 'Companies', to: '/companies', icon: 'building', kw: 'accounts organizations' },
+  { kind: 'nav', label: 'Deals', to: '/deals', icon: 'target', kw: 'pipeline opportunities' },
+  { kind: 'nav', label: 'Forecasting', to: '/forecasting', icon: 'trendUp', kw: 'forecast quota' },
+  { kind: 'nav', label: 'Goals', to: '/goals', icon: 'rocket', kw: 'targets quota' },
+  { kind: 'nav', label: 'Territories', to: '/territories', icon: 'grid', kw: 'regions' },
+  { kind: 'nav', label: 'Campaigns', to: '/campaigns', icon: 'megaphone', kw: 'marketing broadcast' },
+  { kind: 'nav', label: 'Sequences', to: '/sequences', icon: 'layers', kw: 'cadence outreach' },
+  { kind: 'nav', label: 'Projects', to: '/projects', icon: 'checkSquare', kw: 'delivery onboarding' },
+  { kind: 'nav', label: 'Customer success', to: '/success', icon: 'shield', kw: 'retention csm' },
+  { kind: 'nav', label: 'Products', to: '/products', icon: 'box', kw: 'catalog price book' },
+  { kind: 'nav', label: 'Quotes', to: '/quotes', icon: 'receipt', kw: 'cpq proposals' },
+  { kind: 'nav', label: 'Signatures', to: '/signatures', icon: 'edit', kw: 'esign contracts' },
+  { kind: 'nav', label: 'Billing', to: '/invoices', icon: 'dollar', kw: 'invoices ar mrr' },
+  { kind: 'nav', label: 'Studio', to: '/studio', icon: 'fileText', kw: 'documents builder' },
+  { kind: 'nav', label: 'Dashboards', to: '/dashboards', icon: 'chart', kw: 'analytics kpi' },
+  { kind: 'nav', label: 'Reports', to: '/reports', icon: 'pie', kw: 'analytics' },
+  { kind: 'nav', label: 'Report builder', to: '/report-builder', icon: 'pie', kw: 'custom report analytics' },
+  { kind: 'nav', label: 'Intelligence', to: '/intelligence', icon: 'sparkles', kw: 'ai insights' },
+  { kind: 'nav', label: 'Workflows', to: '/workflows', icon: 'workflow', kw: 'automation rules' },
+  { kind: 'nav', label: 'Templates', to: '/workflows/library', icon: 'copy', kw: 'automation library' },
+  { kind: 'nav', label: 'Integrations', to: '/integrations', icon: 'plug', kw: 'connect apps' },
+  { kind: 'nav', label: 'Import data', to: '/import', icon: 'download', kw: 'csv upload' },
+  { kind: 'nav', label: 'Team', to: '/team', icon: 'user', kw: 'users roles permissions' },
+  { kind: 'nav', label: 'Developers', to: '/developers', icon: 'command', kw: 'api keys webhooks' },
+  { kind: 'nav', label: 'Plans', to: '/billing-plans', icon: 'zap', kw: 'subscription pricing' },
+  { kind: 'nav', label: 'Audit log', to: '/audit', icon: 'history', kw: 'security events' },
+  { kind: 'nav', label: 'Settings', to: '/settings', icon: 'settings', kw: 'preferences modules' },
 ];
+
+// Action verbs, so the palette is command-first (type "send", "run", "book").
+const VERB_COMMANDS = [
+  { kind: 'verb', label: 'Create deal', to: '/deals?new=1', icon: 'plus', kw: 'new opportunity add' },
+  { kind: 'verb', label: 'Add contact', to: '/contacts', icon: 'plus', kw: 'new person' },
+  { kind: 'verb', label: 'Add company', to: '/companies', icon: 'plus', kw: 'new account' },
+  { kind: 'verb', label: 'Capture lead', to: '/leads', icon: 'plus', kw: 'new prospect' },
+  { kind: 'verb', label: 'Book meeting', to: '/activities', icon: 'calendar', kw: 'schedule call' },
+  { kind: 'verb', label: 'Send broadcast', to: '/campaigns', icon: 'megaphone', kw: 'email campaign marketing' },
+  { kind: 'verb', label: 'Start sequence', to: '/sequences', icon: 'send', kw: 'cadence outreach enroll' },
+  { kind: 'verb', label: 'Create quote', to: '/quotes', icon: 'receipt', kw: 'cpq proposal' },
+  { kind: 'verb', label: 'Add product', to: '/products', icon: 'box', kw: 'catalog' },
+  { kind: 'verb', label: 'Send invoice', to: '/invoices', icon: 'dollar', kw: 'billing bill' },
+  { kind: 'verb', label: 'Request signature', to: '/signatures', icon: 'edit', kw: 'esign sign' },
+  { kind: 'verb', label: 'Run report', to: '/report-builder', icon: 'pie', kw: 'analytics build' },
+  { kind: 'verb', label: 'Build dashboard', to: '/dashboards', icon: 'chart', kw: 'analytics kpi' },
+  { kind: 'verb', label: 'Create workflow', to: '/workflows', icon: 'workflow', kw: 'automation rule' },
+  { kind: 'verb', label: 'Connect app', to: '/integrations', icon: 'plug', kw: 'integration install' },
+  { kind: 'verb', label: 'Invite teammate', to: '/team', icon: 'user', kw: 'add user member' },
+  { kind: 'verb', label: 'Import data', to: '/import', icon: 'download', kw: 'csv upload' },
+  { kind: 'verb', label: 'Open settings', to: '/settings', icon: 'settings', kw: 'preferences' },
+];
+
+const DEFAULT_LIST = [...VERB_COMMANDS.slice(0, 6), ...NAV_COMMANDS.slice(0, 4)];
 
 export default function CommandK({ open, onClose }) {
   const nav = useNavigate();
@@ -31,7 +84,10 @@ export default function CommandK({ open, onClose }) {
 
   const results = useMemo(() => {
     const term = q.trim().toLowerCase();
-    if (!term) return NAV_COMMANDS.slice(0, 6);
+    if (!term) return DEFAULT_LIST;
+    const cmdMatch = (c) => c.label.toLowerCase().includes(term) || (c.kw || '').includes(term);
+    const verbHits = VERB_COMMANDS.filter(cmdMatch);
+    const navHits = NAV_COMMANDS.filter(cmdMatch);
     const out = [];
     for (const c of getContacts()) {
       const nm = contactName(c).toLowerCase();
@@ -52,8 +108,8 @@ export default function CommandK({ open, onClose }) {
       }
       if (out.length > 55) break;
     }
-    const navHits = NAV_COMMANDS.filter(n => n.label.toLowerCase().includes(term));
-    return [...navHits, ...out].slice(0, 40);
+    // Verbs first (command-palette-first), then destinations, then records.
+    return [...verbHits, ...navHits, ...out].slice(0, 40);
   }, [q]);
 
   useEffect(() => { setActive(0); }, [q]);
@@ -69,7 +125,8 @@ export default function CommandK({ open, onClose }) {
 
   if (!open) return null;
 
-  const iconFor = (r) => r.kind === 'nav' ? r.icon : r.kind === 'contact' ? 'users' : r.kind === 'company' ? 'building' : 'target';
+  const iconFor = (r) => (r.kind === 'nav' || r.kind === 'verb') ? r.icon : r.kind === 'contact' ? 'users' : r.kind === 'company' ? 'building' : 'target';
+  const isRecord = (r) => r.kind === 'contact' || r.kind === 'company' || r.kind === 'deal';
 
   return (
     <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 80, background: 'rgba(16,20,30,.5)', backdropFilter: 'blur(3px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '12vh' }}>
@@ -96,7 +153,8 @@ export default function CommandK({ open, onClose }) {
                 <span className="fw-6 clip">{r.label}</span>
                 {r.sub && <span className="t-xs muted clip">{r.sub}</span>}
               </div>
-              {r.kind !== 'nav' && <span className="t-xs muted" style={{ textTransform: 'capitalize' }}>{r.kind}</span>}
+              {isRecord(r) && <span className="t-xs muted" style={{ textTransform: 'capitalize' }}>{r.kind}</span>}
+              {r.kind === 'verb' && <span className="t-xs muted">Action</span>}
               <Icon name="chevronRight" size={15} style={{ color: 'var(--n-400)' }} />
             </div>
           ))}

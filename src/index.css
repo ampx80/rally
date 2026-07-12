@@ -17,6 +17,10 @@
   --accent-300: #a99ff9;
   --accent-50: #eeecfe;
   --accent-glow: 0 8px 24px rgba(91, 75, 245, .28);
+  /* Secondary accents (tokenized - were hardcoded across gradients/marks).
+     Indigo above stays the enterprise primary; these two are supporting only. */
+  --accent-teal: #0ea5a3;
+  --accent-purple: #a855f7;
 
   /* --- Ink + surfaces (light content) --- */
   --ink: #0e1116;               /* primary text */
@@ -33,6 +37,7 @@
   --nav-text: #e6e9f0;
   --nav-muted: #8b93a4;
   --nav-active: #232a38;
+  --nav-sec: #aeb6c6;           /* section labels - AA-contrast on --nav (9:1) */
 
   /* --- Functional --- */
   --ok: #1a7f52;
@@ -211,6 +216,10 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 .spacer { flex: 1; }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.15rem; }
 
+/* Page title tier - the H1 that opens a product page, above SectionHeader (h3). */
+.page-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+.page-title .page-h1 { margin: 0; font-size: clamp(1.55rem, 2.6vw, 2.05rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.1; }
+
 /* ============================================================
    SCROLLBAR
    ============================================================ */
@@ -307,7 +316,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   --ok-bg: #0f2a1e; --warn-bg: #2c2411; --risk-bg: #2f1613; --info-bg: #0f2135;
   --n-0: #141924; --n-25: #171d29; --n-50: #1b212e; --n-100: #232a38;
   --n-200: #303a4b; --n-400: #6d7889; --n-600: #97a1b2; --n-700: #b6bfcd; --n-800: #d6dce4; --n-900: #eef1f6;
-  --nav: #0a0d13; --nav-2: #12161f; --nav-line: #20262f; --nav-active: #1b212c;
+  --nav: #0a0d13; --nav-2: #12161f; --nav-line: #20262f; --nav-active: #1b212c; --nav-sec: #b3bbcb;
   --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3);
   --shadow-md: 0 6px 18px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35);
   --shadow-lg: 0 24px 60px rgba(0,0,0,.6), 0 8px 24px rgba(0,0,0,.4);
@@ -324,12 +333,25 @@ body, .card, .panel, .table th, .table td, .input, .select, .textarea { transiti
 .glass { background: color-mix(in srgb, var(--paper) 72%, transparent); backdrop-filter: blur(12px) saturate(1.2); border: 1px solid var(--line); }
 .hairline { border-bottom: 1px solid var(--line); }
 .grad-accent { background: linear-gradient(120deg, var(--accent-700), var(--accent) 55%, #7c5cf7); }
-.grad-rev { background: linear-gradient(120deg, #3d31c2, #5b4bf5 45%, #0ea5a3); }
+.grad-rev { background: linear-gradient(120deg, var(--accent-700), var(--accent) 45%, var(--accent-teal)); }
 .glow-ring { box-shadow: 0 0 0 3px var(--accent-50), var(--accent-glow); }
 
-/* Command-rail section label */
-.nav-sec { font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--nav-muted); padding: .9rem .8rem .3rem; opacity: .7; }
+/* Command-rail section label (pinned groups). AA-contrast, no opacity dimming. */
+.nav-sec { font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--nav-sec); padding: .9rem .8rem .35rem; }
 .nav-item-badge { margin-left: auto; font-size: .68rem; font-weight: 700; padding: .05rem .4rem; border-radius: 999px; background: rgba(255,255,255,.08); color: var(--nav-text); }
+
+/* Command-rail collapsible group header - a full-width toggle button. */
+.nav-group {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--nav-sec); background: transparent; border: none; cursor: pointer;
+  padding: .9rem .8rem .35rem; border-radius: var(--r-sm);
+  transition: color .12s var(--ease), background .12s var(--ease);
+}
+.nav-group:hover { color: var(--nav-text); }
+.nav-group:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.nav-group .chev { color: var(--nav-muted); transition: transform .16s var(--ease); flex: none; }
+.nav-group:hover .chev { color: var(--nav-text); }
 
 /* Toggle switch */
 .switch { position: relative; width: 42px; height: 24px; border-radius: 999px; background: var(--n-200); cursor: pointer; transition: background .2s var(--ease); flex: none; border: none; padding: 0; }
@@ -353,7 +375,7 @@ tr:hover .reveal, .row-host:hover .reveal { opacity: 1; }
 .launch__word { font-size: 2.6rem; font-weight: 800; letter-spacing: -.03em; opacity: 0; animation: fadeUp .6s var(--ease) .25s both; }
 .launch__tag { color: #a99ff9; font-weight: 600; letter-spacing: .02em; opacity: 0; animation: fadeUp .6s var(--ease) .42s both; }
 .launch__bar { width: 200px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; opacity: 0; animation: fadeUp .5s var(--ease) .6s both; }
-.launch__bar i { display: block; height: 100%; width: 40%; border-radius: 999px; background: linear-gradient(90deg, #a99ff9, #0ea5a3); animation: launchLoad 1.5s var(--ease) .5s forwards; }
+.launch__bar i { display: block; height: 100%; width: 40%; border-radius: 999px; background: linear-gradient(90deg, var(--accent-300), var(--accent-teal)); animation: launchLoad 1.5s var(--ease) .5s forwards; }
 @keyframes launchPop { from { transform: scale(.6) rotate(-8deg); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes launchLoad { from { width: 8%; } to { width: 100%; } }
 @keyframes launchOut { to { opacity: 0; visibility: hidden; transform: scale(1.04); } }
@@ -395,6 +417,7 @@ html, body { overflow-x: clip; max-width: 100%; }
   h2 { font-size: clamp(1.35rem, 6vw, 1.8rem); }
   .stat-value { font-size: clamp(1.9rem, 9vw, 2.5rem) !important; }
   .section-head { flex-wrap: wrap; }
+  .page-title { flex-wrap: wrap; }
   .container { padding: 0 1rem; }
 
   /* keep the top bar tidy on small screens */

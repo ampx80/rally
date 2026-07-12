@@ -10,8 +10,10 @@ import {
 } from '../lib/store.js';
 import DataTable from '../components/DataTable.jsx';
 import ViewBar from '../components/ViewBar.jsx';
+import CompanyTree from '../components/hierarchy/CompanyTree.jsx';
+import { getRootCompanies, getChildren, seedHierarchyExamples } from '../lib/hierarchy.js';
 import { applyView } from '../lib/views.js';
-import { SectionHeader, Button, Badge, Field, Input, Select, Modal, useToast, HealthDot, moneyK } from '../components/UI.jsx';
+import { SectionHeader, Button, Badge, Field, Input, Select, Modal, useToast, HealthDot, moneyK, Segmented } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
 const INDUSTRY_OPTIONS = ['SaaS', 'Manufacturing', 'Healthcare', 'Financial Services', 'Logistics', 'Retail', 'Energy', 'Media', 'Real Estate', 'Construction', 'Biotech', 'Aerospace'];
@@ -39,6 +41,8 @@ export default function Companies() {
   const companies = applyView(allCompanies, view, 'company', { currentUserId: getCurrentUser().id });
 
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState('table');
+  React.useEffect(() => { seedHierarchyExamples(); }, []);
   const emptyForm = { name: '', domain: '', industry: 'SaaS', size: '51-200', location: '', ownerId: getCurrentUser().id, health: 'green' };
   const [form, setForm] = useState(emptyForm);
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
@@ -105,17 +109,28 @@ export default function Companies() {
 
       <ViewBar objectType="company" onView={setView} />
 
-      <DataTable
-        columns={columns}
-        rows={companies}
-        getId={(r) => r.id}
-        onRowClick={(r) => navigate(`/companies/${r.id}`)}
-        searchable
-        searchKeys={['name', 'industry', 'location']}
-        searchPlaceholder="Filter companies..."
-        initialSort={{ key: 'name', dir: 'asc' }}
-        bulkActions={bulkActions}
-      />
+      <div className="row" style={{ justifyContent: 'flex-end' }}>
+        <Segmented options={[{ value: 'table', label: 'Table' }, { value: 'tree', label: 'Tree' }]} value={mode} onChange={setMode} />
+      </div>
+
+      {mode === 'table' && (
+        <DataTable
+          columns={columns}
+          rows={companies}
+          getId={(r) => r.id}
+          onRowClick={(r) => navigate(`/companies/${r.id}`)}
+          searchable
+          searchKeys={['name', 'industry', 'location']}
+          searchPlaceholder="Filter companies..."
+          initialSort={{ key: 'name', dir: 'asc' }}
+          bulkActions={bulkActions}
+        />
+      )}
+      {mode === 'tree' && (
+        <div className="col gap-3">
+          {getRootCompanies().filter(r => getChildren(r.id).length > 0).map(root => <CompanyTree key={root.id} companyId={root.id} />)}
+        </div>
+      )}
 
       <Modal open={open} onClose={() => setOpen(false)} title="New company"
         footer={<>

@@ -10,9 +10,11 @@ import {
 } from '../lib/store.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
 import RecordDetailPanel from '../components/RecordDetailPanel.jsx';
+import CompanyTree from '../components/hierarchy/CompanyTree.jsx';
+import HierarchyRollupCards from '../components/hierarchy/HierarchyRollupCards.jsx';
 import {
   Card, Button, Badge, Avatar, Stat, Field, Input, Select, Modal,
-  EmptyState, useToast, HealthDot, moneyK,
+  EmptyState, useToast, HealthDot, moneyK, Tabs,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
@@ -39,6 +41,7 @@ export default function CompanyDetail() {
 
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState(null);
+  const [tab, setTab] = useState('overview');
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
 
   if (!co) {
@@ -119,6 +122,9 @@ export default function CompanyDetail() {
         </div>
       </Card>
 
+      <Tabs active={tab} onChange={setTab} tabs={[{ key: 'overview', label: 'Overview' }, { key: 'hierarchy', label: 'Hierarchy' }]} />
+
+      {tab === 'overview' && (<>
       {/* stat tiles */}
       <div className="row gap-3 wrap">
         <Card className="card-hover" style={{ flex: '1 1 200px' }}>
@@ -203,6 +209,14 @@ export default function CompanyDetail() {
           <ActivityTimeline relatedType="company" relatedId={id} companyId={id} />
         </div>
       </div>
+      </>)}
+
+      {tab === 'hierarchy' && (
+        <div className="col gap-3">
+          <HierarchyRollupCards companyId={id} />
+          <CompanyTree companyId={id} />
+        </div>
+      )}
 
       {/* edit modal */}
       <Modal open={edit} onClose={() => setEdit(false)} title="Edit company"

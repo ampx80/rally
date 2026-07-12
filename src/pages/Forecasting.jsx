@@ -17,6 +17,8 @@ import {
   Button, AnimatedNumber, moneyK, money, shortDate,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import PipelineSwitcher from '../components/PipelineSwitcher.jsx';
+import { DEFAULT_PIPELINE_ID, dealInPipeline } from '../lib/pipelines.js';
 import {
   ResponsiveContainer, ComposedChart, Bar, LineChart, Line, XAxis, YAxis,
   CartesianGrid, Tooltip, Cell, ReferenceLine,
@@ -48,6 +50,7 @@ export default function Forecasting() {
   useStore(); // re-render on any store mutation
 
   const [quarter, setQuarter] = useState('this');
+  const [pipelineId, setPipelineId] = useState(DEFAULT_PIPELINE_ID);
   const [overrides, setOverrides] = useState(() => loadOverrides());
   const [selectedRep, setSelectedRep] = useState(null);
   const [sort, setSort] = useState({ key: 'attainment', dir: 'desc' });
@@ -103,12 +106,13 @@ export default function Forecasting() {
     if (!selectedRep) return [];
     return getDeals()
       .filter(d => d.ownerId === selectedRep && d.status === 'open')
+      .filter(d => dealInPipeline(d, pipelineId))
       .filter(d => {
         const t = new Date(d.closeDate).getTime();
         return t >= range.start.getTime() && t <= range.end.getTime();
       })
       .sort((a, b) => new Date(a.closeDate) - new Date(b.closeDate));
-  }, [selectedRep, range, overrides]);
+  }, [selectedRep, range, overrides, pipelineId]);
 
   const setCategory = (dealId, catId) => {
     const next = saveOverride(dealId, catId);
@@ -131,11 +135,14 @@ export default function Forecasting() {
         title="Forecasting"
         sub="Roll deals into commit, best case, and pipeline. The number the board asks for, live off the book."
         action={
-          <Segmented
-            options={[{ value: 'this', label: 'This quarter' }, { value: 'next', label: 'Next quarter' }]}
-            value={quarter}
-            onChange={(v) => { setQuarter(v); setSelectedRep(null); }}
-          />
+          <div className="row gap-2 wrap">
+            <PipelineSwitcher value={pipelineId} onChange={setPipelineId} />
+            <Segmented
+              options={[{ value: 'this', label: 'This quarter' }, { value: 'next', label: 'Next quarter' }]}
+              value={quarter}
+              onChange={(v) => { setQuarter(v); setSelectedRep(null); }}
+            />
+          </div>
         }
       />
 

@@ -563,9 +563,10 @@ export function moveDealStage(id, stageId, { silent = false } = {}) {
 }
 
 // SUPABASE: from('rally_activities').insert(row).select().single()
-export function createActivity({ type = 'task', subject, body = '', dueAt, done = false, relatedType, relatedId, companyId, ownerId }) {
+export function createActivity({ type = 'task', subject, body = '', dueAt, done = false, relatedType, relatedId, companyId, ownerId, ...rest }) {
   if (!subject || !subject.trim()) return { error: 'subject', message: 'A subject is required.' };
   const a = {
+    ...rest,
     id: newId('a'), type,
     subject: subject.trim(), body,
     dueAt: dueAt || new Date().toISOString(), done,

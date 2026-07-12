@@ -102,6 +102,24 @@ export function Avatar({ name = '', src, size = 38, color }) {
   );
 }
 
+/* ---------- PageTitle ----------
+   The top-of-page H1 tier, one step above SectionHeader (which renders an h3).
+   Use once per product page for the primary heading; SectionHeader stays for
+   the card/section sub-heads below it. */
+export function PageTitle({ title, sub, eyebrow, action, children }) {
+  return (
+    <div className="page-title">
+      <div className="col gap-1" style={{ minWidth: 0 }}>
+        {eyebrow && <div className="eyebrow">{eyebrow}</div>}
+        <h1 className="page-h1">{title}</h1>
+        {sub && <div className="muted t-sm">{sub}</div>}
+        {children}
+      </div>
+      {action && <div className="row gap-1" style={{ flex: 'none' }}>{action}</div>}
+    </div>
+  );
+}
+
 /* ---------- SectionHeader ---------- */
 export function SectionHeader({ title, sub, action, eyebrow }) {
   return (
@@ -247,7 +265,7 @@ export function MiniBars({ data = [], w = 120, h = 34, color = 'var(--accent)', 
 
 /* ---------- GradientText ---------- */
 export function GradientText({ children, style, className = '' }) {
-  return <span className={className} style={{ background: 'linear-gradient(100deg, var(--accent), #a855f7 60%, #0ea5a3)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', ...style }}>{children}</span>;
+  return <span className={className} style={{ background: 'linear-gradient(100deg, var(--accent), var(--accent-purple) 60%, var(--accent-teal))', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', ...style }}>{children}</span>;
 }
 
 /* ---------- Trend chip ---------- */

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Icon, typeIcon } from './icons.jsx';
 import { Avatar, relTime, useToast } from './UI.jsx';
 import { createActivity, toggleActivity, getActivitiesForRecord, userName, ACTIVITY_TYPES, ACTIVITY_META } from '../lib/store.js';
+import ActivitySourceChip from '../lib/integrations/ActivitySourceChip.jsx';
 
 const typeTint = { task: '#5b4bf5', call: '#0ea5a3', email: '#2563a8', meeting: '#b3721a', note: '#5b6474' };
 
@@ -53,6 +54,7 @@ export default function ActivityTimeline({ relatedType, relatedId, companyId, ti
                 <span className="t-xs muted" style={{ flex: 'none' }}>{relTime(a.dueAt || a.createdAt)}</span>
               </div>
               <span className="t-xs muted">{userName(a.ownerId)}{a.type !== 'note' && !a.system ? (a.done ? ' - done' : ' - open') : ''}</span>
+              {a.source && (<div className="row" style={{ marginTop: '.25rem' }}><ActivitySourceChip source={a.source} externalUrl={a.externalUrl} /></div>)}
             </div>
             {a.type !== 'note' && !a.system && (
               <button className="btn btn-quiet btn-sm" title={a.done ? 'Mark open' : 'Mark done'}

@@ -19,6 +19,8 @@ import { Icon } from '../components/icons.jsx';
 import { celebrate } from '../lib/celebrate.js';
 import KanbanBoard from '../components/KanbanBoard.jsx';
 import DataTable from '../components/DataTable.jsx';
+import PipelineSwitcher from '../components/PipelineSwitcher.jsx';
+import { DEFAULT_PIPELINE_ID, dealInPipeline } from '../lib/pipelines.js';
 
 const STAGE_COLOR = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -49,8 +51,10 @@ export default function Deals() {
   const [savedView, setSavedView] = useState(null);
   const [modalOpen, setModalOpen] = useState(params.get('new') === '1');
   const [draft, setDraft] = useState(emptyDraft);
+  const [pipelineId, setPipelineId] = useState(DEFAULT_PIPELINE_ID);
 
   const deals = applyView(getDeals(), savedView, 'deal', { currentUserId: getCurrentUser().id });
+  const scoped = deals.filter(d => dealInPipeline(d, pipelineId));
   const open = openDeals();
 
   const openModal = () => { setDraft(emptyDraft()); setModalOpen(true); };
@@ -164,9 +168,13 @@ export default function Deals() {
 
       <ViewBar objectType="deal" onView={setSavedView} />
 
+      <div className="row" style={{ marginBottom: '.75rem' }}>
+        <PipelineSwitcher value={pipelineId} onChange={setPipelineId} />
+      </div>
+
       {view === 'board' ? (
         <KanbanBoard
-          deals={deals}
+          deals={scoped}
           companyName={(id) => getCompany(id)?.name || '-'}
           ownerName={userName}
           onMove={(dealId, stageId) => {
@@ -178,7 +186,7 @@ export default function Deals() {
       ) : (
         <DataTable
           columns={columns}
-          rows={deals}
+          rows={scoped}
           getId={(d) => d.id}
           onRowClick={(d) => nav(`/deals/${d.id}`)}
           searchable

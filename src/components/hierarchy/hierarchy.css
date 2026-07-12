@@ -1,0 +1,123 @@
+/* Scoped styles for the account-hierarchy UI (CompanyTree +
+   HierarchyRollupCards). All selectors are prefixed .rh- so nothing
+   leaks into other surfaces. Tokens come from src/index.css. */
+
+.rh-tree-wrap { display: flex; flex-direction: column; gap: 1rem; }
+
+/* breadcrumb */
+.rh-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  color: var(--n-600);
+}
+
+/* tree */
+.rh-tree {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+  padding: .4rem;
+  overflow-x: auto;
+}
+.rh-node { display: block; }
+.rh-children { display: block; }
+
+.rh-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 40px;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+  padding-right: .6rem;
+  border-radius: var(--r-sm);
+}
+.rh-row:hover { background: var(--n-50); }
+.rh-row-focus {
+  background: var(--accent-50);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.rh-row-focus:hover { background: var(--accent-50); }
+
+.rh-toggle {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--n-600);
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  padding: 0;
+}
+.rh-toggle:hover { background: var(--n-100); color: var(--ink); }
+.rh-toggle-leaf { cursor: default; }
+.rh-toggle-leaf:hover { background: transparent; }
+
+.rh-ico { flex: none; color: var(--n-600); display: inline-flex; align-items: center; }
+
+.rh-name {
+  min-width: 0;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rh-name-focus { color: var(--ink); font-weight: 700; }
+
+.rh-meta {
+  margin-left: auto;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.rh-pipe { color: var(--n-600); font-weight: 600; white-space: nowrap; }
+
+/* empty state */
+.rh-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: .35rem;
+  padding: 2rem 1.25rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--paper);
+}
+.rh-empty-ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--n-100);
+  color: var(--n-600);
+  margin-bottom: .25rem;
+}
+
+/* parent picker */
+.rh-picker {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  max-width: 420px;
+}
+.rh-picker-label { font-weight: 600; }
+
+/* roll-up cards */
+.rh-rollup { display: flex; flex-direction: column; gap: .75rem; }
+.rh-rollup-head { align-items: center; }
+.rh-rollup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+.rh-rollup-card { min-width: 0; }
