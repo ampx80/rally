@@ -42,6 +42,7 @@ import DealFilm from './pages/DealFilm.jsx';
 import WindTunnel from './pages/WindTunnel.jsx';
 import MarketingAutomations from './pages/MarketingAutomations.jsx';
 import GhostDeals from './pages/GhostDeals.jsx';
+import AskCanvas from './pages/AskCanvas.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -82,7 +83,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -95,6 +96,7 @@ const NAV_GROUPS = [
     { to: '/activities', label: 'My day', icon: 'activity' },
     { to: '/inbox', label: 'Inbox', icon: 'inbox' },
     { to: '/notifications', label: 'Notifications', icon: 'bell' },
+    { to: '/canvas', label: 'Ask Canvas', icon: 'sliders' },
   ] },
   { id: 'customers', label: 'Customers', items: [
     { to: '/leads', label: 'Leads', icon: 'funnel' },
@@ -410,6 +412,7 @@ export default function App() {
               <Route path="/film" element={<DealFilm />} />
               <Route path="/wind-tunnel" element={<WindTunnel />} />
               <Route path="/ghost-deals" element={<GhostDeals />} />
+              <Route path="/canvas" element={<AskCanvas />} />
               <Route path="/campaigns" element={<Campaigns />} />
               <Route path="/sequences" element={<Sequences />} />
               <Route path="/automations" element={<MarketingAutomations />} />
