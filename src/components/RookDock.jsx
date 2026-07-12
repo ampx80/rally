@@ -21,6 +21,7 @@ import {
   getLeads, getProducts, getQuotes, getInvoices, getCampaigns, getSequences, getTickets, getWorkflows,
   arOutstanding, arOverdue, arPaid, campaignRevenue, openTickets, qualifiedLeads,
 } from '../lib/store-ext.js';
+import { hasRookAction, runRookAction } from '../lib/rook-actions.js';
 
 function RookGlyph({ size = 22, color = '#fff' }) {
   return (
@@ -309,6 +310,10 @@ export default function RookDock() {
     const key = a.label + a.kind;
     setRunning(key);
     try {
+      // Newer Rook-operated surfaces (broadcasts, quotes, scheduling, deal
+      // summaries, fork studio) live in the action registry. Run them through
+      // the SAME push/go helpers before the built-in kind checks.
+      if (hasRookAction(a.kind)) { await runRookAction(a.kind, a, { push, go }); return; }
       if (a.kind === 'navigate' && a.to) return go(a.to);
 
       if (a.kind === 'create_company' && a.company?.name) {

@@ -15,6 +15,10 @@ import { getFields } from '../lib/fields.js';
 import { Card, Button, Avatar, Badge, Field, Input, Select, Modal, EmptyState, Tabs, useToast, moneyK } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import DraftWithAI from '../components/outreach/DraftWithAI.jsx';
+import TangoMeetings from '../components/integrations/TangoMeetings.jsx';
+import RecordTickets from '../components/integrations/RecordTickets.jsx';
+import ConnectedApps from '../components/integrations/ConnectedApps.jsx';
+import AssociationsPanel from '../components/associations/AssociationsPanel.jsx';
 
 const STAGE_DOT = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -168,6 +172,10 @@ export default function ContactDetail() {
         <div className="col gap-3" style={{ flex: '1 1 360px', maxWidth: 400, minWidth: 0 }}>
           <h4 style={{ margin: 0 }}>Activity</h4>
           <ActivityTimeline relatedType="contact" relatedId={id} companyId={c.companyId} />
+          <TangoMeetings recordType="contact" record={c} />
+          <RecordTickets contactId={c.id} />
+          <ConnectedApps relatedType="contact" relatedId={id} companyId={c.companyId} />
+          <AssociationsPanel recordType="contact" recordId={c.id} />
         </div>
       </div>
 

@@ -30,6 +30,10 @@ import { celebrate } from '../lib/celebrate.js';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
 import RecordDetailPanel from '../components/RecordDetailPanel.jsx';
 import DraftWithAI from '../components/outreach/DraftWithAI.jsx';
+import RecordProjects from '../components/integrations/RecordProjects.jsx';
+import ConnectedApps from '../components/integrations/ConnectedApps.jsx';
+import AssociationsPanel from '../components/associations/AssociationsPanel.jsx';
+import GhostDealPanel from '../components/GhostDealPanel.jsx';
 
 const STAGE_COLOR = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -630,6 +634,10 @@ export default function DealDetail() {
             </div>
           </div>
           <ActivityTimeline relatedType="deal" relatedId={deal.id} companyId={deal.companyId} />
+          <RecordProjects deal={deal} />
+          <ConnectedApps relatedType="deal" relatedId={deal.id} companyId={deal.companyId} />
+          <AssociationsPanel recordType="deal" recordId={deal.id} />
+          <GhostDealPanel deal={deal} />
         </div>
       </div>
 

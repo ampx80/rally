@@ -17,6 +17,11 @@ import {
   EmptyState, useToast, HealthDot, moneyK, Tabs,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import TangoMeetings from '../components/integrations/TangoMeetings.jsx';
+import RecordTickets from '../components/integrations/RecordTickets.jsx';
+import RecordProjects from '../components/integrations/RecordProjects.jsx';
+import ConnectedApps from '../components/integrations/ConnectedApps.jsx';
+import AssociationsPanel from '../components/associations/AssociationsPanel.jsx';
 
 const INDUSTRY_OPTIONS = ['SaaS', 'Manufacturing', 'Healthcare', 'Financial Services', 'Logistics', 'Retail', 'Energy', 'Media', 'Real Estate', 'Construction', 'Biotech', 'Aerospace'];
 const SIZE_OPTIONS = ['1-50', '51-200', '201-500', '501-1000', '1001-5000', '5000+'];
@@ -207,6 +212,11 @@ export default function CompanyDetail() {
         <div className="col gap-2" style={{ flex: '1 1 360px', minWidth: 300, maxWidth: 420 }}>
           <div className="eyebrow">Activity</div>
           <ActivityTimeline relatedType="company" relatedId={id} companyId={id} />
+          <TangoMeetings recordType="company" record={co} contacts={contacts} />
+          <RecordTickets companyId={co.id} />
+          <RecordProjects company={co} />
+          <ConnectedApps relatedType="company" relatedId={id} companyId={id} />
+          <AssociationsPanel recordType="company" recordId={id} />
         </div>
       </div>
       </>)}
