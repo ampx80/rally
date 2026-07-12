@@ -494,6 +494,16 @@ export function updateCompany(id, patch) {
   commit({ ...state });
   return { company: co };
 }
+// SUPABASE: from('rally_companies').delete().eq('id', id)
+// Additive writer. Used by the duplicate-merge tool (src/lib/dedupe.js) to
+// remove a duplicate account AFTER its contacts / deals / activities /
+// associations have been moved onto the master. Safe no-op on unknown id.
+export function deleteCompany(id) {
+  const co = getCompany(id);
+  if (!co) return { error: 'missing', message: 'Company not found.' };
+  commit({ ...state, companies: state.companies.filter(x => x.id !== id) });
+  return { ok: true, id };
+}
 
 // SUPABASE: from('rally_contacts').insert(row).select().single()
 export function createContact({ firstName, lastName, email, phone, title, companyId, ownerId, tags = [], lifecycleStage }) {
@@ -518,6 +528,16 @@ export function updateContact(id, patch) {
   applyPatch('contact', c, patch);
   commit({ ...state });
   return { contact: c };
+}
+// SUPABASE: from('rally_contacts').delete().eq('id', id)
+// Additive writer. Used by the duplicate-merge tool (src/lib/dedupe.js) to
+// remove a duplicate contact AFTER its deals / activities / associations have
+// been moved onto the master. Safe no-op on unknown id.
+export function deleteContact(id) {
+  const c = getContact(id);
+  if (!c) return { error: 'missing', message: 'Contact not found.' };
+  commit({ ...state, contacts: state.contacts.filter(x => x.id !== id) });
+  return { ok: true, id };
 }
 
 // SUPABASE: from('rally_deals').insert(row).select().single()

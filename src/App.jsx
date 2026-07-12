@@ -53,6 +53,12 @@ import Permissions from './pages/Permissions.jsx';
 import CustomObjects from './pages/CustomObjects.jsx';
 import CustomObjectRecords from './pages/CustomObjectRecords.jsx';
 import Scheduler from './pages/Scheduler.jsx';
+import KnowledgeBase from './pages/KnowledgeBase.jsx';
+import ServiceHub from './pages/ServiceHub.jsx';
+import Duplicates from './pages/Duplicates.jsx';
+import TaskQueue from './pages/TaskQueue.jsx';
+import Playbooks from './pages/Playbooks.jsx';
+import Attribution from './pages/Attribution.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -96,7 +102,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -110,6 +116,7 @@ const NAV_GROUPS = [
     { to: '/inbox', label: 'Inbox', icon: 'inbox' },
     { to: '/notifications', label: 'Notifications', icon: 'bell' },
     { to: '/canvas', label: 'Ask Canvas', icon: 'sliders' },
+    { to: '/queue', label: 'Task queues', icon: 'check' },
   ] },
   { id: 'customers', label: 'Customers', items: [
     { to: '/leads', label: 'Leads', icon: 'funnel' },
@@ -122,6 +129,7 @@ const NAV_GROUPS = [
     { to: '/goals', label: 'Goals', icon: 'rocket' },
     { to: '/territories', label: 'Territories', icon: 'grid' },
     { to: '/scheduler', label: 'Scheduler', icon: 'clock' },
+    { to: '/playbooks', label: 'Playbooks', icon: 'book' },
   ] },
   { id: 'marketing', label: 'Marketing', items: [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
@@ -136,6 +144,8 @@ const NAV_GROUPS = [
     { to: '/success', label: 'Customer success', icon: 'shield' },
     { to: '/scheduling', label: 'Scheduling', icon: 'calendar' },
     { to: '/tickets', label: 'Support tickets', icon: 'mail' },
+    { to: '/service', label: 'Service Hub', icon: 'lifebuoy' },
+    { to: '/kb', label: 'Knowledge base', icon: 'book' },
   ] },
   { id: 'revenue', label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -152,6 +162,7 @@ const NAV_GROUPS = [
     { to: '/fork', label: 'Pipeline Fork', icon: 'gitBranch' },
     { to: '/wind-tunnel', label: 'Wind Tunnel', icon: 'bolt' },
     { to: '/ghost-deals', label: 'Ghost Deals', icon: 'rotateCcw' },
+    { to: '/attribution', label: 'Attribution', icon: 'key' },
   ] },
   { id: 'automation', label: 'Automation', items: [
     { to: '/workflows', label: 'Workflows', icon: 'workflow' },
@@ -165,6 +176,7 @@ const NAV_GROUPS = [
     { to: '/team', label: 'Team', icon: 'user' },
     { to: '/permissions', label: 'Permissions', icon: 'lock' },
     { to: '/objects', label: 'Custom objects', icon: 'menu' },
+    { to: '/duplicates', label: 'Duplicates', icon: 'merge' },
     { to: '/developers', label: 'Developers', icon: 'command' },
     { to: '/billing-plans', label: 'Plans', icon: 'zap' },
     { to: '/audit', label: 'Audit', icon: 'history' },
@@ -465,6 +477,12 @@ export default function App() {
               <Route path="/objects" element={<CustomObjects />} />
               <Route path="/objects/:type" element={<CustomObjectRecords />} />
               <Route path="/scheduler" element={<Scheduler />} />
+              <Route path="/service" element={<ServiceHub />} />
+              <Route path="/kb" element={<KnowledgeBase />} />
+              <Route path="/queue" element={<TaskQueue />} />
+              <Route path="/playbooks" element={<Playbooks />} />
+              <Route path="/attribution" element={<Attribution />} />
+              <Route path="/duplicates" element={<Duplicates />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
