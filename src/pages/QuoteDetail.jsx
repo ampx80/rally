@@ -15,8 +15,12 @@ import {
   useQuoteStore, quoteById, getQuoteLines, getQuoteExtras, getQuoteTimeline,
   quoteTotals, lineQuoteTotal, addQuoteLine, addQuoteProduct, updateQuoteLine,
   removeQuoteLine, reorderQuoteLine, setQuoteMeta, setQuoteStatus,
-  QUOTE_FLOW, QUOTE_STATUS_META,
+  setQuoteOrderDiscount, getQuoteOrderDiscount, quoteApprovalInfo,
+  requestQuoteApproval, decideQuoteApproval, getQuoteTemplates,
+  saveQuoteTemplate, applyQuoteTemplate, deleteQuoteTemplate,
+  DISCOUNT_APPROVAL_THRESHOLD, QUOTE_FLOW, QUOTE_STATUS_META,
 } from '../lib/store-quote.js';
+import { can, useRbac } from '../lib/rbac.js';
 import {
   Button, Card, Badge, Avatar, Field, Input, Select, Textarea, Modal,
   AnimatedNumber, EmptyState, useToast, money, monthDay, relTime,
@@ -37,6 +41,7 @@ export default function QuoteDetail() {
   const toast = useToast();
   useExt(s => s.quotes);   // subscribe to the store-ext quote record
   useQuoteStore();         // subscribe to line items + meta + timeline
+  useRbac(s => s.activeRole); // re-render approve controls when the active role changes
 
   const [preview, setPreview] = useState(false);
   const [addProduct, setAddProduct] = useState('');
@@ -44,6 +49,10 @@ export default function QuoteDetail() {
   const [dragId, setDragId] = useState(null);
   const [rowDraggable, setRowDraggable] = useState(null);
   const [overIndex, setOverIndex] = useState(null);
+  const [tplMenu, setTplMenu] = useState(false);      // apply-template menu
+  const [pendingTpl, setPendingTpl] = useState(null); // template awaiting replace/append choice
+  const [saveTplOpen, setSaveTplOpen] = useState(false);
+  const [saveTplName, setSaveTplName] = useState('');
 
   const quote = quoteById(id);
   if (!quote) {
@@ -72,6 +81,35 @@ export default function QuoteDetail() {
   const meta = QUOTE_STATUS_META[quote.status] || QUOTE_STATUS_META.draft;
   const expired = quote.status === 'expired';
   const currentIndex = QUOTE_FLOW.indexOf(quote.status);
+  const orderDisc = getQuoteOrderDiscount(id);
+  const approval = quoteApprovalInfo(id);
+  const templates = getQuoteTemplates();
+  const canApprove = can('quotes.approve');
+  const sendBlocked = approval.blocked;   // discount over threshold, not covered by an approval
+
+  /* ---- approval actions ---- */
+  const doRequestApproval = () => { requestQuoteApproval(id); toast(`${quote.number} sent for approval.`); };
+  const doApprove = (e) => {
+    decideQuoteApproval(id, true);
+    celebrate({ x: e?.clientX, y: e?.clientY, count: 60, spread: .8 });
+    toast(`Discount on ${quote.number} approved.`);
+  };
+  const doReject = () => { decideQuoteApproval(id, false); toast(`Discount on ${quote.number} declined.`); };
+
+  /* ---- template actions ---- */
+  const chooseTemplate = (tpl) => { setPendingTpl(tpl); setTplMenu(false); };
+  const doApplyTemplate = (mode) => {
+    if (!pendingTpl) return;
+    const r = applyQuoteTemplate(id, pendingTpl.id, mode);
+    if (!r.error) toast(`Applied "${pendingTpl.name}" (${r.count} line${r.count !== 1 ? 's' : ''}).`);
+    setPendingTpl(null);
+  };
+  const doSaveTemplate = () => {
+    const name = saveTplName.trim() || `${quote.number} template`;
+    saveQuoteTemplate(id, name);
+    toast(`Saved template "${name}".`);
+    setSaveTplOpen(false); setSaveTplName('');
+  };
 
   /* ---- status transitions with celebration ---- */
   const goStatus = (status, e) => {
@@ -111,7 +149,17 @@ export default function QuoteDetail() {
         <div className="row gap-1 wrap" style={{ justifyContent: 'flex-end' }}>
           <Button variant="ghost" onClick={() => setPreview(true)}><Icon name="receipt" size={16} /> Preview</Button>
           <Button variant="ghost" onClick={() => window.print()}><Icon name="download" size={16} /> Download PDF</Button>
-          {quote.status !== 'sent' && quote.status !== 'accepted' && (
+          {/* approval-gated send: a discount over threshold must clear approval first */}
+          {sendBlocked && canApprove && (
+            <Button variant="primary" onClick={(e) => doApprove(e)}><Icon name="check" size={16} /> Approve discount</Button>
+          )}
+          {sendBlocked && !canApprove && approval.status !== 'pending' && (
+            <Button variant="primary" onClick={doRequestApproval}><Icon name="clock" size={16} /> Request approval</Button>
+          )}
+          {sendBlocked && !canApprove && approval.status === 'pending' && (
+            <Button variant="ghost" disabled><Icon name="clock" size={16} /> Awaiting approval</Button>
+          )}
+          {!sendBlocked && quote.status !== 'sent' && quote.status !== 'accepted' && (
             <Button variant="primary" onClick={(e) => goStatus('sent', e)}><Icon name="send" size={16} /> Send</Button>
           )}
           {quote.status !== 'accepted' && (
@@ -153,6 +201,12 @@ export default function QuoteDetail() {
         <StatusStepper status={quote.status} currentIndex={currentIndex} expired={expired} onStep={goStatus} />
       </Card>
 
+      {/* approval banner - only when the effective discount crosses the threshold */}
+      {approval.overThreshold && (
+        <ApprovalBanner approval={approval} canApprove={canApprove}
+          onRequest={doRequestApproval} onApprove={doApprove} onReject={doReject} />
+      )}
+
       <div className="qd-grid">
         {/* MAIN */}
         <div className="col gap-3" style={{ minWidth: 0 }}>
@@ -174,7 +228,7 @@ export default function QuoteDetail() {
                       <th style={{ textAlign: 'left' }}>Product</th>
                       <th style={{ textAlign: 'right', width: 78 }}>Qty</th>
                       <th style={{ textAlign: 'right', width: 118 }}>Unit price</th>
-                      <th style={{ textAlign: 'right', width: 84 }}>Disc %</th>
+                      <th style={{ textAlign: 'right', width: 132 }}>Discount</th>
                       <th style={{ textAlign: 'right', width: 84 }}>Tax %</th>
                       <th style={{ textAlign: 'right', width: 120 }}>Total</th>
                       <th style={{ width: 40 }}></th>
@@ -211,8 +265,14 @@ export default function QuoteDetail() {
                             onChange={e => updateQuoteLine(id, l.id, { unitPrice: e.target.value })} />
                         </td>
                         <td style={{ textAlign: 'right' }}>
-                          <input className="qd-num" type="number" min="0" max="100" value={l.discount}
-                            onChange={e => updateQuoteLine(id, l.id, { discount: e.target.value })} />
+                          <div className="qd-disc">
+                            <button type="button" className="qd-disc-toggle" title="Toggle percent / amount"
+                              onClick={() => updateQuoteLine(id, l.id, { discountType: l.discountType === 'amt' ? 'pct' : 'amt' })}>
+                              {l.discountType === 'amt' ? '$' : '%'}
+                            </button>
+                            <input className="qd-num" type="number" min="0" max={l.discountType === 'amt' ? undefined : 100} value={l.discount}
+                              onChange={e => updateQuoteLine(id, l.id, { discount: e.target.value })} />
+                          </div>
                         </td>
                         <td style={{ textAlign: 'right' }}>
                           <input className="qd-num" type="number" min="0" max="100" value={l.tax}
@@ -244,6 +304,16 @@ export default function QuoteDetail() {
               <Button variant="ghost" size="sm" onClick={() => addQuoteLine(id, { name: 'Custom line', qty: 1, unitPrice: 0 })}>
                 <Icon name="plus" size={15} /> Blank line
               </Button>
+              <div className="row gap-2 wrap" style={{ marginLeft: 'auto', alignItems: 'center' }}>
+                <Select value="" onChange={e => { const t = templates.find(x => x.id === e.target.value); if (t) chooseTemplate(t); e.target.value = ''; }}
+                  style={{ maxWidth: 230 }} disabled={!templates.length}>
+                  <option value="">Apply a template...</option>
+                  {templates.map(t => <option key={t.id} value={t.id}>{t.name}{t.seeded ? '' : ' (saved)'}</option>)}
+                </Select>
+                <Button variant="ghost" size="sm" onClick={() => { setSaveTplName(`${quote.number} template`); setSaveTplOpen(true); }} disabled={!lines.length}>
+                  <Icon name="layers" size={15} /> Save as template
+                </Button>
+              </div>
             </div>
           </Card>
 
@@ -251,13 +321,43 @@ export default function QuoteDetail() {
           <Card className="col gap-2">
             <strong className="row gap-2" style={{ alignItems: 'center' }}><Icon name="dollar" size={17} /> Totals</strong>
             <TotalRow label="Subtotal" value={totals.subtotal} />
-            <TotalRow label="Discount" value={-totals.discountTotal} tone="var(--risk)" prefix={totals.discountTotal > 0 ? '- ' : ''} abs />
+            {totals.lineDiscountTotal > 0 &&
+              <TotalRow label="Line discounts" value={totals.lineDiscountTotal} tone="var(--risk)" prefix="- " abs />}
+
+            {/* order-level discount (percent or amount) */}
+            <div className="row between" style={{ alignItems: 'center', padding: '.15rem 0', gap: '.5rem' }}>
+              <span className="t-sm muted">Order discount</span>
+              <div className="qd-disc" style={{ justifyContent: 'flex-end' }}>
+                <button type="button" className="qd-disc-toggle" title="Toggle percent / amount"
+                  onClick={() => setQuoteOrderDiscount(id, { type: orderDisc.type === 'amt' ? 'pct' : 'amt' })}>
+                  {orderDisc.type === 'amt' ? '$' : '%'}
+                </button>
+                <input className="qd-num" type="number" min="0" max={orderDisc.type === 'amt' ? undefined : 100}
+                  value={orderDisc.value || 0}
+                  onChange={e => setQuoteOrderDiscount(id, { value: e.target.value })}
+                  style={{ width: 96, textAlign: 'right' }} />
+              </div>
+            </div>
+            {totals.orderDiscountAmt > 0 &&
+              <TotalRow label="Order discount applied" value={totals.orderDiscountAmt} tone="var(--risk)" prefix="- " abs />}
+
             <TotalRow label="Tax" value={totals.taxTotal} />
             <div className="row between" style={{ alignItems: 'center', padding: '.15rem 0' }}>
               <span className="t-sm muted">Shipping</span>
               <input className="qd-num" type="number" min="0" value={extras.shipping || 0}
                 onChange={e => setQuoteMeta(id, { shipping: e.target.value })} style={{ width: 120, textAlign: 'right' }} />
             </div>
+
+            {totals.discountTotal > 0 && (
+              <div className="row between" style={{ alignItems: 'center', padding: '.1rem 0' }}>
+                <span className="t-xs muted">Effective discount</span>
+                <span className={`qd-effdisc${approval.overThreshold ? ' qd-effdisc-over' : ''}`}>
+                  {totals.effectiveDiscountPct.toFixed(1)}%
+                  {approval.overThreshold && <span className="t-xs" style={{ marginLeft: 6 }}>needs approval &gt; {approval.threshold}%</span>}
+                </span>
+              </div>
+            )}
+
             <div style={{ borderTop: '2px solid var(--ink)', margin: '.4rem 0 .2rem' }} />
             <div className="row between" style={{ alignItems: 'baseline' }}>
               <span className="fw-7" style={{ fontSize: '1.05rem' }}>Grand total</span>
@@ -341,6 +441,53 @@ export default function QuoteDetail() {
         </Modal>
       )}
 
+      {/* apply-template: replace vs add */}
+      {pendingTpl && (
+        <Modal open onClose={() => setPendingTpl(null)} width={460}
+          title={<span>Apply "{pendingTpl.name}"</span>}
+          footer={
+            <>
+              <Button variant="quiet" onClick={() => setPendingTpl(null)}>Cancel</Button>
+              <Button variant="ghost" onClick={() => doApplyTemplate('append')}><Icon name="plus" size={16} /> Add to quote</Button>
+              <Button variant="accent" onClick={() => doApplyTemplate('replace')}><Icon name="layers" size={16} /> Replace lines</Button>
+            </>
+          }>
+          <p className="muted" style={{ margin: 0, lineHeight: 1.6 }}>
+            {pendingTpl.description || 'Apply this template to the quote.'}
+          </p>
+          <p className="muted t-sm" style={{ margin: '.6rem 0 0', lineHeight: 1.6 }}>
+            <strong>Replace lines</strong> swaps in the template's {pendingTpl.lines?.length || 0} line{pendingTpl.lines?.length !== 1 ? 's' : ''} and its terms + order discount. <strong>Add to quote</strong> appends the lines and keeps everything else.
+          </p>
+          {!pendingTpl.seeded && (
+            <div className="row" style={{ marginTop: '.9rem' }}>
+              <Button variant="quiet" size="sm" onClick={() => { deleteQuoteTemplate(pendingTpl.id); toast('Template deleted.'); setPendingTpl(null); }}>
+                <Icon name="x" size={14} /> Delete this template
+              </Button>
+            </div>
+          )}
+        </Modal>
+      )}
+
+      {/* save current config as a named template */}
+      {saveTplOpen && (
+        <Modal open onClose={() => setSaveTplOpen(false)} width={440}
+          title="Save as template"
+          footer={
+            <>
+              <Button variant="quiet" onClick={() => setSaveTplOpen(false)}>Cancel</Button>
+              <Button variant="accent" onClick={doSaveTemplate}><Icon name="layers" size={16} /> Save template</Button>
+            </>
+          }>
+          <Field label="Template name" hint="Reuse this line-up + terms + order discount on future quotes.">
+            <Input value={saveTplName} autoFocus onChange={e => setSaveTplName(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') doSaveTemplate(); }} placeholder="e.g. Enterprise starter" />
+          </Field>
+          <p className="muted t-sm" style={{ margin: '.6rem 0 0' }}>
+            Captures {lines.length} line{lines.length !== 1 ? 's' : ''} and the current order discount. Line prices are snapshotted.
+          </p>
+        </Modal>
+      )}
+
       {/* hidden print document (owns the print stylesheet) */}
       <PublicQuote quote={{ ...quote, terms: extras.terms, notes: extras.notes }} company={company}
         accountName={company?.name} ownerName={ownerName} lines={lines} totals={totals} printRoot />
@@ -405,6 +552,49 @@ function Detail({ label, value }) {
   );
 }
 
+/* ---------- discount approval banner ---------- */
+function ApprovalBanner({ approval, canApprove, onRequest, onApprove, onReject }) {
+  const approved = approval.status === 'approved' && !approval.staleApproval;
+  const pending = approval.status === 'pending';
+  const rejected = approval.status === 'rejected';
+  const tone = approved ? 'ok' : rejected ? 'risk' : pending ? 'info' : 'warn';
+  let headline, sub;
+  if (approved) {
+    headline = 'Discount approved';
+    sub = `Signed off by ${approval.decidedBy || 'a manager'} at ${approval.effectivePct?.toFixed?.(1) ?? approval.approvedPct}% - clear to send.`;
+  } else if (approval.staleApproval) {
+    headline = 'Approval out of date';
+    sub = `The discount grew to ${approval.effectivePct.toFixed(1)}% since it was approved at ${approval.approvedPct}%. Re-approval required.`;
+  } else if (pending) {
+    headline = 'Waiting on approval';
+    sub = `${approval.requestedBy || 'A rep'} requested sign-off on a ${approval.effectivePct.toFixed(1)}% discount (threshold ${approval.threshold}%).`;
+  } else if (rejected) {
+    headline = 'Discount declined';
+    sub = `This ${approval.effectivePct.toFixed(1)}% discount was not approved. Lower the discount or request again.`;
+  } else {
+    headline = 'Discount needs approval';
+    sub = `${approval.effectivePct.toFixed(1)}% exceeds the ${approval.threshold}% threshold. It must be approved before this quote can be sent.`;
+  }
+  const showApprove = canApprove && !approved;
+  const showRequest = !canApprove && !approved && !pending;
+  return (
+    <div className={`qd-approve qd-approve-${tone}`}>
+      <div className="row gap-2" style={{ alignItems: 'flex-start', minWidth: 0 }}>
+        <span className="qd-approve-ic"><Icon name="shield" size={18} /></span>
+        <div className="col" style={{ gap: 2, minWidth: 0 }}>
+          <strong>{headline}</strong>
+          <span className="t-sm" style={{ color: 'var(--n-600)' }}>{sub}</span>
+        </div>
+      </div>
+      <div className="row gap-2 wrap" style={{ justifyContent: 'flex-end', flex: 'none' }}>
+        {showRequest && <Button variant="primary" size="sm" onClick={onRequest}><Icon name="clock" size={15} /> Request approval</Button>}
+        {showApprove && <Button variant="accent" size="sm" onClick={onApprove}><Icon name="check" size={15} /> Approve</Button>}
+        {showApprove && !rejected && <Button variant="quiet" size="sm" onClick={onReject}><Icon name="x" size={15} /> Decline</Button>}
+      </div>
+    </div>
+  );
+}
+
 /* ---------- scoped styles (stepper glow, drag, slide-out, table) ---------- */
 function QuoteStyles() {
   return (
@@ -453,6 +643,29 @@ function QuoteStyles() {
       .qd-num { width: 100%; max-width: 96px; text-align: right; border: 1px solid var(--line); background: var(--paper);
         border-radius: 6px; padding: .35rem .45rem; font: inherit; color: var(--ink); }
       .qd-num:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+
+      .qd-disc { display: inline-flex; align-items: center; gap: .3rem; justify-content: flex-end; }
+      .qd-disc .qd-num { max-width: 68px; }
+      .qd-disc-toggle { flex: none; width: 26px; height: 30px; border: 1px solid var(--line); background: var(--n-100);
+        border-radius: 6px; font-weight: 800; font-size: .85rem; color: var(--n-600); cursor: pointer;
+        transition: all .12s var(--ease); }
+      .qd-disc-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--paper); }
+      .qd-effdisc { font-weight: 700; font-size: .85rem; color: var(--n-600); }
+      .qd-effdisc-over { color: var(--warn); }
+
+      .qd-approve { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+        border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: var(--r-md);
+        padding: .9rem 1.1rem; background: color-mix(in srgb, var(--warn) 7%, var(--paper)); }
+      .qd-approve-ic { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; flex: none;
+        color: #fff; background: var(--warn); }
+      .qd-approve-warn { border-left-color: var(--warn); background: color-mix(in srgb, var(--warn) 7%, var(--paper)); }
+      .qd-approve-warn .qd-approve-ic { background: var(--warn); }
+      .qd-approve-info { border-left-color: var(--info); background: color-mix(in srgb, var(--info) 7%, var(--paper)); }
+      .qd-approve-info .qd-approve-ic { background: var(--info); }
+      .qd-approve-ok { border-left-color: var(--ok); background: color-mix(in srgb, var(--ok) 8%, var(--paper)); }
+      .qd-approve-ok .qd-approve-ic { background: var(--ok); }
+      .qd-approve-risk { border-left-color: var(--risk); background: color-mix(in srgb, var(--risk) 8%, var(--paper)); }
+      .qd-approve-risk .qd-approve-ic { background: var(--risk); }
 
       .qd-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; margin-top: 3px; }
       .qd-line { width: 2px; flex: 1; min-height: 18px; background: var(--line); margin-top: 2px; }

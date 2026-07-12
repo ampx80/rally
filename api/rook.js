@@ -23,7 +23,7 @@ const SCHEMA = {
       items: {
         type: 'object',
         properties: {
-          kind: { type: 'string', enum: ['navigate', 'create_company', 'create_contact', 'create_deal', 'log_activity', 'move_stage', 'draft_email', 'generate_deck', 'build_account'] },
+          kind: { type: 'string', enum: ['navigate', 'create_company', 'create_contact', 'create_deal', 'log_activity', 'move_stage', 'draft_email', 'generate_deck', 'build_account', 'queue_broadcast', 'quote_from_deal', 'suggest_meeting', 'summarize_deal', 'fork_whatif'] },
           label: { type: 'string' },
           to: { type: 'string', description: 'for navigate' },
           goal: { type: 'string', description: 'for build_account: one sentence describing the account to stand up' },
@@ -31,10 +31,13 @@ const SCHEMA = {
           contact: { type: 'object', properties: { firstName: { type: 'string' }, lastName: { type: 'string' }, email: { type: 'string' }, title: { type: 'string' }, companyId: { type: 'string' } } },
           deal: { type: 'object', properties: { name: { type: 'string' }, companyId: { type: 'string' }, value: { type: 'number' }, stage: { type: 'string' }, closeDate: { type: 'string' } } },
           activity: { type: 'object', properties: { type: { type: 'string' }, subject: { type: 'string' }, dueInDays: { type: 'number' }, relatedType: { type: 'string' }, relatedId: { type: 'string' } } },
-          deal_id: { type: 'string', description: 'for move_stage' },
+          deal_id: { type: 'string', description: 'for move_stage, quote_from_deal, summarize_deal: the exact deal id from the snapshot' },
           stage: { type: 'string', description: 'for move_stage: one of lead,qualified,discovery,proposal,negotiation,won,lost' },
           email: { type: 'object', properties: { to: { type: 'string' }, subject: { type: 'string' }, body: { type: 'string' } } },
-          company_id: { type: 'string', description: 'for generate_deck' },
+          company_id: { type: 'string', description: 'for generate_deck; also optional for suggest_meeting' },
+          contact_id: { type: 'string', description: 'for suggest_meeting: the contact to hand times to (optional)' },
+          broadcast: { type: 'object', description: 'for queue_broadcast: a ready-to-queue marketing email/nurture. Body may use {firstName} and {company} merge tokens.', properties: { name: { type: 'string' }, type: { type: 'string', enum: ['email', 'nurture'] }, subject: { type: 'string' }, body: { type: 'string' }, audience: { type: 'string', description: 'one of: all-contacts, customers, opportunities, all-leads, qualified-leads, working-leads' }, scheduleInDays: { type: 'number', description: 'omit to leave as a draft; set to schedule a future send' } } },
+          fork: { type: 'object', description: 'for fork_whatif: a non-destructive pipeline branch + one macro move to model.', properties: { name: { type: 'string' }, move: { type: 'string', enum: ['slip', 'pull', 'discount', 'boost', 'advance'] }, days: { type: 'number', description: 'for slip/pull' }, pct: { type: 'number', description: 'for discount' }, floor: { type: 'number', description: 'for boost: probability floor' } } },
         },
         required: ['kind', 'label'],
       },
@@ -100,6 +103,21 @@ function snapshotToText(s) {
     if (mo.products?.length) lines.push(`PRODUCTS (${mo.products.length}): ` + mo.products.map(p => `${p.name} [${p.category}, ${fmtMoney(p.price)} ${p.billing}]`).join('; ') + '.');
     if (mo.workflows?.length) lines.push(`WORKFLOWS (${mo.workflows.length}): ` + mo.workflows.map(w => `${w.name} [${w.active ? 'on' : 'off'}]`).join('; ') + '.');
   }
+  // Newer surfaces Rook can now reason over (all optional; present when the client sends them).
+  if (Array.isArray(s.meetings) && s.meetings.length) {
+    lines.push(`SCHEDULER - upcoming meetings booked via Tango (${s.meetings.length}): ` + s.meetings.slice(0, 15).map(m => `${m.title || 'Meeting'} with ${m.who || 'a guest'} on ${(m.startsAt || '').slice(0, 16).replace('T', ' ')} (${m.duration || 30} min)`).join('; ') + '.');
+  }
+  if (Array.isArray(s.availability) && s.availability.length) {
+    lines.push('SCHEDULER - next open times to hand a prospect: ' + s.availability.slice(0, 6).map(a => (a.startsAt || '').slice(0, 16).replace('T', ' ')).join(', ') + '.');
+  }
+  if (Array.isArray(s.integrations)) {
+    const on = s.integrations.filter(i => i.connected).map(i => i.name);
+    const off = s.integrations.filter(i => !i.connected).map(i => i.name);
+    lines.push(`INTEGRATIONS: connected [${on.join(', ') || 'none'}]; available but not connected [${off.join(', ') || 'none'}].`);
+  }
+  if (Array.isArray(s.projects) && s.projects.length) {
+    lines.push(`PROJECTS (${s.projects.length}) [name | company | open tasks / total | owner]: ` + s.projects.map(p => `${p.name} | ${p.company || 'no account'} | ${p.openTasks}/${p.tasks} | ${p.owner || ''}`).join('; ') + '.');
+  }
   return lines.join('\n');
 }
 
@@ -112,13 +130,21 @@ const SYSTEM = (snapText, path) => [
   '- Contacts: /contacts | a contact: /contacts/<contactId>   | Companies: /companies | a company: /companies/<companyId>',
   '- My day: /activities | Forecasting: /forecasting | Dashboards: /dashboards | Reports: /reports',
   '- Campaigns: /campaigns | Sequences: /sequences | Inbox (tickets): /inbox',
-  '- Products: /products | Quotes: /quotes | Billing: /invoices | Workflows: /workflows | Team: /team',
+  '- Products: /products | Quotes: /quotes | a quote: /quotes/<quoteId> | Billing: /invoices | Workflows: /workflows | Team: /team',
+  '- Marketing broadcasts: /campaigns | Marketing automations: /automations | Scheduling (meetings): /scheduling | Integrations: /integrations | Projects: /projects | Pipeline Fork studio: /fork',
   '',
   'HOW TO RESPOND:',
   '- COUNTS + INVENTORY: for any "how many", "how much", "list", or "what do we have" question, answer PRECISELY from WORKSPACE TOTALS and the full lists. Example: "You have 132 contacts across 41 companies." Be exact, never vague, never estimate when the exact number is right there.',
   '- GROUNDED Q&A: answer questions ("which deals are slipping?", "what is my forecast?", "who at Vertex have we not contacted?", "how many overdue invoices?") straight from the snapshot with real names and numbers.',
   '- ALWAYS LINK PAGES: any time you name a screen or a specific record, attach a navigate action (kind:"navigate", label, to).',
   '- ACTIONS (propose, user confirms): create_company, create_contact (companyId if known), create_deal (value in dollars, stage one of lead/qualified/discovery/proposal/negotiation, companyId if known), log_activity (activity: type, subject, dueInDays, relatedType deal|contact|company, relatedId), move_stage (deal_id + stage), draft_email (email: to, subject, body - a real ready-to-send follow-up grounded in the record), generate_deck (company_id).',
+  '- MORE ACTIONS (propose, user confirms; each is grounded, nothing sends or mutates the book until the user clicks):',
+  '  * queue_broadcast: draft and queue a marketing broadcast. Provide broadcast {name, type email|nurture, subject, body using {firstName}/{company} tokens, audience one of all-contacts/customers/opportunities/all-leads/qualified-leads/working-leads, scheduleInDays optional}. This creates a DRAFT (or scheduled) campaign on /campaigns - it never actually emails anyone until the user sends it there.',
+  '  * quote_from_deal: build a real quote from a deal. Provide deal_id. It clones the deal line items into a new draft quote and opens it on /quotes.',
+  '  * suggest_meeting: hand a prospect the next open times from the Scheduling calendar. Provide contact_id and/or company_id (optional). Read-only - it surfaces availability and a Tango booking link, it does not book anything.',
+  '  * summarize_deal: summarize a deal plus its account tickets and projects. Provide deal_id. Read-only.',
+  '  * fork_whatif: model a change in the non-destructive Pipeline Fork studio. Provide fork {name, move one of slip|pull|discount|boost|advance, plus days for slip/pull, pct for discount, floor for boost}. It spins up an isolated branch (a digital twin), applies the move, and reports the delta versus main. Nothing touches the live pipeline until the user commits inside the studio.',
+  '- USE THE RIGHT ACTION: "email/blast/announce to leads or customers" -> queue_broadcast. "quote this deal / build a quote" -> quote_from_deal. "when can we meet / send times / book a call" -> suggest_meeting. "what is going on with <deal> / any support or delivery issues" -> summarize_deal. "what if we slip/discount/advance the pipeline" -> fork_whatif.',
   '- CAPTURE DETAILS FIRST: if the user wants to create something but key details are missing, ask ONE short clarifying question and propose nothing yet.',
   '- JUGGERNAUT: if the user wants to "set up", "stand up", "onboard", or "create a whole account", return a SINGLE build_account action with a one-sentence goal. Tell them you will build the whole account and to hit the button.',
   '- Keep reply tight (2-4 sentences). Offer 2 to 3 suggestions.',

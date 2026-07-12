@@ -49,6 +49,10 @@ import Lists from './pages/Lists.jsx';
 import SmsAlerts from './pages/SmsAlerts.jsx';
 import Scheduling from './pages/Scheduling.jsx';
 import SupportTickets from './pages/SupportTickets.jsx';
+import Permissions from './pages/Permissions.jsx';
+import CustomObjects from './pages/CustomObjects.jsx';
+import CustomObjectRecords from './pages/CustomObjectRecords.jsx';
+import Scheduler from './pages/Scheduler.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -86,12 +90,13 @@ import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
 import HostedForm from './marketing/HostedForm.jsx';
 import HostedLanding from './marketing/HostedLanding.jsx';
+import BookMeeting from './marketing/BookMeeting.jsx';
 import SignIn from './pages/SignIn.jsx';
 import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -116,6 +121,7 @@ const NAV_GROUPS = [
     { to: '/forecasting', label: 'Forecasting', icon: 'trendUp' },
     { to: '/goals', label: 'Goals', icon: 'rocket' },
     { to: '/territories', label: 'Territories', icon: 'grid' },
+    { to: '/scheduler', label: 'Scheduler', icon: 'clock' },
   ] },
   { id: 'marketing', label: 'Marketing', items: [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
@@ -157,6 +163,8 @@ const NAV_GROUPS = [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/import', label: 'Import', icon: 'download' },
     { to: '/team', label: 'Team', icon: 'user' },
+    { to: '/permissions', label: 'Permissions', icon: 'lock' },
+    { to: '/objects', label: 'Custom objects', icon: 'menu' },
     { to: '/developers', label: 'Developers', icon: 'command' },
     { to: '/billing-plans', label: 'Plans', icon: 'zap' },
     { to: '/audit', label: 'Audit', icon: 'history' },
@@ -391,6 +399,7 @@ export default function App() {
             <Route path="/status" element={<StatusPage />} />
             <Route path="/f/:formId" element={<HostedForm />} />
             <Route path="/l/:slug" element={<HostedLanding />} />
+            <Route path="/meet/:slug" element={<BookMeeting />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -452,6 +461,10 @@ export default function App() {
               <Route path="/success" element={<CustomerSuccess />} />
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/tickets" element={<SupportTickets />} />
+              <Route path="/permissions" element={<Permissions />} />
+              <Route path="/objects" element={<CustomObjects />} />
+              <Route path="/objects/:type" element={<CustomObjectRecords />} />
+              <Route path="/scheduler" element={<Scheduler />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
