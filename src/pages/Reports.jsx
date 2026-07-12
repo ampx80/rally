@@ -5,6 +5,7 @@
 // with a live preview. Everything computes off the real store; custom
 // report definitions persist to localStorage via ../lib/reports-data.
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ResponsiveContainer, BarChart, Bar, LineChart, Line, AreaChart, Area,
   PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -392,7 +393,12 @@ export default function Reports() {
       <SectionHeader
         title="Reports"
         sub="A live view of the business, plus a builder for any question you can ask."
-        action={<Button onClick={() => setBuilder(true)}><Icon name="plus" size={16} /> New report</Button>}
+        action={
+          <>
+            <Button as={Link} to="/report-builder" variant="ghost"><Icon name="pie" size={16} /> Build a report</Button>
+            <Button onClick={() => setBuilder(true)}><Icon name="plus" size={16} /> New report</Button>
+          </>
+        }
       />
 
       {/* ---------- DASHBOARD: live KPIs (count up + spark draw on view) ---------- */}

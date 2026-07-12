@@ -9,6 +9,7 @@ import { useDocs, getDocs, createDoc, deleteDoc, TEMPLATES } from '../lib/store-
 import { getDeals, getDeal, getCompany } from '../lib/store.js';
 import { Button, Card, Badge, Modal, Field, Input, Select, EmptyState, useToast, relTime, GradientText } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import SignatureRequestModal from '../components/esign/SignatureRequestModal.jsx';
 
 export default function Studio() {
   const nav = useNavigate();
@@ -20,6 +21,7 @@ export default function Studio() {
   const [name, setName] = useState('');
   const [dealId, setDealId] = useState('');
   const [confirmDel, setConfirmDel] = useState(null);
+  const [signDoc, setSignDoc] = useState(null);   // doc awaiting a signature request
 
   const deals = getDeals().filter(d => d.status === 'open');
 
@@ -113,10 +115,16 @@ export default function Studio() {
                   <div className="col gap-1" style={{ padding: '.9rem 1rem 1rem' }}>
                     <div className="row between" style={{ gap: '.5rem' }}>
                       <strong className="clip" style={{ minWidth: 0 }}>{d.name}</strong>
-                      <button className="st-doc-del reveal btn btn-quiet btn-sm" title="Delete"
-                        onClick={(e) => { e.stopPropagation(); setConfirmDel(d); }}>
-                        <Icon name="trash" size={15} />
-                      </button>
+                      <div className="row gap-1" style={{ flex: 'none' }}>
+                        <button className="reveal btn btn-quiet btn-sm" title="Send for signature"
+                          onClick={(e) => { e.stopPropagation(); setSignDoc(d); }}>
+                          <Icon name="send" size={15} />
+                        </button>
+                        <button className="st-doc-del reveal btn btn-quiet btn-sm" title="Delete"
+                          onClick={(e) => { e.stopPropagation(); setConfirmDel(d); }}>
+                          <Icon name="trash" size={15} />
+                        </button>
+                      </div>
                     </div>
                     <div className="row gap-1 wrap" style={{ alignItems: 'center' }}>
                       {co && <Badge tone="accent">{co.name}</Badge>}
@@ -166,6 +174,15 @@ export default function Studio() {
           }>
           <p style={{ margin: 0 }}>Delete <strong>{confirmDel.name}</strong>? This cannot be undone.</p>
         </Modal>
+      )}
+
+      {/* send-for-signature modal (self-contained sender flow) */}
+      {signDoc && (
+        <SignatureRequestModal
+          doc={signDoc}
+          open
+          onClose={() => setSignDoc(null)}
+        />
       )}
     </div>
   );

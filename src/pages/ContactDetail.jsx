@@ -19,6 +19,7 @@ import TangoMeetings from '../components/integrations/TangoMeetings.jsx';
 import RecordTickets from '../components/integrations/RecordTickets.jsx';
 import ConnectedApps from '../components/integrations/ConnectedApps.jsx';
 import AssociationsPanel from '../components/associations/AssociationsPanel.jsx';
+import PlaybookRunner from '../components/playbooks/PlaybookRunner.jsx';
 
 const STAGE_DOT = {
   lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
@@ -166,6 +167,8 @@ export default function ContactDetail() {
             )}
           </Card>
           )}
+
+          <PlaybookRunner recordType="contact" record={c} />
         </div>
 
         {/* RIGHT RAIL */}
