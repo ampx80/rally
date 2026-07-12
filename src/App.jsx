@@ -47,6 +47,8 @@ import Forms from './pages/Forms.jsx';
 import LandingPages from './pages/LandingPages.jsx';
 import Lists from './pages/Lists.jsx';
 import SmsAlerts from './pages/SmsAlerts.jsx';
+import Scheduling from './pages/Scheduling.jsx';
+import SupportTickets from './pages/SupportTickets.jsx';
 import { MarketingShell } from './marketing/kit.jsx';
 import Home from './marketing/Home.jsx';
 import Features from './marketing/Features.jsx';
@@ -89,7 +91,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -126,6 +128,8 @@ const NAV_GROUPS = [
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
     { to: '/success', label: 'Customer success', icon: 'shield' },
+    { to: '/scheduling', label: 'Scheduling', icon: 'calendar' },
+    { to: '/tickets', label: 'Support tickets', icon: 'mail' },
   ] },
   { id: 'revenue', label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -446,6 +450,8 @@ export default function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />
+              <Route path="/scheduling" element={<Scheduling />} />
+              <Route path="/tickets" element={<SupportTickets />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />

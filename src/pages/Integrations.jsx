@@ -1,19 +1,39 @@
-// Integrations - the "you already have everything" surface.
+// Integrations - the "you already have everything" surface, now with a REAL
+// connect experience on top of the integration backbone.
 //
-// The first question every buyer asks is "does it connect to <their stack>?"
-// This page answers YES, visibly: a big searchable catalog of real tools with
-// real recognizable logos, grouped by category, with live status. And the
-// search finds ANY app on earth (Clearbit company autocomplete) - so even a
-// tool that is not in our catalog surfaces with its real logo and a one-tap
-// "Request it", which flips to In progress. Nothing needs to be wired for a
-// prospect to feel completely covered.
+// Two layers, both on one page:
+//   1) RALLY NETWORK (native, first-party) - the sibling apps Nate builds
+//      (Tango, Resolve, The Way). These are driven by the declarative registry
+//      (src/lib/integrations/registry.js) and connect for real: a one-click
+//      handshake persists a live connection through connections.js, a status
+//      pill reflects it, and a per-connector config modal exposes the
+//      descriptor's connectFields + event map. Secrets never touch the browser
+//      (connections.js sanitizes on write); everything is env-gated and
+//      local-first, so an unconfigured connector shows a graceful state and
+//      NEVER throws.
+//   2) CATALOG (broad, third-party) - the searchable logo wall (Salesforce,
+//      HubSpot, Slack, Gmail, Zapier, Webhooks, and hundreds more) with the
+//      existing "request any app on earth" Clearbit search. Preserved verbatim,
+//      additively.
+//
+// A "Connected" section surfaces every live connection (native + catalog) with
+// manage/disconnect affordances, so the page answers "what is wired right now?"
+// at a glance.
 //
 // Logos: logo.clearbit.com/<domain> (no key). Search: Clearbit autocomplete
 // (no key, CORS-open). Both degrade gracefully to a colored monogram.
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Card, Badge, Button, SectionHeader, avatarColor, useToast } from '../components/UI.jsx';
+import { Card, Badge, Button, Modal, avatarColor, useToast, relTime } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import { INTEGRATIONS } from '../lib/integrations/registry.js';
+import {
+  useConnections,
+  connect as connectConn,
+  disconnect as disconnectConn,
+  beginConnecting,
+} from '../lib/integrations/connections.js';
+import { getTangoConnector } from '../lib/integrations/connectors/tango.js';
 
 const LS_KEY = 'rally_integrations_v1';
 
@@ -90,6 +110,7 @@ const CATALOG = [
   ['Zapier', 'zapier.com', 'Automation', 'available'],
   ['Make', 'make.com', 'Automation', 'available'],
   ['Workato', 'workato.com', 'Automation', 'available'],
+  ['Webhooks', 'webhooks.dev', 'Automation', 'available'],
 ].map(([name, domain, category, status]) => ({ name, domain, category, status }));
 
 const CATEGORIES = ['All', ...Array.from(new Set(CATALOG.map(c => c.category)))];
@@ -104,6 +125,15 @@ function loadState() {
   try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch { return {}; }
 }
 function saveState(s) { try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {} }
+
+// Env-gated liveness for a native connector. In the browser we can only see
+// VITE_-prefixed flags; without one, the connector still records a LOCAL
+// connection (graceful, never throws) and shows a "records locally" note.
+function connectorLive(id) {
+  let env = {};
+  try { env = (import.meta && import.meta.env) || {}; } catch { env = {}; }
+  return !!(env[`VITE_${String(id).toUpperCase()}_LIVE`] || env.VITE_INTEGRATIONS_LIVE);
+}
 
 // Brand logo with graceful monogram fallback.
 function Logo({ domain, name, size = 40 }) {
@@ -123,6 +153,216 @@ function Logo({ domain, name, size = 40 }) {
     </div>
   );
 }
+
+/* ---------- NATIVE (Rally network) ---------- */
+
+// Which required, non-secret fields a live connection is still missing.
+function missingRequired(desc, metadata = {}) {
+  return (desc.connectFields || []).filter(f => f.required && !f.secret && !metadata[f.key]);
+}
+
+// Status pill for a native connector, derived from the live connection record.
+function nativeStatusMeta(desc, conn) {
+  const s = conn?.status || 'disconnected';
+  if (s === 'connecting') return { label: 'Connecting', tone: 'warn', key: 'connecting' };
+  if (s === 'error')      return { label: 'Retry',      tone: 'risk', key: 'error' };
+  if (s === 'connected') {
+    return missingRequired(desc, conn?.metadata).length
+      ? { label: 'Configure', tone: 'warn', key: 'configure' }
+      : { label: 'Connected', tone: 'ok', key: 'connected' };
+  }
+  return { label: 'Available', tone: 'default', key: 'available' };
+}
+
+// The default metadata a one-click connect supplies: point the workspace URL at
+// the app's canonical base so a native connection is complete without typing.
+function quickDefaults(desc) {
+  const out = {};
+  const urlField = (desc.connectFields || []).find(f => f.type === 'url');
+  if (urlField) out[urlField.key] = `https://${desc.logo}`;
+  return out;
+}
+
+function NativeCard({ desc, conn, onQuickConnect, onConfigure, onDisconnect }) {
+  const meta = nativeStatusMeta(desc, conn);
+  const live = meta.key === 'connected' || meta.key === 'configure';
+  const connecting = meta.key === 'connecting';
+  return (
+    <Card hover style={{ display: 'flex', flexDirection: 'column', gap: 12, minHeight: 210, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--accent), var(--accent-purple, #8b3fd4))' }} />
+      <div className="row between" style={{ alignItems: 'flex-start', gap: 10 }}>
+        <div className="row gap-2" style={{ minWidth: 0, alignItems: 'center' }}>
+          <Logo domain={desc.logo} name={desc.name} />
+          <div style={{ minWidth: 0 }}>
+            <div className="row gap-1" style={{ alignItems: 'center' }}>
+              <span className="fw-7" style={{ fontSize: '1.05rem', color: 'var(--ink)' }}>{desc.name}</span>
+              <Badge tone="accent" className="t-xs">Native</Badge>
+            </div>
+            <div className="t-sm" style={{ color: 'var(--n-600)' }}>
+              {desc.category}{desc.operator && desc.operator !== desc.name ? ` · ${desc.operator}` : ''}
+            </div>
+          </div>
+        </div>
+        <Badge tone={meta.tone} style={{ flex: 'none' }}>{meta.label}</Badge>
+      </div>
+
+      <div className="t-sm" style={{ color: 'var(--n-600)', flex: 1, lineHeight: 1.45 }}>{desc.summary}</div>
+
+      <div className="row gap-1 t-xs" style={{ color: 'var(--n-500, var(--n-600))', alignItems: 'center' }}>
+        <Icon name="plug" size={12} />
+        <span>{(desc.inboundEvents || []).length} events in</span>
+        <span aria-hidden>&middot;</span>
+        <span>{(desc.outboundEvents || []).length} out</span>
+      </div>
+
+      {live ? (
+        <div className="row gap-2">
+          <Button size="sm" variant="ghost" onClick={() => onConfigure(desc)} style={{ flex: 1 }}>
+            <Icon name="settings" size={15} /> Configure
+          </Button>
+          <Button size="sm" variant="quiet" onClick={() => onDisconnect(desc)} style={{ flex: 'none' }}>
+            Disconnect
+          </Button>
+        </div>
+      ) : connecting ? (
+        <Button size="sm" variant="ghost" disabled style={{ width: '100%' }}>Connecting...</Button>
+      ) : (
+        <div className="row gap-2">
+          <Button size="sm" variant="primary" onClick={() => onQuickConnect(desc)} style={{ flex: 1 }}>
+            <Icon name="zap" size={15} /> Connect
+          </Button>
+          <Button size="sm" variant="ghost" onClick={() => onConfigure(desc)} style={{ flex: 'none' }} aria-label="Configure">
+            <Icon name="settings" size={16} />
+          </Button>
+        </div>
+      )}
+    </Card>
+  );
+}
+
+function ConfigModal({ desc, conn, open, onClose, onSave, onDisconnect }) {
+  const connected = conn?.status === 'connected';
+  const live = connectorLive(desc?.id);
+  const [values, setValues] = useState({});
+  const [reveal, setReveal] = useState({});
+
+  useEffect(() => {
+    if (!open || !desc) return;
+    // Prefill non-secret metadata from the live record; secrets never come back
+    // from storage (they were stripped on write), so those inputs start empty.
+    const seed = {};
+    for (const f of desc.connectFields || []) {
+      if (!f.secret && conn?.metadata?.[f.key] != null) seed[f.key] = conn.metadata[f.key];
+    }
+    const urlField = (desc.connectFields || []).find(f => f.type === 'url');
+    if (urlField && !seed[urlField.key]) seed[urlField.key] = `https://${desc.logo}`;
+    setValues(seed);
+    setReveal({});
+  }, [open, desc, conn]);
+
+  if (!desc) return null;
+  const set = (k, v) => setValues(prev => ({ ...prev, [k]: v }));
+  const blocked = (desc.connectFields || []).some(f => f.required && !f.secret && !values[f.key]);
+
+  const footer = (
+    <>
+      {connected && (
+        <Button variant="danger" onClick={() => { onDisconnect(desc); onClose(); }} style={{ marginRight: 'auto' }}>
+          Disconnect
+        </Button>
+      )}
+      <Button variant="quiet" onClick={onClose}>Cancel</Button>
+      <Button variant="primary" disabled={blocked} onClick={() => { onSave(desc, values); onClose(); }}>
+        {connected ? 'Save changes' : 'Connect'}
+      </Button>
+    </>
+  );
+
+  return (
+    <Modal open={open} onClose={onClose} width={580} footer={footer}
+      title={`${connected ? 'Manage' : 'Connect'} ${desc.name}`}>
+      <div className="col gap-4">
+        <div className="row gap-2" style={{ alignItems: 'center' }}>
+          <Logo domain={desc.logo} name={desc.name} size={44} />
+          <div style={{ minWidth: 0 }}>
+            <div className="fw-7" style={{ color: 'var(--ink)' }}>{desc.name}</div>
+            <div className="t-sm" style={{ color: 'var(--n-600)' }}>{desc.summary}</div>
+          </div>
+        </div>
+
+        {!live && (
+          <div className="row gap-2" style={{ alignItems: 'flex-start', padding: '.7rem .85rem', borderRadius: 'var(--r-sm)', background: 'var(--accent-50)', border: '1px solid var(--line)' }}>
+            <Icon name="shield" size={16} style={{ color: 'var(--accent-600)', flex: 'none', marginTop: 2 }} />
+            <div className="t-sm" style={{ color: 'var(--ink-2)' }}>
+              Rally records this connection locally. Live two-way sync activates once {desc.name}'s
+              server keys are configured for this workspace. Nothing you enter here is lost in the meantime,
+              and secret fields are never stored in your browser.
+            </div>
+          </div>
+        )}
+
+        {(desc.connectFields || []).length > 0 && (
+          <div className="col gap-3">
+            {(desc.connectFields || []).map(f => {
+              const fid = `cf-${desc.id}-${f.key}`;
+              const isSecret = !!f.secret;
+              return (
+                <div key={f.key} className="field">
+                  <label htmlFor={fid}>
+                    {f.label}{!f.required && <span className="muted"> (optional)</span>}
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      id={fid}
+                      className="input"
+                      type={isSecret && !reveal[f.key] ? 'password' : (f.type === 'url' ? 'url' : 'text')}
+                      value={values[f.key] || ''}
+                      placeholder={f.placeholder}
+                      autoComplete={isSecret ? 'new-password' : 'off'}
+                      onChange={e => set(f.key, e.target.value)}
+                      style={{ width: '100%', paddingRight: isSecret ? 40 : undefined }}
+                    />
+                    {isSecret && (
+                      <button type="button" onClick={() => setReveal(r => ({ ...r, [f.key]: !r[f.key] }))}
+                        aria-label={reveal[f.key] ? 'Hide' : 'Show'}
+                        style={{ position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--n-500, var(--n-600))', display: 'grid', placeItems: 'center', padding: 4 }}>
+                        <Icon name={reveal[f.key] ? 'eyeOff' : 'eye'} size={16} />
+                      </button>
+                    )}
+                  </div>
+                  {isSecret && <span className="t-xs muted">Held server-side. Never stored in your browser.</span>}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="row gap-3 wrap" style={{ borderTop: '1px solid var(--line)', paddingTop: 14 }}>
+          <div className="col gap-1" style={{ flex: 1, minWidth: 190 }}>
+            <div className="eyebrow">Syncs into Rally</div>
+            {(desc.inboundEvents || []).map(e => (
+              <div key={e.key} className="row gap-2 t-sm" style={{ color: 'var(--ink-2)', alignItems: 'center' }}>
+                <Icon name="arrowDown" size={13} style={{ color: 'var(--accent-600)', flex: 'none' }} />
+                <span>{e.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="col gap-1" style={{ flex: 1, minWidth: 190 }}>
+            <div className="eyebrow">Rally sends out</div>
+            {(desc.outboundEvents || []).map(e => (
+              <div key={e.key} className="row gap-2 t-sm" style={{ color: 'var(--ink-2)', alignItems: 'center' }}>
+                <Icon name="arrowUp" size={13} style={{ color: 'var(--accent-600)', flex: 'none' }} />
+                <span>{e.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+/* ---------- catalog card (existing UX, preserved) ---------- */
 
 function IntegrationCard({ item, effectiveStatus, onAct }) {
   const meta = STATUS_META[effectiveStatus] || STATUS_META.available;
@@ -151,28 +391,82 @@ function IntegrationCard({ item, effectiveStatus, onAct }) {
   );
 }
 
+/* ---------- connected-row (live connections summary) ---------- */
+
+function ConnectedRow({ logo, name, sub, meta, onManage, onDisconnect, manageLabel = 'Manage' }) {
+  return (
+    <div className="row between wrap" style={{ gap: 12, alignItems: 'center', padding: '.6rem 0' }}>
+      <div className="row gap-2" style={{ minWidth: 0, alignItems: 'center' }}>
+        <Logo domain={logo} name={name} size={34} />
+        <div style={{ minWidth: 0 }}>
+          <div className="row gap-1" style={{ alignItems: 'center' }}>
+            <span className="fw-6 clip" style={{ color: 'var(--ink)' }}>{name}</span>
+            {meta && <Badge tone={meta.tone} className="t-xs">{meta.label}</Badge>}
+          </div>
+          {sub && <div className="t-xs clip" style={{ color: 'var(--n-600)' }}>{sub}</div>}
+        </div>
+      </div>
+      <div className="row gap-1" style={{ flex: 'none' }}>
+        {onManage && <Button size="sm" variant="ghost" onClick={onManage}>{manageLabel}</Button>}
+        {onDisconnect && <Button size="sm" variant="quiet" onClick={onDisconnect}>Disconnect</Button>}
+      </div>
+    </div>
+  );
+}
+
 export default function Integrations() {
   const toast = useToast();
+  const conns = useConnections();
   const [overrides, setOverrides] = useState(loadState);
   const [query, setQuery] = useState('');
   const [cat, setCat] = useState('All');
   const [webResults, setWebResults] = useState([]);
+  const [configId, setConfigId] = useState(null);
   const debRef = useRef(null);
 
-  const statusOf = (item) => overrides[item.domain] || item.status;
+  /* ----- native connect flow (through connections.js) ----- */
+  const quickConnect = (desc) => {
+    const defaults = quickDefaults(desc);
+    beginConnecting(desc.id, defaults);
+    // Brief optimistic "Connecting" beat, then commit. connect() sanitizes any
+    // secret out before persistence; here there are none, only the default URL.
+    setTimeout(async () => {
+      connectConn(desc.id, defaults);
+      toast(`${desc.name} connected. Events now sync into Rally.`);
+      // Native scheduling connector: pull booked meetings onto contacts now.
+      // Graceful and env-gated - runs the deterministic demo set when the
+      // server bridge is not configured; the connection is recorded either way.
+      if (desc.id === 'tango') {
+        try {
+          const res = await getTangoConnector().sync();
+          if (res && res.linked > 0) {
+            toast(`${res.linked} Tango meeting${res.linked === 1 ? '' : 's'} synced onto contacts.`);
+          }
+        } catch { /* connection still recorded; sync can be retried */ }
+      }
+    }, 520);
+  };
+  const saveConfig = (desc, values) => {
+    connectConn(desc.id, values); // secrets stripped inside connect()
+    toast(`${desc.name} settings saved.`);
+  };
+  const disconnectNative = (desc) => {
+    disconnectConn(desc.id);
+    toast(`${desc.name} disconnected.`);
+  };
+  const configDesc = configId ? INTEGRATIONS.find(i => i.id === configId) : null;
 
+  /* ----- catalog flow (existing) ----- */
+  const statusOf = (item) => overrides[item.domain] || item.status;
   const setStatus = (domain, status) => {
     setOverrides(prev => { const next = { ...prev, [domain]: status }; saveState(next); return next; });
   };
-
   const act = (item) => {
     if (statusOf(item) === 'connected') return;
     setStatus(item.domain, 'in_progress');
     toast(`${item.name} requested. Our team wires new connectors within a day.`);
   };
-
   const requestWeb = (r) => {
-    // Fold a web-found tool into the catalog as a custom, in-progress entry.
     const domain = r.domain;
     setOverrides(prev => {
       const next = { ...prev, [domain]: 'in_progress', [`__meta_${domain}`]: { name: r.name, category: 'Requested' } };
@@ -198,12 +492,27 @@ export default function Integrations() {
     );
   }, [allItems, query, cat]);
 
-  const counts = useMemo(() => {
-    let connected = 0, inprog = 0;
-    for (const it of allItems) { const s = statusOf(it); if (s === 'connected') connected++; else if (s === 'in_progress') inprog++; }
-    return { total: allItems.length, connected, inprog };
+  // Live native connections (connected only) for the Connected section + counts.
+  const connectedNative = useMemo(
+    () => INTEGRATIONS.filter(d => conns[d.id]?.status === 'connected'),
+    [conns]
+  );
+  const connectedCatalog = useMemo(
+    () => allItems.filter(it => statusOf(it) === 'connected'),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allItems, overrides]);
+    [allItems, overrides]
+  );
+
+  const counts = useMemo(() => {
+    let inprog = 0;
+    for (const it of allItems) { if (statusOf(it) === 'in_progress') inprog++; }
+    return {
+      total: allItems.length + INTEGRATIONS.length,
+      connected: connectedCatalog.length + connectedNative.length,
+      inprog,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allItems, overrides, connectedNative, connectedCatalog]);
 
   // Live "find any app on earth" via Clearbit autocomplete (no key).
   useEffect(() => {
@@ -225,6 +534,8 @@ export default function Integrations() {
   const knownDomains = new Set(allItems.map(i => i.domain.replace(/^www\./, '')));
   const freshWeb = webResults.filter(r => r.domain && !knownDomains.has(r.domain.replace(/^www\./, '')));
 
+  const hasConnected = connectedNative.length > 0 || connectedCatalog.length > 0;
+
   return (
     <div className="col gap-4" style={{ paddingBottom: 40 }}>
       {/* hero */}
@@ -239,8 +550,9 @@ export default function Integrations() {
               Rally connects to your entire stack.
             </h1>
             <p style={{ margin: '10px 0 0', fontSize: '1.05rem', color: '#c9cbe6', lineHeight: 1.5 }}>
-              Salesforce, SAP, NetSuite, Jira, Gmail, Outlook, Mailchimp, Canva, and hundreds more.
-              Not on the list? Search below. If it exists anywhere, we connect it, usually within a day.
+              One-click into the Rally network apps, plus Salesforce, SAP, NetSuite, Jira, Gmail, Slack,
+              Zapier, webhooks, and hundreds more. Not on the list? Search below. If it exists anywhere,
+              we connect it, usually within a day.
             </p>
           </div>
           <div className="row gap-4" style={{ flexShrink: 0 }}>
@@ -249,12 +561,79 @@ export default function Integrations() {
               <div style={{ fontSize: '.82rem', color: '#b9bce0' }}>connectors</div>
             </div>
             <div>
-              <div style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, lineHeight: 1, color: 'var(--accent-300)' }}>&#8734;</div>
-              <div style={{ fontSize: '.82rem', color: '#b9bce0' }}>any app you name</div>
+              <div style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, lineHeight: 1, color: 'var(--accent-300)' }}>{counts.connected}</div>
+              <div style={{ fontSize: '.82rem', color: '#b9bce0' }}>connected now</div>
             </div>
           </div>
         </div>
       </Card>
+
+      {/* live connections */}
+      {hasConnected && (
+        <Card>
+          <div className="row between wrap" style={{ gap: 8, marginBottom: 4 }}>
+            <div className="col gap-1">
+              <div className="eyebrow">Connected</div>
+              <h3 style={{ margin: 0 }}>Live connections</h3>
+            </div>
+            <Badge tone="ok" style={{ alignSelf: 'center' }}>{counts.connected} active</Badge>
+          </div>
+          <div className="col">
+            {connectedNative.map((desc, i) => {
+              const conn = conns[desc.id];
+              const ws = conn?.metadata?.workspaceUrl;
+              const since = conn?.connectedAt ? `connected ${relTime(conn.connectedAt)}` : 'connected';
+              return (
+                <div key={desc.id} style={{ borderTop: i === 0 ? 'none' : '1px solid var(--line)' }}>
+                  <ConnectedRow
+                    logo={desc.logo}
+                    name={desc.name}
+                    sub={`${ws ? ws.replace(/^https?:\/\//, '') + ' · ' : ''}${since}`}
+                    meta={{ label: 'Native', tone: 'accent' }}
+                    onManage={() => setConfigId(desc.id)}
+                    manageLabel="Configure"
+                    onDisconnect={() => disconnectNative(desc)}
+                  />
+                </div>
+              );
+            })}
+            {connectedCatalog.map((item, i) => (
+              <div key={item.domain} style={{ borderTop: (connectedNative.length + i) === 0 ? 'none' : '1px solid var(--line)' }}>
+                <ConnectedRow
+                  logo={item.domain}
+                  name={item.name}
+                  sub={item.category}
+                  onDisconnect={() => setStatus(item.domain, 'available')}
+                />
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* native (Rally network) */}
+      <div className="col gap-2">
+        <div className="col gap-1">
+          <div className="eyebrow">Rally network</div>
+          <h3 style={{ margin: 0 }}>First-party apps, one click to connect</h3>
+          <p className="t-sm" style={{ color: 'var(--n-600)', margin: 0 }}>
+            The apps built on the same backbone as Rally. Connecting flows meetings, tickets, and sessions
+            straight onto the right contact and deal, with full provenance in the timeline.
+          </p>
+        </div>
+        <div className="stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
+          {INTEGRATIONS.map(desc => (
+            <NativeCard
+              key={desc.id}
+              desc={desc}
+              conn={conns[desc.id]}
+              onQuickConnect={quickConnect}
+              onConfigure={(d) => setConfigId(d.id)}
+              onDisconnect={disconnectNative}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* search */}
       <div style={{ position: 'relative' }}>
@@ -310,7 +689,7 @@ export default function Integrations() {
         ))}
         {(counts.inprog > 0 || counts.connected > 0) && (
           <span className="t-sm" style={{ marginLeft: 'auto', alignSelf: 'center', color: 'var(--n-600)' }}>
-            {counts.connected} connected · {counts.inprog} in progress
+            {counts.connected} connected &middot; {counts.inprog} in progress
           </span>
         )}
       </div>
@@ -328,6 +707,15 @@ export default function Integrations() {
           ))}
         </div>
       )}
+
+      <ConfigModal
+        desc={configDesc}
+        conn={configDesc ? conns[configDesc.id] : null}
+        open={!!configDesc}
+        onClose={() => setConfigId(null)}
+        onSave={saveConfig}
+        onDisconnect={disconnectNative}
+      />
     </div>
   );
 }
