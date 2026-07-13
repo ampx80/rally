@@ -109,6 +109,16 @@ import DataSync from './pages/DataSync.jsx';
 import Sandboxes from './pages/Sandboxes.jsx';
 import Signals from './pages/Signals.jsx';
 import WarRoom from './pages/WarRoom.jsx';
+// Wave 8: platform expansion (Grid Airtable-killer, Drive file engine, Sheets
+// spreadsheet, App Manager module on/off, Roles deep permissions, Journeys
+// orchestration, Marketing Hub unified command center).
+import Grid from './pages/Grid.jsx';
+import Drive from './pages/Drive.jsx';
+import Sheets from './pages/Sheets.jsx';
+import AppManager from './pages/AppManager.jsx';
+import Roles from './pages/Roles.jsx';
+import Journeys from './pages/Journeys.jsx';
+import MarketingHub from './pages/MarketingHub.jsx';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -129,7 +139,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -173,6 +183,8 @@ const NAV_GROUPS = [
     { to: '/social', label: 'Social', icon: 'share2' },
     { to: '/funnels', label: 'Funnels', icon: 'funnel' },
     { to: '/ads', label: 'Ads', icon: 'globe' },
+    { to: '/journeys', label: 'Journeys', icon: 'journeys' },
+    { to: '/markethub', label: 'Marketing Hub', icon: 'radar' },
   ] },
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
@@ -183,6 +195,8 @@ const NAV_GROUPS = [
     { to: '/kb', label: 'Knowledge base', icon: 'book' },
     { to: '/academy', label: 'Academy', icon: 'rocket' },
     { to: '/surveys', label: 'Surveys', icon: 'gauge' },
+    { to: '/drive', label: 'Drive', icon: 'folder' },
+    { to: '/sheets', label: 'Sheets', icon: 'sheet' },
   ] },
   { id: 'revenue', label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -204,6 +218,7 @@ const NAV_GROUPS = [
     { to: '/attribution', label: 'Attribution', icon: 'key' },
     { to: '/twin', label: 'Revenue Twin', icon: 'twin' },
     { to: '/signals', label: 'Signals', icon: 'signal' },
+    { to: '/grid', label: 'Grid', icon: 'grid' },
   ] },
   { id: 'automation', label: 'Automation', items: [
     { to: '/flow', label: 'Flow builder', icon: 'flowNode' },
@@ -219,6 +234,8 @@ const NAV_GROUPS = [
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/datasync', label: 'Data sync', icon: 'swap' },
     { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker' },
+    { to: '/app-manager', label: 'App Manager', icon: 'toggles' },
+    { to: '/roles', label: 'Roles', icon: 'roleShield' },
     { to: '/import', label: 'Import', icon: 'download' },
     { to: '/team', label: 'Team', icon: 'user' },
     { to: '/permissions', label: 'Permissions', icon: 'lock' },
@@ -553,6 +570,14 @@ export default function App() {
               <Route path="/sandboxes" element={<Sandboxes />} />
               <Route path="/signals" element={<Signals />} />
               <Route path="/warroom" element={<WarRoom />} />
+              {/* Wave 8: platform expansion */}
+              <Route path="/grid" element={<Grid />} />
+              <Route path="/drive" element={<Drive />} />
+              <Route path="/sheets" element={<Sheets />} />
+              <Route path="/app-manager" element={<AppManager />} />
+              <Route path="/roles" element={<Roles />} />
+              <Route path="/journeys" element={<Journeys />} />
+              <Route path="/markethub" element={<MarketingHub />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
