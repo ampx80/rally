@@ -162,7 +162,12 @@ export function computeDefaultTarget(level, scope, metric, teams = state.teams) 
   }
 }
 
-export const goalKey = (level, scope, metric) => `${level}:${scope}:${metric}`;
+// Hoisted function declaration (NOT a const arrow) so it is callable during
+// module-eval seeding: `let state = load()` above runs buildSeed -> stash ->
+// goalKey before this point in source order. A const arrow would be in the
+// temporal dead zone here and throw "goalKey is not a function", white-screening
+// the whole app on any fresh/reseeded storage (e.g. after a rally_goals_v* bump).
+export function goalKey(level, scope, metric) { return `${level}:${scope}:${metric}`; }
 
 // Persisted target if edited, else the computed default.
 export function getGoalTarget(level, scope, metric) {
