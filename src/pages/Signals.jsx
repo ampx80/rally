@@ -123,11 +123,12 @@ function SignalCard({ sig, onOpen, toast, onChange }) {
    TAB 1 - SIGNALS FEED
    ============================================================ */
 function Feed({ stats, onOpenAccount, toast }) {
+  const snap = useSignals();                       // re-derive on any store commit (e.g. acting from the account modal), not just in-feed actions
   const [filter, setFilter] = useState('all');
   const [bump, setBump] = useState(0);            // force re-read after a status change
   const onChange = () => setBump(b => b + 1);
 
-  const all = useMemo(() => openSignals().sort((a, b) => signalPriority(b) - signalPriority(a)), [bump]);
+  const all = useMemo(() => openSignals().sort((a, b) => signalPriority(b) - signalPriority(a)), [bump, snap]);
   const rows = filter === 'all' ? all : all.filter(s => s.category === filter);
   const counts = useMemo(() => {
     const c = { all: all.length };

@@ -364,7 +364,7 @@ function Workqueue({ leads, onOpenLead }) {
                   <td className="hide-520 tnum">{l.touches}</td>
                   <td style={{ textAlign: 'right' }}>
                     <div className="row gap-1 reveal" style={{ justifyContent: 'flex-end' }}>
-                      <Button size="sm" variant="quiet" onClick={() => { pauseLead(l.id); toast(l.status === 'paused' ? 'Resumed Autopilot for this lead.' : 'Paused Autopilot for this lead.'); }}>
+                      <Button size="sm" variant="quiet" onClick={() => { const wasPaused = l.status === 'paused'; pauseLead(l.id); toast(wasPaused ? 'Resumed Autopilot for this lead.' : 'Paused Autopilot for this lead.'); }}>
                         {l.status === 'paused' ? 'Resume' : 'Pause'}
                       </Button>
                       <Button size="sm" variant="ghost" onClick={() => onOpenLead(l)}>Open</Button>

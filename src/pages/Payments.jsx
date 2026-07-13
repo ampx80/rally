@@ -349,6 +349,7 @@ function Links() {
           <table className="table">
             <thead><tr><th>Link</th><th>Customer</th><th>Channel</th><th style={{ textAlign: 'right' }}>Amount</th><th>Status</th><th></th></tr></thead>
             <tbody>
+              {shown.length === 0 && <tr><td colSpan={6}><div className="muted" style={{ padding: '1rem 0', textAlign: 'center' }}>No links in this view yet. Create one or text a customer to pay.</div></td></tr>}
               {shown.map(l => {
                 const chan = LINK_CHANNELS.find(c => c.id === l.channel);
                 return (
@@ -517,6 +518,7 @@ function Subscriptions({ stats }) {
             <table className="table">
               <thead><tr><th>Customer</th><th>Plan</th><th style={{ textAlign: 'right' }}>Amount</th><th>Next renewal</th><th>Status</th><th></th></tr></thead>
               <tbody>
+                {active.length === 0 && <tr><td colSpan={6}><div className="muted" style={{ padding: '1rem 0', textAlign: 'center' }}>No active subscriptions. Canceled plans still count toward churn above.</div></td></tr>}
                 {active.map(s => (
                   <tr key={s.id}>
                     <td><div className="fw-6 clip" style={{ maxWidth: 170 }}>{s.customer}</div><div className="t-xs muted clip" style={{ maxWidth: 170 }}>{s.company}</div></td>

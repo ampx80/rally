@@ -218,7 +218,7 @@ function Partners({ affiliates, onAdd, onOpen, toast }) {
                       <div className="row gap-2" style={{ minWidth: 0 }}>
                         <Avatar name={a.name} size={34} />
                         <div className="col" style={{ minWidth: 0, gap: 1 }}>
-                          <span className="fw-7 clip">{a.name}{a.flagship && <span title="Top partner"> </span>}</span>
+                          <span className="fw-7 clip row gap-1" style={{ alignItems: 'center' }}>{a.name}{a.flagship && <Icon name="star" size={12} title="Top partner" style={{ color: 'var(--warn)', flex: 'none' }} />}</span>
                           <span className="muted t-xs clip mono">{referralLink(a)}</span>
                         </div>
                       </div>

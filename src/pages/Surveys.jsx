@@ -238,7 +238,17 @@ function Builder({ activeId, setActiveId, toast, onViewResults }) {
   const send = () => {
     const r = sendSurvey(form.id, 25);
     if (r.error) return toast(r.message, 'risk');
+    if (r.survey) set({ status: r.survey.status, sent: r.survey.sent });
     toast(hasSendEnv() ? '25 invitations sent' : '25 invitations queued (connect a provider to send)');
+  };
+  // Flip active <-> paused and re-sync the local form so the badge + button
+  // label update immediately (the survey id does not change, so the id-keyed
+  // effect above will not re-seed the form for us).
+  const toggle = () => {
+    const r = toggleSurvey(form.id);
+    if (r.error) return toast(r.message, 'risk');
+    if (r.survey) set({ status: r.survey.status });
+    toast(r.survey?.status === 'active' ? 'Survey activated' : 'Survey paused');
   };
   const audience = triggerAudience(form.trigger);
 
@@ -309,7 +319,7 @@ function Builder({ activeId, setActiveId, toast, onViewResults }) {
           <div className="row gap-1 wrap" style={{ borderTop: '1px solid var(--line)', paddingTop: '1rem' }}>
             <Button variant="accent" onClick={save}><Icon name="check" size={15} /> Save survey</Button>
             <Button variant="ghost" onClick={send}><Icon name="send" size={15} /> Send wave</Button>
-            <Button variant="ghost" onClick={() => { toggleSurvey(form.id); }}><Icon name={form.status === 'active' ? 'moon' : 'zap'} size={15} /> {form.status === 'active' ? 'Pause' : 'Activate'}</Button>
+            <Button variant="ghost" onClick={toggle}><Icon name={form.status === 'active' ? 'moon' : 'zap'} size={15} /> {form.status === 'active' ? 'Pause' : 'Activate'}</Button>
             <div className="spacer" />
             <Button variant="quiet" onClick={() => askRook(`Write a ${t.full} question and a good follow-up prompt for a ${form.trigger} survey sent by ${form.channel}.`)}><Icon name="sparkles" size={15} /> Ask Rook to write it</Button>
           </div>

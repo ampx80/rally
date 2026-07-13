@@ -136,8 +136,11 @@ function Composer({ draft, setDraft, onSaved }) {
   const removeHashtag = (h) => setDraft(d => ({ ...d, hashtags: d.hashtags.filter(x => x !== h) }));
 
   const composedText = (net) => {
-    const base = draft.customize && draft.overrides[net] != null ? draft.overrides[net] : draft.content;
-    return base;
+    // Match the data layer's textForNetwork: an empty/whitespace override falls
+    // back to the shared content (the hint promises "leave blank to use the
+    // shared text"), so the live preview never disagrees with what gets saved.
+    const o = draft.overrides[net];
+    return draft.customize && o && o.trim() ? o : draft.content;
   };
 
   const buildScheduledAt = () => {
