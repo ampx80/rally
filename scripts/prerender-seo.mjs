@@ -25,6 +25,21 @@ const esc = (s) => String(s == null ? '' : s)
 const paras = (v) => (Array.isArray(v) ? v : [v]).filter(Boolean).map(p => `<p>${esc(p)}</p>`).join('');
 const cellHtml = (v) => v === true ? 'Yes' : v === false ? 'No' : esc(v);
 
+// ============================================================
+// INDEX TIERING - keep the catalog lean so Google rewards quality
+// DENSITY, not volume. On a young domain, thousands of thin templated
+// pages drag the whole site down. So the legacy /pages track is set to
+// robots="noindex,follow" by default: still crawled, link equity still
+// flows internally, but it does NOT compete for the index. Only the
+// best-in-class surfaces stay indexable + in the sitemap: core marketing,
+// the /guides juggernaut track, and any legacy slug explicitly promoted
+// into KEEP_SLUGS below. Promote a page by adding its slug here.
+// ============================================================
+const KEEP_SLUGS = new Set([
+  // e.g. 'salesforce-vs-hubspot'  // promote a proven legacy page back into the index
+]);
+const isKeep = (e) => KEEP_SLUGS.has(e.slug);
+
 function renderTable(t) {
   if (!t || !t.rows) return '';
   return `<table><thead><tr>${t.columns.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead>`
@@ -73,6 +88,7 @@ function pageHtml(shell, e) {
   const headTags = [
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(description)}" />`,
+    isKeep(e) ? '' : `<meta name="robots" content="noindex,follow" />`,
     `<link rel="canonical" href="${esc(canonical)}" />`,
     `<meta property="og:title" content="${esc(title)}" />`,
     `<meta property="og:description" content="${esc(description)}" />`,
@@ -80,7 +96,7 @@ function pageHtml(shell, e) {
     `<meta property="og:url" content="${esc(canonical)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     ...ld.map(g => `<script type="application/ld+json">${JSON.stringify(g).replace(/</g, '\\u003c')}</script>`),
-  ].join('\n    ');
+  ].filter(Boolean).join('\n    ');
   return shell
     .replace(/<title>[\s\S]*?<\/title>/, headTags)
     .replace('<div id="root"></div>', `<div id="root"><main class="seo-prerender mkt-wrap">${renderBody(e)}</main></div>`);
@@ -103,6 +119,9 @@ function hubHtml(shell) {
   const headTags = [
     `<title>All pages - ${s.total}+ CRM guides, comparisons, and rankings | Rally</title>`,
     `<meta name="description" content="Browse ${s.total}+ pages on CRM, sales, and revenue operations: comparisons, alternatives, rankings, industry guides, and definitions." />`,
+    // The library index links the noindexed legacy track; keep it crawlable but
+    // out of the index so it does not compete with the /guides pillar hub.
+    `<meta name="robots" content="noindex,follow" />`,
     `<link rel="canonical" href="${SITE}/pages" />`,
     ...ld.map(g => `<script type="application/ld+json">${JSON.stringify(g).replace(/</g, '\\u003c')}</script>`),
   ].join('\n    ');
@@ -123,11 +142,14 @@ for (const e of ENTRIES) {
 }
 await writeFile(join(DIST, 'pages', 'index.html'), hubHtml(shell), 'utf8');
 
-// sitemap.xml
-const staticUrls = ['/', '/features', '/product/rook', '/pricing', '/security', '/manifesto', '/pages'];
+// sitemap.xml - ONLY indexable, best-in-class URLs (core marketing + the
+// /guides juggernaut hub + any promoted legacy page). The noindexed legacy
+// /pages track is deliberately excluded so the sitemap Google reads is a
+// lean, high-quality catalog, not 1900+ thin templated URLs.
+const staticUrls = ['/', '/features', '/product/rook', '/pricing', '/security', '/manifesto', '/guides'];
 const urls = [
-  ...staticUrls.map(u => ({ loc: SITE + u, pri: u === '/' ? '1.0' : '0.8', freq: 'weekly' })),
-  ...ENTRIES.map(e => ({ loc: canonicalFor(e.slug), pri: (e.type === 'ranking' || e.type === 'comparison' || e.type === 'versus' || e.type === 'alternative') ? '0.8' : '0.6', freq: 'monthly', lastmod: e.updated })),
+  ...staticUrls.map(u => ({ loc: SITE + u, pri: u === '/' ? '1.0' : (u === '/guides' ? '0.9' : '0.8'), freq: 'weekly' })),
+  ...ENTRIES.filter(isKeep).map(e => ({ loc: canonicalFor(e.slug), pri: '0.7', freq: 'monthly', lastmod: e.updated })),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`
   + urls.map(u => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}<changefreq>${u.freq}</changefreq><priority>${u.pri}</priority></url>`).join('\n')
