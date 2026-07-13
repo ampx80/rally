@@ -82,6 +82,20 @@ import SignDocument from './pages/SignDocument.jsx';
 import ReportBuilder from './pages/ReportBuilder.jsx';
 import AutomationLibrary from './pages/AutomationLibrary.jsx';
 import Welcome from './pages/Welcome.jsx';
+// Wave 6: leapfrog features (Genesis generative setup, Twin digital twin, Autopilot
+// autonomous SDR, Workspaces agency/white-label, Conversations omni-inbox, Voice AI,
+// Reviews reputation, Social planner, Academy courses, Flow visual workflow builder).
+import Genesis from './pages/Genesis.jsx';
+import Twin from './pages/Twin.jsx';
+import Autopilot from './pages/Autopilot.jsx';
+import Workspaces from './pages/Workspaces.jsx';
+import WorkspaceDetail from './pages/WorkspaceDetail.jsx';
+import Conversations from './pages/Conversations.jsx';
+import Voice from './pages/Voice.jsx';
+import Reviews from './pages/Reviews.jsx';
+import Social from './pages/Social.jsx';
+import Academy from './pages/Academy.jsx';
+import Flow from './pages/Flow.jsx';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -102,7 +116,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -112,6 +126,7 @@ const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 
 const NAV_GROUPS = [
   { id: 'overview', label: 'Overview', pinned: true, items: [
     { to: '/app', label: 'Command center', icon: 'home', end: true },
+    { to: '/genesis', label: 'Genesis', icon: 'sparkles' },
     { to: '/activities', label: 'My day', icon: 'activity' },
     { to: '/inbox', label: 'Inbox', icon: 'inbox' },
     { to: '/notifications', label: 'Notifications', icon: 'bell' },
@@ -123,6 +138,8 @@ const NAV_GROUPS = [
     { to: '/contacts', label: 'Contacts', icon: 'users' },
     { to: '/companies', label: 'Companies', icon: 'building' },
     { to: '/deals', label: 'Deals', icon: 'target' },
+    { to: '/conversations', label: 'Conversations', icon: 'messages' },
+    { to: '/voice', label: 'Voice AI', icon: 'mic' },
   ] },
   { id: 'pipeline', label: 'Pipeline', items: [
     { to: '/forecasting', label: 'Forecasting', icon: 'trendUp' },
@@ -138,6 +155,8 @@ const NAV_GROUPS = [
     { to: '/forms', label: 'Forms', icon: 'list' },
     { to: '/landing-pages', label: 'Landing pages', icon: 'grid' },
     { to: '/lists', label: 'Lists', icon: 'filter' },
+    { to: '/reviews', label: 'Reviews', icon: 'star' },
+    { to: '/social', label: 'Social', icon: 'share2' },
   ] },
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
@@ -146,6 +165,7 @@ const NAV_GROUPS = [
     { to: '/tickets', label: 'Support tickets', icon: 'mail' },
     { to: '/service', label: 'Service Hub', icon: 'lifebuoy' },
     { to: '/kb', label: 'Knowledge base', icon: 'book' },
+    { to: '/academy', label: 'Academy', icon: 'rocket' },
   ] },
   { id: 'revenue', label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
@@ -163,14 +183,18 @@ const NAV_GROUPS = [
     { to: '/wind-tunnel', label: 'Wind Tunnel', icon: 'bolt' },
     { to: '/ghost-deals', label: 'Ghost Deals', icon: 'rotateCcw' },
     { to: '/attribution', label: 'Attribution', icon: 'key' },
+    { to: '/twin', label: 'Revenue Twin', icon: 'twin' },
   ] },
   { id: 'automation', label: 'Automation', items: [
+    { to: '/flow', label: 'Flow builder', icon: 'flowNode' },
+    { to: '/autopilot', label: 'Autopilot', icon: 'zap' },
     { to: '/workflows', label: 'Workflows', icon: 'workflow' },
     { to: '/workflows/library', label: 'Templates', icon: 'copy' },
     { to: '/night-shift', label: 'Night Shift', icon: 'moon' },
     { to: '/sms', label: 'SMS Alerts', icon: 'phone' },
   ] },
   { id: 'admin', label: 'Admin', defaultClosed: true, items: [
+    { to: '/workspaces', label: 'Workspaces', icon: 'building2' },
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
     { to: '/import', label: 'Import', icon: 'download' },
     { to: '/team', label: 'Team', icon: 'user' },
@@ -483,6 +507,18 @@ export default function App() {
               <Route path="/playbooks" element={<Playbooks />} />
               <Route path="/attribution" element={<Attribution />} />
               <Route path="/duplicates" element={<Duplicates />} />
+              {/* Wave 6: leapfrog features */}
+              <Route path="/genesis" element={<Genesis />} />
+              <Route path="/twin" element={<Twin />} />
+              <Route path="/autopilot" element={<Autopilot />} />
+              <Route path="/workspaces" element={<Workspaces />} />
+              <Route path="/workspaces/:id" element={<WorkspaceDetail />} />
+              <Route path="/conversations" element={<Conversations />} />
+              <Route path="/voice" element={<Voice />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/social" element={<Social />} />
+              <Route path="/academy" element={<Academy />} />
+              <Route path="/flow" element={<Flow />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
