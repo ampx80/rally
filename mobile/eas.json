@@ -1,0 +1,37 @@
+{
+  "cli": {
+    "version": ">= 7.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "TODO-apple-id-email",
+        "ascAppId": "TODO-app-store-connect-app-id",
+        "appleTeamId": "TODO-apple-team-id"
+      },
+      "android": {
+        "serviceAccountKeyPath": "TODO-path-to-google-service-account.json",
+        "track": "internal"
+      }
+    }
+  }
+}
