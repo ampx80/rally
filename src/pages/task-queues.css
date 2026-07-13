@@ -1,0 +1,46 @@
+/* Task queues + focus mode. ASCII only, no em/en dashes.
+   Every animation is disabled under prefers-reduced-motion. */
+
+.tq-grid { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: start; }
+@media (max-width: 900px) { .tq-grid { grid-template-columns: 1fr; } }
+
+.tq-rail { position: sticky; top: 84px; align-self: start; }
+@media (max-width: 900px) { .tq-rail { position: static; } }
+
+.tq-queue {
+  cursor: pointer; text-align: left; width: 100%; display: block;
+  transition: transform .15s var(--ease), border-color .15s, background .15s, box-shadow .15s;
+}
+.tq-queue:hover { transform: translateY(-2px); border-color: var(--line-strong); }
+.tq-queue.on { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent), var(--shadow-sm); }
+
+.tq-chip { width: 38px; height: 38px; border-radius: 11px; flex: none; display: grid; place-items: center; }
+
+.tq-card-in { animation: tqCardIn .34s var(--ease) both; }
+@keyframes tqCardIn { from { opacity: 0; transform: translateY(12px) scale(.99); } to { opacity: 1; transform: none; } }
+
+.tq-row-in { animation: tqRow .3s var(--ease) both; }
+@keyframes tqRow { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+
+.tq-focus-glow { position: relative; overflow: hidden; }
+.tq-focus-glow::before {
+  content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px;
+  border-radius: 50%; background: var(--accent); opacity: .08; filter: blur(10px); pointer-events: none;
+}
+
+.tq-big { font-size: clamp(1.35rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -.01em; line-height: 1.2; }
+
+.tq-snooze-menu {
+  position: absolute; z-index: 30; right: 0; bottom: calc(100% + 6px); min-width: 190px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg); padding: .35rem; animation: tqCardIn .18s var(--ease) both;
+}
+.tq-snooze-item { width: 100%; text-align: left; padding: .55rem .7rem; border-radius: var(--r-sm); background: transparent; cursor: pointer; font-weight: 600; }
+.tq-snooze-item:hover { background: var(--accent-50); color: var(--accent-600); }
+
+.tq-progress-dot { width: 8px; height: 8px; border-radius: 50%; transition: background .2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tq-card-in, .tq-row-in, .tq-snooze-menu { animation: none !important; }
+  .tq-queue:hover { transform: none; }
+}
