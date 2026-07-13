@@ -52,6 +52,14 @@ import bestCrmForSaas from './juggernauts/best-crm-for-saas.js';
 import bestCrmForAgencies from './juggernauts/best-crm-for-agencies.js';
 import bestCrmForConsultants from './juggernauts/best-crm-for-consultants.js';
 import salesAutomationGuide from './juggernauts/sales-automation-guide.js';
+import accountBasedMarketingGuide from './juggernauts/account-based-marketing-guide.js';
+import b2bSalesProcess from './juggernauts/b2b-sales-process.js';
+import crmAdoptionGuide from './juggernauts/crm-adoption-guide.js';
+import customerOnboardingGuide from './juggernauts/customer-onboarding-guide.js';
+import leadScoringGuide from './juggernauts/lead-scoring-guide.js';
+import salesEmailSequences from './juggernauts/sales-email-sequences.js';
+import salesKpisAndMetrics from './juggernauts/sales-kpis-and-metrics.js';
+import whatIsCpq from './juggernauts/what-is-cpq.js';
 
 const JUGGERNAUT_MODULES = [
   crmForStartups,
@@ -82,6 +90,14 @@ const JUGGERNAUT_MODULES = [
   bestCrmForAgencies,
   bestCrmForConsultants,
   salesAutomationGuide,
+  accountBasedMarketingGuide,
+  b2bSalesProcess,
+  crmAdoptionGuide,
+  customerOnboardingGuide,
+  leadScoringGuide,
+  salesEmailSequences,
+  salesKpisAndMetrics,
+  whatIsCpq,
   // e.g. import aiSalesForecasting from './juggernauts/ai-sales-forecasting.js';
   //      then add: aiSalesForecasting,
 ];
