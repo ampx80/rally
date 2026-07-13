@@ -154,3 +154,50 @@ for (const g of GROUP_ORDER) {
 await writeFile(join(DIST, 'llms.txt'), llms, 'utf8');
 
 console.log(`prerender-seo: wrote ${n} pages + hub + sitemap.xml (${urls.length} urls) + robots.txt + llms.txt`);
+
+// ============================================================
+// JUGGERNAUT TRACK  (appended, fully additive - the existing loop,
+// sitemap, robots, and llms.txt writes above are untouched). Emits the
+// isolated best-in-class /guides/<slug> pages, then splices their URLs
+// into the already-written sitemap.xml and appends a section to
+// llms.txt. If the registry is empty or missing, this block no-ops.
+// ============================================================
+try {
+  const jreg = await import('../src/marketing/seo/juggernaut-registry.js');
+  const jren = await import('../src/marketing/seo/juggernaut-render.js');
+  const JUGGERNAUTS = jreg.JUGGERNAUTS || [];
+  if (JUGGERNAUTS.length) {
+    if (!existsSync(join(DIST, 'guides'))) await mkdir(join(DIST, 'guides'), { recursive: true });
+    let jn = 0;
+    for (const e of JUGGERNAUTS) {
+      const dir = join(DIST, 'guides', e.slug);
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, 'index.html'), jren.renderJuggernautDocument(shell, e), 'utf8');
+      jn++;
+    }
+
+    // Splice juggernaut URLs into the existing sitemap.xml (before </urlset>).
+    const jugUrls = JUGGERNAUTS.map((e) => `  <url><loc>${jren.guideCanonical(e.slug)}</loc>`
+      + `${e.updated ? `<lastmod>${e.updated}</lastmod>` : ''}<changefreq>weekly</changefreq><priority>0.9</priority></url>`).join('\n');
+    const sitemapPath = join(DIST, 'sitemap.xml');
+    let sm = await readFile(sitemapPath, 'utf8');
+    sm = sm.replace('</urlset>', `${jugUrls}\n</urlset>`);
+    await writeFile(sitemapPath, sm, 'utf8');
+
+    // Append a Guides section to the existing llms.txt.
+    let jllms = `\n## Guides (in-depth, best-in-class)\n`;
+    for (const e of JUGGERNAUTS) {
+      const sum = typeof e.intro === 'string' ? e.intro : Array.isArray(e.intro) ? e.intro[0] : (e.metaDescription || '');
+      jllms += `- [${e.title}](${jren.guideCanonical(e.slug)})${sum ? ': ' + sum : ''}\n`;
+    }
+    const llmsPath = join(DIST, 'llms.txt');
+    const existingLlms = await readFile(llmsPath, 'utf8');
+    await writeFile(llmsPath, existingLlms + jllms, 'utf8');
+
+    console.log(`prerender-seo: wrote ${jn} juggernaut /guides pages + spliced sitemap + llms.txt`);
+  } else {
+    console.log('prerender-seo: no juggernaut entries registered, skipped /guides track');
+  }
+} catch (err) {
+  console.warn('prerender-seo: juggernaut track skipped,', err && err.message);
+}

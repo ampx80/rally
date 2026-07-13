@@ -68,6 +68,8 @@ import Security from './marketing/Security.jsx';
 import Manifesto from './marketing/Manifesto.jsx';
 import PagesHub from './marketing/PagesHub.jsx';
 import SeoPage from './marketing/SeoPage.jsx';
+import Juggernaut from './marketing/Juggernaut.jsx';
+import GuidesHub from './marketing/GuidesHub.jsx';
 import ComingSoon, { isUnlocked } from './gate/ComingSoon.jsx';
 import Intelligence from './pages/Intelligence.jsx';
 import CustomerSuccess from './pages/CustomerSuccess.jsx';
@@ -459,6 +461,9 @@ export default function App() {
             <Route path="/manifesto" element={<Manifesto />} />
             <Route path="/pages" element={<PagesHub />} />
             <Route path="/pages/:slug" element={<SeoPage />} />
+            {/* Juggernaut track: deep best-in-class guides, isolated from /pages */}
+            <Route path="/guides" element={<GuidesHub />} />
+            <Route path="/guides/:slug" element={<Juggernaut />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/about" element={<About />} />
             <Route path="/changelog" element={<Changelog />} />
