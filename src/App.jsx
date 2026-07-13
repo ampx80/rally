@@ -96,6 +96,19 @@ import Reviews from './pages/Reviews.jsx';
 import Social from './pages/Social.jsx';
 import Academy from './pages/Academy.jsx';
 import Flow from './pages/Flow.jsx';
+// Wave 7: gap-closers + leapfrogs (Funnels site builder, Payments text-to-pay,
+// Surveys NPS/CSAT/CES, Ads cross-channel manager, Affiliates, Marketplace,
+// DataSync ops hub, Sandboxes, Signals predictive intel, WarRoom deal cockpit).
+import Funnels from './pages/Funnels.jsx';
+import Payments from './pages/Payments.jsx';
+import Surveys from './pages/Surveys.jsx';
+import Ads from './pages/Ads.jsx';
+import Affiliates from './pages/Affiliates.jsx';
+import Marketplace from './pages/Marketplace.jsx';
+import DataSync from './pages/DataSync.jsx';
+import Sandboxes from './pages/Sandboxes.jsx';
+import Signals from './pages/Signals.jsx';
+import WarRoom from './pages/WarRoom.jsx';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -116,7 +129,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -147,6 +160,7 @@ const NAV_GROUPS = [
     { to: '/territories', label: 'Territories', icon: 'grid' },
     { to: '/scheduler', label: 'Scheduler', icon: 'clock' },
     { to: '/playbooks', label: 'Playbooks', icon: 'book' },
+    { to: '/warroom', label: 'War Room', icon: 'command' },
   ] },
   { id: 'marketing', label: 'Marketing', items: [
     { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
@@ -157,6 +171,8 @@ const NAV_GROUPS = [
     { to: '/lists', label: 'Lists', icon: 'filter' },
     { to: '/reviews', label: 'Reviews', icon: 'star' },
     { to: '/social', label: 'Social', icon: 'share2' },
+    { to: '/funnels', label: 'Funnels', icon: 'funnel' },
+    { to: '/ads', label: 'Ads', icon: 'globe' },
   ] },
   { id: 'delivery', label: 'Success & Delivery', items: [
     { to: '/projects', label: 'Projects', icon: 'checkSquare' },
@@ -166,12 +182,15 @@ const NAV_GROUPS = [
     { to: '/service', label: 'Service Hub', icon: 'lifebuoy' },
     { to: '/kb', label: 'Knowledge base', icon: 'book' },
     { to: '/academy', label: 'Academy', icon: 'rocket' },
+    { to: '/surveys', label: 'Surveys', icon: 'gauge' },
   ] },
   { id: 'revenue', label: 'Revenue', items: [
     { to: '/products', label: 'Products', icon: 'box' },
     { to: '/quotes', label: 'Quotes', icon: 'receipt' },
     { to: '/signatures', label: 'Signatures', icon: 'edit' },
     { to: '/invoices', label: 'Billing', icon: 'dollar' },
+    { to: '/payments', label: 'Payments', icon: 'creditCard' },
+    { to: '/affiliates', label: 'Affiliates', icon: 'share2' },
     { to: '/studio', label: 'Studio', icon: 'fileText' },
     { to: '/film', label: 'Deal Film', icon: 'eye' },
   ] },
@@ -184,6 +203,7 @@ const NAV_GROUPS = [
     { to: '/ghost-deals', label: 'Ghost Deals', icon: 'rotateCcw' },
     { to: '/attribution', label: 'Attribution', icon: 'key' },
     { to: '/twin', label: 'Revenue Twin', icon: 'twin' },
+    { to: '/signals', label: 'Signals', icon: 'signal' },
   ] },
   { id: 'automation', label: 'Automation', items: [
     { to: '/flow', label: 'Flow builder', icon: 'flowNode' },
@@ -195,7 +215,10 @@ const NAV_GROUPS = [
   ] },
   { id: 'admin', label: 'Admin', defaultClosed: true, items: [
     { to: '/workspaces', label: 'Workspaces', icon: 'building2' },
+    { to: '/marketplace', label: 'Marketplace', icon: 'store' },
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
+    { to: '/datasync', label: 'Data sync', icon: 'swap' },
+    { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker' },
     { to: '/import', label: 'Import', icon: 'download' },
     { to: '/team', label: 'Team', icon: 'user' },
     { to: '/permissions', label: 'Permissions', icon: 'lock' },
@@ -519,6 +542,17 @@ export default function App() {
               <Route path="/social" element={<Social />} />
               <Route path="/academy" element={<Academy />} />
               <Route path="/flow" element={<Flow />} />
+              {/* Wave 7: gap-closers + leapfrogs */}
+              <Route path="/funnels" element={<Funnels />} />
+              <Route path="/payments" element={<Payments />} />
+              <Route path="/surveys" element={<Surveys />} />
+              <Route path="/ads" element={<Ads />} />
+              <Route path="/affiliates" element={<Affiliates />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/datasync" element={<DataSync />} />
+              <Route path="/sandboxes" element={<Sandboxes />} />
+              <Route path="/signals" element={<Signals />} />
+              <Route path="/warroom" element={<WarRoom />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
