@@ -28,12 +28,36 @@ import crmForStartups from './juggernauts/crm-for-startups.js';
 import hubspotAlternative from './juggernauts/hubspot-alternative.js';
 import crmRoiCalculator from './juggernauts/crm-roi-calculator.js';
 import bestAiCrm from './juggernauts/best-ai-crm.js';
+import bestCrmForSmallBusiness from './juggernauts/best-crm-for-small-business.js';
+import leadManagementGuide from './juggernauts/lead-management-guide.js';
+import crmMigrationGuide from './juggernauts/crm-migration-guide.js';
+import salesforceAlternative from './juggernauts/salesforce-alternative.js';
+import pipedriveAlternative from './juggernauts/pipedrive-alternative.js';
+import zohoCrmAlternative from './juggernauts/zoho-crm-alternative.js';
+import bestAiSalesTools from './juggernauts/best-ai-sales-tools.js';
+import whatIsACrm from './juggernauts/what-is-a-crm.js';
+import salesPipelineManagement from './juggernauts/sales-pipeline-management.js';
+import crmVsSpreadsheet from './juggernauts/crm-vs-spreadsheet.js';
+import revenueOperationsGuide from './juggernauts/revenue-operations-guide.js';
+import salesForecastingGuide from './juggernauts/sales-forecasting-guide.js';
 
 const JUGGERNAUT_MODULES = [
   crmForStartups,
   hubspotAlternative,
   crmRoiCalculator,
   bestAiCrm,
+  bestCrmForSmallBusiness,
+  leadManagementGuide,
+  crmMigrationGuide,
+  salesforceAlternative,
+  pipedriveAlternative,
+  zohoCrmAlternative,
+  bestAiSalesTools,
+  whatIsACrm,
+  salesPipelineManagement,
+  crmVsSpreadsheet,
+  revenueOperationsGuide,
+  salesForecastingGuide,
   // e.g. import aiSalesForecasting from './juggernauts/ai-sales-forecasting.js';
   //      then add: aiSalesForecasting,
 ];
