@@ -40,6 +40,18 @@ import salesPipelineManagement from './juggernauts/sales-pipeline-management.js'
 import crmVsSpreadsheet from './juggernauts/crm-vs-spreadsheet.js';
 import revenueOperationsGuide from './juggernauts/revenue-operations-guide.js';
 import salesForecastingGuide from './juggernauts/sales-forecasting-guide.js';
+import mondayCrmAlternative from './juggernauts/monday-crm-alternative.js';
+import gohighlevelAlternative from './juggernauts/gohighlevel-alternative.js';
+import keapAlternative from './juggernauts/keap-alternative.js';
+import closeCrmAlternative from './juggernauts/close-crm-alternative.js';
+import freshsalesAlternative from './juggernauts/freshsales-alternative.js';
+import copperCrmAlternative from './juggernauts/copper-crm-alternative.js';
+import bestFreeCrm from './juggernauts/best-free-crm.js';
+import bestCrmForRealEstate from './juggernauts/best-crm-for-real-estate.js';
+import bestCrmForSaas from './juggernauts/best-crm-for-saas.js';
+import bestCrmForAgencies from './juggernauts/best-crm-for-agencies.js';
+import bestCrmForConsultants from './juggernauts/best-crm-for-consultants.js';
+import salesAutomationGuide from './juggernauts/sales-automation-guide.js';
 
 const JUGGERNAUT_MODULES = [
   crmForStartups,
@@ -58,6 +70,18 @@ const JUGGERNAUT_MODULES = [
   crmVsSpreadsheet,
   revenueOperationsGuide,
   salesForecastingGuide,
+  mondayCrmAlternative,
+  gohighlevelAlternative,
+  keapAlternative,
+  closeCrmAlternative,
+  freshsalesAlternative,
+  copperCrmAlternative,
+  bestFreeCrm,
+  bestCrmForRealEstate,
+  bestCrmForSaas,
+  bestCrmForAgencies,
+  bestCrmForConsultants,
+  salesAutomationGuide,
   // e.g. import aiSalesForecasting from './juggernauts/ai-sales-forecasting.js';
   //      then add: aiSalesForecasting,
 ];
