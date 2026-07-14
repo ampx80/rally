@@ -60,6 +60,20 @@ import leadScoringGuide from './juggernauts/lead-scoring-guide.js';
 import salesEmailSequences from './juggernauts/sales-email-sequences.js';
 import salesKpisAndMetrics from './juggernauts/sales-kpis-and-metrics.js';
 import whatIsCpq from './juggernauts/what-is-cpq.js';
+import bestCrmForNonprofits from './juggernauts/best-crm-for-nonprofits.js';
+import bestCrmForEcommerce from './juggernauts/best-crm-for-ecommerce.js';
+import bestCrmForInsurance from './juggernauts/best-crm-for-insurance.js';
+import bestCrmForFinancialAdvisors from './juggernauts/best-crm-for-financial-advisors.js';
+import bestCrmForManufacturing from './juggernauts/best-crm-for-manufacturing.js';
+import bestCrmForHealthcare from './juggernauts/best-crm-for-healthcare.js';
+import salesEnablementGuide from './juggernauts/sales-enablement-guide.js';
+import coldEmailGuide from './juggernauts/cold-email-guide.js';
+import salesDiscoveryCallGuide from './juggernauts/sales-discovery-call-guide.js';
+import handlingSalesObjections from './juggernauts/handling-sales-objections.js';
+import winLossAnalysisGuide from './juggernauts/win-loss-analysis-guide.js';
+import salesQuotaSettingGuide from './juggernauts/sales-quota-setting-guide.js';
+import crmVsMarketingAutomation from './juggernauts/crm-vs-marketing-automation.js';
+import salesCompensationPlansGuide from './juggernauts/sales-compensation-plans-guide.js';
 
 const JUGGERNAUT_MODULES = [
   crmForStartups,
@@ -98,6 +112,20 @@ const JUGGERNAUT_MODULES = [
   salesEmailSequences,
   salesKpisAndMetrics,
   whatIsCpq,
+  bestCrmForNonprofits,
+  bestCrmForEcommerce,
+  bestCrmForInsurance,
+  bestCrmForFinancialAdvisors,
+  bestCrmForManufacturing,
+  bestCrmForHealthcare,
+  salesEnablementGuide,
+  coldEmailGuide,
+  salesDiscoveryCallGuide,
+  handlingSalesObjections,
+  winLossAnalysisGuide,
+  salesQuotaSettingGuide,
+  crmVsMarketingAutomation,
+  salesCompensationPlansGuide,
   // e.g. import aiSalesForecasting from './juggernauts/ai-sales-forecasting.js';
   //      then add: aiSalesForecasting,
 ];
