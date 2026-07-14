@@ -121,6 +121,12 @@ import AppManager from './pages/AppManager.jsx';
 import Roles from './pages/Roles.jsx';
 import Journeys from './pages/Journeys.jsx';
 import MarketingHub from './pages/MarketingHub.jsx';
+// Liftoff: AI cinematic onboarding intake wizard -> activates modules + generates
+// a per-role deck for every layer (exec/manager/sales/finance/...) + a master deck.
+// /liftoff = the wizard (in-app), /liftoff/deck/:role = in-app decks,
+// /deck/:role = chrome-free embeddable deck (for the marketing site + iframes).
+import Liftoff from './pages/Liftoff.jsx';
+import LiftoffDeck from './pages/LiftoffDeck.jsx';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -141,7 +147,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -151,6 +157,7 @@ const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 
 const NAV_GROUPS = [
   { id: 'overview', label: 'Overview', pinned: true, items: [
     { to: '/app', label: 'Command center', icon: 'home', end: true },
+    { to: '/liftoff', label: 'Liftoff', icon: 'rocket' },
     { to: '/genesis', label: 'Genesis', icon: 'sparkles' },
     { to: '/activities', label: 'My day', icon: 'activity' },
     { to: '/inbox', label: 'Inbox', icon: 'inbox' },
@@ -447,6 +454,18 @@ export default function App() {
   const seg = loc.pathname.split('/')[1] || '';
   const isApp = PRODUCT_SEGS.has(seg);
 
+  // Chrome-free embeddable decks: /deck/:role renders standalone (no product
+  // shell, no marketing chrome) so it drops cleanly into an iframe or the
+  // marketing site. The component carries its own scoped styles + demo data.
+  if (seg === 'deck') {
+    return (
+      <Routes>
+        <Route path="/deck/:role" element={<LiftoffDeck embed />} />
+        <Route path="/deck" element={<LiftoffDeck embed />} />
+      </Routes>
+    );
+  }
+
   if (!isApp) {
     return (
       <MarketingShell>
@@ -583,6 +602,8 @@ export default function App() {
               <Route path="/roles" element={<Roles />} />
               <Route path="/journeys" element={<Journeys />} />
               <Route path="/markethub" element={<MarketingHub />} />
+              <Route path="/liftoff" element={<Liftoff />} />
+              <Route path="/liftoff/deck/:role" element={<LiftoffDeck />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
