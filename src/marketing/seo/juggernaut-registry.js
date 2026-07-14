@@ -74,6 +74,20 @@ import winLossAnalysisGuide from './juggernauts/win-loss-analysis-guide.js';
 import salesQuotaSettingGuide from './juggernauts/sales-quota-setting-guide.js';
 import crmVsMarketingAutomation from './juggernauts/crm-vs-marketing-automation.js';
 import salesCompensationPlansGuide from './juggernauts/sales-compensation-plans-guide.js';
+import salesforceVsHubspot from './juggernauts/salesforce-vs-hubspot.js';
+import hubspotVsPipedrive from './juggernauts/hubspot-vs-pipedrive.js';
+import salesforceVsPipedrive from './juggernauts/salesforce-vs-pipedrive.js';
+import microsoftDynamicsAlternative from './juggernauts/microsoft-dynamics-alternative.js';
+import sugarcrmAlternative from './juggernauts/sugarcrm-alternative.js';
+import bitrix24Alternative from './juggernauts/bitrix24-alternative.js';
+import netsuiteCrmAlternative from './juggernauts/netsuite-crm-alternative.js';
+import bestCrmForConstruction from './juggernauts/best-crm-for-construction.js';
+import bestCrmForRecruiting from './juggernauts/best-crm-for-recruiting.js';
+import bestCrmForLawFirms from './juggernauts/best-crm-for-law-firms.js';
+import bestCrmForB2b from './juggernauts/best-crm-for-b2b.js';
+import salesTerritoryManagementGuide from './juggernauts/sales-territory-management-guide.js';
+import customerRetentionGuide from './juggernauts/customer-retention-guide.js';
+import salesCoachingGuide from './juggernauts/sales-coaching-guide.js';
 
 const JUGGERNAUT_MODULES = [
   crmForStartups,
@@ -126,6 +140,20 @@ const JUGGERNAUT_MODULES = [
   salesQuotaSettingGuide,
   crmVsMarketingAutomation,
   salesCompensationPlansGuide,
+  salesforceVsHubspot,
+  hubspotVsPipedrive,
+  salesforceVsPipedrive,
+  microsoftDynamicsAlternative,
+  sugarcrmAlternative,
+  bitrix24Alternative,
+  netsuiteCrmAlternative,
+  bestCrmForConstruction,
+  bestCrmForRecruiting,
+  bestCrmForLawFirms,
+  bestCrmForB2b,
+  salesTerritoryManagementGuide,
+  customerRetentionGuide,
+  salesCoachingGuide,
   // e.g. import aiSalesForecasting from './juggernauts/ai-sales-forecasting.js';
   //      then add: aiSalesForecasting,
 ];
