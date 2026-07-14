@@ -129,6 +129,7 @@ import Liftoff from './pages/Liftoff.jsx';
 import LiftoffDeck from './pages/LiftoffDeck.jsx';
 // Back-office admin: signup tracking, growth metrics, filters, launch-into.
 import Admin from './pages/Admin.jsx';
+import { useAdminAccess } from './lib/access.js';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -332,8 +333,10 @@ function NavItem({ n, onClose }) {
   );
 }
 
+const ADMIN_ONLY_ROUTES = new Set(['/admin']);
 function Rail({ open, mobile, onClose }) {
   const mods = useModules();
+  const adminAllowed = useAdminAccess().allowed;
   const loc = useLocation();
   const [openMap, setOpenMap] = useState(readNavState);
   const toggle = (id, currentlyBaseOpen) => {
@@ -363,7 +366,10 @@ function Rail({ open, mobile, onClose }) {
       <nav className="col" style={{ padding: '.25rem .7rem .8rem', flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
         {NAV_GROUPS.map((group) => {
           // Hide items whose module is turned off; drop a group that empties out.
-          const items = group.items.filter(n => { const k = moduleForRoute(n.to); return !k || mods[k] !== false; });
+          const items = group.items.filter(n => {
+            if (ADMIN_ONLY_ROUTES.has(n.to) && !adminAllowed) return false; // super-admin only
+            const k = moduleForRoute(n.to); return !k || mods[k] !== false;
+          });
           if (items.length === 0) return null;
           // Is the active route inside this group? If so it renders open regardless
           // of the persisted preference (can never hide the current page).
@@ -432,6 +438,22 @@ function Topbar({ onOpenSearch, onBurger }) {
         </button>
       </div>
     </header>
+  );
+}
+
+// Route guard for the back office. Open in demo mode; once auth is on, only
+// super admins (see src/lib/access.js) get in - everyone else sees this.
+function AdminGate() {
+  const acc = useAdminAccess();
+  if (acc.loading) return null;
+  if (acc.allowed) return <Admin />;
+  return (
+    <div className="page" style={{ maxWidth: 520, margin: '4rem auto', textAlign: 'center' }}>
+      <span style={{ display: 'inline-grid', placeItems: 'center', width: 64, height: 64, borderRadius: 18, background: 'var(--n-100)', color: 'var(--n-500)' }}><Icon name="lock" size={30} /></span>
+      <h1 style={{ fontSize: '1.7rem', margin: '1rem 0 .4rem' }}>Admin is restricted</h1>
+      <p className="muted" style={{ fontSize: '1.05rem' }}>The back office is limited to super admins. Sign in with a super-admin account to continue.</p>
+      <p style={{ marginTop: '1.5rem' }}><Link className="btn btn-primary" to="/app">Back to Rally</Link></p>
+    </div>
   );
 }
 
@@ -607,7 +629,7 @@ export default function App() {
               <Route path="/markethub" element={<MarketingHub />} />
               <Route path="/liftoff" element={<Liftoff />} />
               <Route path="/liftoff/deck/:role" element={<LiftoffDeck />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<AdminGate />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
