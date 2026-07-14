@@ -43,6 +43,15 @@ export default function SignUp() {
     setStatus('submitting');
     const res = await signUp({ email, password, name });
     if (res.error) { setStatus('idle'); setErr(res.message); return; }
+    // Record the signup for the admin panel (decoupled window event). A personal
+    // signup is a lead; the company is inferred from the email domain.
+    try {
+      const dom = (email.split('@')[1] || '').split('.')[0];
+      window.dispatchEvent(new CustomEvent('rally:signup', { detail: {
+        company: dom ? dom.charAt(0).toUpperCase() + dom.slice(1) : name.trim(),
+        contact: name.trim(), email: email.trim(), source: 'marketing', status: 'lead', seats: 1,
+      } }));
+    } catch {}
     if (res.session) { nav('/app'); return; } // auto-confirmed project
     setStatus('sent'); // email confirmation required
   };

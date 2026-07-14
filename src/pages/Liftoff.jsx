@@ -880,6 +880,14 @@ export default function Liftoff() {
   const onWizardComplete = () => {
     let plan;
     try { plan = submitIntake(); } catch { plan = getPlan(); }
+    // Record the company signup for the admin panel (decoupled via a window event
+    // so this page never imports the admin store). Fires only on real completion.
+    try {
+      window.dispatchEvent(new CustomEvent('rally:signup', { detail: {
+        company: plan && plan.company, seats: plan && plan.seats,
+        industry: plan && plan.industry, source: 'liftoff', status: 'trial',
+      } }));
+    } catch {}
     setGenPlan(plan);
     setView('generating');
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}

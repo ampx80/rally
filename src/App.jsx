@@ -127,6 +127,8 @@ import MarketingHub from './pages/MarketingHub.jsx';
 // /deck/:role = chrome-free embeddable deck (for the marketing site + iframes).
 import Liftoff from './pages/Liftoff.jsx';
 import LiftoffDeck from './pages/LiftoffDeck.jsx';
+// Back-office admin: signup tracking, growth metrics, filters, launch-into.
+import Admin from './pages/Admin.jsx';
 import HelpCenter from './marketing/help/HelpCenter.jsx';
 import HelpArticle from './marketing/help/HelpArticle.jsx';
 import StatusPage from './marketing/StatusPage.jsx';
@@ -147,7 +149,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin']);
 
 // Collapsible nav groups. A pinned Overview stays open; every other group is a
 // collapsible section whose open/closed state persists per-user in localStorage.
@@ -238,6 +240,7 @@ const NAV_GROUPS = [
     { to: '/sms', label: 'SMS Alerts', icon: 'phone' },
   ] },
   { id: 'admin', label: 'Admin', defaultClosed: true, items: [
+    { to: '/admin', label: 'Admin (signups)', icon: 'shield' },
     { to: '/workspaces', label: 'Workspaces', icon: 'building2' },
     { to: '/marketplace', label: 'Marketplace', icon: 'store' },
     { to: '/integrations', label: 'Integrations', icon: 'plug' },
@@ -604,6 +607,7 @@ export default function App() {
               <Route path="/markethub" element={<MarketingHub />} />
               <Route path="/liftoff" element={<Liftoff />} />
               <Route path="/liftoff/deck/:role" element={<LiftoffDeck />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/territories" element={<Territories />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/notifications" element={<Notifications />} />
