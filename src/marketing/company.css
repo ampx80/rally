@@ -237,7 +237,7 @@
 /* --- Rook-only violet accents (never for generic product chrome) --- */
 .mkt .co-rook-icon {
   width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
-  background: linear-gradient(135deg, rgba(124,92,247,.16), rgba(91,75,245,.1));
+  background: linear-gradient(135deg, rgba(124,92,247,.16), rgba(14,159,143,.1));
   color: #7c5cf7; border: 1px solid rgba(124,92,247,.28);
 }
 .mkt .co-rook-card {

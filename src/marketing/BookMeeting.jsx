@@ -19,13 +19,13 @@ import { Icon } from '../components/icons.jsx';
 function palette(accent) {
   return {
     bg: '#0a0c12', card: '#12141f', card2: '#0f111a', line: '#242838', lineSoft: '#1c2030',
-    ink: '#eceef6', muted: '#a6abbe', dim: '#6d7285', accent, accentSoft: 'rgba(91,75,245,.14)',
+    ink: '#eceef6', muted: '#a6abbe', dim: '#6d7285', accent, accentSoft: 'rgba(14,159,143,.14)',
     ok: '#22c58b',
   };
 }
 
 /* ---------- initials + deterministic avatar color ---------- */
-const AV = ['#5b4bf5', '#0ea5a3', '#e0752d', '#c0392b', '#2563a8', '#8b3fd4', '#1a7f52', '#d4a017'];
+const AV = ['#0e9f8f', '#14b8a6', '#e0752d', '#c0392b', '#2563a8', '#7c5cf7', '#1a7f52', '#d4a017'];
 function avColor(name = '') { let h = 0; for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0; return AV[h % AV.length]; }
 function initials(name = '') { return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?'; }
 function Avatar({ name, size = 34, ring = '#12141f' }) {
@@ -66,7 +66,7 @@ function downloadIcs(meeting, type, ownerName) {
 export default function BookMeeting() {
   const { slug } = useParams();
   const type = useMemo(() => bookingTypeBySlug(slug), [slug]);
-  const c = palette(type?.color || '#5b4bf5');
+  const c = palette(type?.color || '#0e9f8f');
 
   const days = useMemo(() => (type ? slotsByDay(type) : []), [type]);
   const [dayIdx, setDayIdx] = useState(0);
@@ -155,7 +155,7 @@ export default function BookMeeting() {
           <aside style={{ padding: '32px 28px', borderRight: `1px solid ${c.line}`, background: c.card2, position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${c.accent}, transparent)` }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: c.dim, fontSize: 13, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase' }}>
-              <span style={{ width: 26, height: 26, borderRadius: 7, background: `linear-gradient(135deg, ${c.accent}, #4a3ce0)`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}><Icon name="zap" size={15} fill="currentColor" stroke={0} /></span>
+              <span style={{ width: 26, height: 26, borderRadius: 7, background: `linear-gradient(135deg, ${c.accent}, #0b8578)`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}><Icon name="zap" size={15} fill="currentColor" stroke={0} /></span>
               Rally
             </div>
             <h1 style={{ color: c.ink, fontSize: 27, margin: '18px 0 10px', letterSpacing: '-.02em', lineHeight: 1.15 }}>{type.name}</h1>
@@ -295,7 +295,7 @@ function btn(c, primary) {
     display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 20px', borderRadius: 10,
     fontWeight: 700, fontSize: 15, cursor: 'pointer', border: `1px solid ${primary ? 'transparent' : c.line}`,
     background: primary ? c.accent : 'transparent', color: primary ? '#fff' : c.muted,
-    boxShadow: primary ? '0 8px 24px rgba(91,75,245,.32)' : 'none',
+    boxShadow: primary ? '0 8px 24px rgba(14,159,143,.32)' : 'none',
   };
 }
 function PoweredBy({ c }) {

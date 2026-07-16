@@ -1,11 +1,19 @@
 // Programmatic comparison template. One component, rendered for every
 // /compare/:slug - the first seeds of Rally's SEO engine. Cross-links every
 // competitor so each page lifts the others. NO em-dash / en-dash.
+// Teal #0e9f8f product accent; violet reserved for Rook/AI only.
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
 import { COMPETITORS, COMPETITOR_SLUGS } from './competitors.js';
 import { Icon } from '../components/icons.jsx';
+
+const PANEL = {
+  background: 'linear-gradient(180deg, #fff, #fafcfb)',
+  border: '1px solid var(--m-line)',
+  borderRadius: 14,
+  boxShadow: 'none',
+};
 
 // Renders a table/row cell: boolean -> yes/no glyph, string -> text.
 function Cell({ value }) {
@@ -29,10 +37,10 @@ export default function Compare() {
         <div className="mkt-wrap">
           <Reveal>
             <Pill>Comparison</Pill>
-            <h1 className="mkt-h1" style={{ marginTop: 22 }}>
+            <h1 className="mkt-h1" style={{ marginTop: 22, letterSpacing: '-.03em', lineHeight: 1.05 }}>
               Rally vs <span className="mkt-grad m-shine">{c.name}</span>
             </h1>
-            <p className="mkt-lead" style={{ maxWidth: 720, margin: '20px auto 0' }}>{c.tagline}</p>
+            <p className="mkt-lead" style={{ maxWidth: 680, margin: '20px auto 0' }}>{c.tagline}</p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 32 }}>
               <MktButton to="/app" size="lg">Get started <Icon name="chevronRight" size={18} /></MktButton>
               <MktButton to="/features" variant="ghost" size="lg">See the product</MktButton>
@@ -46,11 +54,11 @@ export default function Compare() {
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-grid mkt-grid-2 m-cascade">
-              <div className="mkt-card">
-                <div className="mkt-icon" style={{ background: 'rgba(90,96,118,.14)', color: '#8a90a6', borderColor: 'var(--m-line2)' }}>
+              <div style={{ ...PANEL, padding: 26 }}>
+                <div className="mkt-icon" style={{ background: 'rgba(90,96,118,.1)', color: '#8a90a6', borderColor: 'var(--m-line2)' }}>
                   <Icon name="x" size={22} />
                 </div>
-                <h3 className="mkt-h3" style={{ marginTop: 18 }}>Where {c.name} struggles</h3>
+                <h3 className="mkt-h3" style={{ marginTop: 18, letterSpacing: '-.02em' }}>Where {c.name} struggles</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {c.theyStruggle.map((t, i) => (
                     <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
@@ -61,11 +69,16 @@ export default function Compare() {
                 </ul>
               </div>
 
-              <div className="mkt-card mkt-card-glow" style={{ borderColor: 'rgba(109,92,247,.5)' }}>
+              <div style={{
+                ...PANEL,
+                padding: 26,
+                borderColor: 'rgba(14,159,143,.35)',
+                background: 'linear-gradient(160deg, rgba(14,159,143,.06), #fff 55%)',
+              }}>
                 <div className="mkt-icon">
-                  <Icon name="zap" size={22} fill="#b7aefb" stroke={0} />
+                  <Icon name="zap" size={22} />
                 </div>
-                <h3 className="mkt-h3" style={{ marginTop: 18 }}>Where Rally wins</h3>
+                <h3 className="mkt-h3" style={{ marginTop: 18, letterSpacing: '-.02em' }}>Where Rally wins</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {c.rallyWins.map((t, i) => (
                     <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
@@ -84,14 +97,15 @@ export default function Compare() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
-            <h2 className="mkt-h2" style={{ marginBottom: 8 }}>Rally vs {c.name}, line by line</h2>
-            <p className="mkt-muted" style={{ marginBottom: 26 }}>The capabilities that decide whether your revenue team runs or crawls.</p>
-            <div className="mkt-glass" style={{ padding: '6px 8px' }}>
+            <p className="mkt-eyebrow" style={{ marginBottom: 10 }}>Capabilities</p>
+            <h2 className="mkt-h2" style={{ marginBottom: 8, letterSpacing: '-.02em' }}>Rally vs {c.name}, line by line</h2>
+            <p className="mkt-muted" style={{ marginBottom: 26, maxWidth: 560 }}>The capabilities that decide whether your revenue team runs or crawls.</p>
+            <div style={{ ...PANEL, padding: '6px 8px', overflowX: 'auto' }}>
               <table className="mkt-table">
                 <thead>
                   <tr>
                     <th>Capability</th>
-                    <th style={{ width: 120 }}>Rally</th>
+                    <th style={{ width: 120, color: 'var(--m-accent)' }}>Rally</th>
                     <th style={{ width: 160 }}>{c.name}</th>
                   </tr>
                 </thead>
@@ -101,7 +115,7 @@ export default function Compare() {
                     return (
                       <tr key={i}>
                         <td style={{ color: 'var(--m-ink)', fontWeight: 600 }}>{label}</td>
-                        <td><Cell value={rally} /></td>
+                        <td style={{ background: 'rgba(14,159,143,.04)' }}><Cell value={rally} /></td>
                         <td><Cell value={them} /></td>
                       </tr>
                     );
@@ -117,7 +131,14 @@ export default function Compare() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-cta-band" style={{ textAlign: 'left', padding: '44px 40px' }}>
+            <div style={{
+              ...PANEL,
+              textAlign: 'left',
+              padding: '40px 36px',
+              borderColor: 'rgba(14,159,143,.28)',
+              background: 'linear-gradient(135deg, rgba(14,159,143,.07), #fff 50%)',
+              borderLeft: '3px solid #0e9f8f',
+            }}>
               <div className="mkt-eyebrow" style={{ marginBottom: 14 }}>The bottom line</div>
               <p className="mkt-lead" style={{ color: 'var(--m-ink)', maxWidth: 820, margin: 0 }}>{c.summary}</p>
               <div style={{ marginTop: 26 }}>
@@ -133,12 +154,13 @@ export default function Compare() {
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-eyebrow" style={{ marginBottom: 16 }}>Compare Rally to:</div>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {others.map(s => (
                 <Link
                   key={s}
                   to={`/compare/${s}`}
                   className="mkt-btn mkt-btn-ghost"
+                  style={{ borderRadius: 999 }}
                 >
                   Rally vs {COMPETITORS[s].name}
                   <Icon name="chevronRight" size={16} />

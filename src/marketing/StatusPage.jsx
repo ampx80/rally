@@ -5,6 +5,7 @@
 // 90-day uptime bar. Auto-refreshes. Styled under .mkt so it
 // matches the marketing site, dark/light + reduced-motion aware.
 // NO em-dash / en-dash.
+// Teal #0e9f8f product accent; violet #7c5cf7 Rook/AI only.
 // ============================================================
 import React, { useEffect, useMemo, useState } from 'react';
 import { Icon } from '../components/icons.jsx';
@@ -13,13 +14,20 @@ import { useSeoHead, orgLd, breadcrumbLd, SITE } from './seo/head.js';
 
 const REFRESH_MS = 30000;
 
+const PANEL = {
+  background: 'linear-gradient(180deg, #fff, #fafcfb)',
+  border: '1px solid var(--m-line)',
+  borderRadius: 14,
+  boxShadow: 'none',
+};
+
 // Map a raw check/overall state to display tone + label.
 const TONE = {
-  operational: { color: '#0e9f9a', bg: 'rgba(14,159,154,.12)', label: 'Operational', icon: 'check' },
+  operational: { color: '#0e9f8f', bg: 'rgba(14,159,143,.12)', label: 'Operational', icon: 'check' },
   degraded:    { color: '#c98a12', bg: 'rgba(201,138,18,.14)', label: 'Degraded', icon: 'activity' },
   down:        { color: '#c0392b', bg: 'rgba(192,57,43,.12)',  label: 'Outage', icon: 'x' },
   neutral:     { color: '#7c8399', bg: 'rgba(124,131,153,.12)', label: 'Not configured', icon: 'clock' },
-  checking:    { color: '#5b4bf5', bg: 'rgba(91,75,245,.12)',  label: 'Checking...', icon: 'clock' },
+  checking:    { color: '#0e9f8f', bg: 'rgba(14,159,143,.12)',  label: 'Checking...', icon: 'clock' },
 };
 
 function checkTone(state) {
@@ -124,19 +132,51 @@ export default function StatusPage() {
 
   return (
     <div>
-      <section className="mkt-hero" style={{ paddingBottom: 24 }}>
+      <section className="mkt-hero" style={{ paddingBottom: 28 }}>
         <div className="mkt-wrap">
           <Reveal>
-            <span className="mkt-pill" style={{ marginBottom: 20 }}><span className="mkt-dot" /> Status</span>
+            <span className="mkt-pill" style={{ marginBottom: 22 }}><span className="mkt-dot" /> Status</span>
+            <h1 className="mkt-h1" style={{
+              maxWidth: 720,
+              margin: '0 auto 28px',
+              fontSize: 'clamp(2.2rem,4.5vw,3.2rem)',
+              letterSpacing: '-.03em',
+              lineHeight: 1.08,
+              textAlign: 'center',
+            }}>
+              System status
+            </h1>
           </Reveal>
           <Reveal delay={60}>
             {/* Big overall banner */}
-            <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', gap: 18, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', padding: '26px 28px', borderRadius: 20, border: `1px solid ${t.color}33`, background: t.bg, boxShadow: 'var(--m-shadow-sm)' }}>
-              <span className="m-pulse" style={{ flex: 'none', width: 54, height: 54, borderRadius: 16, display: 'grid', placeItems: 'center', background: t.color, color: '#fff', boxShadow: `0 12px 26px -10px ${t.color}` }}>
-                <Icon name={t.icon} size={26} />
+            <div style={{
+              maxWidth: 720,
+              margin: '0 auto',
+              display: 'flex',
+              gap: 18,
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              padding: '24px 26px',
+              borderRadius: 14,
+              border: `1px solid ${t.color}44`,
+              background: t.bg,
+            }}>
+              <span className="m-pulse" style={{
+                flex: 'none',
+                width: 48,
+                height: 48,
+                borderRadius: 12,
+                display: 'grid',
+                placeItems: 'center',
+                background: t.color,
+                color: '#fff',
+                boxShadow: `0 10px 22px -10px ${t.color}`,
+              }}>
+                <Icon name={t.icon} size={24} />
               </span>
               <div style={{ textAlign: 'left' }}>
-                <div className="mkt-h3" style={{ color: 'var(--m-ink)', fontSize: 'clamp(1.4rem,3vw,2rem)' }}>{headline}</div>
+                <div className="mkt-h3" style={{ color: 'var(--m-ink)', fontSize: 'clamp(1.35rem,2.8vw,1.85rem)', letterSpacing: '-.02em' }}>{headline}</div>
                 <div className="mkt-dim" style={{ fontSize: 14.5, marginTop: 4 }}>
                   {lastFetched ? `Updated ${lastFetched.toLocaleTimeString()} - refreshes every 30s` : 'Live probe of Rally and its dependencies'}
                 </div>
@@ -150,12 +190,12 @@ export default function StatusPage() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap" style={{ maxWidth: 900 }}>
           <Reveal>
-            <div className="mkt-card" style={{ padding: 26 }}>
+            <div style={{ ...PANEL, padding: 26 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
-                <h2 className="mkt-h3" style={{ fontSize: '1.35rem' }}>Rally platform</h2>
-                <span className="mkt-dim" style={{ fontSize: 14, fontWeight: 600 }}>{pct}% uptime, last 90 days</span>
+                <h2 className="mkt-h3" style={{ fontSize: '1.3rem', letterSpacing: '-.02em' }}>Rally platform</h2>
+                <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--m-teal)' }}>{pct}% uptime, last 90 days</span>
               </div>
-              <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 42 }}>
+              <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 40 }}>
                 {bars.map((tone, i) => {
                   const c = TONE[tone] || TONE.operational;
                   return (
@@ -184,8 +224,8 @@ export default function StatusPage() {
       <section className="mkt-section-sm" style={{ paddingTop: 0 }}>
         <div className="mkt-wrap" style={{ maxWidth: 900 }}>
           <Reveal>
-            <h2 className="mkt-h3" style={{ marginBottom: 16 }}>Dependencies</h2>
-            <div className="mkt-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <h2 className="mkt-h3" style={{ marginBottom: 14, letterSpacing: '-.02em' }}>Dependencies</h2>
+            <div style={{ ...PANEL, padding: 0, overflow: 'hidden' }}>
               {error && (
                 <div style={{ padding: '20px 22px', color: 'var(--m-ink2)', fontSize: 15 }}>
                   The status probe could not be reached. This page will keep retrying automatically.
@@ -197,11 +237,36 @@ export default function StatusPage() {
               {!error && !loading && checks.map((c, i) => {
                 const tone = checkTone(c.state);
                 const label = CHECK_LABEL[c.name] || c.name;
+                const isRook = c.name === 'anthropic';
+                const toneColor = isRook && tone === 'operational' ? '#7c5cf7' : (TONE[tone] || TONE.neutral).color;
                 return (
-                  <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 22px', borderTop: i === 0 ? 'none' : '1px solid var(--m-line)' }}>
-                    <span style={{ flex: 'none', color: (TONE[tone] || TONE.neutral).color }}><Icon name={(TONE[tone] || TONE.neutral).icon} size={18} /></span>
+                  <div key={c.name} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                    padding: '16px 22px',
+                    borderTop: i === 0 ? 'none' : '1px solid var(--m-line)',
+                  }}>
+                    <span style={{ flex: 'none', color: toneColor }}>
+                      <Icon name={(TONE[tone] || TONE.neutral).icon} size={18} />
+                    </span>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontWeight: 700, color: 'var(--m-ink)', fontSize: 15.5 }}>{label}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--m-ink)', fontSize: 15.5 }}>
+                        {label}
+                        {isRook && (
+                          <span style={{
+                            marginLeft: 8,
+                            fontSize: 11,
+                            fontWeight: 800,
+                            letterSpacing: '.04em',
+                            textTransform: 'uppercase',
+                            color: '#7c5cf7',
+                            background: 'rgba(124,92,247,.1)',
+                            padding: '2px 8px',
+                            borderRadius: 999,
+                          }}>AI</span>
+                        )}
+                      </div>
                       {c.detail && <div className="mkt-dim" style={{ fontSize: 13, marginTop: 2 }}>{c.detail}</div>}
                     </div>
                     {typeof c.latencyMs === 'number' && (
@@ -221,7 +286,7 @@ export default function StatusPage() {
         <section className="mkt-section-sm" style={{ paddingTop: 0 }}>
           <div className="mkt-wrap" style={{ maxWidth: 900 }}>
             <Reveal>
-              <h2 className="mkt-h3" style={{ marginBottom: 16 }}>Deployment</h2>
+              <h2 className="mkt-h3" style={{ marginBottom: 14, letterSpacing: '-.02em' }}>Deployment</h2>
               <div className="mkt-grid mkt-grid-4">
                 {[
                   ['Environment', build.env || 'unknown'],
@@ -229,9 +294,9 @@ export default function StatusPage() {
                   ['Commit', build.commit || 'local'],
                   ['Node', build.node || 'n/a'],
                 ].map(([k, v]) => (
-                  <div key={k} className="mkt-card" style={{ padding: 18 }}>
-                    <div className="mkt-dim" style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase' }}>{k}</div>
-                    <div style={{ fontWeight: 800, color: 'var(--m-ink)', fontSize: 17, marginTop: 6, wordBreak: 'break-word' }}>{v}</div>
+                  <div key={k} style={{ ...PANEL, padding: '16px 18px' }}>
+                    <div className="mkt-dim" style={{ fontSize: 11.5, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase' }}>{k}</div>
+                    <div style={{ fontWeight: 800, color: 'var(--m-ink)', fontSize: 16.5, marginTop: 6, wordBreak: 'break-word', letterSpacing: '-.02em' }}>{v}</div>
                   </div>
                 ))}
               </div>

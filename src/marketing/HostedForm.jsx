@@ -48,7 +48,7 @@ export default function HostedForm() {
   }
 
   const style = form.style || {};
-  const accent = style.accent || '#5b4bf5';
+  const accent = style.accent || '#0e9f8f';
   const pal = palette(style.theme, accent);
   const isDraft = form.status !== 'published';
 

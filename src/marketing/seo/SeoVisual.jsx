@@ -140,10 +140,10 @@ function MigrationVisual({ entry }) {
       <svg className="sv-svg" viewBox="0 0 300 96" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
           <linearGradient id="svMigRally" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#6d5cf7" /><stop offset="1" stopColor="#4a3ce0" />
+            <stop offset="0" stopColor="#0e9f8f" /><stop offset="1" stopColor="#0b8578" />
           </linearGradient>
           <linearGradient id="svMigRec" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#5b4bf5" /><stop offset="1" stopColor="#a855f7" />
+            <stop offset="0" stopColor="#0e9f8f" /><stop offset="1" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
         {/* source node */}
@@ -334,13 +334,13 @@ function FeatureVisual({ entry }) {
       </div>
       <div className="sv-demo-rows">
         <div className="sv-demo-row"><span className="sv-demo-avatar">NV</span><span className="sv-demo-line" style={{ width: '52%' }} /><span className="sv-demo-chip">Active</span></div>
-        <div className="sv-demo-row is-hot"><span className="sv-demo-avatar" style={{ background: 'linear-gradient(135deg,#0e9f9a,#5b4bf5)' }}>MB</span><span className="sv-demo-line" style={{ width: '64%' }} /><span className="sv-demo-chip">Rook</span></div>
-        <div className="sv-demo-row"><span className="sv-demo-avatar" style={{ background: 'linear-gradient(135deg,#e0752d,#a855f7)' }}>PR</span><span className="sv-demo-line" style={{ width: '44%' }} /><span className="sv-demo-chip">Done</span></div>
+        <div className="sv-demo-row is-hot"><span className="sv-demo-avatar" style={{ background: 'linear-gradient(135deg,#0e9f8f,#0e9f8f)' }}>MB</span><span className="sv-demo-line" style={{ width: '64%' }} /><span className="sv-demo-chip">Rook</span></div>
+        <div className="sv-demo-row"><span className="sv-demo-avatar" style={{ background: 'linear-gradient(135deg,#e0752d,#14b8a6)' }}>PR</span><span className="sv-demo-line" style={{ width: '44%' }} /><span className="sv-demo-chip">Done</span></div>
       </div>
       <svg className="sv-spark" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden>
         <defs>
           <linearGradient id="svFeatStroke" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#5b4bf5" /><stop offset="0.6" stopColor="#a855f7" /><stop offset="1" stopColor="#0e9f9a" />
+            <stop offset="0" stopColor="#0e9f8f" /><stop offset="0.6" stopColor="#14b8a6" /><stop offset="1" stopColor="#0e9f8f" />
           </linearGradient>
         </defs>
         <path className="sv-spark-line" d="M2 40 L34 34 L66 36 L98 24 L130 26 L162 14 L198 6"
@@ -369,12 +369,12 @@ function IndustryVisual({ entry }) {
       <svg className="sv-spark" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden>
         <defs>
           <linearGradient id="svIndFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="rgba(91,75,245,.20)" /><stop offset="1" stopColor="rgba(91,75,245,0)" />
+            <stop offset="0" stopColor="rgba(14,159,143,.20)" /><stop offset="1" stopColor="rgba(14,159,143,0)" />
           </linearGradient>
         </defs>
         <path d="M2 38 L34 34 L66 36 L98 26 L130 28 L162 16 L198 8 L198 48 L2 48 Z" fill="url(#svIndFill)" />
         <path className="sv-spark-line" d="M2 38 L34 34 L66 36 L98 26 L130 28 L162 16 L198 8"
-          fill="none" stroke="#5b4bf5" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+          fill="none" stroke="#0e9f8f" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </Frame>
   );
@@ -411,7 +411,7 @@ function IntegrationVisual({ entry }) {
       <svg className="sv-svg" viewBox="0 0 300 116" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
           <linearGradient id="svIntRally" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#6d5cf7" /><stop offset="1" stopColor="#4a3ce0" />
+            <stop offset="0" stopColor="#0e9f8f" /><stop offset="1" stopColor="#0b8578" />
           </linearGradient>
         </defs>
         <line className="sv-int-wire" x1="96" y1="52" x2="204" y2="52" />
@@ -502,7 +502,7 @@ function DefaultVisual({ entry }) {
       </div>
       <svg className="sv-spark" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden>
         <path className="sv-spark-line" d="M2 40 L34 36 L66 30 L98 32 L130 20 L162 16 L198 6"
-          fill="none" stroke="#5b4bf5" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+          fill="none" stroke="#0e9f8f" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </Frame>
   );

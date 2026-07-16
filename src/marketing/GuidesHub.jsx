@@ -55,7 +55,7 @@ export default function GuidesHub() {
         .guides-hub .gh-card h3 { font-size: 1.12rem; line-height: 1.25; margin: .5rem 0 .4rem; }
         .guides-hub .gh-card p { font-size: 1rem; color: var(--ink-2); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .guides-hub .gh-meta { display: flex; gap: .5rem; align-items: center; font-size: .78rem; color: var(--ink-2); }
-        .guides-hub .gh-tag { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--accent); background: var(--accent-50, rgba(91,75,245,.1)); padding: .15rem .5rem; border-radius: 999px; }
+        .guides-hub .gh-tag { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--accent); background: var(--accent-50, rgba(14,159,143,.1)); padding: .15rem .5rem; border-radius: 999px; }
       `}</style>
 
       <div className="gh-eyebrow">Rally Guides</div>

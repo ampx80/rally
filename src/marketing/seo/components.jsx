@@ -52,7 +52,15 @@ export function Paragraphs({ text, className = 'mkt-body' }) {
 export function KeyPoints({ points }) {
   if (!points || !points.length) return null;
   return (
-    <Reveal className="mkt-card" style={{ marginTop: 30, borderColor: 'rgba(91,75,245,.2)', background: 'linear-gradient(180deg, rgba(91,75,245,.04), transparent)' }}>
+    <Reveal style={{
+      marginTop: 30,
+      padding: '22px 24px',
+      borderRadius: 14,
+      border: '1px solid var(--m-line)',
+      borderLeft: '3px solid #0e9f8f',
+      background: 'linear-gradient(120deg, rgba(14,159,143,.06), transparent 70%)',
+      boxShadow: 'none',
+    }}>
       <div className="mkt-eyebrow" style={{ marginBottom: 12 }}>Key takeaways</div>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 12 }}>
         {points.map((p, i) => (
@@ -72,8 +80,18 @@ export function Steps({ steps }) {
   return (
     <div className="m-cascade" style={{ display: 'grid', gap: 16, marginTop: 22 }}>
       {steps.map((s, i) => (
-        <div key={i} className="mkt-card" style={{ display: 'grid', gridTemplateColumns: '48px 1fr', gap: 18, alignItems: 'flex-start' }}>
-          <span style={{ width: 44, height: 44, borderRadius: 12, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 19, color: '#fff', background: 'linear-gradient(135deg,#6d5cf7,#4a3ce0)', boxShadow: '0 8px 20px -8px rgba(91,75,245,.6)' }}>{i + 1}</span>
+        <div key={i} style={{
+          display: 'grid',
+          gridTemplateColumns: '48px 1fr',
+          gap: 18,
+          alignItems: 'flex-start',
+          padding: '18px 20px',
+          borderRadius: 14,
+          border: '1px solid var(--m-line)',
+          background: 'linear-gradient(180deg, #fff, #fafcfb)',
+          boxShadow: 'none',
+        }}>
+          <span style={{ width: 44, height: 44, borderRadius: 12, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 19, color: '#fff', background: 'linear-gradient(135deg,#0e9f8f,#14b8a6)', boxShadow: '0 8px 20px -8px rgba(14,159,143,.55)' }}>{i + 1}</span>
           <div>
             <h3 className="mkt-h3" style={{ fontSize: '1.2rem', marginBottom: 6 }}>{s.h}</h3>
             <Paragraphs text={s.body} />
@@ -121,7 +139,7 @@ export function CompareTable({ table, highlightCol = 1 }) {
           {table.rows.map((r, ri) => (
             <tr key={ri}>
               {r.map((v, ci) => (
-                <td key={ci} style={ci === highlightCol ? { background: 'rgba(91,75,245,.04)' } : undefined}>
+                <td key={ci} style={ci === highlightCol ? { background: 'rgba(14,159,143,.04)' } : undefined}>
                   {ci === 0 ? <strong style={{ color: 'var(--m-ink)' }}>{v}</strong> : cell(v, ci)}
                 </td>
               ))}
@@ -139,13 +157,25 @@ export function ProsCons({ pros, cons, proLabel = 'Strengths', conLabel = 'Where
   return (
     <div className="mkt-grid mkt-grid-2" style={{ marginTop: 22 }}>
       {pros && (
-        <Reveal className="mkt-card" style={{ borderColor: 'rgba(14,159,154,.25)' }}>
+        <Reveal style={{
+          padding: '22px 22px',
+          borderRadius: 14,
+          border: '1px solid rgba(14,159,143,.28)',
+          background: 'linear-gradient(180deg, #fff, #fafcfb)',
+          boxShadow: 'none',
+        }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, color: 'var(--m-teal)', fontWeight: 800 }}><Icon name="check" size={18} /> {proLabel}</div>
           <BulletList items={pros} />
         </Reveal>
       )}
       {cons && (
-        <Reveal delay={80} className="mkt-card">
+        <Reveal delay={80} style={{
+          padding: '22px 22px',
+          borderRadius: 14,
+          border: '1px solid var(--m-line)',
+          background: 'linear-gradient(180deg, #fff, #fafcfb)',
+          boxShadow: 'none',
+        }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, color: 'var(--m-ink3)', fontWeight: 800 }}><Icon name="x" size={18} /> {conLabel}</div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gap: 10 }}>
             {cons.map((c, i) => (
@@ -167,11 +197,23 @@ export function RankedList({ items, showRank = true }) {
   return (
     <div style={{ display: 'grid', gap: 16, marginTop: 24 }}>
       {items.map((it, i) => (
-        <Reveal key={i} delay={Math.min(i * 40, 240)} className={`mkt-card${it.featured ? ' mkt-card-glow' : ''}`}
-          style={{ display: 'grid', gridTemplateColumns: showRank ? '52px 1fr' : '1fr', gap: 18, alignItems: 'flex-start' }}>
+        <Reveal key={i} delay={Math.min(i * 40, 240)}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: showRank ? '52px 1fr' : '1fr',
+            gap: 18,
+            alignItems: 'flex-start',
+            padding: '20px 22px',
+            borderRadius: 14,
+            border: it.featured ? '1px solid rgba(14,159,143,.35)' : '1px solid var(--m-line)',
+            background: it.featured
+              ? 'linear-gradient(160deg, rgba(14,159,143,.06), #fff 55%)'
+              : 'linear-gradient(180deg, #fff, #fafcfb)',
+            boxShadow: 'none',
+          }}>
           {showRank && (
             <span style={{ width: 46, height: 46, borderRadius: 12, display: 'grid', placeItems: 'center', fontWeight: 800, fontSize: 18,
-              color: i === 0 ? '#fff' : 'var(--m-ink)', background: i === 0 ? 'linear-gradient(135deg,#6d5cf7,#4a3ce0)' : 'var(--m-bg2)', border: '1px solid var(--m-line2)' }}>
+              color: i === 0 ? '#fff' : 'var(--m-ink)', background: i === 0 ? 'linear-gradient(135deg,#0e9f8f,#14b8a6)' : 'var(--m-bg2)', border: '1px solid var(--m-line2)', boxShadow: i === 0 ? '0 8px 18px -8px rgba(14,159,143,.5)' : 'none' }}>
               {i + 1}
             </span>
           )}
@@ -203,7 +245,13 @@ export function ValueGrid({ items }) {
   return (
     <div className="mkt-grid mkt-grid-3" style={{ marginTop: 24 }}>
       {items.map((v, i) => (
-        <Reveal key={i} delay={Math.min(i * 50, 260)} className="mkt-card">
+        <Reveal key={i} delay={Math.min(i * 50, 260)} style={{
+          padding: '22px 20px',
+          borderRadius: 14,
+          border: '1px solid var(--m-line)',
+          background: 'linear-gradient(180deg, #fff, #fafcfb)',
+          boxShadow: 'none',
+        }}>
           <span className="mkt-icon" style={{ marginBottom: 14 }}><Icon name={v.icon || 'sparkles'} size={22} /></span>
           <h3 className="mkt-h3" style={{ fontSize: '1.15rem', marginBottom: 8 }}>{v.h}</h3>
           <p className="mkt-body" style={{ margin: 0, fontSize: 15.5 }}>{v.body}</p>
@@ -224,7 +272,14 @@ export function Faq({ faqs }) {
         {faqs.map((f, i) => {
           const isOpen = open === i;
           return (
-            <div key={i} className="mkt-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div key={i} style={{
+              padding: 0,
+              overflow: 'hidden',
+              borderRadius: 14,
+              border: isOpen ? '1px solid rgba(14,159,143,.28)' : '1px solid var(--m-line)',
+              background: 'linear-gradient(180deg, #fff, #fafcfb)',
+              boxShadow: 'none',
+            }}>
               <button onClick={() => setOpen(isOpen ? -1 : i)} aria-expanded={isOpen}
                 style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', font: 'inherit' }}>
                 <span style={{ fontWeight: 700, fontSize: 16.5, color: 'var(--m-ink)' }}>{f.q}</span>
@@ -249,7 +304,15 @@ export function Related({ items }) {
       <h2 className="mkt-h3" style={{ marginBottom: 16, fontSize: 'clamp(1.3rem,2.4vw,1.7rem)' }}>Keep reading</h2>
       <div className="mkt-grid mkt-grid-3">
         {items.map((r, i) => (
-          <Link key={i} to={pageHref(r.slug)} className="mkt-card" style={{ display: 'block' }}>
+          <Link key={i} to={pageHref(r.slug)} style={{
+            display: 'block',
+            padding: '18px 18px',
+            borderRadius: 14,
+            border: '1px solid var(--m-line)',
+            background: 'linear-gradient(180deg, #fff, #fafcfb)',
+            boxShadow: 'none',
+            textDecoration: 'none',
+          }}>
             <div className="mkt-eyebrow" style={{ fontSize: 11, marginBottom: 8 }}>{r.category}</div>
             <div style={{ fontWeight: 700, fontSize: 16, color: 'var(--m-ink)', lineHeight: 1.3 }}>{r.title}</div>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 12, color: 'var(--m-accent)', fontWeight: 700, fontSize: 14 }}>Read <Icon name="chevronRight" size={14} /></span>
@@ -263,7 +326,20 @@ export function Related({ items }) {
 /* ---------- in-content CTA to the product ---------- */
 export function InlineCta({ title = 'See it live in Rally', sub = 'Every screen is alive on first load. Ask Rook and it runs the work.', to = '/app', cta = 'Get started free' }) {
   return (
-    <Reveal className="mkt-card" style={{ marginTop: 40, background: 'linear-gradient(120deg, rgba(91,75,245,.06), rgba(14,159,154,.05))', borderColor: 'rgba(91,75,245,.22)', display: 'flex', justifyContent: 'space-between', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+    <Reveal style={{
+      marginTop: 40,
+      padding: '24px 26px',
+      borderRadius: 14,
+      border: '1px solid rgba(14,159,143,.28)',
+      borderLeft: '3px solid #0e9f8f',
+      background: 'linear-gradient(120deg, rgba(14,159,143,.07), transparent 70%)',
+      boxShadow: 'none',
+      display: 'flex',
+      justifyContent: 'space-between',
+      gap: 20,
+      alignItems: 'center',
+      flexWrap: 'wrap',
+    }}>
       <div style={{ minWidth: 240 }}>
         <h3 className="mkt-h3" style={{ fontSize: '1.3rem', marginBottom: 6 }}>{title}</h3>
         <p className="mkt-body" style={{ margin: 0 }}>{sub}</p>

@@ -22,7 +22,7 @@ import {
 } from '../lib/landing-pages.js';
 import { createLead } from '../lib/store-ext.js';
 
-const ACCENT = '#5b4bf5';
+const ACCENT = '#0e9f8f';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Lightweight head manager: set title + description for the served page.
