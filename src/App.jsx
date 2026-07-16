@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, NavLink, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Routes, Route, NavLink, Link, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Icon } from './components/icons.jsx';
 import { Avatar, useToast } from './components/UI.jsx';
 import { getCurrentUser } from './lib/store.js';
 import { useModules, moduleForRoute } from './lib/modules.js';
 import { applyTheme, useTheme, toggleTheme } from './lib/theme.js';
+import { useFocusTrap, useEscapeKey } from './lib/a11y.js';
 import CommandK from './components/CommandK.jsx';
 import RookDock from './components/RookDock.jsx';
 import LaunchScreen from './components/LaunchScreen.jsx';
@@ -152,119 +153,148 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin']);
 
-// Collapsible nav groups. A pinned Overview stays open; every other group is a
-// collapsible section whose open/closed state persists per-user in localStorage.
-// Every existing route + nav destination is preserved here, just regrouped, and
-// each item carries a distinct icon (no duplicate glyphs). Report builder is
-// merged into Reports (still reachable via the command palette + Reports page).
-const NAV_GROUPS = [
-  { id: 'overview', label: 'Overview', pinned: true, items: [
-    { to: '/app', label: 'Command center', icon: 'home', end: true },
-    { to: '/liftoff', label: 'Liftoff', icon: 'rocket' },
-    { to: '/genesis', label: 'Genesis', icon: 'sparkles' },
-    { to: '/activities', label: 'My day', icon: 'activity' },
-    { to: '/inbox', label: 'Inbox', icon: 'inbox' },
-    { to: '/notifications', label: 'Notifications', icon: 'bell' },
-    { to: '/canvas', label: 'Ask Canvas', icon: 'sliders' },
-    { to: '/queue', label: 'Task queues', icon: 'check' },
-  ] },
-  { id: 'customers', label: 'Customers', items: [
-    { to: '/leads', label: 'Leads', icon: 'funnel' },
-    { to: '/contacts', label: 'Contacts', icon: 'users' },
-    { to: '/companies', label: 'Companies', icon: 'building' },
-    { to: '/deals', label: 'Deals', icon: 'target' },
-    { to: '/conversations', label: 'Conversations', icon: 'messages' },
-    { to: '/voice', label: 'Voice AI', icon: 'mic' },
-  ] },
-  { id: 'pipeline', label: 'Pipeline', items: [
-    { to: '/forecasting', label: 'Forecasting', icon: 'trendUp' },
-    { to: '/goals', label: 'Goals', icon: 'rocket' },
-    { to: '/territories', label: 'Territories', icon: 'grid' },
-    { to: '/scheduler', label: 'Scheduler', icon: 'clock' },
-    { to: '/playbooks', label: 'Playbooks', icon: 'book' },
-    { to: '/warroom', label: 'War Room', icon: 'command' },
-  ] },
-  { id: 'marketing', label: 'Marketing', items: [
-    { to: '/campaigns', label: 'Campaigns', icon: 'megaphone' },
-    { to: '/sequences', label: 'Sequences', icon: 'layers' },
-    { to: '/automations', label: 'Automations', icon: 'send' },
-    { to: '/forms', label: 'Forms', icon: 'list' },
-    { to: '/landing-pages', label: 'Landing pages', icon: 'grid' },
-    { to: '/lists', label: 'Lists', icon: 'filter' },
-    { to: '/reviews', label: 'Reviews', icon: 'star' },
-    { to: '/social', label: 'Social', icon: 'share2' },
-    { to: '/funnels', label: 'Funnels', icon: 'funnel' },
-    { to: '/ads', label: 'Ads', icon: 'globe' },
-    { to: '/journeys', label: 'Journeys', icon: 'journeys' },
-    { to: '/markethub', label: 'Marketing Hub', icon: 'radar' },
-  ] },
-  { id: 'delivery', label: 'Success & Delivery', items: [
-    { to: '/projects', label: 'Projects', icon: 'checkSquare' },
-    { to: '/success', label: 'Customer success', icon: 'shield' },
-    { to: '/scheduling', label: 'Scheduling', icon: 'calendar' },
-    { to: '/tickets', label: 'Support tickets', icon: 'mail' },
-    { to: '/service', label: 'Service Hub', icon: 'lifebuoy' },
-    { to: '/kb', label: 'Knowledge base', icon: 'book' },
-    { to: '/academy', label: 'Academy', icon: 'rocket' },
-    { to: '/surveys', label: 'Surveys', icon: 'gauge' },
-    { to: '/drive', label: 'Drive', icon: 'folder' },
-    { to: '/sheets', label: 'Sheets', icon: 'sheet' },
-  ] },
-  { id: 'revenue', label: 'Revenue', items: [
-    { to: '/products', label: 'Products', icon: 'box' },
-    { to: '/quotes', label: 'Quotes', icon: 'receipt' },
-    { to: '/signatures', label: 'Signatures', icon: 'edit' },
-    { to: '/invoices', label: 'Billing', icon: 'dollar' },
-    { to: '/payments', label: 'Payments', icon: 'creditCard' },
-    { to: '/affiliates', label: 'Affiliates', icon: 'share2' },
-    { to: '/studio', label: 'Studio', icon: 'fileText' },
-    { to: '/film', label: 'Deal Film', icon: 'eye' },
-  ] },
-  { id: 'analytics', label: 'Analytics', items: [
-    { to: '/dashboards', label: 'Dashboards', icon: 'chart' },
-    { to: '/reports', label: 'Reports', icon: 'pie' },
-    { to: '/intelligence', label: 'Intelligence', icon: 'sparkles' },
-    { to: '/fork', label: 'Pipeline Fork', icon: 'gitBranch' },
-    { to: '/wind-tunnel', label: 'Wind Tunnel', icon: 'bolt' },
-    { to: '/ghost-deals', label: 'Ghost Deals', icon: 'rotateCcw' },
-    { to: '/attribution', label: 'Attribution', icon: 'key' },
-    { to: '/twin', label: 'Revenue Twin', icon: 'twin' },
-    { to: '/signals', label: 'Signals', icon: 'signal' },
-    { to: '/grid', label: 'Grid', icon: 'grid' },
-  ] },
-  { id: 'automation', label: 'Automation', items: [
-    { to: '/flow', label: 'Flow builder', icon: 'flowNode' },
-    { to: '/autopilot', label: 'Autopilot', icon: 'zap' },
-    { to: '/workflows', label: 'Workflows', icon: 'workflow' },
-    { to: '/workflows/library', label: 'Templates', icon: 'copy' },
-    { to: '/night-shift', label: 'Night Shift', icon: 'moon' },
-    { to: '/sms', label: 'SMS Alerts', icon: 'phone' },
-  ] },
-  { id: 'admin', label: 'Admin', defaultClosed: true, items: [
-    { to: '/admin', label: 'Admin (signups)', icon: 'shield' },
-    { to: '/workspaces', label: 'Workspaces', icon: 'building2' },
-    { to: '/marketplace', label: 'Marketplace', icon: 'store' },
-    { to: '/integrations', label: 'Integrations', icon: 'plug' },
-    { to: '/datasync', label: 'Data sync', icon: 'swap' },
-    { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker' },
-    { to: '/app-manager', label: 'App Manager', icon: 'toggles' },
-    { to: '/roles', label: 'Roles', icon: 'roleShield' },
-    { to: '/import', label: 'Import', icon: 'download' },
-    { to: '/team', label: 'Team', icon: 'user' },
-    { to: '/permissions', label: 'Permissions', icon: 'lock' },
-    { to: '/objects', label: 'Custom objects', icon: 'menu' },
-    { to: '/duplicates', label: 'Duplicates', icon: 'merge' },
-    { to: '/developers', label: 'Developers', icon: 'command' },
-    { to: '/billing-plans', label: 'Plans', icon: 'zap' },
-    { to: '/audit', label: 'Audit', icon: 'history' },
-    { to: '/settings', label: 'Settings', icon: 'settings' },
-  ] },
+// ============================================================
+// COMMAND SPINE navigation model
+// ------------------------------------------------------------
+// A 72px icon spine carries 7 primary destinations. Everything else - the
+// long tail of ~75 secondary modules - lives in two places:
+//   1. A 240px peek drawer, scoped to whichever spine item you hover/click.
+//   2. The full-screen Apps overlay, grouped into 7 catalog categories.
+// Every route from the old grouped sidebar is preserved below; nothing was
+// deleted, it was reorganized. ALL_ITEMS is the single source of truth for
+// icon/label per route - both the peek drawer and the Apps overlay read
+// from it, so nothing can drift out of sync.
+// ============================================================
+
+// Flat catalog of every secondary destination. cat is one of the 7 Apps
+// overlay categories: Customers, Pipeline, Marketing, Revenue, Analytics,
+// Automation, Admin. (Command center / Home is the spine itself, so it is
+// intentionally absent here.)
+const ALL_ITEMS = [
+  // Customers
+  { to: '/contacts', label: 'Contacts', icon: 'users', cat: 'Customers' },
+  { to: '/companies', label: 'Companies', icon: 'building', cat: 'Customers' },
+  { to: '/conversations', label: 'Conversations', icon: 'messages', cat: 'Customers' },
+  { to: '/voice', label: 'Voice AI', icon: 'mic', cat: 'Customers' },
+  { to: '/inbox', label: 'Inbox', icon: 'inbox', cat: 'Customers' },
+  { to: '/notifications', label: 'Notifications', icon: 'bell', cat: 'Customers' },
+  { to: '/projects', label: 'Projects', icon: 'checkSquare', cat: 'Customers' },
+  { to: '/success', label: 'Customer success', icon: 'shield', cat: 'Customers' },
+  { to: '/scheduling', label: 'Scheduling', icon: 'calendar', cat: 'Customers' },
+  { to: '/tickets', label: 'Support tickets', icon: 'mail', cat: 'Customers' },
+  { to: '/service', label: 'Service Hub', icon: 'lifebuoy', cat: 'Customers' },
+  { to: '/kb', label: 'Knowledge base', icon: 'book', cat: 'Customers' },
+  { to: '/academy', label: 'Academy', icon: 'rocket', cat: 'Customers' },
+  { to: '/surveys', label: 'Surveys', icon: 'gauge', cat: 'Customers' },
+  // Pipeline
+  { to: '/deals', label: 'Deals', icon: 'target', cat: 'Pipeline' },
+  { to: '/leads', label: 'Leads', icon: 'funnel', cat: 'Pipeline' },
+  { to: '/activities', label: 'My day', icon: 'activity', cat: 'Pipeline' },
+  { to: '/forecasting', label: 'Forecasting', icon: 'trendUp', cat: 'Pipeline' },
+  { to: '/goals', label: 'Goals', icon: 'rocket', cat: 'Pipeline' },
+  { to: '/territories', label: 'Territories', icon: 'grid', cat: 'Pipeline' },
+  { to: '/scheduler', label: 'Scheduler', icon: 'clock', cat: 'Pipeline' },
+  { to: '/playbooks', label: 'Playbooks', icon: 'book', cat: 'Pipeline' },
+  { to: '/warroom', label: 'War Room', icon: 'command', cat: 'Pipeline' },
+  // Marketing
+  { to: '/campaigns', label: 'Campaigns', icon: 'megaphone', cat: 'Marketing' },
+  { to: '/sequences', label: 'Sequences', icon: 'layers', cat: 'Marketing' },
+  { to: '/automations', label: 'Automations', icon: 'send', cat: 'Marketing' },
+  { to: '/forms', label: 'Forms', icon: 'list', cat: 'Marketing' },
+  { to: '/landing-pages', label: 'Landing pages', icon: 'grid', cat: 'Marketing' },
+  { to: '/lists', label: 'Lists', icon: 'filter', cat: 'Marketing' },
+  { to: '/reviews', label: 'Reviews', icon: 'star', cat: 'Marketing' },
+  { to: '/social', label: 'Social', icon: 'share2', cat: 'Marketing' },
+  { to: '/funnels', label: 'Funnels', icon: 'funnel', cat: 'Marketing' },
+  { to: '/ads', label: 'Ads', icon: 'globe', cat: 'Marketing' },
+  { to: '/journeys', label: 'Journeys', icon: 'journeys', cat: 'Marketing' },
+  { to: '/markethub', label: 'Marketing Hub', icon: 'radar', cat: 'Marketing' },
+  // Revenue
+  { to: '/products', label: 'Products', icon: 'box', cat: 'Revenue' },
+  { to: '/quotes', label: 'Quotes', icon: 'receipt', cat: 'Revenue' },
+  { to: '/signatures', label: 'Signatures', icon: 'edit', cat: 'Revenue' },
+  { to: '/invoices', label: 'Billing', icon: 'dollar', cat: 'Revenue' },
+  { to: '/payments', label: 'Payments', icon: 'creditCard', cat: 'Revenue' },
+  { to: '/affiliates', label: 'Affiliates', icon: 'share2', cat: 'Revenue' },
+  { to: '/studio', label: 'Studio', icon: 'fileText', cat: 'Revenue' },
+  { to: '/film', label: 'Deal Film', icon: 'eye', cat: 'Revenue' },
+  // Analytics
+  { to: '/dashboards', label: 'Dashboards', icon: 'chart', cat: 'Analytics' },
+  { to: '/reports', label: 'Reports', icon: 'pie', cat: 'Analytics' },
+  { to: '/intelligence', label: 'Intelligence', icon: 'sparkles', cat: 'Analytics' },
+  { to: '/canvas', label: 'Ask Canvas', icon: 'sliders', cat: 'Analytics' },
+  { to: '/fork', label: 'Pipeline Fork', icon: 'gitBranch', cat: 'Analytics' },
+  { to: '/wind-tunnel', label: 'Wind Tunnel', icon: 'bolt', cat: 'Analytics' },
+  { to: '/ghost-deals', label: 'Ghost Deals', icon: 'rotateCcw', cat: 'Analytics' },
+  { to: '/attribution', label: 'Attribution', icon: 'key', cat: 'Analytics' },
+  { to: '/twin', label: 'Revenue Twin', icon: 'twin', cat: 'Analytics' },
+  { to: '/signals', label: 'Signals', icon: 'signal', cat: 'Analytics' },
+  { to: '/grid', label: 'Grid', icon: 'grid', cat: 'Analytics' },
+  { to: '/sheets', label: 'Sheets', icon: 'sheet', cat: 'Analytics' },
+  // Automation
+  { to: '/liftoff', label: 'Liftoff', icon: 'rocket', cat: 'Automation' },
+  { to: '/genesis', label: 'Genesis', icon: 'sparkles', cat: 'Automation' },
+  { to: '/queue', label: 'Task queues', icon: 'check', cat: 'Automation' },
+  { to: '/flow', label: 'Flow builder', icon: 'flowNode', cat: 'Automation' },
+  { to: '/autopilot', label: 'Autopilot', icon: 'zap', cat: 'Automation' },
+  { to: '/workflows', label: 'Workflows', icon: 'workflow', cat: 'Automation' },
+  { to: '/workflows/library', label: 'Templates', icon: 'copy', cat: 'Automation' },
+  { to: '/night-shift', label: 'Night Shift', icon: 'moon', cat: 'Automation' },
+  { to: '/sms', label: 'SMS Alerts', icon: 'phone', cat: 'Automation' },
+  // Admin
+  { to: '/admin', label: 'Admin (signups)', icon: 'shield', cat: 'Admin' },
+  { to: '/workspaces', label: 'Workspaces', icon: 'building2', cat: 'Admin' },
+  { to: '/marketplace', label: 'Marketplace', icon: 'store', cat: 'Admin' },
+  { to: '/integrations', label: 'Integrations', icon: 'plug', cat: 'Admin' },
+  { to: '/datasync', label: 'Data sync', icon: 'swap', cat: 'Admin' },
+  { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker', cat: 'Admin' },
+  { to: '/app-manager', label: 'App Manager', icon: 'toggles', cat: 'Admin' },
+  { to: '/roles', label: 'Roles', icon: 'roleShield', cat: 'Admin' },
+  { to: '/import', label: 'Import', icon: 'download', cat: 'Admin' },
+  { to: '/team', label: 'Team', icon: 'user', cat: 'Admin' },
+  { to: '/permissions', label: 'Permissions', icon: 'lock', cat: 'Admin' },
+  { to: '/objects', label: 'Custom objects', icon: 'menu', cat: 'Admin' },
+  { to: '/duplicates', label: 'Duplicates', icon: 'merge', cat: 'Admin' },
+  { to: '/developers', label: 'Developers', icon: 'command', cat: 'Admin' },
+  { to: '/billing-plans', label: 'Plans', icon: 'zap', cat: 'Admin' },
+  { to: '/audit', label: 'Audit', icon: 'history', cat: 'Admin' },
+  { to: '/drive', label: 'Drive', icon: 'folder', cat: 'Admin' },
+  { to: '/settings', label: 'Settings', icon: 'settings', cat: 'Admin' },
+];
+const ITEM_BY_ROUTE = new Map(ALL_ITEMS.map(it => [it.to, it]));
+
+// Apps overlay category order (matches the 7 cat values above).
+const CATALOG_CATS = ['Customers', 'Pipeline', 'Marketing', 'Revenue', 'Analytics', 'Automation', 'Admin'];
+const APPS_CATALOG = CATALOG_CATS.map(cat => ({ cat, items: ALL_ITEMS.filter(it => it.cat === cat) }));
+
+// The 72px icon spine. Home / Pipeline / People / Inbox / Forecast are real
+// routes; Rook fires the app-wide `rally:rook` event (never navigates); Apps
+// opens the full-screen catalog overlay. `peek` lists the routes (by `to`,
+// resolved against ALL_ITEMS) shown in that item's 240px flyout drawer.
+const SPINE = [
+  { key: 'home', label: 'Home', icon: 'home', to: '/app', end: true,
+    peek: ['/activities', '/notifications', '/canvas', '/queue', '/liftoff', '/genesis'] },
+  { key: 'pipeline', label: 'Pipeline', icon: 'target', to: '/deals',
+    peek: ['/leads', '/goals', '/territories', '/scheduler', '/playbooks', '/warroom', '/fork', '/ghost-deals'] },
+  { key: 'people', label: 'People', icon: 'users', to: '/contacts',
+    peek: ['/companies', '/conversations', '/voice', '/success', '/tickets', '/service', '/kb', '/projects'] },
+  { key: 'inbox', label: 'Inbox', icon: 'inbox', to: '/inbox',
+    peek: ['/conversations', '/voice', '/notifications', '/tickets', '/sms'] },
+  { key: 'forecast', label: 'Forecast', icon: 'trendUp', to: '/forecasting',
+    peek: ['/goals', '/dashboards', '/reports', '/intelligence', '/signals', '/twin', '/attribution'] },
+  { key: 'rook', label: 'Rook', icon: 'rook', ai: true },
+  { key: 'apps', label: 'Apps', icon: 'grid', apps: true },
 ];
 
-// Per-user persisted open/closed state for the collapsible nav groups.
-const NAV_LS = 'rally_nav_groups_v1';
-function readNavState() { try { return JSON.parse(localStorage.getItem(NAV_LS) || '{}') || {}; } catch { return {}; } }
-function writeNavState(s) { try { localStorage.setItem(NAV_LS, JSON.stringify(s)); } catch {} }
+// Resolve a spine item's peek routes to full items, honoring module toggles
+// + the admin gate - same filter every list in this file respects.
+function resolvePeek(spineItem, mods, adminAllowed) {
+  return (spineItem.peek || [])
+    .map(to => ITEM_BY_ROUTE.get(to))
+    .filter(Boolean)
+    .filter(it => !ADMIN_ONLY_ROUTES.has(it.to) || adminAllowed)
+    .filter(it => { const k = moduleForRoute(it.to); return !k || mods[k] !== false; });
+}
 
 // Route-aware primary CTA for the topbar. Falls back to New deal.
 const CTA_MAP = {
@@ -317,79 +347,202 @@ function useIsMobile() {
   return m;
 }
 
-function NavItem({ n, onClose }) {
+// Reused by the peek drawer + mobile drawer + Apps overlay - one row style
+// for every secondary destination.
+function NavItem({ n, onClose, dense }) {
   return (
     <NavLink to={n.to} end={n.end} onClick={onClose} className="row gap-2"
       style={({ isActive }) => ({
-        padding: '.55rem .7rem', borderRadius: 'var(--r-sm)', fontWeight: 600, fontSize: '.96rem',
+        padding: dense ? '.5rem .65rem' : '.55rem .7rem', borderRadius: 'var(--r-sm)', fontWeight: 600, fontSize: '.94rem',
         color: isActive ? '#fff' : 'var(--nav-muted)',
         background: isActive ? 'var(--nav-active)' : 'transparent',
         boxShadow: isActive ? 'inset 3px 0 0 var(--accent)' : 'none',
         transition: 'background .12s, color .12s',
       })}>
-      <Icon name={n.icon} size={18} />
+      <Icon name={n.icon} size={17} />
       <span className="clip">{n.label}</span>
     </NavLink>
   );
 }
 
-const ADMIN_ONLY_ROUTES = new Set(['/admin']);
-function Rail({ open, mobile, onClose }) {
-  const mods = useModules();
-  const adminAllowed = useAdminAccess().allowed;
-  const loc = useLocation();
-  const [openMap, setOpenMap] = useState(readNavState);
-  const toggle = (id, currentlyBaseOpen) => {
-    const next = { ...openMap, [id]: !currentlyBaseOpen };
-    setOpenMap(next);
-    writeNavState(next);
-  };
-  // Transform is the single source of truth for open/closed, computed straight
-  // from state so no cascade or emulator can lose it.
-  const transform = !mobile ? 'none' : (open ? 'translateX(0)' : 'translateX(-101%)');
+// Rook's mark - a small pawn glyph, kept visually consistent with RookDock's
+// floating launcher. Purple/AI, never teal - Rook is the one AI-only surface.
+function RookGlyph({ size = 20, color = 'currentColor' }) {
   return (
-    <aside className={`rl-rail${open ? ' open' : ''}`} style={{ background: 'var(--nav)', color: 'var(--nav-text)', display: 'flex', flexDirection: 'column', position: 'fixed', inset: '0 auto 0 0', height: '100vh', borderRight: '1px solid var(--nav-line)', transform, willChange: 'transform' }}>
-      <div className="row between" style={{ padding: '1.2rem 1.25rem 1rem', alignItems: 'center', flex: 'none' }}>
-        <div className="row gap-2" style={{ alignItems: 'center' }}>
-          <span className="row center floaty" style={{ width: 34, height: 34, borderRadius: 9, background: 'linear-gradient(135deg, #6d5cf7, #4a3ce0)', color: '#fff', flex: 'none', boxShadow: 'var(--accent-glow)' }}>
-            <Icon name="zap" size={19} fill="currentColor" stroke={0} />
-          </span>
-          <div className="col" style={{ lineHeight: 1.1 }}>
-            <span style={{ fontWeight: 800, fontSize: '1.15rem', letterSpacing: '-.02em' }}>Rally</span>
-            <span style={{ fontSize: '.7rem', color: 'var(--nav-muted)', letterSpacing: '.04em' }}>REVENUE PLATFORM</span>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={color} aria-hidden>
+      <path d="M6 3h2v2h2V3h4v2h2V3h2v5l-2 2v6l1 3H5l1-3v-6L4 8V3h2zm1 15h10v2H7v-2z" />
+    </svg>
+  );
+}
+
+const ADMIN_ONLY_ROUTES = new Set(['/admin']);
+
+// A single 44x44 icon button on the spine. Handles its own active/hover/AI
+// styling; the caller decides what happens on hover/click/leave.
+function SpineButton({ item, active, isPeekOpen, onEnter, onLeave, onActivate }) {
+  const commonProps = {
+    className: `spine-btn${active ? ' is-active' : ''}${isPeekOpen ? ' is-peeking' : ''}${item.ai ? ' is-ai' : ''}`,
+    onMouseEnter: onEnter,
+    onMouseLeave: onLeave,
+    title: item.label,
+    'aria-label': item.label,
+  };
+  const glyph = item.key === 'rook' ? <RookGlyph size={21} /> : <Icon name={item.icon} size={20} />;
+  if (item.ai || item.apps) {
+    return (
+      <button type="button" {...commonProps} onClick={onActivate} aria-haspopup={item.apps ? 'dialog' : undefined}>
+        {glyph}
+        <span className="spine-btn__label">{item.label}</span>
+      </button>
+    );
+  }
+  return (
+    <NavLink to={item.to} end={item.end} {...commonProps} onClick={onActivate}
+      className={({ isActive }) => `${commonProps.className}${isActive ? ' is-active' : ''}`}>
+      {glyph}
+      <span className="spine-btn__label">{item.label}</span>
+    </NavLink>
+  );
+}
+
+// The 240px flyout scoped to one spine domain. Overlays content (does not
+// push layout), so page width never shifts when it opens.
+function PeekPanel({ item, items, onClose, onMouseEnter, onMouseLeave }) {
+  if (!item) return null;
+  return (
+    <div className="peek-panel" role="menu" aria-label={`${item.label} shortcuts`}
+      onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className="peek-panel__head">
+        {item.ai ? <RookGlyph size={16} /> : <Icon name={item.icon || 'grid'} size={16} />}
+        <span>{item.label}</span>
+      </div>
+      <div className="peek-panel__list">
+        {items.length === 0 && <div className="t-xs" style={{ color: 'var(--nav-muted)', padding: '.4rem .7rem' }}>Nothing here yet.</div>}
+        {items.map(n => <NavItem key={n.to} n={n} onClose={onClose} dense />)}
+      </div>
+    </div>
+  );
+}
+
+// Full-screen, search-filterable catalog of every module in the product -
+// the long tail that does not fit on the 7-item spine. Linear/Notion style.
+function AppsOverlay({ open, onClose, mods, adminAllowed }) {
+  const [q, setQ] = useState('');
+  const panelRef = useRef(null);
+  useFocusTrap(panelRef, open);
+  useEscapeKey(onClose, open);
+  useEffect(() => { if (open) setQ(''); }, [open]);
+  if (!open) return null;
+
+  const term = q.trim().toLowerCase();
+  const visible = APPS_CATALOG.map(({ cat, items }) => ({
+    cat,
+    items: items.filter(it => {
+      if (ADMIN_ONLY_ROUTES.has(it.to) && !adminAllowed) return false;
+      const k = moduleForRoute(it.to); if (k && mods[k] === false) return false;
+      return !term || it.label.toLowerCase().includes(term) || cat.toLowerCase().includes(term);
+    }),
+  })).filter(g => g.items.length > 0);
+
+  return (
+    <div className="apps-overlay" onClick={onClose}>
+      <div ref={panelRef} className="apps-modal" role="dialog" aria-modal="true" aria-label="All apps" onClick={(e) => e.stopPropagation()}>
+        <div className="apps-modal__head">
+          <Icon name="search" size={18} style={{ color: 'var(--n-400)' }} />
+          <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search every module..." aria-label="Search apps" />
+          <button type="button" className="btn btn-quiet" onClick={onClose} aria-label="Close apps"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="apps-modal__scroll">
+          {visible.length === 0 && <div className="muted" style={{ padding: '2rem', textAlign: 'center' }}>No modules match "{q}"</div>}
+          <div className="apps-grid">
+            {visible.map(({ cat, items }) => (
+              <div key={cat} className="apps-cat">
+                <div className="apps-cat__head">{cat}</div>
+                <div className="col">
+                  {items.map(it => (
+                    <NavLink key={it.to} to={it.to} onClick={onClose} className="apps-cat__item"
+                      style={({ isActive }) => (isActive ? { color: 'var(--accent-600)', background: 'var(--accent-50)' } : undefined)}>
+                      <Icon name={it.icon} size={16} />
+                      <span className="clip">{it.label}</span>
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        <button onClick={onClose} className="mobile-only btn btn-quiet" aria-label="Close menu" style={{ color: 'var(--nav-muted)', padding: '.35rem' }}>
+      </div>
+    </div>
+  );
+}
+
+// Mobile off-canvas drawer. Hover-driven peek does not translate to touch, so
+// mobile gets a clean full nav drawer instead: quick spine pills up top, then
+// the full Apps catalog below as collapsible sections (every route reachable
+// in one scroll, nothing hidden behind hover).
+const MOBILE_NAV_LS = 'rally_mobile_nav_v1';
+function readMobileNavState() { try { return JSON.parse(localStorage.getItem(MOBILE_NAV_LS) || '{}') || {}; } catch { return {}; } }
+function writeMobileNavState(s) { try { localStorage.setItem(MOBILE_NAV_LS, JSON.stringify(s)); } catch {} }
+
+function MobileNav({ open, onClose, onOpenApps, mods, adminAllowed }) {
+  const loc = useLocation();
+  const [openMap, setOpenMap] = useState(readMobileNavState);
+  const toggle = (cat, base) => { const next = { ...openMap, [cat]: !base }; setOpenMap(next); writeMobileNavState(next); };
+  const transform = open ? 'translateX(0)' : 'translateX(-101%)';
+  const quickLinks = SPINE.filter(s => !s.apps);
+
+  return (
+    <aside className={`rl-rail${open ? ' open' : ''} rl-rail--mobile`} style={{ background: 'var(--nav)', color: 'var(--nav-text)', display: 'flex', flexDirection: 'column', position: 'fixed', inset: '0 auto 0 0', height: '100vh', borderRight: '1px solid var(--nav-line)', transform, willChange: 'transform' }}>
+      <div className="row between" style={{ padding: '1.1rem 1.1rem .9rem', alignItems: 'center', flex: 'none' }}>
+        <div className="row gap-2" style={{ alignItems: 'center' }}>
+          <span className="row center floaty spine-logo">
+            <Icon name="zap" size={18} fill="currentColor" stroke={0} />
+          </span>
+          <div className="col" style={{ lineHeight: 1.1 }}>
+            <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-.02em' }}>Rally</span>
+            <span style={{ fontSize: '.68rem', color: 'var(--nav-muted)', letterSpacing: '.04em' }}>REVENUE PLATFORM</span>
+          </div>
+        </div>
+        <button onClick={onClose} className="btn btn-quiet" aria-label="Close menu" style={{ color: 'var(--nav-muted)', padding: '.35rem' }}>
           <Icon name="x" size={20} />
         </button>
       </div>
+
+      <div className="mobile-quick">
+        {quickLinks.map(s => s.ai ? (
+          <button key={s.key} type="button" className="mobile-quick__pill is-ai" onClick={() => { onClose(); window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } })); }}>
+            <RookGlyph size={17} /><span>{s.label}</span>
+          </button>
+        ) : (
+          <NavLink key={s.key} to={s.to} end={s.end} onClick={onClose} className="mobile-quick__pill"
+            style={({ isActive }) => (isActive ? { background: 'var(--accent)', color: '#fff' } : undefined)}>
+            <Icon name={s.icon} size={17} /><span>{s.label}</span>
+          </NavLink>
+        ))}
+        <button type="button" className="mobile-quick__pill" onClick={() => { onClose(); onOpenApps(); }}>
+          <Icon name="grid" size={17} /><span>Apps</span>
+        </button>
+      </div>
+
       <nav className="col" style={{ padding: '.25rem .7rem .8rem', flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
-        {NAV_GROUPS.map((group) => {
-          // Hide items whose module is turned off; drop a group that empties out.
-          const items = group.items.filter(n => {
-            if (ADMIN_ONLY_ROUTES.has(n.to) && !adminAllowed) return false; // super-admin only
+        {APPS_CATALOG.map(({ cat, items: rawItems }) => {
+          const items = rawItems.filter(n => {
+            if (ADMIN_ONLY_ROUTES.has(n.to) && !adminAllowed) return false;
             const k = moduleForRoute(n.to); return !k || mods[k] !== false;
           });
           if (items.length === 0) return null;
-          // Is the active route inside this group? If so it renders open regardless
-          // of the persisted preference (can never hide the current page).
-          const containsActive = items.some(n => n.end ? loc.pathname === n.to : (loc.pathname === n.to || loc.pathname.startsWith(n.to + '/')));
-          const explicit = openMap[group.id];
-          const baseOpen = group.pinned ? true : (explicit !== undefined ? explicit : !group.defaultClosed);
+          const containsActive = items.some(n => loc.pathname === n.to || loc.pathname.startsWith(n.to + '/'));
+          const explicit = openMap[cat];
+          const baseOpen = explicit !== undefined ? explicit : false;
           const shown = baseOpen || containsActive;
           return (
-            <div key={group.id} className="col gap-1" style={{ marginBottom: '.15rem' }}>
-              {group.pinned ? (
-                <div className="nav-sec">{group.label}</div>
-              ) : (
-                <button type="button" className="nav-group" aria-expanded={shown} aria-controls={`navgrp-${group.id}`}
-                  onClick={() => toggle(group.id, baseOpen)}>
-                  <span>{group.label}</span>
-                  <Icon name="chevronDown" size={15} className="chev" style={{ transform: shown ? 'none' : 'rotate(-90deg)' }} />
-                </button>
-              )}
+            <div key={cat} className="col gap-1" style={{ marginBottom: '.15rem' }}>
+              <button type="button" className="nav-group" aria-expanded={shown} aria-controls={`navgrp-${cat}`} onClick={() => toggle(cat, baseOpen)}>
+                <span>{cat}</span>
+                <Icon name="chevronDown" size={15} className="chev" style={{ transform: shown ? 'none' : 'rotate(-90deg)' }} />
+              </button>
               {shown && (
-                <div id={`navgrp-${group.id}`} className="col gap-1">
+                <div id={`navgrp-${cat}`} className="col gap-1">
                   {items.map(n => <NavItem key={n.to} n={n} onClose={onClose} />)}
                 </div>
               )}
@@ -410,6 +563,70 @@ function Rail({ open, mobile, onClose }) {
   );
 }
 
+// Desktop command spine: 72px of always-visible icons + a hover/click peek
+// drawer for whichever domain has secondary destinations open.
+function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
+  const mods = useModules();
+  const adminAllowed = useAdminAccess().allowed;
+  const loc = useLocation();
+  const [peekKey, setPeekKey] = useState(null);
+  const closeTimer = useRef(null);
+
+  const clearCloseTimer = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
+  const openPeek = (key) => { clearCloseTimer(); setPeekKey(key); };
+  const scheduleClose = () => { clearCloseTimer(); closeTimer.current = setTimeout(() => setPeekKey(null), 200); };
+  const closePeekNow = () => { clearCloseTimer(); setPeekKey(null); };
+  useEffect(() => () => clearCloseTimer(), []);
+  // Close the peek on every navigation so it never lingers over the new page.
+  useEffect(() => { setPeekKey(null); }, [loc.pathname]);
+
+  if (mobile) {
+    return (
+      <>
+        <MobileNav open={open} onClose={onClose} onOpenApps={onOpenApps} mods={mods} adminAllowed={adminAllowed} />
+        <AppsOverlay open={appsOpen} onClose={onCloseApps} mods={mods} adminAllowed={adminAllowed} />
+      </>
+    );
+  }
+
+  const isActiveRoute = (item) => item.to && (item.end ? loc.pathname === item.to : (loc.pathname === item.to || loc.pathname.startsWith(item.to + '/')));
+  const activePeekItem = peekKey ? SPINE.find(s => s.key === peekKey) : null;
+  const peekItems = activePeekItem ? resolvePeek(activePeekItem, mods, adminAllowed) : [];
+
+  return (
+    <>
+      <aside className="rl-rail" style={{ background: 'var(--nav)', color: 'var(--nav-text)' }}>
+        <div className="spine-logo-wrap">
+          <span className="spine-logo" aria-hidden>
+            <Icon name="zap" size={20} fill="currentColor" stroke={0} />
+          </span>
+        </div>
+        <nav className="spine-nav" role="navigation" aria-label="Primary">
+          {SPINE.map(item => (
+            <SpineButton key={item.key} item={item} active={isActiveRoute(item)} isPeekOpen={peekKey === item.key}
+              onEnter={() => { if (item.peek) openPeek(item.key); }}
+              onLeave={() => { if (item.peek) scheduleClose(); }}
+              onActivate={() => {
+                if (item.ai) { window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } })); return; }
+                if (item.apps) { onOpenApps(); return; }
+                closePeekNow();
+              }} />
+          ))}
+        </nav>
+        <div className="spine-avatar">
+          <Avatar name={getCurrentUser()?.name} size={36} />
+        </div>
+      </aside>
+
+      {activePeekItem && (
+        <PeekPanel item={activePeekItem} items={peekItems} onClose={closePeekNow}
+          onMouseEnter={() => openPeek(activePeekItem.key)} onMouseLeave={scheduleClose} />
+      )}
+      <AppsOverlay open={appsOpen} onClose={onCloseApps} mods={mods} adminAllowed={adminAllowed} />
+    </>
+  );
+}
+
 function Topbar({ onOpenSearch, onBurger }) {
   const nav = useNavigate();
   const loc = useLocation();
@@ -417,8 +634,10 @@ function Topbar({ onOpenSearch, onBurger }) {
   const toast = useToast();
   const isMac = typeof navigator !== 'undefined' && /Mac/.test(navigator.platform);
   const cta = ctaFor(loc.pathname);
+  const askRook = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } }));
   return (
-    <header className="row between rl-topbar" style={{ position: 'sticky', top: 0, zIndex: 20, background: 'color-mix(in srgb, var(--page) 82%, transparent)', backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--line)', padding: '.7rem 1.75rem', gap: '1rem' }}>
+    <header className="row between rl-topbar glass" style={{ position: 'sticky', top: 0, zIndex: 20, padding: '.7rem 1.75rem', gap: '1rem' }}>
+      <span className="mission-pulse" aria-hidden />
       <button onClick={onBurger} className="rl-burger btn btn-quiet" aria-label="Open menu" style={{ padding: '.5rem', flex: 'none' }}>
         <Icon name="list" size={20} />
       </button>
@@ -429,6 +648,9 @@ function Topbar({ onOpenSearch, onBurger }) {
         <span className="badge t-xs hide-520">{isMac ? '⌘' : 'Ctrl'} K</span>
       </button>
       <div className="row gap-1" style={{ flex: 'none' }}>
+        <button onClick={askRook} className="ask-rook-chip hide-520" title="Ask Rook">
+          <RookGlyph size={15} /><span>Ask Rook</span>
+        </button>
         <button onClick={toggleTheme} className="btn btn-quiet" title="Toggle theme" aria-label="Toggle theme" style={{ padding: '.5rem' }}>
           <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
         </button>
@@ -460,6 +682,7 @@ function AdminGate() {
 export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [appsOpen, setAppsOpen] = useState(false);
   const [unlocked, setUnlocked] = useState(isUnlocked);
   const mobile = useIsMobile();
   const loc = useLocation();
@@ -470,10 +693,10 @@ export default function App() {
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
   }, []);
-  // Close the mobile drawer + scroll to top on every navigation.
-  useEffect(() => { window.scrollTo(0, 0); setNavOpen(false); }, [loc.pathname]);
-  // Lock body scroll while the drawer is open on mobile.
-  useEffect(() => { document.body.style.overflow = navOpen ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [navOpen]);
+  // Close the mobile drawer + apps overlay + scroll to top on every navigation.
+  useEffect(() => { window.scrollTo(0, 0); setNavOpen(false); setAppsOpen(false); }, [loc.pathname]);
+  // Lock body scroll while the drawer or the apps overlay is open.
+  useEffect(() => { document.body.style.overflow = (navOpen || appsOpen) ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [navOpen, appsOpen]);
 
   // Marketing site owns the root; the product app lives under known segments.
   const seg = loc.pathname.split('/')[1] || '';
@@ -541,7 +764,8 @@ export default function App() {
     <div>
       <LaunchScreen />
       <div className="ambient" aria-hidden><span className="b1" /><span className="b2" /><span className="b3" /></div>
-      <Rail open={navOpen} mobile={mobile} onClose={() => setNavOpen(false)} />
+      <Rail open={navOpen} mobile={mobile} onClose={() => setNavOpen(false)}
+        appsOpen={appsOpen} onOpenApps={() => setAppsOpen(true)} onCloseApps={() => setAppsOpen(false)} />
       {mobile && navOpen && <div className="rl-scrim" onClick={() => setNavOpen(false)} aria-hidden />}
       <div className="rl-main" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
         <Topbar onOpenSearch={() => setSearchOpen(true)} onBurger={() => setNavOpen(true)} />

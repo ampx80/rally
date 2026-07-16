@@ -22,15 +22,18 @@
   border-radius: var(--r-xl);
   padding: 1.9rem 2rem 1.7rem;
   color: #fff;
-  background: linear-gradient(125deg, #201a5e 0%, #3d31c2 32%, #5b4bf5 58%, #0e8f8a 122%);
+  background: linear-gradient(125deg, #071a24 0%, #0a2e34 30%, #0e6d68 62%, #0e9f8f 100%);
   box-shadow: var(--shadow-lg);
 }
 .cc-hero > * { position: relative; z-index: 1; }
 
-/* ambient color field drifting behind the hero copy */
+/* ambient color field drifting behind the hero copy - teal-forward, product
+   identity. Violet is intentionally absent here; it is reserved for the
+   Ask Rook affordance so the AI color reads as a deliberate signal, not
+   ambient noise. */
 .cc-hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 0; pointer-events: none; will-change: transform; }
-.cc-hero-blob.b1 { width: 340px; height: 340px; top: -130px; right: 4%; background: radial-gradient(circle, rgba(168,85,247,.75), transparent 70%); animation: ccFloatA 19s ease-in-out infinite; }
-.cc-hero-blob.b2 { width: 320px; height: 320px; bottom: -150px; left: 10%; background: radial-gradient(circle, rgba(14,159,154,.6), transparent 70%); animation: ccFloatB 23s ease-in-out infinite; }
+.cc-hero-blob.b1 { width: 340px; height: 340px; top: -130px; right: 4%; background: radial-gradient(circle, rgba(94,207,195,.55), transparent 70%); animation: ccFloatA 19s ease-in-out infinite; }
+.cc-hero-blob.b2 { width: 320px; height: 320px; bottom: -150px; left: 10%; background: radial-gradient(circle, rgba(14,159,143,.55), transparent 70%); animation: ccFloatB 23s ease-in-out infinite; }
 @keyframes ccFloatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-32px,28px) scale(1.12); } }
 @keyframes ccFloatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(36px,-24px) scale(1.14); } }
 
@@ -45,20 +48,25 @@
 
 .cc-hero-eyebrow { font-size: .74rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.74); }
 .cc-hero-title { margin: .25rem 0 0; font-size: clamp(1.95rem, 3.6vw, 2.9rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; color: #fff; }
-.cc-hero-name { background: linear-gradient(100deg, #fff, #dcd6ff 55%, #8ff0e6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cc-hero-name { background: linear-gradient(100deg, #fff, #bdf3ea 55%, #6ee7d8); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cc-hero-sub { margin: .5rem 0 0; color: rgba(255,255,255,.84); font-size: 1.08rem; }
 
-/* live status pill */
+/* live status pill + quarter countdown */
 .cc-live { display: inline-flex; align-items: center; gap: .5rem; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.92); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); padding: .38rem .78rem; border-radius: 999px; }
 .cc-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 0 rgba(110,231,183,.6); animation: ccPulseDot 2.4s ease-in-out infinite; }
 @keyframes ccPulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(110,231,183,.55); } 50% { box-shadow: 0 0 0 7px rgba(110,231,183,0); } }
+.cc-qtr { font-size: .76rem; font-weight: 700; letter-spacing: .02em; color: rgba(255,255,255,.72); }
 
-/* Rook button on the hero */
-.cc-hero-rook { display: inline-flex; align-items: center; gap: .5rem; flex: none; font-weight: 700; padding: .68rem 1.15rem; border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.14); color: #fff; cursor: pointer; transition: background .18s var(--ease), transform .16s var(--ease), border-color .18s var(--ease); }
-.cc-hero-rook:hover { background: #fff; color: var(--accent-700); border-color: #fff; transform: translateY(-1px); }
+/* Rook button on the hero - the one deliberate violet touch in an otherwise
+   teal hero, so the AI affordance reads as a clear signal. */
+.cc-hero-rook { display: inline-flex; align-items: center; gap: .5rem; flex: none; font-weight: 700; padding: .68rem 1.15rem; border-radius: var(--r-sm); border: 1px solid rgba(196,181,253,.4); background: rgba(124,92,247,.22); color: #fff; cursor: pointer; transition: background .18s var(--ease), transform .16s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease); }
+.cc-hero-rook:hover { background: var(--ai); border-color: var(--ai); transform: translateY(-1px); box-shadow: 0 10px 26px -8px rgba(124,92,247,.65); }
 
-/* Rook brief - the top 3 moves that matter */
-.cc-brief { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.35rem; }
+/* Rook brief - the top 3 moves that matter. Eyebrow tags the section as
+   Rook-curated (violet) while each card itself stays teal/glass so the
+   AI color signals provenance without repainting the whole grid. */
+.cc-brief-eyebrow { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #cfc3ff; margin-top: 1.3rem; }
+.cc-brief { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: .6rem; }
 .cc-brief-card { position: relative; text-align: left; border-radius: var(--r-md); padding: .95rem 1.05rem; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); color: #fff; cursor: pointer; overflow: hidden; transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease); }
 .cc-brief-card:hover { transform: translateY(-3px); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); }
 .cc-brief-rank { display: inline-flex; align-items: center; gap: .35rem; font-size: .68rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,255,255,.66); }

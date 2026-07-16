@@ -9,9 +9,9 @@ import React, { useEffect, useRef } from 'react';
 const STAGE_COLORS = [
   [139, 147, 164], // lead slate
   [37, 99, 168],   // qualified blue
-  [91, 75, 245],   // proposal indigo
-  [168, 85, 247],  // negotiation violet
-  [14, 159, 154],  // closed teal
+  [14, 159, 143],  // proposal teal
+  [124, 92, 247],  // negotiation sparse AI violet
+  [14, 159, 143],  // closed teal
 ];
 const lerp = (a, b, t) => a + (b - a) * t;
 function stageColor(p) {
@@ -106,9 +106,9 @@ export default function HeroCurrent() {
       for (let g = 1; g < 5; g++) {
         const gx = (W * g) / 5;
         const grad = ctx.createLinearGradient(0, 0, 0, H);
-        grad.addColorStop(0, 'rgba(91,75,245,0)');
-        grad.addColorStop(0.5, 'rgba(91,75,245,0.07)');
-        grad.addColorStop(1, 'rgba(91,75,245,0)');
+        grad.addColorStop(0, 'rgba(14,159,143,0)');
+        grad.addColorStop(0.5, 'rgba(14,159,143,0.07)');
+        grad.addColorStop(1, 'rgba(14,159,143,0)');
         ctx.strokeStyle = grad; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
       }

@@ -87,7 +87,7 @@ export function Badge({ tone = 'default', children, className = '', style }) {
 }
 
 /* ---------- Avatar ---------- deterministic color from name ---------- */
-const AV_COLORS = ['#5b4bf5', '#0ea5a3', '#e0752d', '#c0392b', '#2563a8', '#8b3fd4', '#1a7f52', '#d4a017'];
+const AV_COLORS = ['#0e9f8f', '#0b8578', '#2563a8', '#c0392b', '#e0752d', '#7c5cf7', '#1a7f52', '#d4a017'];
 export function avatarColor(name = '') {
   let h = 0;
   for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) | 0;

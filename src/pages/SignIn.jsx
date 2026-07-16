@@ -42,7 +42,7 @@ export default function SignIn() {
 
   return (
     <AuthShell>
-      <AuthHead title={<>Welcome back to <span className="auth-grad">Rally</span></>} sub="Sign in to run your revenue." />
+      <AuthHead title={<>Welcome back to <span className="auth-grad">Rally</span></>} sub="Sign in to your revenue platform." />
 
       {!configured && (
         <p className="auth-note" style={{ marginBottom: 16 }}>

@@ -7,7 +7,14 @@
 import React from 'react';
 import { Icon } from './icons.jsx';
 import { money, monthDay } from './UI.jsx';
-import { lineQuoteTotal, QUOTE_STATUS_META } from '../lib/store-quote.js';
+import { lineQuoteTotal, lineDiscountAmount, QUOTE_STATUS_META } from '../lib/store-quote.js';
+
+/* Customer-facing per-line discount label - respects percent vs amount. */
+function lineDiscLabel(l) {
+  const d = Number(l.discount) || 0;
+  if (!d) return '-';
+  return l.discountType === 'amt' ? `- ${money(lineDiscountAmount(l))}` : `${d}%`;
+}
 
 export default function PublicQuote({
   quote, company, accountName, ownerName, lines = [], totals,
@@ -77,7 +84,7 @@ export default function PublicQuote({
                   </td>
                   <td style={{ textAlign: 'right' }}>{l.qty}</td>
                   <td style={{ textAlign: 'right' }}>{money(l.unitPrice)}</td>
-                  <td style={{ textAlign: 'right' }}>{l.discount ? `${l.discount}%` : '-'}</td>
+                  <td style={{ textAlign: 'right' }}>{lineDiscLabel(l)}</td>
                   <td style={{ textAlign: 'right', fontWeight: 700 }}>{money(lineQuoteTotal(l))}</td>
                 </tr>
               ))}
@@ -92,7 +99,15 @@ export default function PublicQuote({
         <div className="pq-totals-wrap">
           <div className="pq-totals">
             <Row label="Subtotal" value={money(t.subtotal)} />
-            {t.discountTotal > 0 && <Row label="Discount" value={`- ${money(t.discountTotal)}`} tone="var(--risk)" />}
+            {/* split line vs order discount when the totals carry the breakdown; else combined */}
+            {t.lineDiscountTotal != null || t.orderDiscountAmt != null ? (
+              <>
+                {t.lineDiscountTotal > 0 && <Row label="Line discounts" value={`- ${money(t.lineDiscountTotal)}`} tone="var(--risk)" />}
+                {t.orderDiscountAmt > 0 && <Row label="Order discount" value={`- ${money(t.orderDiscountAmt)}`} tone="var(--risk)" />}
+              </>
+            ) : (
+              t.discountTotal > 0 && <Row label="Discount" value={`- ${money(t.discountTotal)}`} tone="var(--risk)" />
+            )}
             <Row label="Tax" value={money(t.taxTotal)} />
             {t.shipping > 0 && <Row label="Shipping" value={money(t.shipping)} />}
             <div className="pq-rule" />

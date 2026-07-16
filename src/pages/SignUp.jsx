@@ -82,7 +82,7 @@ export default function SignUp() {
 
   return (
     <AuthShell>
-      <AuthHead title={<>Get started with <span className="auth-grad">Rally</span></>} sub="Create your account and run your revenue AI-native." />
+      <AuthHead title={<>Get started with <span className="auth-grad">Rally</span></>} sub="Create your account. Alive on first load." />
 
       {!configured && (
         <p className="auth-note" style={{ marginBottom: 16 }}>

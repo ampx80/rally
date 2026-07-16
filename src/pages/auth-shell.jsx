@@ -1,26 +1,60 @@
 // ============================================================
-// RALLY AUTH SHELL - shared chrome + primitives for the auth screens.
-// Dark premium backdrop, brand mark, and small form controls so SignIn,
-// SignUp, and ForgotPassword stay consistent and thin. NO em-dash / en-dash.
+// RALLY AUTH SHELL - premium gate: dark brand panel + light form.
+// Teal product accent. Violet only for Rook / AI mentions.
+// Shared by SignIn, SignUp, ForgotPassword. NO em-dash / en-dash.
 // ============================================================
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import './auth.css';
 
-// Full-screen dark shell with the animated backdrop + brand, matching the gate.
+const ASIDE_STATS = [
+  { v: '14', l: 'Modules' },
+  { v: '1', l: 'Login' },
+  { v: 'AI', l: 'Operator' },
+];
+
 export function AuthShell({ children }) {
   return (
     <div className="auth">
-      <div className="auth-orbs" aria-hidden><span className="o1" /><span className="o2" /><span className="o3" /></div>
-      <div className="auth-grid" aria-hidden />
-      <div className="auth-card">
-        <Link to="/" className="auth-brand">
-          <span className="auth-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span>
+      <aside className="auth-aside" aria-hidden={false}>
+        <div className="auth-aside-grid" aria-hidden />
+        <span className="auth-aside-orb o1" aria-hidden />
+        <span className="auth-aside-orb o2" aria-hidden />
+
+        <Link to="/" className="auth-aside-brand">
+          <span className="auth-mark"><Icon name="zap" size={20} fill="#fff" stroke={0} /></span>
           Rally
         </Link>
-        {children}
-      </div>
+
+        <div className="auth-aside-copy">
+          <p className="auth-aside-kicker">AI revenue platform</p>
+          <h2 className="auth-aside-h">Run your revenue like a product, not a spreadsheet.</h2>
+          <p className="auth-aside-p">
+            CRM, CPQ, billing, and marketing in one system.{' '}
+            <span className="auth-aside-rook">Rook</span> does the work so your team closes.
+          </p>
+        </div>
+
+        <div className="auth-aside-stats">
+          {ASIDE_STATS.map((s) => (
+            <div key={s.l} className="auth-aside-stat">
+              <strong>{s.v}</strong>
+              <span>{s.l}</span>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      <main className="auth-main">
+        <div className="auth-card">
+          <Link to="/" className="auth-brand-mobile">
+            <span className="auth-mark"><Icon name="zap" size={18} fill="#fff" stroke={0} /></span>
+            Rally
+          </Link>
+          {children}
+        </div>
+      </main>
     </div>
   );
 }
@@ -34,7 +68,6 @@ export function AuthHead({ title, sub }) {
   );
 }
 
-// Labeled text input.
 export function AuthField({ label, error, ...rest }) {
   return (
     <div className="auth-field">
@@ -44,7 +77,6 @@ export function AuthField({ label, error, ...rest }) {
   );
 }
 
-// Password input with a show / hide reveal toggle.
 export function PasswordField({ label, value, onChange, error, autoComplete = 'current-password', placeholder = 'Your password', name = 'password' }) {
   const [show, setShow] = useState(false);
   return (
@@ -68,7 +100,6 @@ export function PasswordField({ label, value, onChange, error, autoComplete = 'c
   );
 }
 
-// The 4-color Google mark, inlined so the bundle needs no external asset.
 export function GoogleMark({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
@@ -80,12 +111,10 @@ export function GoogleMark({ size = 18 }) {
   );
 }
 
-// Continue-with-Google affordance. Disabled with a note when auth is not
-// configured, so it never dead-ends silently.
 export function GoogleButton({ onClick, disabled, loading, label = 'Continue with Google' }) {
   return (
     <button type="button" className="auth-oauth" onClick={onClick} disabled={disabled || loading}>
-      {loading ? <span className="auth-spin" style={{ borderTopColor: '#fff' }} /> : <GoogleMark />}
+      {loading ? <span className="auth-spin" style={{ borderTopColor: '#0e9f8f', borderColor: 'rgba(14,159,143,.25)' }} /> : <GoogleMark />}
       {label}
     </button>
   );

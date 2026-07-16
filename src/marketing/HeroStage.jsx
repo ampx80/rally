@@ -3,7 +3,7 @@
 // the prompt, thinks, then product cards MATERIALIZE one by one - company, buying
 // committee, a deal that slides into a pipeline lane and advances a stage, a
 // forecast sparkline that draws itself, and a task checklist that ticks off. A
-// "Built in 3.2s" stamp pulses, then it gracefully resets and loops. Pure
+// "Built in 2.4s" stamp pulses, then it gracefully resets and loops. Pure
 // setTimeout state machine + CSS spring primitives. Honors prefers-reduced-motion
 // by rendering the final assembled state statically. Transform/opacity only.
 // NO em-dash / en-dash. ASCII hyphen only.
@@ -82,26 +82,26 @@ export default function HeroStage() {
       const type = () => {
         if (cancelled) return;
         i += 1; setTyped(i);
-        if (i < SENTENCE.length) T(type, 30 + Math.random() * 34);
-        else { T(() => setThinking(true), 260); T(afterThink, 1180); }
+        if (i < SENTENCE.length) T(type, 22 + Math.random() * 26);
+        else { T(() => setThinking(true), 195); T(afterThink, 885); }
       };
-      T(type, 520);
+      T(type, 390);
 
       function afterThink() {
         if (cancelled) return;
         setThinking(false);
-        T(() => setStep(G_COMPANY), 80);
-        T(() => setStep(G_CONTACTS), 640);
-        T(() => setStep(G_DEAL), 1260);
-        T(() => setStep(G_ADVANCE), 1980);
-        T(() => setStep(G_SPARK), 2680);
-        T(() => setStep(G_TASK0), 3380);
-        T(() => setStep(G_TASK0 + 1), 3720);
-        T(() => setStep(G_TASK0 + 2), 4060);
-        T(() => setStep(G_TASK0 + 3), 4400);
-        T(() => setStep(G_TASK0 + 4), 4740);
-        T(() => setStamp(true), 5200);
-        T(() => run(), 8800); // graceful reset + loop
+        T(() => setStep(G_COMPANY), 60);
+        T(() => setStep(G_CONTACTS), 480);
+        T(() => setStep(G_DEAL), 945);
+        T(() => setStep(G_ADVANCE), 1485);
+        T(() => setStep(G_SPARK), 2010);
+        T(() => setStep(G_TASK0), 2535);
+        T(() => setStep(G_TASK0 + 1), 2790);
+        T(() => setStep(G_TASK0 + 2), 3045);
+        T(() => setStep(G_TASK0 + 3), 3300);
+        T(() => setStep(G_TASK0 + 4), 3555);
+        T(() => setStamp(true), 3900);
+        T(() => run(), 6600); // ~25% faster loop
       }
     }
     run();
@@ -243,7 +243,7 @@ export default function HeroStage() {
           <Icon name="check" size={16} stroke={3} />
         </span>
         <div>
-          <div className="mkt-stage-stamptitle">Built in 3.2s</div>
+          <div className="mkt-stage-stamptitle">Built in 2.4s</div>
           <div className="mkt-stage-sub">Company, committee, deal, and tasks - live.</div>
         </div>
       </div>
