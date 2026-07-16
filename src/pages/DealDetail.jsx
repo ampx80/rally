@@ -515,11 +515,11 @@ export default function DealDetail() {
               )}
             </Card>
 
-            {/* 3. COMPETITORS */}
-            <Card>
+            {/* 3. COMPETITORS - secondary panel, quieter than the deal-value panels above */}
+            <Card style={{ background: 'var(--n-25)' }}>
               <div className="row gap-2" style={{ alignItems: 'center', marginBottom: '.9rem' }}>
-                <Icon name="target" size={18} style={{ color: 'var(--accent-600)' }} />
-                <h4 style={{ margin: 0 }}>Competitors</h4>
+                <Icon name="target" size={18} style={{ color: 'var(--n-500)' }} />
+                <h4 style={{ margin: 0, fontSize: '1rem', color: 'var(--ink-2)' }}>Competitors</h4>
               </div>
               {extras.competitors.length === 0 ? (
                 <div className="muted t-sm" style={{ marginBottom: '.85rem' }}>No competitors tracked on this deal.</div>
@@ -613,11 +613,11 @@ export default function DealDetail() {
               )}
             </Card>
 
-            {/* 6. AUDIT HISTORY */}
-            <Card>
+            {/* 6. AUDIT HISTORY - a log, not a decision surface; kept quiet */}
+            <Card style={{ background: 'var(--n-25)' }}>
               <div className="row gap-2" style={{ alignItems: 'center', marginBottom: '.9rem' }}>
-                <Icon name="clock" size={18} style={{ color: 'var(--accent-600)' }} />
-                <h4 style={{ margin: 0 }}>Audit history</h4>
+                <Icon name="clock" size={18} style={{ color: 'var(--n-500)' }} />
+                <h4 style={{ margin: 0, fontSize: '1rem', color: 'var(--ink-2)' }}>Audit history</h4>
               </div>
               {(!extras.history || extras.history.length === 0) ? (
                 <div className="muted t-sm">No changes recorded yet.</div>
@@ -625,7 +625,7 @@ export default function DealDetail() {
                 <div className="col" style={{ position: 'relative' }}>
                   {extras.history.map((h, i) => (
                     <div key={h.id || i} className="row gap-2" style={{ alignItems: 'flex-start', padding: '.55rem 0', borderBottom: i < extras.history.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                      <span className="row center" style={{ width: 26, height: 26, flex: 'none', borderRadius: 'var(--r-pill)', background: 'var(--accent-50)', color: 'var(--accent-600)' }}>
+                      <span className="row center" style={{ width: 26, height: 26, flex: 'none', borderRadius: 'var(--r-pill)', background: 'var(--n-100)', color: 'var(--n-600)' }}>
                         <Icon name="edit" size={13} />
                       </span>
                       <div className="col" style={{ flex: 1, minWidth: 0, lineHeight: 1.35 }}>

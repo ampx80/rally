@@ -48,12 +48,12 @@ const COLS = [
     { n: 'Northwind Traders', a: '$85K', who: 'JR', c: '#2563a8', d: '3d in stage' },
     { n: 'Atlas Freight', a: '$52K', who: 'SD', c: '#0e9f9a', d: '1d in stage' },
   ] },
-  { name: 'Qualified', color: '#5b4bf5', deals: [
-    { n: 'Vertex Robotics', a: '$480K', who: 'NV', c: '#5b4bf5', d: '5d in stage', star: true },
+  { name: 'Qualified', color: '#0e9f8f', deals: [
+    { n: 'Vertex Robotics', a: '$480K', who: 'NV', c: '#0e9f8f', d: '5d in stage', star: true },
     { n: 'Cascade Health', a: '$220K', who: 'MB', c: '#e0752d', d: '2d in stage' },
   ] },
-  { name: 'Proposal', color: '#a855f7', deals: [
-    { n: 'Harbor Point', a: '$140K', who: 'TP', c: '#a855f7', d: '4d in stage' },
+  { name: 'Proposal', color: '#0e9f8f', deals: [
+    { n: 'Harbor Point', a: '$140K', who: 'TP', c: '#7c5cf7', d: '4d in stage' },
   ] },
   { name: 'Negotiation', color: '#e0752d', deals: [
     { n: 'Ironclad Aerospace', a: '$310K', who: 'OC', c: '#2563a8', d: '9d in stage' },
@@ -65,9 +65,9 @@ const COLS = [
 
 const STAGES5 = ['Discovery', 'Qualified', 'Proposal', 'Negotiation', 'Won'];
 const COMMITTEE = [
-  ['Nadia Vance', 'VP Engineering', '#5b4bf5', 'Champion', 'b-influence'],
+  ['Nadia Vance', 'VP Engineering', '#0e9f8f', 'Champion', 'b-influence'],
   ['Priya Rao', 'CFO', '#e0752d', 'Economic buyer', 'b-influence'],
-  ['Owen Cole', 'IT Director', '#a855f7', 'Technical', 'b-influence'],
+  ['Owen Cole', 'IT Director', '#7c5cf7', 'Technical', 'b-influence'],
   ['Marcus Bell', 'Head of Ops', '#0e9f9a', 'End user', 'b-influence'],
   ['Lena Cruz', 'Procurement', '#2563a8', 'Not engaged', 'b-warn'],
 ];
@@ -275,8 +275,8 @@ function ArtRisk({ stage }) {
         </div>
       ))}
       {stage >= 4 && (
-        <div className="m-pop dmo-art-row" style={{ borderColor: 'rgba(91,75,245,.35)' }}>
-          <span style={{ width: 24, height: 24, borderRadius: 7, background: 'rgba(91,75,245,.12)', color: 'var(--m-accent)', display: 'grid', placeItems: 'center', flex: 'none' }}><Icon name="sparkles" size={13} /></span>
+        <div className="m-pop dmo-art-row" style={{ borderColor: 'rgba(14,159,143,.35)' }}>
+          <span style={{ width: 24, height: 24, borderRadius: 7, background: 'rgba(14,159,143,.12)', color: 'var(--m-accent)', display: 'grid', placeItems: 'center', flex: 'none' }}><Icon name="sparkles" size={13} /></span>
           <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--m-ink)' }}>Rook can loop in Priya (CFO) with an ROI one-pager</span>
           <span className="dmo-art-badge b-ok" style={{ marginLeft: 'auto' }}>Fix it</span>
         </div>
@@ -393,10 +393,10 @@ function SceneForecast() {
         <svg key={k} className="dmo-fc-spark" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden>
           <defs>
             <linearGradient id="dmoSparkStroke" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stopColor="#5b4bf5" /><stop offset="0.55" stopColor="#a855f7" /><stop offset="1" stopColor="#0e9f9a" />
+              <stop offset="0" stopColor="#0e9f8f" /><stop offset="0.55" stopColor="#14b8a6" /><stop offset="1" stopColor="#7c5cf7" />
             </linearGradient>
             <linearGradient id="dmoSparkFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="rgba(91,75,245,.18)" /><stop offset="1" stopColor="rgba(91,75,245,0)" />
+              <stop offset="0" stopColor="rgba(14,159,143,.18)" /><stop offset="1" stopColor="rgba(14,159,143,0)" />
             </linearGradient>
           </defs>
           <path d={`${sc.spark} L236 90 L4 90 Z`} fill="url(#dmoSparkFill)" />
@@ -584,6 +584,7 @@ export default function DemoPage() {
               <div className="dmo-chrome">
                 <span className="dmo-chrome-dots"><i style={{ background: '#ff5f57' }} /><i style={{ background: '#febc2e' }} /><i style={{ background: '#28c840' }} /></span>
                 <span className="dmo-chrome-brand"><span className="dmo-chrome-mark"><Icon name="zap" size={12} fill="currentColor" stroke={0} /></span> Rally</span>
+                <span className="dmo-chrome-addr"><Icon name="lock" size={11} /> app.rally.so/{meta.key}</span>
                 <span className="dmo-chrome-live"><span className="mkt-dot m-pulse" /> Rook is live</span>
               </div>
               <div className="dmo-body">

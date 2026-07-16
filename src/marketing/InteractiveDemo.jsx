@@ -14,7 +14,7 @@ const reducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const AV = ['#5b4bf5', '#0e9f9a', '#e0752d', '#a855f7', '#2563a8'];
+const AV = ['#0e9f8f', '#0e9f8f', '#e0752d', '#7c5cf7', '#2563a8'];
 function Ava({ name, i = 0, size = 24 }) {
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
   return (
@@ -46,7 +46,7 @@ function CanvasAccount({ stage }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
       {stage >= 1 && (
         <div className="m-arrive dmo-art-row">
-          <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#5b4bf5,#a855f7)', display: 'grid', placeItems: 'center', color: '#fff', flex: 'none' }}><Icon name="building" size={15} /></span>
+          <span style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#0e9f8f,#7c5cf7)', display: 'grid', placeItems: 'center', color: '#fff', flex: 'none' }}><Icon name="building" size={15} /></span>
           <div style={{ minWidth: 0 }}>
             <div style={{ fontWeight: 700, fontSize: 12.5 }}>Vertex Robotics</div>
             <div style={{ fontSize: 10.5, color: 'var(--m-ink3)' }}>Enterprise - 820 employees</div>
@@ -64,7 +64,7 @@ function CanvasAccount({ stage }) {
         </div>
       )}
       {stage >= 3 && (
-        <div className="m-spring" style={{ background: '#fff', border: '1px solid rgba(91,75,245,.4)', borderRadius: 11, padding: '10px 12px', boxShadow: '0 12px 26px -14px rgba(91,75,245,.4)' }}>
+        <div className="m-spring" style={{ background: '#fff', border: '1px solid rgba(14,159,143,.4)', borderRadius: 11, padding: '10px 12px', boxShadow: '0 12px 26px -14px rgba(14,159,143,.4)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontWeight: 700, fontSize: 12.5 }}>Enterprise Expansion</span>
             <span style={{ fontWeight: 800, color: 'var(--m-accent)', fontSize: 14 }}>$480K</span>
@@ -99,7 +99,7 @@ function CanvasSlipping({ stage }) {
         </div>
       ))}
       {stage >= 3 && (
-        <div className="m-pop" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'linear-gradient(100deg,#5b4bf5,#7c5cf7)', color: '#fff', borderRadius: 11, padding: '9px 12px', fontSize: 12, fontWeight: 700, boxShadow: '0 12px 26px -12px rgba(91,75,245,.55)' }}>
+        <div className="m-pop" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'linear-gradient(100deg,#0e9f8f,#7c5cf7)', color: '#fff', borderRadius: 11, padding: '9px 12px', fontSize: 12, fontWeight: 700, boxShadow: '0 12px 26px -12px rgba(14,159,143,.55)' }}>
           <Icon name="mail" size={14} /> 2 save emails drafted, ready to send
         </div>
       )}

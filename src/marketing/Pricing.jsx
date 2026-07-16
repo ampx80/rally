@@ -126,7 +126,7 @@ export default function Pricing() {
                 }}
               >
                 Annual
-                <span style={{ marginLeft: 8, fontSize: 12, fontWeight: 700, color: 'var(--m-teal)' }}>Save 17%</span>
+                <span style={{ marginLeft: 8, fontSize: 12, fontWeight: 700, color: annual ? 'rgba(255,255,255,.9)' : 'var(--m-teal)' }}>Save 17%</span>
               </button>
             </div>
           </Reveal>
@@ -158,26 +158,29 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ - one hairline panel with internal dividers instead of stacked cards */}
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
+            <p className="mkt-eyebrow mkt-center" style={{ marginBottom: 12 }}>Support</p>
             <h2 className="mkt-h2 mkt-center" style={{ marginBottom: 8 }}>Questions, answered</h2>
             <p className="mkt-muted mkt-center" style={{ marginBottom: 34 }}>Everything you need before you run your revenue on Rally.</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 800, margin: '0 auto' }}>
-              {FAQ.map((item, i) => (
-                <div key={i} className="mkt-card">
+          </Reveal>
+          <div style={{ maxWidth: 800, margin: '0 auto', border: '1px solid var(--m-line)', borderRadius: 20, background: '#fff', boxShadow: 'var(--m-shadow-sm)', overflow: 'hidden' }}>
+            {FAQ.map((item, i) => (
+              <Reveal key={item.q} delay={i * 50}>
+                <div style={{ padding: '26px 30px', borderBottom: i < FAQ.length - 1 ? '1px solid var(--m-line)' : 'none' }}>
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '-.01em', margin: 0, color: 'var(--m-ink)' }}>{item.q}</h3>
-                  <p className="mkt-muted" style={{ marginTop: 12, marginBottom: 0, lineHeight: 1.6 }}>
+                  <p className="mkt-muted" style={{ marginTop: 10, marginBottom: 0, lineHeight: 1.6 }}>
                     {item.a}
                     {item.link && (
                       <> <Link to={item.link.to} style={{ color: 'var(--m-teal)', fontWeight: 600 }}>{item.link.label}</Link>.</>
                     )}
                   </p>
                 </div>
-              ))}
-            </div>
-          </Reveal>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

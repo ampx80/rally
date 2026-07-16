@@ -20,11 +20,11 @@ import { celebrate } from '../lib/celebrate.js';
 import KanbanBoard from '../components/KanbanBoard.jsx';
 import DataTable from '../components/DataTable.jsx';
 import PipelineSwitcher from '../components/PipelineSwitcher.jsx';
-import { DEFAULT_PIPELINE_ID, dealInPipeline } from '../lib/pipelines.js';
+import { DEFAULT_PIPELINE_ID, dealInPipeline, usePipelines } from '../lib/pipelines.js';
 
 const STAGE_COLOR = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
-  proposal: '#b3721a', negotiation: '#0ea5a3', won: '#1a7f52', lost: '#c0392b',
+  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
+  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
 };
 
 function StageBadge({ stageId }) {
@@ -52,6 +52,8 @@ export default function Deals() {
   const [modalOpen, setModalOpen] = useState(params.get('new') === '1');
   const [draft, setDraft] = useState(emptyDraft);
   const [pipelineId, setPipelineId] = useState(DEFAULT_PIPELINE_ID);
+  const pipelines = usePipelines();
+  const hasMultiplePipelines = pipelines && pipelines.length > 1;
 
   const deals = applyView(getDeals(), savedView, 'deal', { currentUserId: getCurrentUser().id });
   const scoped = deals.filter(d => dealInPipeline(d, pipelineId));
@@ -168,9 +170,11 @@ export default function Deals() {
 
       <ViewBar objectType="deal" onView={setSavedView} />
 
-      <div className="row" style={{ marginBottom: '.75rem' }}>
-        <PipelineSwitcher value={pipelineId} onChange={setPipelineId} />
-      </div>
+      {hasMultiplePipelines && (
+        <div className="row" style={{ margin: '.75rem 0' }}>
+          <PipelineSwitcher value={pipelineId} onChange={setPipelineId} />
+        </div>
+      )}
 
       {view === 'board' ? (
         <KanbanBoard

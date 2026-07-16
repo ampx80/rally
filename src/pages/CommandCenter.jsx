@@ -27,7 +27,7 @@ import RecentWins from '../components/home/RecentWins.jsx';
 import ActivityFeed from '../components/home/ActivityFeed.jsx';
 import './command-center.css';
 
-const STAGE_COLOR = { lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5', proposal: '#b3721a', negotiation: '#0ea5a3' };
+const STAGE_COLOR = { lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7', proposal: '#b3721a', negotiation: '#0e9f8f' };
 
 // Decorative trend line for a KPI (the app's own modeled history off the seed).
 function spark(seed, up = true) {
@@ -78,9 +78,9 @@ export default function CommandCenter() {
   /* ---- KPI tiles ---- */
   const kpis = [
     { key: 'pipe', label: 'Pipeline value', value: pipeline, format: moneyK, trend: 8, spark: spark(3), icon: <Icon name="target" size={18} />, accent: 'var(--accent)', to: '/deals' },
-    { key: 'fcast', label: 'Weighted forecast', value: forecast, format: moneyK, trend: 5, spark: spark(7), icon: <Icon name="trendUp" size={18} />, accent: '#8b3fd4', to: '/forecasting' },
+    { key: 'fcast', label: 'Weighted forecast', value: forecast, format: moneyK, trend: 5, spark: spark(7), icon: <Icon name="trendUp" size={18} />, accent: 'var(--info)', to: '/forecasting' },
     { key: 'wonq', label: 'Won this quarter', value: wonQuarterSum, format: moneyK, trend: 12, spark: spark(5, true), sparkColor: 'var(--ok)', icon: <Icon name="check" size={18} />, accent: 'var(--ok)', to: '/deals' },
-    { key: 'winrate', label: 'Win rate', value: rate, format: (n) => `${Math.round(n)}%`, trend: 3, spark: spark(11), icon: <Icon name="pie" size={18} />, accent: '#0ea5a3', to: '/dashboards' },
+    { key: 'winrate', label: 'Win rate', value: rate, format: (n) => `${Math.round(n)}%`, trend: 3, spark: spark(11), icon: <Icon name="pie" size={18} />, accent: 'var(--accent-300)', to: '/dashboards' },
   ];
 
   /* ---- pipeline pulse ---- */
@@ -145,8 +145,9 @@ export default function CommandCenter() {
         />
       </div>
 
-      {/* Ask Rook banner */}
-      <div className="row between gap-3 wrap grad-rev" style={{ borderRadius: 'var(--r-lg)', padding: '1.6rem 1.75rem', color: '#fff', boxShadow: 'var(--accent-glow)' }}>
+      {/* Ask Rook banner - the one deliberate violet surface on this page,
+          so the AI affordance reads as a clear signal against the teal cockpit. */}
+      <div className="row between gap-3 wrap" style={{ borderRadius: 'var(--r-lg)', padding: '1.6rem 1.75rem', color: '#fff', background: 'linear-gradient(120deg, var(--ai-600), var(--ai) 55%, #9b87fb)', boxShadow: 'var(--ai-glow)' }}>
         <div className="col gap-1" style={{ minWidth: 0 }}>
           <div className="row gap-2" style={{ alignItems: 'center' }}>
             <Icon name="sparkles" size={22} fill="currentColor" stroke={0} />
@@ -154,7 +155,7 @@ export default function CommandCenter() {
           </div>
           <span style={{ opacity: .92, maxWidth: 620 }}>Ask a question, build an entire account, or draft an email. Rook is docked bottom-right and knows your pipeline cold.</span>
         </div>
-        <button onClick={openRook} className="btn" style={{ flex: 'none', background: '#fff', color: 'var(--accent-700)', fontWeight: 700, boxShadow: 'var(--shadow-md)' }}>
+        <button onClick={openRook} className="btn" style={{ flex: 'none', background: '#fff', color: 'var(--ai-600)', fontWeight: 700, boxShadow: 'var(--shadow-md)' }}>
           <Icon name="zap" size={17} fill="currentColor" stroke={0} /> Open Rook
         </button>
       </div>

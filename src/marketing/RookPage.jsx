@@ -22,14 +22,14 @@ function Capability({ eyebrow, title, para, bullets, mock, flip, delay = 0 }) {
     <Reveal delay={delay}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center', margin: '88px 0' }}>
         <div style={{ order: flip ? 2 : 1 }}>
-          <div className="mkt-eyebrow" style={{ marginBottom: 14, fontSize: 14 }}>{eyebrow}</div>
+          <div className="mkt-eyebrow mkt-eyebrow-violet" style={{ marginBottom: 14, fontSize: 14 }}>{eyebrow}</div>
           <h2 className="mkt-h2" style={{ maxWidth: 460 }}>{title}</h2>
           <p className="mkt-lead" style={{ margin: '18px 0 0', maxWidth: 470 }}>{para}</p>
           {bullets && (
             <ul style={{ listStyle: 'none', margin: '20px 0 0', padding: 0, maxWidth: 470 }}>
               {bullets.map((b, i) => (
                 <li key={i} style={{ display: 'flex', gap: 11, alignItems: 'flex-start', padding: '7px 0' }}>
-                  <span style={{ marginTop: 3, color: 'var(--m-teal)', flexShrink: 0 }}><Icon name="check" size={19} stroke={2.6} /></span>
+                  <span style={{ marginTop: 3, color: 'var(--m-accent2)', flexShrink: 0 }}><Icon name="check" size={19} stroke={2.6} /></span>
                   <span style={{ fontSize: '1.06rem', lineHeight: 1.5, color: 'var(--m-ink2)', fontWeight: 500 }}>{b}</span>
                 </li>
               ))}
@@ -68,7 +68,7 @@ export default function RookPage() {
           </Reveal>
           <Reveal delay={60}>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto', color: '#fff' }}>
-              Rook. Your AI revenue <span className="mkt-grad m-shine">operator.</span>
+              Rook. Your AI revenue <span className="mkt-grad-violet m-shine">operator.</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
@@ -102,7 +102,7 @@ export default function RookPage() {
         </div>
       </section>
 
-      <hr className="mkt-rule" />
+      <hr className="mkt-rule-violet" />
 
       {/* CAPABILITY SECTIONS */}
       <section className="mkt-section" style={{ paddingTop: 40 }}>
@@ -147,16 +147,16 @@ export default function RookPage() {
         </div>
       </section>
 
-      <hr className="mkt-rule" />
+      <hr className="mkt-rule-violet" />
 
       {/* OPERATOR ORBIT + CAPABILITY GRID */}
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-center" style={{ maxWidth: 720, margin: '0 auto 40px' }}>
-              <div className="mkt-eyebrow" style={{ marginBottom: 14 }}>What Rook can do</div>
+              <div className="mkt-eyebrow mkt-eyebrow-violet" style={{ marginBottom: 14 }}>What Rook can do</div>
               <h2 className="mkt-h2" style={{ maxWidth: 700, margin: '0 auto' }}>
-                One operator across your <span className="mkt-grad">entire revenue stack.</span>
+                One operator across your <span className="mkt-grad-violet">entire revenue stack.</span>
               </h2>
             </div>
           </Reveal>
@@ -165,17 +165,19 @@ export default function RookPage() {
               <OperatorOrbit />
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3 m-cascade">
-            {CAPS.map(([ic, title, body], i) => (
-              <Reveal key={title} delay={(i % 3) * 70}>
-                <div className="mkt-card mkt-card-glow m-magnet" style={{ height: '100%' }}>
-                  <div className="mkt-icon" style={{ marginBottom: 16 }}><Icon name={ic} size={22} /></div>
-                  <h3 className="mkt-h3" style={{ fontSize: '1.25rem' }}>{title}</h3>
-                  <p className="mkt-body" style={{ marginTop: 8, marginBottom: 0, fontSize: '1.02rem' }}>{body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={140}>
+            <div className="mkt-hline-panel">
+              <div className="mkt-hline-grid">
+                {CAPS.map(([ic, title, body]) => (
+                  <div key={title} className="mkt-hline-item">
+                    <div className="mkt-icon mkt-icon-violet" style={{ marginBottom: 16 }}><Icon name={ic} size={22} /></div>
+                    <h3 className="mkt-h3" style={{ fontSize: '1.25rem' }}>{title}</h3>
+                    <p className="mkt-body" style={{ marginTop: 8, marginBottom: 0, fontSize: '1.02rem' }}>{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

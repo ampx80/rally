@@ -213,17 +213,19 @@ export default function Features() {
               </h2>
             </div>
           </Reveal>
-          <div className="mkt-grid mkt-grid-3 m-cascade">
-            {MATRIX.map(([ic, title, body], i) => (
-              <Reveal key={title} delay={(i % 3) * 70}>
-                <div className="mkt-card mkt-card-glow m-magnet" style={{ height: '100%' }}>
-                  <div className="mkt-icon" style={{ marginBottom: 16 }}><Icon name={ic} size={22} /></div>
-                  <h3 className="mkt-h3" style={{ fontSize: '1.3rem' }}>{title}</h3>
-                  <p className="mkt-body" style={{ marginTop: 8, marginBottom: 0, fontSize: '1.02rem' }}>{body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={60}>
+            <div className="mkt-hline-panel">
+              <div className="mkt-hline-grid">
+                {MATRIX.map(([ic, title, body]) => (
+                  <div key={title} className="mkt-hline-item">
+                    <div className="mkt-icon" style={{ marginBottom: 16 }}><Icon name={ic} size={22} /></div>
+                    <h3 className="mkt-h3" style={{ fontSize: '1.3rem' }}>{title}</h3>
+                    <p className="mkt-body" style={{ marginTop: 8, marginBottom: 0, fontSize: '1.02rem' }}>{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -79,7 +79,7 @@
    KPI TILES
    ============================================================ */
 .cc-kpi { position: relative; overflow: hidden; text-align: left; width: 100%; cursor: pointer; border: 1px solid var(--line); }
-.cc-kpi:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,75,245,.18); }
+.cc-kpi:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(14,159,143,.18); }
 .cc-kpi-glow { position: absolute; top: -34px; right: -34px; width: 118px; height: 118px; border-radius: 50%; opacity: .09; filter: blur(6px); }
 .cc-kpi-val { font-size: clamp(1.95rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
 .cc-trend { display: inline-flex; align-items: center; gap: 3px; font-size: .82rem; font-weight: 700; }
