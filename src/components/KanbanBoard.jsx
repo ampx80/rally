@@ -1,6 +1,9 @@
 // Deal pipeline board. One column per stage, drag a card to move a deal
-// (native HTML5 drag/drop). Card headers guard against overflow in narrow
-// columns: title minWidth:0 + ellipsis, chip group wraps, never flexShrink:0.
+// (native HTML5 drag/drop). Columns read as tonal bands (a soft tint + a
+// colored top edge in the stage's own hue) so the pipeline shape is legible
+// at a glance; cards echo the same hue as a left accent stripe. Card headers
+// guard against overflow in narrow columns: title minWidth:0 + ellipsis,
+// chip group wraps, never flexShrink:0.
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { STAGES } from '../lib/store.js';
@@ -8,12 +11,19 @@ import { Avatar, moneyK, relTime, AnimatedNumber } from './UI.jsx';
 import { Icon } from './icons.jsx';
 
 const stageAccent = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
-  proposal: '#b3721a', negotiation: '#0ea5a3', won: '#1a7f52', lost: '#c0392b',
+  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
+  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
 };
+
+function healthColor(p) {
+  if (p >= 70) return 'var(--ok)';
+  if (p >= 40) return 'var(--warn)';
+  return 'var(--risk)';
+}
 
 function DealCard({ deal, companyName, ownerName, onDragStart, onDragEnd, onClick }) {
   const [drag, setDrag] = useState(false);
+  const prob = Number(deal.probability ?? deal.prob ?? 50);
   return (
     <div draggable
       onDragStart={(e) => { setDrag(true); onDragStart && onDragStart(e); }}
@@ -21,13 +31,15 @@ function DealCard({ deal, companyName, ownerName, onDragStart, onDragEnd, onClic
       onClick={onClick} className="card kb-card"
       style={{
         padding: '.75rem .8rem', cursor: drag ? 'grabbing' : 'grab', borderRadius: 'var(--r-md)',
+        borderLeft: `3px solid ${healthColor(prob)}`,
         transform: drag ? 'rotate(2.5deg) scale(1.04)' : 'none',
-        boxShadow: drag ? '0 18px 40px -12px rgba(20,20,50,.4)' : undefined,
+        boxShadow: drag ? '0 18px 40px -12px rgba(11,18,20,.35)' : undefined,
         opacity: drag ? 0.92 : 1,
         transition: 'transform .16s var(--ease), box-shadow .16s var(--ease)',
       }}>
       <div className="row between gap-1" style={{ alignItems: 'flex-start' }}>
-        <span className="fw-6 clip" style={{ minWidth: 0, fontSize: '.94rem' }}>{deal.name}</span>
+        <span className="fw-6 clip" style={{ minWidth: 0, fontSize: '.94rem', fontFamily: 'var(--font-display)' }}>{deal.name}</span>
+        <span className="badge t-xs tnum" style={{ flex: 'none' }}>{prob}%</span>
       </div>
       <div className="t-xs muted clip" style={{ marginTop: 2 }}>{companyName}</div>
       <div className="row between wrap gap-1" style={{ marginTop: '.6rem' }}>
@@ -63,8 +75,12 @@ export default function KanbanBoard({ deals, companyName, ownerName, onMove }) {
             onDrop={() => { if (dragId) onMove(dragId, stage.id); setDragId(null); setOverStage(null); }}
             style={{
               width: 244, flex: 'none',
-              background: isOver ? 'var(--accent-50)' : 'var(--n-50)', borderRadius: 'var(--r-md)',
+              background: isOver
+                ? 'var(--accent-50)'
+                : `linear-gradient(180deg, color-mix(in srgb, ${stageAccent[stage.id]} 12%, var(--n-50)), var(--n-50) 48%)`,
+              borderRadius: 'var(--r-md)',
               border: '1px solid ' + (isOver ? 'var(--accent-300)' : 'var(--line)'),
+              borderTop: `3px solid ${stageAccent[stage.id]}`,
               boxShadow: isOver ? '0 0 0 3px var(--accent-50), var(--accent-glow)' : 'none',
               transform: isOver ? 'translateY(-2px) scale(1.012)' : 'none',
               transition: 'transform .18s var(--ease), box-shadow .18s var(--ease), background .18s, border-color .18s',
@@ -73,7 +89,7 @@ export default function KanbanBoard({ deals, companyName, ownerName, onMove }) {
             <div className="row between" style={{ padding: '.7rem .8rem .5rem' }}>
               <span className="row gap-1" style={{ minWidth: 0 }}>
                 <span className="dot" style={{ background: stageAccent[stage.id], boxShadow: stage.id === 'won' ? '0 0 8px 1px rgba(26,127,82,.6)' : 'none' }} />
-                <span className="fw-6 clip" style={{ fontSize: '.9rem' }}>{stage.name}</span>
+                <span className="fw-6 clip" style={{ fontSize: '.9rem', fontFamily: 'var(--font-display)' }}>{stage.name}</span>
                 <span className="badge t-xs">{list.length}</span>
               </span>
             </div>

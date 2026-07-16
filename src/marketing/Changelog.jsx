@@ -96,26 +96,30 @@ const RELEASES = [
 export default function Changelog() {
   return (
     <>
-      {/* HERO */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
               <Pill><span className="mkt-dot m-pulse" /> Shipping weekly</Pill>
             </div>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
-              Changelog. <span className="mkt-grad m-shine">What we shipped.</span>
+              What shipped. <span className="mkt-grad m-shine">In order.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 620, margin: '24px auto 0' }}>
-              Rally is built AI-native and shipped fast. Every release, in order, from launch to now.
+              Rally is built AI-native and shipped fast. Every release from launch to now, newest first.
             </p>
+            <div className="co-hero-rail">
+              <span>{RELEASES.length} releases</span>
+              <span>Newest at the top</span>
+              <span>Built in the open</span>
+            </div>
           </Reveal>
         </div>
       </section>
 
       <div className="mkt-wrap"><hr className="co-gradrule" /></div>
 
-      {/* RELEASES */}
       <section className="mkt-section" style={{ paddingTop: 64 }}>
         <div className="mkt-wrap">
           <div className="co-timeline">

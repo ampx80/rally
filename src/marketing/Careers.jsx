@@ -3,7 +3,7 @@
 // Scoped under .mkt (router wraps in MarketingShell).
 // NO em-dash / en-dash. ASCII hyphen only.
 import React from 'react';
-import { Reveal, MktButton, Pill, CtaBand } from './kit.jsx';
+import { Reveal, Pill, CtaBand } from './kit.jsx';
 import { Icon } from '../components/icons.jsx';
 import './company.css';
 
@@ -35,8 +35,8 @@ const VALUES = ['Bias to ship', 'Own the outcome', 'Write it down', 'Respect the
 export default function Careers() {
   return (
     <>
-      {/* HERO */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
@@ -52,17 +52,21 @@ export default function Careers() {
             <div className="mkt-hero-cta" style={{ justifyContent: 'center', marginTop: 30 }}>
               <a href="#roles" className="mkt-btn mkt-btn-primary mkt-btn-lg m-magnet">See open roles <Icon name="chevronRight" size={18} /></a>
             </div>
+            <div className="co-hero-rail">
+              <span>Remote-first</span>
+              <span>Written, not meeting-led</span>
+              <span>Ship with Rook daily</span>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* VALUES MARQUEE */}
       <section className="mkt-section-sm" style={{ paddingTop: 8, paddingBottom: 8 }}>
         <div className="mkt-marquee">
           <div className="mkt-marquee-track">
             {[...VALUES, ...VALUES].map((v, i) => (
-              <span key={v + i} style={{ display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: 22, fontWeight: 800, letterSpacing: '-.02em', color: 'var(--m-ink3)', whiteSpace: 'nowrap' }}>
-                {v} <span className="mkt-dot" style={{ opacity: .6 }} />
+              <span key={v + i} style={{ display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: 22, fontWeight: 800, letterSpacing: '-.02em', color: 'var(--m-ink2)', whiteSpace: 'nowrap' }}>
+                {v} <span style={{ width: 7, height: 7, borderRadius: 99, background: 'var(--m-teal)', opacity: .7, flex: 'none' }} />
               </span>
             ))}
           </div>
@@ -84,8 +88,8 @@ export default function Careers() {
           <Reveal delay={80}>
             <div className="mkt-grid mkt-grid-2 m-cascade">
               {HOW_WE_WORK.map((w) => (
-                <div key={w.title} className="mkt-card">
-                  <span className="mkt-icon"><Icon name={w.icon} size={22} /></span>
+                <div key={w.title} className={`mkt-card co-principle${w.icon === 'sparkles' ? ' co-rook-card' : ''}`}>
+                  <span className={w.icon === 'sparkles' ? 'co-rook-icon' : 'mkt-icon'}><Icon name={w.icon} size={22} /></span>
                   <h3 className="mkt-h3" style={{ margin: '16px 0 8px', fontSize: '1.3rem' }}>{w.title}</h3>
                   <p className="mkt-body" style={{ margin: 0, fontSize: 16 }}>{w.copy}</p>
                 </div>

@@ -1,10 +1,11 @@
-// Security.jsx - the trust page. Dark cinematic, scoped under .mkt (router wraps
-// this in MarketingShell, so we only return the page sections in a fragment).
+// Security.jsx - the trust page. Teal product controls; violet reserved for Rook.
+// Scoped under .mkt (router wraps in MarketingShell). NO em-dash / en-dash.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { Reveal, Pill, CtaBand } from './kit.jsx';
 import { ShieldAssemble, DataFlow, ComplianceBadges, EncryptChip } from './viz2/SecurityViz.jsx';
+import './company.css';
 
 const CAPS = [
   { icon: 'zap', title: 'Encryption in transit and at rest', line: 'TLS 1.2+ on every request. Data encrypted at rest with AES-256. No plaintext at any layer.' },
@@ -30,23 +31,34 @@ const COMPLIANCE = [
   { label: 'Encryption', status: 'TLS 1.2+ / AES-256', icon: 'zap' },
 ];
 
+const TRUST_STRIP = [
+  { icon: 'zap', title: 'Encrypted every hop', sub: 'TLS 1.2+ and AES-256' },
+  { icon: 'sliders', title: 'Scoped by role', sub: 'Least privilege by default' },
+  { icon: 'workflow', title: 'Every action logged', sub: 'Including Rook writes' },
+];
+
 export default function Security() {
   return (
     <>
-      {/* Hero */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
               <Pill>Trust and security</Pill>
             </div>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
-              Enterprise trust, <span className="mkt-grad">built in.</span>
+              Your pipeline stays <span className="mkt-grad">yours.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 640, margin: '24px auto 0' }}>
-              Your revenue data is the most sensitive data you have. We treat it that way, from the first
-              commit to every action Rook takes on your behalf.
+              Revenue data is the most sensitive data you have. We treat it that way from the first
+              commit through every action Rook takes on your behalf.
             </p>
+            <div className="co-hero-rail">
+              <span>Encrypted end to end</span>
+              <span>Honest compliance status</span>
+              <span>Human confirm on Rook writes</span>
+            </div>
           </Reveal>
           <Reveal delay={120}>
             <ShieldAssemble />
@@ -59,8 +71,25 @@ export default function Security() {
         </div>
       </section>
 
-      {/* Data-flow diagram */}
-      <section className="mkt-section" style={{ paddingTop: 0 }}>
+      <section className="mkt-section-sm" style={{ paddingTop: 0 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="co-truststrip">
+              {TRUST_STRIP.map((t) => (
+                <div key={t.title} className="co-trustcell">
+                  <span className="mkt-icon" style={{ width: 40, height: 40 }}><Icon name={t.icon} size={20} /></span>
+                  <div>
+                    <strong>{t.title}</strong>
+                    <span>{t.sub}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="mkt-section" style={{ paddingTop: 40 }}>
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-center" style={{ maxWidth: 660, margin: '0 auto 40px' }}>
@@ -80,7 +109,6 @@ export default function Security() {
         </div>
       </section>
 
-      {/* Capability grid */}
       <section className="mkt-section" style={{ paddingTop: 0 }}>
         <div className="mkt-wrap">
           <Reveal>
@@ -88,7 +116,7 @@ export default function Security() {
               <p className="mkt-eyebrow">The controls</p>
               <h2 className="mkt-h2" style={{ marginTop: 12 }}>Security you can hand to your CISO.</h2>
               <p className="mkt-body" style={{ marginTop: 14 }}>
-                Some of this is shipping today. Some is on the roadmap, and we say which is which. No badges we
+                Some of this ships today. Some is on the roadmap, and we say which is which. No badges we
                 have not earned.
               </p>
             </div>
@@ -96,17 +124,14 @@ export default function Security() {
           <div className="mkt-grid mkt-grid-3 m-cascade">
             {CAPS.map((c, i) => (
               <Reveal key={c.title} delay={(i % 3) * 80}>
-                <div className="mkt-card" style={{ height: '100%' }}>
-                  <div className="mkt-icon"><Icon name={c.icon} size={22} /></div>
+                <div className="mkt-card co-cap">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+                    <div className="mkt-icon"><Icon name={c.icon} size={22} /></div>
+                    <span className="co-value-n">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', margin: '18px 0 8px' }}>
                     <h3 className="mkt-h3" style={{ fontSize: '1.15rem' }}>{c.title}</h3>
-                    {c.tag && (
-                      <span style={{
-                        fontSize: 11, fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase',
-                        color: 'var(--m-teal)', background: 'rgba(20,224,200,.1)', border: '1px solid rgba(20,224,200,.3)',
-                        borderRadius: 999, padding: '3px 9px',
-                      }}>{c.tag}</span>
-                    )}
+                    {c.tag && <span className="co-cap-tag">{c.tag}</span>}
                   </div>
                   <p className="mkt-body" style={{ fontSize: '.98rem', margin: 0 }}>{c.line}</p>
                 </div>
@@ -116,15 +141,14 @@ export default function Security() {
         </div>
       </section>
 
-      <div className="mkt-wrap"><hr className="mkt-rule" /></div>
+      <div className="mkt-wrap"><hr className="co-gradrule" /></div>
 
-      {/* How Rook handles your data */}
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-center" style={{ maxWidth: 660, margin: '0 auto 44px' }}>
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}>
-                <div className="mkt-icon" style={{ width: 56, height: 56 }}><Icon name="sparkles" size={26} /></div>
+                <div className="co-rook-icon" style={{ width: 56, height: 56 }}><Icon name="sparkles" size={26} /></div>
               </div>
               <h2 className="mkt-h2">How Rook handles your data</h2>
               <p className="mkt-body" style={{ marginTop: 14 }}>
@@ -136,8 +160,8 @@ export default function Security() {
           <div className="mkt-grid mkt-grid-3">
             {ROOK_POINTS.map((p, i) => (
               <Reveal key={p.title} delay={i * 90}>
-                <div className="mkt-card mkt-card-glow" style={{ height: '100%' }}>
-                  <div className="mkt-icon"><Icon name={p.icon} size={22} /></div>
+                <div className="mkt-card co-rook-card">
+                  <div className="co-rook-icon"><Icon name={p.icon} size={22} /></div>
                   <h3 className="mkt-h3" style={{ fontSize: '1.2rem', margin: '18px 0 8px' }}>{p.title}</h3>
                   <p className="mkt-body" style={{ fontSize: '.98rem', margin: 0 }}>{p.line}</p>
                 </div>
@@ -147,9 +171,8 @@ export default function Security() {
         </div>
       </section>
 
-      <div className="mkt-wrap"><hr className="mkt-rule" /></div>
+      <div className="mkt-wrap"><hr className="co-gradrule" /></div>
 
-      {/* Compliance strip */}
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>

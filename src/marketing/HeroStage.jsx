@@ -13,10 +13,10 @@ import { Icon } from '../components/icons.jsx';
 const SENTENCE = 'Set up Vertex Robotics - enterprise expansion, committee of 5';
 
 const COMMITTEE = [
-  ['Nadia Vance', 'VP Engineering', '#5b4bf5'],
-  ['Marcus Bell', 'Head of Ops', '#0e9f9a'],
+  ['Nadia Vance', 'VP Engineering', '#0e9f8f'],
+  ['Marcus Bell', 'Head of Ops', '#14b8a6'],
   ['Priya Rao', 'CFO', '#e0752d'],
-  ['Owen Cole', 'IT Director', '#a855f7'],
+  ['Owen Cole', 'IT Director', '#7c5cf7'],
   ['Lena Cruz', 'Procurement', '#2563a8'],
 ];
 
@@ -200,13 +200,13 @@ export default function HeroStage() {
           <svg className="mkt-spark" viewBox="0 0 200 56" preserveAspectRatio="none" aria-hidden>
             <defs>
               <linearGradient id="mktSparkStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#5b4bf5" />
-                <stop offset="0.55" stopColor="#a855f7" />
-                <stop offset="1" stopColor="#0e9f9a" />
+                <stop offset="0" stopColor="#0e9f8f" />
+                <stop offset="0.55" stopColor="#14b8a6" />
+                <stop offset="1" stopColor="#7c5cf7" />
               </linearGradient>
               <linearGradient id="mktSparkFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="rgba(91,75,245,.20)" />
-                <stop offset="1" stopColor="rgba(91,75,245,0)" />
+                <stop offset="0" stopColor="rgba(14,159,143,.20)" />
+                <stop offset="1" stopColor="rgba(14,159,143,0)" />
               </linearGradient>
             </defs>
             <path className="mkt-spark-area" d="M2 44 L34 40 L66 42 L98 30 L130 32 L162 18 L198 8 L198 56 L2 56 Z" fill="url(#mktSparkFill)" />

@@ -58,23 +58,21 @@ const CAPS = [
 export default function RookPage() {
   return (
     <>
-      {/* HERO */}
-      <header className="mkt-hero" style={{ overflow: 'hidden' }}>
-        <div className="mkt-hero-mesh" aria-hidden />
-        <div className="mkt-hero-gridbg" aria-hidden />
+      {/* HERO - dark cinematic for the operator story */}
+      <header className="mkt-hero" style={{ overflow: 'hidden', background: 'radial-gradient(90% 80% at 50% -10%, #2a1f6e 0%, #0b1214 55%, #0b1214 100%)', color: '#fff', paddingBottom: 72 }}>
         <div className="mkt-wrap" style={{ position: 'relative', zIndex: 2 }}>
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
-              <Pill><span className="mkt-tag">New</span> Rook Autopilot is live</Pill>
+              <Pill><span className="mkt-tag">Operator</span> Rook Autopilot is live</Pill>
             </div>
           </Reveal>
           <Reveal delay={60}>
-            <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto' }}>
+            <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto', color: '#fff' }}>
               Rook. Your AI revenue <span className="mkt-grad m-shine">operator.</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mkt-lead" style={{ maxWidth: 660, margin: '24px auto 34px', fontSize: 'clamp(1.18rem, 2vw, 1.45rem)' }}>
+            <p className="mkt-lead" style={{ maxWidth: 660, margin: '24px auto 34px', fontSize: 'clamp(1.18rem, 2vw, 1.45rem)', color: 'rgba(255,255,255,.78)' }}>
               Not a chatbot bolted onto a CRM. Rook is grounded in every record and runs the work:
               it answers with your numbers, builds accounts, drafts the outreach, and executes the plays.
             </p>

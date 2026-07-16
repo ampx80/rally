@@ -1,18 +1,19 @@
-// Manifesto.jsx - a bold editorial "why Rally" page. Big confident type, generous
-// whitespace, pull-quotes. Scoped under .mkt (router wraps in MarketingShell).
+// Manifesto.jsx - editorial "why Rally" page. Big type, pull-quotes, teal product
+// chrome. Scoped under .mkt. NO em-dash / en-dash.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import { Reveal, Pill, CtaBand } from './kit.jsx';
 import { KineticHeadline, Throughline, ShimmerQuote } from './viz2/ManifestoViz.jsx';
+import './company.css';
 
-function Section({ eyebrow, title, children, delay = 0 }) {
+function Section({ n, title, children, delay = 0 }) {
   return (
-    <section className="mkt-section" style={{ paddingTop: 72, paddingBottom: 72 }}>
+    <section className="mkt-section" style={{ paddingTop: 64, paddingBottom: 64 }}>
       <div className="mkt-wrap">
         <Reveal delay={delay}>
-          <div style={{ maxWidth: 820 }}>
-            {eyebrow && <p className="mkt-eyebrow" style={{ marginBottom: 16 }}>{eyebrow}</p>}
+          <div className="co-chapter">
+            {n && <p className="co-chapter-n">Chapter {n}</p>}
             <h2 className="mkt-h2">{title}</h2>
             <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 18 }}>
               {children}
@@ -26,10 +27,10 @@ function Section({ eyebrow, title, children, delay = 0 }) {
 
 function PullQuote({ children }) {
   return (
-    <section style={{ padding: '40px 0' }}>
+    <section style={{ padding: '28px 0' }}>
       <div className="mkt-wrap">
         <Reveal>
-          <div style={{ maxWidth: 940, margin: '0 auto', textAlign: 'center' }}>
+          <div className="co-pull">
             <ShimmerQuote>{children}</ShimmerQuote>
           </div>
         </Reveal>
@@ -41,8 +42,8 @@ function PullQuote({ children }) {
 export default function Manifesto() {
   return (
     <>
-      {/* Hero */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
@@ -63,14 +64,13 @@ export default function Manifesto() {
         </div>
       </section>
 
-      <div className="mkt-wrap"><hr className="mkt-rule" /></div>
+      <div className="mkt-wrap"><hr className="co-gradrule" /></div>
 
-      {/* The through-line: three eras of the CRM */}
       <section className="mkt-section" style={{ paddingTop: 72, paddingBottom: 24 }}>
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ maxWidth: 760, margin: '0 auto 8px' }}>
-              <p className="mkt-eyebrow" style={{ marginBottom: 16 }}>The through-line</p>
+              <p className="co-chapter-n" style={{ marginBottom: 16 }}>The through-line</p>
               <h2 className="mkt-h2">How the CRM got here, and where it goes next.</h2>
             </div>
           </Reveal>
@@ -80,8 +80,7 @@ export default function Manifesto() {
         </div>
       </section>
 
-      {/* 1 */}
-      <Section eyebrow="Chapter 01" title="The CRM became a system of record that reps hate.">
+      <Section n="01" title="The CRM became a system of record that reps hate.">
         <p className="mkt-body">
           It was supposed to be the brain of the revenue team. Instead it became a filing cabinet with a login.
           Reps spend their afternoons feeding it, not selling. Managers spend their weeks pulling reports out
@@ -96,8 +95,7 @@ export default function Manifesto() {
 
       <PullQuote>Data entry is not a job. It is a symptom of software that never learned to do the work itself.</PullQuote>
 
-      {/* 2 */}
-      <Section eyebrow="Chapter 02" title="AI got added as a sidecar. A chatbot in the corner.">
+      <Section n="02" title="AI got added as a sidecar. A chatbot in the corner.">
         <p className="mkt-body">
           When the wave hit, the incumbents did the only thing a twenty-year-old architecture allows: they
           bolted a chat box onto the dashboard. It can summarize a record you already opened and draft an email
@@ -109,8 +107,7 @@ export default function Manifesto() {
         </p>
       </Section>
 
-      {/* 3 */}
-      <Section eyebrow="Chapter 03" title="Rally is AI-native from the first commit. The operator runs the work.">
+      <Section n="03" title="Rally is AI-native from the first commit. The operator runs the work.">
         <p className="mkt-body">
           Rook is not a feature we added. Rook is the reason the platform is shaped the way it is. Ask it to
           build a pipeline view, clean a segment, chase the deals that went quiet, or draft the follow-ups for
@@ -124,8 +121,7 @@ export default function Manifesto() {
 
       <PullQuote>You should not operate the software. The software should operate for you.</PullQuote>
 
-      {/* 4 */}
-      <Section eyebrow="Chapter 04" title="Alive on first load. Not an empty database you fill for months.">
+      <Section n="04" title="Alive on first load. Not an empty database you fill for months.">
         <p className="mkt-body">
           Most platforms ship you a blank grid and a six-month implementation. Rally opens with pipeline,
           contacts, structure, and a working operator already in motion, so you can see how your revenue runs
@@ -136,8 +132,7 @@ export default function Manifesto() {
         </p>
       </Section>
 
-      {/* 5 */}
-      <Section eyebrow="Chapter 05" title="One platform. One operator. One design. Not a decade of acquisitions stitched together.">
+      <Section n="05" title="One platform. One operator. One design. Not a decade of acquisitions stitched together.">
         <p className="mkt-body">
           The giants grew by buying companies and gluing the logos together. What you get is five products
           wearing one name, five data models, five UIs, and integration tax on every workflow that crosses a
@@ -152,12 +147,13 @@ export default function Manifesto() {
 
       <PullQuote>One brain beats ten bolt-ons. That is the whole architecture, and the whole advantage.</PullQuote>
 
-      {/* 6 - the bet */}
-      <section className="mkt-section" style={{ paddingTop: 72 }}>
+      <section className="mkt-section" style={{ paddingTop: 56 }}>
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-cta-band" style={{ padding: '72px 40px' }}>
-              <p className="mkt-eyebrow" style={{ marginBottom: 18 }}>Chapter 06 / The bet</p>
+              <p className="co-chapter-n" style={{ justifyContent: 'center', color: 'rgba(255,255,255,.72)', marginBottom: 18 }}>
+                Chapter 06 / The bet
+              </p>
               <h2 className="mkt-h2" style={{ maxWidth: 860, margin: '0 auto' }}>
                 The winning revenue platform will be the one where <span className="mkt-grad m-shine">the AI does the work.</span>
               </h2>

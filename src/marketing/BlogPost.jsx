@@ -115,7 +115,7 @@ export default function BlogPost() {
           <Reveal>
             <Link
               to="/blog"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--m-ink3)', fontWeight: 700, fontSize: 14.5, marginBottom: 20 }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--m-teal)', fontWeight: 700, fontSize: 14.5, marginBottom: 20 }}
             >
               <Icon name="chevronRight" size={15} style={{ transform: 'rotate(180deg)' }} /> All posts
             </Link>

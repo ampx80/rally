@@ -95,8 +95,8 @@ const CASES = [
 export default function Customers() {
   return (
     <>
-      {/* HERO */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
@@ -109,11 +109,15 @@ export default function Customers() {
               From first-time founders to mid-market sales orgs, teams switch to Rally to trade eleven tabs
               and a CRM admin for one platform and one operator.
             </p>
+            <div className="co-hero-rail">
+              <span>Fewer tools</span>
+              <span>No Friday data entry</span>
+              <span>Live in a weekend</span>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* LOGO WALL */}
       <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
         <div className="mkt-wrap">
           <Reveal>
@@ -122,7 +126,10 @@ export default function Customers() {
           <Reveal delay={80}>
             <div className="co-wall">
               {LOGOS.map((name) => (
-                <div key={name} className="co-walltile">{name}</div>
+                <div key={name} className="co-walltile">
+                  <span className="co-wallmono" aria-hidden>{name[0]}</span>
+                  {name}
+                </div>
               ))}
             </div>
           </Reveal>
@@ -178,12 +185,13 @@ export default function Customers() {
                     <span className="mkt-icon" style={{ width: 40, height: 40 }}><Icon name={c.icon} size={20} /></span>
                     <span className="co-chip">{c.tag}</span>
                   </div>
-                  <p className="co-quote" style={{ margin: '18px 0 0', fontSize: 16.5 }}>"{c.quote}"</p>
+                  <div className="co-quotemark" aria-hidden>"</div>
+                  <p className="co-quote" style={{ margin: 0, fontSize: 16.5 }}>{c.quote}</p>
                   <div className="mkt-dim" style={{ marginTop: 14, fontSize: 14, fontWeight: 700 }}>{c.role}</div>
                   <div className="co-metricrow" style={{ marginTop: 'auto' }}>
                     {c.metrics.map(([v, l]) => (
                       <div key={l}>
-                        <div className="co-metric-v mkt-grad">{v}</div>
+                        <div className="co-metric-v">{v}</div>
                         <div className="co-metric-l">{l}</div>
                       </div>
                     ))}

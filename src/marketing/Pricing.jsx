@@ -108,9 +108,9 @@ export default function Pricing() {
                 className="mkt-btn"
                 style={{
                   padding: '9px 20px',
-                  background: !annual ? 'linear-gradient(100deg, #6d5cf7, #7c5cf7)' : 'transparent',
+                  background: !annual ? 'linear-gradient(100deg, #0e9f8f, #14b8a6)' : 'transparent',
                   color: !annual ? '#fff' : 'var(--m-ink2)',
-                  boxShadow: !annual ? '0 8px 24px -8px rgba(109,92,247,.7)' : 'none',
+                  boxShadow: !annual ? '0 8px 24px -8px rgba(14,159,143,.55)' : 'none',
                 }}
               >
                 Monthly
@@ -120,9 +120,9 @@ export default function Pricing() {
                 className="mkt-btn"
                 style={{
                   padding: '9px 20px',
-                  background: annual ? 'linear-gradient(100deg, #6d5cf7, #7c5cf7)' : 'transparent',
+                  background: annual ? 'linear-gradient(100deg, #0e9f8f, #14b8a6)' : 'transparent',
                   color: annual ? '#fff' : 'var(--m-ink2)',
-                  boxShadow: annual ? '0 8px 24px -8px rgba(109,92,247,.7)' : 'none',
+                  boxShadow: annual ? '0 8px 24px -8px rgba(14,159,143,.55)' : 'none',
                 }}
               >
                 Annual

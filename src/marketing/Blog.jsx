@@ -91,17 +91,16 @@ export default function Blog() {
 
   return (
     <>
-      {/* Hero */}
       <section className="mkt-blog-hero">
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-eyebrow">Resources</div>
-            <h1 className="mkt-h1" style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.2rem)', marginTop: 14, maxWidth: '15ch' }}>
-              The <span className="mkt-grad m-shine">Rally</span> blog
+            <h1 className="mkt-h1" style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.2rem)', marginTop: 14, maxWidth: '14ch' }}>
+              Notes on running <span className="mkt-grad m-shine">revenue</span>
             </h1>
             <p className="mkt-lead" style={{ marginTop: 20, maxWidth: 640 }}>
-              How modern revenue teams sell, forecast, and operate. Written by the team building the
-              AI-native platform, for the people who run the number.
+              How modern teams sell, forecast, and operate. Written by the people building Rally, for
+              the people who own the number.
             </p>
           </Reveal>
 

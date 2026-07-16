@@ -37,7 +37,7 @@
   --nav-text: #e8eef0;
   --nav-muted: #8a9aa0;
   --nav-active: #1a2c2f;
-  --nav-sec: #a8b6bb
+  --nav-sec: #a8b6bb;
 
   /* --- Functional --- */
   --ok: #1a7f52;
@@ -249,9 +249,9 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 /* Ambient floating color field behind all content */
 .ambient { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
 .ambient span { position: absolute; border-radius: 50%; filter: blur(64px); will-change: transform; }
-.ambient .b1 { width: 460px; height: 460px; top: -110px; left: 6%; background: radial-gradient(circle, rgba(91,75,245,.20), transparent 70%); animation: floatA 24s ease-in-out infinite; }
-.ambient .b2 { width: 400px; height: 400px; bottom: -90px; right: 8%; background: radial-gradient(circle, rgba(20,184,166,.15), transparent 70%); animation: floatB 28s ease-in-out infinite; }
-.ambient .b3 { width: 340px; height: 340px; top: 42%; left: 46%; background: radial-gradient(circle, rgba(168,85,247,.13), transparent 70%); animation: floatC 32s ease-in-out infinite; }
+.ambient .b1 { width: 460px; height: 460px; top: -110px; left: 6%; background: radial-gradient(circle, rgba(14,159,143,.18), transparent 70%); animation: floatA 24s ease-in-out infinite; }
+.ambient .b2 { width: 400px; height: 400px; bottom: -90px; right: 8%; background: radial-gradient(circle, rgba(20,184,166,.14), transparent 70%); animation: floatB 28s ease-in-out infinite; }
+.ambient .b3 { width: 340px; height: 340px; top: 42%; left: 46%; background: radial-gradient(circle, rgba(148,163,184,.10), transparent 70%); animation: floatC 32s ease-in-out infinite; }
 @keyframes floatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(46px,54px) scale(1.12); } }
 @keyframes floatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-54px,-42px) scale(1.16); } }
 @keyframes floatC { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(34px,-44px) scale(1.1); } }
@@ -314,8 +314,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   --paper: #141924;
   --line: #232a38;
   --line-strong: #303a4b;
-  --accent-50: #201d44;
-  --accent-300: #7b6ef0;
+  --accent-50: #0f2a28;
+  --accent-300: #5ecfc3;
   --ok-bg: #0f2a1e; --warn-bg: #2c2411; --risk-bg: #2f1613; --info-bg: #0f2135;
   --n-0: #141924; --n-25: #171d29; --n-50: #1b212e; --n-100: #232a38;
   --n-200: #303a4b; --n-400: #6d7889; --n-600: #97a1b2; --n-700: #b6bfcd; --n-800: #d6dce4; --n-900: #eef1f6;
@@ -324,9 +324,9 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
   --shadow-md: 0 6px 18px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35);
   --shadow-lg: 0 24px 60px rgba(0,0,0,.6), 0 8px 24px rgba(0,0,0,.4);
 }
-[data-theme="dark"] .ambient .b1 { background: radial-gradient(circle, rgba(91,75,245,.26), transparent 70%); }
+[data-theme="dark"] .ambient .b1 { background: radial-gradient(circle, rgba(14,159,143,.24), transparent 70%); }
 [data-theme="dark"] .ambient .b2 { background: radial-gradient(circle, rgba(20,184,166,.20), transparent 70%); }
-[data-theme="dark"] .ambient .b3 { background: radial-gradient(circle, rgba(168,85,247,.18), transparent 70%); }
+[data-theme="dark"] .ambient .b3 { background: radial-gradient(circle, rgba(148,163,184,.14), transparent 70%); }
 html { transition: none; }
 body, .card, .panel, .table th, .table td, .input, .select, .textarea { transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
 

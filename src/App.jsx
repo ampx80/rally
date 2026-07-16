@@ -597,9 +597,9 @@ function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
     <>
       <aside className="rl-rail" style={{ background: 'var(--nav)', color: 'var(--nav-text)' }}>
         <div className="spine-logo-wrap">
-          <span className="spine-logo" aria-hidden>
+          <NavLink to="/app" end className="spine-logo" aria-label="Rally home" title="Rally">
             <Icon name="zap" size={20} fill="currentColor" stroke={0} />
-          </span>
+          </NavLink>
         </div>
         <nav className="spine-nav" role="navigation" aria-label="Primary">
           {SPINE.map(item => (
@@ -607,9 +607,14 @@ function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
               onEnter={() => { if (item.peek) openPeek(item.key); }}
               onLeave={() => { if (item.peek) scheduleClose(); }}
               onActivate={() => {
-                if (item.ai) { window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } })); return; }
-                if (item.apps) { onOpenApps(); return; }
-                closePeekNow();
+                if (item.ai) { closePeekNow(); window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true } })); return; }
+                if (item.apps) { closePeekNow(); onOpenApps(); return; }
+                if (item.peek) {
+                  if (peekKey === item.key) closePeekNow();
+                  else openPeek(item.key);
+                } else {
+                  closePeekNow();
+                }
               }} />
           ))}
         </nav>

@@ -37,8 +37,8 @@ import GhostDealPanel from '../components/GhostDealPanel.jsx';
 import PlaybookRunner from '../components/playbooks/PlaybookRunner.jsx';
 
 const STAGE_COLOR = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#5b4bf5',
-  proposal: '#b3721a', negotiation: '#0ea5a3', won: '#1a7f52', lost: '#c0392b',
+  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
+  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
 };
 const TONE_COLOR = { ok: 'var(--ok)', warn: 'var(--warn)', risk: 'var(--risk)', info: 'var(--info)' };
 const TONE_ICON = { ok: 'check', warn: 'clock', risk: 'zap', info: 'sparkles' };
@@ -216,13 +216,32 @@ export default function DealDetail() {
     catch { toast('Copy failed - select the text manually', 'warn'); }
   };
 
+  const askRook = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true, context: { dealId: deal.id } } }));
+
   return (
     <div className="fade-up">
       {/* Breadcrumb */}
-      <div className="row gap-1 t-sm muted" style={{ marginBottom: '1rem' }}>
+      <div className="row gap-1 t-sm muted" style={{ marginBottom: '.75rem' }}>
         <Link to="/deals" className="link">Deals</Link>
         <Icon name="chevronRight" size={14} />
         <span className="clip">{deal.name}</span>
+      </div>
+
+      {/* Sticky deal command strip */}
+      <div className="glass row between wrap gap-2" style={{
+        position: 'sticky', top: 64, zIndex: 12, marginBottom: '1rem',
+        padding: '.7rem 1rem', borderRadius: 'var(--r-md)', alignItems: 'center',
+      }}>
+        <div className="row gap-2 wrap" style={{ alignItems: 'center', minWidth: 0 }}>
+          <Badge style={{ background: STAGE_COLOR[deal.stage], color: '#fff' }}>{currentStage?.name}</Badge>
+          <span className="fw-7 clip" style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem' }}>{deal.name}</span>
+          <span className="fw-7 tnum" style={{ color: 'var(--accent-600)' }}>{moneyK(deal.value)}</span>
+          {extras.nextStep && <span className="t-sm muted clip" style={{ maxWidth: 280 }}>Next: {extras.nextStep}</span>}
+        </div>
+        <div className="row gap-1" style={{ flex: 'none' }}>
+          <Button variant="ai" size="sm" onClick={askRook}><Icon name="sparkles" size={15} /> Ask Rook</Button>
+          <Button variant="ghost" size="sm" onClick={shareDealRoom}><Icon name="share2" size={15} /> Share</Button>
+        </div>
       </div>
 
       <div className="row gap-3 wrap" style={{ alignItems: 'flex-start' }}>
@@ -288,14 +307,14 @@ export default function DealDetail() {
               className="card fade-up"
               style={{
                 position: 'relative', overflow: 'hidden', padding: '1.15rem 1.3rem',
-                border: '1px solid var(--accent-300)',
-                background: 'linear-gradient(135deg, var(--accent-50), var(--paper) 60%)',
-                boxShadow: 'var(--accent-glow)',
+                border: '1px solid color-mix(in srgb, var(--ai) 35%, var(--line))',
+                background: 'linear-gradient(135deg, var(--ai-50), var(--paper) 60%)',
+                boxShadow: 'var(--ai-glow)',
               }}
             >
-              <div style={{ position: 'absolute', top: -40, right: -30, width: 160, height: 160, borderRadius: '50%', background: 'var(--accent)', opacity: .1, filter: 'blur(14px)' }} />
+              <div style={{ position: 'absolute', top: -40, right: -30, width: 160, height: 160, borderRadius: '50%', background: 'var(--ai)', opacity: .12, filter: 'blur(14px)' }} />
               <div className="row gap-2" style={{ position: 'relative', alignItems: 'center', marginBottom: '.85rem' }}>
-                <span className="row center" style={{ width: 30, height: 30, borderRadius: 'var(--r-pill)', background: 'var(--accent)', color: '#fff', flex: 'none' }}>
+                <span className="row center" style={{ width: 30, height: 30, borderRadius: 'var(--r-pill)', background: 'var(--ai)', color: '#fff', flex: 'none' }}>
                   <Icon name="sparkles" size={17} />
                 </span>
                 <div className="col" style={{ lineHeight: 1.15 }}>

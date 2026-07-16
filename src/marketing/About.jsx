@@ -33,8 +33,8 @@ const TIMELINE = [
 export default function About() {
   return (
     <>
-      {/* HERO */}
-      <section className="mkt-hero">
+      <section className="mkt-hero co-hero">
+        <div className="co-hero-glow" aria-hidden />
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
@@ -47,18 +47,22 @@ export default function About() {
               Rally is an AI-native revenue platform run by Rook, the operator that reads your whole workspace
               and acts on command. One system to replace the stack of tools you never wanted to manage.
             </p>
+            <div className="co-hero-rail">
+              <span>AI-native from commit one</span>
+              <span>One data model</span>
+              <span>Fourteen modules, one seat</span>
+            </div>
           </Reveal>
         </div>
       </section>
 
       <div className="mkt-wrap"><hr className="co-gradrule" /></div>
 
-      {/* MISSION */}
       <section className="mkt-section" style={{ paddingTop: 72 }}>
         <div className="mkt-wrap">
           <Reveal>
-            <div style={{ maxWidth: 820, margin: '0 auto' }}>
-              <p className="mkt-eyebrow" style={{ marginBottom: 16 }}>Our mission</p>
+            <div className="co-chapter" style={{ margin: '0 auto' }}>
+              <p className="co-chapter-n">Our mission</p>
               <h2 className="mkt-h2">End the era of software you have to operate.</h2>
               <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 18 }}>
                 <p className="mkt-body">
@@ -77,11 +81,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* THESIS PULL QUOTE */}
-      <section style={{ padding: '32px 0' }}>
+      <section style={{ padding: '40px 0' }}>
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-center">
+            <div className="co-pull mkt-center">
               <p style={{ fontSize: 'clamp(1.8rem, 4.2vw, 3rem)', fontWeight: 800, letterSpacing: '-.03em', lineHeight: 1.15, maxWidth: 900, margin: '0 auto', color: 'var(--m-ink)' }}>
                 AI-native from the first commit. <span className="mkt-grad">Software that needs a staff is not software.</span> It is a job you bought.
               </p>
@@ -90,7 +93,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* PRINCIPLES */}
       <section className="mkt-section" style={{ paddingTop: 56 }}>
         <div className="mkt-wrap">
           <Reveal>
@@ -102,9 +104,9 @@ export default function About() {
           <Reveal delay={80}>
             <div className="mkt-grid mkt-grid-3 m-cascade">
               {PRINCIPLES.map((p) => (
-                <div key={p.n} className="mkt-card m-magnet">
+                <div key={p.n} className={`mkt-card m-magnet co-principle${p.icon === 'sparkles' ? ' co-rook-card' : ''}`}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span className="mkt-icon"><Icon name={p.icon} size={22} /></span>
+                    <span className={p.icon === 'sparkles' ? 'co-rook-icon' : 'mkt-icon'}><Icon name={p.icon} size={22} /></span>
                     <span className="co-value-n">{p.n}</span>
                   </div>
                   <h3 className="mkt-h3" style={{ margin: '16px 0 8px', fontSize: '1.22rem' }}>{p.title}</h3>
