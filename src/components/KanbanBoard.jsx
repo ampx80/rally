@@ -30,22 +30,23 @@ function DealCard({ deal, companyName, ownerName, onDragStart, onDragEnd, onClic
       onDragEnd={() => { setDrag(false); onDragEnd && onDragEnd(); }}
       onClick={onClick} className="card kb-card"
       style={{
-        padding: '.75rem .8rem', cursor: drag ? 'grabbing' : 'grab', borderRadius: 'var(--r-md)',
+        padding: '.8rem .85rem', cursor: drag ? 'grabbing' : 'grab', borderRadius: 'var(--r-md)',
+        border: '1px solid var(--line)',
         borderLeft: `3px solid ${healthColor(prob)}`,
         transform: drag ? 'rotate(2.5deg) scale(1.04)' : 'none',
-        boxShadow: drag ? '0 18px 40px -12px rgba(11,18,20,.35)' : undefined,
+        boxShadow: drag ? '0 18px 40px -12px rgba(11,18,20,.35)' : '0 1px 2px rgba(16,20,30,.05)',
         opacity: drag ? 0.92 : 1,
-        transition: 'transform .16s var(--ease), box-shadow .16s var(--ease)',
+        transition: 'transform .16s var(--ease), box-shadow .16s var(--ease), border-color .16s var(--ease)',
       }}>
       <div className="row between gap-1" style={{ alignItems: 'flex-start' }}>
         <span className="fw-6 clip" style={{ minWidth: 0, fontSize: '.94rem', fontFamily: 'var(--font-display)' }}>{deal.name}</span>
         <span className="badge t-xs tnum" style={{ flex: 'none' }}>{prob}%</span>
       </div>
       <div className="t-xs muted clip" style={{ marginTop: 2 }}>{companyName}</div>
-      <div className="row between wrap gap-1" style={{ marginTop: '.6rem' }}>
+      <div className="row between wrap gap-1" style={{ marginTop: '.65rem' }}>
         <span className="fw-7 tnum" style={{ color: 'var(--ink)' }}>{moneyK(deal.value)}</span>
-        <span className="row gap-1 wrap" style={{ justifyContent: 'flex-end' }}>
-          <span className="badge t-xs"><Icon name="clock" size={12} /> {relTime(deal.closeDate)}</span>
+        <span className="row gap-2 wrap" style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+          <span className="row gap-1 t-xs muted" style={{ alignItems: 'center' }}><Icon name="clock" size={12} /> {relTime(deal.closeDate)}</span>
           <Avatar name={ownerName} size={22} />
         </span>
       </div>
@@ -81,26 +82,25 @@ export default function KanbanBoard({ deals, companyName, ownerName, onMove }) {
               borderRadius: 'var(--r-md)',
               border: '1px solid ' + (isOver ? 'var(--accent-300)' : 'var(--line)'),
               borderTop: `3px solid ${stageAccent[stage.id]}`,
-              boxShadow: isOver ? '0 0 0 3px var(--accent-50), var(--accent-glow)' : 'none',
+              boxShadow: isOver ? '0 0 0 3px var(--accent-50), var(--accent-glow)' : 'var(--shadow-sm)',
               transform: isOver ? 'translateY(-2px) scale(1.012)' : 'none',
               transition: 'transform .18s var(--ease), box-shadow .18s var(--ease), background .18s, border-color .18s',
               display: 'flex', flexDirection: 'column', maxHeight: '72vh',
             }}>
             <div className="row between" style={{ padding: '.7rem .8rem .5rem' }}>
-              <span className="row gap-1" style={{ minWidth: 0 }}>
-                <span className="dot" style={{ background: stageAccent[stage.id], boxShadow: stage.id === 'won' ? '0 0 8px 1px rgba(26,127,82,.6)' : 'none' }} />
-                <span className="fw-6 clip" style={{ fontSize: '.9rem', fontFamily: 'var(--font-display)' }}>{stage.name}</span>
-                <span className="badge t-xs">{list.length}</span>
-              </span>
+              <span className="fw-7 clip" style={{ fontSize: '.92rem', fontFamily: 'var(--font-display)' }}>{stage.name}</span>
+              <span className="badge t-xs" style={{ background: `color-mix(in srgb, ${stageAccent[stage.id]} 16%, var(--paper))`, color: stageAccent[stage.id], flex: 'none' }}>{list.length}</span>
             </div>
-            <div className="t-xs muted tnum" style={{ padding: '0 .8rem .55rem' }}><AnimatedNumber value={sum} format={moneyK} /></div>
+            <div className="tnum fw-7" style={{ padding: '0 .8rem .6rem', fontSize: '.94rem', color: 'var(--ink-2)' }}><AnimatedNumber value={sum} format={moneyK} /></div>
             <div className="col gap-1" style={{ padding: '0 .55rem .7rem', overflowY: 'auto' }}>
               {list.map(d => (
                 <DealCard key={d.id} deal={d} companyName={companyName(d.companyId)} ownerName={ownerName(d.ownerId)}
                   onDragStart={() => setDragId(d.id)}
                   onClick={() => nav(`/deals/${d.id}`)} />
               ))}
-              {list.length === 0 && <div className="t-xs muted" style={{ padding: '.5rem .3rem', textAlign: 'center' }}>Drop here</div>}
+              {list.length === 0 && (
+                <div className="t-xs muted" style={{ padding: '.9rem .4rem', textAlign: 'center', border: '1.5px dashed var(--line-strong)', borderRadius: 'var(--r-sm)' }}>Drop here</div>
+              )}
             </div>
           </div>
         );

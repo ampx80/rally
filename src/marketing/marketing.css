@@ -53,7 +53,7 @@
 .mkt-main { position: relative; z-index: 1; }
 
 /* --- Nav --- */
-.mkt-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(255,255,255,.8); border-bottom: 1px solid var(--m-line); }
+.mkt-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); background: rgba(255,255,255,.74); border-bottom: 1px solid var(--m-line); box-shadow: 0 1px 0 rgba(16,20,32,.03); }
 .mkt-nav-in { display: flex; align-items: center; gap: 20px; height: 68px; }
 .mkt-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: var(--m-ink); }
 .mkt-logo-mark { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, #14b8a6, #0e9f8f); box-shadow: 0 6px 18px -4px rgba(14,159,143,.45); }
@@ -135,6 +135,7 @@
 .mkt-footcol h5 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--m-ink3); margin: 0 0 14px; font-weight: 700; }
 .mkt-footcol a { display: block; padding: 5px 0; color: var(--m-ink2); font-size: 15px; }
 .mkt-footcol a:hover { color: var(--m-accent); }
+.mkt-footer-status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--m-ink3); }
 
 /* --- Diagram helpers --- */
 .mkt-node { background: #fff; border: 1px solid var(--m-line2); border-radius: 14px; padding: 16px 18px; box-shadow: var(--m-shadow-sm); }
