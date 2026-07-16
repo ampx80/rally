@@ -100,7 +100,10 @@ function MktFooter() {
           ))}
         </div>
         <hr className="mkt-rule" style={{ margin: '36px 0 20px' }} />
-        <div className="mkt-dim" style={{ fontSize: 14 }}>Copyright Rally. Built AI-native from the first commit.</div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+          <div className="mkt-dim" style={{ fontSize: 14 }}>Copyright Rally. Built AI-native from the first commit.</div>
+          <span className="mkt-footer-status"><span className="mkt-dot m-pulse" /> All systems live</span>
+        </div>
       </div>
     </footer>
   );

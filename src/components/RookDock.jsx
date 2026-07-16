@@ -412,7 +412,7 @@ export default function RookDock() {
           <div className="rook-scroll" ref={scrollRef}>
             {msgs.map((m, i) => (
               <div key={i} className={`rook-msg rook-msg--${m.role}`}>
-                {m.role === 'assistant' && <div className="rook-msg__mark"><RookGlyph size={13} color="var(--accent)" /></div>}
+                {m.role === 'assistant' && <div className="rook-msg__mark"><RookGlyph size={13} color="var(--ai)" /></div>}
                 <div className="rook-bubble">
                   <div style={{ whiteSpace: 'pre-wrap' }}>{m.content}</div>
                   {m.email && (
@@ -454,7 +454,7 @@ export default function RookDock() {
             )}
             {(busy || building) && (
               <div className="rook-msg rook-msg--assistant">
-                <div className="rook-msg__mark"><RookGlyph size={13} color="var(--accent)" /></div>
+                <div className="rook-msg__mark"><RookGlyph size={13} color="var(--ai)" /></div>
                 <div className="rook-bubble rook-thinking">{building && <span className="rook-buildlabel">Building</span>}<span /><span /><span /></div>
               </div>
             )}
@@ -528,16 +528,16 @@ function RookStyles() {
     .rook-cap__head { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--n-600); padding: 0 4px 6px; }
     .rook-cap__ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; }
     .rook-cap__item { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; text-align: left; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 6px; cursor: pointer; transition: border-color .14s, background .14s, transform .14s; }
-    .rook-cap__item:hover { border-color: var(--accent); background: var(--accent-50); transform: translateX(2px); }
+    .rook-cap__item:hover { border-color: var(--ai); background: var(--ai-50); transform: translateX(2px); }
     .rook-cap__go { color: var(--n-400); flex-shrink: 0; }
-    .rook-cap__item:hover .rook-cap__go { color: var(--accent-600); }
+    .rook-cap__item:hover .rook-cap__go { color: var(--ai-600); }
 
     .rook-scroll { flex: 1; overflow-y: auto; padding: 16px; background: var(--page); display: flex; flex-direction: column; gap: 14px; }
     .rook-msg { display: flex; gap: 8px; align-items: flex-start; }
     .rook-msg--user { justify-content: flex-end; }
-    .rook-msg__mark { width: 22px; height: 22px; border-radius: 7px; background: var(--accent-50); border: 1px solid var(--accent-300); display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+    .rook-msg__mark { width: 22px; height: 22px; border-radius: 7px; background: var(--ai-50); border: 1px solid color-mix(in srgb, var(--ai) 40%, var(--ai-50)); display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
     .rook-bubble { max-width: 85%; font-size: 14.5px; line-height: 1.5; color: var(--ink); background: var(--paper); border: 1px solid var(--line); padding: 10px 13px; border-radius: 14px; }
-    .rook-msg--user .rook-bubble { background: var(--accent); color: #fff; border-color: var(--accent); border-bottom-right-radius: 5px; }
+    .rook-msg--user .rook-bubble { background: var(--ai); color: #fff; border-color: var(--ai); border-bottom-right-radius: 5px; }
     .rook-msg--assistant .rook-bubble { border-bottom-left-radius: 5px; }
 
     .rook-email { margin-top: 9px; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--n-25); }
@@ -545,7 +545,7 @@ function RookStyles() {
     .rook-email__body { font-size: 13.5px; white-space: pre-wrap; color: var(--ink-2); margin: 6px 0 8px; }
 
     .rook-nav { display: inline-flex; align-items: center; gap: 6px; margin-top: 9px; padding: 7px 12px; font-size: 13.5px; font-weight: 700; font-family: inherit;
-      background: var(--accent-50); color: var(--accent-600); border: 1px solid var(--accent-300); border-radius: 9px; cursor: pointer; }
+      background: var(--ai-50); color: var(--ai-600); border: 1px solid color-mix(in srgb, var(--ai) 40%, var(--ai-50)); border-radius: 9px; cursor: pointer; }
     .rook-nav:hover { background: #e2defd; }
     .rook-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
     .rook-action { display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px; font-size: 13.5px; font-weight: 700; font-family: inherit;
@@ -555,25 +555,25 @@ function RookStyles() {
     .rook-action--jugg { background: linear-gradient(100deg, #3d31c2, #5b4bf5 60%, #7c5cf7); position: relative; overflow: hidden; box-shadow: 0 6px 20px -6px rgba(91,75,245,.5); }
     .rook-action--jugg::after { content:''; position:absolute; top:0; bottom:0; width:40%; left:-50%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); animation: rook-sheen 2.6s ease-in-out infinite; }
     @keyframes rook-sheen { 0% { left:-50%; } 60%,100% { left:130%; } }
-    .rook-buildlabel { font-size: 12px; font-weight: 700; color: var(--accent); margin-right: 6px; letter-spacing: .02em; }
+    .rook-buildlabel { font-size: 12px; font-weight: 700; color: var(--ai); margin-right: 6px; letter-spacing: .02em; }
     .rook-suggest { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .rook-chip { font-size: 12.5px; font-weight: 600; font-family: inherit; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--paper); color: var(--n-600); cursor: pointer; text-align: left; }
-    .rook-chip:hover { border-color: var(--accent); color: var(--accent-600); }
+    .rook-chip:hover { border-color: var(--ai); color: var(--ai-600); }
 
     .rook-thinking { display: inline-flex; gap: 4px; align-items: center; }
-    .rook-thinking span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: rook-blink 1.2s infinite; }
+    .rook-thinking span { width: 6px; height: 6px; border-radius: 50%; background: var(--ai); animation: rook-blink 1.2s infinite; }
     .rook-thinking span:nth-child(2) { animation-delay: .2s; } .rook-thinking span:nth-child(3) { animation-delay: .4s; }
     @keyframes rook-blink { 0%,60%,100% { opacity: .25; } 30% { opacity: 1; } }
     .rook-spin { animation: spin .9s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
 
     .rook-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: var(--paper); }
     .rook-input input { flex: 1; border: 1px solid var(--line-strong); border-radius: 11px; padding: 11px 13px; font-size: 14.5px; font-family: inherit; color: var(--ink); outline: none; background: var(--page); }
-    .rook-input input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,75,245,.16); }
+    .rook-input input:focus { border-color: var(--ai); box-shadow: 0 0 0 3px rgba(124,92,247,.16); }
     .rook-mic { border: 1px solid var(--line-strong); background: var(--paper); color: var(--n-600); cursor: pointer; width: 42px; border-radius: 11px; display: grid; place-items: center; flex-shrink: 0; transition: all .15s; }
-    .rook-mic:hover { border-color: var(--accent); color: var(--accent); }
+    .rook-mic:hover { border-color: var(--ai); color: var(--ai); }
     .rook-mic.is-live { background: #c0392b; border-color: #c0392b; color: #fff; animation: rook-mic-pulse 1.3s ease-in-out infinite; }
     @keyframes rook-mic-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,.5); } 50% { box-shadow: 0 0 0 6px rgba(192,57,43,0); } }
-    .rook-input button[type=submit] { width: 42px; border: none; border-radius: 11px; background: var(--accent); color: #fff; cursor: pointer; display: grid; place-items: center; }
+    .rook-input button[type=submit] { width: 42px; border: none; border-radius: 11px; background: var(--ai); color: #fff; cursor: pointer; display: grid; place-items: center; }
     .rook-input button:disabled { opacity: .45; cursor: default; }
 
     @media (prefers-reduced-motion: reduce) { .rook-fab, .rook-fab__ring, .rook-panel, .rook-thinking span { animation: none !important; } }
