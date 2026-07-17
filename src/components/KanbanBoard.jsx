@@ -7,13 +7,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { STAGES } from '../lib/store.js';
+import { STAGE_COLOR as stageAccent } from '../lib/stage-colors.js';
 import { Avatar, moneyK, relTime, AnimatedNumber } from './UI.jsx';
 import { Icon } from './icons.jsx';
-
-const stageAccent = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
-  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
-};
 
 function healthColor(p) {
   if (p >= 70) return 'var(--ok)';

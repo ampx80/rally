@@ -124,7 +124,7 @@ export default function Forecasting() {
     { label: 'Committed', value: roll.committed, icon: 'check', accent: 'var(--ok)', sparkColor: 'var(--ok)', sub: 'closed won + commit', hero: true },
     { label: 'Best case', value: roll.bestCase, icon: 'trendUp', accent: 'var(--accent)', sub: 'committed + best-case upside' },
     { label: 'Open pipeline', value: roll.pipeline, icon: 'deals', accent: '#0ea5a3', sparkColor: '#0ea5a3', sub: `${roll.reps.reduce((s, r) => s + r.count, 0)} deals this quarter` },
-    { label: 'Weighted forecast', value: roll.weighted, icon: 'target', accent: '#8b3fd4', sparkColor: '#8b3fd4', sub: 'value x probability' },
+    { label: 'Weighted forecast', value: roll.weighted, icon: 'target', accent: 'var(--accent-300)', sparkColor: 'var(--accent-300)', sub: 'value x probability' },
     { label: 'Team quota', value: quota, icon: 'dollar', accent: 'var(--n-600)', sparkColor: 'var(--n-400)', sub: range.label },
     { label: gap > 0 ? 'Gap to quota' : 'Over quota', value: Math.abs(gap), icon: gap > 0 ? 'arrowDown' : 'arrowUp', accent: gap > 0 ? 'var(--risk)' : 'var(--ok)', sparkColor: gap > 0 ? 'var(--risk)' : 'var(--ok)', sub: `${attainPct}% attained` },
   ];
@@ -223,7 +223,7 @@ export default function Forecasting() {
             <CartesianGrid stroke={GRID} vertical={false} />
             <XAxis dataKey="month" tickLine={false} axisLine={{ stroke: GRID }} tick={{ fontSize: 13, fill: 'var(--n-600)' }} />
             <YAxis tickFormatter={moneyK} tickLine={false} axisLine={false} width={54} tick={{ fontSize: 12, fill: 'var(--n-600)' }} />
-            <Tooltip cursor={{ fill: 'rgba(91,75,245,.06)' }} contentStyle={tipStyle} formatter={(v, n) => [money(v), n]} />
+            <Tooltip cursor={{ fill: 'rgba(14,159,143,.08)' }} contentStyle={tipStyle} formatter={(v, n) => [money(v), n]} />
             <ReferenceLine y={monthlyQuota} stroke="var(--risk)" strokeDasharray="5 5" strokeWidth={1.5}
               label={{ value: `quota ${moneyK(monthlyQuota)}/mo`, position: 'right', fill: 'var(--risk)', fontSize: 11 }} />
             <Bar dataKey="commit" stackId="f" name="Commit" fill="var(--ok)" maxBarSize={70} />
@@ -268,7 +268,7 @@ export default function Forecasting() {
                     <tr
                       key={r.userId}
                       onClick={() => setSelectedRep(on ? null : r.userId)}
-                      style={{ cursor: 'pointer', background: on ? 'rgba(91,75,245,.07)' : undefined }}
+                      style={{ cursor: 'pointer', background: on ? 'rgba(14,159,143,.08)' : undefined }}
                     >
                       <td>
                         <span className="row gap-2" style={{ minWidth: 0 }}>

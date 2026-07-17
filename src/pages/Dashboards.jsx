@@ -13,6 +13,7 @@ import {
   getCompany, stageById,
 } from '../lib/store';
 import { Card, Badge, SectionHeader, money, moneyK, relTime } from '../components/UI';
+import { STAGE_COLOR, CHART_ACCENT, CHART_ACCENT_SOFT, CHART_NEUTRAL, CHART_GRID } from '../lib/stage-colors';
 import { Icon } from '../components/icons';
 import PageTransition from '../components/motion/PageTransition';
 import Reveal from '../components/motion/Reveal';
@@ -21,18 +22,10 @@ import EmptyState from '../components/motion/EmptyState';
 import { SkeletonChart } from '../components/motion/Skeleton';
 import { useInView } from '../components/motion/useInView';
 
-/* stage -> color (matches the shared palette) */
-const STAGE_COLOR = {
-  lead: '#8b93a4',
-  qualified: '#2563a8',
-  discovery: '#5b4bf5',
-  proposal: '#b3721a',
-  negotiation: '#0ea5a3',
-  won: '#1a7f52',
-  lost: '#c0392b',
-};
-const ACCENT = '#5b4bf5';
-const GRID = '#e7e9ee';
+/* stage -> color + chart accents come from the shared palette
+   (src/lib/stage-colors.js) so every surface stays in sync and teal. */
+const ACCENT = CHART_ACCENT;
+const GRID = CHART_GRID;
 const AXIS_TICK = { fontSize: 12, fill: '#5b6474' };
 
 /* ---------- shared chart-card scaffold ---------- */
@@ -108,8 +101,8 @@ export default function Dashboards() {
   const wonCount = deals.filter(d => d.status === 'won').length;
   const lostCount = deals.filter(d => d.status === 'lost').length;
   const winData = [
-    { name: 'Won', value: wonCount, color: '#1a7f52' },
-    { name: 'Lost', value: lostCount, color: '#c0392b' },
+    { name: 'Won', value: wonCount, color: STAGE_COLOR.won },
+    { name: 'Lost', value: lostCount, color: STAGE_COLOR.lost },
   ];
 
   /* ---- 4. Rep leaderboard (closed won) ---- */
@@ -164,7 +157,7 @@ export default function Dashboards() {
               <XAxis dataKey="stage" tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: GRID }} interval={0} />
               <YAxis tickFormatter={moneyK} tick={AXIS_TICK} tickLine={false} axisLine={false} width={54} />
               <Tooltip
-                cursor={{ fill: 'rgba(91,75,245,.06)' }}
+                cursor={{ fill: CHART_ACCENT_SOFT }}
                 content={({ active, payload }) => {
                   if (!active || !payload || !payload.length) return null;
                   const p = payload[0].payload;
@@ -200,7 +193,7 @@ export default function Dashboards() {
               <XAxis dataKey="stage" tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: GRID }} interval={0} />
               <YAxis tickFormatter={moneyK} tick={AXIS_TICK} tickLine={false} axisLine={false} width={54} />
               <Tooltip
-                cursor={{ fill: 'rgba(91,75,245,.06)' }}
+                cursor={{ fill: CHART_ACCENT_SOFT }}
                 content={({ active, payload }) => {
                   if (!active || !payload || !payload.length) return null;
                   const p = payload[0].payload;
@@ -256,11 +249,11 @@ export default function Dashboards() {
               </div>
               <div className="col gap-1">
                 <div className="row gap-1">
-                  <span className="dot" style={{ background: '#1a7f52' }} />
+                  <span className="dot" style={{ background: STAGE_COLOR.won }} />
                   <span className="fw-6">{wonCount}</span><span className="muted t-sm">won</span>
                 </div>
                 <div className="row gap-1">
-                  <span className="dot" style={{ background: '#c0392b' }} />
+                  <span className="dot" style={{ background: STAGE_COLOR.lost }} />
                   <span className="fw-6">{lostCount}</span><span className="muted t-sm">lost</span>
                 </div>
               </div>
@@ -283,7 +276,7 @@ export default function Dashboards() {
               <XAxis type="number" tickFormatter={moneyK} tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: GRID }} />
               <YAxis type="category" dataKey="name" tick={AXIS_TICK} tickLine={false} axisLine={false} width={64} />
               <Tooltip
-                cursor={{ fill: 'rgba(91,75,245,.06)' }}
+                cursor={{ fill: CHART_ACCENT_SOFT }}
                 content={({ active, payload }) => {
                   if (!active || !payload || !payload.length) return null;
                   const p = payload[0].payload;
@@ -316,7 +309,7 @@ export default function Dashboards() {
               <XAxis type="number" tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: GRID }} allowDecimals={false} />
               <YAxis type="category" dataKey="name" tick={AXIS_TICK} tickLine={false} axisLine={false} width={64} />
               <Tooltip
-                cursor={{ fill: 'rgba(91,75,245,.06)' }}
+                cursor={{ fill: CHART_ACCENT_SOFT }}
                 content={({ active, payload }) => {
                   if (!active || !payload || !payload.length) return null;
                   const p = payload[0].payload;
@@ -324,13 +317,13 @@ export default function Dashboards() {
                     <div style={TIP_STYLE}>
                       {tipLabel(p.full)}
                       {tipRow('Done', p.done, ACCENT)}
-                      {tipRow('Open', p.open, '#d7dce3')}
+                      {tipRow('Open', p.open, CHART_NEUTRAL)}
                     </div>
                   );
                 }}
               />
               <Bar dataKey="done" stackId="a" fill={ACCENT} maxBarSize={26} />
-              <Bar dataKey="open" stackId="a" fill="#d7dce3" radius={[0, 5, 5, 0]} maxBarSize={26} />
+              <Bar dataKey="open" stackId="a" fill={CHART_NEUTRAL} radius={[0, 5, 5, 0]} maxBarSize={26} />
             </BarChart>
           </ResponsiveContainer>
           </InViewChart>

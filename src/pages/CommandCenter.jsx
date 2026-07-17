@@ -25,9 +25,8 @@ import TodayPanel from '../components/home/TodayPanel.jsx';
 import TeamLeaderboard from '../components/home/TeamLeaderboard.jsx';
 import RecentWins from '../components/home/RecentWins.jsx';
 import ActivityFeed from '../components/home/ActivityFeed.jsx';
+import { STAGE_COLOR } from '../lib/stage-colors.js';
 import './command-center.css';
-
-const STAGE_COLOR = { lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7', proposal: '#b3721a', negotiation: '#0e9f8f' };
 
 // Decorative trend line for a KPI (the app's own modeled history off the seed).
 function spark(seed, up = true) {

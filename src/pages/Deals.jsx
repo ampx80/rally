@@ -21,11 +21,7 @@ import KanbanBoard from '../components/KanbanBoard.jsx';
 import DataTable from '../components/DataTable.jsx';
 import PipelineSwitcher from '../components/PipelineSwitcher.jsx';
 import { DEFAULT_PIPELINE_ID, dealInPipeline, usePipelines } from '../lib/pipelines.js';
-
-const STAGE_COLOR = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
-  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
-};
+import { STAGE_COLOR } from '../lib/stage-colors.js';
 
 function StageBadge({ stageId }) {
   const st = stageById(stageId);

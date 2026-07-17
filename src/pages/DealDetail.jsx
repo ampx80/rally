@@ -35,11 +35,8 @@ import ConnectedApps from '../components/integrations/ConnectedApps.jsx';
 import AssociationsPanel from '../components/associations/AssociationsPanel.jsx';
 import GhostDealPanel from '../components/GhostDealPanel.jsx';
 import PlaybookRunner from '../components/playbooks/PlaybookRunner.jsx';
+import { STAGE_COLOR } from '../lib/stage-colors.js';
 
-const STAGE_COLOR = {
-  lead: '#8b93a4', qualified: '#2563a8', discovery: '#7c5cf7',
-  proposal: '#b3721a', negotiation: '#0e9f8f', won: '#1a7f52', lost: '#c0392b',
-};
 const TONE_COLOR = { ok: 'var(--ok)', warn: 'var(--warn)', risk: 'var(--risk)', info: 'var(--info)' };
 const TONE_ICON = { ok: 'check', warn: 'clock', risk: 'zap', info: 'sparkles' };
 const TONE_TINT = { ok: 'var(--ok-bg)', warn: 'var(--warn-bg)', risk: 'var(--risk-bg)', info: 'var(--info-bg)' };
