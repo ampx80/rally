@@ -18,7 +18,10 @@ import { useEffect, useState } from 'react';
 import { getContacts, getCompany } from './store.js';
 import { getLeads } from './store-ext.js';
 
-const LS_KEY = 'rally_marketing_v1';   // bump to force a clean reseed
+// Dedicated key. Used to share 'rally_marketing_v1' with marketing-engine.js,
+// which caused whichever module loaded last to wipe the other's slice.
+const LS_KEY = 'rally_marketing_campaigns_v1';
+const LS_LEGACY = 'rally_marketing_v1';
 
 /* ---------- merge tokens ---------- */
 // The two supported tokens across subject + body. Kept tiny + explicit so the
@@ -178,18 +181,47 @@ function buildSeed() {
 let state = load();
 const subs = new Set();
 
+function normalize(s) {
+  return {
+    seededAt: s?.seededAt || Date.now(),
+    campaigns: Array.isArray(s?.campaigns) ? s.campaigns : [],
+  };
+}
+
 function load() {
-  try { const raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch {}
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const s = normalize(JSON.parse(raw));
+      if (s.campaigns.length) return s;
+    }
+  } catch {}
+  // Migrate from the shared legacy key only when it still holds campaigns.
+  try {
+    const raw = localStorage.getItem(LS_LEGACY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.campaigns) && parsed.campaigns.length) {
+        const migrated = normalize(parsed);
+        try { localStorage.setItem(LS_KEY, JSON.stringify(migrated)); } catch {}
+        return migrated;
+      }
+    }
+  } catch {}
   const seed = buildSeed();
   try { localStorage.setItem(LS_KEY, JSON.stringify(seed)); } catch {}
   return seed;
 }
 function commit(next) {
-  state = next;
+  state = normalize(next);
   try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch {}
   subs.forEach(fn => fn(state));
 }
-export function resetMarketing() { try { localStorage.removeItem(LS_KEY); } catch {} state = load(); subs.forEach(fn => fn(state)); }
+export function resetMarketing() {
+  try { localStorage.removeItem(LS_KEY); } catch {}
+  state = load();
+  subs.forEach(fn => fn(state));
+}
 
 // Subscribe to the marketing slice. Note: audience counts also depend on the
 // core CRM stores, so a component that shows live counts should ALSO subscribe
@@ -206,12 +238,12 @@ const newId = () => `mc_${(idc++).toString(36)}`;
 /* ============================================================
    READ API
    ============================================================ */
-export const getMarketingCampaigns = () => state.campaigns;
-export const getMarketingCampaign = (id) => state.campaigns.find(c => c.id === id) || null;
+export const getMarketingCampaigns = () => (Array.isArray(state.campaigns) ? state.campaigns : []);
+export const getMarketingCampaign = (id) => getMarketingCampaigns().find(c => c.id === id) || null;
 
 // Roll-up KPIs for the hub header.
 export function marketingStats() {
-  const cs = state.campaigns;
+  const cs = getMarketingCampaigns();
   const sent = cs.reduce((s, c) => s + (c.metrics?.sent || 0), 0);
   const opened = cs.reduce((s, c) => s + (c.metrics?.opened || 0), 0);
   const clicked = cs.reduce((s, c) => s + (c.metrics?.clicked || 0), 0);

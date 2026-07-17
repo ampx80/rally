@@ -34,7 +34,10 @@ import {
   getContacts, getCompany, contactName, getCurrentUser,
 } from './store.js';
 
-const LS_KEY = 'rally_marketing_v1';   // bump to force a clean reseed
+// Dedicated key. Used to share 'rally_marketing_v1' with marketing-campaigns.js,
+// which silently overwrote automations with { campaigns } and crashed /automations.
+const LS_KEY = 'rally_marketing_automations_v1';
+const LS_LEGACY = 'rally_marketing_v1';
 const DAY = 86400000;
 
 // The cron-able server endpoint that actually sends (via _lib-email.js).
@@ -187,18 +190,50 @@ function buildSeed() {
 let data = load();
 const subs = new Set();
 
+function normalize(s) {
+  return {
+    seededAt: s?.seededAt || Date.now(),
+    automations: Array.isArray(s?.automations) ? s.automations : [],
+    events: Array.isArray(s?.events) ? s.events : [],
+  };
+}
+
 function load() {
-  try { const raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch {}
+  // Prefer the dedicated key.
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const s = normalize(JSON.parse(raw));
+      if (s.automations.length) return s;
+    }
+  } catch {}
+  // Migrate from the shared legacy key only when it still holds automations
+  // (campaigns may have overwritten it with { campaigns }).
+  try {
+    const raw = localStorage.getItem(LS_LEGACY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.automations) && parsed.automations.length) {
+        const migrated = normalize(parsed);
+        try { localStorage.setItem(LS_KEY, JSON.stringify(migrated)); } catch {}
+        return migrated;
+      }
+    }
+  } catch {}
   const seed = buildSeed();
   try { localStorage.setItem(LS_KEY, JSON.stringify(seed)); } catch {}
   return seed;
 }
 function commit(next) {
-  data = next;
+  data = normalize(next);
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch {}
   subs.forEach(fn => fn(data));
 }
-export function resetMarketing() { try { localStorage.removeItem(LS_KEY); } catch {} data = load(); subs.forEach(fn => fn(data)); }
+export function resetMarketing() {
+  try { localStorage.removeItem(LS_KEY); } catch {}
+  data = load();
+  subs.forEach(fn => fn(data));
+}
 
 export function useMarketingEngine(selector = (s) => s) {
   const [snap, setSnap] = useState(() => selector(data));
@@ -213,11 +248,11 @@ export function useMarketingEngine(selector = (s) => s) {
 /* ============================================================
    READS
    ============================================================ */
-export const getAutomations = () => data.automations;
-export const getAutomation = (id) => data.automations.find(a => a.id === id);
-export const getEvents = () => data.events;
-export const eventsForAutomation = (id) => data.events.filter(e => e.automationId === id);
-export const eventsForContact = (id) => data.events.filter(e => e.contactId === id);
+export const getAutomations = () => (Array.isArray(data.automations) ? data.automations : []);
+export const getAutomation = (id) => getAutomations().find(a => a.id === id);
+export const getEvents = () => (Array.isArray(data.events) ? data.events : []);
+export const eventsForAutomation = (id) => getEvents().filter(e => e.automationId === id);
+export const eventsForContact = (id) => getEvents().filter(e => e.contactId === id);
 
 /* ---------- audience (pure filter over live contacts) ---------- */
 // Pure predicate so the seed, the UI preview, and the due calc all agree.
@@ -341,7 +376,7 @@ export function automationStats(automation) {
 
 export function fleetStats() {
   let sent = 0, opened = 0, clicked = 0, active = 0, due = 0;
-  for (const a of data.automations) {
+  for (const a of getAutomations()) {
     const s = automationStats(a);
     sent += s.sent; opened += s.opened; clicked += s.clicked;
     if (a.active) { active++; due += s.due; }
