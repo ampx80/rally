@@ -8,6 +8,7 @@ import { applyTheme, useTheme, toggleTheme } from './lib/theme.js';
 import { useFocusTrap, useEscapeKey } from './lib/a11y.js';
 import CommandK from './components/CommandK.jsx';
 import RookDock from './components/RookDock.jsx';
+import RecentPagesDock from './components/RecentPagesDock.jsx';
 import LaunchScreen from './components/LaunchScreen.jsx';
 import CommandCenter from './pages/CommandCenter.jsx';
 import Deals from './pages/Deals.jsx';
@@ -970,6 +971,7 @@ export default function App() {
       <CommandK open={searchOpen} onClose={() => setSearchOpen(false)} />
       <HelpWidget />
       <RookDock />
+      <RecentPagesDock />
     </div>
   );
 }
