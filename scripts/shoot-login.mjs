@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+fs.mkdirSync('tmp/shots', { recursive: true });
+const B = process.env.SHOOT_BASE || 'http://localhost:5252';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+page.on('console', m => { if (m.type() === 'error') errs.push('CONSOLE ' + m.text()); });
+await page.goto(B + '/login', { waitUntil: 'networkidle', timeout: 45000 });
+await page.waitForTimeout(1200);
+const hasForm = await page.locator('.lg-submit').count();
+const robots = await page.evaluate(() => document.querySelector('meta[name="robots"]')?.content || '');
+await page.screenshot({ path: 'tmp/shots/login.png' });
+const relevant = errs.filter(e => !/CSP|upgrade-insecure|favicon|manifest|Download the React|404|realtime/i.test(e));
+console.log('loginForm=' + hasForm, 'robots="' + robots + '"', 'errors=' + relevant.length, relevant.slice(0, 3).join(' || '));
+await browser.close();
