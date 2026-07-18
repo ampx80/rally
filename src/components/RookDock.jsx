@@ -185,18 +185,32 @@ export default function RookDock() {
   const [building, setBuilding] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [listening, setListening] = useState(false);
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+  const [training, setTraining] = useState(false);
   const loc = useLocation();
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const recogRef = useRef(null);
+  // Refs let the voice loop read the latest state without re-creating callbacks.
+  const voiceModeRef = useRef(false);
+  const speakingRef = useRef(false);
+  const sendRef = useRef(null);
+  useEffect(() => { voiceModeRef.current = voiceMode; }, [voiceMode]);
 
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [msgs, busy, open, building]);
   useEffect(() => { if (open && inputRef.current) inputRef.current.focus(); }, [open]);
 
-  // Open from anywhere (e.g. the Command center "Ask Rook" banner).
+  // Open from anywhere (e.g. the Command center "Ask Rook" banner, the Training
+  // page steps). detail.training flips Rook into patient-trainer mode.
   useEffect(() => {
-    const onOpen = (e) => { setOpen(true); const p = e.detail?.prompt; if (p) setTimeout(() => send(p), 120); };
+    const onOpen = (e) => {
+      setOpen(true);
+      if (e.detail?.training) setTraining(true);
+      const p = e.detail?.prompt;
+      if (p) setTimeout(() => send(p), 120);
+    };
     window.addEventListener('rally:rook', onOpen);
     return () => window.removeEventListener('rally:rook', onOpen);
   }, []); // eslint-disable-line
@@ -218,6 +232,65 @@ export default function RookDock() {
   };
   useEffect(() => () => { try { recogRef.current?.stop(); } catch {} }, []);
 
+  // ---- Hands-free VOICE MODE: continuous listen -> send -> speak -> listen.
+  // Feature-detected and fully defensive: if speech APIs are missing it simply
+  // never turns on, and the app is unaffected. This is the Web Speech fallback;
+  // a vendor (Vapi / ElevenLabs) can later replace speak()/listen() wholesale.
+  const ttsOK = typeof window !== 'undefined' && 'speechSynthesis' in window;
+  const voiceOK = !!speechOK && ttsOK;
+
+  const stripForSpeech = (t) => String(t || '')
+    .replace(/[\u2019\u2018]/g, "'").replace(/[\u201c\u201d]/g, '"')
+    .replace(/[*_`#>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 320);
+
+  const startVoiceListen = useCallback(() => {
+    if (!voiceModeRef.current || !speechOK || speakingRef.current) return;
+    if (recogRef.current) return; // already listening
+    try {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const rec = new SR();
+      rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false;
+      rec.onspeechstart = () => { if (speakingRef.current) { try { window.speechSynthesis.cancel(); } catch {} speakingRef.current = false; setSpeaking(false); } };
+      rec.onresult = (e) => {
+        let txt = ''; for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
+        txt = txt.trim();
+        recogRef.current = null; setListening(false);
+        if (txt) sendRef.current?.(txt);
+      };
+      rec.onend = () => { setListening(false); recogRef.current = null; };
+      rec.onerror = () => { setListening(false); recogRef.current = null; };
+      recogRef.current = rec; setListening(true); rec.start();
+    } catch { setListening(false); recogRef.current = null; }
+  }, [speechOK]);
+
+  const speak = useCallback((text) => {
+    if (!voiceModeRef.current || !ttsOK) return;
+    try {
+      const synth = window.speechSynthesis;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(stripForSpeech(text));
+      u.rate = 1.05; u.pitch = 1.0;
+      speakingRef.current = true; setSpeaking(true);
+      u.onend = () => { speakingRef.current = false; setSpeaking(false); setTimeout(() => startVoiceListen(), 250); };
+      u.onerror = () => { speakingRef.current = false; setSpeaking(false); };
+      synth.speak(u);
+    } catch { speakingRef.current = false; setSpeaking(false); }
+  }, [ttsOK, startVoiceListen]);
+
+  const toggleVoiceMode = () => {
+    if (!voiceOK) return;
+    if (voiceMode) {
+      voiceModeRef.current = false; setVoiceMode(false);
+      try { window.speechSynthesis.cancel(); } catch {}
+      try { recogRef.current?.stop(); } catch {}
+      speakingRef.current = false; setSpeaking(false); setListening(false);
+    } else {
+      voiceModeRef.current = true; setVoiceMode(true);
+      setTimeout(() => startVoiceListen(), 150);
+    }
+  };
+  useEffect(() => () => { try { window.speechSynthesis?.cancel(); } catch {} }, []);
+
   const go = (to) => { if (to) { navigate(to); setOpen(false); } };
   const push = (content, extra) => setMsgs(m => [...m, { role: 'assistant', content, ...(extra || {}) }]);
   const pause = (ms) => new Promise(r => setTimeout(r, ms));
@@ -233,16 +306,25 @@ export default function RookDock() {
         body: JSON.stringify({
           messages: next.filter(m => m.role !== 'system').map(m => ({ role: m.role, content: m.content })),
           snapshot: buildSnapshot(loc.pathname),
-          context: { path: loc.pathname },
+          context: { path: loc.pathname, mode: training ? 'training' : 'operator', voice: voiceModeRef.current },
         }),
       });
       const data = await r.json();
       if (!r.ok || !data.ok) throw new Error(data.error || 'Rook is unavailable');
       setMsgs(m => [...m, { role: 'assistant', content: data.reply, nav: data.nav, actions: data.actions || [], suggestions: data.suggestions || [] }]);
+      // Voice mode: speak the reply, and if Rook pointed somewhere, take them
+      // there (once) without making them click. Speaking resumes listening.
+      if (voiceModeRef.current) {
+        speak(data.reply);
+        if (data.nav?.to) setTimeout(() => { navigate(data.nav.to); }, 700);
+      }
     } catch (e) {
-      setMsgs(m => [...m, { role: 'assistant', content: `I hit a snag: ${e.message}. Check that ANTHROPIC_API_KEY is wired, then try again.` }]);
+      const msg = `I hit a snag: ${e.message}. Check that ANTHROPIC_API_KEY is wired, then try again.`;
+      setMsgs(m => [...m, { role: 'assistant', content: msg }]);
+      if (voiceModeRef.current) speak('Sorry, I hit a snag. Try again.');
     } finally { setBusy(false); }
-  }, [input, busy, building, msgs, loc.pathname]);
+  }, [input, busy, building, msgs, loc.pathname, training, speak, navigate]);
+  useEffect(() => { sendRef.current = send; }, [send]);
 
   const daysToDate = (d) => new Date(Date.now() + (Number(d) || 1) * 86400000).toISOString();
 
@@ -378,9 +460,15 @@ export default function RookDock() {
           <div className="rook-head">
             <div className="rook-head__mark"><RookGlyph size={18} /></div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div className="rook-head__name">Rook <span className="rook-head__tag">operator</span></div>
-              <div className="rook-head__sub">Knows your pipeline</div>
+              <div className="rook-head__name">Rook <span className="rook-head__tag">{training ? 'trainer' : 'operator'}</span></div>
+              <div className="rook-head__sub">
+                {voiceMode ? (speaking ? 'Speaking...' : listening ? 'Listening...' : 'Voice on') : training ? 'Teaching you Rally' : 'Knows your pipeline'}
+              </div>
             </div>
+            <button className={`rook-x${training ? ' is-active' : ''}`} onClick={() => setTraining(t => !t)} aria-label="Training mode" title="Training mode - Rook teaches you Rally"><Icon name="rocket" size={17} /></button>
+            {voiceOK && (
+              <button className={`rook-x${voiceMode ? ' is-live' : ''}`} onClick={toggleVoiceMode} aria-label="Voice mode" title="Voice mode - talk hands-free"><Icon name="activity" size={18} /></button>
+            )}
             <button className={`rook-x${menuOpen ? ' is-active' : ''}`} onClick={() => setMenuOpen(o => !o)} aria-label="What Rook can do" title="What can Rook do?"><Icon name="sparkles" size={18} /></button>
             <button className="rook-x" onClick={() => setOpen(false)} aria-label="Close"><Icon name="x" size={18} /></button>
           </div>
@@ -461,7 +549,7 @@ export default function RookDock() {
           </div>
 
           <form className="rook-input" onSubmit={(e) => { e.preventDefault(); send(); }}>
-            <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} disabled={building} placeholder={listening ? 'Listening...' : building ? 'Rook is building your account...' : 'Ask Rook, or hold the mic to talk...'} />
+            <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} disabled={building} placeholder={voiceMode ? (speaking ? 'Rook is speaking...' : listening ? 'Listening... just talk' : 'Voice mode on') : listening ? 'Listening...' : building ? 'Rook is building your account...' : training ? 'Ask me to teach you anything...' : 'Ask Rook, or hold the mic to talk...'} />
             {speechOK && (
               <button type="button" className={`rook-mic${listening ? ' is-live' : ''}`} onClick={toggleMic} disabled={building} aria-label={listening ? 'Stop' : 'Speak to Rook'} title="Voice to text">
                 <Icon name="mic" size={16} />
@@ -518,6 +606,7 @@ function RookStyles() {
     .rook-head__sub { font-size: 12px; color: #e2ddff; margin-top: 1px; }
     .rook-x { border: none; background: transparent; color: #e8e5ff; cursor: pointer; padding: 4px; border-radius: 7px; display: grid; place-items: center; }
     .rook-x:hover, .rook-x.is-active { background: rgba(255,255,255,.18); color: #fff; }
+    .rook-x.is-live { background: #fff; color: #3d31c2; animation: rook-mic-pulse 1.3s ease-in-out infinite; }
 
     .rook-menu { position: absolute; top: 62px; left: 0; right: 0; bottom: 0; z-index: 5; background: var(--paper); display: flex; flex-direction: column; animation: rook-menu-in .2s cubic-bezier(.22,1,.36,1); }
     @keyframes rook-menu-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

@@ -35,6 +35,9 @@ import Settings from './pages/Settings.jsx';
 import Projects from './pages/Projects.jsx';
 import AuditLog from './pages/AuditLog.jsx';
 import ImportData from './pages/ImportData.jsx';
+import QualifyConfig from './pages/QualifyConfig.jsx';
+import MigrationWizard from './pages/MigrationWizard.jsx';
+import Training from './pages/Training.jsx';
 import Studio from './pages/Studio.jsx';
 import DocBuilder from './pages/DocBuilder.jsx';
 import ForkStudio from './pages/ForkStudio.jsx';
@@ -143,6 +146,7 @@ import Careers from './marketing/Careers.jsx';
 import Blog from './marketing/Blog.jsx';
 import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
+import GetStarted from './marketing/GetStarted.jsx';
 import HostedForm from './marketing/HostedForm.jsx';
 import HostedLanding from './marketing/HostedLanding.jsx';
 import BookMeeting from './marketing/BookMeeting.jsx';
@@ -151,7 +155,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -243,6 +247,9 @@ const ALL_ITEMS = [
   { to: '/sms', label: 'SMS Alerts', icon: 'phone', cat: 'Automation' },
   // Admin
   { to: '/admin', label: 'Admin (signups)', icon: 'shield', cat: 'Admin' },
+  { to: '/qualify', label: 'Pre-qualification', icon: 'funnel', cat: 'Admin' },
+  { to: '/migrate', label: 'Migration wizard', icon: 'swap', cat: 'Admin' },
+  { to: '/training', label: 'Training', icon: 'rocket', cat: 'Customers' },
   { to: '/workspaces', label: 'Workspaces', icon: 'building2', cat: 'Admin' },
   { to: '/marketplace', label: 'Marketplace', icon: 'store', cat: 'Admin' },
   { to: '/integrations', label: 'Integrations', icon: 'plug', cat: 'Admin' },
@@ -743,6 +750,7 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/demo" element={<DemoPage />} />
+            <Route path="/get-started" element={<GetStarted />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot" element={<ForgotPassword />} />
@@ -810,6 +818,9 @@ export default function App() {
               <Route path="/team" element={<Team />} />
               <Route path="/audit" element={<AuditLog />} />
               <Route path="/import" element={<ImportData />} />
+              <Route path="/qualify" element={<QualifyConfig />} />
+              <Route path="/migrate" element={<MigrationWizard />} />
+              <Route path="/training" element={<Training />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />

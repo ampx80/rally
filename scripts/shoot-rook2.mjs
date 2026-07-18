@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+const B = process.env.SHOOT_BASE || 'http://localhost:4176';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+await ctx.addInitScript(() => { try { localStorage.setItem('rally_access', 'granted'); } catch {} });
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+await page.goto(B + '/app', { waitUntil: 'domcontentloaded', timeout: 45000 });
+await page.waitForTimeout(3500);
+const fab = await page.locator('.rook-fab').count();
+await page.evaluate(() => { const f = document.querySelector('.rook-fab'); if (f) f.click(); });
+await page.waitForTimeout(700);
+const voiceBtn = await page.locator('button[aria-label="Voice mode"]').count();
+const trainBtn = await page.locator('button[aria-label="Training mode"]').count();
+await page.screenshot({ path: 'tmp/shots/rook-open.png' });
+console.log('fab=' + fab, 'voiceBtn=' + voiceBtn, 'trainBtn=' + trainBtn, 'errors=' + errs.length, errs.slice(0, 2).join(' || '));
+await browser.close();

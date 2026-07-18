@@ -121,7 +121,23 @@ function snapshotToText(s) {
   return lines.join('\n');
 }
 
-const SYSTEM = (snapText, path) => [
+// Appended to the base system prompt when the client is in a special mode.
+const MODE_ADDON = {
+  training: [
+    '',
+    'TRAINING MODE IS ON. You are now a patient, encouraging Rally trainer onboarding a brand-new user. Teach, do not just answer.',
+    '- Explain the ONE next thing simply, then attach a navigate action so they can see it live. Prefer showing over telling.',
+    '- Do exactly one step at a time. Never dump a long list. End with a short "want to try X next?" suggestion.',
+    '- When they ask to be taken somewhere ("take me to the deal page", "show me reports"), attach the navigate action and confirm in one short sentence. Do not repeat yourself.',
+    '- Assume no prior CRM knowledge. Be warm and brief.',
+  ].join('\n'),
+  voice: [
+    '',
+    'VOICE MODE IS ON. Your reply will be spoken aloud. Keep it to ONE or TWO short spoken sentences, conversational, no lists, no markdown, no URLs read out. If you are taking them somewhere, say so in a few words (the app navigates automatically).',
+  ].join('\n'),
+};
+
+const SYSTEM = (snapText, path, mode, voice) => [
   'You are Rook, the AI operator inside Rally, an AI-native revenue platform. You can see the ENTIRE workspace below: the CRM (contacts, companies, deals, activities) plus leads, products, quotes, invoices, campaigns, sequences, tickets, and workflows.',
   'You are a sharp, calm revenue chief of staff. You know every record and every count cold. Answer in plain language, cite exact names and numbers from the SNAPSHOT, and turn intent into action. You have FULL access to the whole workspace - never say you cannot see something or lack access. Do not invent records; if something genuinely is not in the snapshot, say so plainly. When you use an id in an action, use the exact id from the snapshot.',
   '',
@@ -153,6 +169,8 @@ const SYSTEM = (snapText, path) => [
   'SNAPSHOT:',
   snapText,
   path ? `\nThe user is currently on route: ${path}` : '',
+  mode === 'training' ? MODE_ADDON.training : '',
+  voice ? MODE_ADDON.voice : '',
 ].join('\n');
 
 export default withErrorHandling(async (req, res) => {
@@ -161,13 +179,15 @@ export default withErrorHandling(async (req, res) => {
   const messages = Array.isArray(body.messages) ? body.messages : [];
   const snapshot = body.snapshot || null;
   const path = body.context?.path || '';
+  const mode = body.context?.mode || 'operator';
+  const voice = !!body.context?.voice;
   if (!messages.length) return res.status(400).json({ error: 'messages required' });
 
   const convo = messages.filter(m => m.role === 'user' || m.role === 'assistant')
     .map(m => `${m.role === 'user' ? 'User' : 'Rook'}: ${m.content}`).join('\n');
 
   const out = await callAnthropic({
-    system: SYSTEM(snapshotToText(snapshot), path),
+    system: SYSTEM(snapshotToText(snapshot), path, mode, voice),
     prompt: `Conversation so far:\n${convo}\n\nRespond as Rook to the latest user message.`,
     schema: SCHEMA,
     maxTokens: 1300,

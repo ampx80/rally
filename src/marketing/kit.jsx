@@ -63,14 +63,14 @@ function MktNav() {
         <span className="mkt-spacer" />
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }} className="mkt-navcta">
           <Link to="/app" className="mkt-btn mkt-btn-ghost" style={{ padding: '9px 16px' }}>Sign in</Link>
-          <Link to="/app" className="mkt-btn mkt-btn-primary" style={{ padding: '9px 18px' }}>Get started</Link>
+          <Link to="/get-started" className="mkt-btn mkt-btn-primary" style={{ padding: '9px 18px' }}>Get started</Link>
         </div>
         <button className="mkt-burger" onClick={() => setOpen(o => !o)} aria-label="Menu"><Icon name={open ? 'x' : 'list'} size={24} /></button>
       </div>
       {open && (
         <div className="mkt-wrap" style={{ paddingBottom: 16, display: 'flex', flexDirection: 'column', gap: 4 }}>
           {NAV.map(n => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} style={{ padding: '11px 8px', fontWeight: 600, color: 'var(--m-ink2)', borderTop: '1px solid var(--m-line)' }}>{n.label}</Link>)}
-          <Link to="/app" className="mkt-btn mkt-btn-primary" style={{ marginTop: 10, justifyContent: 'center' }}>Get started</Link>
+          <Link to="/get-started" className="mkt-btn mkt-btn-primary" style={{ marginTop: 10, justifyContent: 'center' }}>Get started</Link>
         </div>
       )}
     </nav>
@@ -136,7 +136,7 @@ export function CtaBand({ title = 'Run your revenue on Rally.', sub = 'Everythin
             <h2 className="mkt-h2" style={{ maxWidth: 720, margin: '0 auto' }}>{title}</h2>
             <p className="mkt-lead" style={{ maxWidth: 560, margin: '16px auto 28px' }}>{sub}</p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <MktButton to="/app" size="lg">Get started free <Icon name="chevronRight" size={18} /></MktButton>
+              <MktButton to="/get-started" size="lg">Get started free <Icon name="chevronRight" size={18} /></MktButton>
               <MktButton to="/features" variant="ghost" size="lg">See the product</MktButton>
             </div>
           </div>
