@@ -47,6 +47,8 @@ import ContextGraph from './pages/ContextGraph.jsx';
 import AgentEvals from './pages/AgentEvals.jsx';
 import AgentTrust from './pages/AgentTrust.jsx';
 import AgentExchange from './pages/AgentExchange.jsx';
+import CloudAgents from './pages/CloudAgents.jsx';
+import ExperienceLayer from './pages/ExperienceLayer.jsx';
 import Studio from './pages/Studio.jsx';
 import DocBuilder from './pages/DocBuilder.jsx';
 import ForkStudio from './pages/ForkStudio.jsx';
@@ -168,7 +170,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -251,6 +253,8 @@ const ALL_ITEMS = [
   { to: '/sheets', label: 'Sheets', icon: 'sheet', cat: 'Analytics' },
   // Automation
   { to: '/agent-cloud', label: 'Agent Cloud', icon: 'sparkles', cat: 'Automation' },
+  { to: '/cloud-agents', label: 'Cloud Agents', icon: 'command', cat: 'Automation' },
+  { to: '/experience', label: 'Experience Layer', icon: 'share2', cat: 'Automation' },
   { to: '/agent-studio', label: 'Agent Studio', icon: 'command', cat: 'Automation' },
   { to: '/agent-api', label: 'Agent API + MCP', icon: 'command', cat: 'Automation' },
   { to: '/agent-exchange', label: 'Agent Exchange', icon: 'store', cat: 'Automation' },
@@ -925,6 +929,8 @@ export default function App() {
               <Route path="/agent-evals" element={<AgentEvals />} />
               <Route path="/agent-trust" element={<AgentTrust />} />
               <Route path="/agent-exchange" element={<AgentExchange />} />
+              <Route path="/cloud-agents" element={<CloudAgents />} />
+              <Route path="/experience" element={<ExperienceLayer />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />

@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { useStore, slippingDeals } from '../lib/store.js';
 import { SectionHeader, StatCard, useToast, moneyK, relTime } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
+import AgentFabric from '../components/agent/AgentFabric.jsx';
 import {
   useAgentCloud, getAgents, toggleAgent, runStats, seedRunsFromEngines,
   AUTONOMY, modelById,
@@ -56,23 +58,26 @@ export default function AgentCloud() {
 
   return (
     <div className="fade-up ac">
-      <SectionHeader
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="ac-mark"><Icon name="sparkles" size={18} /></span> Agent Cloud</span>}
-        sub="Your fleet of agents, working the real book with traces, cost, and human-in-the-loop control. Agent-native from day one - not bolted onto a legacy core."
-        action={
-          <div className="row gap-2">
-            <button className="btn btn-ghost btn-sm" onClick={() => nav('/agent-api')}><Icon name="command" size={15} /> Headless + MCP</button>
-            <button className="btn btn-primary btn-sm" onClick={() => nav('/agent-studio')}><Icon name="plus" size={15} /> New agent</button>
-          </div>
-        }
+      <AgentDeck
+        eyebrow="Agent Cloud"
+        title="Your AI workforce,"
+        highlight="running the book."
+        sub="A fleet of specialized agents working your real pipeline with full traces, token and cost accounting, and human-in-the-loop control. Agent-native from the first commit, not bolted onto a legacy core."
+        actions={<>
+          <button className="adk-btn" onClick={() => nav('/agent-api')}><Icon name="command" size={15} /> Headless + MCP</button>
+          <button className="adk-btn adk-btn--primary" onClick={() => nav('/agent-studio')}><Icon name="plus" size={15} /> New agent</button>
+        </>}
+        pods={[
+          { label: 'Active agents', value: stats.activeAgents, icon: 'sparkles' },
+          { label: 'Runs logged', value: stats.total, icon: 'activity' },
+          { label: 'Awaiting you', value: stats.awaiting + staged.length, icon: 'shield' },
+          { label: 'Tokens', value: stats.tokens, format: (n) => n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(Math.round(n)), icon: 'zap' },
+          { label: 'Est. spend', value: stats.costUsd, format: (n) => `$${n.toFixed(2)}`, icon: 'dollar' },
+        ]}
       />
 
-      <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', marginBottom: '1rem' }}>
-        <StatCard label="Active agents" value={stats.activeAgents} sub={`of ${agents.length}`} icon={<Icon name="sparkles" size={18} />} accent="var(--ai)" />
-        <StatCard label="Runs logged" value={stats.total} icon={<Icon name="activity" size={18} />} />
-        <StatCard label="Awaiting approval" value={stats.awaiting + staged.length} icon={<Icon name="shield" size={18} />} accent="var(--warn)" />
-        <StatCard label="Tokens used" value={stats.tokens} format={(n) => n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(Math.round(n))} icon={<Icon name="zap" size={18} />} />
-        <StatCard label="Est. spend" value={stats.costUsd} format={(n) => `$${n.toFixed(2)}`} icon={<Icon name="dollar" size={18} />} />
+      <div style={{ margin: '1rem 0 1.25rem' }}>
+        <AgentFabric agents={agents} selectedId={null} onSelect={() => setTab('fleet')} />
       </div>
 
       <div className="row gap-2" style={{ marginBottom: '1rem', flexWrap: 'wrap' }}>

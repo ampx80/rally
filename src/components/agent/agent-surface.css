@@ -1,0 +1,79 @@
+/* ============================================================
+   AGENT SURFACE - the premium visual system for Rally's agentic modules.
+   A cinematic "command deck" language: deep-space hero, a living Agent Fabric,
+   glowing stat pods, and glass/glow cards. Shared by Agent Cloud, Cloud Agents,
+   and the rest of the agent suite so the whole line feels like one product.
+   Violet (--ai) is the AI energy; teal (--accent) is product truth.
+   NO em-dash / en-dash. ASCII only.
+   ============================================================ */
+
+/* ---------- DECK (cinematic hero) ---------- */
+.adk {
+  position: relative; border-radius: 22px; overflow: hidden; padding: 30px 32px; color: #fff; isolation: isolate;
+  background:
+    radial-gradient(120% 130% at 8% -10%, rgba(124,92,247,.55), transparent 46%),
+    radial-gradient(120% 130% at 100% 0%, rgba(14,159,143,.35), transparent 44%),
+    linear-gradient(160deg, #14122a 0%, #0b0d14 60%);
+  border: 1px solid rgba(124,92,247,.3);
+  box-shadow: 0 30px 70px -34px rgba(88,60,220,.7), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.adk-grid { position: absolute; inset: 0; z-index: -1; opacity: .5;
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 34px 34px; mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 78%); }
+.adk-aurora { position: absolute; z-index: -1; border-radius: 50%; filter: blur(46px); opacity: .5; }
+.adk-aurora.a1 { width: 320px; height: 320px; background: #7c5cf7; top: -140px; left: -60px; animation: adkFloat 14s ease-in-out infinite; }
+.adk-aurora.a2 { width: 260px; height: 260px; background: #14b8a6; bottom: -150px; right: -40px; animation: adkFloat 18s ease-in-out infinite reverse; }
+@keyframes adkFloat { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(24px,20px) scale(1.12); } }
+
+.adk-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: #c9bcff; }
+.adk-live { display: inline-flex; align-items: center; gap: 6px; color: #7bf3dc; }
+.adk-live b { width: 7px; height: 7px; border-radius: 50%; background: #34e3c2; box-shadow: 0 0 0 0 rgba(52,227,194,.7); animation: adkPulse 1.8s ease-out infinite; }
+@keyframes adkPulse { 0% { box-shadow: 0 0 0 0 rgba(52,227,194,.6); } 70% { box-shadow: 0 0 0 9px rgba(52,227,194,0); } 100% { box-shadow: 0 0 0 0 rgba(52,227,194,0); } }
+.adk-title { font-size: clamp(1.9rem, 3.2vw, 2.7rem); font-weight: 900; letter-spacing: -.025em; line-height: 1.03; margin: 14px 0 0; }
+.adk-title .g { background: linear-gradient(100deg, #ffffff, #c9bcff 52%, #6ee7d6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.adk-sub { color: #a7abc4; font-size: 15px; line-height: 1.5; max-width: 64ch; margin: 12px 0 0; }
+.adk-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+.adk-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.adk-btn { display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-weight: 800; font-size: 13.5px; cursor: pointer; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08); color: #fff; transition: transform .15s, background .15s, box-shadow .15s; }
+.adk-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+.adk-btn--primary { border-color: transparent; background: linear-gradient(100deg, #7c5cf7, #6647e0); box-shadow: 0 12px 30px -10px rgba(124,92,247,.8); }
+.adk-btn--primary:hover { box-shadow: 0 16px 38px -10px rgba(124,92,247,.9); }
+
+.adk-pods { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.adk-pod { flex: 1; min-width: 130px; padding: 15px 16px; border-radius: 15px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(6px); position: relative; overflow: hidden; }
+.adk-pod::after { content: ''; position: absolute; inset: 0; background: radial-gradient(80% 120% at 0% 0%, rgba(124,92,247,.18), transparent 60%); pointer-events: none; }
+.adk-pod-v { font-size: 30px; font-weight: 900; letter-spacing: -.02em; background: linear-gradient(120deg, #fff, #c9bcff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.adk-pod-l { font-size: 11.5px; font-weight: 700; color: #9aa0bd; text-transform: uppercase; letter-spacing: .05em; margin-top: 3px; }
+.adk-pod-ic { position: absolute; top: 13px; right: 13px; color: rgba(201,188,255,.5); }
+
+/* ---------- FABRIC (living agent-fleet visualization) ---------- */
+.afx { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid rgba(124,92,247,.24);
+  background: radial-gradient(90% 90% at 50% 42%, #16142c, #0b0d14 72%); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
+.afx svg { width: 100%; height: auto; display: block; }
+.afx-line { stroke: url(#afxLineGrad); stroke-width: 1.4; fill: none; opacity: .5; }
+.afx-flow { stroke: #8b6bff; stroke-width: 2; fill: none; stroke-linecap: round; stroke-dasharray: 4 12; opacity: .9; animation: afxFlow 1.4s linear infinite; }
+@keyframes afxFlow { to { stroke-dashoffset: -32; } }
+.afx-core { filter: drop-shadow(0 0 16px rgba(124,92,247,.9)); }
+.afx-core-ring { fill: none; stroke: rgba(124,92,247,.5); transform-origin: center; animation: afxRing 3s ease-out infinite; }
+@keyframes afxRing { 0% { r: 26px; opacity: .8; } 100% { r: 62px; opacity: 0; } }
+.afx-node { cursor: pointer; transition: transform .18s; }
+.afx-node:hover { transform: scale(1.08); }
+.afx-node-glow[data-on="true"] { animation: afxNodePulse 2.4s ease-in-out infinite; }
+@keyframes afxNodePulse { 0%,100% { opacity: .35; } 50% { opacity: .75; } }
+.afx-node-label { font-size: 11px; font-weight: 700; fill: #cfd3e6; }
+.afx-node-sub { font-size: 9.5px; fill: #7f86a6; }
+.afx-cap { position: absolute; top: 14px; left: 16px; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #8b7fd6; display: flex; align-items: center; gap: 8px; }
+
+/* ---------- GLASS cards (working area) ---------- */
+.agl { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; transition: border-color .18s, box-shadow .18s, transform .18s; }
+.agl:hover { border-color: rgba(124,92,247,.4); box-shadow: 0 16px 40px -26px rgba(124,92,247,.5); }
+.agl--glow { background:
+  radial-gradient(120% 130% at 0% 0%, rgba(124,92,247,.06), transparent 45%),
+  var(--paper); }
+
+/* gradient hairline accent used on premium chips/badges */
+.ag-accent { background: linear-gradient(100deg, var(--ai), var(--ai-600)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .adk-aurora, .adk-live b, .afx-flow, .afx-core-ring, .afx-node-glow { animation: none !important; }
+}
