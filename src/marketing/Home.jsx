@@ -6,6 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal, MktButton, CtaBand } from './kit.jsx';
 import AgentTheater from './AgentTheater.jsx';
+import AgentConstellation from './AgentConstellation.jsx';
 import HeroCurrent from './HeroCurrent.jsx';
 import HeroStage from './HeroStage.jsx';
 import OrbitDiagram from './OrbitDiagram.jsx';
@@ -188,6 +189,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* S1a. OPERATOR CONSTELLATION - dark, futuristic showcase of the AI stack */}
+      <AgentConstellation />
 
       {/* S1b. AGENT THEATER - the full self-playing Rook session */}
       <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
