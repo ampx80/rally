@@ -158,6 +158,9 @@ import Blog from './marketing/Blog.jsx';
 import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
 import GetStarted from './marketing/GetStarted.jsx';
+import EarlyAccess from './marketing/EarlyAccess.jsx';
+import Login from './pages/Login.jsx';
+import SecurityCenter from './pages/Security.jsx';
 import VsAgentforce from './marketing/VsAgentforce.jsx';
 import { useDemo, isLockedPath, exitDemo } from './lib/demo-mode.js';
 import { ACCESS_EVENT } from './lib/access-mode.js';
@@ -170,7 +173,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -282,6 +285,7 @@ const ALL_ITEMS = [
   { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker', cat: 'Admin' },
   { to: '/app-manager', label: 'App Manager', icon: 'toggles', cat: 'Admin' },
   { to: '/roles', label: 'Roles', icon: 'roleShield', cat: 'Admin' },
+  { to: '/security-center', label: 'Security', icon: 'lock', cat: 'Admin' },
   { to: '/import', label: 'Import', icon: 'download', cat: 'Admin' },
   { to: '/team', label: 'Team', icon: 'user', cat: 'Admin' },
   { to: '/permissions', label: 'Permissions', icon: 'lock', cat: 'Admin' },
@@ -823,6 +827,9 @@ export default function App() {
     );
   }
 
+  // Real sign-in, standalone + noindex, reachable but never linked/crawled.
+  if (seg === 'login') return <Login />;
+
   if (!isApp) {
     return (
       <MarketingShell>
@@ -848,6 +855,7 @@ export default function App() {
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/demo" element={<DemoPage />} />
             <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/vs-agentforce" element={<VsAgentforce />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
@@ -932,6 +940,7 @@ export default function App() {
               <Route path="/cloud-agents" element={<CloudAgents />} />
               <Route path="/experience" element={<ExperienceLayer />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/security-center" element={<SecurityCenter />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />
               <Route path="/scheduling" element={<Scheduling />} />

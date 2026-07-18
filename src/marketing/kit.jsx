@@ -82,7 +82,7 @@ function MktFooter() {
     { h: 'Product', links: [['Features', '/features'], ['Rook AI operator', '/product/rook'], ['Pricing', '/pricing'], ['Security', '/security'], ['Launch app', '/app']] },
     { h: 'Compare', links: [['vs Salesforce', '/pages/rally-vs-salesforce'], ['vs HubSpot', '/pages/rally-vs-hubspot'], ['vs Zoho', '/pages/rally-vs-zoho'], ['vs NetSuite', '/pages/rally-vs-netsuite'], ['vs Pipedrive', '/pages/rally-vs-pipedrive'], ['All comparisons', '/pages']] },
     { h: 'Company', links: [['About', '/about'], ['Manifesto', '/manifesto'], ['Customers', '/customers'], ['Careers', '/careers'], ['Changelog', '/changelog']] },
-    { h: 'Resources', links: [['Blog', '/blog'], ['Interactive demo', '/demo'], ['Product tour', '/features'], ['Rook', '/product/rook'], ['All pages', '/pages']] },
+    { h: 'Resources', links: [['Blog', '/blog'], ['Interactive demo', '/demo'], ['Early access', '/early-access'], ['Product tour', '/features'], ['Rook', '/product/rook'], ['All pages', '/pages']] },
   ];
   return (
     <footer className="mkt-footer">
