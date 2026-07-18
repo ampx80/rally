@@ -147,6 +147,8 @@ import Blog from './marketing/Blog.jsx';
 import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
 import GetStarted from './marketing/GetStarted.jsx';
+import { useDemo, isLockedPath, exitDemo } from './lib/demo-mode.js';
+import { ACCESS_EVENT } from './lib/access-mode.js';
 import HostedForm from './marketing/HostedForm.jsx';
 import HostedLanding from './marketing/HostedLanding.jsx';
 import BookMeeting from './marketing/BookMeeting.jsx';
@@ -355,8 +357,23 @@ function useIsMobile() {
 }
 
 // Reused by the peek drawer + mobile drawer + Apps overlay - one row style
-// for every secondary destination.
+// for every secondary destination. In demo mode, config/admin surfaces render
+// locked (blurred, non-navigating) and route the prospect to /get-started.
 function NavItem({ n, onClose, dense }) {
+  const demo = useDemo();
+  const nav = useNavigate();
+  if (demo && isLockedPath(n.to)) {
+    return (
+      <button type="button" className="row gap-2 nav-demolock" title="Available after you start - book a walkthrough"
+        onClick={() => { onClose?.(); nav('/get-started'); }}
+        style={{ width: '100%', textAlign: 'left', fontFamily: 'inherit', border: 'none', background: 'transparent', cursor: 'pointer',
+          padding: dense ? '.5rem .65rem' : '.55rem .7rem', borderRadius: 'var(--r-sm)', fontWeight: 600, fontSize: '.94rem', color: 'var(--nav-muted)', opacity: .5 }}>
+        <Icon name={n.icon} size={17} />
+        <span className="clip" style={{ filter: 'blur(3px)' }}>{n.label}</span>
+        <Icon name="lock" size={13} style={{ marginLeft: 'auto', filter: 'none', opacity: .9 }} />
+      </button>
+    );
+  }
   return (
     <NavLink to={n.to} end={n.end} onClick={onClose} className="row gap-2"
       style={({ isActive }) => ({
@@ -369,6 +386,47 @@ function NavItem({ n, onClose, dense }) {
       <Icon name={n.icon} size={17} />
       <span className="clip">{n.label}</span>
     </NavLink>
+  );
+}
+
+// Persistent ribbon shown across the top of the product while in demo mode.
+function DemoBanner() {
+  const nav = useNavigate();
+  return (
+    <div className="demo-banner">
+      <span className="demo-banner__dot" />
+      <span className="demo-banner__txt"><strong>Live demo</strong> - a real, working Rally with sample data. Config and admin are locked.</span>
+      <button className="demo-banner__cta" onClick={() => nav('/get-started')}>Get started free</button>
+      <button className="demo-banner__exit" onClick={() => { exitDemo(); nav('/'); }} aria-label="Exit demo"><Icon name="x" size={15} /></button>
+      <style>{`
+      .demo-banner { position: sticky; top: 0; z-index: 55; display: flex; align-items: center; gap: 12px; padding: 9px 16px;
+        background: linear-gradient(100deg, var(--ai-600), var(--ai) 60%, #9b87fb); color: #fff; font-size: 13.5px; }
+      .demo-banner__dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; flex: none; animation: rook-mic-pulse 1.6s ease-in-out infinite; }
+      .demo-banner__txt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .demo-banner__cta { margin-left: auto; flex: none; font-family: inherit; font-weight: 800; font-size: 13px; cursor: pointer; border: none;
+        background: #fff; color: var(--ai-600); border-radius: 999px; padding: 6px 14px; }
+      .demo-banner__exit { flex: none; border: none; background: rgba(255,255,255,.18); color: #fff; cursor: pointer; border-radius: 8px; padding: 5px; display: grid; place-items: center; }
+      .demo-banner__exit:hover { background: rgba(255,255,255,.3); }
+      `}</style>
+    </div>
+  );
+}
+
+// Upsell shown when a demo visitor lands on a locked route.
+function DemoLocked() {
+  const nav = useNavigate();
+  return (
+    <div className="page" style={{ maxWidth: 560, margin: '4rem auto', textAlign: 'center' }}>
+      <span style={{ display: 'inline-grid', placeItems: 'center', width: 66, height: 66, borderRadius: 18, background: 'var(--ai-50)', color: 'var(--ai-600)' }}><Icon name="lock" size={30} /></span>
+      <h1 style={{ fontSize: '1.7rem', margin: '1rem 0 .4rem' }}>This part is off in the demo</h1>
+      <p className="muted" style={{ fontSize: '1.05rem', maxWidth: 420, margin: '0 auto' }}>
+        Settings, admin, billing, imports, and migrations open up on a real account. Book a walkthrough and an account executive will set it up with your data.
+      </p>
+      <div className="row gap-2" style={{ justifyContent: 'center', marginTop: '1.6rem' }}>
+        <button className="btn btn-primary" onClick={() => nav('/get-started')}><Icon name="chevronRight" size={16} /> Get started free</button>
+        <button className="btn btn-ghost" onClick={() => nav('/app')}>Back to the demo</button>
+      </div>
+    </div>
   );
 }
 
@@ -705,6 +763,20 @@ export default function App() {
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
   }, []);
+  // Keep the unlock state reactive: demo entry and the access gate both grant
+  // access at runtime (same tab), so re-read on those events instead of only
+  // reading once at mount.
+  useEffect(() => {
+    const refresh = () => setUnlocked(isUnlocked());
+    window.addEventListener(ACCESS_EVENT, refresh);
+    window.addEventListener('rally:demo-change', refresh);
+    window.addEventListener('storage', refresh);
+    return () => {
+      window.removeEventListener(ACCESS_EVENT, refresh);
+      window.removeEventListener('rally:demo-change', refresh);
+      window.removeEventListener('storage', refresh);
+    };
+  }, []);
   // Close the mobile drawer + apps overlay + scroll to top on every navigation.
   useEffect(() => { window.scrollTo(0, 0); setNavOpen(false); setAppsOpen(false); }, [loc.pathname]);
   // Lock body scroll while the drawer or the apps overlay is open.
@@ -713,6 +785,8 @@ export default function App() {
   // Marketing site owns the root; the product app lives under known segments.
   const seg = loc.pathname.split('/')[1] || '';
   const isApp = PRODUCT_SEGS.has(seg);
+  const demoOn = useDemo();
+  const demoLocked = demoOn && isLockedPath(loc.pathname);
 
   // Chrome-free embeddable decks: /deck/:role renders standalone (no product
   // shell, no marketing chrome) so it drops cleanly into an iframe or the
@@ -781,9 +855,11 @@ export default function App() {
         appsOpen={appsOpen} onOpenApps={() => setAppsOpen(true)} onCloseApps={() => setAppsOpen(false)} />
       {mobile && navOpen && <div className="rl-scrim" onClick={() => setNavOpen(false)} aria-hidden />}
       <div className="rl-main" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
+        {demoOn && <DemoBanner />}
         <Topbar onOpenSearch={() => setSearchOpen(true)} onBurger={() => setNavOpen(true)} />
         <main className="rl-content">
           <div key={loc.pathname} className="page-in">
+            {demoLocked ? <DemoLocked /> : (
             <Routes location={loc}>
               <Route path="/app" element={<CommandCenter />} />
               <Route path="/leads" element={<Leads />} />
@@ -887,6 +963,7 @@ export default function App() {
               <Route path="/sms" element={<SmsAlerts />} />
               <Route path="*" element={<Navigate to="/app" replace />} />
             </Routes>
+            )}
           </div>
         </main>
       </div>

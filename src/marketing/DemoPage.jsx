@@ -9,8 +9,10 @@
 // motion vocabulary from marketing.css. Honors prefers-reduced-motion.
 // NO em-dash / en-dash. ASCII hyphen only.
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Reveal, MktButton, CtaBand } from './kit.jsx';
 import { Icon } from '../components/icons.jsx';
+import { enterDemo } from '../lib/demo-mode.js';
 import './demo.css';
 
 const reducedMotion = () =>
@@ -544,7 +546,9 @@ const SCENES = [
 export default function DemoPage() {
   const [scene, setScene] = useState(0);
   const meta = SCENES[scene];
+  const nav = useNavigate();
   const go = (i) => setScene(Math.max(0, Math.min(SCENES.length - 1, i)));
+  const launchLiveDemo = () => { enterDemo(); nav('/app'); };
 
   const renderScene = () => {
     switch (scene) {
@@ -572,6 +576,13 @@ export default function DemoPage() {
               A guided, clickable sandbox. Walk the pipeline, open a deal, ask Rook, watch a forecast
               move, and generate a proposal. Everything below is live and yours to click.
             </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 26 }}>
+              <button className="mkt-btn mkt-btn-primary mkt-btn-lg" onClick={launchLiveDemo}>
+                <Icon name="zap" size={18} fill="currentColor" stroke={0} /> Launch the live demo
+              </button>
+              <MktButton to="/get-started" variant="ghost" size="lg">See if you are a fit</MktButton>
+            </div>
+            <div className="mkt-dim" style={{ fontSize: 13, marginTop: 12 }}>Opens the real app with sample data. No signup. Config stays locked.</div>
           </Reveal>
         </div>
       </section>
