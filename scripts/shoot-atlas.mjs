@@ -19,6 +19,12 @@ await page.screenshot({ path: 'tmp/shots/atlas.png' });
 if (dots) { await page.locator('.atl-svg circle[data-point]').first().click({ force: true }); await page.waitForTimeout(600); }
 const nb = await page.locator('.atl-nb').count();
 await page.screenshot({ path: 'tmp/shots/atlas-lookalike.png' });
+// switch to predict mode + capture
+await page.evaluate(() => { const b = [...document.querySelectorAll('.atl-seg-btn')].find(x => x.textContent === 'Predict'); b?.click(); });
+await page.waitForTimeout(700);
+await page.screenshot({ path: 'tmp/shots/atlas-predict.png' });
+const pred = selPredCount(await page.locator('.atl-pred').count());
+function selPredCount(n) { return n; }
 const relevant = errs.filter(e => !/CSP|upgrade-insecure|favicon|manifest|Download the React|404|realtime/i.test(e));
-console.log('crash=' + crash, 'points=' + dots, 'clusters=' + clusters, 'lookalikes=' + nb, 'errors=' + relevant.length, relevant.slice(0, 3).join(' || '));
+console.log('crash=' + crash, 'points=' + dots, 'clusters=' + clusters, 'lookalikes=' + nb, 'predBlock=' + pred, 'errors=' + relevant.length, relevant.slice(0, 3).join(' || '));
 await browser.close();

@@ -213,6 +213,34 @@ export function buildAtlas({ k = 5, includeClosed = true } = {}) {
   return { points, clusters, total: deals.length, empty: false };
 }
 
+// PREDICT: infer each OPEN deal's outcome from its nearest CLOSED deals in
+// feature space (weighted k-NN over your own won/lost history). Returns a Map
+// id -> { winProb, verdict, confidence, basis[] }. Grounded and explainable:
+// the basis is the actual closed deals the prediction leans on.
+export function predictOutcomes(points, k = 7) {
+  const closed = points.filter(p => p.status === 'won' || p.status === 'lost');
+  const out = new Map();
+  if (closed.length < 4) return out;
+  for (const p of points) {
+    if (p.status !== 'open') continue;
+    const sims = closed
+      .map(c => ({ c, sim: Math.max(0, cosine(p.z, c.z)) }))
+      .sort((a, b) => b.sim - a.sim)
+      .slice(0, Math.min(k, closed.length));
+    const wsum = sims.reduce((s, x) => s + x.sim, 0) || 1;
+    const winProb = sims.reduce((s, x) => s + x.sim * (x.c.status === 'won' ? 1 : 0), 0) / wsum;
+    const avgSim = wsum / sims.length;
+    const verdict = winProb >= 0.6 ? 'likely-win' : winProb <= 0.35 ? 'at-risk' : 'coin-flip';
+    out.set(p.id, {
+      winProb: Math.round(winProb * 100),
+      verdict,
+      confidence: Math.round(Math.min(1, avgSim + sims.length / (k * 2)) * 100),
+      basis: sims.map(x => ({ id: x.c.id, name: x.c.name, status: x.c.status, sim: Math.round(x.sim * 100) })),
+    });
+  }
+  return out;
+}
+
 // Top-K look-alikes for a point by cosine similarity on the standardized vector.
 export function neighborsFor(points, id, k = 6) {
   const target = points.find(p => p.id === id);

@@ -10,7 +10,7 @@ import { useStore } from '../lib/store.js';
 import { SectionHeader, StatCard, EmptyState, moneyK, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import { STAGE_COLOR } from '../lib/stage-colors.js';
-import { buildAtlas, neighborsFor } from '../lib/atlas.js';
+import { buildAtlas, neighborsFor, predictOutcomes } from '../lib/atlas.js';
 
 const CLUSTER_COLORS = ['#0e9f8f', '#2563a8', '#e0752d', '#7c5cf7', '#1a9f6d', '#c0392b', '#d4a017', '#0891b2'];
 const W = 1000, H = 640, PAD = 46;
@@ -20,10 +20,13 @@ const radius = (v) => 5 + Math.min(16, Math.log10((v || 0) + 1) * 3.2);
 
 const COLOR_MODES = [
   { key: 'cluster', label: 'Clusters' },
+  { key: 'predict', label: 'Predict' },
   { key: 'stage', label: 'Stage' },
   { key: 'status', label: 'Outcome' },
   { key: 'value', label: 'Value' },
 ];
+const winColor = (wp) => `hsl(${Math.round((wp / 100) * 130)}, 68%, 45%)`; // red(0) -> green(130)
+const VERDICT_LABEL = { 'likely-win': 'Likely win', 'at-risk': 'At risk', 'coin-flip': 'Coin flip' };
 
 export default function Atlas() {
   useStore();
@@ -43,8 +46,24 @@ export default function Atlas() {
   const neighbors = useMemo(() => (selectedId ? neighborsFor(points, selectedId, 6) : []), [selectedId, points]);
   const neighborIds = useMemo(() => new Set(neighbors.map(n => n.id)), [neighbors]);
   const selected = selectedId ? points.find(p => p.id === selectedId) : null;
+  const predictions = useMemo(() => predictOutcomes(points, 7), [points]);
+  const selPred = selected && selected.status === 'open' ? predictions.get(selected.id) : null;
+
+  // At-risk open deals sitting in the loss region.
+  const atRisk = useMemo(() => {
+    const rows = [];
+    for (const p of points) { const pr = predictions.get(p.id); if (pr && pr.verdict === 'at-risk') rows.push({ p, pr }); }
+    return rows.sort((a, b) => b.p.value - a.p.value);
+  }, [points, predictions]);
+  const atRiskValue = atRisk.reduce((s, r) => s + r.p.value, 0);
 
   const colorFor = (p) => {
+    if (colorMode === 'predict') {
+      if (p.status === 'won') return '#1a9f6d';
+      if (p.status === 'lost') return '#c0392b';
+      const pr = predictions.get(p.id);
+      return pr ? winColor(pr.winProb) : '#94a3b8';
+    }
     if (colorMode === 'cluster') return CLUSTER_COLORS[p.cluster % CLUSTER_COLORS.length];
     if (colorMode === 'stage') return STAGE_COLOR[p.stage] || '#94a3b8';
     if (colorMode === 'status') return p.status === 'won' ? '#1a9f6d' : p.status === 'lost' ? '#c0392b' : '#0e9f8f';
@@ -193,6 +212,20 @@ export default function Atlas() {
               </div>
               <button className="atl-selname" onClick={() => nav(`/deals/${selected.id}`)}>{selected.name} <Icon name="chevronRight" size={14} /></button>
               <div className="atl-selmeta">{moneyK(selected.value)} - {selected.stageName} - {selected.status}</div>
+              {selPred && (
+                <div className="atl-pred" data-verdict={selPred.verdict}>
+                  <div className="atl-pred-top">
+                    <span className="atl-pred-prob">{selPred.winProb}%</span>
+                    <span className="atl-pred-verdict">{VERDICT_LABEL[selPred.verdict]}</span>
+                  </div>
+                  <div className="atl-pred-sub">Predicted from {selPred.basis.length} similar closed deals - {selPred.confidence}% confidence</div>
+                  <div className="atl-pred-basis">
+                    {selPred.basis.slice(0, 4).map(b => (
+                      <span key={b.id} className="atl-pred-chip" data-w={b.status}>{b.status === 'won' ? 'Won' : 'Lost'}: {b.name.split(' - ')[0]}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="atl-nb-label">Most similar deals</div>
               {neighbors.map(n => (
                 <button key={n.id} className="atl-nb" onClick={() => nav(`/deals/${n.id}`)}>
@@ -225,6 +258,15 @@ export default function Atlas() {
             </div>
           ) : (
             <div className="atl-panel">
+              {atRisk.length > 0 && (
+                <button className="atl-risk" onClick={() => setColorMode('predict')}>
+                  <Icon name="activity" size={16} />
+                  <div style={{ minWidth: 0 }}>
+                    <div className="atl-risk-big">{atRisk.length} open deals in your loss region</div>
+                    <div className="atl-risk-sub">{moneyK(atRiskValue)} at risk, inferred from your own closed history</div>
+                  </div>
+                </button>
+              )}
               <div className="atl-panel-eyebrow">Terrain</div>
               <div className="atl-nb-label" style={{ marginTop: '.5rem' }}>Clusters by value</div>
               {clusters.map(c => (
@@ -290,6 +332,25 @@ function AtlasStyles() {
     .atl-seglist-item:hover { background: var(--accent-50); }
     .atl-seglist-item span { color: var(--n-600); flex: none; }
     .atl-seglist-more { font-size: 12px; color: var(--n-600); padding: 6px 8px; }
+
+    .atl-pred { margin-top: 12px; border-radius: 12px; padding: 12px; border: 1px solid var(--line); background: var(--n-25); }
+    .atl-pred[data-verdict="likely-win"] { border-color: rgba(26,159,109,.4); background: rgba(26,159,109,.07); }
+    .atl-pred[data-verdict="at-risk"] { border-color: rgba(192,57,43,.4); background: rgba(192,57,43,.07); }
+    .atl-pred-top { display: flex; align-items: baseline; gap: 8px; }
+    .atl-pred-prob { font-size: 30px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
+    .atl-pred-verdict { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--n-600); }
+    .atl-pred-sub { font-size: 12px; color: var(--n-600); margin-top: 2px; }
+    .atl-pred-basis { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .atl-pred-chip { font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 999px; color: #fff; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .atl-pred-chip[data-w="won"] { background: #1a9f6d; }
+    .atl-pred-chip[data-w="lost"] { background: #c0392b; }
+
+    .atl-risk { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; font-family: inherit; cursor: pointer; margin-bottom: 14px;
+      border: 1px solid rgba(192,57,43,.35); background: rgba(192,57,43,.07); color: var(--ink); border-radius: 12px; padding: 11px 12px; transition: background .13s; }
+    .atl-risk:hover { background: rgba(192,57,43,.12); }
+    .atl-risk svg { color: #c0392b; flex: none; }
+    .atl-risk-big { font-size: 13.5px; font-weight: 800; }
+    .atl-risk-sub { font-size: 12px; color: var(--n-600); }
     `}</style>
   );
 }
