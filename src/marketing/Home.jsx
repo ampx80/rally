@@ -194,7 +194,7 @@ export default function Home() {
       <AgentConstellation />
 
       {/* S1b. AGENT THEATER - the full self-playing Rook session */}
-      <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
+      <section className="mkt-section-sm" style={{ paddingTop: 52 }}>
         <div className="mkt-wrap">
           <Reveal>
             <div id="theater" style={{ position: 'relative' }}>

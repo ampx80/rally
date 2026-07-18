@@ -183,7 +183,7 @@ export default function AgentConstellation() {
 
         <div className="ac-cta">
           <MktButton to="/app" size="lg">Start free <Icon name="chevronRight" size={18} /></MktButton>
-          <a href="/demo" className="mkt-btn mkt-btn-ghost mkt-btn-lg" style={{ color: '#dfe4f5', borderColor: 'rgba(255,255,255,.2)' }}><Icon name="eye" size={18} /> Watch it run</a>
+          <a href="/demo" className="mkt-btn mkt-btn-lg ac-ghost"><Icon name="eye" size={18} /> Watch it run</a>
         </div>
       </div>
       <AgentConstellationStyles />
@@ -194,8 +194,10 @@ export default function AgentConstellation() {
 function AgentConstellationStyles() {
   return (
     <style>{`
-    .ac-band { position: relative; background: radial-gradient(120% 100% at 50% 0%, #0b1020, #070810 60%); color: #eef0f8; overflow: hidden; padding: 88px 0 96px; }
-    .ac-band::before, .ac-band::after { content: ''; position: absolute; left: 0; right: 0; height: 130px; pointer-events: none; z-index: 3; }
+    .ac-band { position: relative; background: radial-gradient(120% 100% at 50% 0%, #0b1020, #070810 60%); color: #eef0f8; overflow: hidden; padding: 96px 0 104px; }
+    /* Soft edge blends sit BEHIND the content (z-index 1) so they never wash out
+       the eyebrow or the CTA, and are short enough not to bleed into the card below. */
+    .ac-band::before, .ac-band::after { content: ''; position: absolute; left: 0; right: 0; height: 72px; pointer-events: none; z-index: 1; }
     .ac-band::before { top: 0; background: linear-gradient(#fff, rgba(255,255,255,0)); }
     .ac-band::after { bottom: 0; background: linear-gradient(rgba(255,255,255,0), #fff); }
     .ac-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -234,6 +236,8 @@ function AgentConstellationStyles() {
     .ac-desc-text { display: block; font-size: 16px; color: #b7bdd6; line-height: 1.5; }
 
     .ac-cta { display: flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+    .ac-ghost { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22); color: #eaf0fb; backdrop-filter: blur(6px); box-shadow: none; }
+    .ac-ghost:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.42); color: #fff; transform: translateY(-2px); }
 
     @media (max-width: 720px) {
       .ac-stage { height: 600px; }
