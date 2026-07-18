@@ -63,7 +63,7 @@ export default function Login() {
     <div className="lg-wrap">
       <div className="lg-aside" aria-hidden>
         <div className="lg-aside-in">
-          <div className="lg-brand"><span className="lg-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span> Ardovo</div>
+          <div className="lg-brand"><span className="lg-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <h1 className="lg-tag">The AI-native revenue platform.</h1>
           <p className="lg-sub">Sign in to the operator that actually runs the work. Grounded in your book, governed by roles you can read at a glance.</p>
           <div className="lg-orbs"><span /><span /><span /></div>
@@ -72,7 +72,7 @@ export default function Login() {
 
       <div className="lg-panel">
         <div className="lg-card">
-          <div className="lg-logo"><span className="lg-mark sm"><Icon name="zap" size={16} fill="#fff" stroke={0} /></span> Ardovo</div>
+          <div className="lg-logo"><span className="lg-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
 
           {step === 'creds' ? (
             <>
@@ -130,8 +130,9 @@ function LoginStyles() {
     .lg-aside { position: relative; overflow: hidden; background: radial-gradient(120% 120% at 20% 10%, #12324a, #0b0d14 55%); color: #fff; }
     .lg-aside-in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 8vw; max-width: 620px; }
     .lg-brand { display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 900; letter-spacing: -.02em; }
-    .lg-mark { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, #0e9f8f, #14b8a6); box-shadow: 0 10px 30px -8px rgba(14,159,143,.6); }
-    .lg-mark.sm { width: 30px; height: 30px; border-radius: 9px; }
+    .lg-mark { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; overflow: hidden; }
+    .lg-mark img { width: 100%; height: 100%; object-fit: contain; }
+    .lg-mark.sm { width: 32px; height: 32px; border-radius: 9px; }
     .lg-tag { font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 900; letter-spacing: -.03em; margin: 40px 0 16px; line-height: 1.05; background: linear-gradient(100deg, #fff, #8fe3d8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .lg-sub { font-size: 17px; color: #a9b4c4; line-height: 1.6; max-width: 460px; }
     .lg-orbs span { position: absolute; border-radius: 50%; filter: blur(50px); opacity: .5; }

@@ -23,9 +23,7 @@ export function Reveal({ children, delay = 0, as: As = 'div', className = '', st
 export function Logo({ size = 32 }) {
   return (
     <span className="mkt-logo">
-      <span className="mkt-logo-mark" style={{ width: size, height: size }}>
-        <Icon name="zap" size={size * 0.58} fill="#fff" stroke={0} />
-      </span>
+      <img className="mkt-logo-img" src="/brand/ardovo-icon.png" alt="Ardovo" width={size} height={size} style={{ width: size, height: size }} />
       Ardovo
     </span>
   );

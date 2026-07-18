@@ -180,7 +180,7 @@ export default function ComingSoon({ onUnlock }) {
 
       <div className="cs-card">
         <div className="cs-brand">
-          <span className="cs-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span>
+          <span className="cs-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span>
           Ardovo
         </div>
 

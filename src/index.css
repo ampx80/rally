@@ -374,7 +374,8 @@ tr:hover .reveal, .row-host:hover .reveal { opacity: 1; }
    ============================================================ */
 .launch { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1.2rem;
   background: radial-gradient(1200px 700px at 50% 40%, #0f2a28, #070d0e 70%); color: #fff; animation: launchOut .55s var(--ease) 1.65s forwards; }
-.launch__mark { width: 78px; height: 78px; border-radius: 20px; display: grid; place-items: center; background: linear-gradient(135deg, #14b8a6, #0e9f8f); box-shadow: 0 20px 60px -12px rgba(14,159,143,.65); animation: launchPop .7s var(--ease) both, floaty 4s ease-in-out infinite 1s; }
+.launch__mark { width: 92px; height: 92px; border-radius: 20px; display: grid; place-items: center; overflow: hidden; animation: launchPop .7s var(--ease) both, floaty 4s ease-in-out infinite 1s; }
+.launch__mark img { width: 100%; height: 100%; object-fit: contain; }
 .launch__word { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; letter-spacing: -.03em; opacity: 0; animation: fadeUp .6s var(--ease) .25s both; }
 .launch__tag { color: #5ecfc3; font-weight: 600; letter-spacing: .02em; opacity: 0; animation: fadeUp .6s var(--ease) .42s both; }
 .launch__bar { width: 200px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; opacity: 0; animation: fadeUp .5s var(--ease) .6s both; }
@@ -453,8 +454,7 @@ html, body { overflow-x: clip; max-width: 100%; }
 .spine-logo-wrap { padding: 1rem 0 .6rem; flex: none; }
 .spine-logo {
   width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
-  background: linear-gradient(135deg, #14b8a6, #0e9f8f); color: #fff;
-  box-shadow: var(--accent-glow);
+  background: transparent; color: #fff; overflow: hidden;
 }
 .spine-nav { display: flex; flex-direction: column; align-items: center; gap: .25rem; flex: 1; width: 100%; padding: .25rem 0; overflow: hidden; }
 .spine-btn {

@@ -588,7 +588,7 @@ function MobileNav({ open, onClose, onOpenApps, mods, adminAllowed }) {
       <div className="row between" style={{ padding: '1.1rem 1.1rem .9rem', alignItems: 'center', flex: 'none' }}>
         <div className="row gap-2" style={{ alignItems: 'center' }}>
           <span className="row center floaty spine-logo">
-            <Icon name="zap" size={18} fill="currentColor" stroke={0} />
+            <img src="/brand/ardovo-icon.png" alt="Ardovo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </span>
           <div className="col" style={{ lineHeight: 1.1 }}>
             <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-.02em' }}>Ardovo</span>
@@ -690,7 +690,7 @@ function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
       <aside className="rl-rail" style={{ background: 'var(--nav)', color: 'var(--nav-text)' }}>
         <div className="spine-logo-wrap">
           <NavLink to="/app" end className="spine-logo" aria-label="Ardovo home" title="Ardovo">
-            <Icon name="zap" size={20} fill="currentColor" stroke={0} />
+            <img src="/brand/ardovo-icon.png" alt="Ardovo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </NavLink>
         </div>
         <nav className="spine-nav" role="navigation" aria-label="Primary">

@@ -57,6 +57,7 @@
 .mkt-nav-in { display: flex; align-items: center; gap: 20px; height: 68px; }
 .mkt-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: var(--m-ink); }
 .mkt-logo-mark { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, #14b8a6, #0e9f8f); box-shadow: 0 6px 18px -4px rgba(14,159,143,.45); }
+.mkt-logo-img { display: block; object-fit: contain; }
 .mkt-navlinks { display: flex; gap: 2px; margin-left: 18px; }
 .mkt-navlinks a { position: relative; padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 15px; color: var(--m-ink2); transition: color .15s, background .15s; }
 .mkt-navlinks a:hover { color: var(--m-ink); background: var(--m-bg2); }

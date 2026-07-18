@@ -16,7 +16,7 @@ export default function LaunchScreen() {
   if (gone) return null;
   return (
     <div className="launch" aria-hidden>
-      <div className="launch__mark"><Icon name="zap" size={40} fill="#fff" stroke={0} /></div>
+      <div className="launch__mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></div>
       <div className="launch__word">Ardovo</div>
       <div className="launch__tag">Run your revenue on Ardovo</div>
       <div className="launch__bar"><i /></div>
