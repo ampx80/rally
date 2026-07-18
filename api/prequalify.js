@@ -92,10 +92,33 @@ function toE164(phone) {
 // Fire an outbound AI qualification call. Prefers Retell (recommended sales
 // telephony vendor), falls back to Vapi. Only runs when qualified + a provider
 // is configured. Both are env-gated and never block the response.
+// Turn a raw answer value into something the voice agent can say naturally.
+const LABELS = {
+  solo: 'just them', '2-10': '2 to 10', '11-50': '11 to 50', '51-200': '51 to 200', '201-1000': '201 to 1000', '1000+': 'over 1000',
+  '1-2': '1 to 2', '3-10': '3 to 10', '11-30': '11 to 30', '30+': 'over 30',
+  salesforce: 'Salesforce', hubspot: 'HubSpot', 'other-crm': 'another CRM', spreadsheets: 'spreadsheets', nothing: 'nothing yet',
+  now: 'this month', quarter: 'this quarter', half: 'the next 6 months', exploring: 'just exploring',
+};
+const say = (v) => LABELS[v] || v || '';
+
 async function triggerVoiceCall(f) {
   const number = toE164(f.phone);
   if (!number) return { ok: false, skipped: 'no-phone' };
-  const vars = { name: f.name || '', company: f.company || '', fitTier: f.tier, fitScore: String(f.score) };
+  const a = f.answers || {};
+  // A readable one-liner so the agent can reference the whole form at a glance.
+  const parts = [];
+  if (a.headcount) parts.push(`company size ${say(a.headcount)}`);
+  if (a.reps) parts.push(`${say(a.reps)} in sales`);
+  if (a.currentCrm) parts.push(`on ${say(a.currentCrm)} today`);
+  if (a.timeline) parts.push(`looking to move ${say(a.timeline)}`);
+  if (a.pain) parts.push(`main pain: ${a.pain}`);
+  const formSummary = parts.join('; ');
+  const vars = {
+    name: f.name || '', company: f.company || '', email: f.email || '', phone: f.phone || '',
+    fitTier: f.tier, fitScore: String(f.score),
+    headcount: say(a.headcount), reps: say(a.reps), currentCrm: say(a.currentCrm),
+    timeline: say(a.timeline), pain: a.pain || '', formSummary,
+  };
 
   // 1. Retell (preferred).
   const { RETELL_API_KEY, RETELL_AGENT_ID, RETELL_FROM_NUMBER } = process.env;
