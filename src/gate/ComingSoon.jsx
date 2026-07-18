@@ -5,9 +5,108 @@
 // emails Nate). A quiet "access code" affordance posts to /api/unlock so
 // the operator can get straight into the product. NO em-dash / en-dash.
 // ============================================================
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Icon } from '../components/icons.jsx';
 import './coming-soon.css';
+
+// A living neural-network constellation behind the gate. Nodes drift, link when
+// near, brighten and reach toward the cursor. Teal with violet AI accents.
+// DPR-aware, capped, cleaned up on unmount, one static frame if reduced-motion.
+function GateField() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TEAL = [22, 209, 201], VIOLET = [124, 92, 247];
+    let w = 0, h = 0, dpr = 1, nodes = [], raf = 0, running = true;
+    const pointer = { x: -9999, y: -9999, active: false };
+    const LINK = 132, REACH = 190;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.min(84, Math.max(32, Math.floor((w * h) / 16000)));
+      nodes = [];
+      for (let i = 0; i < target; i++) {
+        nodes.push({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.26, vy: (Math.random() - 0.5) * 0.26,
+          r: 0.8 + Math.random() * 1.7, violet: Math.random() < 0.16,
+        });
+      }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+        if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+        if (pointer.active) {
+          const dx = pointer.x - n.x, dy = pointer.y - n.y, d = Math.hypot(dx, dy);
+          if (d < 150 && d > 0.5) { n.x += (dx / d) * 0.22; n.y += (dy / d) * 0.22; }
+        }
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+          if (d < LINK) {
+            const t = 1 - d / LINK;
+            const c = (a.violet || b.violet) ? VIOLET : TEAL;
+            ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${t * 0.2})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        if (pointer.active) {
+          const dx = a.x - pointer.x, dy = a.y - pointer.y, d = Math.hypot(dx, dy);
+          if (d < REACH) {
+            const t = 1 - d / REACH;
+            ctx.strokeStyle = `rgba(22,209,201,${t * 0.5})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+          }
+        }
+      }
+      for (const n of nodes) {
+        const c = n.violet ? VIOLET : TEAL;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},.92)`;
+        ctx.shadowColor = `rgba(${c[0]},${c[1]},${c[2]},.9)`; ctx.shadowBlur = 7;
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      if (running && !reduce) raf = requestAnimationFrame(frame);
+    }
+
+    resize();
+    const onResize = () => resize();
+    const onMove = (e) => { const r = canvas.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.active = true; };
+    const onLeave = () => { pointer.active = false; pointer.x = -9999; pointer.y = -9999; };
+    window.addEventListener('resize', onResize);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerdown', onMove);
+    document.addEventListener('mouseleave', onLeave);
+    frame();
+    if (!reduce) raf = requestAnimationFrame(frame);
+    return () => {
+      running = false; cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerdown', onMove);
+      document.removeEventListener('mouseleave', onLeave);
+    };
+  }, []);
+  return <canvas ref={ref} className="cs-canvas" aria-hidden />;
+}
 
 const ACCESS_KEY = 'rally_access';
 export const isUnlocked = () => {
@@ -76,6 +175,8 @@ export default function ComingSoon({ onUnlock }) {
     <div className="cs">
       <div className="cs-orbs" aria-hidden><span className="o1" /><span className="o2" /><span className="o3" /></div>
       <div className="cs-grid" aria-hidden />
+      <GateField />
+      <div className="cs-vignette" aria-hidden />
 
       <div className="cs-card">
         <div className="cs-brand">

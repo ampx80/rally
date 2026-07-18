@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+fs.mkdirSync('tmp/shots', { recursive: true });
+const B = process.env.SHOOT_BASE || 'http://localhost:5255';
+const browser = await chromium.launch();
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 950 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+page.on('console', m => { if (m.type() === 'error') errs.push('CONSOLE ' + m.text()); });
+await page.goto(B + '/app', { waitUntil: 'networkidle', timeout: 45000 });
+await page.waitForTimeout(1200);
+// nudge the cursor so the constellation reaches toward it for the shot
+await page.mouse.move(520, 380); await page.waitForTimeout(400);
+await page.mouse.move(720, 460); await page.waitForTimeout(900);
+const canvas = await page.locator('canvas.cs-canvas').count();
+await page.screenshot({ path: 'tmp/shots/gate-field.png' });
+const rel = errs.filter(e => !/CSP|upgrade-insecure|favicon|manifest|Download the React|404|realtime/i.test(e));
+console.log('canvas=' + canvas, 'errors=' + rel.length, rel.slice(0, 3).join(' || '));
+await browser.close();
