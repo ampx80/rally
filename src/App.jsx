@@ -40,6 +40,13 @@ import QualifyConfig from './pages/QualifyConfig.jsx';
 import MigrationWizard from './pages/MigrationWizard.jsx';
 import Training from './pages/Training.jsx';
 import Atlas from './pages/Atlas.jsx';
+import AgentCloud from './pages/AgentCloud.jsx';
+import AgentStudio from './pages/AgentStudio.jsx';
+import AgentApi from './pages/AgentApi.jsx';
+import ContextGraph from './pages/ContextGraph.jsx';
+import AgentEvals from './pages/AgentEvals.jsx';
+import AgentTrust from './pages/AgentTrust.jsx';
+import AgentExchange from './pages/AgentExchange.jsx';
 import Studio from './pages/Studio.jsx';
 import DocBuilder from './pages/DocBuilder.jsx';
 import ForkStudio from './pages/ForkStudio.jsx';
@@ -149,6 +156,7 @@ import Blog from './marketing/Blog.jsx';
 import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
 import GetStarted from './marketing/GetStarted.jsx';
+import VsAgentforce from './marketing/VsAgentforce.jsx';
 import { useDemo, isLockedPath, exitDemo } from './lib/demo-mode.js';
 import { ACCESS_EVENT } from './lib/access-mode.js';
 import HostedForm from './marketing/HostedForm.jsx';
@@ -159,7 +167,8 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -241,6 +250,13 @@ const ALL_ITEMS = [
   { to: '/grid', label: 'Grid', icon: 'grid', cat: 'Analytics' },
   { to: '/sheets', label: 'Sheets', icon: 'sheet', cat: 'Analytics' },
   // Automation
+  { to: '/agent-cloud', label: 'Agent Cloud', icon: 'sparkles', cat: 'Automation' },
+  { to: '/agent-studio', label: 'Agent Studio', icon: 'command', cat: 'Automation' },
+  { to: '/agent-api', label: 'Agent API + MCP', icon: 'command', cat: 'Automation' },
+  { to: '/agent-exchange', label: 'Agent Exchange', icon: 'store', cat: 'Automation' },
+  { to: '/agent-evals', label: 'Testing Center', icon: 'beaker', cat: 'Automation' },
+  { to: '/agent-trust', label: 'Model + Trust', icon: 'lock', cat: 'Automation' },
+  { to: '/context', label: 'Context', icon: 'radar', cat: 'Analytics' },
   { to: '/liftoff', label: 'Liftoff', icon: 'rocket', cat: 'Automation' },
   { to: '/genesis', label: 'Genesis', icon: 'sparkles', cat: 'Automation' },
   { to: '/queue', label: 'Task queues', icon: 'check', cat: 'Automation' },
@@ -285,7 +301,7 @@ const APPS_CATALOG = CATALOG_CATS.map(cat => ({ cat, items: ALL_ITEMS.filter(it 
 // resolved against ALL_ITEMS) shown in that item's 240px flyout drawer.
 const SPINE = [
   { key: 'home', label: 'Home', icon: 'home', to: '/app', end: true,
-    peek: ['/activities', '/notifications', '/canvas', '/queue', '/liftoff', '/genesis'] },
+    peek: ['/agent-cloud', '/activities', '/notifications', '/canvas', '/queue', '/liftoff', '/genesis'] },
   { key: 'pipeline', label: 'Pipeline', icon: 'target', to: '/deals',
     peek: ['/leads', '/goals', '/territories', '/scheduler', '/playbooks', '/warroom', '/fork', '/ghost-deals'] },
   { key: 'people', label: 'People', icon: 'users', to: '/contacts',
@@ -828,6 +844,7 @@ export default function App() {
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/demo" element={<DemoPage />} />
             <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/vs-agentforce" element={<VsAgentforce />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot" element={<ForgotPassword />} />
@@ -901,6 +918,13 @@ export default function App() {
               <Route path="/migrate" element={<MigrationWizard />} />
               <Route path="/training" element={<Training />} />
               <Route path="/atlas" element={<Atlas />} />
+              <Route path="/agent-cloud" element={<AgentCloud />} />
+              <Route path="/agent-studio" element={<AgentStudio />} />
+              <Route path="/agent-api" element={<AgentApi />} />
+              <Route path="/context" element={<ContextGraph />} />
+              <Route path="/agent-evals" element={<AgentEvals />} />
+              <Route path="/agent-trust" element={<AgentTrust />} />
+              <Route path="/agent-exchange" element={<AgentExchange />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />
