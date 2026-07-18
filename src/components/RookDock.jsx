@@ -200,6 +200,8 @@ export default function RookDock() {
   const sendRef = useRef(null);
   const realtimeRef = useRef(null); // OpenAI Realtime controller when active
   useEffect(() => { voiceModeRef.current = voiceMode; }, [voiceMode]);
+  // Drive the global TRAINING MODE badge/spotlight layer from Rook's toggle.
+  useEffect(() => { try { window.dispatchEvent(new CustomEvent('rally:training', { detail: { on: training } })); } catch {} }, [training]);
 
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [msgs, busy, open, building]);
   useEffect(() => { if (open && inputRef.current) inputRef.current.focus(); }, [open]);

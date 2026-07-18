@@ -9,6 +9,7 @@ import { useFocusTrap, useEscapeKey } from './lib/a11y.js';
 import CommandK from './components/CommandK.jsx';
 import RookDock from './components/RookDock.jsx';
 import RecentPagesDock from './components/RecentPagesDock.jsx';
+import TrainingMode from './components/TrainingMode.jsx';
 import LaunchScreen from './components/LaunchScreen.jsx';
 import CommandCenter from './pages/CommandCenter.jsx';
 import Deals from './pages/Deals.jsx';
@@ -1014,6 +1015,7 @@ export default function App() {
       <HelpWidget />
       <RookDock />
       <RecentPagesDock />
+      <TrainingMode />
     </div>
   );
 }
