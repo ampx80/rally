@@ -39,6 +39,7 @@ import ImportData from './pages/ImportData.jsx';
 import QualifyConfig from './pages/QualifyConfig.jsx';
 import MigrationWizard from './pages/MigrationWizard.jsx';
 import Training from './pages/Training.jsx';
+import Atlas from './pages/Atlas.jsx';
 import Studio from './pages/Studio.jsx';
 import DocBuilder from './pages/DocBuilder.jsx';
 import ForkStudio from './pages/ForkStudio.jsx';
@@ -158,7 +159,7 @@ import SignUp from './pages/SignUp.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
-const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training']);
+const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -236,6 +237,7 @@ const ALL_ITEMS = [
   { to: '/attribution', label: 'Attribution', icon: 'key', cat: 'Analytics' },
   { to: '/twin', label: 'Revenue Twin', icon: 'twin', cat: 'Analytics' },
   { to: '/signals', label: 'Signals', icon: 'signal', cat: 'Analytics' },
+  { to: '/atlas', label: 'Atlas', icon: 'radar', cat: 'Analytics' },
   { to: '/grid', label: 'Grid', icon: 'grid', cat: 'Analytics' },
   { to: '/sheets', label: 'Sheets', icon: 'sheet', cat: 'Analytics' },
   // Automation
@@ -291,7 +293,7 @@ const SPINE = [
   { key: 'inbox', label: 'Inbox', icon: 'inbox', to: '/inbox',
     peek: ['/conversations', '/voice', '/notifications', '/tickets', '/sms'] },
   { key: 'forecast', label: 'Forecast', icon: 'trendUp', to: '/forecasting',
-    peek: ['/goals', '/dashboards', '/reports', '/intelligence', '/signals', '/twin', '/attribution'] },
+    peek: ['/goals', '/dashboards', '/reports', '/intelligence', '/atlas', '/signals', '/twin', '/attribution'] },
   { key: 'rook', label: 'Rook', icon: 'rook', ai: true },
   { key: 'apps', label: 'Apps', icon: 'grid', apps: true },
 ];
@@ -898,6 +900,7 @@ export default function App() {
               <Route path="/qualify" element={<QualifyConfig />} />
               <Route path="/migrate" element={<MigrationWizard />} />
               <Route path="/training" element={<Training />} />
+              <Route path="/atlas" element={<Atlas />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/intelligence" element={<Intelligence />} />
               <Route path="/success" element={<CustomerSuccess />} />
