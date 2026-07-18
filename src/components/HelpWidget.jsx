@@ -42,7 +42,7 @@ export default function HelpWidget() {
     return () => { window.removeEventListener('keydown', onKey); clearTimeout(t); document.removeEventListener('mousedown', onClick); };
   }, [open]);
 
-  const mailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Rally support request')}`;
+  const mailHref = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Ardovo support request')}`;
 
   return (
     <>

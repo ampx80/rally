@@ -1,4 +1,4 @@
-// Drive - a Google-Drive-class file engine that lives INSIDE Rally. Folders +
+// Drive - a Google-Drive-class file engine that lives INSIDE Ardovo. Folders +
 // files in grid or list, breadcrumb navigation, upload (local-first: real
 // image previews via data-URL), create / rename / move / star / trash /
 // restore, and smart views (Recent, Starred, Shared with me, Trash). A file
@@ -242,7 +242,7 @@ function DetailDrawer({ nodeId, onClose, onOpenNode }) {
             </Button>
           )}
           {node.kind === 'file' && <Button size="sm" variant="ghost" onClick={download}><Icon name="download" size={15} /> Download</Button>}
-          <Button size="sm" variant="ghost" onClick={() => askRook(`Give me a quick brief on the file "${node.name}" in Rally Drive - what it is, why it matters to the deal, and who has access.`)}>
+          <Button size="sm" variant="ghost" onClick={() => askRook(`Give me a quick brief on the file "${node.name}" in Ardovo Drive - what it is, why it matters to the deal, and who has access.`)}>
             <Icon name="sparkles" size={15} /> Ask Rook
           </Button>
         </div>
@@ -546,8 +546,8 @@ export default function Drive() {
     ? (folderId ? getNode(folderId)?.name : 'My Drive')
     : VIEWS.find(v => v.id === view)?.label;
   const rookPrompt = view === 'drive' && folderId
-    ? `Review the "${getNode(folderId)?.name}" folder in Rally Drive and tell me what documents we have, what is missing for the deal, and anything that looks out of date.`
-    : 'Which files in Rally Drive were touched this week, and are any sensitive contracts shared too broadly?';
+    ? `Review the "${getNode(folderId)?.name}" folder in Ardovo Drive and tell me what documents we have, what is missing for the deal, and anything that looks out of date.`
+    : 'Which files in Ardovo Drive were touched this week, and are any sensitive contracts shared too broadly?';
 
   return (
     <div className="page-in">

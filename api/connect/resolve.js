@@ -35,7 +35,7 @@ function workspaceBase(body) {
   return base.replace(/\/+$/, '');
 }
 
-// Fold Resolve's public ticket shape into the fields the Rally connector maps.
+// Fold Resolve's public ticket shape into the fields the Ardovo connector maps.
 function normalizeUpstream(row = {}) {
   return {
     id: row.id ?? row.number ?? null,

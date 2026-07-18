@@ -1,5 +1,5 @@
 /* ============================================================
-   RALLY SERVICE WORKER
+   ARDOVO SERVICE WORKER
    Conservative, offline-tolerant, SEO-safe.
 
    Strategy (never cache-trap HTML):

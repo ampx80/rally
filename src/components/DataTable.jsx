@@ -1,4 +1,4 @@
-// Rally data grid. Sticky header, click-to-sort, a filter box, select-all +
+// Ardovo data grid. Sticky header, click-to-sort, a filter box, select-all +
 // row checkboxes with a bulk-action bar, and optional inline edit (double
 // click an editable cell). One component so every list view is consistent.
 import React, { useMemo, useState } from 'react';

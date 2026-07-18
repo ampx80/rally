@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY NIGHT SHIFT  +  DIFF OF RECORD  +  MANDATE
+// ARDOVO NIGHT SHIFT  +  DIFF OF RECORD  +  MANDATE
 // A reversible autonomous operator with an IAM envelope.
 //
 // Rook works the whole pipeline overnight: it advances deals whose

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SOCIAL  (local-first, Supabase-swappable)
+// ARDOVO SOCIAL  (local-first, Supabase-swappable)
 // The multi-channel social planner. One place to write a post once,
 // tune it per network, preview every card, and schedule + recycle it
 // across Facebook, Instagram, LinkedIn, X, Google Business and TikTok.
@@ -66,8 +66,8 @@ const HASH_POOL = {
   hiring: ['#NowHiring', '#JoinUs', '#Careers', '#WeAreHiring'],
   event: ['#Event', '#SaveTheDate', '#JoinUs', '#Community'],
   tip: ['#ProTip', '#HowTo', '#Insights', '#Growth'],
-  story: ['#BehindTheScenes', '#OurStory', '#TeamRally', '#Culture'],
-  default: ['#Revenue', '#GrowthOps', '#RallyUp', '#PipelineHealth'],
+  story: ['#BehindTheScenes', '#OurStory', '#TeamArdovo', '#Culture'],
+  default: ['#Revenue', '#GrowthOps', '#ArdovoUp', '#PipelineHealth'],
 };
 const TONE_OPENERS = {
   bold:      ['Big news:', 'Stop scrolling.', 'This changes things.', 'Here it is:'],
@@ -164,7 +164,7 @@ function buildSeed() {
     { topic: 'Customer story - Vertex Robotics', tone: 'friendly', text: 'Good news: Vertex Robotics cut their sales cycle from 71 to 44 days with one shared source of truth. Here is how they did it.' },
     { topic: 'Hiring account executives', tone: 'friendly', text: 'We are growing the team. If you love closing and hate busywork, come build the future of revenue with us.\n\nRoles in the comments.' },
     { topic: 'Pipeline hygiene tip', tone: 'expert', text: 'One thing that quietly moves the needle: close-date discipline. Every slipped date is a forecast you cannot trust. Fix the date, fix the number.' },
-    { topic: 'Behind the scenes at Rally', tone: 'playful', text: 'Plot twist: our best feature ideas come from support tickets. Here is a peek at how a complaint became a roadmap item in 48 hours.' },
+    { topic: 'Behind the scenes at Ardovo', tone: 'playful', text: 'Plot twist: our best feature ideas come from support tickets. Here is a peek at how a complaint became a roadmap item in 48 hours.' },
     { topic: 'Year-end offer', tone: 'bold', text: 'Stop scrolling. Lock in 2026 pricing before the new plans land. Two weeks left, then the window closes.' },
     { topic: 'New reporting dashboards', tone: 'friendly', text: 'Quick one for you: the new dashboards ship today. Board-ready in a click, no spreadsheet gymnastics required.' },
     { topic: 'Founder note on focus', tone: 'expert', text: 'Worth a read: the one metric we stopped chasing this quarter, and the three we doubled down on instead.' },

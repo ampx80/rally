@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTH GATE  (drop-in product gate + plan Paywall)
+// ARDOVO AUTH GATE  (drop-in product gate + plan Paywall)
 // AuthGate is the single wrapper the app puts around the product shell. It
 // reads src/lib/access-mode.js and decides what to render:
 //   - authMode() === 'supabase' (VITE_AUTH_MODE=supabase + Supabase env):

@@ -1,9 +1,9 @@
 // ============================================================
-// RALLY IDENTITY RESOLUTION  (email/domain -> Rally record)
+// ARDOVO IDENTITY RESOLUTION  (email/domain -> Ardovo record)
 // The join that makes an inbound integration event land on the
 // RIGHT contact, company, and deal instead of floating free. Given
 // an email (and/or a domain and a name) from an external system,
-// resolve() returns the best matching Rally ids. When nothing
+// resolve() returns the best matching Ardovo ids. When nothing
 // matches, the record goes into a local-first "Unlinked" tray so a
 // human can adopt it later - no inbound event is ever silently lost.
 //
@@ -53,7 +53,7 @@ export function dealForCompany(companyId) {
   return pool.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
 }
 
-/* Resolve an external identity to Rally ids.
+/* Resolve an external identity to Ardovo ids.
    Input:  { email, domain, name }
    Output: {
      contactId, companyId, dealId,   // best matches (any may be null)
@@ -93,7 +93,7 @@ export function resolve({ email, domain, name } = {}) {
 
 // ============================================================
 // UNLINKED TRAY  (local-first pub/sub - mirrors modules.js)
-// Inbound records with no Rally match park here until a human links
+// Inbound records with no Ardovo match park here until a human links
 // or dismisses them. Nothing inbound is lost; the tray badge nags.
 // Row shape: { id, source, receivedAt, email, domain, name, event,
 //              payload, note }

@@ -12,7 +12,7 @@
 //                channel="email" onUse={(draft) => {...}} />
 //
 // Props:
-//   contact, deal, company   Rally records (any subset). Deal-first if both.
+//   contact, deal, company   Ardovo records (any subset). Deal-first if both.
 //   sender                   defaults to getCurrentUser()
 //   channel                  'email' | 'message'   (default 'email')
 //   goal                     optional one-liner ("follow up after the demo")

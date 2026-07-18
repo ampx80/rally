@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY - DEAL WAR ROOM  (WarRoom.jsx)
+// ARDOVO - DEAL WAR ROOM  (WarRoom.jsx)
 // A live collaboration cockpit for closing big deals. Pick a
 // high-value war room, then work the whole deal from one surface:
 // the vitals + a modeled win probability, the buying committee with

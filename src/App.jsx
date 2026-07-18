@@ -422,7 +422,7 @@ function DemoBanner() {
   return (
     <div className="demo-banner">
       <span className="demo-banner__dot" />
-      <span className="demo-banner__txt"><strong>Live demo</strong> - a real, working Rally with sample data. Config and admin are locked.</span>
+      <span className="demo-banner__txt"><strong>Live demo</strong> - a real, working Ardovo with sample data. Config and admin are locked.</span>
       <button className="demo-banner__cta" onClick={() => nav('/get-started')}>Get started free</button>
       <button className="demo-banner__exit" onClick={() => { exitDemo(); nav('/'); }} aria-label="Exit demo"><Icon name="x" size={15} /></button>
       <style>{`
@@ -591,7 +591,7 @@ function MobileNav({ open, onClose, onOpenApps, mods, adminAllowed }) {
             <Icon name="zap" size={18} fill="currentColor" stroke={0} />
           </span>
           <div className="col" style={{ lineHeight: 1.1 }}>
-            <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-.02em' }}>Rally</span>
+            <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-.02em' }}>Ardovo</span>
             <span style={{ fontSize: '.68rem', color: 'var(--nav-muted)', letterSpacing: '.04em' }}>REVENUE PLATFORM</span>
           </div>
         </div>
@@ -689,7 +689,7 @@ function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
     <>
       <aside className="rl-rail" style={{ background: 'var(--nav)', color: 'var(--nav-text)' }}>
         <div className="spine-logo-wrap">
-          <NavLink to="/app" end className="spine-logo" aria-label="Rally home" title="Rally">
+          <NavLink to="/app" end className="spine-logo" aria-label="Ardovo home" title="Ardovo">
             <Icon name="zap" size={20} fill="currentColor" stroke={0} />
           </NavLink>
         </div>
@@ -771,7 +771,7 @@ function AdminGate() {
       <span style={{ display: 'inline-grid', placeItems: 'center', width: 64, height: 64, borderRadius: 18, background: 'var(--n-100)', color: 'var(--n-500)' }}><Icon name="lock" size={30} /></span>
       <h1 style={{ fontSize: '1.7rem', margin: '1rem 0 .4rem' }}>Admin is restricted</h1>
       <p className="muted" style={{ fontSize: '1.05rem' }}>The back office is limited to super admins. Sign in with a super-admin account to continue.</p>
-      <p style={{ marginTop: '1.5rem' }}><Link className="btn btn-primary" to="/app">Back to Rally</Link></p>
+      <p style={{ marginTop: '1.5rem' }}><Link className="btn btn-primary" to="/app">Back to Ardovo</Link></p>
     </div>
   );
 }

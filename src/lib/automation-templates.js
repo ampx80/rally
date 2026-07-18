@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTOMATION TEMPLATE LIBRARY  (additive to automations.js)
+// ARDOVO AUTOMATION TEMPLATE LIBRARY  (additive to automations.js)
 //
 // A curated shelf of ~30 ready-to-run automations. Each template
 // is expressed in the EXACT shape the automation engine expects

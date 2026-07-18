@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY GRID  (the Airtable-killer engine, local-first)
+// ARDOVO GRID  (the Airtable-killer engine, local-first)
 // A Base holds Tables; a Table has Fields + Records shown in
 // switchable Views. This module owns the full data model, a real
 // mini formula engine (field refs, + - * /, IF/CONCAT/SUM/ROUND/
@@ -7,7 +7,7 @@
 // linked records, filter (AND/OR groups) / sort (multi) / group-by,
 // CSV import, deterministic rich seed, and a pub/sub store.
 //
-// Pipedrive bolted a weak table onto its CRM. Rally ships a full
+// Pipedrive bolted a weak table onto its CRM. Ardovo ships a full
 // Airtable-class database INSIDE the CRM, linked to real records.
 //
 // TDZ SAFETY: `state = load()` runs at module eval and calls the
@@ -585,7 +585,7 @@ function buildSeed() {
     const done = mkField({ name: 'Published?', type: 'checkbox', width: 120 });
     const brief = mkField({ name: 'Brief', type: 'longText', width: 260 });
 
-    const TITLES = ['The AI-native revenue playbook', 'How Rally kills the CRM tab tax', 'Grid vs Airtable: a teardown', 'Forecasting without the spreadsheet', 'Rook: your revenue operator', 'From lead to cash in one system', '10 automations that print pipeline', 'Why linked records beat lookups', 'The death of the standalone database', 'A field guide to rollups', 'Kanban that actually moves deals', 'Ship your Q3 content in a day'];
+    const TITLES = ['The AI-native revenue playbook', 'How Ardovo kills the CRM tab tax', 'Grid vs Airtable: a teardown', 'Forecasting without the spreadsheet', 'Rook: your revenue operator', 'From lead to cash in one system', '10 automations that print pipeline', 'Why linked records beat lookups', 'The death of the standalone database', 'A field guide to rollups', 'Kanban that actually moves deals', 'Ship your Q3 content in a day'];
     const tbl = { id: nid('tbl'), name: 'Editorial', icon: 'fileText', primaryFieldId: title.id,
       fields: [title, status, type, channels, owner, publish, wordCount, readMins, priority, done, brief], records: [], views: [] };
     tbl.records = TITLES.map((t, i) => rec({

@@ -10,11 +10,11 @@ const entry = {
   slug: 'best-crm-for-real-estate',
   title: 'The Best CRM for Real Estate in 2026',
   h1: 'The Best CRM for Real Estate: A 2026 Buyer and Operator Guide',
-  metaTitle: 'The Best CRM for Real Estate in 2026: Speed-to-Lead Math, Pipeline, and Comparison | Rally',
+  metaTitle: 'The Best CRM for Real Estate in 2026: Speed-to-Lead Math, Pipeline, and Comparison | Ardovo',
   metaDescription: 'A deep, practical guide to real estate CRMs in 2026: speed-to-lead math, transaction pipeline design, a lead-response calculator, a feature comparison, and a rollout plan for agents and teams.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -25,7 +25,7 @@ const entry = {
   heroStats: [
     { value: 5, prefix: '<', suffix: ' min', label: 'The window that decides who wins a new lead' },
     { value: 21, suffix: 'x', label: 'More likely to qualify a lead contacted in 5 min vs 30' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Rally, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Ardovo, every module included' },
   ],
   blocks: [
     {
@@ -86,7 +86,7 @@ const entry = {
       type: 'callout',
       tone: 'info',
       title: 'Speed is a system, not a hustle',
-      body: 'Telling agents to answer faster does not scale past one motivated person. Instant response has to be wired into the CRM: auto-capture the portal lead, fire a text and an email in seconds, ring the on-call agent, and escalate if no one picks up. On Rally, the operator Rook does this the moment a lead lands, day or night.',
+      body: 'Telling agents to answer faster does not scale past one motivated person. Instant response has to be wired into the CRM: auto-capture the portal lead, fire a text and an email in seconds, ring the on-call agent, and escalate if no one picks up. On Ardovo, the operator Rook does this the moment a lead lands, day or night.',
     },
     {
       type: 'heading',
@@ -193,14 +193,14 @@ const entry = {
       title: 'The honest landscape in 2026',
       body: [
         'The real estate CRM market splits into a few camps. Purpose-built agent tools like Follow Up Boss and kvCORE are strong on lead ingestion and are genuinely well liked by many teams. All-in-one marketing platforms bundle IDX websites, ads, and a CRM together, which is convenient but can lock you into their ecosystem. Generic CRMs adapted for real estate are flexible but usually need heavy configuration to handle transactions. And spreadsheets, still the most common CRM in the industry, work until the first busy month.',
-        'Rally sits in a different place: an AI-native platform where the operator, Rook, does the speed-to-lead response, the nurture, and the deadline-watching as work rather than as settings you configure. It is alive with a working pipeline on first load, and it is one flat price across every module. If you already run Follow Up Boss or kvCORE well and your team loves it, there is no urgent reason to switch. If you are stitching a portal, a texting tool, a drip tool, and a transaction tracker together by hand, or living in a spreadsheet, that is exactly the gap Rally is built to close. Always verify current pricing and packaging for any tool before you buy.',
+        'Ardovo sits in a different place: an AI-native platform where the operator, Rook, does the speed-to-lead response, the nurture, and the deadline-watching as work rather than as settings you configure. It is alive with a working pipeline on first load, and it is one flat price across every module. If you already run Follow Up Boss or kvCORE well and your team loves it, there is no urgent reason to switch. If you are stitching a portal, a texting tool, a drip tool, and a transaction tracker together by hand, or living in a spreadsheet, that is exactly the gap Ardovo is built to close. Always verify current pricing and packaging for any tool before you buy.',
       ],
     },
     {
       type: 'comparisonMatrix',
       title: 'Real estate CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Purpose-built agent CRM', 'Generic CRM', 'Spreadsheet'],
+      columns: ['Ardovo', 'Purpose-built agent CRM', 'Generic CRM', 'Spreadsheet'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with a working pipeline on first load', cells: [true, 'partial', false, false] },
@@ -220,7 +220,7 @@ const entry = {
       title: 'Time to first useful pipeline',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: '~10 min', highlight: true },
+          { label: 'Ardovo', value: 10, display: '~10 min', highlight: true },
           { label: 'Purpose-built agent CRM', value: 120, display: '1-3 days' },
           { label: 'Generic CRM', value: 400, display: '2-4 weeks' },
           { label: 'Spreadsheet', value: 20, display: '20 min, then it breaks' },
@@ -271,18 +271,18 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing Saturday portal leads to whoever answered first, because now we always answer first. The system texts them before we even see the notification.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Team lead, residential brokerage',
     },
     {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'What is the best CRM for real estate agents in 2026?', a: 'The best real estate CRM is the one that responds to a new lead in the first five minutes, runs a multi-year nurture on autopilot, and carries a deal through a dated transaction pipeline without missing a contingency. Purpose-built tools like Follow Up Boss and kvCORE do this well for many teams. Rally does all three as AI-native work through its operator Rook, alive on first load, at one flat price. Match the tool to whether you value ecosystem convenience, deep customization, or an operator that just does the work.' },
+        { q: 'What is the best CRM for real estate agents in 2026?', a: 'The best real estate CRM is the one that responds to a new lead in the first five minutes, runs a multi-year nurture on autopilot, and carries a deal through a dated transaction pipeline without missing a contingency. Purpose-built tools like Follow Up Boss and kvCORE do this well for many teams. Ardovo does all three as AI-native work through its operator Rook, alive on first load, at one flat price. Match the tool to whether you value ecosystem convenience, deep customization, or an operator that just does the work.' },
         { q: 'Why does speed to lead matter so much in real estate?', a: 'Buyers who fill out a portal form usually fill out several, so you are racing other agents, not waiting in a queue. Lead-response research shows the odds of qualifying a lead drop sharply after the first few minutes, and a large majority of buyers work with the first agent who responds. Wiring instant, automatic response into your CRM is the cheapest, biggest conversion win available to most teams.' },
-        { q: 'Do I need a real estate specific CRM or a general one?', a: 'A general CRM can work if you invest in configuration, but real estate has three demands that generic tools handle poorly out of the box: bursty portal lead capture, multi-year nurture, and a dated transaction pipeline with contingency deadlines. A tool that handles all three natively, whether a purpose-built agent CRM or an AI-native platform like Rally, saves you from stitching several tools together.' },
-        { q: 'How much should a real estate team pay for a CRM?', a: 'Watch the pricing shape, not just the sticker. Many tools charge per seat plus per lead plus add-ons, so the bill spikes exactly when you grow or run a busy ad month. Rally is one flat price across every module, which keeps the cost predictable from a solo agent to a large team. Always verify current packaging before you commit, since pricing changes.' },
-        { q: 'How long does it take to get a real estate CRM running?', a: 'On a live-on-first-load platform like Rally, you can have a working pipeline in minutes and instant response and nurture on within a day. Purpose-built agent CRMs typically take a few days to configure lead sources and drips. Generic CRMs adapted for real estate can take weeks. Plan a focused one-week rollout: import, instant response, nurture, transactions, then mobile.' },
+        { q: 'Do I need a real estate specific CRM or a general one?', a: 'A general CRM can work if you invest in configuration, but real estate has three demands that generic tools handle poorly out of the box: bursty portal lead capture, multi-year nurture, and a dated transaction pipeline with contingency deadlines. A tool that handles all three natively, whether a purpose-built agent CRM or an AI-native platform like Ardovo, saves you from stitching several tools together.' },
+        { q: 'How much should a real estate team pay for a CRM?', a: 'Watch the pricing shape, not just the sticker. Many tools charge per seat plus per lead plus add-ons, so the bill spikes exactly when you grow or run a busy ad month. Ardovo is one flat price across every module, which keeps the cost predictable from a solo agent to a large team. Always verify current packaging before you commit, since pricing changes.' },
+        { q: 'How long does it take to get a real estate CRM running?', a: 'On a live-on-first-load platform like Ardovo, you can have a working pipeline in minutes and instant response and nurture on within a day. Purpose-built agent CRMs typically take a few days to configure lead sources and drips. Generic CRMs adapted for real estate can take weeks. Plan a focused one-week rollout: import, instant response, nurture, transactions, then mobile.' },
         { q: 'Will switching CRMs disrupt my active deals?', a: 'It does not have to. Migrate your contacts and open deals first, rebuild your core automations, and run the two systems in parallel for a short window if you have live transactions. The real risk is not data loss but agent adoption, so choose a tool your agents will actually update on their phones, and turn on instant response before anything else so the value is obvious in the first week.' },
       ],
     },

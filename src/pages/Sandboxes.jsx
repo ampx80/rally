@@ -1,4 +1,4 @@
-// Sandboxes / test environments. Rally's answer to a HubSpot Enterprise
+// Sandboxes / test environments. Ardovo's answer to a HubSpot Enterprise
 // staple, shipped in the box: spin up a sandbox that copies your pipelines,
 // automations, custom objects, fields and templates, change it without
 // touching live data, review a clean diff versus Production, then promote

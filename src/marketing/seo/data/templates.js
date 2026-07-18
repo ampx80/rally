@@ -295,7 +295,7 @@ const TEMPLATES = [
     faqs: [
       { q: `When is the best time to ask for a referral?`, a: `Right after a customer experiences a win or gives positive feedback. Their enthusiasm is highest, and the ask feels natural rather than transactional.` },
       { q: `How do I make a referral easy to give?`, a: `Be specific about who you want to meet and provide a short, forwardable blurb they can paste without editing. The less work for the referrer, the more referrals you get.` },
-      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Rally links the referred deal back to the introducer automatically.` },
+      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Ardovo links the referred deal back to the introducer automatically.` },
     ],
   },
   {
@@ -687,7 +687,7 @@ const TEMPLATES = [
     faqs: [
       { q: `What counts as a good trigger event for outreach?`, a: `Funding rounds, executive hires, product launches, expansions, new offices, mergers, and hiring sprees. Each predictably creates a problem, which gives your outreach both timeliness and relevance.` },
       { q: `How fast should I act on a trigger event?`, a: `Within days. The value of a trigger decays quickly, and you are competing with every other vendor watching the same signal. Speed plus a relevant angle wins the reply.` },
-      { q: `How do I find trigger events at scale?`, a: `Set up alerts for funding, leadership changes, and launches across your target accounts. In Rally, Rook can surface accounts that just hit a trigger and draft the outreach so you act while it is fresh.` },
+      { q: `How do I find trigger events at scale?`, a: `Set up alerts for funding, leadership changes, and launches across your target accounts. In Ardovo, Rook can surface accounts that just hit a trigger and draft the outreach so you act while it is fresh.` },
     ],
   },
   {
@@ -1715,7 +1715,7 @@ const TEMPLATES = [
       { h: `Example line items`, body: `A simple three-line quote.`, table: {
         columns: [`Item`, `Qty`, `Unit price`, `Line total`],
         rows: [
-          [`Rally platform, annual (per seat)`, `10`, `$1,200`, `$12,000`],
+          [`Ardovo platform, annual (per seat)`, `10`, `$1,200`, `$12,000`],
           [`Onboarding and migration (one-time)`, `1`, `$2,500`, `$2,500`],
           [`Launch discount (15%)`, ``, ``, `-$2,175`],
         ],
@@ -1734,7 +1734,7 @@ const TEMPLATES = [
     faqs: [
       { q: `What is the difference between a quote and a proposal?`, a: `A proposal sells the solution with context and ROI; a quote states the price and terms for what was agreed. The quote is usually the document procurement processes into a purchase order.` },
       { q: `Should a quote have an expiration date?`, a: `Yes. A validity date protects your pricing and creates gentle urgency. State it clearly: "valid through {date}, standard rates apply after," so the buyer knows the window.` },
-      { q: `How do I keep quotes consistent with the contract?`, a: `Generate the quote from the same deal line items that feed the order and contract. Rally does this automatically, so scope and pricing never drift between the quote, the order, and the invoice.` },
+      { q: `How do I keep quotes consistent with the contract?`, a: `Generate the quote from the same deal line items that feed the order and contract. Ardovo does this automatically, so scope and pricing never drift between the quote, the order, and the invoice.` },
     ],
   },
   {
@@ -2846,7 +2846,7 @@ const TEMPLATES = [
     sections: [
       { h: `The formula`, body: `Specific, outcome-led, differentiated.`, bullets: [
         `"For {target customer} who {need}, {product} is a {category} that {key benefit}. Unlike {alternative}, we {differentiator}."`,
-        `Example: "For revenue teams who are tired of CRMs that take months to set up, Rally is an AI-native CRM that is alive with data on day one. Unlike legacy tools, our operator does the work instead of just storing it."`,
+        `Example: "For revenue teams who are tired of CRMs that take months to set up, Ardovo is an AI-native CRM that is alive with data on day one. Unlike legacy tools, our operator does the work instead of just storing it."`,
       ] },
       { h: `The test`, body: `Is it real or a slogan?`, bullets: [
         `Specific: names a real customer and a real outcome, not "the best solution."`,
@@ -3027,22 +3027,22 @@ const TEMPLATES = [
   },
 ];
 
-const RALLY_NOTE = (t) => ({
-  h: `Generate and send this with Rally`,
-  body: `You do not have to start from a blank page. Tell Rook, Rally's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline data, personalizes it for the specific contact or deal, and can send it or attach it to the record in one step. Every template lives in one shared library, so your whole team stays on message and nothing gets rewritten from scratch.`,
+const ARDOVO_NOTE = (t) => ({
+  h: `Generate and send this with Ardovo`,
+  body: `You do not have to start from a blank page. Tell Rook, Ardovo's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline data, personalizes it for the specific contact or deal, and can send it or attach it to the record in one step. Every template lives in one shared library, so your whole team stays on message and nothing gets rewritten from scratch.`,
 });
 
 export default TEMPLATES.map((t) => ({
   slug: t.slug,
   type: `template`,
   title: t.title,
-  metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Rally`,
+  metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Ardovo`,
   metaDescription: t.desc,
   eyebrow: `Templates and scripts`,
   h1: t.h1 || t.title,
   shortAnswer: t.shortAnswer,
   intro: t.intro,
-  sections: [...(t.sections || []), RALLY_NOTE(t)],
+  sections: [...(t.sections || []), ARDOVO_NOTE(t)],
   keyPoints: t.keyPoints,
   faqs: t.faqs,
   published: `2026-07-10`,

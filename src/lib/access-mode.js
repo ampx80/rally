@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ACCESS MODE  (single source of truth for how the app gates)
+// ARDOVO ACCESS MODE  (single source of truth for how the app gates)
 // One module decides whether the product is reached via today's shared
 // access-code gate ('code', the default) or per-user Supabase auth
 // ('supabase'). Everything that gates the app should read from here so the

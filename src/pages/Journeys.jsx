@@ -558,7 +558,7 @@ function NodeConfig({ journey, node, sitting, live, onClose, onDelete, toast }) 
 
 function rookPromptFor(node) {
   const c = node.config || {};
-  if (node.type === 'email') return `Draft a high-converting journey email. Working subject: "${c.subject || ''}". Keep it short, personal, and on Rally brand.`;
+  if (node.type === 'email') return `Draft a high-converting journey email. Working subject: "${c.subject || ''}". Keep it short, personal, and on Ardovo brand.`;
   if (node.type === 'sms') return `Write a 1-2 sentence journey SMS. Current draft: "${c.message || ''}". Friendly, compliant, one clear ask.`;
   return `Configure this Rook decision node. Goal: pick the best next step per contact. Current instruction: "${c.instruction || ''}".`;
 }
@@ -681,7 +681,7 @@ function NodeFields({ node, c, set, toast }) {
       );
     case 'rook':
       return (
-        <Field label="Rook instruction" hint="Rally-only: an AI decision node. Rook reads the contact and picks the best next step.">
+        <Field label="Rook instruction" hint="Ardovo-only: an AI decision node. Rook reads the contact and picks the best next step.">
           <Textarea rows={4} value={c.instruction || ''} onChange={(e) => set({ instruction: e.target.value })} placeholder="Choose the best next step for this contact." />
         </Field>
       );

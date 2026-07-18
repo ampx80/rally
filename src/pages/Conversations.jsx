@@ -1,4 +1,4 @@
-// Conversations - Rally's unified omni-channel inbox. One threaded view per
+// Conversations - Ardovo's unified omni-channel inbox. One threaded view per
 // contact that merges SMS, email, WhatsApp, Instagram DM, Facebook Messenger,
 // Google Business messages, and voice/call transcripts into a single stream.
 // Left: filterable conversation list with channel badges + unread. Center: the
@@ -6,7 +6,7 @@
 // one-click Rook draft. Right: contact context, the live deal, tags, recent
 // activity, and the missed-call text-back automation with a working demo.
 //
-// This is the feature SMBs never leave GoHighLevel for. Rally does it with Rook
+// This is the feature SMBs never leave GoHighLevel for. Ardovo does it with Rook
 // drafting and missed-call text-back built in. Local-first + deterministic seed;
 // live sends are env-gated and dormant offline. No em-dash or en-dash anywhere.
 import React, { useEffect, useMemo, useRef, useState } from 'react';

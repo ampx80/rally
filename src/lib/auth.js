@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTH  (additive real-auth layer over Supabase Auth)
+// ARDOVO AUTH  (additive real-auth layer over Supabase Auth)
 // A thin, no-op-safe wrapper around Supabase Auth. Every function is safe to
 // call whether or not Supabase is configured: when env is absent each call
 // resolves to a clear { error: 'auth-not-configured', message } result instead

@@ -110,7 +110,7 @@ export default function Studio() {
                   <div className="st-doc-cover" style={{ background: `linear-gradient(135deg, ${d.accent}, ${d.accent}bb 75%, ${d.accent}88)` }}>
                     <div className="st-doc-cover-eyebrow">{cover.eyebrow || 'Document'}</div>
                     <div className="st-doc-cover-title">{cover.title || d.name}</div>
-                    <div className="st-doc-cover-mark"><Icon name="zap" size={13} fill="currentColor" stroke={0} /> Rally</div>
+                    <div className="st-doc-cover-mark"><Icon name="zap" size={13} fill="currentColor" stroke={0} /> Ardovo</div>
                   </div>
                   <div className="col gap-1" style={{ padding: '.9rem 1rem 1rem' }}>
                     <div className="row between" style={{ gap: '.5rem' }}>

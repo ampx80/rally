@@ -1,5 +1,5 @@
 /* ============================================================
-   Rally marketing VIZ - scoped styles for the animated diagrams
+   Ardovo marketing VIZ - scoped styles for the animated diagrams
    on Features + Rook pages. Prefixed .vz- so nothing collides
    with the shared .mkt vocabulary. Inherits the --m-* tokens
    (defined on .mkt) via cascade. Transform / opacity / SVG-dash

@@ -1,11 +1,11 @@
 // ============================================================
-// RALLY ADS  (local-first, Supabase-swappable)
+// ARDOVO ADS  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
-// Cross-channel ad manager + reporting. The gap Rally closes vs
+// Cross-channel ad manager + reporting. The gap Ardovo closes vs
 // HubSpot Marketing Hub (parity) and GoHighLevel (a real weakness):
 // owners run paid media in four separate dashboards - Google Ads,
 // Meta (Facebook + Instagram), LinkedIn and TikTok - and none of them
-// know which click became a closed-won deal. Rally unifies spend,
+// know which click became a closed-won deal. Ardovo unifies spend,
 // results and ROAS in one board AND ties every dollar back to the CRM
 // pipeline, so the loop closes from click to closed-won.
 //
@@ -37,7 +37,7 @@ function mulberry32(a) {
 /* ============================================================
    STATIC CONFIG
    ============================================================ */
-// The four ad networks Rally unifies. Color drives every chart + chip so a
+// The four ad networks Ardovo unifies. Color drives every chart + chip so a
 // channel reads the same everywhere; `short` is the square glyph label.
 export const CHANNELS = [
   { id: 'google', label: 'Google Ads', short: 'G', color: '#4285f4', note: 'Search + YouTube' },
@@ -95,7 +95,7 @@ export function pctChange(cur, prev) { if (!prev) return cur ? 100 : 0; return M
 // Hand-authored campaign spine (reads better than random names); metrics are
 // filled deterministically from the channel benchmark rates + fixed-seed noise.
 const CAMPAIGN_SPINE = [
-  { channel: 'google', name: 'Branded Search - Always On', objective: 'conversions', budget: 6500, status: 'active', audience: 'People searching Rally + brand terms' },
+  { channel: 'google', name: 'Branded Search - Always On', objective: 'conversions', budget: 6500, status: 'active', audience: 'People searching Ardovo + brand terms' },
   { channel: 'google', name: 'Non-brand Demand Gen', objective: 'leads', budget: 9000, status: 'active', audience: 'In-market: CRM, sales software, revenue ops' },
   { channel: 'google', name: 'Competitor Conquesting', objective: 'leads', budget: 4200, status: 'active', audience: 'Searchers on rival CRM keywords' },
   { channel: 'google', name: 'YouTube Explainer Pre-roll', objective: 'awareness', budget: 3400, status: 'active', audience: 'Business + productivity viewers, US' },
@@ -113,7 +113,7 @@ const CAMPAIGN_SPINE = [
 const CREATIVE_SPINE = [
   { campaign: 0, headline: 'The CRM that runs your revenue for you', format: 'Responsive search', thumb: '🔍' },
   { campaign: 1, headline: 'Close the loop from click to closed-won', format: 'Responsive search', thumb: '🎯' },
-  { campaign: 3, headline: '60 seconds: how Rally replaces four tools', format: 'Video', thumb: '🎬' },
+  { campaign: 3, headline: '60 seconds: how Ardovo replaces four tools', format: 'Video', thumb: '🎬' },
   { campaign: 4, headline: 'Still thinking it over? See a live pipeline', format: 'Single image', thumb: '🖼️' },
   { campaign: 5, headline: 'Teams like yours grew pipeline 3x', format: 'Carousel', thumb: '🗂️' },
   { campaign: 6, headline: 'Your revenue, on autopilot', format: 'Reel', thumb: '📱' },

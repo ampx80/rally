@@ -9,11 +9,11 @@ const entry = {
   slug: 'best-crm-for-agencies',
   title: 'The Best CRM for Agencies in 2026',
   h1: 'The Best CRM for Agencies: A 2026 Buyer Guide for Client, Retainer, and Project Work',
-  metaTitle: 'The Best CRM for Agencies in 2026: Pipeline, Retainers, White-Label, and a Utilization Calculator | Rally',
+  metaTitle: 'The Best CRM for Agencies in 2026: Pipeline, Retainers, White-Label, and a Utilization Calculator | Ardovo',
   metaDescription: 'How agencies should choose a CRM in 2026: managing new-business pipeline, retainers, project delivery, and white-label sub-accounts, with a live utilization calculator and a fair comparison matrix.',
   eyebrow: 'Agency Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   ],
   heroStats: [
     { value: 30, suffix: '%', label: 'Typical retainer margin lost to unbilled scope creep' },
-    { value: 5, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Rally' },
+    { value: 5, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price across every module' },
   ],
   blocks: [
@@ -159,14 +159,14 @@ const entry = {
       body: [
         'There is no single right answer for every agency, so it helps to be honest about what each option does well. A general sales CRM like HubSpot or Pipedrive runs a beautiful new-business pipeline and has a mature ecosystem, but retainers and delivery live in bolt-on modules or separate tools you stitch together. If new business is your only pain, they are a strong, safe choice.',
         'The agency-specific platforms, most notably GoHighLevel, are purpose-built for white-label and sub-accounts, which is exactly right if reselling software under your brand is part of your model. The trade-off is that they lean toward marketing automation and can feel heavy for a services team that mostly needs clean pipeline plus delivery visibility.',
-        'Project tools like Monday or Asora-style work managers nail delivery and utilization but were never really CRMs, so your new-business pipeline ends up shallow. And the honest baseline, a spreadsheet, is free and flexible and completely fine until the moment two funnels and a dozen retainers make it impossible to trust. Rally sits in the gap: a sales-grade pipeline, retainers and projects as first-class records, sub-accounts, and an AI operator that acts on all of it, at one flat price. Verify current pricing and packaging for any tool before you buy, since these change often.',
+        'Project tools like Monday or Asora-style work managers nail delivery and utilization but were never really CRMs, so your new-business pipeline ends up shallow. And the honest baseline, a spreadsheet, is free and flexible and completely fine until the moment two funnels and a dozen retainers make it impossible to trust. Ardovo sits in the gap: a sales-grade pipeline, retainers and projects as first-class records, sub-accounts, and an AI operator that acts on all of it, at one flat price. Verify current pricing and packaging for any tool before you buy, since these change often.',
       ],
     },
     {
       type: 'comparisonMatrix',
       title: 'Agency CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'General sales CRM', 'Agency platform', 'Spreadsheet'],
+      columns: ['Ardovo', 'General sales CRM', 'Agency platform', 'Spreadsheet'],
       highlightCol: 0,
       rows: [
         { feature: 'Sales-grade new-business pipeline', cells: [true, true, 'partial', 'partial'] },
@@ -187,7 +187,7 @@ const entry = {
       title: 'Time to a live pipeline you can actually use',
       data: {
         bars: [
-          { label: 'Rally', value: 5, display: '5 min', highlight: true },
+          { label: 'Ardovo', value: 5, display: '5 min', highlight: true },
           { label: 'Spreadsheet', value: 30, display: '30 min' },
           { label: 'General CRM', value: 240, display: '2-4 weeks' },
           { label: 'Agency platform', value: 300, display: '3-6 weeks' },
@@ -230,7 +230,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We found two retainers that were quietly losing money every month. Seeing utilization next to the renewal date turned a scope conversation into an upsell instead of a churn.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Managing Partner, digital agency',
     },
     {
@@ -249,8 +249,8 @@ const entry = {
         { q: 'What makes an agency CRM different from a normal sales CRM?', a: 'A normal CRM ends at the closed deal. An agency runs two funnels, new business and retention, and most of the profit is in retention. The right agency CRM holds the pipeline that wins the client, the retainer that bills the client, and the delivery that keeps the client, all on one record, so you can see whether each account is actually profitable.' },
         { q: 'How should we track retainers and utilization?', a: 'Treat each retainer as a first-class record with a monthly fee, a budget of hours, and a renewal date, then log delivered hours against that budget. Utilization is delivered hours divided by budgeted hours. Anything consistently over 100 percent is over-servicing that is eating your margin, and it should trigger a scope conversation before the renewal.' },
         { q: 'Do we need white-label or sub-accounts?', a: 'Only if you serve clients under your own brand or need isolated books per client with shared oversight from the top. If you resell software or run each client as a separate operation, sub-account depth matters a lot. If you just deliver services under your own name, a strong client-record model is usually enough.' },
-        { q: 'Is GoHighLevel or HubSpot better for an agency?', a: 'They solve different problems. GoHighLevel is built for white-label reselling and marketing automation across many sub-accounts. HubSpot is a mature, sales-grade CRM with a deep ecosystem but treats retainers and delivery as add-ons. Pick GoHighLevel if reselling is your model, HubSpot if new business is your main pain, and consider Rally if you want pipeline, retainers, delivery, and sub-accounts unified at one flat price. Verify current pricing and packaging before deciding.' },
-        { q: 'How long does it take to get value from a new CRM?', a: 'On a live-on-first-load platform like Rally, minutes to a working pipeline and about a week to have retainers, delivery, and a blended forecast running. On a general or agency platform that starts blank, expect two to six weeks of configuration before the first useful report, which is real cost for a billable team.' },
+        { q: 'Is GoHighLevel or HubSpot better for an agency?', a: 'They solve different problems. GoHighLevel is built for white-label reselling and marketing automation across many sub-accounts. HubSpot is a mature, sales-grade CRM with a deep ecosystem but treats retainers and delivery as add-ons. Pick GoHighLevel if reselling is your model, HubSpot if new business is your main pain, and consider Ardovo if you want pipeline, retainers, delivery, and sub-accounts unified at one flat price. Verify current pricing and packaging before deciding.' },
+        { q: 'How long does it take to get value from a new CRM?', a: 'On a live-on-first-load platform like Ardovo, minutes to a working pipeline and about a week to have retainers, delivery, and a blended forecast running. On a general or agency platform that starts blank, expect two to six weeks of configuration before the first useful report, which is real cost for a billable team.' },
         { q: 'How do we forecast revenue when it is part recurring and part project?', a: 'Agency forecasting is two numbers added together: your retainer run-rate, which is the sum of monthly recurring fees adjusted for known renewals and churn, plus a weighted project pipeline, which is each open pitch multiplied by its stage probability. A good agency CRM rolls both up in one view so you are not rebuilding it in a spreadsheet every quarter.' },
       ],
     },

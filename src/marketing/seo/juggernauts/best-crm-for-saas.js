@@ -9,11 +9,11 @@ const entry = {
   slug: 'best-crm-for-saas',
   title: 'The Best CRM for SaaS Companies in 2026',
   h1: 'The Best CRM for SaaS Companies: A 2026 Buyer Guide for PLG and Sales-Led Teams',
-  metaTitle: 'The Best CRM for SaaS Companies in 2026: PLG, Renewals, and Expansion | Rally',
+  metaTitle: 'The Best CRM for SaaS Companies in 2026: PLG, Renewals, and Expansion | Ardovo',
   metaDescription: 'A deep guide to choosing a CRM for a B2B SaaS company in 2026: how to model PLG and sales-led motions, wire product usage into the pipeline, forecast NRR and expansion, plus a comparison matrix and expansion calculator.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   ],
   heroStats: [
     { value: 120, suffix: '%', label: 'Net revenue retention that separates good SaaS from great' },
-    { value: 5, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Rally' },
+    { value: 5, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module' },
   ],
   blocks: [
@@ -124,7 +124,7 @@ const entry = {
       title: 'The join that most SaaS teams get wrong',
       body: [
         'The technical heart of a SaaS CRM is the join between an account in the CRM and an account in the product. When those two records are reliably linked, everything becomes possible: usage lands on the right account, PQL scores compute automatically, CS sees health at a glance, and forecasts include expansion. When the link is missing or fragile, teams fall back to spreadsheets and gut feel.',
-        'Historically this meant buying a customer data platform, a reverse-ETL pipeline, and a separate product-analytics tool, then stitching them together. That works, but it is a project measured in quarters and a bill measured in tens of thousands of dollars a year. The modern alternative is a CRM where the account is one object and product signals are native fields on it, so the AI operator can act on usage the same way it acts on a form fill. Rally is built this way: one source of truth, and Rook, the AI operator, reads usage and pipeline together.',
+        'Historically this meant buying a customer data platform, a reverse-ETL pipeline, and a separate product-analytics tool, then stitching them together. That works, but it is a project measured in quarters and a bill measured in tens of thousands of dollars a year. The modern alternative is a CRM where the account is one object and product signals are native fields on it, so the AI operator can act on usage the same way it acts on a form fill. Ardovo is built this way: one source of truth, and Rook, the AI operator, reads usage and pipeline together.',
       ],
     },
     {
@@ -169,7 +169,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'SaaS CRM comparison matrix',
       rowHeader: 'Capability for SaaS',
-      columns: ['Rally', 'Generic CRM', 'CRM plus data stack'],
+      columns: ['Ardovo', 'Generic CRM', 'CRM plus data stack'],
       highlightCol: 0,
       rows: [
         { feature: 'Product usage native on the account', cells: [true, false, 'partial'] },
@@ -199,7 +199,7 @@ const entry = {
       caption: 'How long until product signals actually drive your CRM.',
       data: {
         bars: [
-          { label: 'Rally', value: 5, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 5, display: 'Minutes', highlight: true },
           { label: 'Generic CRM alone', value: 90, display: 'Never (no usage feed)' },
           { label: 'CRM plus data stack', value: 240, display: 'A quarter to wire up' },
         ],
@@ -259,14 +259,14 @@ const entry = {
     {
       type: 'quote',
       text: 'The unlock was seeing product usage sitting right on the account next to the renewal date. Our CS team started expansion conversations weeks earlier because the signal was finally in front of them.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP of Revenue, growth-stage SaaS',
     },
     {
       type: 'richText',
-      title: 'How Rally fits a SaaS revenue team',
+      title: 'How Ardovo fits a SaaS revenue team',
       body: [
-        'Rally is an AI-native CRM and revenue platform built for exactly this shape of business. The account is one object, so product usage, deals, renewals, and expansion opportunities all live together and every report ties out to the same source of truth. It is alive on first load rather than an empty database asking for three weeks of configuration, which matters when you are trying to prove value fast.',
+        'Ardovo is an AI-native CRM and revenue platform built for exactly this shape of business. The account is one object, so product usage, deals, renewals, and expansion opportunities all live together and every report ties out to the same source of truth. It is alive on first load rather than an empty database asking for three weeks of configuration, which matters when you are trying to prove value fast.',
         'Rook, the AI operator, reads usage and pipeline together: scoring product-qualified leads, flagging accounts whose usage is slipping before the renewal, drafting expansion outreach, and rolling up a forecast that includes the base, not just new logos. It ships at one flat price per seat with every module included, so a SaaS company does not assemble a CRM bill plus a data-stack bill to get retention-aware revenue operations. Even if you never buy, the takeaway holds: for SaaS, choose a system where product signals and pipeline are one truth, because that is the join everything else depends on.',
       ],
     },
@@ -275,7 +275,7 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'What makes a CRM good for SaaS specifically?', a: 'Three things a generic CRM usually lacks: product usage native on the account so you can score product-qualified leads and health, renewals and expansion managed as first-class objects rather than an afterthought once a deal closes, and reporting that measures net revenue retention. SaaS makes most of its money from the existing base, so the CRM has to keep working after Closed Won.' },
-        { q: 'How do you connect product usage to the CRM?', a: 'It hinges on a reliable join between a product account and a CRM account, usually keyed on a workspace id, domain, or account id. Traditionally teams built this with a customer data platform and reverse-ETL into the CRM. A SaaS-native CRM like Rally treats the account as one object with usage as native fields, so the join is built in and the AI operator can act on usage directly.' },
+        { q: 'How do you connect product usage to the CRM?', a: 'It hinges on a reliable join between a product account and a CRM account, usually keyed on a workspace id, domain, or account id. Traditionally teams built this with a customer data platform and reverse-ETL into the CRM. A SaaS-native CRM like Ardovo treats the account as one object with usage as native fields, so the join is built in and the AI operator can act on usage directly.' },
         { q: 'What is NRR and what is a good number?', a: 'Net revenue retention takes a cohort of customers, adds expansion, subtracts churn and contraction, and divides by where they started a year ago. Above 100 percent means the base grows even before new sales. Roughly 100 to 110 percent is solid for most B2B SaaS and 120 percent or higher is top-quartile, though healthy benchmarks vary by segment and average contract size.' },
         { q: 'PLG or sales-led: which should the CRM optimize for?', a: 'Most SaaS companies run both, so the CRM should hold them side by side rather than force one funnel. Product-led growth needs usage-based qualification and well-timed human handoffs on product-qualified leads, while sales-led needs traditional pipeline for larger accounts. The expansion motion sits across both. Pick a CRM that models all three as distinct stages.' },
         { q: 'Is Salesforce or HubSpot a bad choice for SaaS?', a: 'Not at all for the right company. A large SaaS business with a dedicated RevOps team can build a very powerful stack on Salesforce or HubSpot plus a customer data platform and product analytics. The trade-off is a multi-tool bill and ongoing engineering and admin work. Below a few hundred employees the maintenance tax usually outweighs the flexibility, and a usage-aware CRM in one flat price reaches the same outcome faster. Verify current pricing and packaging, since tiers change often.' },

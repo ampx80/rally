@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY LEADS DATA  (local-first, deterministic)
+// ARDOVO LEADS DATA  (local-first, deterministic)
 // Owns the inbound/outbound lead book + the AI lead-scoring model.
 // Seeds ~24 believable leads on first run, persists mutations to
 // localStorage so the workspace stays alive across reloads.

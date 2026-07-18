@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SIGN UP - real account creation (email + password + Google).
+// ARDOVO SIGN UP - real account creation (email + password + Google).
 // Additive: renders only if a /signup route is wired in App.jsx. Never touches
 // the coming-soon gate or local-first mode. When Supabase is not configured
 // the form still renders but submitting returns a clear "not configured"
@@ -82,7 +82,7 @@ export default function SignUp() {
 
   return (
     <AuthShell>
-      <AuthHead title={<>Get started with <span className="auth-grad">Rally</span></>} sub="Create your account. Live on first load." />
+      <AuthHead title={<>Get started with <span className="auth-grad">Ardovo</span></>} sub="Create your account. Live on first load." />
 
       {!configured && (
         <p className="auth-note" style={{ marginBottom: 16 }}>
@@ -116,7 +116,7 @@ export default function SignUp() {
       </form>
 
       <p className="auth-note center" style={{ marginTop: 14 }}>
-        By creating an account you agree to Rally's terms and privacy policy.
+        By creating an account you agree to Ardovo's terms and privacy policy.
       </p>
 
       <div className="auth-foot">

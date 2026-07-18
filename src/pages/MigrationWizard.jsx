@@ -1,7 +1,7 @@
-// MigrationWizard - Rally's talk-through data migration flow. Replaces the
+// MigrationWizard - Ardovo's talk-through data migration flow. Replaces the
 // months-long conversion project with four stages the customer never runs
 // alone: Upload (Development) -> Review + cleanse (Testing) -> Stage -> Push
-// (Production). Rally analyzes the export for unmapped columns, empty required
+// (Production). Ardovo analyzes the export for unmapped columns, empty required
 // fields, jammed data, and duplicates, and the customer fixes it all in-app
 // before anything touches the live book. A migration assistant coaches the
 // whole way. Powered by src/lib/migration.js. NO em-dash / en-dash.
@@ -48,7 +48,7 @@ export default function MigrationWizard() {
     setParsed(p);
     setMapping(autoMap(p.headers, target));
     setStage('review');
-    toast(`Loaded ${p.rows.length} rows. Rally analyzed them for you.`);
+    toast(`Loaded ${p.rows.length} rows. Ardovo analyzed them for you.`);
   };
 
   const onFile = (e) => {
@@ -86,7 +86,7 @@ export default function MigrationWizard() {
     <div className="fade-up">
       <SectionHeader
         title="Migration wizard"
-        sub="Bring your data into Rally without a year-long project. Upload once, cleanse it in the app, stage it, then push to production. You never touch a spreadsheet alone."
+        sub="Bring your data into Ardovo without a year-long project. Upload once, cleanse it in the app, stage it, then push to production. You never touch a spreadsheet alone."
         action={stage !== 'upload' ? <Button variant="ghost" size="sm" onClick={reset}><Icon name="rotateCcw" size={15} /> Start over</Button> : null}
       />
 
@@ -158,7 +158,7 @@ export default function MigrationWizard() {
 
             {report.jammed.length > 0 && (
               <Card>
-                <div className="fw-6" style={{ marginBottom: '.6rem', color: 'var(--ink)' }}>What Rally found</div>
+                <div className="fw-6" style={{ marginBottom: '.6rem', color: 'var(--ink)' }}>What Ardovo found</div>
                 <div className="col gap-2">
                   {report.jammed.map((j, i) => (
                     <div key={i} className="row gap-2" style={{ alignItems: 'center' }}>
@@ -222,7 +222,7 @@ export default function MigrationWizard() {
           <span style={{ width: 68, height: 68, borderRadius: 20, display: 'grid', placeItems: 'center', background: 'var(--ok-bg)', color: 'var(--ok)' }}><Icon name="check" size={32} /></span>
           <h2 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--ink)' }}>Migration complete</h2>
           <p className="muted" style={{ maxWidth: 440, margin: 0 }}>
-            {result.created} {TARGETS[target].label.toLowerCase()} are now live in your Rally book{result.failed ? `, ${result.failed} could not be created` : ''}. They are real records you can open, edit, and work right now.
+            {result.created} {TARGETS[target].label.toLowerCase()} are now live in your Ardovo book{result.failed ? `, ${result.failed} could not be created` : ''}. They are real records you can open, edit, and work right now.
           </p>
           <div className="row gap-2" style={{ marginTop: '.5rem' }}>
             <Button variant="primary" onClick={() => nav(target === 'contact' ? '/contacts' : '/companies')}><Icon name="chevronRight" size={16} /> Open {TARGETS[target].label}</Button>
@@ -240,7 +240,7 @@ function Assistant({ stage, report, staged, target }) {
   const lines = useMemo(() => {
     if (stage === 'upload') return [
       'Paste a CSV export or upload a file. Even a messy one - that is the point.',
-      'Not sure? Load the messy sample and watch how Rally cleans it up.',
+      'Not sure? Load the messy sample and watch how Ardovo cleans it up.',
       'I will map your columns automatically and flag anything that needs a human.',
     ];
     if (stage === 'review' && report) {
@@ -261,7 +261,7 @@ function Assistant({ stage, report, staged, target }) {
     return [];
   }, [stage, report, staged, target]);
 
-  const ask = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true, prompt: 'I am migrating data into Rally. Walk me through mapping columns and cleaning up duplicates.' } }));
+  const ask = () => window.dispatchEvent(new CustomEvent('rally:rook', { detail: { open: true, prompt: 'I am migrating data into Ardovo. Walk me through mapping columns and cleaning up duplicates.' } }));
 
   return (
     <Card className="mw-assistant col" style={{ gap: '.7rem' }}>

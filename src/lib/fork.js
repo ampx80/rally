@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PIPELINE FORK  -  git for your entire pipeline
+// ARDOVO PIPELINE FORK  -  git for your entire pipeline
 // ------------------------------------------------------------
 // A branch is a structuredClone of the whole live store (a real,
 // mutable digital twin of the book of business). You make speculative

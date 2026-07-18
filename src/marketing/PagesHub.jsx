@@ -28,7 +28,7 @@ const MARKETING_LINKS = [
 
 const GROUP_META = {
   Compare:   { icon: 'command',  blurb: 'Comparisons, alternatives, and researched best-of rankings.' },
-  Solutions: { icon: 'target',   blurb: 'Rally for your industry, team, use case, and stack.' },
+  Solutions: { icon: 'target',   blurb: 'Ardovo for your industry, team, use case, and stack.' },
   Learn:     { icon: 'fileText', blurb: 'Definitions, playbooks, and ready-to-use templates.' },
 };
 
@@ -91,11 +91,11 @@ export default function PagesHub() {
 
   const trail = [{ name: 'Home', href: '/' }, { name: 'Pages' }];
   useSeoHead({
-    title: `All pages - ${s.total}+ CRM guides, comparisons, and rankings | Rally`,
+    title: `All pages - ${s.total}+ CRM guides, comparisons, and rankings | Ardovo`,
     description: `Browse ${s.total}+ pages on CRM, sales, and revenue operations: comparisons, alternatives, best-of rankings, industry guides, definitions, and playbooks.`,
     canonical: `${SITE}/pages`,
     jsonLd: [orgLd(), breadcrumbLd(trail), {
-      '@context': 'https://schema.org', '@type': 'WebSite', name: 'Rally', url: SITE,
+      '@context': 'https://schema.org', '@type': 'WebSite', name: 'Ardovo', url: SITE,
       potentialAction: { '@type': 'SearchAction', target: `${SITE}/pages?q={query}`, 'query-input': 'required name=query' },
     }],
   });
@@ -107,7 +107,7 @@ export default function PagesHub() {
         <Constellation />
         <div className="mkt-wrap" style={{ position: 'relative', zIndex: 1 }}>
           <Reveal>
-            <span className="mkt-pill" style={{ marginBottom: 22 }}><span className="mkt-dot" /> The Rally library</span>
+            <span className="mkt-pill" style={{ marginBottom: 22 }}><span className="mkt-dot" /> The Ardovo library</span>
             <h1 className="mkt-h1" style={{ maxWidth: 900, margin: '0 auto', letterSpacing: '-.03em', lineHeight: 1.05 }}>
               Everything about running <span className="mkt-grad m-shine">revenue</span>, in one place
             </h1>

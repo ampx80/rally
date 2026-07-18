@@ -106,7 +106,7 @@ export default function Customers() {
               Teams that run revenue <span className="mkt-grad m-shine">without the admin tax.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 660, margin: '24px auto 0' }}>
-              From first-time founders to mid-market sales orgs, teams switch to Rally to trade eleven tabs
+              From first-time founders to mid-market sales orgs, teams switch to Ardovo to trade eleven tabs
               and a CRM admin for one platform and one operator.
             </p>
             <div className="co-hero-rail">
@@ -121,7 +121,7 @@ export default function Customers() {
       <section className="mkt-section-sm" style={{ paddingTop: 8 }}>
         <div className="mkt-wrap">
           <Reveal>
-            <p className="mkt-center mkt-eyebrow" style={{ marginBottom: 26 }}>The kind of teams running on Rally</p>
+            <p className="mkt-center mkt-eyebrow" style={{ marginBottom: 26 }}>The kind of teams running on Ardovo</p>
           </Reveal>
           <Reveal delay={80}>
             <div className="co-wall">
@@ -135,7 +135,7 @@ export default function Customers() {
           </Reveal>
           <Reveal delay={140}>
             <p className="mkt-center mkt-dim" style={{ marginTop: 22, fontSize: 13.5 }}>
-              Representative company names shown to illustrate segments. Rally is a new platform; early teams are onboarding now.
+              Representative company names shown to illustrate segments. Ardovo is a new platform; early teams are onboarding now.
             </p>
           </Reveal>
         </div>
@@ -226,7 +226,7 @@ export default function Customers() {
         </div>
       </section>
 
-      <CtaBand title="Be the next team that stopped feeding a CRM." sub="Run your revenue on Rally. Ask Rook and watch it move." />
+      <CtaBand title="Be the next team that stopped feeding a CRM." sub="Run your revenue on Ardovo. Ask Rook and watch it move." />
     </>
   );
 }

@@ -1,13 +1,13 @@
 // ============================================================
-// RALLY DATASYNC - Operations Hub (local-first, Supabase-swappable)
+// ARDOVO DATASYNC - Operations Hub (local-first, Supabase-swappable)
 // ------------------------------------------------------------
 // The data-operations layer HubSpot charges Ops Hub money for, bundled
-// into Rally. Three jobs, one promise: keep the book of business clean,
+// into Ardovo. Three jobs, one promise: keep the book of business clean,
 // synced, and trustworthy enough to be the system of record.
 //   1. Sync jobs   - two-way connections to a warehouse, Sheets, an ERP
 //                    or a legacy CRM. Direction, cadence, records synced,
 //                    health, and a sync-now action.
-//   2. Field maps  - map an external column to a Rally field with a
+//   2. Field maps  - map an external column to a Ardovo field with a
 //                    transform hint. Add, remove, toggle, retarget.
 //   3. Data health - completeness by object, duplicate rate (tied to the
 //                    Duplicates tool), formatting issues, stale records,
@@ -38,7 +38,7 @@ function mulberry32(a) {
 /* ============================================================
    STATIC CONFIG
    ============================================================ */
-// External systems Rally can sync with. Color + short drive every chip so
+// External systems Ardovo can sync with. Color + short drive every chip so
 // a system reads the same everywhere.
 export const SYSTEMS = [
   { id: 'snowflake', label: 'Snowflake', kind: 'Data warehouse', color: '#2aa9e0', short: 'SN' },
@@ -50,10 +50,10 @@ export const SYSTEMS = [
 ];
 export const systemById = (id) => SYSTEMS.find(s => s.id === id) || SYSTEMS[0];
 
-// Sync direction relative to Rally. Icons reuse the existing set.
+// Sync direction relative to Ardovo. Icons reuse the existing set.
 export const DIRECTIONS = {
-  in: { id: 'in', label: 'Inbound', desc: 'Into Rally', icon: 'arrowLeft', tone: 'info' },
-  out: { id: 'out', label: 'Outbound', desc: 'Out of Rally', icon: 'arrowRight', tone: 'default' },
+  in: { id: 'in', label: 'Inbound', desc: 'Into Ardovo', icon: 'arrowLeft', tone: 'info' },
+  out: { id: 'out', label: 'Outbound', desc: 'Out of Ardovo', icon: 'arrowRight', tone: 'default' },
   two: { id: 'two', label: 'Two-way', desc: 'Bidirectional', icon: 'swap', tone: 'accent' },
 };
 export const directionById = (id) => DIRECTIONS[id] || DIRECTIONS.two;
@@ -65,7 +65,7 @@ export const SYNC_STATUS = {
 };
 export const statusMeta = (id) => SYNC_STATUS[id] || SYNC_STATUS.healthy;
 
-// Rally objects the sync + health engine understands.
+// Ardovo objects the sync + health engine understands.
 export const OBJECTS = [
   { id: 'contacts', label: 'Contacts', icon: 'users' },
   { id: 'companies', label: 'Companies', icon: 'building' },
@@ -74,8 +74,8 @@ export const OBJECTS = [
 ];
 export const objectById = (id) => OBJECTS.find(o => o.id === id) || OBJECTS[0];
 
-// Rally target fields per object - the destinations offered in the map editor.
-export const RALLY_FIELDS = {
+// Ardovo target fields per object - the destinations offered in the map editor.
+export const ARDOVO_FIELDS = {
   contacts: ['firstName', 'lastName', 'email', 'phone', 'title', 'companyId', 'lifecycleStage', 'ownerId'],
   companies: ['name', 'domain', 'industry', 'size', 'location', 'health'],
   deals: ['name', 'value', 'stage', 'probability', 'closeDate', 'ownerId'],
@@ -87,7 +87,7 @@ export const TRANSFORMS = [
   'Parse date', 'Concat name', 'Currency to number', 'Normalize phone', 'Dedupe key',
 ];
 
-// Suggested transform for a Rally field (deterministic, no fabrication).
+// Suggested transform for a Ardovo field (deterministic, no fabrication).
 function transformFor(field) {
   if (field === 'email') return 'Lowercase';
   if (field === 'phone') return 'Normalize phone';
@@ -98,7 +98,7 @@ function transformFor(field) {
   return 'Direct copy';
 }
 
-// Plausible external column names per Rally field.
+// Plausible external column names per Ardovo field.
 const SRC_NAMES = {
   firstName: ['first_name', 'FirstName', 'fname'],
   lastName: ['last_name', 'LastName', 'lname'],
@@ -174,7 +174,7 @@ function buildSeed() {
     const list = [];
     let mi = 0;
     for (const obj of j.objects) {
-      for (const field of RALLY_FIELDS[obj]) {
+      for (const field of ARDOVO_FIELDS[obj]) {
         const keyField = ['email', 'name', 'value', 'firstName', 'subject', 'type'].includes(field);
         if (!keyField && rnd() < 0.26) continue;   // not every field mapped, for realism
         mi++;
@@ -197,7 +197,7 @@ function buildSeed() {
   const objHealth = OBJECTS.map((o) => {
     const total = range(700, 4200);
     const pct = range(72, 98);
-    const fields = RALLY_FIELDS[o.id];
+    const fields = ARDOVO_FIELDS[o.id];
     const shuffled = [...fields].sort(() => rnd() - 0.5);
     const missing = shuffled.slice(0, range(2, 3)).map((f) => ({ field: f, pct: range(4, 26) }));
     return { object: o.id, label: o.label, icon: o.icon, total, pct, filled: Math.round(total * pct / 100), missing };
@@ -343,7 +343,7 @@ export function toggleSyncPause(id) {
 // SUPABASE: from('rally_field_maps').insert(row)
 export function addMapping(syncId, { object, source, target, transform }) {
   if (!source || !source.trim()) return { error: 'source', message: 'Source field is required.' };
-  if (!target) return { error: 'target', message: 'Pick a Rally field to map into.' };
+  if (!target) return { error: 'target', message: 'Pick a Ardovo field to map into.' };
   const list = state.mappings[syncId] || [];
   const m = { id: newId('map'), object: object || 'contacts', source: source.trim(), target, transform: transform || 'Direct copy', active: true, coverage: 100 };
   const mappings = { ...state.mappings, [syncId]: [...list, m] };

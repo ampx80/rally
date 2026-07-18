@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FORGOT PASSWORD - request a reset link.
+// ARDOVO FORGOT PASSWORD - request a reset link.
 // Additive: renders only if a /forgot route is wired in App.jsx. Never touches
 // the coming-soon gate or local-first mode. When Supabase is not configured
 // the form still renders but submitting returns a clear "not configured"

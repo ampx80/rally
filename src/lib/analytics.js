@@ -1,4 +1,4 @@
-// Rally product analytics - privacy first.
+// Ardovo product analytics - privacy first.
 //
 // track(event, props) records a product event; page(path) records a view. Both
 // are buffered and flushed in batches to /api/telemetry when analytics is

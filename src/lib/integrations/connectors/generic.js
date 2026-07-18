@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY GENERIC OUTBOUND CONNECTORS
+// ARDOVO GENERIC OUTBOUND CONNECTORS
 // The universal escape hatches every CRM needs, built on the same
 // Connector base contract as the sibling-app connectors:
 //   - SlackConnector   post alerts to a channel (incoming webhook)
@@ -91,7 +91,7 @@ export class GmailConnector extends Connector {
     return { imported: 0, linked: 0, unlinked: 0, note: 'Gmail sync runs server-side; no client-side pull yet.' };
   }
 
-  // Normalize one inbound email into a Rally activity draft, stamped with
+  // Normalize one inbound email into a Ardovo activity draft, stamped with
   // provenance so the timeline renders a "via Gmail" chip + open-in-Gmail link.
   mapRecord(email = {}) {
     return {

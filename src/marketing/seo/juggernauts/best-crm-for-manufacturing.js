@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-manufacturing',
   title: 'The Best CRM for Manufacturing in 2026',
   h1: 'The Best CRM for Manufacturing: A 2026 Buyer Guide',
-  metaTitle: 'The Best CRM for Manufacturing in 2026: CPQ, ERP Integration, and a Quote-Cycle Calculator | Rally',
+  metaTitle: 'The Best CRM for Manufacturing in 2026: CPQ, ERP Integration, and a Quote-Cycle Calculator | Ardovo',
   metaDescription: 'A deep guide to choosing a CRM for manufacturers in 2026: long B2B sales cycles, quoting and CPQ, distributor and rep networks, ERP integration, a quote-cycle calculator, and a comparison matrix.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 6.2, format: 'decimal:1', suffix: ' mo', label: 'Typical B2B manufacturing sales cycle, quote to close' },
     { value: 35, suffix: '%', label: 'Of industrial quotes that never get a timely follow-up' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, CPQ and channel included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, CPQ and channel included' },
   ],
   blocks: [
     {
@@ -155,7 +155,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Manufacturing CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet plus email', 'Legacy CRM plus add-ons'],
+      columns: ['Ardovo', 'Spreadsheet plus email', 'Legacy CRM plus add-ons'],
       highlightCol: 0,
       rows: [
         { feature: 'Long-cycle stages with aging', cells: [true, 'partial', true] },
@@ -176,7 +176,7 @@ const entry = {
       title: 'Time to a working, data-filled pipeline',
       data: {
         bars: [
-          { label: 'Rally', value: 8, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 8, display: 'Minutes', highlight: true },
           { label: 'Spreadsheet plus email', value: 30, display: 'A day of setup' },
           { label: 'Legacy CRM plus CPQ', value: 300, display: 'Months of config' },
         ],
@@ -231,16 +231,16 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing quotes in inboxes. The system chases every one on its own clock, and our win rate on quoted work climbed because the buyer hears from us before the competition does.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, industrial components manufacturer',
     },
     {
       type: 'richText',
-      title: 'The Rally take: one alive platform instead of a stack of add-ons',
+      title: 'The Ardovo take: one alive platform instead of a stack of add-ons',
       body: [
-        'Rally is an AI-native revenue platform that is alive on first load, so a manufacturer sees a working pipeline with stages, quotes, and channel structure immediately rather than a blank database asking for three months of configuration. CPQ, channel, and forecasting are part of the platform, not separately licensed modules, which is why the pricing stays one flat price per seat instead of climbing every time you add a capability.',
+        'Ardovo is an AI-native revenue platform that is alive on first load, so a manufacturer sees a working pipeline with stages, quotes, and channel structure immediately rather than a blank database asking for three months of configuration. CPQ, channel, and forecasting are part of the platform, not separately licensed modules, which is why the pricing stays one flat price per seat instead of climbing every time you add a capability.',
         'Rook, the built-in AI operator, is what changes the day-to-day math for a manufacturing team. It enriches new RFQs, flags quotes about to expire, chases silent samples, and drafts the follow-up so the deals you already paid to engineer do not go quiet. For a business where a single quote can represent weeks of effort, an operator that guarantees follow-up is worth more than any dashboard.',
-        'None of this requires you to abandon your ERP. Rally is designed to sit in front of NetSuite, SAP, Epicor, Infor, or a homegrown system, reading the numbers that should stay in the back office and writing back the wins. The CRM is where revenue is created and forecast, the ERP is where it is fulfilled, and the boundary between them stays clean.',
+        'None of this requires you to abandon your ERP. Ardovo is designed to sit in front of NetSuite, SAP, Epicor, Infor, or a homegrown system, reading the numbers that should stay in the back office and writing back the wins. The CRM is where revenue is created and forecast, the ERP is where it is fulfilled, and the boundary between them stays clean.',
       ],
     },
     {
@@ -248,11 +248,11 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Do I need CPQ, or is a CRM with a quote field enough?', a: 'If your products are configurable, priced against multiple customer or distributor price books, or subject to volume breaks and margin approvals, you need real CPQ. A single price field cannot handle revisions, approvals, or valid configurations, and errors on complex quotes cost you deals. A CRM with built-in or tightly integrated CPQ keeps the sales engineer from leaving the deal to build the quote.' },
-        { q: 'How should a manufacturing CRM integrate with our ERP?', a: 'Draw a clear boundary. The ERP owns parts, price books, inventory, and fulfilled orders. The CRM owns leads, opportunities, quotes, and forecasts. Read the back-office numbers into the CRM so quotes are accurate, and write won deals back to the ERP as orders. Assign one owning system per field so nothing goes stale and nobody rekeys. Rally is built to sit on top of NetSuite, SAP, Epicor, Infor, and homegrown systems.' },
+        { q: 'How should a manufacturing CRM integrate with our ERP?', a: 'Draw a clear boundary. The ERP owns parts, price books, inventory, and fulfilled orders. The CRM owns leads, opportunities, quotes, and forecasts. Read the back-office numbers into the CRM so quotes are accurate, and write won deals back to the ERP as orders. Assign one owning system per field so nothing goes stale and nobody rekeys. Ardovo is built to sit on top of NetSuite, SAP, Epicor, Infor, and homegrown systems.' },
         { q: 'Can a CRM handle distributor and manufacturer rep networks?', a: 'A good one models distributors, rep agencies, and end users as distinct entities with distinct relationships. That lets you attribute end-user demand to the rep who created it even when the order lands through a distributor, pay commissions fairly, and plan territory. Generic CRMs that only understand a single account per deal cannot represent a multi-tier channel accurately.' },
         { q: 'Our sales cycle is six months or longer. Does a CRM still help?', a: 'It helps most in long cycles, because the failure mode is silence. Over six months a quote can sit untouched, a sample can ship with no follow-up, and a deal can stall in engineering approval without anyone noticing. Stage aging and automatic follow-up are exactly what keep long deals moving, and an AI operator that chases them removes the human forgetfulness that kills industrial pipeline.' },
-        { q: 'How long does implementation really take?', a: 'It depends entirely on the platform. A legacy CRM stitched together with separate CPQ, channel, and integration modules commonly runs months. A platform that is alive on first load, like Rally, has you working open quotes in minutes and a trustworthy forecast within a few weeks, with the ERP boundary wired in between. Always confirm the vendor timeline against a reference customer of similar complexity.' },
-        { q: 'How much should a manufacturing CRM cost?', a: 'Watch the packaging as closely as the sticker price. Legacy vendors often quote a low per-seat CRM number, then add CPQ, a channel module, and an integration connector as separate line items until the real cost multiplies. Rally is one flat price per seat with CPQ, channel, and forecasting included. Whatever you choose, price the fully configured system you will actually run, and verify current pricing and packaging with each vendor.' },
+        { q: 'How long does implementation really take?', a: 'It depends entirely on the platform. A legacy CRM stitched together with separate CPQ, channel, and integration modules commonly runs months. A platform that is alive on first load, like Ardovo, has you working open quotes in minutes and a trustworthy forecast within a few weeks, with the ERP boundary wired in between. Always confirm the vendor timeline against a reference customer of similar complexity.' },
+        { q: 'How much should a manufacturing CRM cost?', a: 'Watch the packaging as closely as the sticker price. Legacy vendors often quote a low per-seat CRM number, then add CPQ, a channel module, and an integration connector as separate line items until the real cost multiplies. Ardovo is one flat price per seat with CPQ, channel, and forecasting included. Whatever you choose, price the fully configured system you will actually run, and verify current pricing and packaging with each vendor.' },
       ],
     },
   ],

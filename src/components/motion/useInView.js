@@ -1,4 +1,4 @@
-// Shared in-view hook for the Rally in-app motion system, built to NEVER
+// Shared in-view hook for the Ardovo in-app motion system, built to NEVER
 // leave content hidden. Three layers, in order:
 //   1. A synchronous first-paint bounding-rect check so anything already on
 //      (or near) screen reveals immediately, with no wait for the observer.

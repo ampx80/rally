@@ -6,13 +6,13 @@
 // what it needs; the Master deck shows the whole company.
 //
 // Two render modes, one component:
-//   - IN-APP  (default): rendered inside the Rally product shell at
+//   - IN-APP  (default): rendered inside the Ardovo product shell at
 //     /liftoff/deck/:role. Module cards deep-link to real routes,
 //     the role switcher navigates in-app, Rook handoff is live.
 //   - EMBED   (standalone): rendered chrome-free for an <iframe> on
 //     the marketing site at /deck/:role (or with the `embed` prop /
 //     ?embed=1). Self-contained scoped <style> with token fallbacks
-//     (light + dark), a "Powered by Rally" footer, zero login.
+//     (light + dark), a "Powered by Ardovo" footer, zero login.
 //
 // Resolution never 404s to a blank page: getDeck(role) first, then
 // the seeded DEMO deck for that role, then the Master deck. The
@@ -408,7 +408,7 @@ export default function LiftoffDeck({ embed: embedProp = false, standalone = fal
       {embed && (
         <footer className="lo-embed-footer">
           <span className="lo-embed-mark"><Icon name="zap" size={14} fill="currentColor" stroke={0} /></span>
-          <span>Powered by <strong>Rally</strong></span>
+          <span>Powered by <strong>Ardovo</strong></span>
           <span className="lo-embed-sep" aria-hidden>{'·'}</span>
           <span className="lo-embed-tag">Liftoff builds a deck like this for every layer of your company</span>
         </footer>

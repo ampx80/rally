@@ -9,21 +9,21 @@ const entry = {
   slug: 'salesforce-alternative',
   title: 'The Best Salesforce Alternative in 2026',
   h1: 'The Best Salesforce Alternative in 2026: A Fair Comparison and TCO Breakdown',
-  metaTitle: 'The Best Salesforce Alternative in 2026: TCO Calculator, Comparison, and Migration Plan | Rally',
+  metaTitle: 'The Best Salesforce Alternative in 2026: TCO Calculator, Comparison, and Migration Plan | Ardovo',
   metaDescription: 'A fair, practical guide to the best Salesforce alternative in 2026. Compare capabilities and true total cost of ownership, model your own savings with a live calculator, and see a realistic migration timeline.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'The best Salesforce alternative in 2026 is the one that gives your revenue team the same power without the admin tax, the per-seat sprawl, and the multi-month rollout. Salesforce is a capable, deeply extensible platform, and for the largest, most customized enterprises it is still a defensible choice. But for the vast majority of teams that adopted it because it was the default, the real cost is not the list price. It is the certified admin, the paid add-ons, the integration glue, and the quarter of setup before anyone sees a working pipeline.',
-    'This guide gives you a fair, apples-to-apples way to decide. It compares capability and true total cost of ownership, hands you a calculator to model your own numbers, and lays out a realistic migration timeline so switching feels like a project you can finish, not a cliff you are afraid to jump off. Rally is our answer to that problem, but the frameworks here work no matter which alternative you land on.',
+    'This guide gives you a fair, apples-to-apples way to decide. It compares capability and true total cost of ownership, hands you a calculator to model your own numbers, and lays out a realistic migration timeline so switching feels like a project you can finish, not a cliff you are afraid to jump off. Ardovo is our answer to that problem, but the frameworks here work no matter which alternative you land on.',
   ],
   heroStats: [
     { value: 3, prefix: '~', suffix: 'x', label: 'Typical admin-plus-add-on multiplier over base Salesforce license cost' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: ' flat price', format: 'number', label: 'Every module, every seat, no add-on menu' },
   ],
   blocks: [
@@ -76,7 +76,7 @@ const entry = {
           { label: 'Base seat licenses', value: 18, display: '$18k' },
           { label: 'Admin salary (allocated)', value: 40, display: '$40k' },
           { label: 'Implementation (year 1)', value: 15, display: '$15k' },
-          { label: 'Rally, all-in', value: 12, display: '$12k', highlight: true },
+          { label: 'Ardovo, all-in', value: 12, display: '$12k', highlight: true },
         ],
       },
     },
@@ -114,7 +114,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Salesforce alternative comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Salesforce', 'Lightweight CRM'],
+      columns: ['Ardovo', 'Salesforce', 'Lightweight CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Live, populated pipeline on first load', cells: [true, false, 'partial'] },
@@ -133,7 +133,7 @@ const entry = {
       type: 'diagram',
       variant: 'architecture',
       title: 'Two philosophies, drawn out',
-      caption: 'Salesforce is a platform you assemble. Rally is an operator that arrives assembled and acts on one source of truth.',
+      caption: 'Salesforce is a platform you assemble. Ardovo is an operator that arrives assembled and acts on one source of truth.',
       data: {
         layers: [
           { label: 'Capture', nodes: ['Forms', 'Inbox', 'Calendar', 'API'] },
@@ -148,7 +148,7 @@ const entry = {
       title: 'What you keep, and what you give up',
       body: [
         'A fair alternative pitch has to be honest about the trade. When you leave Salesforce for a leaner platform, you give up two real things: the deepest layer of custom object modeling that a large enterprise sometimes needs, and the sheer breadth of a marketplace with thousands of niche apps. If your business runs on a Salesforce configuration that took years and a team to build, that switching cost is genuine and you should weigh it carefully.',
-        'What you gain is everything the admin tax was buying you at a premium. The pipeline is alive on first load instead of an empty schema. Changes happen in the flow of work instead of a ticket queue. Forecasting, routing, enrichment, and follow-up drafting are included rather than metered. And with Rally specifically, the platform ships with Rook, an AI operator that does the work a Salesforce admin plus a sales-ops analyst would otherwise do by hand.',
+        'What you gain is everything the admin tax was buying you at a premium. The pipeline is alive on first load instead of an empty schema. Changes happen in the flow of work instead of a ticket queue. Forecasting, routing, enrichment, and follow-up drafting are included rather than metered. And with Ardovo specifically, the platform ships with Rook, an AI operator that does the work a Salesforce admin plus a sales-ops analyst would otherwise do by hand.',
         'The honest summary: if you use ten percent of Salesforce and pay for a hundred percent, an alternative is a clear win. If you genuinely use the platform depth, stay, and use these frameworks to negotiate your renewal instead.',
       ],
     },
@@ -236,7 +236,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We were paying for a platform team we did not have. Moving off took two weeks, the forecast is finally trusted, and nobody files admin tickets anymore.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Revenue, mid-market SaaS',
     },
     {
@@ -244,7 +244,7 @@ const entry = {
       title: 'So what is the best Salesforce alternative in 2026?',
       body: [
         'It depends on the shape of your team, and any honest guide will say so. If you are a very small team that needs contacts and a simple pipeline, a lightweight CRM is plenty. If you are a large enterprise running mission-critical, deeply customized processes on the Salesforce platform, the switching cost may outweigh the savings, and your best move is a hard renewal negotiation armed with the TCO math above.',
-        'For everyone in the wide middle, the growing revenue teams paying enterprise-platform prices for a fraction of the platform, the best alternative is the one that collapses the three hidden costs. That is the case we built Rally to make: a live-on-first-load, one-flat-price, AI-native platform where Rook does the administration and sales-ops work by default, so a working rep, not a certified admin, keeps the system healthy. Model your own numbers in the calculator, weigh the trade-offs fairly, and pick the tool that fits the team you actually have.',
+        'For everyone in the wide middle, the growing revenue teams paying enterprise-platform prices for a fraction of the platform, the best alternative is the one that collapses the three hidden costs. That is the case we built Ardovo to make: a live-on-first-load, one-flat-price, AI-native platform where Rook does the administration and sales-ops work by default, so a working rep, not a certified admin, keeps the system healthy. Model your own numbers in the calculator, weigh the trade-offs fairly, and pick the tool that fits the team you actually have.',
       ],
     },
     {
@@ -254,9 +254,9 @@ const entry = {
         { q: 'Is Salesforce actually worth leaving?', a: 'For deeply customized enterprises that use the platform breadth, often no. For the many teams that adopted Salesforce as the default and use a fraction of it while paying for admins, add-ons, and long rollouts, an alternative usually lowers total cost of ownership sharply. The calculator on this page is designed to give you the honest answer for your own numbers.' },
         { q: 'What is the true total cost of Salesforce?', a: 'Well beyond the per-seat sticker. Add the certified administrator salary, the stack of paid add-on modules like advanced forecasting and CPQ, and the year-one implementation effort, and the effective cost per productive seat is commonly two to three times the headline license.' },
         { q: 'How hard is it to migrate off Salesforce?', a: 'For small and mid-size teams, less than most fear. Export your core objects, map the fields you actually use, import and reconcile counts, run both systems in parallel for a couple of weeks, then cut over. Two weeks of calendar time is realistic. Heavily customized enterprise instances take longer and deserve a careful plan.' },
-        { q: 'Will an alternative do everything Salesforce does?', a: 'Not the deepest platform customization or the full third-party marketplace, and a fair comparison should admit that. What a modern alternative like Rally does instead is include forecasting, routing, enrichment, and follow-up automation by default, and add an AI operator that performs the administration by hand you would otherwise pay a person to do.' },
-        { q: 'Do I need an administrator to run a Salesforce alternative?', a: 'That is the point of switching. Operator-first platforms are built so a working rep can change a field, add a stage, or pull a report in the flow of work. Rally goes further and hands the routine administration and sales-ops tasks to Rook, its AI operator, so no dedicated admin headcount is required.' },
-        { q: 'What is the best Salesforce alternative for a small team?', a: 'If you need only contacts and a simple pipeline, a lightweight CRM is enough. If you want the power of an enterprise platform without the admin tax and unpredictable bill, a flat-price, live-on-first-load platform like Rally is usually the better fit as you grow, because it scales without a re-platforming project later.' },
+        { q: 'Will an alternative do everything Salesforce does?', a: 'Not the deepest platform customization or the full third-party marketplace, and a fair comparison should admit that. What a modern alternative like Ardovo does instead is include forecasting, routing, enrichment, and follow-up automation by default, and add an AI operator that performs the administration by hand you would otherwise pay a person to do.' },
+        { q: 'Do I need an administrator to run a Salesforce alternative?', a: 'That is the point of switching. Operator-first platforms are built so a working rep can change a field, add a stage, or pull a report in the flow of work. Ardovo goes further and hands the routine administration and sales-ops tasks to Rook, its AI operator, so no dedicated admin headcount is required.' },
+        { q: 'What is the best Salesforce alternative for a small team?', a: 'If you need only contacts and a simple pipeline, a lightweight CRM is enough. If you want the power of an enterprise platform without the admin tax and unpredictable bill, a flat-price, live-on-first-load platform like Ardovo is usually the better fit as you grow, because it scales without a re-platforming project later.' },
       ],
     },
   ],

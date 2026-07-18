@@ -40,7 +40,7 @@ export default function ChecklistCard() {
             <Badge tone={allDone ? 'ok' : 'accent'}>{done}/{total}</Badge>
           </div>
           <span className="muted t-sm">
-            {allDone ? 'Nice work. You have activated the essentials.' : 'A few quick steps to get the most out of Rally.'}
+            {allDone ? 'Nice work. You have activated the essentials.' : 'A few quick steps to get the most out of Ardovo.'}
           </span>
         </div>
         <button className="ob-skip" onClick={dismissChecklist} aria-label="Dismiss getting started" style={{ flex: 'none' }}>

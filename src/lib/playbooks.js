@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY SALES PLAYBOOKS  (guided sales motions on records)
-// HubSpot-style playbook cards for the sell side. Rally already
+// ARDOVO SALES PLAYBOOKS  (guided sales motions on records)
+// HubSpot-style playbook cards for the sell side. Ardovo already
 // ships CS playbooks (src/lib/success-data.js -> PLAYBOOKS +
 // runPlaybook); this is the sales counterpart: methodology-driven
 // guided scripts (discovery, MEDDIC, BANT, demo, negotiation,

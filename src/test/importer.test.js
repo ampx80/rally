@@ -48,7 +48,7 @@ describe('parseCsv', () => {
 });
 
 describe('autoMap', () => {
-  it('maps known aliases to Rally field keys and leaves unknowns blank', () => {
+  it('maps known aliases to Ardovo field keys and leaves unknowns blank', () => {
     const map = autoMap('contact', ['First Name', 'Last Name', 'Email Address', 'Job Title', 'Mystery Column']);
     expect(map['First Name']).toBe('firstName');
     expect(map['Last Name']).toBe('lastName');

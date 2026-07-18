@@ -1,4 +1,4 @@
-// Agent API - Rally's headless + MCP developer surface. The "Headless 360"
+// Agent API - Ardovo's headless + MCP developer surface. The "Headless 360"
 // answer: the whole platform as tools any agent can drive (Cursor, Claude,
 // ChatGPT), not a locked-in UI. Documents the tool catalog, the endpoints, an
 // MCP connect snippet, and a live probe against the real API. Grounded in the
@@ -49,7 +49,7 @@ export default function AgentApi() {
     <div className="fade-up aa">
       <AgentDeck
         eyebrow="Headless + MCP"
-        title="Rally, with no"
+        title="Ardovo, with no"
         highlight="browser required."
         sub="Every capability is a tool any agent can call, yours or Cursor, Claude, and ChatGPT. Built headless-first, not retrofitted onto a UI."
         actions={<button className="adk-btn adk-btn--primary" onClick={runProbe} disabled={busy}><Icon name="activity" size={15} /> {busy ? 'Probing...' : 'Probe live API'}</button>}
@@ -89,7 +89,7 @@ export default function AgentApi() {
               <button className="aa-copy" onClick={() => copy(MCP_SNIPPET, 'MCP config')}><Icon name="copy" size={13} /> Copy</button>
             </div>
             <pre className="aa-pre">{MCP_SNIPPET}</pre>
-            <div className="aa-note">Drop this in your MCP client config and Rally shows up as a tool server. Read tools answer from a posted snapshot; write tools return a propose-confirm envelope so nothing mutates your book without a yes.</div>
+            <div className="aa-note">Drop this in your MCP client config and Ardovo shows up as a tool server. Read tools answer from a posted snapshot; write tools return a propose-confirm envelope so nothing mutates your book without a yes.</div>
           </div>
         </div>
 

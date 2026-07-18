@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ONBOARDING STATE  (local-first, reactive)
+// ARDOVO ONBOARDING STATE  (local-first, reactive)
 // One module owns the first-run experience state: the wizard's
 // per-step answers, completion, dismissal, and a "Getting started"
 // checklist that reflects REAL progress by comparing live store
@@ -167,13 +167,13 @@ export function computeChecklist(s = state) {
   const inviteDone = (s.invited?.length || 0) > 0;
   const rookDone = !!s.metRook;
   return [
-    { key: 'profile', label: 'Set up your workspace', desc: 'Tell Rally about your team and goals.',
+    { key: 'profile', label: 'Set up your workspace', desc: 'Tell Ardovo about your team and goals.',
       done: profileDone, cta: { label: 'Finish setup', to: '/onboarding' } },
     { key: 'data', label: 'Bring in your data', desc: 'Import from a CSV or explore with sample data.',
       done: dataDone, cta: { label: 'Import data', to: '/import' } },
     { key: 'deal', label: 'Create your first deal', desc: 'Add a live opportunity to your pipeline.',
       done: dealDone, cta: { label: 'New deal', to: '/deals?new=1' } },
-    { key: 'invite', label: 'Invite your team', desc: 'Rally is better with your whole revenue org.',
+    { key: 'invite', label: 'Invite your team', desc: 'Ardovo is better with your whole revenue org.',
       done: inviteDone, cta: { label: 'Invite people', to: '/team' } },
     { key: 'rook', label: 'Meet Rook, your AI operator', desc: 'Ask a question or let Rook build an account.',
       done: rookDone, cta: { label: 'Open Rook', action: 'rook' } },

@@ -1,5 +1,5 @@
-// Funnels - Rally's visual funnel + website builder. This is the flagship
-// GoHighLevel surface Rally was missing: a funnel is an ordered set of steps
+// Funnels - Ardovo's visual funnel + website builder. This is the flagship
+// GoHighLevel surface Ardovo was missing: a funnel is an ordered set of steps
 // (Opt-in -> Sales -> Order -> Upsell -> Thank you), each a page of stacked
 // blocks with a live, per-step conversion rate. Four surfaces over one
 // local-first store (src/lib/funnels-data.js): a funnels grid with a template
@@ -70,7 +70,7 @@ function FunnelsGrid({ funnels, onOpen }) {
       <PageTitle
         eyebrow="Marketing"
         title="Funnels"
-        sub="Build the pages that turn traffic into revenue. Every step, every conversion, one canvas. The builder marketers pay GoHighLevel for, native to Rally."
+        sub="Build the pages that turn traffic into revenue. Every step, every conversion, one canvas. The builder marketers pay GoHighLevel for, native to Ardovo."
         action={
           <>
             <Button variant="ghost" onClick={() => askRook('Which of my funnels has the biggest conversion leak, and what one change would recover the most revenue?')}>

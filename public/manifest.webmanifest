@@ -1,7 +1,7 @@
 {
-  "name": "Rally - AI Revenue Platform",
-  "short_name": "Rally",
-  "description": "Rally is the AI-native revenue platform and CRM. Rook, the AI operator, runs your revenue.",
+  "name": "Ardovo - AI Revenue Platform",
+  "short_name": "Ardovo",
+  "description": "Ardovo is the AI-native revenue platform and CRM. Rook, the AI operator, runs your revenue.",
   "id": "/app",
   "start_url": "/app",
   "scope": "/",

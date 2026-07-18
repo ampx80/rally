@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY TASK QUEUES  (HubSpot-style work queues + focus mode)
+// ARDOVO TASK QUEUES  (HubSpot-style work queues + focus mode)
 // A queue is a saved FILTER over activities (src/lib/store.js):
 // type, due window, owner scope, priority. Built-in queues are
 // code-defined; custom queue defs persist to localStorage behind

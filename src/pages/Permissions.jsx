@@ -129,7 +129,7 @@ function RolesTab() {
   const viewAs = (roleId) => {
     setActiveRole(roleId);
     const m = roles.find(r => r.id === roleId);
-    toast(roleId === 'admin' ? 'Viewing as Admin (full access)' : `Now viewing Rally as ${m?.label || roleId}`);
+    toast(roleId === 'admin' ? 'Viewing as Admin (full access)' : `Now viewing Ardovo as ${m?.label || roleId}`);
   };
   const del = (r) => {
     if (!window.confirm(`Delete the custom role "${r.label}"? Users on it should be reassigned first.`)) return;
@@ -147,7 +147,7 @@ function RolesTab() {
             </div>
             <span className="muted t-sm" style={{ maxWidth: '58ch' }}>
               The four base roles ship locked; clone one to mint a custom role with its own capability matrix.
-              Click a role to view Rally exactly as it would appear. Switch back to Admin to regain full control.
+              Click a role to view Ardovo exactly as it would appear. Switch back to Admin to regain full control.
             </span>
           </div>
           <Button size="sm" onClick={() => setRoleModal({})}><Icon name="plus" size={15} /> New role</Button>

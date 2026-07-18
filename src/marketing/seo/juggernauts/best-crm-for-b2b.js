@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-b2b',
   title: 'The Best B2B CRM in 2026',
   h1: 'The Best B2B CRM in 2026: A Buyer Guide for Complex, Multi-Stakeholder Deals',
-  metaTitle: 'The Best B2B CRM in 2026: Buyer Guide, Comparison Matrix, and Forecast Calculator | Rally',
+  metaTitle: 'The Best B2B CRM in 2026: Buyer Guide, Comparison Matrix, and Forecast Calculator | Ardovo',
   metaDescription: 'A deep buyer guide to choosing a B2B CRM in 2026: what complex deals actually need, selection criteria, a comparison matrix, a pipeline and forecast calculator, and how to roll it out.',
   eyebrow: 'Buyer Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 6.8, format: 'decimal:1', label: 'Typical number of buyers in a B2B buying committee' },
     { value: 5, prefix: '~', suffix: ' months', label: 'Typical mid-market B2B sales cycle length' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Rally is one flat price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Ardovo is one flat price, every module included' },
   ],
   blocks: [
     {
@@ -150,7 +150,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'B2B CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Legacy enterprise CRM', 'Lightweight sales CRM'],
+      columns: ['Ardovo', 'Legacy enterprise CRM', 'Lightweight sales CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with a working pipeline on first load', cells: [true, false, 'partial'] },
@@ -171,7 +171,7 @@ const entry = {
       body: [
         'The legacy enterprise CRM is genuinely powerful. If you need deep customization, complex territory and role hierarchies, a vast integration ecosystem, and an admin team to run it, that depth is real and hard to replicate. It is the safe institutional choice for large, process-heavy organizations, and it earns that reputation. The cost is time-to-value and total price: forecasting, CPQ, and automation are often separate line items, and configuration is a project, not an afternoon.',
         'The lightweight sales CRM wins on the opposite axis. It is fast to adopt, pleasant to use, and reps actually update it. For a small team running a simpler, more transactional B2B motion, that speed and clarity can matter more than enterprise depth. The limit shows up as deals get more complex: committee modeling, rigorous forecasting, and CPQ are usually thin or absent, so you outgrow it exactly when the stakes rise.',
-        'Rally is built as the AI-native third option. It aims for the depth of the enterprise tool and the speed of the lightweight one, with an AI operator, Rook, that does the multi-threading, follow-up drafting, and forecast hygiene instead of just reminding a rep to. It is alive on first load, and it is one flat price with every module included, so the bill does not climb as you add forecasting or CPQ or seats.',
+        'Ardovo is built as the AI-native third option. It aims for the depth of the enterprise tool and the speed of the lightweight one, with an AI operator, Rook, that does the multi-threading, follow-up drafting, and forecast hygiene instead of just reminding a rep to. It is alive on first load, and it is one flat price with every module included, so the bill does not climb as you add forecasting or CPQ or seats.',
       ],
     },
     {
@@ -180,7 +180,7 @@ const entry = {
       title: 'Time to first useful forecast',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 10, display: 'Minutes', highlight: true },
           { label: 'Lightweight sales CRM', value: 72, display: 'A few days' },
           { label: 'Legacy enterprise CRM', value: 480, display: 'Weeks to months' },
         ],
@@ -236,7 +236,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing deals to a quiet champion. The system flags a single-threaded account before it stalls, and the forecast finally matches what actually closes.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, B2B software',
     },
     {
@@ -256,8 +256,8 @@ const entry = {
         { q: 'What is CPQ and does a B2B CRM need it?', a: 'CPQ stands for configure, price, quote. It turns a complex deal into a correct, approved quote: choosing products and bundles, applying tiered or approved discounts, and generating the document. If your deals are rarely a single SKU, CPQ living inside the CRM keeps pricing accurate and stops off-system discounting from leaking revenue.' },
         { q: 'How do I forecast long B2B sales cycles accurately?', a: 'Weight each deal by stage probability, separate commit from best-case from total pipeline, and inspect why the number moved week to week. Accuracy improves when activity is captured automatically and stalled deals are flagged, because a forecast built on stale data is fiction. Pressure-test any CRM by replaying a quarter of your closed deals through it.' },
         { q: 'Why do B2B deals need multi-threading?', a: 'Because single-threaded deals die when your one contact goes quiet, changes jobs, or loses the internal argument. Engaging three or more stakeholders typically raises win rates substantially. A good B2B CRM makes single-threaded deals visible and prompts the rep to widen the committee before it is too late.' },
-        { q: 'How much should a B2B company pay for a CRM?', a: 'Model the total bill at your future headcount, not just today. Watch for per-seat pricing multiplied by paid add-ons for forecasting, CPQ, and automation, which is how a low sticker price becomes a large one. Rally is one flat price with every module included, so the cost stays predictable from 5 reps to 100. Always verify current vendor pricing.' },
-        { q: 'How is Rally different from a legacy enterprise CRM?', a: 'Rally is AI-native and alive on first load, so you get a working pipeline and forecast in minutes instead of a configuration project. The AI operator, Rook, does the multi-threading, follow-up drafting, and forecast hygiene rather than only reminding a rep. Forecasting and CPQ are included in one flat price instead of separately licensed add-ons. Legacy platforms still win when you need extreme, admin-heavy customization.' },
+        { q: 'How much should a B2B company pay for a CRM?', a: 'Model the total bill at your future headcount, not just today. Watch for per-seat pricing multiplied by paid add-ons for forecasting, CPQ, and automation, which is how a low sticker price becomes a large one. Ardovo is one flat price with every module included, so the cost stays predictable from 5 reps to 100. Always verify current vendor pricing.' },
+        { q: 'How is Ardovo different from a legacy enterprise CRM?', a: 'Ardovo is AI-native and alive on first load, so you get a working pipeline and forecast in minutes instead of a configuration project. The AI operator, Rook, does the multi-threading, follow-up drafting, and forecast hygiene rather than only reminding a rep. Forecasting and CPQ are included in one flat price instead of separately licensed add-ons. Legacy platforms still win when you need extreme, admin-heavy customization.' },
       ],
     },
   ],

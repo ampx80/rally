@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CONTEXT LAYER  (governance state for the "Data 360" answer)
+// ARDOVO CONTEXT LAYER  (governance state for the "Data 360" answer)
 //
 // The Context page visualizes every source an agent can ground on. This
 // module owns the GOVERNANCE state for that layer: which sources are exposed

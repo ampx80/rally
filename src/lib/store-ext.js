@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PLATFORM STORE (extension)
+// ARDOVO PLATFORM STORE (extension)
 // The modules beyond the CRM core: Leads, Products, Quotes,
 // Invoices, Campaigns, Sequences, Tickets, Workflows. Same
 // local-first, deterministic-seed, Supabase-swappable pattern as
@@ -25,16 +25,16 @@ const LEAD_STATUS = ['new', 'working', 'qualified', 'unqualified'];
 const FIRST = ['Alex', 'Jamie', 'Taylor', 'Morgan', 'Casey', 'Riley', 'Avery', 'Quinn', 'Drew', 'Skyler', 'Reese', 'Parker', 'Rowan', 'Sage', 'Emerson', 'Harper', 'Kai', 'Lena', 'Omar', 'Bianca'];
 const LAST = ['Cohen', 'Ramirez', 'Walsh', 'Bauer', 'Nakamura', 'Osei', 'Petrov', 'Delgado', 'Fischer', 'Yoon', 'Marchetti', 'Abbas', 'Lindqvist', 'Barnes', 'Cho', 'Guerra', 'Novak', 'Reddy', 'Sato', 'Vaughn'];
 const PRODUCTS = [
-  { name: 'Rally CRM', category: 'Platform', price: 90, billing: 'monthly/seat' },
-  { name: 'Rally CRM Enterprise', category: 'Platform', price: 165, billing: 'monthly/seat' },
+  { name: 'Ardovo CRM', category: 'Platform', price: 90, billing: 'monthly/seat' },
+  { name: 'Ardovo CRM Enterprise', category: 'Platform', price: 165, billing: 'monthly/seat' },
   { name: 'Rook AI Operator', category: 'AI', price: 60, billing: 'monthly/seat' },
-  { name: 'Rally Marketing', category: 'Marketing', price: 800, billing: 'monthly' },
-  { name: 'Rally Sequences', category: 'Marketing', price: 40, billing: 'monthly/seat' },
-  { name: 'Rally Service Cloud', category: 'Service', price: 75, billing: 'monthly/seat' },
-  { name: 'Rally CPQ', category: 'Revenue', price: 120, billing: 'monthly/seat' },
-  { name: 'Rally Billing', category: 'Revenue', price: 500, billing: 'monthly' },
-  { name: 'Rally Analytics Plus', category: 'Intelligence', price: 300, billing: 'monthly' },
-  { name: 'Rally Workflows', category: 'Automate', price: 250, billing: 'monthly' },
+  { name: 'Ardovo Marketing', category: 'Marketing', price: 800, billing: 'monthly' },
+  { name: 'Ardovo Sequences', category: 'Marketing', price: 40, billing: 'monthly/seat' },
+  { name: 'Ardovo Service Cloud', category: 'Service', price: 75, billing: 'monthly/seat' },
+  { name: 'Ardovo CPQ', category: 'Revenue', price: 120, billing: 'monthly/seat' },
+  { name: 'Ardovo Billing', category: 'Revenue', price: 500, billing: 'monthly' },
+  { name: 'Ardovo Analytics Plus', category: 'Intelligence', price: 300, billing: 'monthly' },
+  { name: 'Ardovo Workflows', category: 'Automate', price: 250, billing: 'monthly' },
   { name: 'Implementation - Standard', category: 'Services', price: 12000, billing: 'one-time' },
   { name: 'Implementation - Enterprise', category: 'Services', price: 45000, billing: 'one-time' },
   { name: 'Premier Support', category: 'Services', price: 2000, billing: 'monthly' },
@@ -42,7 +42,7 @@ const PRODUCTS = [
 ];
 const CAMPAIGNS = [
   { name: 'Q3 Enterprise ABM', channel: 'ABM' }, { name: 'RevOps Newsletter', channel: 'Email' },
-  { name: 'Rally vs Salesforce', channel: 'Paid ads' }, { name: 'AI in Revenue Webinar', channel: 'Webinar' },
+  { name: 'Ardovo vs Salesforce', channel: 'Paid ads' }, { name: 'AI in Revenue Webinar', channel: 'Webinar' },
   { name: 'Manufacturing Vertical Push', channel: 'Email' }, { name: 'Product Launch - Rook', channel: 'Event' },
   { name: 'Reengagement - Cold Accounts', channel: 'Email' }, { name: 'Partner Co-Marketing', channel: 'Partner' },
   { name: 'Field Dinner Series', channel: 'Event' }, { name: 'Free Trial Nurture', channel: 'Email' },

@@ -1,4 +1,4 @@
-// Marketplace. Rally's app ecosystem - deeper than the Integrations page.
+// Marketplace. Ardovo's app ecosystem - deeper than the Integrations page.
 // Four surfaces over one local-first store (src/lib/marketplace-data.js):
 // a Discover home (featured + categories + searchable grid), an app detail
 // modal (description, screenshots, permissions, pricing, one-click install),
@@ -92,7 +92,7 @@ function AppCard({ app, onOpen, onToast }) {
     <Card hover className="col gap-2" onClick={() => onOpen(app)}
       style={{ cursor: 'pointer', position: 'relative' }}>
       {app.native && (
-        <span style={{ position: 'absolute', top: 12, right: 12 }} className="badge badge-accent">Rally native</span>
+        <span style={{ position: 'absolute', top: 12, right: 12 }} className="badge badge-accent">Ardovo native</span>
       )}
       <div className="row gap-2" style={{ alignItems: 'flex-start' }}>
         <AppTile app={app} />
@@ -160,7 +160,7 @@ function AppDetail({ app, onClose, onToast }) {
 
   const doInstall = () => {
     const r = installApp(app.id);
-    onToast?.(r.ok ? `${app.name} connected to Rally` : (r.message || 'Could not install'), r.ok ? 'ok' : 'risk');
+    onToast?.(r.ok ? `${app.name} connected to Ardovo` : (r.message || 'Could not install'), r.ok ? 'ok' : 'risk');
   };
   const doUninstall = () => {
     const r = uninstallApp(app.id);
@@ -192,7 +192,7 @@ function AppDetail({ app, onClose, onToast }) {
             <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
               <h3 style={{ margin: 0 }}>{app.name}</h3>
               {app.verified && <Badge tone="accent"><Icon name="shield" size={12} /> Verified</Badge>}
-              {app.native && <Badge tone="accent">Rally native</Badge>}
+              {app.native && <Badge tone="accent">Ardovo native</Badge>}
               {installed && <span className="badge badge-ok"><Icon name="check" size={12} /> {enabled ? 'Connected' : 'Paused'}</span>}
             </div>
             <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
@@ -230,7 +230,7 @@ function AppDetail({ app, onClose, onToast }) {
           <SectionHeader title="About this app" />
           <p style={{ color: 'var(--ink-2)', margin: 0 }}>
             {app.blurb} {app.native
-              ? 'Built by the Rally team, it is deeply wired into your data model and the Rook operator - no setup, no data leaves your workspace.'
+              ? 'Built by the Ardovo team, it is deeply wired into your data model and the Rook operator - no setup, no data leaves your workspace.'
               : `The ${app.name} integration keeps your systems in lockstep so reps never re-enter data. Rook watches the connection and surfaces anything that needs attention.`}
           </p>
         </div>
@@ -369,7 +369,7 @@ function DiscoverView({ onOpen, onToast }) {
       {cat === 'all' && !q && (
         <div className="col gap-2">
           <SectionHeader eyebrow="Editor's picks" title="Featured this week"
-            action={<span className="t-xs muted row gap-1" style={{ alignItems: 'center' }}><Icon name="sparkles" size={13} style={{ color: 'var(--accent-600)' }} /> Curated by the Rally team</span>} />
+            action={<span className="t-xs muted row gap-1" style={{ alignItems: 'center' }}><Icon name="sparkles" size={13} style={{ color: 'var(--accent-600)' }} /> Curated by the Ardovo team</span>} />
           <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }}>
             {featured.map(app => <FeaturedCard key={app.id} app={app} onOpen={onOpen} onToast={onToast} />)}
           </div>
@@ -435,11 +435,11 @@ function DiscoverView({ onOpen, onToast }) {
           </span>
           <div className="col" style={{ gap: 3, minWidth: 0 }}>
             <span className="fw-8" style={{ fontSize: '1.15rem' }}>Build your own app</span>
-            <span className="t-sm muted">Public REST API, webhooks and OAuth. Ship an integration to the whole Rally ecosystem.</span>
+            <span className="t-sm muted">Public REST API, webhooks and OAuth. Ship an integration to the whole Ardovo ecosystem.</span>
           </div>
         </div>
         <div className="row gap-2" style={{ flex: 'none' }}>
-          <Button variant="ghost" onClick={() => askRook('Help me scope a custom Rally marketplace app for my workflow.')}>
+          <Button variant="ghost" onClick={() => askRook('Help me scope a custom Ardovo marketplace app for my workflow.')}>
             <Icon name="sparkles" size={15} /> Ask Rook
           </Button>
           <Button as={Link} to="/developers" variant="accent"><Icon name="arrowRight" size={15} /> Developer platform</Button>
@@ -466,10 +466,10 @@ export default function Marketplace() {
       <PageTitle
         eyebrow="Ecosystem"
         title={<>App <GradientText>Marketplace</GradientText></>}
-        sub="One-click integrations that make Rally extensible, sticky and impossible to rip out. An ecosystem is a moat."
+        sub="One-click integrations that make Ardovo extensible, sticky and impossible to rip out. An ecosystem is a moat."
         action={
           <div className="row gap-2">
-            <Button variant="ghost" onClick={() => askRook('Which marketplace apps should I install for a B2B sales team on Rally?')}>
+            <Button variant="ghost" onClick={() => askRook('Which marketplace apps should I install for a B2B sales team on Ardovo?')}>
               <Icon name="sparkles" size={15} /> Ask Rook to recommend
             </Button>
             <Button variant="accent" onClick={() => setTab('discover')}><Icon name="grid" size={15} /> Browse apps</Button>

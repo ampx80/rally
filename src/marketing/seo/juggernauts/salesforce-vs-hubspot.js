@@ -1,7 +1,7 @@
 // ============================================================
 // JUGGERNAUT GUIDE
 // Slug: salesforce-vs-hubspot -> live at /guides/salesforce-vs-hubspot
-// Head-to-head comparison. Balanced to both incumbents, Rally as
+// Head-to-head comparison. Balanced to both incumbents, Ardovo as
 // the AI-native third option. NO em-dash / en-dash. ASCII only.
 // ============================================================
 
@@ -9,11 +9,11 @@ const entry = {
   slug: 'salesforce-vs-hubspot',
   title: 'Salesforce vs HubSpot in 2026: A Complete Comparison',
   h1: 'Salesforce vs HubSpot: The Complete 2026 Comparison',
-  metaTitle: 'Salesforce vs HubSpot in 2026: Full Comparison, TCO Calculator, and Who Each Is Best For | Rally',
+  metaTitle: 'Salesforce vs HubSpot in 2026: Full Comparison, TCO Calculator, and Who Each Is Best For | Ardovo',
   metaDescription: 'A balanced, deep comparison of Salesforce and HubSpot in 2026: strengths, weaknesses, pricing, total cost of ownership, and exactly who each one is best for, plus where an AI-native option fits.',
   eyebrow: 'Head to Head',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '16 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -108,7 +108,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Salesforce vs HubSpot vs an AI-native option',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Salesforce', 'HubSpot'],
+      columns: ['Ardovo', 'Salesforce', 'HubSpot'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with data on first load', cells: [true, false, 'partial'] },
@@ -131,7 +131,7 @@ const entry = {
       caption: 'Directional, based on common mid-market rollouts. Your mileage varies with process complexity.',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 6, display: 'Minutes', highlight: true },
           { label: 'HubSpot', value: 60, display: 'Days' },
           { label: 'Salesforce', value: 240, display: 'Weeks' },
         ],
@@ -199,8 +199,8 @@ const entry = {
       title: 'What changed in 2026: the AI-native third option',
       body: [
         'For most of the last decade the real choice was Salesforce or HubSpot, and the rest of the market was a rounding error. What shifted is that AI stopped being a feature bolted onto the sidebar and started being the thing that runs the CRM. That reframes the whole decision. The old question was how much you were willing to configure and administer. The new question is how much of the work you want the system to do without being asked.',
-        'Rally is built for that second question. It is alive on first load with a working pipeline instead of an empty database, it captures and enriches leads automatically, and it ships with an AI operator, Rook, that follows up, updates records, and drafts the next step rather than just suggesting one. It is one flat price across every module, so the bill does not climb as you add the pieces you actually use.',
-        'That is not a claim that Rally out-customizes Salesforce or out-markets HubSpot at their own game. Both incumbents are excellent at what they were built for. The point is narrower and honest: if the reason your last CRM failed was adoption and busywork rather than missing features, an AI-native platform solves a different and often more important problem.',
+        'Ardovo is built for that second question. It is alive on first load with a working pipeline instead of an empty database, it captures and enriches leads automatically, and it ships with an AI operator, Rook, that follows up, updates records, and drafts the next step rather than just suggesting one. It is one flat price across every module, so the bill does not climb as you add the pieces you actually use.',
+        'That is not a claim that Ardovo out-customizes Salesforce or out-markets HubSpot at their own game. Both incumbents are excellent at what they were built for. The point is narrower and honest: if the reason your last CRM failed was adoption and busywork rather than missing features, an AI-native platform solves a different and often more important problem.',
       ],
     },
     {
@@ -250,7 +250,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We did not switch because Salesforce or HubSpot lacked features. We switched because we wanted the system to do the follow-up instead of nagging the team to do it.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, mid-market B2B',
     },
     {
@@ -275,7 +275,7 @@ const entry = {
         { q: 'Which is more expensive, Salesforce or HubSpot?', a: 'It depends on configuration. Salesforce list pricing is per seat and rises with add-ons like CPQ and marketing, plus admin time. HubSpot bundles more per hub but scales with marketing contact volume and tier upgrades. Compare fully loaded, including add-ons and admin, and verify current pricing directly.' },
         { q: 'Is HubSpot easier to use than Salesforce?', a: 'Generally yes. HubSpot is known for fast adoption and a clean interface most reps learn without a dedicated administrator. Salesforce is more powerful and more customizable, but that flexibility usually requires more setup and ongoing administration to use well.' },
         { q: 'Can HubSpot handle enterprise sales like Salesforce?', a: 'HubSpot has moved upmarket and serves many larger teams well, especially through its Enterprise tier. At the very high end, with highly complex processes or strict governance needs, Salesforce still offers deeper customization and controls. Evaluate against your specific workflows rather than the tier name.' },
-        { q: 'Where does an AI-native CRM like Rally fit?', a: 'Rally is a third option for teams whose main problem is adoption and busywork rather than missing features. It is alive on first load, captures and enriches leads automatically, includes an AI operator that executes follow-up, and is one flat price across every module. It is worth shortlisting when you want the system to do the work rather than configure it for months.' },
+        { q: 'Where does an AI-native CRM like Ardovo fit?', a: 'Ardovo is a third option for teams whose main problem is adoption and busywork rather than missing features. It is alive on first load, captures and enriches leads automatically, includes an AI operator that executes follow-up, and is one flat price across every module. It is worth shortlisting when you want the system to do the work rather than configure it for months.' },
         { q: 'Should I migrate from one to the other?', a: 'Only if the pain is structural, not cosmetic. Migration is real work in data mapping, retraining, and integration rebuilds. Before switching, confirm the new platform fixes the actual problem, whether that is cost, complexity, marketing depth, or adoption, and run the total cost calculation for both before committing.' },
       ],
     },

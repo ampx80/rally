@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SIGN IN - real auth screen (email + password + Google).
+// ARDOVO SIGN IN - real auth screen (email + password + Google).
 // Additive: this renders only if a /signin route is wired in App.jsx. It does
 // nothing to the coming-soon gate or local-first mode. When Supabase is not
 // configured, the form still renders but submitting returns a clear
@@ -42,7 +42,7 @@ export default function SignIn() {
 
   return (
     <AuthShell>
-      <AuthHead title={<>Welcome back to <span className="auth-grad">Rally</span></>} sub="Sign in to your revenue platform." />
+      <AuthHead title={<>Welcome back to <span className="auth-grad">Ardovo</span></>} sub="Sign in to your revenue platform." />
 
       {!configured && (
         <p className="auth-note" style={{ marginBottom: 16 }}>
@@ -74,7 +74,7 @@ export default function SignIn() {
       </form>
 
       <div className="auth-foot">
-        New to Rally? <button type="button" className="auth-link" onClick={() => nav('/signup')}>Create an account</button>
+        New to Ardovo? <button type="button" className="auth-link" onClick={() => nav('/signup')}>Create an account</button>
       </div>
     </AuthShell>
   );

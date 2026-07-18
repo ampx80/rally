@@ -1,5 +1,5 @@
 // KnowledgeBase - the native knowledge base manager + reader. A Service Hub
-// companion that gives Rally its own help-desk depth: browse by category,
+// companion that gives Ardovo its own help-desk depth: browse by category,
 // search, read an article with helpful voting and view tracking, and create
 // or edit articles inline. Built on the local-first knowledge-base.js slice
 // (persisted, pub/sub) and the shared UI kit + motion system.

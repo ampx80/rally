@@ -199,7 +199,7 @@
 .mkt .sv-crown { color: #e0a52d; display: inline-flex; animation: svkCrown 2.4s ease-in-out infinite; transform-origin: center; }
 
 /* ============================================================
-   ALTERNATIVE - leaving X, Rally lights up
+   ALTERNATIVE - leaving X, Ardovo lights up
    ============================================================ */
 .mkt .sv-alt { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
 .mkt .sv-alt-card { border: 1px solid var(--m-line2); border-radius: 14px; padding: 13px; background: #fff; box-shadow: var(--m-shadow-sm); }

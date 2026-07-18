@@ -1,4 +1,4 @@
-// Manifesto.jsx - editorial "why Rally" page. Big type, pull-quotes, teal product
+// Manifesto.jsx - editorial "why Ardovo" page. Big type, pull-quotes, teal product
 // chrome. Scoped under .mkt. NO em-dash / en-dash.
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -58,7 +58,7 @@ export default function Manifesto() {
             />
             <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
               Every CRM on the market was built for a world before AI, then had a chatbot stapled to the side.
-              Rally is what you build when the AI is the point, not the patch.
+              Ardovo is what you build when the AI is the point, not the patch.
             </p>
           </Reveal>
         </div>
@@ -88,7 +88,7 @@ export default function Manifesto() {
           agreed to pretend the data was clean.
         </p>
         <p className="mkt-body">
-          A generation of software taught salespeople that the CRM works for the CRM. That is the failure Rally
+          A generation of software taught salespeople that the CRM works for the CRM. That is the failure Ardovo
           exists to end.
         </p>
       </Section>
@@ -107,7 +107,7 @@ export default function Manifesto() {
         </p>
       </Section>
 
-      <Section n="03" title="Rally is AI-native from the first commit. The operator runs the work.">
+      <Section n="03" title="Ardovo is AI-native from the first commit. The operator runs the work.">
         <p className="mkt-body">
           Rook is not a feature we added. Rook is the reason the platform is shaped the way it is. Ask it to
           build a pipeline view, clean a segment, chase the deals that went quiet, or draft the follow-ups for
@@ -123,7 +123,7 @@ export default function Manifesto() {
 
       <Section n="04" title="Alive on first load. Not an empty database you fill for months.">
         <p className="mkt-body">
-          Most platforms ship you a blank grid and a six-month implementation. Rally opens with pipeline,
+          Most platforms ship you a blank grid and a six-month implementation. Ardovo opens with pipeline,
           contacts, structure, and a working operator already in motion, so you can see how your revenue runs
           before you have typed a single field.
         </p>
@@ -139,7 +139,7 @@ export default function Manifesto() {
           seam.
         </p>
         <p className="mkt-body">
-          Rally is one coherent system. One data model, one operator that sees all of it, one design language
+          Ardovo is one coherent system. One data model, one operator that sees all of it, one design language
           end to end. The consistency is not cosmetic. It is what lets the AI reason across your entire revenue
           motion instead of one silo at a time.
         </p>
@@ -163,7 +163,7 @@ export default function Manifesto() {
               </p>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 30 }}>
                 <Link to="/app" className="mkt-btn mkt-btn-primary mkt-btn-lg">
-                  Run your revenue on Rally <Icon name="chevronRight" size={18} />
+                  Run your revenue on Ardovo <Icon name="chevronRight" size={18} />
                 </Link>
                 <Link to="/product/rook" className="mkt-btn mkt-btn-ghost mkt-btn-lg">Meet Rook</Link>
               </div>
@@ -172,7 +172,7 @@ export default function Manifesto() {
         </div>
       </section>
 
-      <CtaBand title="Come build the future of revenue with us." sub="Run your revenue on Rally." />
+      <CtaBand title="Come build the future of revenue with us." sub="Run your revenue on Ardovo." />
     </>
   );
 }

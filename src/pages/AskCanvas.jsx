@@ -1,4 +1,4 @@
-// AskCanvas - Generative UI. Ask Rally for a tool ("show me at-risk enterprise
+// AskCanvas - Generative UI. Ask Ardovo for a tool ("show me at-risk enterprise
 // deals with a one-click save play") and Rook assembles a live, interactive
 // micro-app: KPIs, charts, tables, and actions wired to your real book of
 // business. Not a chat answer - a bespoke app authored at runtime, rendered by

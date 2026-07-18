@@ -26,7 +26,7 @@ export function Logo({ size = 32 }) {
       <span className="mkt-logo-mark" style={{ width: size, height: size }}>
         <Icon name="zap" size={size * 0.58} fill="#fff" stroke={0} />
       </span>
-      Rally
+      Ardovo
     </span>
   );
 }
@@ -90,7 +90,7 @@ function MktFooter() {
         <div className="mkt-footcols">
           <div>
             <Logo />
-            <p className="mkt-muted" style={{ marginTop: 14, maxWidth: 300, lineHeight: 1.55 }}>The AI-native revenue platform. Run your revenue on Rally.</p>
+            <p className="mkt-muted" style={{ marginTop: 14, maxWidth: 300, lineHeight: 1.55 }}>The AI-native revenue platform. Run your revenue on Ardovo.</p>
           </div>
           {cols.map(c => (
             <div key={c.h} className="mkt-footcol">
@@ -101,7 +101,7 @@ function MktFooter() {
         </div>
         <hr className="mkt-rule" style={{ margin: '36px 0 20px' }} />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-          <div className="mkt-dim" style={{ fontSize: 14 }}>Copyright Rally. Built AI-native from the first commit.</div>
+          <div className="mkt-dim" style={{ fontSize: 14 }}>Copyright Ardovo. Built AI-native from the first commit.</div>
           <span className="mkt-footer-status"><span className="mkt-dot m-pulse" /> All systems live</span>
         </div>
       </div>
@@ -127,7 +127,7 @@ export function MarketingShell({ children }) {
 }
 
 /* CTA band reused at the bottom of pages. */
-export function CtaBand({ title = 'Run your revenue on Rally.', sub = 'Everything alive on first load. Ask Rook and it does the work.' }) {
+export function CtaBand({ title = 'Run your revenue on Ardovo.', sub = 'Everything alive on first load. Ask Rook and it does the work.' }) {
   return (
     <section className="mkt-section">
       <div className="mkt-wrap">

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SEQUENCES DATA  (local-first, deterministic seed)
+// ARDOVO SEQUENCES DATA  (local-first, deterministic seed)
 // Owns cadence definitions + per-contact enrollments for the
 // /sequences page. Persists to localStorage so the demo stays
 // alive across reloads. Reads live contacts/users from store.js
@@ -54,11 +54,11 @@ function buildSeed() {
       createdAt: Date.now() - 41 * 86400000,
       steps: [
         step('email', 0, 'Thanks for reaching out, {{firstName}}',
-          'Hi {{firstName}},\n\nThanks for your interest in Rally. I saw {{company}} is scaling its revenue team and would love to show you how we compress the busywork.\n\nDo you have 20 minutes this week?\n\nBest,\n{{senderName}}'),
+          'Hi {{firstName}},\n\nThanks for your interest in Ardovo. I saw {{company}} is scaling its revenue team and would love to show you how we compress the busywork.\n\nDo you have 20 minutes this week?\n\nBest,\n{{senderName}}'),
         step('call', 1, 'Call {{firstName}} - discovery',
           'Warm inbound. Reference the form fill. Goal: confirm pain + book working session. Keep it under 10 minutes.'),
         step('email', 3, 'A quick idea for {{company}}',
-          'Hi {{firstName}},\n\nHad a thought after reviewing {{company}}. Two of your peers cut ramp time in half with Rally sequences. Worth a look?\n\n{{senderName}}'),
+          'Hi {{firstName}},\n\nHad a thought after reviewing {{company}}. Two of your peers cut ramp time in half with Ardovo sequences. Worth a look?\n\n{{senderName}}'),
         step('linkedin', 5, 'Connect with {{firstName}} on LinkedIn',
           'Send a personalized connection note. Reference the demo interest, no pitch.'),
         step('email', 7, 'Should I close the loop, {{firstName}}?',
@@ -75,11 +75,11 @@ function buildSeed() {
         step('linkedin', 0, 'Engage {{firstName}} - warm the account',
           'Like + thoughtfully comment on a recent post from {{firstName}} or {{company}}. No connect yet.'),
         step('email', 2, 'Rethinking pipeline at {{company}}',
-          'Hi {{firstName}},\n\nEnterprise revenue leaders tell us forecasting is guesswork. Rally gives {{company}} a single source of truth your board will trust.\n\nWorth 25 minutes?\n\n{{senderName}}'),
+          'Hi {{firstName}},\n\nEnterprise revenue leaders tell us forecasting is guesswork. Ardovo gives {{company}} a single source of truth your board will trust.\n\nWorth 25 minutes?\n\n{{senderName}}'),
         step('call', 4, 'Call {{firstName}} - executive intro',
           'VP+ cold call. Lead with a peer proof point, not features. Book a 30-minute exec briefing.'),
         step('email', 7, 'The 3 metrics your board asks about',
-          'Hi {{firstName}},\n\nAttached is the one-pager on how enterprise teams like {{company}} report pipeline coverage, win rate, and net-new ARR in Rally.\n\n{{senderName}}'),
+          'Hi {{firstName}},\n\nAttached is the one-pager on how enterprise teams like {{company}} report pipeline coverage, win rate, and net-new ARR in Ardovo.\n\n{{senderName}}'),
         step('linkedin', 9, 'Send {{firstName}} a connection request',
           'Now connect, referencing the email thread. Short and specific.'),
         step('task', 12, 'Multi-thread {{company}} - find a champion',
@@ -93,7 +93,7 @@ function buildSeed() {
       active: true,
       createdAt: Date.now() - 28 * 86400000,
       steps: [
-        step('email', 0, 'Your Rally renewal is coming up, {{firstName}}',
+        step('email', 0, 'Your Ardovo renewal is coming up, {{firstName}}',
           'Hi {{firstName}},\n\nYour {{company}} contract renews soon. Quick heads up so there are no surprises. Can we grab 15 minutes to review value delivered?\n\n{{senderName}}'),
         step('call', 3, 'Renewal check-in with {{firstName}}',
           'Review usage + wins. Surface any risk. Ask about seats or new teams to expand into.'),
@@ -113,7 +113,7 @@ function buildSeed() {
         step('email', 0, 'Still on your radar, {{firstName}}?',
           'Hi {{firstName}},\n\nIt has been a while. Priorities shift. Is modernizing revenue ops at {{company}} still on the table this year?\n\n{{senderName}}'),
         step('email', 4, 'One number that might change your mind',
-          'Hi {{firstName}},\n\nTeams that adopted Rally saw a 22% lift in meetings booked in 90 days. Happy to show you the playbook behind it.\n\n{{senderName}}'),
+          'Hi {{firstName}},\n\nTeams that adopted Ardovo saw a 22% lift in meetings booked in 90 days. Happy to show you the playbook behind it.\n\n{{senderName}}'),
         step('call', 7, 'Reactivation call to {{firstName}}',
           'Low-pressure check-in. If no answer, leave a 20-second voicemail referencing the email.'),
         step('email', 11, 'Closing the file, {{firstName}}',
@@ -352,7 +352,7 @@ export function renderTemplate(text, { contact, companyName, senderName }) {
     .replaceAll('{{firstName}}', contact?.firstName || 'there')
     .replaceAll('{{lastName}}', contact?.lastName || '')
     .replaceAll('{{company}}', companyName || 'your team')
-    .replaceAll('{{senderName}}', senderName || 'the Rally team')
+    .replaceAll('{{senderName}}', senderName || 'the Ardovo team')
     .replaceAll('{{title}}', contact?.title || '');
 }
 

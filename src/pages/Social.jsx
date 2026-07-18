@@ -6,7 +6,7 @@
 // with a best-time heatmap. Local-first with seeded content, zero backend.
 //
 // Positioning baked into the copy: owners juggle five tabs to post everywhere.
-// Rally runs all six from one planner, with AI captions and real previews.
+// Ardovo runs all six from one planner, with AI captions and real previews.
 //
 // ADDITIVE: new file only. NO em-dash / en-dash. ASCII hyphen only.
 import React, { useMemo, useState } from 'react';
@@ -71,8 +71,8 @@ function PreviewCard({ networkId, text, media, hashtags = [] }) {
       <div className="row gap-2" style={{ padding: '.7rem .85rem', borderBottom: '1px solid var(--line)' }}>
         <NetChip id={networkId} size={34} />
         <div className="col" style={{ minWidth: 0, lineHeight: 1.2 }}>
-          <span className="fw-7" style={{ fontSize: '.95rem' }}>Rally</span>
-          <span className="t-xs muted">@rally.app  |  {n.kind}</span>
+          <span className="fw-7" style={{ fontSize: '.95rem' }}>Ardovo</span>
+          <span className="t-xs muted">@ardovo.com  |  {n.kind}</span>
         </div>
       </div>
       {/* body */}

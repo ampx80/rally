@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTH (local-first accounts + session + TOTP 2FA)
+// ARDOVO AUTH (local-first accounts + session + TOTP 2FA)
 //
 // A real login/session layer that works with zero backend (localStorage), and
 // is Supabase-swappable later. Accounts have an email, a salted SHA-256
@@ -45,7 +45,7 @@ export function generateTotpSecret(len = 20) {
   (crypto.getRandomValues ? crypto : window.crypto).getRandomValues(bytes);
   return base32Encode(bytes);
 }
-export function otpauthURI(email, secret, issuer = 'Rally') {
+export function otpauthURI(email, secret, issuer = 'Ardovo') {
   const label = encodeURIComponent(`${issuer}:${email}`);
   return `otpauth://totp/${label}?secret=${secret}&issuer=${encodeURIComponent(issuer)}&algorithm=SHA1&digits=6&period=30`;
 }

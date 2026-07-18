@@ -1,6 +1,6 @@
 // POST /api/waitlist
 //
-// Coming-soon waitlist capture for Rally. When someone requests early access
+// Coming-soon waitlist capture for Ardovo. When someone requests early access
 // we (1) email Nate the full signup via Resend, (2) best-effort persist the
 // row to Supabase for durability, and (3) best-effort forward it into the LDS
 // cross-app capture system. None of the downstream channels can block or fail
@@ -10,7 +10,7 @@
 // Env:
 //   RESEND_API_KEY   - required for the email to actually send (studio-wide key)
 //   NOTIFY_EMAIL     - recipient (defaults to nate@amptekgrowth.com)
-//   NOTIFY_FROM      - sender (defaults to Rally Waitlist <onboarding@resend.dev>)
+//   NOTIFY_FROM      - sender (defaults to Ardovo Waitlist <onboarding@resend.dev>)
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY - optional durable storage
 import { withErrorHandling, methodNotAllowed, readJsonBody } from './_utils.js';
 
@@ -21,7 +21,7 @@ const clean = (s, max = 200) => String(s == null ? '' : s).trim().slice(0, max);
 async function emailNate(f) {
   if (!process.env.RESEND_API_KEY) return { ok: false, skipped: 'no-api-key' };
   const to = (process.env.NOTIFY_EMAIL || process.env.NOTIFY_DEFAULT_TO || 'nate@amptekgrowth.com').trim();
-  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Rally Waitlist <onboarding@resend.dev>';
+  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Ardovo Waitlist <onboarding@resend.dev>';
   const rows = [
     ['Name', f.name], ['Email', f.email], ['Phone', f.phone], ['Company', f.company],
     ['Company size', f.companySize], ['Industry', f.industry], ['Source', f.sourceUrl],
@@ -29,9 +29,9 @@ async function emailNate(f) {
   const html = `
 <!doctype html><html><body style="margin:0;background:#0b0d14;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;color:#e7e9f0;">
   <div style="max-width:560px;margin:36px auto;padding:32px;background:#12141f;border:1px solid #262a3d;border-radius:16px;">
-    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b8ff5;margin-bottom:14px;font-weight:700;">Rally waitlist</div>
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b8ff5;margin-bottom:14px;font-weight:700;">Ardovo waitlist</div>
     <h1 style="font-size:24px;line-height:1.2;margin:0 0 6px;color:#fff;">New early-access request</h1>
-    <p style="font-size:15px;color:#a3a7ba;margin:0 0 22px;">${esc(f.name || f.email)} just asked to get into Rally.</p>
+    <p style="font-size:15px;color:#a3a7ba;margin:0 0 22px;">${esc(f.name || f.email)} just asked to get into Ardovo.</p>
     <table style="width:100%;border-collapse:collapse;font-size:15px;">
       ${rows.map(([k, v]) => `<tr><td style="padding:9px 0;color:#8a8fa3;width:130px;vertical-align:top;">${esc(k)}</td><td style="padding:9px 0;color:#fff;font-weight:600;">${esc(v)}</td></tr>`).join('')}
     </table>
@@ -42,7 +42,7 @@ async function emailNate(f) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from, to, subject: `New Rally waitlist signup: ${f.name || f.email}`, html, reply_to: f.email }),
+    body: JSON.stringify({ from, to, subject: `New Ardovo waitlist signup: ${f.name || f.email}`, html, reply_to: f.email }),
   });
   if (!r.ok) { console.warn('[waitlist] resend', r.status); return { ok: false, status: r.status }; }
   const j = await r.json().catch(() => ({}));

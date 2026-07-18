@@ -1,4 +1,4 @@
-// ExperienceLayer - Rally's answer to Agentforce Experience Layer: define an
+// ExperienceLayer - Ardovo's answer to Agentforce Experience Layer: define an
 // agent once, deploy it everywhere your customers and team already are. Pick a
 // fleet agent, toggle the surfaces it renders on (in-app, Slack, Teams, web
 // widget, email, API/MCP, WhatsApp, voice), and grab the embed. Local-first
@@ -13,7 +13,7 @@ import { useAgentCloud, getAgents } from '../lib/agent-cloud.js';
 
 const LS_KEY = 'rally_experience_v1';
 const SURFACES = [
-  { id: 'inapp', label: 'In-app', icon: 'sparkles', blurb: 'The Rook dock on every Rally screen.', on: true },
+  { id: 'inapp', label: 'In-app', icon: 'sparkles', blurb: 'The Rook dock on every Ardovo screen.', on: true },
   { id: 'slack', label: 'Slack', icon: 'messages', blurb: 'A slash command + DM agent in your workspace.' },
   { id: 'teams', label: 'Microsoft Teams', icon: 'messages', blurb: 'A Teams app your reps chat with.' },
   { id: 'widget', label: 'Web widget', icon: 'globe', blurb: 'An embeddable chat bubble for your site.' },

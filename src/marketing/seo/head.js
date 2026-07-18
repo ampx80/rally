@@ -10,8 +10,8 @@
 import { useEffect } from 'react';
 
 const SITE = 'https://rally-psi-five.vercel.app';
-const BRAND = 'Rally';
-const DEFAULT_TITLE = 'Rally - The AI Revenue Platform and CRM';
+const BRAND = 'Ardovo';
+const DEFAULT_TITLE = 'Ardovo - The AI Revenue Platform and CRM';
 
 function upsertMeta(attr, key, content) {
   if (content == null) return null;
@@ -39,7 +39,7 @@ export function metaFor(entry) {
   const title = entry.metaTitle || `${entry.title} | ${BRAND}`;
   let description = entry.metaDescription
     || (typeof entry.intro === 'string' ? entry.intro : Array.isArray(entry.intro) ? entry.intro[0] : '')
-    || `${entry.title} - on Rally, the AI-native revenue platform.`;
+    || `${entry.title} - on Ardovo, the AI-native revenue platform.`;
   if (description.length > 158) {
     const cut = description.slice(0, 158);
     description = cut.slice(0, cut.lastIndexOf(' ')) + '...';
@@ -92,7 +92,7 @@ export function useSeoHead({ title, description, canonical, jsonLd, image } = {}
 /* ---------- JSON-LD builders ---------- */
 export const orgLd = () => ({
   '@context': 'https://schema.org', '@type': 'Organization', name: BRAND, url: SITE,
-  description: 'The AI-native revenue platform and CRM. Run your revenue on Rally.',
+  description: 'The AI-native revenue platform and CRM. Run your revenue on Ardovo.',
   brand: BRAND,
 });
 

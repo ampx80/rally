@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY LISTS + SEGMENTATION  (local-first, Supabase-swappable)
+// ARDOVO LISTS + SEGMENTATION  (local-first, Supabase-swappable)
 // The audience layer that feeds every marketing send. A list is a
 // named, resolvable audience over the contact book, in one of two
 // kinds:

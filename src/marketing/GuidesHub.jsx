@@ -19,14 +19,14 @@ export default function GuidesHub() {
   );
 
   useSeoHead({
-    title: 'Guides: In-Depth Revenue and CRM Playbooks | Rally',
+    title: 'Guides: In-Depth Revenue and CRM Playbooks | Ardovo',
     description:
       'Deep, practical guides on running revenue: CRM buying, AI CRM, competitor comparisons, calculators, and playbooks. Best-in-class, regularly updated.',
     canonical: `${SITE}/guides`,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: 'Rally Guides',
+      name: 'Ardovo Guides',
       url: `${SITE}/guides`,
       hasPart: guides.map((e) => ({ '@type': 'Article', name: e.title, url: `${SITE}/guides/${e.slug}` })),
     },
@@ -58,7 +58,7 @@ export default function GuidesHub() {
         .guides-hub .gh-tag { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--accent); background: var(--accent-50, rgba(14,159,143,.1)); padding: .15rem .5rem; border-radius: 999px; }
       `}</style>
 
-      <div className="gh-eyebrow">Rally Guides</div>
+      <div className="gh-eyebrow">Ardovo Guides</div>
       <h1>Revenue and CRM playbooks, done right</h1>
       <p className="gh-sub">
         Deep, practical, regularly updated guides on choosing and running the software that runs your revenue.

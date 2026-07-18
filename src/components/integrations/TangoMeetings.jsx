@@ -107,7 +107,7 @@ export default function TangoMeetings({ recordType = 'contact', record, contacts
         </div>
       )}
 
-      {/* Next open times - hand a guest a slot without leaving Rally. */}
+      {/* Next open times - hand a guest a slot without leaving Ardovo. */}
       {slots.length > 0 && (
         <div style={{ borderTop: '1px solid var(--line)', paddingTop: 8 }}>
           <div className="t-xs" style={{ color: 'var(--n-600)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.04em', marginBottom: 6 }}>

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY API GUARD  (reusable serverless middleware helpers)
+// ARDOVO API GUARD  (reusable serverless middleware helpers)
 // Pure Node ES module, zero dependencies. Composable guards for Vercel
 // serverless routes (req, res). Wrap any handler with compose(...guards) to
 // get method allow-listing, CORS, in-memory per-IP rate limiting, and body

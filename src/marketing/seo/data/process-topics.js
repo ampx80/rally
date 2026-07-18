@@ -545,7 +545,7 @@ const ROWS = [
     faqs: [
       { q: `What is CHAMP qualification?`, a: `A framework that qualifies a lead on Challenges, Authority, Money, and Prioritization, leading with the buyer's problem instead of their budget. This template turns each element into ready-to-ask questions you can paste into a discovery call.` },
       { q: `How is this different from a BANT template?`, a: `The order and emphasis. A CHAMP template opens with challenges and treats money as a downstream signal, while a BANT template gates on budget and authority first. CHAMP keeps promising early deals alive that a budget-first script would kill.` },
-      { q: `Where should I record CHAMP answers?`, a: `On the deal record in your CRM, as structured fields, so qualification is visible to managers and consistent across reps. In Rally, Rook can capture the answers from a call and fill the CHAMP fields on the deal automatically.` },
+      { q: `Where should I record CHAMP answers?`, a: `On the deal record in your CRM, as structured fields, so qualification is visible to managers and consistent across reps. In Ardovo, Rook can capture the answers from a call and fill the CHAMP fields on the deal automatically.` },
     ],
   },
   {
@@ -878,7 +878,7 @@ const ROWS = [
       { q: `What is the difference between a sales process and a methodology?`, a: `A process is the ordered steps and criteria a deal moves through (what to do and when). A methodology like MEDDIC or Challenger is how you sell within those steps. You need both: the process gives structure, the methodology gives technique.` },
       { q: `How many stages should a sales process have?`, a: `Five to seven for most B2B teams. Fewer hides where deals stall; more forces reps to guess which stage a deal is in and creates data-entry busywork. Name each stage for the buyer commitment it represents, not the seller's activity.` },
       { q: `How do I know my process is working?`, a: `Track conversion between each stage and the time deals spend in each. A working process shows steady pass-through and predictable velocity, and its forecast ties out to actuals. When one transition leaks badly, that is your constraint to fix first.` },
-      { q: `Where should the sales process live?`, a: `In your CRM, as stages, exit criteria, required fields, and per-stage guidance, not in a static document. A process reps have to leave their workflow to consult gets ignored. In Rally, the stages and criteria are enforced in the deal object itself.` },
+      { q: `Where should the sales process live?`, a: `In your CRM, as stages, exit criteria, required fields, and per-stage guidance, not in a static document. A process reps have to leave their workflow to consult gets ignored. In Ardovo, the stages and criteria are enforced in the deal object itself.` },
     ],
   },
   {
@@ -1756,7 +1756,7 @@ const ROWS = [
     faqs: [
       { q: `What does CPQ stand for?`, a: `Configure, price, quote. It is software that helps reps build valid product configurations, apply correct pricing and discounts within policy, and generate approved quote documents. CPQ automates the error-prone, manual quoting that slows down deals for complex products.` },
       { q: `Who needs CPQ software?`, a: `Teams selling configurable products or with complex pricing: tiers, bundles, usage-based rates, volume discounts, or multi-step approvals. The more ways a quote can be built wrong, the more CPQ pays off. Simple flat-price products may not need dedicated CPQ yet.` },
-      { q: `How is CPQ different from a CRM?`, a: `A CRM manages relationships, deals, and pipeline; CPQ handles the quoting step within a deal. Modern platforms combine them so quotes are built from live deal and pricing data. In Rally, configuring, pricing, and approving a quote happens inside the deal, not a separate tool.` },
+      { q: `How is CPQ different from a CRM?`, a: `A CRM manages relationships, deals, and pipeline; CPQ handles the quoting step within a deal. Modern platforms combine them so quotes are built from live deal and pricing data. In Ardovo, configuring, pricing, and approving a quote happens inside the deal, not a separate tool.` },
     ],
   },
   {
@@ -2134,7 +2134,7 @@ const ROWS = [
     faqs: [
       { q: `What should I look for when evaluating CPQ software?`, a: `Clean catalog and configuration modeling, flexible pricing and discounting for your model, automatic approval routing, professional quote documents, native CRM integration, and reporting on quote volume and discount depth. Score vendors against your real requirements rather than being swayed by a polished demo.` },
       { q: `Why is CRM integration a top CPQ requirement?`, a: `Because quotes should pull live deal, account, and pricing data so reps do not rekey information and quotes stay tied to the opportunity. A CPQ tool disconnected from your CRM creates duplicate data entry and reconciliation problems, so native integration is a near-must-have.` },
-      { q: `Do I need standalone CPQ or a CRM with built-in quoting?`, a: `It depends on complexity, but a CRM with native quoting avoids the integration gaps of a separate tool. If your pricing and configuration are complex enough, an integrated CPQ inside your CRM lets quotes build from live deal data. In Rally, quoting lives inside the deal object itself.` },
+      { q: `Do I need standalone CPQ or a CRM with built-in quoting?`, a: `It depends on complexity, but a CRM with native quoting avoids the integration gaps of a separate tool. If your pricing and configuration are complex enough, an integrated CPQ inside your CRM lets quotes build from live deal data. In Ardovo, quoting lives inside the deal object itself.` },
     ],
   },
   {
@@ -5950,21 +5950,21 @@ const ROWS = [
   // <<INSERT>>
 ];
 
-const RALLY_NOTE = (t) => (t.type === `template`
+const ARDOVO_NOTE = (t) => (t.type === `template`
   ? {
-      h: `Use this in Rally`,
-      body: `You do not have to start from a blank page. Tell Rook, Rally's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline, personalizes it to the specific deal or contact, and saves it to the record in one step. Every framework lives in one shared library, so the whole team runs the same play.`,
+      h: `Use this in Ardovo`,
+      body: `You do not have to start from a blank page. Tell Rook, Ardovo's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline, personalizes it to the specific deal or contact, and saves it to the record in one step. Every framework lives in one shared library, so the whole team runs the same play.`,
     }
   : {
-      h: `How Rally runs this`,
-      body: `Rally turns this from a slide no one opens into how the work actually happens. The stages, exit criteria, and plays live in the deal object, and Rook flags any deal that skips a step, drafts the next artifact, and keeps the data honest, so ${t.rookRuns || `the process`} gets followed instead of forgotten.`,
+      h: `How Ardovo runs this`,
+      body: `Ardovo turns this from a slide no one opens into how the work actually happens. The stages, exit criteria, and plays live in the deal object, and Rook flags any deal that skips a step, drafts the next artifact, and keeps the data honest, so ${t.rookRuns || `the process`} gets followed instead of forgotten.`,
     });
 
 export default ROWS.map((t) => ({
   slug: t.slug,
   type: t.type,
   title: t.title,
-  metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Rally`,
+  metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Ardovo`,
   metaDescription: t.desc,
   eyebrow: t.eyebrow || EYEBROW[t.type] || `Sales process`,
   h1: t.h1 || t.title,
@@ -5973,7 +5973,7 @@ export default ROWS.map((t) => ({
   ...(t.stats ? { stats: t.stats } : {}),
   ...(t.steps ? { steps: t.steps } : {}),
   ...(t.keyPoints ? { keyPoints: t.keyPoints } : {}),
-  sections: [...(t.sections || []), RALLY_NOTE(t)],
+  sections: [...(t.sections || []), ARDOVO_NOTE(t)],
   faqs: t.faqs,
   published: `2026-07-10`,
   updated: `2026-07-10`,

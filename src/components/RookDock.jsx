@@ -1,4 +1,4 @@
-// RookDock - Rally's always-there AI operator, docked bottom-right on every
+// RookDock - Ardovo's always-there AI operator, docked bottom-right on every
 // screen. Ask it anything ("which deals are slipping?"), and it answers from
 // your live book of business, points you to the right screen, or proposes
 // actions you run with one click (create a contact/company/deal, log an
@@ -508,10 +508,10 @@ export default function RookDock() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div className="rook-head__name">Rook <span className="rook-head__tag">{training ? 'trainer' : 'operator'}</span></div>
               <div className="rook-head__sub">
-                {voiceMode ? (speaking ? 'Speaking...' : listening ? 'Listening...' : 'Voice on') : training ? 'Teaching you Rally' : 'Knows your pipeline'}
+                {voiceMode ? (speaking ? 'Speaking...' : listening ? 'Listening...' : 'Voice on') : training ? 'Teaching you Ardovo' : 'Knows your pipeline'}
               </div>
             </div>
-            <button className={`rook-x${training ? ' is-active' : ''}`} onClick={() => setTraining(t => !t)} aria-label="Training mode" title="Training mode - Rook teaches you Rally"><Icon name="rocket" size={17} /></button>
+            <button className={`rook-x${training ? ' is-active' : ''}`} onClick={() => setTraining(t => !t)} aria-label="Training mode" title="Training mode - Rook teaches you Ardovo"><Icon name="rocket" size={17} /></button>
             {voiceOK && (
               <button className={`rook-x${voiceMode ? ' is-live' : ''}`} onClick={toggleVoiceMode} aria-label="Voice mode" title="Voice mode - talk hands-free"><Icon name="activity" size={18} /></button>
             )}

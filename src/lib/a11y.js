@@ -1,4 +1,4 @@
-// Rally accessibility toolkit. Additive, framework-light hooks the product
+// Ardovo accessibility toolkit. Additive, framework-light hooks the product
 // surfaces (Modal, CommandK, RookDock, toasts, route changes) can adopt to hit
 // WCAG 2.1 AA keyboard + screen-reader behavior. No dependencies beyond React.
 // ASCII only. NO em-dash / en-dash.

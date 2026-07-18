@@ -2031,7 +2031,7 @@ const ROWS = [
     faqs: [
       { q: `When is the best time to ask for a referral?`, a: `Right after a customer experiences a win or gives positive feedback. Their enthusiasm is highest, and the ask feels natural rather than transactional.` },
       { q: `How do I make a referral easy to give?`, a: `Be specific about who you want to meet and provide a short, forwardable blurb they can paste without editing. The less work for the referrer, the more referrals you get.` },
-      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Rally links the referred deal back to the introducer automatically.` },
+      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Ardovo links the referred deal back to the introducer automatically.` },
     ],
   },
   {
@@ -3041,7 +3041,7 @@ const ROWS = [
     faqs: [
       { q: `What is a good LinkedIn outreach sequence?`, a: `A personalized connection note, a no-pitch first message after they accept, a value-add follow-up, and finally a soft, relevant ask. Each step builds rapport, so the ask lands after you have earned it.` },
       { q: `How many LinkedIn messages before I make an ask?`, a: `Usually a couple of genuine exchanges after connecting. Once you have traded real replies and added value, a soft ask feels natural. Asking on message one reads as spam and gets ignored.` },
-      { q: `Should LinkedIn outreach be automated?`, a: `Light personalization at scale is fine, but fully automated, generic sequences perform poorly and risk your account. The best results come from templates you personalize per prospect, which tools like Rally can help draft from real context.` },
+      { q: `Should LinkedIn outreach be automated?`, a: `Light personalization at scale is fine, but fully automated, generic sequences perform poorly and risk your account. The best results come from templates you personalize per prospect, which tools like Ardovo can help draft from real context.` },
     ],
   },
   {
@@ -3529,7 +3529,7 @@ const ROWS = [
     faqs: [
       { q: `What does an SDR outreach sequence look like?`, a: `A repeatable cadence of 8 to 10 touches over about three weeks across email, phone, and LinkedIn, built to book qualified meetings at volume. The structure is standardized while the opener and hook are personalized per prospect.` },
       { q: `How many touches should an SDR make per prospect?`, a: `Eight to ten across channels is common for outbound SDR sequences. Enough persistence to reach prospects who reply on later touches, without so many that it becomes noise or burns the account.` },
-      { q: `How do SDRs personalize at volume?`, a: `They standardize the sequence structure and personalize the highest-leverage lines: the opener and the relevance hook. Tools like Rally can draft each touch from real account data so personalization scales without hours of manual work.` },
+      { q: `How do SDRs personalize at volume?`, a: `They standardize the sequence structure and personalize the highest-leverage lines: the opener and the relevance hook. Tools like Ardovo can draft each touch from real account data so personalization scales without hours of manual work.` },
     ],
   },
   {
@@ -3660,7 +3660,7 @@ const ROWS = [
     faqs: [
       { q: `What are outreach emails?`, a: `Emails sent to start or advance a relationship with a prospect, spanning cold first touches to warm referral follow-ups. Across all of them, relevance first, one clear point, and a small ask are what earn replies.` },
       { q: `How is cold outreach different from warm outreach?`, a: `Cold outreach reaches someone with no prior relationship, so it must earn attention with relevance; warm outreach builds on an existing connection or engagement, so it can move faster to the ask. The structure stays similar.` },
-      { q: `How do I keep outreach emails from sounding templated?`, a: `Personalize the opener and CTA with something real, vary your angles across a sequence, and keep the language conversational. Tools like Rally can draft each touch from actual account data so personalization scales.` },
+      { q: `How do I keep outreach emails from sounding templated?`, a: `Personalize the opener and CTA with something real, vary your angles across a sequence, and keep the language conversational. Tools like Ardovo can draft each touch from actual account data so personalization scales.` },
     ],
   },
   {
@@ -4109,7 +4109,7 @@ const ROWS = [
     faqs: [
       { q: `How do I personalize cold emails without spending hours?`, a: `Personalize only the opener and CTA, use tiered templates by segment, pull one real detail per prospect, and let AI draft from real data. That gets genuine relevance without rewriting every email from scratch.` },
       { q: `Is segment-level personalization enough?`, a: `Often most of the way. A strong template tuned to a specific industry, role, or trigger feels far more relevant than a generic blast. Add one prospect-specific detail in the opener for the biggest lift.` },
-      { q: `Can AI personalize cold emails well?`, a: `Yes, when grounded in real data rather than inventing details. An AI operator like Rally's Rook can draft each touch from your actual contact and deal records, which you then review, scaling authentic personalization.` },
+      { q: `Can AI personalize cold emails well?`, a: `Yes, when grounded in real data rather than inventing details. An AI operator like Ardovo's Rook can draft each touch from your actual contact and deal records, which you then review, scaling authentic personalization.` },
     ],
     related: [`how-to-write-a-cold-email-that-gets-replies`, `how-to-research-a-prospect-before-outreach`, `how-to-scale-outbound-prospecting`],
   },
@@ -4659,7 +4659,7 @@ const ROWS = [
     faqs: [
       { q: `How much should I research a prospect before reaching out?`, a: `A few focused minutes to find one or two real details that make your message relevant: recent activity, a role challenge, a company trigger, or a shared connection. You need one genuine hook, not a full dossier.` },
       { q: `What should I look for when researching a prospect?`, a: `A recent post or news you can reference, the top problems their role faces, company triggers like funding or hires, and any shared connection. These give you a relevant opener and the right angle for your message.` },
-      { q: `How do I research prospects efficiently at scale?`, a: `Timebox research to a few minutes, focus on one or two hooks, and use triggers and enrichment to surface angles automatically. Tools like Rally can pull relevant context from your CRM so reps spend minutes, not hours, per prospect.` },
+      { q: `How do I research prospects efficiently at scale?`, a: `Timebox research to a few minutes, focus on one or two hooks, and use triggers and enrichment to surface angles automatically. Tools like Ardovo can pull relevant context from your CRM so reps spend minutes, not hours, per prospect.` },
     ],
     related: [`how-to-personalize-cold-emails-at-scale`, `how-to-use-trigger-events-for-outreach`, `how-to-build-a-prospecting-list`],
   },
@@ -4885,7 +4885,7 @@ const ROWS = [
     faqs: [
       { q: `When is the best time to ask for a referral?`, a: `Right after a customer experiences a win or gives positive feedback. Their enthusiasm is highest and the ask feels natural rather than transactional, which is when referrals flow most easily.` },
       { q: `How do I make a referral easy to give?`, a: `Be specific about who you want to meet and provide a short, forwardable blurb they can paste without editing. The less work and risk for the referrer, the more referrals you get.` },
-      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Rally links the referred deal back to the introducer automatically.` },
+      { q: `How do I track referrals?`, a: `Tag the referral source on the new lead in your CRM so you can see who sends your best pipeline and thank them. Ardovo links the referred deal back to the introducer automatically.` },
     ],
     related: [`ask-for-a-referral-email-template`, `referral-email-to-happy-customer`, `introduction-request-email-template`],
   },
@@ -5010,7 +5010,7 @@ const ROWS = [
     faqs: [
       { q: `How do I scale outbound prospecting?`, a: `Systematize list-building, sequences, and messaging into playbooks, personalize at the segment level plus one real detail, automate the mechanical parts while keeping the human ones human, and measure by channel. Scale relevance, not just volume.` },
       { q: `Does scaling outbound hurt quality?`, a: `Only if you scale volume instead of relevance. With systematized playbooks, segment-level personalization, and AI drafting from real data, you can grow reach while keeping messages relevant. Blasting more generic emails just amplifies the noise.` },
-      { q: `How does AI help scale outbound?`, a: `An AI operator like Rally's Rook can draft each personalized touch from real contact and deal data, build sequences, and run cadences while logging replies, so reps scale genuine personalization by reviewing rather than writing every email.` },
+      { q: `How does AI help scale outbound?`, a: `An AI operator like Ardovo's Rook can draft each personalized touch from real contact and deal data, build sequences, and run cadences while logging replies, so reps scale genuine personalization by reviewing rather than writing every email.` },
     ],
     related: [`how-to-personalize-cold-emails-at-scale`, `how-to-build-an-outbound-sales-motion`, `how-to-run-an-sdr-outreach-cadence`],
   },
@@ -5265,7 +5265,7 @@ const ROWS = [
     faqs: [
       { q: `How do I nurture a prospect who said "not now"?`, a: `Get specific about when to reconnect, stay lightly present with occasional value, watch for triggers, and return with a genuine reason rather than "just circling back." Respect the "not now" while keeping the relationship warm.` },
       { q: `How often should I touch a "not now" prospect?`, a: `Lightly: an occasional value-add or a touch timed to a trigger or the agreed date. Enough to stay top of mind without nagging. Quarterly is a reasonable default, more often if a real trigger fires.` },
-      { q: `How do I remember to follow up on "not now" prospects?`, a: `Log the context and set a reminder in your CRM tied to the agreed date or trigger. In Rally, Rook can surface these prospects when a relevant trigger fires so you return at the right moment with the right context.` },
+      { q: `How do I remember to follow up on "not now" prospects?`, a: `Log the context and set a reminder in your CRM tied to the agreed date or trigger. In Ardovo, Rook can surface these prospects when a relevant trigger fires so you return at the right moment with the right context.` },
     ],
     related: [`re-engagement-email-template`, `how-to-re-engage-dormant-leads`, `how-to-use-trigger-events-for-outreach`],
   },
@@ -5838,15 +5838,15 @@ const ROWS = [
 
 ];
 
-// ---------- Rally notes appended to every page ----------
-const RALLY_TEMPLATE_NOTE = (t) => ({
-  h: `Draft and send this with Rally`,
-  body: `You do not have to start from a blank page. Tell Rook, Rally's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline data, personalizes it for the specific contact or deal, and can send it or enroll it in a sequence in one step. Every template lives in one shared library, so your whole team stays on message and nothing gets rewritten from scratch.`,
+// ---------- Ardovo notes appended to every page ----------
+const ARDOVO_TEMPLATE_NOTE = (t) => ({
+  h: `Draft and send this with Ardovo`,
+  body: `You do not have to start from a blank page. Tell Rook, Ardovo's AI operator, what you need (for example, "${t.rookAsk || t.title.toLowerCase()}") and it drafts a version grounded in your real pipeline data, personalizes it for the specific contact or deal, and can send it or enroll it in a sequence in one step. Every template lives in one shared library, so your whole team stays on message and nothing gets rewritten from scratch.`,
 });
 
-const RALLY_GUIDE_NOTE = (t) => ({
-  h: `How Rally runs this for you`,
-  body: `Rally is an AI-native CRM, so this is not just theory. Rook can build the sequence, draft each touch from your real contact and deal data, choose send times, and run the cadence across email and other channels while logging every reply against the record. You set the strategy in this guide; Rook executes it and flags the prospects worth your attention.`,
+const ARDOVO_GUIDE_NOTE = (t) => ({
+  h: `How Ardovo runs this for you`,
+  body: `Ardovo is an AI-native CRM, so this is not just theory. Rook can build the sequence, draft each touch from your real contact and deal data, choose send times, and run the cadence across email and other channels while logging every reply against the record. You set the strategy in this guide; Rook executes it and flags the prospects worth your attention.`,
 });
 
 export default ROWS.map((t) => {
@@ -5855,13 +5855,13 @@ export default ROWS.map((t) => {
     slug: t.slug,
     type: t.type,
     title: t.title,
-    metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Rally`,
+    metaTitle: t.metaTitle || `${t.title}: ${t.kw} (${YEAR}) | Ardovo`,
     metaDescription: t.desc,
     eyebrow: t.eyebrow || (isGuide ? `Outreach playbooks` : `Outreach templates and scripts`),
     h1: t.h1 || t.title,
     shortAnswer: t.shortAnswer,
     intro: t.intro,
-    sections: [...(t.sections || []), isGuide ? RALLY_GUIDE_NOTE(t) : RALLY_TEMPLATE_NOTE(t)],
+    sections: [...(t.sections || []), isGuide ? ARDOVO_GUIDE_NOTE(t) : ARDOVO_TEMPLATE_NOTE(t)],
     faqs: t.faqs,
     published: `2026-07-10`,
     updated: `2026-07-10`,

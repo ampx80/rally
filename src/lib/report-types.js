@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CROSS-OBJECT REPORT TYPES  (additive to report-builder.js)
+// ARDOVO CROSS-OBJECT REPORT TYPES  (additive to report-builder.js)
 // The v2 Report Builder (src/lib/report-builder.js) reports over a
 // SINGLE object at a time (deals OR contacts OR ...). This module adds
 // a registry of JOINED report types - denormalized views that flatten

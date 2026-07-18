@@ -72,7 +72,7 @@ function monogram(name) {
   if (parts.length >= 2 && parts[1]) return (parts[0][0] + parts[1][0]).toUpperCase();
   return clean.slice(0, 2).toUpperCase();
 }
-const isRally = (s) => /^\s*rally\s*$/i.test(s || '');
+const isArdovo = (s) => /^\s*rally\s*$/i.test(s || '');
 const truncate = (s, n) => (s && s.length > n ? s.slice(0, n - 1).trimEnd() + '.' : s || '');
 
 /* Derive the "other product" name for a page from its richest field. */
@@ -119,7 +119,7 @@ function Frame({ label, children }) {
   );
 }
 
-function RallyMark({ size = 44 }) {
+function ArdovoMark({ size = 44 }) {
   return (
     <span className="sv-mono sv-mono-rally" style={{ width: size, height: size }}>
       <Icon name="sparkles" size={Math.round(size * 0.42)} />
@@ -139,7 +139,7 @@ function MigrationVisual({ entry }) {
     <Frame label={`Migrate from ${truncate(src, 16)}`}>
       <svg className="sv-svg" viewBox="0 0 300 96" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
-          <linearGradient id="svMigRally" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="svMigArdovo" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#0e9f8f" /><stop offset="1" stopColor="#0b8578" />
           </linearGradient>
           <linearGradient id="svMigRec" x1="0" y1="0" x2="1" y2="0">
@@ -160,11 +160,11 @@ function MigrationVisual({ entry }) {
         ))}
         {/* rally node */}
         <g>
-          <rect x="248" y="24" width="46" height="48" rx="12" fill="url(#svMigRally)" />
+          <rect x="248" y="24" width="46" height="48" rx="12" fill="url(#svMigArdovo)" />
           <g transform="translate(271,44)" fill="#fff">
             <path transform="translate(-8,-8) scale(.66)" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
           </g>
-          <text x="271" y="84" textAnchor="middle" fill="var(--m-accent)" fontSize="9" fontWeight="800">Rally</text>
+          <text x="271" y="84" textAnchor="middle" fill="var(--m-accent)" fontSize="9" fontWeight="800">Ardovo</text>
         </g>
       </svg>
       <ul className="sv-map">
@@ -204,21 +204,21 @@ function Panel({ name, rally }) {
 
 function VersusVisual({ entry }) {
   const [a, b] = versusPair(entry);
-  const rallyPresent = isRally(a) || isRally(b);
-  const label = entry.type === 'comparison' ? `Rally vs ${truncate(otherLabel(a, b), 14)}` : `${truncate(a, 10)} vs ${truncate(b, 10)}`;
+  const rallyPresent = isArdovo(a) || isArdovo(b);
+  const label = entry.type === 'comparison' ? `Ardovo vs ${truncate(otherLabel(a, b), 14)}` : `${truncate(a, 10)} vs ${truncate(b, 10)}`;
   return (
     <Frame label={label}>
       <div className="sv-duel">
         <span className="sv-duel-seam" />
         <span className="sv-duel-vs">VS</span>
-        <Panel name={a} rally={isRally(a)} />
-        <Panel name={b} rally={isRally(b)} />
+        <Panel name={a} rally={isArdovo(a)} />
+        <Panel name={b} rally={isArdovo(b)} />
       </div>
       {!rallyPresent && (
         <div className="sv-winner">
           <div className="sv-winner-row">
-            <RallyMark size={20} />
-            <span className="sv-winner-name">Rally</span>
+            <ArdovoMark size={20} />
+            <span className="sv-winner-name">Ardovo</span>
             <span className="sv-winner-tag">Best fit</span>
           </div>
           <div className="sv-winner-track"><span className="sv-winner-fill" style={{ '--sv-w': '96%' }} /></div>
@@ -227,7 +227,7 @@ function VersusVisual({ entry }) {
     </Frame>
   );
 }
-function otherLabel(a, b) { return isRally(a) ? b : a; }
+function otherLabel(a, b) { return isArdovo(a) ? b : a; }
 
 /* ============================================================
    RANKING - ranked bars, #1 crowned
@@ -238,7 +238,7 @@ function RankingVisual({ entry }) {
     .sort((x, y) => y.score - x.score)
     .slice(0, 5);
   const list = items.length ? items : [
-    { name: 'Rally', score: 9.5 }, { name: 'HubSpot', score: 9.1 },
+    { name: 'Ardovo', score: 9.5 }, { name: 'HubSpot', score: 9.1 },
     { name: 'Salesforce', score: 9.0 }, { name: 'Pipedrive', score: 8.4 }, { name: 'Zoho', score: 8.3 },
   ];
   const max = Math.max(...list.map((i) => i.score), 10);
@@ -266,7 +266,7 @@ function RankingVisual({ entry }) {
 }
 
 /* ============================================================
-   ALTERNATIVE - leaving X, Rally lights up and pulls items over
+   ALTERNATIVE - leaving X, Ardovo lights up and pulls items over
    ============================================================ */
 function AlternativeVisual({ entry }) {
   const src = otherName(entry);
@@ -280,7 +280,7 @@ function AlternativeVisual({ entry }) {
         </div>
         <div className="sv-cross" aria-hidden><span /><span /><span /></div>
         <div className="sv-alt-card sv-alt-rally">
-          <div className="sv-alt-top"><RallyMark size={30} /><span className="sv-nodename">Rally</span></div>
+          <div className="sv-alt-top"><ArdovoMark size={30} /><span className="sv-nodename">Ardovo</span></div>
           <span className="sv-alt-item w1" /><span className="sv-alt-item w2" /><span className="sv-alt-item w3" />
         </div>
       </div>
@@ -326,7 +326,7 @@ function GlossaryVisual({ entry }) {
 function FeatureVisual({ entry }) {
   const title = truncate(entry.h1 || entry.title || 'Feature', 22);
   return (
-    <Frame label="Live in Rally">
+    <Frame label="Live in Ardovo">
       <div className="sv-demo-head">
         <span className="sv-mono sv-mono-rally" style={{ width: 30, height: 30, borderRadius: 9 }}><Icon name="sparkles" size={14} /></span>
         <span className="sv-demo-title">{title}</span>
@@ -401,16 +401,16 @@ function RoleVisual({ entry }) {
 }
 
 /* ============================================================
-   INTEGRATION - Rally <-> Tool connector (SVG), data both ways
+   INTEGRATION - Ardovo <-> Tool connector (SVG), data both ways
    ============================================================ */
 function IntegrationVisual({ entry }) {
   const tool = otherName(entry);
   const mono = monogram(tool);
   return (
-    <Frame label={`Rally + ${truncate(tool, 14)}`}>
+    <Frame label={`Ardovo + ${truncate(tool, 14)}`}>
       <svg className="sv-svg" viewBox="0 0 300 116" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <defs>
-          <linearGradient id="svIntRally" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="svIntArdovo" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#0e9f8f" /><stop offset="1" stopColor="#0b8578" />
           </linearGradient>
         </defs>
@@ -422,14 +422,14 @@ function IntegrationVisual({ entry }) {
           <circle className="sv-int-dotl" cx="200" cy="52" r="3.4" fill="var(--m-teal)" />
           <circle className="sv-int-dotl d2" cx="200" cy="52" r="3.4" fill="var(--m-teal)" />
         </g>
-        {/* Rally core */}
+        {/* Ardovo core */}
         <g className="sv-int-core">
-          <circle cx="56" cy="52" r="30" fill="url(#svIntRally)" />
+          <circle cx="56" cy="52" r="30" fill="url(#svIntArdovo)" />
           <g transform="translate(56,52)" fill="#fff">
             <path transform="translate(-12,-12)" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
           </g>
         </g>
-        <text className="sv-int-label" x="56" y="100" textAnchor="middle">Rally</text>
+        <text className="sv-int-label" x="56" y="100" textAnchor="middle">Ardovo</text>
         {/* tool node */}
         <circle className="sv-int-node" cx="244" cy="52" r="30" fill="#fff" />
         <text className="sv-int-mono" x="244" y="58" textAnchor="middle" fill="var(--m-ink)">{mono}</text>

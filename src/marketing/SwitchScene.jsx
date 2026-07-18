@@ -1,7 +1,7 @@
-// SwitchScene - the "old way vs Rally way" comparison, dramatized. LEFT is the
+// SwitchScene - the "old way vs Ardovo way" comparison, dramatized. LEFT is the
 // legacy CRM visibly thrashing: eleven crammed tabs, skeleton rows that shimmer
 // forever and never load, a setup bar stuck at month 7 of 11, a spinner, and red
-// required-field flags. RIGHT is Rally: the deal card springs together and Rook
+// required-field flags. RIGHT is Ardovo: the deal card springs together and Rook
 // TYPES a real follow-up email, then shows "ready to send". The contrast in
 // motion (endless futile churn vs one decisive assembly) is the whole pitch.
 // Honors prefers-reduced-motion. NO em-dash / en-dash. ASCII hyphen only.
@@ -97,10 +97,10 @@ export default function SwitchScene() {
         <p className="mkt-switch-cap">Eleven tabs, fields no one can explain, and a consultant on retainer.</p>
       </div>
 
-      {/* ============ THE RALLY WAY ============ */}
+      {/* ============ THE ARDOVO WAY ============ */}
       <div className="mkt-switch-card mkt-rallyway">
         <div className="mkt-switch-head">
-          <span className="mkt-switch-kicker mkt-rally-kicker">THE RALLY WAY</span>
+          <span className="mkt-switch-kicker mkt-rally-kicker">THE ARDOVO WAY</span>
           <span className="mkt-rally-live"><span className="mkt-dot m-pulse" /> LIVE IN 3 SECONDS</span>
         </div>
 

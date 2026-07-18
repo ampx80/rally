@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DATA LAYER - LOCAL ADAPTER
+// ARDOVO DATA LAYER - LOCAL ADAPTER
 // ------------------------------------------------------------
 // Wraps the EXISTING local-first stores (store.js + store-ext.js)
 // without changing them. Reads delegate to the store getters;

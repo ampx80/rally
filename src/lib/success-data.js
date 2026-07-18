@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CUSTOMER SUCCESS  (post-sale health engine)
+// ARDOVO CUSTOMER SUCCESS  (post-sale health engine)
 // Derives a believable book-of-business health model from the
 // existing CRM signals in store.js. Nothing here mutates the
 // store except runPlaybook(), which logs a real activity so the

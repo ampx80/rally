@@ -82,7 +82,7 @@ export default function RecentPagesDock() {
           <button className="rpd-icon" onClick={() => setOpen(false)} aria-label="Minimize" title="Minimize"><Icon name="chevronDown" size={16} /></button>
         </div>
 
-        {!hasAnything && <div className="rpd-empty">Move around Rally and your recent pages show up here.</div>}
+        {!hasAnything && <div className="rpd-empty">Move around Ardovo and your recent pages show up here.</div>}
 
         {pinned.length > 0 && (
           <div className="rpd-group">

@@ -1,4 +1,4 @@
-// Login - Rally's real sign-in at /login. Standalone (no marketing chrome, no
+// Login - Ardovo's real sign-in at /login. Standalone (no marketing chrome, no
 // product shell), noindex. Email + password with a clean first-login flow, an
 // authenticator-app 2FA step when enabled, and a sign-up toggle. On success it
 // opens the product gate and drops you into the app. Powered by the local-first
@@ -25,7 +25,7 @@ export default function Login() {
     const m = document.createElement('meta');
     m.name = 'robots'; m.content = 'noindex, nofollow';
     document.head.appendChild(m);
-    const prevTitle = document.title; document.title = 'Sign in - Rally';
+    const prevTitle = document.title; document.title = 'Sign in - Ardovo';
     return () => { try { document.head.removeChild(m); } catch {} document.title = prevTitle; };
   }, []);
 
@@ -63,7 +63,7 @@ export default function Login() {
     <div className="lg-wrap">
       <div className="lg-aside" aria-hidden>
         <div className="lg-aside-in">
-          <div className="lg-brand"><span className="lg-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span> Rally</div>
+          <div className="lg-brand"><span className="lg-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span> Ardovo</div>
           <h1 className="lg-tag">The AI-native revenue platform.</h1>
           <p className="lg-sub">Sign in to the operator that actually runs the work. Grounded in your book, governed by roles you can read at a glance.</p>
           <div className="lg-orbs"><span /><span /><span /></div>
@@ -72,12 +72,12 @@ export default function Login() {
 
       <div className="lg-panel">
         <div className="lg-card">
-          <div className="lg-logo"><span className="lg-mark sm"><Icon name="zap" size={16} fill="#fff" stroke={0} /></span> Rally</div>
+          <div className="lg-logo"><span className="lg-mark sm"><Icon name="zap" size={16} fill="#fff" stroke={0} /></span> Ardovo</div>
 
           {step === 'creds' ? (
             <>
               <h2 className="lg-h">{mode === 'signup' ? 'Create your account' : 'Welcome back'}</h2>
-              <p className="lg-p">{mode === 'signup' ? 'Start running your revenue on Rally.' : 'Sign in to your workspace.'}</p>
+              <p className="lg-p">{mode === 'signup' ? 'Start running your revenue on Ardovo.' : 'Sign in to your workspace.'}</p>
               <form onSubmit={submit} className="lg-form" noValidate>
                 {mode === 'signup' && (
                   <label className="lg-field"><span>Name</span>
@@ -96,7 +96,7 @@ export default function Login() {
               <div className="lg-alt">
                 {mode === 'signup'
                   ? <>Already have an account? <button onClick={() => { setMode('login'); setErr(''); }}>Sign in</button></>
-                  : <>New to Rally? <button onClick={() => { setMode('signup'); setErr(''); }}>Create an account</button></>}
+                  : <>New to Ardovo? <button onClick={() => { setMode('signup'); setErr(''); }}>Create an account</button></>}
               </div>
               <div className="lg-fine"><Icon name="lock" size={12} /> Protected by 2FA when your admin turns it on.</div>
             </>

@@ -25,7 +25,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`The biggest error is activity-based stages like "Sent email" or "Demo scheduled" that describe seller effort rather than buyer intent. They inflate the pipeline and destroy forecast accuracy.`, `The second is never closing lost deals. A deal with no path forward that sits in Proposal for 90 days is not pipeline, it is noise. Age out stale deals automatically.`] },
-      { h: `How Rally helps`, body: `Rally ships with a deal object that already has stages, exit criteria, and per-stage conversion analytics built in. Tell Rook "set up a pipeline for outbound SaaS deals" and it creates the stages, wires the forecast rollup, and flags any deal that has gone stale so your weekly review writes itself.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships with a deal object that already has stages, exit criteria, and per-stage conversion analytics built in. Tell Rook "set up a pipeline for outbound SaaS deals" and it creates the stages, wires the forecast rollup, and flags any deal that has gone stale so your weekly review writes itself.` },
     ],
     faqs: [
       { q: `How many stages should a sales pipeline have?`, a: `Five to seven for most B2B teams. Fewer than five hides where deals stall, more than seven creates data-entry busywork and forces reps to guess which stage a deal is in. Start with New, Qualified, Discovery, Proposal, Negotiation, Closed.` },
@@ -55,7 +55,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Confusing a process with a methodology. MEDDIC and Challenger are methodologies (how to sell); your process is the ordered steps and criteria (what to do and when). You need both.`, `Building the process in a slide deck no one opens. If it does not live in the CRM where reps work, it will not be followed.`] },
-      { h: `How Rally helps`, body: `In Rally, the sales process is not a document, it is the product. Stages, exit criteria, required fields, and the play for each step are enforced in the deal object, and Rook nudges reps when a deal is missing a next step or trying to skip a stage. The process runs itself.` },
+      { h: `How Ardovo helps`, body: `In Ardovo, the sales process is not a document, it is the product. Stages, exit criteria, required fields, and the play for each step are enforced in the deal object, and Rook nudges reps when a deal is missing a next step or trying to skip a stage. The process runs itself.` },
     ],
     faqs: [
       { q: `What is the difference between a sales process and a sales methodology?`, a: `A process is the sequence of steps and criteria your team follows (what happens and when). A methodology is the philosophy and technique for how you sell within those steps, such as MEDDIC, SPIN, or Challenger. Use a methodology inside a process.` },
@@ -83,7 +83,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Letting the review become a report-out where the rep narrates every deal. Managers should drive, focusing only on risk and movement.`, `Reviewing dirty data. If half the time goes to fixing stages and dates, the review has no time left to actually coach deals forward.`] },
-      { h: `How Rally helps`, body: `Rally pre-builds the review: Rook surfaces stalled deals, missing next steps, and close dates that slipped, so you walk in with the exception list already made. Actions logged in the review become tracked tasks, and next week Rook tells you which ones actually happened.` },
+      { h: `How Ardovo helps`, body: `Ardovo pre-builds the review: Rook surfaces stalled deals, missing next steps, and close dates that slipped, so you walk in with the exception list already made. Actions logged in the review become tracked tasks, and next week Rook tells you which ones actually happened.` },
     ],
     faqs: [
       { q: `How often should I run a pipeline review?`, a: `Weekly for individual reps in most transactional and mid-market teams, and monthly at the team or region level for a wider view. High-velocity teams sometimes review twice a week; long enterprise cycles can go biweekly.` },
@@ -111,7 +111,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Reviewing only deals that are going well. The deals that need review are the ones the rep is quietly worried about.`, `Accepting "they love us" as status. Sentiment is not a stage; a signed order form is. Push past optimism to committed process steps.`] },
-      { h: `How Rally helps`, body: `Rally's deal object holds the buying committee, competitors, close plan, and risk log in one place, so a deal review is a live inspection instead of a slide rebuild. Rook flags single-threaded deals, missing economic buyers, and close dates with no supporting activity.` },
+      { h: `How Ardovo helps`, body: `Ardovo's deal object holds the buying committee, competitors, close plan, and risk log in one place, so a deal review is a live inspection instead of a slide rebuild. Rook flags single-threaded deals, missing economic buyers, and close dates with no supporting activity.` },
     ],
     faqs: [
       { q: `Which deals deserve a deal review?`, a: `Your biggest by value, your most strategic (a marquee logo or new segment), and any deal your forecast is leaning on. Small, transactional deals are better handled in a pipeline review.` },
@@ -140,7 +140,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Writing the playbook you wish were true instead of documenting what your top reps actually do. Mine real winning behavior first.`, `Building a 90-page PDF nobody opens. Keep it modular and searchable, ideally inside the tools reps already use.`] },
-      { h: `How Rally helps`, body: `Rally embeds the playbook where reps work: stage guidance, required fields, templates, and battlecards surface on the deal itself. Rook can answer "what do I do next on this deal" by reading the playbook and the deal state together.` },
+      { h: `How Ardovo helps`, body: `Ardovo embeds the playbook where reps work: stage guidance, required fields, templates, and battlecards surface on the deal itself. Rook can answer "what do I do next on this deal" by reading the playbook and the deal state together.` },
     ],
     faqs: [
       { q: `What should a sales playbook include?`, a: `ICP and personas, the sales process and stages, qualification criteria, messaging and value props by persona, objection handling, competitive battlecards, and the assets for each stage. Keep it practical and tied to real deals.` },
@@ -167,7 +167,7 @@ export default [
       { h: `Add a closed-lost reason set`, body: `Standardize why deals die (price, timing, competitor, no decision) so lost-stage data feeds win-loss analysis instead of vanishing.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally ships default stages with exit criteria and conversion analytics, and Rook can rebuild them for your motion in one sentence. Stage guidance appears on each deal so reps know exactly what advancing requires.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships default stages with exit criteria and conversion analytics, and Rook can rebuild them for your motion in one sentence. Stage guidance appears on each deal so reps know exactly what advancing requires.` },
     ],
     faqs: [
       { q: `Should pipeline stages match my sales process steps?`, a: `Yes. Keep them one-to-one so the CRM and the process stay in sync. A stage in the pipeline should equal a step in the process with the same exit criteria.` },
@@ -193,7 +193,7 @@ export default [
       { h: `Model the impact of fixing it`, body: `Estimate revenue if the worst transition improved by even 10 points. Compare that to the cost of adding leads. The math almost always favors fixing the leak.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds the funnel automatically from your deal and lead data, showing volume and conversion at every stage and highlighting the biggest leak. Rook can tell you the revenue impact of closing a specific gap.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds the funnel automatically from your deal and lead data, showing volume and conversion at every stage and highlighting the biggest leak. Rook can tell you the revenue impact of closing a specific gap.` },
     ],
     faqs: [
       { q: `What is the difference between a funnel and a pipeline?`, a: `A funnel is the aggregate conversion shape across all deals over time. A pipeline is the live list of specific open deals. Use the funnel to spot systemic leaks, the pipeline to manage individual deals.` },
@@ -219,7 +219,7 @@ export default [
       { h: `Age out zombies automatically`, body: `Auto-flag deals with no activity in 30 to 45 days and force a decision: advance, close-lost, or push out with a real reason. Do not let dead deals pad the number.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rook watches every open deal and flags the ones with no next step, no recent activity, or a stalled stage, then suggests the play to re-engage or the reason to close. Leak detection becomes automatic instead of a quarterly cleanup.` },
+      { h: `How Ardovo helps`, body: `Rook watches every open deal and flags the ones with no next step, no recent activity, or a stalled stage, then suggests the play to re-engage or the reason to close. Leak detection becomes automatic instead of a quarterly cleanup.` },
     ],
     faqs: [
       { q: `What causes pipeline leakage?`, a: `Loose qualification letting weak deals in, no enforced next step, single-threaded relationships that ghost, and managers who never force stale deals to a decision. Most leakage is a discipline problem, not a demand problem.` },
@@ -245,7 +245,7 @@ export default [
       { h: `Recalculate coverage and re-forecast`, body: `With the pipeline clean, recompute coverage against quota. The honest number tells you whether to sell what you have or generate more.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally continuously audits in the background. Rook surfaces mis-staged deals, missing next steps, past-due close dates, and stale opportunities so the audit is a running state, not a quarterly fire drill.` },
+      { h: `How Ardovo helps`, body: `Ardovo continuously audits in the background. Rook surfaces mis-staged deals, missing next steps, past-due close dates, and stale opportunities so the audit is a running state, not a quarterly fire drill.` },
     ],
     faqs: [
       { q: `How often should I audit my pipeline?`, a: `Do a light audit weekly in your pipeline review and a deeper clean at the start of each quarter. High-velocity teams benefit from continuous automated checks so it never piles up.` },
@@ -271,7 +271,7 @@ export default [
       { h: `Review weekly and rebalance`, body: `Compare sourced pipeline to the weekly target. If a channel underdelivers, shift effort to the ones converting. Catch shortfalls early enough to fix them.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes your required pipeline from your target, win rate, and deal size, tracks sourced pipeline by channel, and lets Rook build and run the outbound sequences that fill the gap. You always know the number you need and how far off you are.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes your required pipeline from your target, win rate, and deal size, tracks sourced pipeline by channel, and lets Rook build and run the outbound sequences that fill the gap. You always know the number you need and how far off you are.` },
     ],
     faqs: [
       { q: `How much pipeline do I need to hit quota?`, a: `Divide your target by your win rate, then apply a coverage multiple for slippage, commonly 3x to 4x. If you close 25 percent and need 1 million, you need at least 4 million in qualified pipeline, and more to be safe.` },
@@ -297,7 +297,7 @@ export default [
       { h: `Advance or disqualify with a clear reason`, body: `If it passes, advance it and book a real next step. If it fails on fit or need, disqualify it and log why. Ambiguous "maybes" are the time sink that kills a quarter.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores fit automatically against your ICP and prompts the qualification fields on every lead, so reps capture need, authority, and timing in a structured way. Rook flags leads that look like a bad fit before a rep wastes a call.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit automatically against your ICP and prompts the qualification fields on every lead, so reps capture need, authority, and timing in a structured way. Rook flags leads that look like a bad fit before a rep wastes a call.` },
     ],
     faqs: [
       { q: `What is the fastest way to qualify a lead?`, a: `Check ICP fit first, because it is objective and disqualifies bad accounts before you invest a call. Then confirm a quantified pain. Fit plus real need filters out most time-wasters in minutes.` },
@@ -323,7 +323,7 @@ export default [
       { h: `Recalibrate quarterly`, body: `Buying behavior and your ICP shift. Revisit the weights and threshold every quarter using the latest win data so the model stays accurate.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores fit and engagement together and back-tests the model against your closed-won history, so the threshold reflects what actually converts. Rook re-weights signals as new deals close, keeping the score honest without a manual rebuild.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit and engagement together and back-tests the model against your closed-won history, so the threshold reflects what actually converts. Rook re-weights signals as new deals close, keeping the score honest without a manual rebuild.` },
     ],
     faqs: [
       { q: `What is the difference between fit and engagement scoring?`, a: `Fit measures whether a lead matches your ideal customer (firmographics, role). Engagement measures whether they are behaving like a buyer (page visits, replies). A great fit with no engagement is a target; high engagement with poor fit is often a dead end.` },
@@ -349,7 +349,7 @@ export default [
       { h: `Back-test, launch, and iterate`, body: `Run the model against historical leads to confirm high scores map to wins, then launch and refine the weights each quarter as new data lands.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives the model from your own closed-won data rather than guesses, splits fit from engagement, and lets Rook adjust weights automatically as outcomes accumulate. You get a scoring model that improves itself instead of decaying.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives the model from your own closed-won data rather than guesses, splits fit from engagement, and lets Rook adjust weights automatically as outcomes accumulate. You get a scoring model that improves itself instead of decaying.` },
     ],
     faqs: [
       { q: `Should I build a lead scoring model manually or use AI?`, a: `Start with a simple manual model derived from your closed-won data so you understand the logic. As volume grows, let a system recalibrate weights automatically from outcomes. Blind AI scoring you cannot explain is hard to trust or coach against.` },
@@ -375,7 +375,7 @@ export default [
       { h: `Monitor and alert`, body: `Track unassigned leads, SLA breaches, and load balance. Alert managers when a lead goes unworked so coverage gaps surface immediately.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally routes leads the moment they arrive using your rules, enforces the speed-to-lead SLA with a live timer, and has Rook reassign or escalate any lead that goes unworked. Nothing sits in an unassigned queue losing intent.` },
+      { h: `How Ardovo helps`, body: `Ardovo routes leads the moment they arrive using your rules, enforces the speed-to-lead SLA with a live timer, and has Rook reassign or escalate any lead that goes unworked. Nothing sits in an unassigned queue losing intent.` },
     ],
     faqs: [
       { q: `What is the best lead routing method?`, a: `There is no single best method; most teams layer them: account-based routing first to respect ownership, then territory or segment rules, with round-robin as the fallback for unclaimed leads. The goal is instant, fair, collision-free assignment.` },
@@ -401,7 +401,7 @@ export default [
       { h: `Measure median response time`, body: `Track the median (not average) time to first touch weekly and by rep. What gets measured and posted gets fast.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally can send the instant acknowledgment, start the SLA timer, and have Rook draft the first personalized outreach automatically, so the rep's first call goes out in minutes. Response-time dashboards show exactly where leads wait.` },
+      { h: `How Ardovo helps`, body: `Ardovo can send the instant acknowledgment, start the SLA timer, and have Rook draft the first personalized outreach automatically, so the rep's first call goes out in minutes. Response-time dashboards show exactly where leads wait.` },
     ],
     faqs: [
       { q: `How fast should I respond to a new lead?`, a: `Within five minutes for high-intent inbound like demo or pricing requests. Response odds fall steeply after the first hour, so the first few minutes carry outsized weight. Automate an instant acknowledgment to hold attention until a rep calls.` },
@@ -427,7 +427,7 @@ export default [
       { h: `Hand off at the intent threshold`, body: `When a lead crosses your engagement score threshold, route it to sales immediately with the context of what they engaged with. Nurture warms the lead; sales closes it.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally runs segmented nurture sequences, scores engagement in real time, and has Rook alert a rep the instant a nurtured lead shows buying intent, with the full engagement history attached so the first sales touch is relevant.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs segmented nurture sequences, scores engagement in real time, and has Rook alert a rep the instant a nurtured lead shows buying intent, with the full engagement history attached so the first sales touch is relevant.` },
     ],
     faqs: [
       { q: `How often should I email nurture leads?`, a: `Enough to stay top of mind without becoming noise, often every one to two weeks depending on your buying cycle and content supply. Consistency and relevance matter more than frequency; unsubscribes spike when you send filler.` },
@@ -453,7 +453,7 @@ export default [
       { h: `Route responders and retire the rest`, body: `Move anyone who re-engages into an active sequence with a real next step, and formally retire leads that stay silent so your database reflects reality.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally watches for trigger events at cold accounts and prompts Rook to draft a re-engagement message anchored to what changed. Responders drop straight into an active sequence, and the truly dead are archived so your pipeline stays honest.` },
+      { h: `How Ardovo helps`, body: `Ardovo watches for trigger events at cold accounts and prompts Rook to draft a re-engagement message anchored to what changed. Responders drop straight into an active sequence, and the truly dead are archived so your pipeline stays honest.` },
     ],
     faqs: [
       { q: `How do I re-engage a lead that went cold?`, a: `Give them a genuinely new reason to respond: a product update that answers their old objection, a trigger event at their company, or a fresh proof point. Switch channels and try a new contact, and use a short breakup message to prompt a decision.` },
@@ -479,7 +479,7 @@ export default [
       { h: `Follow up fast and consistently`, body: `The best lead source is wasted without quick, persistent follow-up. Wire in speed-to-lead and a real cadence so generated leads become opportunities.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally captures leads from every source, scores them for fit on arrival, and tracks cost and conversion by channel so you see which sources create real pipeline. Rook runs the outbound sequences and the instant follow-up that turn leads into meetings.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures leads from every source, scores them for fit on arrival, and tracks cost and conversion by channel so you see which sources create real pipeline. Rook runs the outbound sequences and the instant follow-up that turn leads into meetings.` },
     ],
     faqs: [
       { q: `What is the cheapest way to generate leads?`, a: `Referrals and existing-customer expansion are usually the cheapest and highest-converting, followed by organic inbound content that compounds over time. Paid and outbound scale faster but cost more per lead, so balance them against your targets.` },
@@ -505,7 +505,7 @@ export default [
       { h: `Score and decide`, body: `If three or four pillars are solid, advance. If a pillar is clearly absent and unfixable, disqualify and move on rather than nurturing a non-deal.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally structures BANT capture right on the lead and reminds reps which pillar is still unknown. Rook can flag when a deal is advancing without a confirmed budget owner or timing, so weak deals do not sneak into the forecast.` },
+      { h: `How Ardovo helps`, body: `Ardovo structures BANT capture right on the lead and reminds reps which pillar is still unknown. Rook can flag when a deal is advancing without a confirmed budget owner or timing, so weak deals do not sneak into the forecast.` },
     ],
     faqs: [
       { q: `Is BANT still relevant?`, a: `Yes, for transactional and mid-market deals with simpler buying processes. For complex enterprise sales with many stakeholders, deeper frameworks like MEDDIC capture the decision process and metrics that BANT skips.` },
@@ -531,7 +531,7 @@ export default [
       { h: `Score gaps and close them`, body: `Rate each letter and attack the weakest. An unmet economic buyer or a missing champion is a risk to work now, not at close.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally's deal object captures every MEDDIC element, and Rook flags gaps like a missing economic buyer or an untested champion before they cost you the deal. Deal reviews inspect MEDDIC live instead of rebuilding it in slides.` },
+      { h: `How Ardovo helps`, body: `Ardovo's deal object captures every MEDDIC element, and Rook flags gaps like a missing economic buyer or an untested champion before they cost you the deal. Deal reviews inspect MEDDIC live instead of rebuilding it in slides.` },
     ],
     faqs: [
       { q: `What does MEDDIC stand for?`, a: `Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, and Champion. Some teams add a second C for Competition, making it MEDDICC. It is a framework for qualifying and de-risking complex, high-value deals.` },
@@ -557,7 +557,7 @@ export default [
       { h: `Recalibrate together`, body: `Review the criteria jointly each quarter using conversion data so marketing and sales share one definition, not two.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores fit and engagement for the MQL gate and captures the rep's SQL confirmation in structured fields, then reports acceptance and conversion across the handoff so both teams see exactly where leads leak.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit and engagement for the MQL gate and captures the rep's SQL confirmation in structured fields, then reports acceptance and conversion across the handoff so both teams see exactly where leads leak.` },
     ],
     faqs: [
       { q: `What is the difference between an MQL and an SQL?`, a: `An MQL is a lead marketing deems ready for sales based on fit and engagement. An SQL is a lead a rep has vetted and confirmed has genuine need, authority, and timing. MQL is a scoring gate, SQL is a human qualification gate.` },
@@ -583,7 +583,7 @@ export default [
       { h: `Measure and refine per step`, body: `Track opens, clicks, and exits at each touch. Cut the weak messages and double down on the ones that drive engagement and conversions.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds and runs multi-channel nurture sequences, and Rook drafts each touch and monitors for the intent trigger, routing hot leads to a rep the moment they engage. Per-step analytics show exactly which message earns its place.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds and runs multi-channel nurture sequences, and Rook drafts each touch and monitors for the intent trigger, routing hot leads to a rep the moment they engage. Per-step analytics show exactly which message earns its place.` },
     ],
     faqs: [
       { q: `How many emails should a nurture sequence have?`, a: `Usually five to eight touches over a few weeks, though it depends on your buying cycle and content depth. The goal is enough to build familiarity and deliver value without becoming noise that drives unsubscribes.` },
@@ -609,7 +609,7 @@ export default [
       { h: `Review the metrics together`, body: `Meet regularly on acceptance rate, speed-to-lead, and conversion. Shared metrics turn finger-pointing into joint problem-solving.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally passes the full lead context to the rep automatically, enforces the speed-to-lead SLA, and logs rejection reasons back to the scoring model. Both teams watch one dashboard, so the handoff is measured, not disputed.` },
+      { h: `How Ardovo helps`, body: `Ardovo passes the full lead context to the rep automatically, enforces the speed-to-lead SLA, and logs rejection reasons back to the scoring model. Both teams watch one dashboard, so the handoff is measured, not disputed.` },
     ],
     faqs: [
       { q: `Why do marketing and sales fight over leads?`, a: `Usually because they never agreed on what "qualified" means, there is no SLA, and no feedback loop. Marketing sends volume, sales rejects it, and neither has data to resolve it. Shared definitions and a closed loop fix most of the tension.` },
@@ -635,7 +635,7 @@ export default [
       { h: `Use the data to improve targeting`, body: `Aggregate disqualification reasons to spot bad lead sources and refine your ICP and scoring so fewer junk leads reach reps.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally structures disqualification reasons and routes timing-only leads to nurture automatically. Rook aggregates the reasons to flag which sources and segments produce the most dead ends, so you fix targeting upstream.` },
+      { h: `How Ardovo helps`, body: `Ardovo structures disqualification reasons and routes timing-only leads to nurture automatically. Rook aggregates the reasons to flag which sources and segments produce the most dead ends, so you fix targeting upstream.` },
     ],
     faqs: [
       { q: `Is disqualifying a lead a bad thing?`, a: `No, it is essential. Fast, honest disqualification frees your time for deals that can close and keeps your pipeline and forecast accurate. The mistake is clinging to unqualified deals because closing them out feels like failure.` },
@@ -661,7 +661,7 @@ export default [
       { h: `Reallocate based on revenue`, body: `Shift budget toward the sources producing pipeline and revenue, and cut those producing only cheap, non-converting leads.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally captures source on every lead, carries it through to closed revenue, and reports cost and conversion by channel so you optimize on pipeline created, not clicks. Rook flags sources whose leads never convert so you stop funding them.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures source on every lead, carries it through to closed revenue, and reports cost and conversion by channel so you optimize on pipeline created, not clicks. Rook flags sources whose leads never convert so you stop funding them.` },
     ],
     faqs: [
       { q: `Why should I track lead source to revenue, not just to lead?`, a: `Because a source can produce many cheap leads that never close. Only by following source through to closed revenue do you see true cost per acquisition and know which channels actually fund the business versus inflate your lead count.` },
@@ -687,7 +687,7 @@ export default [
       { h: `Measure conversion by source`, body: `Track lead-to-opportunity rate per channel and move spend toward the sources that produce leads that close.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores fit on arrival, captures rejection reasons, and reports lead-to-opportunity conversion by source, so you can see which channels and segments produce quality. Rook re-weights scoring as outcomes accumulate, steadily raising the bar.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit on arrival, captures rejection reasons, and reports lead-to-opportunity conversion by source, so you can see which channels and segments produce quality. Rook re-weights scoring as outcomes accumulate, steadily raising the bar.` },
     ],
     faqs: [
       { q: `Is it better to have more leads or better leads?`, a: `Better leads, almost always. A smaller set of well-fit, high-intent leads converts faster and cheaper than a flood of poor-fit ones that waste rep time and drag down morale. Optimize for qualified volume, not raw volume.` },
@@ -713,7 +713,7 @@ export default [
       { h: `Act on the weakest conversion`, body: `Improving the lowest stage-to-stage rate lifts total conversion most. Focus effort there rather than spreading it thin.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes lead conversion rate at every stage and by source automatically, and Rook highlights the biggest drop and its likely cause. You see not just the number but where to fix it.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes lead conversion rate at every stage and by source automatically, and Rook highlights the biggest drop and its likely cause. You see not just the number but where to fix it.` },
     ],
     faqs: [
       { q: `What is a good lead conversion rate?`, a: `It depends heavily on source, definition, and industry, so compare against your own baseline rather than a universal figure. A referral lead converts far higher than a cold display click. The useful question is whether your rate is improving over time.` },
@@ -739,7 +739,7 @@ export default [
       { h: `Trend it over time`, body: `Watch the trajectory quarter over quarter. A falling win rate is an early warning about positioning, competition, or lead quality.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally calculates count and value-weighted win rate automatically and slices it by every dimension, so Rook can tell you exactly which segment or competitor is dragging the number down and feed it into your forecast and coverage targets.` },
+      { h: `How Ardovo helps`, body: `Ardovo calculates count and value-weighted win rate automatically and slices it by every dimension, so Rook can tell you exactly which segment or competitor is dragging the number down and feed it into your forecast and coverage targets.` },
     ],
     faqs: [
       { q: `Should open deals be included in win rate?`, a: `No. Win rate uses only closed deals: wins divided by wins plus losses. Including open deals understates the rate and makes it move as your pipeline changes rather than reflecting true closing performance.` },
@@ -765,7 +765,7 @@ export default [
       { h: `Reconcile to your billing system`, body: `Tie the ARR number back to active subscriptions in billing so it is auditable and not a spreadsheet guess.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Because Rally's deals, quotes, and billing share one source of truth, ARR derives directly from active subscriptions and always ties out. Rook can break ARR into new, expansion, and churned components for any period on request.` },
+      { h: `How Ardovo helps`, body: `Because Ardovo's deals, quotes, and billing share one source of truth, ARR derives directly from active subscriptions and always ties out. Rook can break ARR into new, expansion, and churned components for any period on request.` },
     ],
     faqs: [
       { q: `What is the difference between ARR and revenue?`, a: `ARR is the annualized run rate of recurring subscriptions at a point in time. Revenue (recognized) is what you actually earned over a period under accounting rules, including one-time fees. ARR is a forward run rate, recognized revenue is a historical result.` },
@@ -791,7 +791,7 @@ export default [
       { h: `Reconcile to billing`, body: `Tie MRR to active subscriptions in your billing system so it is auditable and consistent with ARR (MRR times 12).` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives MRR from live subscriptions and decomposes the monthly movement into new, expansion, contraction, and churn automatically, so Rook can explain exactly why MRR moved rather than just reporting the total.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives MRR from live subscriptions and decomposes the monthly movement into new, expansion, contraction, and churn automatically, so Rook can explain exactly why MRR moved rather than just reporting the total.` },
     ],
     faqs: [
       { q: `How do I handle annual plans in MRR?`, a: `Divide the annual recurring price by 12 to get its monthly contribution. MRR normalizes all billing frequencies to a monthly figure so plans of different terms are directly comparable and roll up cleanly to ARR.` },
@@ -817,7 +817,7 @@ export default [
       { h: `Compare to LTV and payback`, body: `CAC only means something next to LTV and payback period. A high CAC is fine if LTV is far higher and payback is fast.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally ties spend by channel to the customers each channel actually produced, so CAC is computed per source and fully loaded rather than guessed. Rook pairs it with LTV and payback so you see unit economics, not an isolated cost.` },
+      { h: `How Ardovo helps`, body: `Ardovo ties spend by channel to the customers each channel actually produced, so CAC is computed per source and fully loaded rather than guessed. Rook pairs it with LTV and payback so you see unit economics, not an isolated cost.` },
     ],
     faqs: [
       { q: `What costs should be included in CAC?`, a: `All sales and marketing costs: team salaries and commissions, ad spend, software and tools, content production, events, and attributable overhead. Leaving out salaries is the most common way teams understate CAC and fool themselves about unit economics.` },
@@ -843,7 +843,7 @@ export default [
       { h: `Pair with CAC`, body: `Compare LTV to CAC. A ratio of 3 to 1 or better generally signals healthy, scalable unit economics.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes ARPA, margin, and churn from live customer data, so LTV updates as retention changes instead of sitting stale in a spreadsheet. Rook pairs it with CAC and payback to show whether acquisition is truly profitable.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes ARPA, margin, and churn from live customer data, so LTV updates as retention changes instead of sitting stale in a spreadsheet. Rook pairs it with CAC and payback to show whether acquisition is truly profitable.` },
     ],
     faqs: [
       { q: `Should LTV use revenue or margin?`, a: `Margin. LTV should reflect the profit a customer generates, so multiply average revenue by gross margin before dividing by churn. Using raw revenue overstates value and can justify overspending on acquisition that is not actually profitable.` },
@@ -869,7 +869,7 @@ export default [
       { h: `Segment the ratio`, body: `Compute it per channel and segment. A healthy blended ratio can hide a channel that loses money on every customer.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes LTV and CAC from live data and reports the ratio by channel and segment, so Rook can flag exactly which acquisition source is unprofitable rather than letting a good blended number hide it.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes LTV and CAC from live data and reports the ratio by channel and segment, so Rook can flag exactly which acquisition source is unprofitable rather than letting a good blended number hide it.` },
     ],
     faqs: [
       { q: `What is a good LTV to CAC ratio?`, a: `Around 3 to 1 is a widely used healthy benchmark. Below 1 to 1 you lose money acquiring customers. Well above 5 to 1 can indicate you are underinvesting in growth and could profitably spend more to acquire.` },
@@ -895,7 +895,7 @@ export default [
       { h: `Segment and compare`, body: `Calculate velocity by team, product, and segment to see where revenue generation is fastest and where it drags.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes sales velocity from live pipeline data and shows how each of the four levers contributes, so Rook can tell you whether raising win rate or shortening the cycle would add more revenue per day for your team.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes sales velocity from live pipeline data and shows how each of the four levers contributes, so Rook can tell you whether raising win rate or shortening the cycle would add more revenue per day for your team.` },
     ],
     faqs: [
       { q: `What is a good sales velocity?`, a: `There is no universal target; velocity is most useful as a trend and a comparison across teams and segments. A rising velocity means your pipeline is producing revenue faster. Focus on improving your own number, not matching a benchmark.` },
@@ -921,7 +921,7 @@ export default [
       { h: `Trend it and coach`, body: `Track attainment over time and by rep to separate a bad quarter from a persistent problem, and coach accordingly.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks attainment live against each rep's quota, prorated for ramp, and shows the team distribution so you can see whether a miss is a rep problem or a quota-setting problem. Rook flags reps trending toward a miss early enough to intervene.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks attainment live against each rep's quota, prorated for ramp, and shows the team distribution so you can see whether a miss is a rep problem or a quota-setting problem. Rook flags reps trending toward a miss early enough to intervene.` },
     ],
     faqs: [
       { q: `What percentage of reps should hit quota?`, a: `A common healthy target is roughly 60 to 70 percent of reps attaining quota. If nearly everyone misses, quotas are likely unrealistic; if nearly everyone exceeds, they are too low and you are leaving performance and forecasting rigor on the table.` },
@@ -947,7 +947,7 @@ export default [
       { h: `Trend and act`, body: `Watch the trajectory and tie spikes to causes: onboarding gaps, product issues, or a bad-fit segment.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes logo and revenue churn, gross and net, from live subscription data and segments it by cohort automatically. Rook flags at-risk accounts before they churn so you can act while it is still preventable.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes logo and revenue churn, gross and net, from live subscription data and segments it by cohort automatically. Rook flags at-risk accounts before they churn so you can act while it is still preventable.` },
     ],
     faqs: [
       { q: `What is the difference between customer churn and revenue churn?`, a: `Customer (logo) churn counts the number of accounts lost. Revenue churn counts the recurring dollars lost. They diverge when your losses are concentrated in a few large or small accounts, so tracking both prevents a misleading picture.` },
@@ -973,7 +973,7 @@ export default [
       { h: `Segment by cohort and plan`, body: `Break NRR down to find which segments expand and which churn, then double down on the expanders.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes NRR and gross retention per cohort from live billing data and shows the expansion-versus-churn breakdown, so Rook can point you to the segments driving or dragging retention and flag accounts to save or grow.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes NRR and gross retention per cohort from live billing data and shows the expansion-versus-churn breakdown, so Rook can point you to the segments driving or dragging retention and flag accounts to save or grow.` },
     ],
     faqs: [
       { q: `What is a good net revenue retention rate?`, a: `Above 100 percent is the goal, meaning your existing base grows even without new customers. Best-in-class SaaS often reaches 110 to 130 percent. Below 100 percent means churn and contraction are outpacing expansion, which caps growth.` },
@@ -999,7 +999,7 @@ export default [
       { h: `Use it to plan`, body: `Feed average and median deal size into pipeline coverage, quota, and capacity math so targets rest on realistic deal economics.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally reports both average and median deal size, sliced by product, segment, and rep, so Rook can show whether a rising average is real growth or one whale distorting the picture, and where deal size could be expanded.` },
+      { h: `How Ardovo helps`, body: `Ardovo reports both average and median deal size, sliced by product, segment, and rep, so Rook can show whether a rising average is real growth or one whale distorting the picture, and where deal size could be expanded.` },
     ],
     faqs: [
       { q: `Should I use average or median deal size?`, a: `Use both. The average is easy to roll into planning math, but a few large deals can inflate it. The median shows what a typical deal really looks like. When mean and median diverge sharply, trust the median for day-to-day expectations.` },
@@ -1025,7 +1025,7 @@ export default [
       { h: `Track time-in-stage`, body: `Decompose the cycle into time spent in each stage to see exactly where deals stall, which is where to focus shortening efforts.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks cycle length and time-in-stage automatically, using the median and segmenting by every dimension, so Rook can point to the exact stage where deals stall and quantify the velocity gain from shortening it.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks cycle length and time-in-stage automatically, using the median and segmenting by every dimension, so Rook can point to the exact stage where deals stall and quantify the velocity gain from shortening it.` },
     ],
     faqs: [
       { q: `Should I use mean or median sales cycle length?`, a: `Median. A small number of very long deals can inflate the mean and make your typical cycle look worse than it is. The median reflects the middle deal and is far more reliable for planning and forecasting.` },
@@ -1051,7 +1051,7 @@ export default [
       { h: `Compare to your own trend`, body: `Judge the number against your prior periods, not generic benchmarks that vary wildly by context.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes conversion at every funnel step and by source automatically, so Rook can surface the weakest transition and its likely cause without a spreadsheet. You get an actionable rate, not a vanity percentage.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes conversion at every funnel step and by source automatically, so Rook can surface the weakest transition and its likely cause without a spreadsheet. You get an actionable rate, not a vanity percentage.` },
     ],
     faqs: [
       { q: `What is the difference between conversion rate and win rate?`, a: `Win rate is a specific conversion rate: closed-won divided by all closed deals. Conversion rate is the general term for any stage-to-stage transition. Win rate is the final one, from qualified opportunity to customer.` },
@@ -1077,7 +1077,7 @@ export default [
       { h: `Pair with LTV and churn`, body: `ARPU feeds LTV directly, so read it alongside churn to understand the full customer-value picture.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes ARPU and ARPA from live billing data and trends it by plan and cohort, so Rook can show whether recent deals are lifting or diluting your average revenue per account and where upsell would help most.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes ARPU and ARPA from live billing data and trends it by plan and cohort, so Rook can show whether recent deals are lifting or diluting your average revenue per account and where upsell would help most.` },
     ],
     faqs: [
       { q: `What is the difference between ARPU and ARPA?`, a: `ARPU is average revenue per user; ARPA is average revenue per account. In B2B, an account can have many users, so ARPA is usually more meaningful for pricing and expansion decisions, while ARPU matters when you charge per seat.` },
@@ -1103,7 +1103,7 @@ export default [
       { h: `Segment by channel`, body: `Compute payback per acquisition channel to find which sources return cash fastest and prioritize them.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes payback per channel from live CAC and margin data, so Rook can show which acquisition sources return cash fastest and flag any channel whose payback stretches your runway, not just its LTV ratio.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes payback per channel from live CAC and margin data, so Rook can show which acquisition sources return cash fastest and flag any channel whose payback stretches your runway, not just its LTV ratio.` },
     ],
     faqs: [
       { q: `What is a good CAC payback period?`, a: `Under 12 months is a common healthy benchmark for SaaS, with best-in-class often under 6. Longer paybacks tie up cash and increase risk, even when the LTV to CAC ratio looks strong, so read both metrics together.` },
@@ -1129,7 +1129,7 @@ export default [
       { h: `Use ACV in planning`, body: `Feed ACV into average deal size, quota, and ARR calculations so targets and forecasts rest on comparable annual numbers.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives ACV and TCV from the quote and contract terms so the two never get conflated, and Rook uses ACV consistently in deal-size, quota, and ARR reporting. Your numbers stay comparable across deals of any term.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives ACV and TCV from the quote and contract terms so the two never get conflated, and Rook uses ACV consistently in deal-size, quota, and ARR reporting. Your numbers stay comparable across deals of any term.` },
     ],
     faqs: [
       { q: `What is the difference between ACV and TCV?`, a: `ACV is the annualized recurring value of a contract; TCV is the total value over the entire term including all years and sometimes one-time fees. A 3-year, 300,000 dollar deal has a 100,000 dollar ACV and a 300,000 dollar TCV.` },
@@ -1155,7 +1155,7 @@ export default [
       { h: `Use TCV where it fits`, body: `Apply TCV to bookings targets, cash forecasting, and commission plans that pay on total committed value.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally calculates TCV and ACV from the quote, including escalators and one-time fees, and keeps them separate in reporting. Rook applies TCV to bookings and commissions and ACV to deal-size and ARR, so the metrics never get crossed.` },
+      { h: `How Ardovo helps`, body: `Ardovo calculates TCV and ACV from the quote, including escalators and one-time fees, and keeps them separate in reporting. Rook applies TCV to bookings and commissions and ACV to deal-size and ARR, so the metrics never get crossed.` },
     ],
     faqs: [
       { q: `What is included in total contract value?`, a: `All committed revenue over the full term: recurring value for every year plus one-time fees like setup or implementation. It represents the total a customer is contractually obligated to pay across the life of the agreement.` },
@@ -1181,7 +1181,7 @@ export default [
       { h: `Track it through the quarter`, body: `Coverage should be highest early and fall as deals close. Watch whether it is on the trajectory to land the number.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes coverage against target from clean, qualified pipeline and sets your target multiple from your actual win rate. Rook flags when coverage falls below the trajectory needed to hit quota, early enough to generate more.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes coverage against target from clean, qualified pipeline and sets your target multiple from your actual win rate. Rook flags when coverage falls below the trajectory needed to hit quota, early enough to generate more.` },
     ],
     faqs: [
       { q: `What is a good pipeline coverage ratio?`, a: `Most teams target 3x to 4x, meaning three to four dollars of qualified pipeline for every dollar of quota. The right multiple depends on your win rate: lower win rates require higher coverage to land the number.` },
@@ -1207,7 +1207,7 @@ export default [
       { h: `Feed it back into the process`, body: `Use the pattern to recalibrate: sandbaggers and happy-ears reps each need different coaching to tighten accuracy.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally snapshots each forecast and scores accuracy against actuals by rep and category automatically, so Rook can show you who consistently sandbags or over-commits and by how much, turning forecast reviews into targeted coaching.` },
+      { h: `How Ardovo helps`, body: `Ardovo snapshots each forecast and scores accuracy against actuals by rep and category automatically, so Rook can show you who consistently sandbags or over-commits and by how much, turning forecast reviews into targeted coaching.` },
     ],
     faqs: [
       { q: `What is a good forecast accuracy?`, a: `Mature teams often target 90 percent or better on the committed forecast within a period. What matters most is consistency and low bias: a forecast that is reliably close, in either direction, is far more useful than one that swings unpredictably.` },
@@ -1233,7 +1233,7 @@ export default [
       { h: `Track the trend`, body: `Watch the number over time. A falling Rule of 40 signals growth is slowing without profitability rising to compensate.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Because Rally ties revenue and financial data to one source of truth, growth and margin derive directly from live numbers, so Rook can report your Rule of 40 and its trend without a manual finance pull.` },
+      { h: `How Ardovo helps`, body: `Because Ardovo ties revenue and financial data to one source of truth, growth and margin derive directly from live numbers, so Rook can report your Rule of 40 and its trend without a manual finance pull.` },
     ],
     faqs: [
       { q: `What profit margin should I use for the Rule of 40?`, a: `EBITDA margin and free cash flow margin are both common. The key is consistency: pick one definition and apply it every period. Different margins produce different results, so document which you use when comparing to benchmarks or over time.` },
@@ -1259,7 +1259,7 @@ export default [
       { h: `Trend it across quarters`, body: `Track it over several quarters to smooth noise and see whether efficiency is improving or eroding.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives net new ARR and ties it to go-to-market spend by quarter, so Rook can report the magic number alongside payback and LTV to CAC, giving you a full efficiency picture instead of one noisy ratio.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives net new ARR and ties it to go-to-market spend by quarter, so Rook can report the magic number alongside payback and LTV to CAC, giving you a full efficiency picture instead of one noisy ratio.` },
     ],
     faqs: [
       { q: `What is a good magic number?`, a: `Above 0.75 generally indicates efficient growth worth investing into, and above 1.0 is strong. Below 0.75 suggests your go-to-market is not yet efficient enough to scale spend, so you should improve conversion or retention first.` },
@@ -1285,7 +1285,7 @@ export default [
       { h: `Attribute to plays and segments`, body: `Track which expansion motions and segments produce the most, then invest in repeating them.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally identifies expansion opportunities in the base, tracks expansion ARR by source and segment, and lets Rook flag accounts ripe for upsell or cross-sell. You see expansion as a managed motion, not an accident.` },
+      { h: `How Ardovo helps`, body: `Ardovo identifies expansion opportunities in the base, tracks expansion ARR by source and segment, and lets Rook flag accounts ripe for upsell or cross-sell. You see expansion as a managed motion, not an accident.` },
     ],
     faqs: [
       { q: `Why is expansion revenue so valuable?`, a: `Because it comes from customers you have already acquired, so it carries little to no acquisition cost and high margin. A strong expansion engine drives net revenue retention above 100 percent, which compounds growth without proportional new-customer spend.` },
@@ -1311,7 +1311,7 @@ export default [
       { h: `Segment to find leakage`, body: `Break GRR down by plan and cohort to locate where churn and contraction concentrate.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes GRR and NRR side by side per cohort, so Rook can show how much of your retention is genuine stickiness versus expansion masking churn, and pinpoint the segments leaking the most revenue.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes GRR and NRR side by side per cohort, so Rook can show how much of your retention is genuine stickiness versus expansion masking churn, and pinpoint the segments leaking the most revenue.` },
     ],
     faqs: [
       { q: `What is the difference between gross and net revenue retention?`, a: `Gross revenue retention counts only churn and contraction and caps at 100 percent, showing pure leakage. Net revenue retention also adds expansion and can exceed 100 percent. GRR reveals stickiness; the gap between them measures your expansion engine.` },
@@ -1337,7 +1337,7 @@ export default [
       { h: `Tighten close-date discipline`, body: `Require that every close date be tied to a buyer-confirmed event, and coach reps whose deals slip repeatedly.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally snapshots forecasted close dates and tracks slippage by rep and stage automatically, so Rook can flag deals with close dates that are not backed by a buyer-confirmed event before they slip, and show which reps chronically push deals.` },
+      { h: `How Ardovo helps`, body: `Ardovo snapshots forecasted close dates and tracks slippage by rep and stage automatically, so Rook can flag deals with close dates that are not backed by a buyer-confirmed event before they slip, and show which reps chronically push deals.` },
     ],
     faqs: [
       { q: `What causes deal slippage?`, a: `Usually fake close dates set to fill a forecast, weak qualification that let a non-ready deal in, or an unmapped decision process with approval steps the rep never accounted for. Slippage is a symptom of optimism replacing discipline.` },
@@ -1363,7 +1363,7 @@ export default [
       { h: `Model attainment distribution`, body: `Check that roughly 60 to 70 percent of reps should be able to hit the number. If the model says almost none can, the quota is too high.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds quotas from your target, capacity, and historical win rate, prorates for ramp, and models the expected attainment distribution, so Rook can tell you whether a proposed quota is realistically achievable before you assign it.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds quotas from your target, capacity, and historical win rate, prorates for ramp, and models the expected attainment distribution, so Rook can tell you whether a proposed quota is realistically achievable before you assign it.` },
     ],
     faqs: [
       { q: `Should quotas be set top-down or bottom-up?`, a: `Both. Start top-down from the company target, then reconcile against a bottom-up view of each rep's capacity and win rate. A quota that ignores capacity is arbitrary; one that ignores the company target underreaches. The right number reconciles the two.` },
@@ -1389,7 +1389,7 @@ export default [
       { h: `Track the trend`, body: `Watch whether efficiency improves as you scale. A rising burn multiple as you grow is a warning sign.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally ties ARR movement to one source of truth, so net new ARR is exact, and Rook can pair it with your cash data to report burn multiple and its trend, giving investors and operators an honest efficiency read.` },
+      { h: `How Ardovo helps`, body: `Ardovo ties ARR movement to one source of truth, so net new ARR is exact, and Rook can pair it with your cash data to report burn multiple and its trend, giving investors and operators an honest efficiency read.` },
     ],
     faqs: [
       { q: `What is a good burn multiple?`, a: `Under 1 is considered elite, 1 to 2 is healthy, and above 3 signals inefficient growth that consumes a lot of cash per dollar of new ARR. Judge it against your stage, since early companies naturally run higher multiples.` },
@@ -1415,7 +1415,7 @@ export default [
       { h: `Snapshot and measure accuracy`, body: `Record the forecast at a fixed point and compare to actuals each period. Accuracy tracking is what turns a guess into a trusted number.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally forecasts from clean pipeline using stage-weighting, historical conversion, and rep commits together, snapshots each forecast, and scores accuracy by rep. Rook reconciles bottom-up and top-down and flags the deals most likely to slip.` },
+      { h: `How Ardovo helps`, body: `Ardovo forecasts from clean pipeline using stage-weighting, historical conversion, and rep commits together, snapshots each forecast, and scores accuracy by rep. Rook reconciles bottom-up and top-down and flags the deals most likely to slip.` },
     ],
     faqs: [
       { q: `What is the best sales forecasting method?`, a: `There is no single best method; mature teams blend stage-weighted, historical, and rep-commit approaches and reconcile them. Judgment-only forecasts are biased, and pure formula forecasts miss deal-specific context. Combining them and measuring accuracy produces the most reliable result.` },
@@ -1441,7 +1441,7 @@ export default [
       { h: `Document assumptions and snapshot`, body: `Record the conversion rates and judgments used, then snapshot the forecast so you can score accuracy and refine the model.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds the forecast from live pipeline with transparent, adjustable conversion assumptions and rolls it into commit, best case, and pipeline automatically. Rook documents the assumptions and tracks accuracy so the model improves each period.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds the forecast from live pipeline with transparent, adjustable conversion assumptions and rolls it into commit, best case, and pipeline automatically. Rook documents the assumptions and tracks accuracy so the model improves each period.` },
     ],
     faqs: [
       { q: `What data do I need to build a sales forecast?`, a: `A clean, qualified pipeline with accurate stages and close dates, historical conversion rates by stage, recurring-revenue and renewal data, and rep commit judgment. The cleaner the pipeline and the better your historical rates, the more defensible the forecast.` },
@@ -1467,7 +1467,7 @@ export default [
       { h: `Close with the number and the risks`, body: `End on an agreed commit and a short list of the deals that could swing it, with owners and actions.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally collects commits before the call and flags every commit deal missing an economic buyer, a real close event, or a next step, so the manager walks in with the risk list ready. Changes captured on the call update the forecast instantly.` },
+      { h: `How Ardovo helps`, body: `Ardovo collects commits before the call and flags every commit deal missing an economic buyer, a real close event, or a next step, so the manager walks in with the risk list ready. Changes captured on the call update the forecast instantly.` },
     ],
     faqs: [
       { q: `How is a forecast call different from a pipeline review?`, a: `A forecast call is specifically about the number: what each rep will commit and best case for the period, and whether those commits hold up. A pipeline review is broader, covering coverage, movement, and health across all open deals, not just the committed ones.` },
@@ -1493,7 +1493,7 @@ export default [
       { h: `Blend judgment with historical data`, body: `Reconcile rep commits against what your historical conversion rates predict. The gap is where the risk hides.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally enforces stage criteria and close-date discipline, snapshots forecasts, and scores accuracy and bias by rep, so Rook can tell you exactly whose numbers to trust and reconcile every commit against historical conversion automatically.` },
+      { h: `How Ardovo helps`, body: `Ardovo enforces stage criteria and close-date discipline, snapshots forecasts, and scores accuracy and bias by rep, so Rook can tell you exactly whose numbers to trust and reconcile every commit against historical conversion automatically.` },
     ],
     faqs: [
       { q: `What is the biggest cause of forecast inaccuracy?`, a: `Fake close dates and a dirty pipeline. When close dates are hopeful guesses rather than tied to buyer-confirmed events, and stale deals inflate the pipeline, no method can produce an accurate forecast. Fix the inputs before blaming the model.` },
@@ -1519,7 +1519,7 @@ export default [
       { h: `Recalibrate the weights`, body: `Update stage probabilities regularly as your conversion rates shift, so the weights stay accurate.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes stage probabilities from your actual conversion history, applies them to live pipeline, and blends the weighted number with rep commits and close-date timing. Rook keeps the weights recalibrated as your conversion rates change.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes stage probabilities from your actual conversion history, applies them to live pipeline, and blends the weighted number with rep commits and close-date timing. Rook keeps the weights recalibrated as your conversion rates change.` },
     ],
     faqs: [
       { q: `What is wrong with using round stage probabilities?`, a: `Round numbers like 25, 50, and 75 percent are guesses that rarely match reality. Derive stage probabilities from your actual historical conversion rates, or the weighted forecast is built on fiction. Real data often reveals very different, non-round probabilities.` },
@@ -1545,7 +1545,7 @@ export default [
       { h: `Adjust for known bias`, body: `Apply a correction for reps with a track record of sandbagging or over-committing, based on their measured accuracy.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally rolls rep-level deal forecasts into team and company totals, reconciles them against top-down targets and historical conversion, and applies per-rep accuracy history so Rook can flag where the bottom-up number is likely biased high or low.` },
+      { h: `How Ardovo helps`, body: `Ardovo rolls rep-level deal forecasts into team and company totals, reconciles them against top-down targets and historical conversion, and applies per-rep accuracy history so Rook can flag where the bottom-up number is likely biased high or low.` },
     ],
     faqs: [
       { q: `What is the difference between bottom-up and top-down forecasting?`, a: `Bottom-up builds the forecast from individual deals and reps upward, capturing deal-level reality. Top-down allocates a target down from company goals or market size. Bottom-up is more grounded but carries rep bias; top-down is fast but abstract. Reconcile both.` },
@@ -1571,7 +1571,7 @@ export default [
       { h: `Recalibrate the definitions`, body: `Tighten criteria based on conversion data until each category converts at a rate that matches its label.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally enforces forecast-category criteria on each deal and reports how every category actually converts, so Rook can tell you whether your commit definition is holding or leaking, and prompt reps when a category assignment is not supported by the deal facts.` },
+      { h: `How Ardovo helps`, body: `Ardovo enforces forecast-category criteria on each deal and reports how every category actually converts, so Rook can tell you whether your commit definition is holding or leaking, and prompt reps when a category assignment is not supported by the deal facts.` },
     ],
     faqs: [
       { q: `What are the standard sales forecast categories?`, a: `Commit (high confidence, closing this period), best case (an achievable stretch), pipeline (open but not expected this period), and omitted or closed. The exact labels vary, but the goal is a confidence-ranked set with objective criteria applied consistently.` },
@@ -1597,7 +1597,7 @@ export default [
       { h: `Connect it to spend and hiring`, body: `Use the model to plan sales headcount, marketing spend, and capacity, then track actuals against it monthly and refine.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally feeds the model with live drivers: real win rates, deal sizes, cycle lengths, and retention, so the projection rests on your actual numbers. Rook can run scenarios and show what pipeline or win-rate change is needed to hit a target.` },
+      { h: `How Ardovo helps`, body: `Ardovo feeds the model with live drivers: real win rates, deal sizes, cycle lengths, and retention, so the projection rests on your actual numbers. Rook can run scenarios and show what pipeline or win-rate change is needed to hit a target.` },
     ],
     faqs: [
       { q: `What is the difference between a revenue model and a forecast?`, a: `A forecast predicts what will close in the near term from current pipeline. A revenue model projects revenue over a longer horizon from its underlying drivers and assumptions, and it drives planning for spend and hiring. The forecast is short-range; the model is strategic.` },
@@ -1623,7 +1623,7 @@ export default [
       { h: `Validate attainability`, body: `Model the expected attainment distribution. If almost no one can hit it, the quota is broken. Aim for 60 to 70 percent attainment.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally sets quotas from your target, capacity, and historical win rate, prorates for ramp, and models the attainment distribution before you assign, so Rook can warn you when a proposed quota is unrealistic rather than discovering it a quarter later.` },
+      { h: `How Ardovo helps`, body: `Ardovo sets quotas from your target, capacity, and historical win rate, prorates for ramp, and models the attainment distribution before you assign, so Rook can warn you when a proposed quota is unrealistic rather than discovering it a quarter later.` },
     ],
     faqs: [
       { q: `How do I know if a quota is realistic?`, a: `Model the expected attainment distribution: roughly 60 to 70 percent of reps should be able to hit it. Ground each quota in the rep's historical win rate, deal size, and territory potential. If the math says almost no one can attain it, it is too high.` },
@@ -1650,7 +1650,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Overcomplicating the plan with too many modifiers so reps cannot compute their own commission. If they cannot, they cannot let it motivate them.`, `Capping commissions, which quietly tells your best reps to stop selling once they hit the cap.`] },
-      { h: `How Rally helps`, body: `Rally calculates commissions from live deal data, applies accelerators and clawbacks automatically, and lets Rook model plan cost across attainment scenarios, so reps see real-time earnings and finance sees the cost of sales before the plan ships.` },
+      { h: `How Ardovo helps`, body: `Ardovo calculates commissions from live deal data, applies accelerators and clawbacks automatically, and lets Rook model plan cost across attainment scenarios, so reps see real-time earnings and finance sees the cost of sales before the plan ships.` },
     ],
     faqs: [
       { q: `Should I cap sales commissions?`, a: `Generally no. Caps tell your best reps to stop selling once they hit the ceiling, which costs you your most productive revenue. If you worry about windfall deals, use decelerators on unusually large deals rather than a hard cap on total earnings.` },
@@ -1677,7 +1677,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Designing the plan to be fair rather than to drive behavior. Comp is a steering wheel, not a reward for effort.`, `Rewarding revenue regardless of margin or discount, which trains reps to close cheap deals fast.`] },
-      { h: `How Rally helps`, body: `Rally ties comp to any metric in the platform, so you can reward new ARR, margin, product mix, or term length directly. Rook models the plan against real deals to expose loopholes and confirm cost of sales before you commit.` },
+      { h: `How Ardovo helps`, body: `Ardovo ties comp to any metric in the platform, so you can reward new ARR, margin, product mix, or term length directly. Rook models the plan against real deals to expose loopholes and confirm cost of sales before you commit.` },
     ],
     faqs: [
       { q: `What is the difference between a comp plan and a commission plan?`, a: `A commission plan is the mechanics of how variable pay is calculated. A comp plan is the broader design: OTE, pay mix, metrics, accelerators, and how the whole thing aligns to strategy across roles. The commission plan is one component of comp design.` },
@@ -1703,7 +1703,7 @@ export default [
       { h: `Review against retention and hiring`, body: `If you cannot hire or you are losing reps to comp, revisit OTE. If cost of sales is bloated, revisit the mix or quota.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally links OTE, quota, and actual attainment so you can see cost of sales live and per rep. Rook models how a proposed OTE and mix affect total comp cost across attainment scenarios before you set it.` },
+      { h: `How Ardovo helps`, body: `Ardovo links OTE, quota, and actual attainment so you can see cost of sales live and per rep. Rook models how a proposed OTE and mix affect total comp cost across attainment scenarios before you set it.` },
     ],
     faqs: [
       { q: `What is a good pay mix for an AE?`, a: `A 50/50 split of base to variable is a common starting point for account executives, but adjust it based on control: complex, long-cycle enterprise roles often use a higher base (like 60/40 or 70/30), while transactional roles carry more variable. Match the mix to how much the rep controls the outcome.` },
@@ -1729,7 +1729,7 @@ export default [
       { h: `Reconcile and pay transparently`, body: `Show reps the deal-by-deal calculation so they can verify it. Transparency prevents disputes and shadow-accounting spreadsheets.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally calculates commissions from live deal data, applying rates, accelerators, splits, and clawbacks automatically, and shows each rep a transparent deal-by-deal breakdown. Rook answers "why was I paid this" without a finance ticket.` },
+      { h: `How Ardovo helps`, body: `Ardovo calculates commissions from live deal data, applying rates, accelerators, splits, and clawbacks automatically, and shows each rep a transparent deal-by-deal breakdown. Rook answers "why was I paid this" without a finance ticket.` },
     ],
     faqs: [
       { q: `How do accelerators work in commission calculation?`, a: `Accelerators pay a higher commission rate on results above the quota threshold. For example, 10 percent up to quota and 15 percent beyond it. They reward overperformance and pull top reps to keep selling rather than coasting once they hit 100 percent.` },
@@ -1755,7 +1755,7 @@ export default [
       { h: `Review coverage against capacity`, body: `Confirm you have enough reps to cover the territories and rebalance as you add headcount or the market shifts.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores territory potential from account and customer data, routes leads to the right owner automatically, and lets Rook flag imbalanced territories where potential and quota are mismatched, so you rebalance before it distorts attainment.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores territory potential from account and customer data, routes leads to the right owner automatically, and lets Rook flag imbalanced territories where potential and quota are mismatched, so you rebalance before it distorts attainment.` },
     ],
     faqs: [
       { q: `How should I divide sales territories?`, a: `By whatever best matches how your buyers cluster: geography for field sales, industry vertical for specialized selling, company size for segment-based motions, or named-account lists for enterprise ABM. The goal is complete coverage with balanced potential per rep.` },
@@ -1781,7 +1781,7 @@ export default [
       { h: `Communicate and monitor`, body: `Explain the rationale to the team, then track attainment after the change to confirm the balance actually improved.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores territory potential and its ratio to quota from live data, models rebalancing scenarios, and lets Rook show the projected attainment impact of a proposed change, so you rebalance on evidence and preserve active relationships.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores territory potential and its ratio to quota from live data, models rebalancing scenarios, and lets Rook show the projected attainment impact of a proposed change, so you rebalance on evidence and preserve active relationships.` },
     ],
     faqs: [
       { q: `How do I know if my territories are imbalanced?`, a: `Compare each territory's addressable potential to its quota. If the potential-to-quota ratios vary widely, or attainment differences track territory rather than rep skill, you have imbalance. Reps stuck in thin territories will chronically underattain through no fault of their own.` },
@@ -1807,7 +1807,7 @@ export default [
       { h: `Plan hires ahead of the need`, body: `Because reps take months to ramp, backdate hiring so new reps are productive when the target requires them, not the moment you notice the gap.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives per-rep productivity from real attainment, models ramp and attrition, and projects capacity against target so Rook can tell you exactly how many reps to hire and by when to close a future gap, accounting for ramp lag.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives per-rep productivity from real attainment, models ramp and attrition, and projects capacity against target so Rook can tell you exactly how many reps to hire and by when to close a future gap, accounting for ramp lag.` },
     ],
     faqs: [
       { q: `Why does ramp time matter in capacity planning?`, a: `Because a rep hired today does not produce full capacity for months. If you plan hires only when you see the gap, they ramp too late to help. Capacity models backdate hiring so new reps reach productivity exactly when the target demands it.` },
@@ -1833,7 +1833,7 @@ export default [
       { h: `Use them sparingly`, body: `Reserve SPIFFs for genuine spikes. Constant SPIFFs erode the base plan and condition reps to hold effort for the next bonus.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks SPIFF-qualifying actions from live deal data and shows a real-time leaderboard, so Rook can run a targeted incentive and report exactly what it drove, letting you judge whether the spike was worth the spend.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks SPIFF-qualifying actions from live deal data and shows a real-time leaderboard, so Rook can run a targeted incentive and report exactly what it drove, letting you judge whether the spike was worth the spend.` },
     ],
     faqs: [
       { q: `What is the difference between a SPIFF and commission?`, a: `Commission is the ongoing variable pay in the core comp plan. A SPIFF is a temporary, add-on incentive layered on top to drive a specific short-term behavior, like pushing a new product or closing before quarter end. SPIFFs are tactical; commission is structural.` },
@@ -1859,7 +1859,7 @@ export default [
       { h: `Reality-check against demand`, body: `Confirm the pipeline and market can feed the added reps. Hiring capacity you cannot supply with leads just lowers attainment.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally connects your capacity model, pipeline, and target so Rook can tell you how many reps to hire and when, and whether current pipeline generation can actually feed them. You avoid both hiring too late and hiring past what demand supports.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects your capacity model, pipeline, and target so Rook can tell you how many reps to hire and when, and whether current pipeline generation can actually feed them. You avoid both hiring too late and hiring past what demand supports.` },
     ],
     faqs: [
       { q: `How many reps do I need to hit my target?`, a: `Divide the gap between your target and current capacity by the revenue a fully ramped rep produces, then add for ramp time and attrition. Also plan supporting roles like SDRs and managers. The answer is capacity math, not a headcount guess.` },
@@ -1885,7 +1885,7 @@ export default [
       { h: `Track ramp-to-productivity`, body: `Measure how long reps actually take to reach full productivity and refine the ramp schedule and hiring plan accordingly.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally prorates quota against a ramp schedule automatically and tracks each new rep's ramp-to-productivity, so Rook can tell you whether a hire is ramping on pace and feed real ramp time back into your capacity and headcount plans.` },
+      { h: `How Ardovo helps`, body: `Ardovo prorates quota against a ramp schedule automatically and tracks each new rep's ramp-to-productivity, so Rook can tell you whether a hire is ramping on pace and feed real ramp time back into your capacity and headcount plans.` },
     ],
     faqs: [
       { q: `How long should a sales rep ramp be?`, a: `Longer than your sales cycle, because a rep cannot close deals faster than the cycle allows. Ramp periods commonly run three to nine months depending on deal complexity. Enterprise reps ramp longer than transactional ones. Base it on your actual time-to-first-close data.` },
@@ -1912,7 +1912,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Opening with "I am reaching out because we are the leading..." No one cares about you yet. Earn attention with relevance to them first.`, `Asking for a 30-minute meeting in the first email. The ask is too big for zero trust. Start with a smaller yes.`] },
-      { h: `How Rally helps`, body: `Rally researches the trigger and drafts a personalized cold email per prospect, then Rook sends and tracks it inside a sequence, so you get relevance at scale instead of choosing between personalized and high-volume.` },
+      { h: `How Ardovo helps`, body: `Ardovo researches the trigger and drafts a personalized cold email per prospect, then Rook sends and tracks it inside a sequence, so you get relevance at scale instead of choosing between personalized and high-volume.` },
     ],
     faqs: [
       { q: `How long should a cold email be?`, a: `Under 100 words, ideally 50 to 75. Cold emails are read fast, often on a phone. Every extra sentence lowers reply rates. Say one relevant thing, offer one proof point, and make one small ask, then stop.` },
@@ -1939,7 +1939,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Reading the script robotically. It is a guide; sound like a person having a conversation, not a telemarketer.`, `Pitching features instead of a problem. Prospects care about their problem, not your feature list, especially in the first 20 seconds.`] },
-      { h: `How Rally helps`, body: `Rally surfaces the prospect's context and a relevant trigger before the call, and Rook drafts the opener and objection responses per account, so reps dial with a tailored script instead of a generic one and log the outcome in a click.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces the prospect's context and a relevant trigger before the call, and Rook drafts the opener and objection responses per account, so reps dial with a tailored script instead of a generic one and log the outcome in a click.` },
     ],
     faqs: [
       { q: `What is the goal of a cold call?`, a: `Usually to earn a next meeting, not to close a deal. Trying to sell everything on a cold call overwhelms the prospect. Aim for a small, specific commitment: a scheduled follow-up conversation where you can actually qualify and sell.` },
@@ -1965,7 +1965,7 @@ export default [
       { h: `End with a breakup and measure`, body: `Close the cadence with a permission-based breakup, then track reply and meeting rates per step to cut weak touches.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally runs multi-channel cadences with per-step analytics, and Rook drafts and personalizes each touch and executes the calls and messages on schedule, so reps follow through on all 8 to 12 touches instead of quitting after two.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs multi-channel cadences with per-step analytics, and Rook drafts and personalizes each touch and executes the calls and messages on schedule, so reps follow through on all 8 to 12 touches instead of quitting after two.` },
     ],
     faqs: [
       { q: `How many touches should a sales cadence have?`, a: `Typically 8 to 12 over 2 to 3 weeks for B2B outbound. Most connects happen after several attempts, yet many reps stop after one or two. A defined cadence enforces the persistence that actually generates replies and meetings.` },
@@ -1991,7 +1991,7 @@ export default [
       { h: `Test, measure, and prune`, body: `Track reply and meeting rates by step, then cut or rewrite the weak steps and double down on the ones that convert.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds sequences with automated and manual steps, branches on behavior, and exits engaged prospects automatically. Rook personalizes each touch and drafts the manual tasks, so a sequence scales without feeling robotic.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds sequences with automated and manual steps, branches on behavior, and exits engaged prospects automatically. Rook personalizes each touch and drafts the manual tasks, so a sequence scales without feeling robotic.` },
     ],
     faqs: [
       { q: `What should trigger a prospect to exit a sequence?`, a: `Any meaningful engagement: a reply, a booked meeting, or a request to stop. Continuing to sequence someone who has already responded is a classic error that annoys prospects and wastes the rep's chance to have a real conversation.` },
@@ -2018,7 +2018,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Answering the surface objection without uncovering the real one, so it comes back later disguised as something else.`, `Getting defensive or arguing. You can win the argument and lose the deal. Stay curious, not combative.`] },
-      { h: `How Rally helps`, body: `Rally surfaces the battlecard and proof points for each common objection on the deal, and Rook can suggest the question to ask and the peer result to cite, so reps handle objections with evidence instead of improvising under pressure.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces the battlecard and proof points for each common objection on the deal, and Rook can suggest the question to ask and the peer result to cite, so reps handle objections with evidence instead of improvising under pressure.` },
     ],
     faqs: [
       { q: `What is the best way to handle an objection?`, a: `Listen fully, acknowledge it without defensiveness, ask a question to uncover the real concern behind it, then respond with relevant proof and confirm you resolved it. The key move most reps skip is asking, because the stated objection often masks the real one.` },
@@ -2045,7 +2045,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Pitching instead of discovering. If you spent the call talking about your product, you failed to learn what actually matters to the buyer.`, `Not quantifying the pain. Without a dollar figure on the problem, you have no leverage against price later.`] },
-      { h: `How Rally helps`, body: `Rally provides a discovery framework on the deal and captures the answers as structured fields (pain, impact, process, stakeholders), and Rook can summarize the call and flag which qualification elements are still missing.` },
+      { h: `How Ardovo helps`, body: `Ardovo provides a discovery framework on the deal and captures the answers as structured fields (pain, impact, process, stakeholders), and Rook can summarize the call and flag which qualification elements are still missing.` },
     ],
     faqs: [
       { q: `What is the ideal talk-to-listen ratio on a discovery call?`, a: `Around 30 percent talking, 70 percent listening. The prospect should do most of the talking so you learn their real problem, impact, and process. Reps who dominate the conversation pitch instead of discover and miss the information that wins the deal.` },
@@ -2072,7 +2072,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`The feature dump: showing every capability instead of the few that solve their problem. It overwhelms and dilutes the ones that matter.`, `Demoing without discovery, so you are guessing at what they care about and probably showing the wrong things.`] },
-      { h: `How Rally helps`, body: `Rally keeps the discovery findings on the deal so the demo can be built directly against stated pains, and Rook can assemble a tailored demo flow and follow-up recap that ties each capability shown to the prospect's specific problem.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the discovery findings on the deal so the demo can be built directly against stated pains, and Rook can assemble a tailored demo flow and follow-up recap that ties each capability shown to the prospect's specific problem.` },
     ],
     faqs: [
       { q: `How long should a sales demo be?`, a: `Shorter than most reps think, often 20 to 30 minutes of actual demo with time for dialogue. Length is less important than focus: show only what solves the prospect's stated problems. A tight, relevant demo beats a long, comprehensive tour every time.` },
@@ -2099,7 +2099,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Making the proposal about you: your history, your features, your awards. The buyer cares about their outcome. Lead with their problem.`, `Burying or fuzzing the price, which stalls the deal in procurement. Be clear on cost, scope, and terms.`] },
-      { h: `How Rally helps`, body: `Rally's Studio builds proposals from the deal's discovery data, mapping solution to stated needs and pulling pricing straight from the quote so it always ties out. Rook drafts the value and ROI section from the numbers you captured in discovery.` },
+      { h: `How Ardovo helps`, body: `Ardovo's Studio builds proposals from the deal's discovery data, mapping solution to stated needs and pulling pricing straight from the quote so it always ties out. Rook drafts the value and ROI section from the numbers you captured in discovery.` },
     ],
     faqs: [
       { q: `What should a sales proposal include?`, a: `The prospect's problem and its quantified cost, your solution mapped to each need, the value and ROI in numbers, clear pricing and scope, social proof, and specific next steps. Structure it around their outcome, not your feature list, so your champion can sell it internally.` },
@@ -2126,7 +2126,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Manual quotes with pricing errors that surface in procurement and delay or kill the deal.`, `Uncontrolled discounting because approvals are informal, which quietly erodes margin across the whole book.`] },
-      { h: `How Rally helps`, body: `Rally's quotes and CPQ pull from a single price book, enforce discount approvals automatically, and turn an accepted quote into an order without re-keying. Because quotes, deals, and billing share one source, ACV, TCV, and revenue always tie out.` },
+      { h: `How Ardovo helps`, body: `Ardovo's quotes and CPQ pull from a single price book, enforce discount approvals automatically, and turn an accepted quote into an order without re-keying. Because quotes, deals, and billing share one source, ACV, TCV, and revenue always tie out.` },
     ],
     faqs: [
       { q: `What is CPQ?`, a: `CPQ stands for configure, price, quote: the process and tooling that lets reps select the right products, apply correct pricing and discounts, and generate an accurate quote quickly. Good CPQ prevents pricing errors, controls discounting, and speeds the path from agreement to signed order.` },
@@ -2153,7 +2153,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Discounting to close instead of reinforcing value, which trains the buyer to push harder and shrinks margin.`, `Giving concessions for free. Every unreciprocated concession signals there is more to take and weakens your position.`] },
-      { h: `How Rally helps`, body: `Rally keeps the quantified value and the deal's full economics on the record, so reps negotiate from ROI and trade across term, scope, and timing with the numbers in front of them. Rook can model the margin impact of a proposed concession instantly.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the quantified value and the deal's full economics on the record, so reps negotiate from ROI and trade across term, scope, and timing with the numbers in front of them. Rook can model the margin impact of a proposed concession instantly.` },
     ],
     faqs: [
       { q: `How do I avoid discounting to win a deal?`, a: `Anchor the conversation on quantified value and ROI so price is judged against return, and trade concessions rather than giving them. If you must move on price, get something back: a longer term, a reference, faster payment. Free discounts train buyers to push harder.` },
@@ -2180,7 +2180,7 @@ export default [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Waiting until the end to close instead of building agreement throughout. Closing is the sum of the whole deal, not a final maneuver.`, `Manufacturing fake urgency, which sophisticated buyers see through and which damages the trust you need to sign.`] },
-      { h: `How Rally helps`, body: `Rally tracks whether the closing prerequisites are met (objections resolved, economic buyer engaged, paper path mapped) and Rook flags what is missing before you try to close, so you ask for the business only when the deal is genuinely ready.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks whether the closing prerequisites are met (objections resolved, economic buyer engaged, paper path mapped) and Rook flags what is missing before you try to close, so you ask for the business only when the deal is genuinely ready.` },
     ],
     faqs: [
       { q: `What is the best closing technique?`, a: `Directly and confidently asking for the business after you have established value, resolved concerns, and aligned on the process. Gimmicky closing techniques matter far less than a well-run deal. If you sold well throughout, closing is confirmation, not persuasion.` },
@@ -2206,7 +2206,7 @@ export default [
       { h: `Respond to interest instantly`, body: `When a prospect shows interest, reply within minutes. Speed-to-lead is the difference between a booked meeting and a cold trail.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally runs the multi-channel cadence, and Rook personalizes each touch, proposes specific times, and responds to inbound interest instantly, so more outreach turns into booked meetings without a rep babysitting every follow-up.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs the multi-channel cadence, and Rook personalizes each touch, proposes specific times, and responds to inbound interest instantly, so more outreach turns into booked meetings without a rep babysitting every follow-up.` },
     ],
     faqs: [
       { q: `Why am I not booking enough meetings?`, a: `Usually one of four gaps: targeting the wrong accounts, generic messaging, quitting follow-up too early, or adding scheduling friction. Fix them in order: right accounts, relevant personalized outreach, a persistent cadence, and a one-click way to book a specific time.` },
@@ -2232,7 +2232,7 @@ export default [
       { h: `Follow up on a schedule`, body: `Persist through a defined cadence rather than one-and-done. Space follow-ups sensibly and end with a breakup if there is still no response.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally drafts value-adding follow-ups tied to the deal context and schedules them in a cadence, so Rook ensures every follow-up brings something new and none slip through the cracks. Reps stop sending empty "checking in" notes.` },
+      { h: `How Ardovo helps`, body: `Ardovo drafts value-adding follow-ups tied to the deal context and schedules them in a cadence, so Rook ensures every follow-up brings something new and none slip through the cracks. Reps stop sending empty "checking in" notes.` },
     ],
     faqs: [
       { q: `What should I say in a follow-up email?`, a: `Reference your last interaction, add something new and valuable (a resource, an answer, a next step), keep it short, and make one clear ask. The rule is to give something every time, never just ask. "Just checking in" with nothing new rarely gets a reply.` },
@@ -2258,7 +2258,7 @@ export default [
       { h: `Retire non-responders cleanly`, body: `If there is still no reply, formally close them out or move them to long-term nurture so your active pipeline stays honest.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally places a breakup as the final cadence step and, based on the response, either routes the prospect to an active sequence or to nurture automatically. Rook keeps your active pipeline clean by retiring the true non-responders.` },
+      { h: `How Ardovo helps`, body: `Ardovo places a breakup as the final cadence step and, based on the response, either routes the prospect to an active sequence or to nurture automatically. Rook keeps your active pipeline clean by retiring the true non-responders.` },
     ],
     faqs: [
       { q: `Why does the breakup email work so well?`, a: `Because the mild finality creates gentle urgency and gives busy prospects who meant to respond an easy prompt to do so. It removes the pressure of an ongoing pitch. It also cleanly separates the genuinely uninterested from the merely distracted so you know who to retire.` },
@@ -2284,7 +2284,7 @@ export default [
       { h: `Leave your number slowly and clearly`, body: `State your name and number clearly at the end, slowly enough to write down. Mumbled contact info wastes the whole voicemail.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally pairs each call with a matching email in the cadence and logs voicemail outcomes, so Rook keeps the two channels synchronized and reps always follow a voicemail with the reinforcing written touch that lifts connection rates.` },
+      { h: `How Ardovo helps`, body: `Ardovo pairs each call with a matching email in the cadence and logs voicemail outcomes, so Rook keeps the two channels synchronized and reps always follow a voicemail with the reinforcing written touch that lifts connection rates.` },
     ],
     faqs: [
       { q: `How long should a sales voicemail be?`, a: `Under 20 seconds. Prospects delete long voicemails before hearing the point. State your name and company quickly, give one specific reason for the call, hint at value, and leave your number clearly. Brevity and a single clear reason are what get a response.` },
@@ -2310,7 +2310,7 @@ export default [
       { h: `Earn the conversation after accepting`, body: `Once connected, engage with their content and build rapport before introducing any value conversation. Patience converts better than an immediate pitch.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally surfaces relevant context about each prospect (recent posts, role changes, company news) so Rook can draft a genuinely personalized connection note, and it tracks LinkedIn touches within the broader multi-channel cadence.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces relevant context about each prospect (recent posts, role changes, company news) so Rook can draft a genuinely personalized connection note, and it tracks LinkedIn touches within the broader multi-channel cadence.` },
     ],
     faqs: [
       { q: `Should I pitch in a LinkedIn connection request?`, a: `No. Pitching in the request is the fastest way to get declined or ignored. The connection note should simply start a relationship with a personalized, genuine reason to connect. Save any value or sales conversation for after they accept and you have built some rapport.` },
@@ -2336,7 +2336,7 @@ export default [
       { h: `Handle the answer`, body: `If yes, move immediately to paperwork. If not, treat the hesitation as an objection to uncover and address, then ask again.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally shows whether the deal is genuinely ready to ask (value confirmed, objections resolved, economic buyer engaged), so Rook can tell a rep when it is time to ask for the business and what next step to attach, and then drive the paperwork on a yes.` },
+      { h: `How Ardovo helps`, body: `Ardovo shows whether the deal is genuinely ready to ask (value confirmed, objections resolved, economic buyer engaged), so Rook can tell a rep when it is time to ask for the business and what next step to attach, and then drive the paperwork on a yes.` },
     ],
     faqs: [
       { q: `When should I ask for the sale?`, a: `Once you have established the value, resolved open concerns, and confirmed the economic buyer is bought in. Asking too early, before the buyer is convinced, produces a stall. Asking at the right moment, after building the case throughout, makes the close feel natural.` },
@@ -2362,7 +2362,7 @@ export default [
       { h: `Avoid fake pressure`, body: `Never invent deadlines or scarcity. Sophisticated buyers detect it, and it damages the trust you need to close. Let their business case drive the clock.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally keeps the quantified cost of the problem on the deal, so reps and the champion can frame urgency around real numbers. Rook can build the cost-of-delay case from the discovery data, giving the buyer a legitimate reason to act now.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the quantified cost of the problem on the deal, so reps and the champion can frame urgency around real numbers. Rook can build the cost-of-delay case from the discovery data, giving the buyer a legitimate reason to act now.` },
     ],
     faqs: [
       { q: `How do I create urgency without fake deadlines?`, a: `Anchor urgency to the buyer's own cost of inaction: quantify what the problem costs them each month unsolved, and tie the timeline to a real business event like a budget cycle or contract expiry. Genuine urgency comes from their business case, not invented pressure.` },
@@ -2388,7 +2388,7 @@ export default [
       { h: `Trade if you must move`, body: `If you do concede on price, get something back: a longer term, a case study, faster payment. Never discount for free.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally keeps the quantified value and ROI on the deal so reps can reframe price against return instantly, and Rook can model the margin impact of any concession and suggest what to trade for it, so price objections do not become reflexive discounts.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the quantified value and ROI on the deal so reps can reframe price against return instantly, and Rook can model the margin impact of any concession and suggest what to trade for it, so price objections do not become reflexive discounts.` },
     ],
     faqs: [
       { q: `What does it mean when a buyer says the price is too high?`, a: `Usually that they do not yet see enough value, not that the number is literally unaffordable. It can also mean it exceeds budget or beats a competitor's quote. Ask what specifically they mean before responding, because each version needs a different answer.` },
@@ -2414,7 +2414,7 @@ export default [
       { h: `Leverage referrals`, body: `A warm introduction or a mutual connection bypasses the gate entirely and lends instant credibility. Referrals are the strongest gatekeeper solvent.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally maps the account's stakeholders and relationships so reps can find the warm path and multi-thread around a gatekeeper. Rook surfaces referral routes and the decision-maker's likely priorities so outreach earns access instead of getting screened out.` },
+      { h: `How Ardovo helps`, body: `Ardovo maps the account's stakeholders and relationships so reps can find the warm path and multi-thread around a gatekeeper. Rook surfaces referral routes and the decision-maker's likely priorities so outreach earns access instead of getting screened out.` },
     ],
     faqs: [
       { q: `What is the best way to get past a gatekeeper?`, a: `Treat them with genuine respect as an ally, be confident and concise about a legitimate, value-based reason to reach the decision-maker, and combine that with direct channels and referrals. Gatekeepers open doors for people they trust and respect, and screen out those who try to trick them.` },
@@ -2441,7 +2441,7 @@ export default [
       { h: `Attach promised resources and arm the champion`, body: `Include any materials you committed to send, and write the recap so your champion can forward it to build the case internally.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally captures the meeting on the deal and Rook drafts the recap automatically, pulling the problems discussed, agreements, and next steps into a clean email the rep can send in seconds and that arms the champion to sell internally.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures the meeting on the deal and Rook drafts the recap automatically, pulling the problems discussed, agreements, and next steps into a clean email the rep can send in seconds and that arms the champion to sell internally.` },
     ],
     faqs: [
       { q: `When should I send a meeting recap?`, a: `Within a few hours of the meeting, ideally the same day while it is fresh for both sides. A prompt recap reinforces momentum and professionalism, confirms alignment, and gives your champion a timely, forwardable summary to circulate internally before the conversation fades.` },
@@ -2467,7 +2467,7 @@ export default [
       { h: `Make it about them, and test it`, body: `Frame the whole thing around their result, not your features, then test it with real buyers and refine based on what resonates.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally captures which value messages actually win deals through win-loss data, so Rook can tell you which value propositions resonate with which segments and help you sharpen the ones that convert, rather than guessing.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures which value messages actually win deals through win-loss data, so Rook can tell you which value propositions resonate with which segments and help you sharpen the ones that convert, rather than guessing.` },
     ],
     faqs: [
       { q: `What makes a strong value proposition?`, a: `It names a specific target customer, the real problem you solve, how you solve it differently, and the quantified outcome they get. It is about their result, not your features, and it is concrete and provable. A strong value prop answers "why buy this, from you, now?" clearly.` },
@@ -2493,7 +2493,7 @@ export default [
       { h: `Close on specific next steps`, body: `End with a clear agreed next action and owner, not "let us know your thoughts." A presentation without a next step wastes the momentum you built.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally keeps the discovery findings and stakeholder map on the deal so the presentation can be built directly against the room's priorities, and Rook can assemble a tailored deck and the follow-up recap that ties each point to a stated need.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the discovery findings and stakeholder map on the deal so the presentation can be built directly against the room's priorities, and Rook can assemble a tailored deck and the follow-up recap that ties each point to a stated need.` },
     ],
     faqs: [
       { q: `How do I make a sales presentation engaging?`, a: `Tailor it to the specific audience and their problems, open with their world instead of your company, tell a story rather than listing features, and involve the room with questions. A presentation should be a conversation that builds buy-in, not a one-way monologue at the buyer.` },
@@ -2519,7 +2519,7 @@ export default [
       { h: `Follow up to go deeper`, body: `The best insight comes from the second and third follow-up. When they surface a problem, ask "why" and "what happens then" rather than moving on.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally provides a layered discovery framework on the deal and captures answers as structured fields, so Rook can flag which areas (impact, process, stakeholders) are still thin and suggest the follow-up question that goes deeper.` },
+      { h: `How Ardovo helps`, body: `Ardovo provides a layered discovery framework on the deal and captures answers as structured fields, so Rook can flag which areas (impact, process, stakeholders) are still thin and suggest the follow-up question that goes deeper.` },
     ],
     faqs: [
       { q: `What makes a good discovery question?`, a: `It is open-ended, non-leading, and layered to build on the previous answer, moving from the current situation to the problem, its impact, and the decision process. Good questions invite the prospect to tell their story and reveal the quantified pain that shapes the whole deal.` },
@@ -2545,7 +2545,7 @@ export default [
       { h: `Thank them and close the loop`, body: `Always thank the referrer, and tell them how it went. Gratitude and follow-through earn you the next referral.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally flags moments of proven value (a milestone hit, a positive health signal) as referral opportunities, and Rook drafts the specific, forwardable request so reps ask at the right time with a message the customer can pass along instantly.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags moments of proven value (a milestone hit, a positive health signal) as referral opportunities, and Rook drafts the specific, forwardable request so reps ask at the right time with a message the customer can pass along instantly.` },
     ],
     faqs: [
       { q: `When is the best time to ask for a referral?`, a: `Right after a moment of proven value: a win, a strong result, renewal, or explicit praise. The customer is feeling the value most and is most willing to advocate. Timing the ask to these moments dramatically raises the odds of getting a quality referral.` },
@@ -2571,7 +2571,7 @@ export default [
       { h: `Test and learn`, body: `Try variations and track open rates by subject style for your audience. What works varies by segment, so let data guide your defaults.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks open rates by subject-line style across your outreach, so Rook can tell you which subject patterns earn opens from each segment and draft personalized, specific subjects rather than generic ones.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks open rates by subject-line style across your outreach, so Rook can tell you which subject patterns earn opens from each segment and draft personalized, specific subjects rather than generic ones.` },
     ],
     faqs: [
       { q: `What makes a good sales email subject line?`, a: `Short (a few words), specific to the prospect, honest, and human in tone. Referencing something real about them signals a person wrote it. Lowercase and question-style subjects often beat polished marketing copy because they feel personal rather than promotional.` },
@@ -2597,7 +2597,7 @@ export default [
       { h: `Document and operationalize it`, body: `Write it down and wire it into targeting, lead scoring, and qualification so the whole team focuses on the same right accounts.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally derives ICP traits from your won and retained accounts, scores every lead and account for fit, and lets Rook flag when you are spending time outside your ICP. Targeting, scoring, and qualification all run off one validated profile.` },
+      { h: `How Ardovo helps`, body: `Ardovo derives ICP traits from your won and retained accounts, scores every lead and account for fit, and lets Rook flag when you are spending time outside your ICP. Targeting, scoring, and qualification all run off one validated profile.` },
     ],
     faqs: [
       { q: `What is the difference between an ICP and a buyer persona?`, a: `An ICP describes the ideal company (firmographics, use case, fit), while a buyer persona describes the individual people within that company you sell to (their role, goals, and pains). You target accounts by ICP and tailor messaging to personas within them.` },
@@ -2623,7 +2623,7 @@ export default [
       { h: `Operationalize per stakeholder`, body: `Use each persona to tailor outreach, discovery questions, and content for the different roles in the buying committee.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally links contacts to personas on every deal, so messaging, discovery guidance, and content can be tailored per role automatically. Rook can suggest the right value story and questions for each persona on the buying committee.` },
+      { h: `How Ardovo helps`, body: `Ardovo links contacts to personas on every deal, so messaging, discovery guidance, and content can be tailored per role automatically. Rook can suggest the right value story and questions for each persona on the buying committee.` },
     ],
     faqs: [
       { q: `What should a buyer persona include?`, a: `The persona's role and responsibilities, goals and how they are measured, key pains and buying triggers, common objections, and where they get information. Focus on attributes that actually change how you sell to them; decorative demographic detail that does not affect your approach is noise.` },
@@ -2649,7 +2649,7 @@ export default [
       { h: `Build and review a dated action plan`, body: `Turn the strategy into concrete, dated actions with owners, and review the plan regularly so it drives activity rather than gathering dust.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally holds the org map, relationship strength, whitespace, and action plan on the account, so Rook can surface expansion opportunities and flag under-covered stakeholders. Account plans stay live and actionable instead of becoming a stale annual document.` },
+      { h: `How Ardovo helps`, body: `Ardovo holds the org map, relationship strength, whitespace, and action plan on the account, so Rook can surface expansion opportunities and flag under-covered stakeholders. Account plans stay live and actionable instead of becoming a stale annual document.` },
     ],
     faqs: [
       { q: `What is account planning?`, a: `It is the process of building a deliberate strategy to grow and retain a strategic account: researching the business, mapping stakeholders, identifying whitespace, setting goals, and executing a dated action plan. It turns a collection of contacts into a proactive plan for expanding revenue in key accounts.` },
@@ -2675,7 +2675,7 @@ export default [
       { h: `Plan to reach and win each one`, body: `Build a strategy for engaging every important stakeholder, especially the economic buyer and any blocker, so the deal is not resting on one relationship.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally's deal object holds the full buying committee with roles, influence, and support level, and Rook flags single-threaded deals and unengaged economic buyers or blockers, so reps know exactly which relationships still need work before the deal is at risk.` },
+      { h: `How Ardovo helps`, body: `Ardovo's deal object holds the full buying committee with roles, influence, and support level, and Rook flags single-threaded deals and unengaged economic buyers or blockers, so reps know exactly which relationships still need work before the deal is at risk.` },
     ],
     faqs: [
       { q: `Who is on a typical buying committee?`, a: `Often six to ten people: the economic buyer who controls budget, a champion who advocates internally, end users, technical and financial evaluators, and sometimes a blocker who opposes the deal. Mapping all of them, not just your main contact, is what keeps a deal from dying unexpectedly.` },
@@ -2701,7 +2701,7 @@ export default [
       { h: `Keep every thread warm`, body: `Maintain contact across stakeholders so the deal does not hinge on one person. If a contact goes quiet, you still have momentum.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally flags single-threaded deals and shows which stakeholders lack a relationship, so Rook can prompt reps to multithread before a deal becomes fragile. The buying committee map on the deal makes gaps obvious at a glance.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags single-threaded deals and shows which stakeholders lack a relationship, so Rook can prompt reps to multithread before a deal becomes fragile. The buying committee map on the deal makes gaps obvious at a glance.` },
     ],
     faqs: [
       { q: `What is multithreading in sales?`, a: `Multithreading is building and maintaining relationships with multiple stakeholders in an account rather than relying on a single contact. It protects the deal from collapsing if your one contact leaves or goes quiet, and it speeds internal consensus by engaging the whole buying committee.` },
@@ -2727,7 +2727,7 @@ export default [
       { h: `Keep it shared and updated`, body: `Maintain a single shared version, review it in each meeting, and update progress. A living MAP drives the deal; a one-time document gathers dust.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally holds the mutual action plan on the deal with owners, dates, and progress, so both sides work from one live version. Rook flags slipping milestones and can tell you whether the buyer's engagement with the MAP signals a real, on-track deal.` },
+      { h: `How Ardovo helps`, body: `Ardovo holds the mutual action plan on the deal with owners, dates, and progress, so both sides work from one live version. Rook flags slipping milestones and can tell you whether the buyer's engagement with the MAP signals a real, on-track deal.` },
     ],
     faqs: [
       { q: `What is a mutual action plan?`, a: `A mutual action plan (MAP) is a shared, dated roadmap co-owned by seller and buyer that lists every step from the current stage to a signed contract and successful launch, with owners and target dates. It creates mutual accountability and surfaces hidden approval and implementation steps early.` },
@@ -2753,7 +2753,7 @@ export default [
       { h: `Agree a joint plan`, body: `End with a shared plan and next steps for the quarter, so the relationship stays proactive and both sides are accountable.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally pulls usage, outcome, and value data onto the account so the QBR rests on evidence, and Rook can assemble the review deck and flag risks and expansion opportunities, making the QBR a strategic conversation rather than a manual data-gathering exercise.` },
+      { h: `How Ardovo helps`, body: `Ardovo pulls usage, outcome, and value data onto the account so the QBR rests on evidence, and Rook can assemble the review deck and flag risks and expansion opportunities, making the QBR a strategic conversation rather than a manual data-gathering exercise.` },
     ],
     faqs: [
       { q: `What is a QBR?`, a: `A quarterly business review is a strategic meeting with a customer to review the value delivered against their goals, share usage and outcome data, align on their upcoming priorities, and address risks and opportunities. Its purpose is strengthening the relationship and retention, not delivering a status update or a sales pitch.` },
@@ -2779,7 +2779,7 @@ export default [
       { h: `Make it self-serve for the champion`, body: `Write it so your champion can present it without you in the room. Clear, quantified, and defensible is what gets it through the approval gauntlet.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally keeps the quantified problem, value, and ROI on the deal from discovery, so Rook can assemble a business case your champion can forward to finance. The numbers tie back to what the buyer actually told you, making the case credible and defensible.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the quantified problem, value, and ROI on the deal from discovery, so Rook can assemble a business case your champion can forward to finance. The numbers tie back to what the buyer actually told you, making the case credible and defensible.` },
     ],
     faqs: [
       { q: `What should a business case include?`, a: `The problem and its quantified cost, the proposed solution and expected outcomes, the ROI and payback period with explicit assumptions, the risks and mitigations, and a clear recommendation. It should be written so the champion can present it to the economic buyer and finance without the seller present.` },
@@ -2805,7 +2805,7 @@ export default [
       { h: `Have a backup`, body: `Champions can leave or lose influence. Multithread so the deal is not entirely dependent on one advocate.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks champion strength on the deal and Rook flags when your supposed champion has not actually advocated (no introductions, no internal movement), so reps test and develop real champions rather than mistaking a friendly contact for one.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks champion strength on the deal and Rook flags when your supposed champion has not actually advocated (no introductions, no internal movement), so reps test and develop real champions rather than mistaking a friendly contact for one.` },
     ],
     faqs: [
       { q: `What is the difference between a champion and a contact?`, a: `A contact is someone who talks to you and may like you. A champion has personal stake in solving the problem, real influence, and actively sells for you internally when you are not there, giving you information and introductions. Friendliness is not championship; advocacy and action are.` },
@@ -2831,7 +2831,7 @@ export default [
       { h: `Engage them on their terms`, body: `Economic buyers care about ROI, risk, and strategic fit, not features. Bring the quantified business case and speak their language.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally flags deals where the economic buyer is unidentified or unengaged, so Rook can prompt the rep to find and reach them before the deal stalls. The buying committee map makes it obvious when you are selling below the person who actually holds the budget.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags deals where the economic buyer is unidentified or unengaged, so Rook can prompt the rep to find and reach them before the deal stalls. The buying committee map makes it obvious when you are selling below the person who actually holds the budget.` },
     ],
     faqs: [
       { q: `Who is the economic buyer?`, a: `The economic buyer is the person with the authority and budget to approve the purchase, the one who can say yes when others say no. They are often a level or two above your day-to-day contact and care about ROI, risk, and strategic fit rather than product features.` },
@@ -2857,7 +2857,7 @@ export default [
       { h: `Measure at the account level`, body: `Track engagement and progress per account, not just per lead, so you can see which target accounts are advancing and where to focus.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally organizes work around target accounts, maps the stakeholders in each, and coordinates sales and marketing touches, so Rook can show account-level engagement and progress. ABS becomes a managed motion rather than a spreadsheet of hopes.` },
+      { h: `How Ardovo helps`, body: `Ardovo organizes work around target accounts, maps the stakeholders in each, and coordinates sales and marketing touches, so Rook can show account-level engagement and progress. ABS becomes a managed motion rather than a spreadsheet of hopes.` },
     ],
     faqs: [
       { q: `What is account-based selling?`, a: `It is a focused strategy where you target a defined list of high-value accounts and pursue each with deep research, personalized multi-stakeholder engagement, and coordinated sales and marketing, rather than chasing broad lead volume. It concentrates resources on the accounts most worth winning.` },
@@ -2883,7 +2883,7 @@ export default [
       { h: `Tighten the sales-marketing loop`, body: `Feed engagement signals to sales for timely follow-up and route sales insights back to marketing to refine campaigns.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally shares one target account list across sales and marketing, tracks account-level engagement, and routes buying signals to sales in real time. Rook surfaces which target accounts are heating up so sales follows up when interest is highest.` },
+      { h: `How Ardovo helps`, body: `Ardovo shares one target account list across sales and marketing, tracks account-level engagement, and routes buying signals to sales in real time. Rook surfaces which target accounts are heating up so sales follows up when interest is highest.` },
     ],
     faqs: [
       { q: `What is ABM?`, a: `Account-based marketing is a strategy that focuses marketing resources on a specific set of high-value target accounts with personalized, coordinated campaigns, rather than generating broad lead volume. It aligns closely with sales and is measured by account engagement and pipeline, not lead counts.` },
@@ -2909,7 +2909,7 @@ export default [
       { h: `Frame expansion around their outcomes`, body: `Position more product as more value toward their goals, not as an upsell. Outcome framing makes expansion feel like help, not a pitch.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks adoption, health, and whitespace on every account, so Rook can flag expansion-ready accounts and the specific opportunity, timed to value milestones. Expansion becomes a proactive, evidence-based motion rather than an occasional afterthought.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks adoption, health, and whitespace on every account, so Rook can flag expansion-ready accounts and the specific opportunity, timed to value milestones. Expansion becomes a proactive, evidence-based motion rather than an occasional afterthought.` },
     ],
     faqs: [
       { q: `Why is account expansion so valuable?`, a: `Because it comes from customers you already have, so it carries little acquisition cost, converts at higher rates, and closes faster than net-new deals. A strong expansion motion drives net revenue retention above 100 percent, which compounds growth without proportional new-customer spend.` },
@@ -2935,7 +2935,7 @@ export default [
       { h: `Size it to capacity`, body: `Match the list length to what reps can actually work well. A focused list each rep can pursue with depth beats a huge list worked shallowly.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally scores accounts on fit, potential, and intent, tiers them, and sizes lists to rep capacity, so Rook can build and maintain a target account list that focuses the team on the right accounts and refreshes it as intent signals change.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores accounts on fit, potential, and intent, tiers them, and sizes lists to rep capacity, so Rook can build and maintain a target account list that focuses the team on the right accounts and refreshes it as intent signals change.` },
     ],
     faqs: [
       { q: `How many accounts should be on a target account list?`, a: `Enough to keep reps busy but few enough to work with real depth, sized to capacity. For high-touch enterprise ABS this might be a few dozen per rep; for broader mid-market motions, more. The key is that each account gets meaningful attention rather than shallow coverage.` },
@@ -2961,7 +2961,7 @@ export default [
       { h: `Set traps without badmouthing`, body: `Plant thoughtful questions the buyer should ask any vendor, ones your competitors answer poorly, without ever trashing the competition directly.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally keeps competitor battlecards on the deal and tracks which competitors you win and lose against and why, so Rook can surface the right differentiators and traps for the specific competitor in a deal, and feed win-loss patterns back into your competitive strategy.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps competitor battlecards on the deal and tracks which competitors you win and lose against and why, so Rook can surface the right differentiators and traps for the specific competitor in a deal, and feed win-loss patterns back into your competitive strategy.` },
     ],
     faqs: [
       { q: `Should I badmouth competitors to win a deal?`, a: `No. Disparaging competitors makes you look insecure and erodes buyer trust. Instead, differentiate honestly on the value that matters to this buyer, shape the evaluation criteria toward your strengths, and use thoughtful questions that expose competitor weaknesses without you ever trashing them directly.` },
@@ -2987,7 +2987,7 @@ export default [
       { h: `Prove value continuously`, body: `Reinforce the value delivered through regular reviews so the customer always sees the return, making renewal a formality.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally computes a health score from usage, engagement, and outcomes, and Rook flags at-risk accounts early with the specific reason, so teams intervene months before renewal rather than discovering churn risk in the final conversation.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes a health score from usage, engagement, and outcomes, and Rook flags at-risk accounts early with the specific reason, so teams intervene months before renewal rather than discovering churn risk in the final conversation.` },
     ],
     faqs: [
       { q: `When does churn prevention actually happen?`, a: `Months before renewal, not in the final save conversation. Churn is usually decided by whether the customer got value and adopted the product over time. Effective prevention means onboarding to fast value, monitoring health continuously, and intervening early, long before the renewal date arrives.` },
@@ -3013,7 +3013,7 @@ export default [
       { h: `Pursue earned expansion`, body: `Where value is clearly proven, introduce expansion at renewal. A well-run renewal is often the best expansion moment.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally surfaces upcoming renewals early with the account's value data, health score, and expansion opportunities, so Rook can prompt the CSM or rep to start on time and lead with proof. Renewals become proactive and value-led rather than last-minute saves.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces upcoming renewals early with the account's value data, health score, and expansion opportunities, so Rook can prompt the CSM or rep to start on time and lead with proof. Renewals become proactive and value-led rather than last-minute saves.` },
     ],
     faqs: [
       { q: `When should I start the renewal process?`, a: `Well before the deadline, often 90 days out for larger or more complex accounts. Starting early gives time to confirm value, resolve any risks, and explore expansion without deadline pressure. Renewals that begin weeks before the date become scrambles that invite churn and discounting.` },
@@ -3039,7 +3039,7 @@ export default [
       { h: `Make it easy to say yes`, body: `Keep the upgrade path simple with clear incremental value and pricing, so the decision is low-friction and obviously worthwhile.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks adoption and usage limits on each account, so Rook flags customers who are genuinely ready for a higher tier and the specific need it solves, timed to value milestones. Upsell becomes evidence-based and well-timed rather than a blanket push.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks adoption and usage limits on each account, so Rook flags customers who are genuinely ready for a higher tier and the specific need it solves, timed to value milestones. Upsell becomes evidence-based and well-timed rather than a blanket push.` },
     ],
     faqs: [
       { q: `What is the difference between upselling and cross-selling?`, a: `Upselling moves a customer to a higher tier or larger commitment of what they already use (more seats, a premium plan). Cross-selling adds a different, complementary product. Both grow account revenue, but upsell deepens the existing purchase while cross-sell broadens into new products.` },
@@ -3065,7 +3065,7 @@ export default [
       { h: `Frame as an extension of value`, body: `Position the second product as completing or amplifying the outcome they already value, not as an unrelated add-on.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally holds the full account context (goals, usage, health) so Rook can identify which complementary product genuinely fits a customer's adjacent needs and time the cross-sell to proven value, making offers relevant rather than random.` },
+      { h: `How Ardovo helps`, body: `Ardovo holds the full account context (goals, usage, health) so Rook can identify which complementary product genuinely fits a customer's adjacent needs and time the cross-sell to proven value, making offers relevant rather than random.` },
     ],
     faqs: [
       { q: `What makes a cross-sell relevant?`, a: `The additional product must solve a real adjacent problem the customer actually has and extend the value of what they already use. Relevance comes from understanding their broader goals and workflow. A cross-sell that fits their needs feels like a helpful recommendation; a random one erodes trust.` },
@@ -3091,7 +3091,7 @@ export default [
       { h: `Transition to ongoing success`, body: `Hand off cleanly to an ongoing cadence of check-ins and reviews so the momentum from onboarding continues into the relationship.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks onboarding milestones and time-to-first-value on each new account, so Rook flags customers stalling in onboarding before they churn and shows which have adopted the core workflow. Onboarding becomes a measured, proactive process rather than a hopeful handoff.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks onboarding milestones and time-to-first-value on each new account, so Rook flags customers stalling in onboarding before they churn and shows which have adopted the core workflow. Onboarding becomes a measured, proactive process rather than a hopeful handoff.` },
     ],
     faqs: [
       { q: `Why is customer onboarding so important?`, a: `Because it is the biggest single driver of retention. Customers who reach their first meaningful value quickly during onboarding tend to stay, while those who stall in a slow or confusing setup often churn before they ever experience the value they bought. Onboarding decides much of the relationship's fate.` },
@@ -3117,7 +3117,7 @@ export default [
       { h: `Wire it to alerts and action`, body: `Connect the score to alerts so a declining account triggers a specific intervention. A health score no one acts on is just a dashboard.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally builds the health score from usage, engagement, support, and outcome data, validates it against your churn history, and has Rook alert the owner with the specific risk when an account declines, so the score drives intervention rather than just displaying a color.` },
+      { h: `How Ardovo helps`, body: `Ardovo builds the health score from usage, engagement, support, and outcome data, validates it against your churn history, and has Rook alert the owner with the specific risk when an account declines, so the score drives intervention rather than just displaying a color.` },
     ],
     faqs: [
       { q: `What signals should go into a customer health score?`, a: `Signals that actually predict retention: product usage and adoption trends, stakeholder engagement and champion strength, support ticket volume and sentiment, and progress toward the customer's outcomes. Weight each by how strongly it correlates with churn in your own data rather than by intuition.` },
@@ -3143,7 +3143,7 @@ export default [
       { h: `Improve customer fit`, body: `Feed churn patterns back into your ICP and qualification, so you sell to customers who will succeed. Bad-fit customers churn no matter how good CS is.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally analyzes churn patterns, computes health scores, and has Rook flag at-risk accounts and feed churn-driven fit signals back into targeting, so you attack the root causes of churn systematically instead of fighting cancellations one at a time.` },
+      { h: `How Ardovo helps`, body: `Ardovo analyzes churn patterns, computes health scores, and has Rook flag at-risk accounts and feed churn-driven fit signals back into targeting, so you attack the root causes of churn systematically instead of fighting cancellations one at a time.` },
     ],
     faqs: [
       { q: `What is the most common cause of churn?`, a: `Customers never reaching or sustaining value, usually traceable to poor onboarding and low adoption. Other big causes are losing your champion, unresolved issues, and simply being a bad fit. Diagnosing your own churn data reveals which root causes matter most for your business.` },
@@ -3169,7 +3169,7 @@ export default [
       { h: `Schedule regular reviews`, body: `Set a cadence of check-ins and QBRs to track progress against the plan, surface risks, and keep both sides aligned on outcomes.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally holds the success plan on the account with goals, milestones, owners, and value metrics, so Rook can track progress, flag slipping milestones, and assemble the value evidence for reviews. Customer success runs on a live plan rather than scattered notes.` },
+      { h: `How Ardovo helps`, body: `Ardovo holds the success plan on the account with goals, milestones, owners, and value metrics, so Rook can track progress, flag slipping milestones, and assemble the value evidence for reviews. Customer success runs on a live plan rather than scattered notes.` },
     ],
     faqs: [
       { q: `What is a customer success plan?`, a: `A shared roadmap documenting the customer's goals and success criteria, the milestones and actions to reach them, owners and dates, and how value will be measured. It aligns both teams on outcomes and turns customer success into a proactive, accountable plan rather than reactive support.` },
@@ -3195,7 +3195,7 @@ export default [
       { h: `Re-establish value and confirm the save`, body: `Deliver a tangible win that proves the value again, then confirm the relationship is back on track before declaring the account recovered.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally flags at-risk accounts early with the specific declining signals, and Rook helps build and track the recovery plan with owners and dates. Teams intervene on the warning signs rather than discovering the risk when the cancellation notice arrives.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags at-risk accounts early with the specific declining signals, and Rook helps build and track the recovery plan with owners and dates. Teams intervene on the warning signs rather than discovering the risk when the cancellation notice arrives.` },
     ],
     faqs: [
       { q: `What are the warning signs of an at-risk account?`, a: `Declining product usage, a lost or disengaged champion, rising support tickets or negative sentiment, missed value or unmet expectations, and going quiet on outreach. A validated health score combines these into an early signal so you can act before the customer has emotionally decided to leave.` },
@@ -3221,7 +3221,7 @@ export default [
       { h: `Intervene where usage stalls`, body: `When an account's adoption plateaus below the value threshold, intervene with targeted enablement before it becomes a churn risk.` },
     ],
     sections: [
-      { h: `How Rally helps`, body: `Rally tracks adoption of the value-driving workflows per account, so Rook flags accounts that have activated but not adopted and prompts targeted enablement before they churn. Adoption becomes a measured, managed outcome rather than a hope.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks adoption of the value-driving workflows per account, so Rook flags accounts that have activated but not adopted and prompts targeted enablement before they churn. Adoption becomes a measured, managed outcome rather than a hope.` },
     ],
     faqs: [
       { q: `What is the difference between adoption and activation?`, a: `Activation means a customer has set up and minimally used the product. Adoption means they consistently use the core workflows that deliver value. Activation is a start; adoption is what makes a product sticky and prevents churn. A customer can be activated but not adopting, and still churn.` },

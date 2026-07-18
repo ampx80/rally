@@ -31,7 +31,7 @@ export default function OrbitDiagram() {
 
   return (
     <div className="mkt-orbit" aria-hidden>
-      <svg viewBox="0 0 720 600" className="mkt-orbit-svg" role="img" aria-label="Rook at the center of every Rally module">
+      <svg viewBox="0 0 720 600" className="mkt-orbit-svg" role="img" aria-label="Rook at the center of every Ardovo module">
         <defs>
           <radialGradient id="mktOrbitGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="rgba(91,75,245,.22)" />

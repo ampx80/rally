@@ -10,11 +10,11 @@ const entry = {
   slug: 'b2b-sales-process',
   title: 'The B2B Sales Process: A Complete 2026 Playbook',
   h1: 'The B2B Sales Process: A Complete 2026 Playbook',
-  metaTitle: 'The B2B Sales Process in 2026: Stages, Playbook, Cycle-Time Math | Rally',
+  metaTitle: 'The B2B Sales Process in 2026: Stages, Playbook, Cycle-Time Math | Ardovo',
   metaDescription: 'A deep, practical guide to the modern B2B sales process: the stages end to end, who sits on the buying committee, a stage-by-stage playbook, cycle-time math you can model, and the trade-offs of every sales motion.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -25,7 +25,7 @@ const entry = {
   heroStats: [
     { value: 6.8, format: 'decimal:1', label: 'Typical buyers on a B2B purchase decision' },
     { value: 25, prefix: '~', suffix: '%', label: 'Of B2B deals end in no decision, not a loss to a rival' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Rally: one flat price, every module' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Ardovo: one flat price, every module' },
   ],
   blocks: [
     {
@@ -264,13 +264,13 @@ const entry = {
       title: 'Where the CRM and an AI operator fit',
       body: [
         'A written process only pays off if the system of record enforces it. That means stages with real exit criteria, not free-text status; committee roles captured as fields, not as notes a manager has to excavate; and follow-up that does not depend on a rep remembering. The gap between the process on the wall and the process in the data is exactly where deals leak.',
-        'This is the case Rally is built for. It is AI-native, so the Rook operator watches every open deal, flags the ones going cold, drafts the next touch, keeps the committee map current, and rolls up a forecast by stage and probability without a Friday spreadsheet ritual. It is alive on first load rather than an empty database asking to be configured for a month, and it is one flat price across every module, so the tool that runs your process at five reps still runs it at fifty. As always, verify current pricing and packaging before you buy, and if your motion is pure self-serve with no human stages, a lighter tool may be all you need.',
+        'This is the case Ardovo is built for. It is AI-native, so the Rook operator watches every open deal, flags the ones going cold, drafts the next touch, keeps the committee map current, and rolls up a forecast by stage and probability without a Friday spreadsheet ritual. It is alive on first load rather than an empty database asking to be configured for a month, and it is one flat price across every module, so the tool that runs your process at five reps still runs it at fifty. As always, verify current pricing and packaging before you buy, and if your motion is pure self-serve with no human stages, a lighter tool may be all you need.',
       ],
     },
     {
       type: 'quote',
       text: 'The best forecast is not a confidence number a rep types in. It is a stage a buyer has verifiably passed.',
-      cite: 'The Rally Team',
+      cite: 'The Ardovo Team',
       role: 'On why process beats optimism',
     },
     {

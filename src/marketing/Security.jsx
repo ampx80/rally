@@ -96,7 +96,7 @@ export default function Security() {
               <p className="mkt-eyebrow">In transit and at rest</p>
               <h2 className="mkt-h2" style={{ marginTop: 12 }}>Encrypted end to end.</h2>
               <p className="mkt-body" style={{ marginTop: 14 }}>
-                Every request rides TLS 1.2+ to the Rally edge, and every record lands encrypted with AES-256.
+                Every request rides TLS 1.2+ to the Ardovo edge, and every record lands encrypted with AES-256.
                 Your data is never in the clear at any layer.
               </p>
             </div>

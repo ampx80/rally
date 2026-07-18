@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY NOTIFICATIONS  (local-first, deterministic, pub/sub)
+// ARDOVO NOTIFICATIONS  (local-first, deterministic, pub/sub)
 // The connective tissue a daily-active app needs: one persisted
 // notification feed derived from real event sources already in the
 // store - the org audit log (stage moves, reassignments, field
@@ -163,7 +163,7 @@ function deriveFeed() {
       push({
         key: `due:${a.id}`,
         type: 'task_due',
-        actor: 'Rally',
+        actor: 'Ardovo',
         title: overdue ? `Overdue: ${a.subject}` : `Due soon: ${a.subject}`,
         body: rel ? rel.label : '',
         at: a.dueAt,
@@ -326,7 +326,7 @@ export function markAllRead() {
 let idc = Date.now();
 /* Push a live notification (e.g. Rook finishes a build). Marked manual so
    reconcile() never drops it. */
-export function pushNotification({ type = 'update', actor = 'Rally', title, body = '', target = null }) {
+export function pushNotification({ type = 'update', actor = 'Ardovo', title, body = '', target = null }) {
   if (!title) return null;
   const n = {
     id: `nt_${(idc++).toString(36)}`, key: `manual:${idc}`,

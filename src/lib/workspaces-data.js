@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY WORKSPACES DATA  (agency sub-accounts + white-label + rebilling)
-// The distribution layer. Every Rally customer can run Rally AS an
+// ARDOVO WORKSPACES DATA  (agency sub-accounts + white-label + rebilling)
+// The distribution layer. Every Ardovo customer can run Ardovo AS an
 // agency: spin up client sub-accounts, resell under their own brand
 // (custom domain, logo, colors, product name, login page), and mark
 // up usage (messaging, AI, calls) for margin. This is the wedge that
@@ -32,7 +32,7 @@ function mulberry32(a) {
    ============================================================ */
 
 // Resale plans the agency sells to its clients. price = what the CLIENT
-// pays the agency each month. wholesale = what the agency pays Rally for
+// pays the agency each month. wholesale = what the agency pays Ardovo for
 // that seat tier. The gap is the subscription margin.
 // SUPABASE: rally_plans (per agency, resale price is agency-editable).
 export const PLANS = [
@@ -42,7 +42,7 @@ export const PLANS = [
 ];
 export const planById = (id) => PLANS.find(p => p.id === id) || PLANS[0];
 
-// Rally wholesale unit cost (what the agency pays for usage). The agency
+// Ardovo wholesale unit cost (what the agency pays for usage). The agency
 // sets a markup multiplier per meter; the client is billed base * markup.
 // SUPABASE: rally_meter_rates (platform-set) + rally_rebilling_config.
 export const METERS = [
@@ -92,7 +92,7 @@ function buildSeed() {
   const DAY = 86400000;
   const daysAgo = (d) => new Date(now - d * DAY).toISOString();
 
-  // The reseller agency. This is "you" running Rally as your own product.
+  // The reseller agency. This is "you" running Ardovo as your own product.
   const agency = {
     name: 'Northbeam Growth Partners',
     productName: 'Northbeam CRM',
@@ -218,7 +218,7 @@ export const getSnapshot = (id) => state.snapshots.find(s => s.id === id);
    REBILLING ECONOMICS  (pure derivations, per workspace + rollup)
    ============================================================ */
 
-// What the agency pays Rally for this client's usage this month.
+// What the agency pays Ardovo for this client's usage this month.
 export function baseUsageCost(ws) {
   if (!ws) return 0;
   return METERS.reduce((s, m) => s + (ws.usage?.[m.id] || 0) * m.base, 0);

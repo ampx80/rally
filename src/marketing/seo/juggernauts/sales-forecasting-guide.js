@@ -10,11 +10,11 @@ const entry = {
   slug: 'sales-forecasting-guide',
   title: 'Sales Forecasting: Methods, Formulas, and a Calculator',
   h1: 'Sales Forecasting: Methods, Formulas, and a Free Calculator',
-  metaTitle: 'Sales Forecasting Guide (2026): Methods, Weighted-Pipeline Formula, and Calculator | Rally',
+  metaTitle: 'Sales Forecasting Guide (2026): Methods, Weighted-Pipeline Formula, and Calculator | Ardovo',
   metaDescription: 'A practical guide to sales forecasting: the main methods compared, the weighted-pipeline formula with a live calculator, how forecast accuracy improves over time, and how to run a forecast call.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -25,7 +25,7 @@ const entry = {
   heroStats: [
     { value: 45, suffix: '%', label: 'Of forecasted deals typically slip or die by close date' },
     { value: 80, prefix: '>', suffix: '%', label: 'Achievable forecast accuracy with weekly deal-level review' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Rally, forecasting included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Ardovo, forecasting included' },
   ],
   blocks: [
     {
@@ -226,15 +226,15 @@ const entry = {
     {
       type: 'quote',
       text: 'The forecast stopped being a Friday argument and became a number we could plan against, because the system re-scored every deal daily instead of waiting for us to guess.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, mid-market SaaS',
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
-        'Rally is an AI-native revenue platform where forecasting is not a bolt-on report you assemble by hand. Rook, the built-in operator, reads every deal continuously, scores close probability from your own history, flags slip risk before the forecast call, and rolls the pipeline up into a weighted forecast and a simulated range that update as reality changes. You still run the call and make the commit; the platform removes the spreadsheet ritual underneath it.',
-        'You do not have to buy Rally to use this guide. The weighted formula, the coverage rule, and the forecast-call runbook work in any tool. But if you are tired of a forecast that is only as fresh as your last manual roll-up, a system that keeps the math current on its own, at one flat price with forecasting included, is the shortcut. Rally is alive with a working pipeline on first load, so you can pressure-test your own numbers in minutes.',
+        'Ardovo is an AI-native revenue platform where forecasting is not a bolt-on report you assemble by hand. Rook, the built-in operator, reads every deal continuously, scores close probability from your own history, flags slip risk before the forecast call, and rolls the pipeline up into a weighted forecast and a simulated range that update as reality changes. You still run the call and make the commit; the platform removes the spreadsheet ritual underneath it.',
+        'You do not have to buy Ardovo to use this guide. The weighted formula, the coverage rule, and the forecast-call runbook work in any tool. But if you are tired of a forecast that is only as fresh as your last manual roll-up, a system that keeps the math current on its own, at one flat price with forecasting included, is the shortcut. Ardovo is alive with a working pipeline on first load, so you can pressure-test your own numbers in minutes.',
       ],
     },
     {

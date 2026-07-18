@@ -1,8 +1,8 @@
 // POST /api/webhooks-dispatch
 //
-// Outbound webhook delivery for the Rally developer platform. Given an event
+// Outbound webhook delivery for the Ardovo developer platform. Given an event
 // (deal.won, contact.created, ...) and a subscriber URL, it POSTs a signed
-// JSON envelope to the subscriber so their systems react to changes in Rally.
+// JSON envelope to the subscriber so their systems react to changes in Ardovo.
 //
 // Security:
 //   - SSRF-guarded like api/outbound.js: https only, no internal / metadata
@@ -10,11 +10,11 @@
 //   - Every delivery is HMAC-SHA256 signed (Stripe-style) so subscribers can
 //     verify authenticity. Signed content is `${timestamp}.${rawBody}` to make
 //     replay attacks detectable. The secret comes from the request (per the
-//     subscriber's stored secret) or RALLY_WEBHOOK_SECRET as a fallback.
+//     subscriber's stored secret) or ARDOVO_WEBHOOK_SECRET as a fallback.
 //
 // Headers sent to the subscriber:
-//   X-Rally-Event, X-Rally-Delivery, X-Rally-Timestamp,
-//   X-Rally-Signature: t=<unix>,v1=<hex hmac>
+//   X-Ardovo-Event, X-Ardovo-Delivery, X-Ardovo-Timestamp,
+//   X-Ardovo-Signature: t=<unix>,v1=<hex hmac>
 //
 // ASCII only. No em-dash / en-dash. All env + external access is guarded.
 import crypto from 'node:crypto';
@@ -60,9 +60,9 @@ export default withErrorHandling(async (req, res) => {
     return res.status(400).json({ ok: false, error: `Unknown event "${event}".`, allowed: WEBHOOK_EVENTS });
   }
 
-  const signingSecret = (typeof secret === 'string' && secret) ? secret : process.env.RALLY_WEBHOOK_SECRET;
+  const signingSecret = (typeof secret === 'string' && secret) ? secret : process.env.ARDOVO_WEBHOOK_SECRET;
   if (!signingSecret) {
-    return res.status(400).json({ ok: false, error: 'No signing secret. Pass a "secret" or set RALLY_WEBHOOK_SECRET.' });
+    return res.status(400).json({ ok: false, error: 'No signing secret. Pass a "secret" or set ARDOVO_WEBHOOK_SECRET.' });
   }
 
   const deliveryId = 'evt_' + crypto.randomBytes(9).toString('hex');
@@ -83,11 +83,11 @@ export default withErrorHandling(async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'Rally-Webhooks/1.0',
-        'X-Rally-Event': event,
-        'X-Rally-Delivery': deliveryId,
-        'X-Rally-Timestamp': String(timestamp),
-        'X-Rally-Signature': header,
+        'User-Agent': 'Ardovo-Webhooks/1.0',
+        'X-Ardovo-Event': event,
+        'X-Ardovo-Delivery': deliveryId,
+        'X-Ardovo-Timestamp': String(timestamp),
+        'X-Ardovo-Signature': header,
       },
       body: rawBody,
       signal: ctrl.signal,

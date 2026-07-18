@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PIPELINES  (multi-pipeline registry - additive)
+// ARDOVO PIPELINES  (multi-pipeline registry - additive)
 // A persisted registry of deal pipelines, each with its own ordered
 // stages. The DEFAULT pipeline's stages are an exact clone of the
 // canonical STAGES in store.js, so every existing deal (which has no

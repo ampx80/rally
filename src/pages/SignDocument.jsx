@@ -156,7 +156,7 @@ export default function SignDocument() {
       <AuditPanel reqId={req.id} />
 
       <div className="es-foot">
-        <Icon name="zap" size={14} fill="currentColor" stroke={0} /> Signed with Rally - rally.app
+        <Icon name="zap" size={14} fill="currentColor" stroke={0} /> Signed with Ardovo - ardovo.com
       </div>
     </SignShell>
   );
@@ -220,7 +220,7 @@ function NotFound() {
       <div style={{ fontSize: '2.4rem' }}>🔏</div>
       <h2 style={{ margin: 0 }}>Signing link not found</h2>
       <p className="es-sign-sub" style={{ maxWidth: 400 }}>This request may have been voided, completed, or the link is out of date. Ask the sender to resend it.</p>
-      <Link to="/" className="es-sign-btn" style={{ maxWidth: 220, textDecoration: 'none' }}><Icon name="chevronRight" size={16} /> Back to Rally</Link>
+      <Link to="/" className="es-sign-btn" style={{ maxWidth: 220, textDecoration: 'none' }}><Icon name="chevronRight" size={16} /> Back to Ardovo</Link>
     </div>
   );
 }

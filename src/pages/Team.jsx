@@ -216,7 +216,7 @@ function InviteModal({ open, onClose, roles, onDone }) {
           <Input value={name} onChange={e => setName(e.target.value)} placeholder="Alex Rivera" autoFocus />
         </Field>
         <Field label="Work email">
-          <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="alex@rally.app" type="email" />
+          <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="alex@ardovo.com" type="email" />
         </Field>
         <Field label="Role" hint="Determines what they can see and do.">
           <Select value={roleId} onChange={e => setRoleId(e.target.value)}>

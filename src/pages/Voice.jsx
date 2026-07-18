@@ -311,7 +311,7 @@ function LiveCall() {
         <Card pad style={{ background: 'var(--nav)', color: 'var(--nav-text)', borderColor: 'transparent' }}>
           <div className="eyebrow" style={{ color: 'var(--accent-300)' }}>Why it wins</div>
           <div style={{ fontSize: '1.12rem', fontWeight: 700, lineHeight: 1.4, marginTop: 6 }}>
-            The phone is the leakiest funnel in the business. <GradientText>Rally answers every ring</GradientText>, books the meeting, and hands you a logged activity - even at 9:47 PM.
+            The phone is the leakiest funnel in the business. <GradientText>Ardovo answers every ring</GradientText>, books the meeting, and hands you a logged activity - even at 9:47 PM.
           </div>
           <div className="t-sm" style={{ color: 'var(--nav-muted)', marginTop: 10 }}>
             No missed call is ever a missed lead again.

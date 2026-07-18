@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY COMING-SOON GATE
+// ARDOVO COMING-SOON GATE
 // Locks the product app while the waitlist fills. Collects name, email,
 // phone, company, size, and industry and posts to /api/waitlist (which
 // emails Nate). A quiet "access code" affordance posts to /api/unlock so
@@ -80,7 +80,7 @@ export default function ComingSoon({ onUnlock }) {
       <div className="cs-card">
         <div className="cs-brand">
           <span className="cs-mark"><Icon name="zap" size={22} fill="#fff" stroke={0} /></span>
-          Rally
+          Ardovo
         </div>
 
         {status === 'done' ? (
@@ -94,7 +94,7 @@ export default function ComingSoon({ onUnlock }) {
         ) : (
           <>
             <div className="cs-eyebrow"><span className="cs-live" /> Launching soon</div>
-            <h1 className="cs-h1">Run your revenue on <span className="cs-grad">Rally</span></h1>
+            <h1 className="cs-h1">Run your revenue on <span className="cs-grad">Ardovo</span></h1>
             <p className="cs-sub">
               The AI-native CRM and revenue platform, with an operator that actually runs the work. We are opening access in waves. Request yours below.
             </p>

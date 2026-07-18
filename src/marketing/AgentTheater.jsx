@@ -30,7 +30,7 @@ const SCENARIOS = [
     canvas: 'won',
   },
   {
-    q: 'Rally the team on the Northwind account',
+    q: 'Ardovo the team on the Northwind account',
     a: 'Tasks assigned to Jordan, Simone, and Theo. Kickoff is Friday 10am.',
     canvas: 'team',
   },
@@ -194,7 +194,7 @@ export default function AgentTheater() {
         <span style={{ display: 'flex', gap: 6 }}>{['#ff5f57', '#febc2e', '#28c840'].map(c => <i key={c} style={{ width: 11, height: 11, borderRadius: 99, background: c }} />)}</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7, fontWeight: 800, fontSize: 14 }}>
           <span style={{ width: 22, height: 22, borderRadius: 6, background: 'linear-gradient(135deg,#6d5cf7,#4a3ce0)', display: 'grid', placeItems: 'center', color: '#fff' }}><Icon name="zap" size={12} fill="currentColor" stroke={0} /></span>
-          Rally
+          Ardovo
         </span>
         <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--m-teal)' }}><span className="mkt-dot m-pulse" /> Rook is live</span>
       </div>

@@ -2,7 +2,7 @@
 // GENERATIVE UI - RENDERER  (interprets a validated ui_spec)
 // ------------------------------------------------------------
 // Walks a SAFE spec (already run through validateSpec) and paints it
-// with the Rally UI kit + recharts. It reads data only through the
+// with the Ardovo UI kit + recharts. It reads data only through the
 // whitelisted resolvers in spec.js. It never evaluates a spec string as
 // code. Action buttons either navigate to a real route or re-open Rook
 // with a prompt (so any write stays behind the operator's confirm UI).

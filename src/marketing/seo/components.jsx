@@ -324,7 +324,7 @@ export function Related({ items }) {
 }
 
 /* ---------- in-content CTA to the product ---------- */
-export function InlineCta({ title = 'See it live in Rally', sub = 'Every screen is alive on first load. Ask Rook and it runs the work.', to = '/app', cta = 'Get started free' }) {
+export function InlineCta({ title = 'See it live in Ardovo', sub = 'Every screen is alive on first load. Ask Rook and it runs the work.', to = '/app', cta = 'Get started free' }) {
   return (
     <Reveal style={{
       marginTop: 40,

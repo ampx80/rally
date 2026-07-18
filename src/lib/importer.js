@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY IMPORT / MIGRATION ENGINE - the Salesforce "Data Import
+// ARDOVO IMPORT / MIGRATION ENGINE - the Salesforce "Data Import
 // Wizard" + "Data Loader" equivalent. Parses a CSV, auto-maps its
-// columns onto the Rally field registry (with per-source presets for
+// columns onto the Ardovo field registry (with per-source presets for
 // Salesforce / HubSpot / Pipedrive / Google exports), previews the
 // mapping, dedupes, then writes real records through the store
 // create/update writers so imported data behaves exactly like data
@@ -58,7 +58,7 @@ export const IMPORT_OBJECTS = [
 export const importObject = (id) => IMPORT_OBJECTS.find(o => o.id === id);
 
 /* ---------------- migration sources (auto-map dictionaries) ----------------
-   Keys are Rally field keys; values are header names those tools export. */
+   Keys are Ardovo field keys; values are header names those tools export. */
 export const SOURCES = [
   { id: 'generic',   label: 'Generic CSV', hint: 'Any spreadsheet or CSV export.' },
   { id: 'salesforce',label: 'Salesforce',  hint: 'Report or Data Export CSV.' },
@@ -87,7 +87,7 @@ const ALIASES = {
 
 const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
-/* Auto-map CSV headers to Rally field keys for an object type. Matches by
+/* Auto-map CSV headers to Ardovo field keys for an object type. Matches by
    alias table first, then by exact field key/label, so unknown columns stay
    unmapped for the user to resolve. Returns { [header]: fieldKey | '' }. */
 export function autoMap(objectType, headers) {

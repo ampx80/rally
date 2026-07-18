@@ -1,4 +1,4 @@
-// Rally Projects - TIMELINE (Gantt) view. A horizontal date axis in weeks,
+// Ardovo Projects - TIMELINE (Gantt) view. A horizontal date axis in weeks,
 // rows grouped by group (or project on All work), each task a rounded bar
 // positioned by startDate..due with a progress overlay, status color, a
 // glowing "today" line, spring/stagger grow-in, and a hover tooltip.

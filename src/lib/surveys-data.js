@@ -1,10 +1,10 @@
 // ============================================================
-// RALLY SURVEYS  (local-first, Supabase-swappable)
+// ARDOVO SURVEYS  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
 // Closed-loop feedback for the Success & Delivery hub: NPS, CSAT
 // and CES surveys with automated follow-up. This is the Service
 // Hub staple that feeds retention (a HubSpot paid tier, a flat
-// GoHighLevel gap) - Rally bundles it in for free.
+// GoHighLevel gap) - Ardovo bundles it in for free.
 //
 // A survey fires on a trigger (post-ticket-close, post-purchase,
 // quarterly, or manual) through a channel (email, SMS, in-app),
@@ -40,7 +40,7 @@ function mulberry32(a) {
 /* ============================================================
    STATIC CONFIG
    ============================================================ */
-// The three feedback methodologies Rally ships. Each carries the scale it uses,
+// The three feedback methodologies Ardovo ships. Each carries the scale it uses,
 // the metric label, and the sensible default question so the builder is never
 // blank. Colors drive every chart + chip so a type reads the same everywhere.
 export const SURVEY_TYPES = [
@@ -238,7 +238,7 @@ const COMPANIES = [
 ];
 
 // Verbatim comment pools keyed by band. B2B SaaS voice - the respondents are
-// Rally's customers giving feedback about Rally. No two reads identical.
+// Ardovo's customers giving feedback about Ardovo. No two reads identical.
 const COMMENTS = {
   promoter: [
     'The rollout was smooth and the ROI was obvious inside the first month. Already told two peers.',

@@ -1,4 +1,4 @@
-// Rally Public REST API - Companies resource
+// Ardovo Public REST API - Companies resource
 //   GET  /api/v1/companies             list (pagination + filters)
 //   GET  /api/v1/companies?id=co_1     fetch one (or /api/v1/companies/co_1)
 //   POST /api/v1/companies             create

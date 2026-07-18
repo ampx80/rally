@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY QUOTES / CPQ DATA
+// ARDOVO QUOTES / CPQ DATA
 // Seeds a product/price catalog + a book of quotes tied to real
 // deals + companies from the main store. Persists mutations to
 // localStorage so the CPQ surface feels alive across reloads.
@@ -25,7 +25,7 @@ function mulberry32(a) {
    SUPABASE: rally_products.select()
    ============================================================ */
 export const PRODUCTS = [
-  { id: 'p_platform', name: 'Rally Platform License', sku: 'RLY-PLT-01', unit: 'per seat / yr', price: 1200, category: 'Platform' },
+  { id: 'p_platform', name: 'Ardovo Platform License', sku: 'RLY-PLT-01', unit: 'per seat / yr', price: 1200, category: 'Platform' },
   { id: 'p_seats_pro', name: 'Pro Seat Add-on', sku: 'RLY-SEAT-PRO', unit: 'per seat / yr', price: 480, category: 'Platform' },
   { id: 'p_ai', name: 'Rook AI Operator', sku: 'RLY-AI-ROOK', unit: 'per seat / yr', price: 600, category: 'AI' },
   { id: 'p_cpq', name: 'CPQ + Quoting Engine', sku: 'RLY-CPQ-01', unit: 'per org / yr', price: 24000, category: 'Modules' },

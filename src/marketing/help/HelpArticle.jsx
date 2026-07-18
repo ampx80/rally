@@ -100,7 +100,7 @@ export default function HelpArticle() {
   if (fld) jsonLd.push(fld);
 
   useSeoHead({
-    title: `${article.title} | Rally help`,
+    title: `${article.title} | Ardovo help`,
     description: article.summary,
     canonical,
     jsonLd,

@@ -1,10 +1,10 @@
 // DataSync - Operations Hub. The data-ops depth HubSpot sells as Ops Hub,
-// bundled into Rally. Four surfaces over one local-first store
+// bundled into Ardovo. Four surfaces over one local-first store
 // (src/lib/datasync-data.js): sync jobs to a warehouse / Sheets / ERP / CRM,
 // a field-mapping editor, a data-health monitor with a health score and a
 // fix-queue, and programmable scheduled data jobs. 100% functional with
 // seeded deterministic data and zero backend; real runs are env-gated and
-// degrade to a local simulation. Data sync plus a health score make Rally
+// degrade to a local simulation. Data sync plus a health score make Ardovo
 // trustworthy as the system of record.
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ import {
   addMapping, updateMapping, toggleMapping, removeMapping, resolveFix,
   toggleScheduled, runScheduled, hasSyncEnv,
   systemById, directionById, statusMeta, OBJECTS,
-  objectById, RALLY_FIELDS, TRANSFORMS,
+  objectById, ARDOVO_FIELDS, TRANSFORMS,
 } from '../lib/datasync-data.js';
 import {
   Button, Card, Badge, PageTitle, SectionHeader, Field, Input, Select,
@@ -146,7 +146,7 @@ function SyncJobsTab({ onEditMap, toast }) {
             <div className="eyebrow">System of record</div>
             <h3 style={{ margin: 0 }}>Every source, synced and reconciled</h3>
             <div className="muted t-sm" style={{ maxWidth: 560 }}>
-              Two-way connections to your warehouse, spreadsheets, ERP and legacy CRM. Rally stays clean and current, so the numbers tie out no matter which tool asks.
+              Two-way connections to your warehouse, spreadsheets, ERP and legacy CRM. Ardovo stays clean and current, so the numbers tie out no matter which tool asks.
             </div>
           </div>
           <div className="row gap-1" style={{ flex: 'none' }}>
@@ -174,7 +174,7 @@ function SyncJobsTab({ onEditMap, toast }) {
    TAB 2 - FIELD MAPPING EDITOR
    ============================================================ */
 function MappingRow({ syncId, m, toast }) {
-  const targets = RALLY_FIELDS[m.object] || [];
+  const targets = ARDOVO_FIELDS[m.object] || [];
   return (
     <tr style={{ opacity: m.active ? 1 : 0.5 }}>
       <td className="mono t-sm">{m.source}</td>
@@ -255,13 +255,13 @@ function FieldMappingTab({ selected, setSelected, toast }) {
         </div>
 
         {maps.length === 0 ? (
-          <EmptyState icon="🧭" title="No mappings yet" body="Add a mapping to route an external column into a Rally field." action={<Button variant="accent" size="sm" onClick={() => setAddOpen(true)}><Icon name="plus" size={15} /> Add mapping</Button>} />
+          <EmptyState icon="🧭" title="No mappings yet" body="Add a mapping to route an external column into a Ardovo field." action={<Button variant="accent" size="sm" onClick={() => setAddOpen(true)}><Icon name="plus" size={15} /> Add mapping</Button>} />
         ) : (
           <div style={{ overflowX: 'auto' }}>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Source column</th><th></th><th>Rally field</th><th>Transform</th><th>Coverage</th><th style={{ textAlign: 'center' }}>On</th><th></th>
+                  <th>Source column</th><th></th><th>Ardovo field</th><th>Transform</th><th>Coverage</th><th style={{ textAlign: 'center' }}>On</th><th></th>
                 </tr>
               </thead>
               <tbody>
@@ -289,10 +289,10 @@ function FieldMappingTab({ selected, setSelected, toast }) {
 function AddMappingModal({ syncId, job, onClose, toast }) {
   const [object, setObject] = useState(job.objects[0] || 'contacts');
   const [source, setSource] = useState('');
-  const [target, setTarget] = useState(RALLY_FIELDS[job.objects[0] || 'contacts'][0]);
+  const [target, setTarget] = useState(ARDOVO_FIELDS[job.objects[0] || 'contacts'][0]);
   const [transform, setTransform] = useState('Direct copy');
 
-  const targets = RALLY_FIELDS[object] || [];
+  const targets = ARDOVO_FIELDS[object] || [];
 
   const submit = () => {
     const r = addMapping(syncId, { object, source, target, transform });
@@ -306,8 +306,8 @@ function AddMappingModal({ syncId, job, onClose, toast }) {
       <><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="accent" onClick={submit}><Icon name="plus" size={15} /> Add mapping</Button></>
     }>
       <div className="col gap-3">
-        <Field label="Rally object">
-          <Select value={object} onChange={e => { const o = e.target.value; setObject(o); setTarget(RALLY_FIELDS[o][0]); }}>
+        <Field label="Ardovo object">
+          <Select value={object} onChange={e => { const o = e.target.value; setObject(o); setTarget(ARDOVO_FIELDS[o][0]); }}>
             {job.objects.map(o => <option key={o} value={o}>{objectById(o).label}</option>)}
           </Select>
         </Field>
@@ -315,7 +315,7 @@ function AddMappingModal({ syncId, job, onClose, toast }) {
           <Field label="Source column" hint="The external field name">
             <Input value={source} onChange={e => setSource(e.target.value)} placeholder="e.g. account_name" />
           </Field>
-          <Field label="Rally field">
+          <Field label="Ardovo field">
             <Select value={target} onChange={e => setTarget(e.target.value)}>
               {targets.map(f => <option key={f} value={f}>{f}</option>)}
             </Select>
@@ -532,7 +532,7 @@ export default function DataSync() {
       <PageTitle
         eyebrow="Admin"
         title={<>DataSync <GradientText>Operations Hub</GradientText></>}
-        sub="Sync every source, map every field, and score your data health. The Ops Hub depth that makes Rally trustworthy as the system of record - no second subscription."
+        sub="Sync every source, map every field, and score your data health. The Ops Hub depth that makes Ardovo trustworthy as the system of record - no second subscription."
         action={
           <div className="row gap-1">
             <Button variant="ghost" onClick={() => askRook('Give me a one-line summary of my data health and sync status.')}><Icon name="sparkles" size={16} /> Ask Rook</Button>

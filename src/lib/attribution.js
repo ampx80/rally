@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ATTRIBUTION ENGINE  (pure, deterministic over the store)
+// ARDOVO ATTRIBUTION ENGINE  (pure, deterministic over the store)
 // Answers "which channels and campaigns produced the revenue?" by
 // building a per-deal TOUCH TIMELINE from three real inputs -
 //   1. an acquisition source, derived from the deal's own contacts

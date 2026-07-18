@@ -1,4 +1,4 @@
-// Lists - Rally's audience + segmentation hub (route /lists, Marketing group).
+// Lists - Ardovo's audience + segmentation hub (route /lists, Marketing group).
 // A list is a named, resolvable audience over the contact book:
 //   static  - an explicit membership snapshot you hand-pick.
 //   active  - a saved-view filter (typed operators) that recomputes

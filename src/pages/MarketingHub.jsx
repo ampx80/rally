@@ -1,7 +1,7 @@
 // ============================================================
 // MARKETING HUB  (route: /markethub, module key: markethub)
 //
-// The front door to Rally's marketing engine. Every marketing surface
+// The front door to Ardovo's marketing engine. Every marketing surface
 // already exists in pieces (Campaigns, Sequences, Automations, Ads,
 // Social, Funnels, Forms, Landing pages, Reviews); this page is the
 // command center that ties them together AND fills the last gap:

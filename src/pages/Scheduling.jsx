@@ -1,4 +1,4 @@
-// Scheduling - Rally's fleet-wide view of meetings booked through Tango.
+// Scheduling - Ardovo's fleet-wide view of meetings booked through Tango.
 //
 // Where the TangoMeetings panel answers "what is booked with THIS record",
 // this page answers "what is on the calendar across the whole book of

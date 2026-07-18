@@ -1,9 +1,9 @@
 // ============================================================
-// RALLY REPUTATION + REVIEWS  (local-first, Supabase-swappable)
+// ARDOVO REPUTATION + REVIEWS  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
-// The reputation engine of Rally's Marketing hub. A whole product
+// The reputation engine of Ardovo's Marketing hub. A whole product
 // that local SMBs buy separately (monitoring + ask-after-win +
-// an AI responder) - Rally bundles it. Reviews stream in from
+// an AI responder) - Ardovo bundles it. Reviews stream in from
 // Google / Facebook / Yelp, a review-request campaign asks happy
 // customers right after a won deal or completed job, and an AI
 // responder drafts an on-brand reply the operator approves + posts.
@@ -37,7 +37,7 @@ function mulberry32(a) {
 /* ============================================================
    STATIC CONFIG
    ============================================================ */
-// The review sites Rally monitors. Color drives every chart + chip so a
+// The review sites Ardovo monitors. Color drives every chart + chip so a
 // source reads the same everywhere. `handle` is what the widget/publish
 // link would target once the provider env is wired.
 export const SOURCES = [
@@ -76,7 +76,7 @@ export const SENTIMENT_META = {
 };
 
 /* The default business identity the reputation engine represents. This is the
-   Rally customer's OWN local brand (reviews are FROM their customers ABOUT
+   Ardovo customer's OWN local brand (reviews are FROM their customers ABOUT
    them). Editable from the widget config. */
 export const DEFAULT_BUSINESS = 'Northstar Home Services';
 

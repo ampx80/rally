@@ -11,7 +11,7 @@ import { withErrorHandling, methodNotAllowed } from './_utils.js';
 const MODEL = () => process.env.OPENAI_REALTIME_MODEL || 'gpt-4o-realtime-preview-2024-12-17';
 
 const INSTRUCTIONS = [
-  'You are Rook, the voice operator inside Rally, an AI-native revenue CRM.',
+  'You are Rook, the voice operator inside Ardovo, an AI-native revenue CRM.',
   'You help the user get around and get things done by voice. Keep spoken replies to one or two short, natural sentences. No lists, no markdown, no reading URLs aloud.',
   'When the user asks to go somewhere or find something, call the matching tool immediately, then confirm in a few words (the app navigates for them). Do not repeat yourself.',
   'If you are unsure what they mean, ask one short question. Be warm and brief.',
@@ -20,7 +20,7 @@ const INSTRUCTIONS = [
 const TOOLS = [
   {
     type: 'function', name: 'navigate',
-    description: 'Navigate the Rally app to a destination screen.',
+    description: 'Navigate the Ardovo app to a destination screen.',
     parameters: {
       type: 'object',
       properties: { destination: { type: 'string', description: 'One of: home, deals, leads, contacts, companies, activities, forecasting, dashboards, reports, campaigns, sequences, quotes, invoices, workflows, training, migrate, qualify, settings, intelligence' } },

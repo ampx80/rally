@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY LIFTOFF  (AI onboarding wizard - local-first engine)
+// ARDOVO LIFTOFF  (AI onboarding wizard - local-first engine)
 // ------------------------------------------------------------
 // Liftoff interviews a brand-new customer org, decides which of
-// Rally's ~60 toggleable modules to switch on, and generates a
+// Ardovo's ~60 toggleable modules to switch on, and generates a
 // tailored "deck" for every LAYER of the company (exec, manager,
 // sales, sdr, marketing, cs, finance, ops, revops, support) plus a
 // MASTER deck that shows the whole picture. A 500-1000 person org
@@ -92,7 +92,7 @@ export const INTAKE_STEPS = [
   },
   {
     key: 'seats',
-    question: 'And how many of them will actually use Rally?',
+    question: 'And how many of them will actually use Ardovo?',
     help: 'Your paid seats. Liftoff sizes pipeline, quotas, and workload from this.',
     type: 'number',
     min: 1, max: 200000, unit: 'seats',
@@ -119,7 +119,7 @@ export const INTAKE_STEPS = [
   },
   {
     key: 'departments',
-    question: 'Which teams will live inside Rally?',
+    question: 'Which teams will live inside Ardovo?',
     help: 'Pick every group that touches a customer. Liftoff builds a deck for each.',
     type: 'multi',
     options: [
@@ -223,7 +223,7 @@ export const ROLES = [
 export const roleMeta = (key) => ROLES.find(r => r.key === key) || null;
 
 /* ============================================================
-   MODULE CATALOG  (subset of the Rally registry that Liftoff can
+   MODULE CATALOG  (subset of the Ardovo registry that Liftoff can
    recommend). key -> { label, route, section }. Mirrors the labels +
    routes in src/lib/modules.js so views deep-link to real surfaces.
    ============================================================ */
@@ -500,7 +500,7 @@ function deckExec(name, m) {
     ],
     sections: [
       { title: 'The whole company on one screen', body: `Every layer below reports up into this deck. When a rep moves a deal or Finance books a payment, this number updates in real time.`, bullets: ['Revenue, forecast, and growth without a data pull', 'Drill from a headline straight into the deal that moved it', 'Rook briefs you in plain language before every board meeting'] },
-      { title: 'Where the risk is', body: `Rally flags the deals and accounts most likely to move the number the wrong way, so your attention goes where it matters.`, bullets: ['Slipping deals surfaced before they slip', 'Churn signals on your largest accounts', 'Forecast gap to plan, updated nightly'] },
+      { title: 'Where the risk is', body: `Ardovo flags the deals and accounts most likely to move the number the wrong way, so your attention goes where it matters.`, bullets: ['Slipping deals surfaced before they slip', 'Churn signals on your largest accounts', 'Forecast gap to plan, updated nightly'] },
     ],
     nextActions: ['Set the company revenue target for the quarter', 'Assign each layer below an owner', 'Ask Rook for a one-paragraph board summary'],
   };
@@ -527,7 +527,7 @@ function deckManager(name, m) {
 function deckSales(name, m) {
   return {
     headline: `Just your deals, your day, your next move`,
-    why: `A rep should never wonder what to do next. This deck is only your book - your pipeline, the deals that need attention today, and the actions Rally already teed up. Everything else in ${name} stays out of your way.`,
+    why: `A rep should never wonder what to do next. This deck is only your book - your pipeline, the deals that need attention today, and the actions Ardovo already teed up. Everything else in ${name} stays out of your way.`,
     kpis: [
       kpi('My pipeline', m.myPipeline, 'moneyK', 'Open deals you own', 'up'),
       kpi('Quota attainment', m.myQuota, 'percent', 'Your pace to target', 'up'),
@@ -536,7 +536,7 @@ function deckSales(name, m) {
       kpi('Win rate', m.winRate, 'percent', 'Your close rate', 'flat'),
     ],
     sections: [
-      { title: 'Your day, already planned', body: `Rally sorts your tasks by which deal they move most, so the first thing you touch is the highest-leverage one.`, bullets: ['Today\'s calls, emails, and follow-ups in priority order', 'Every deal shows its next best action', 'Log activity in one tap, from anywhere'] },
+      { title: 'Your day, already planned', body: `Ardovo sorts your tasks by which deal they move most, so the first thing you touch is the highest-leverage one.`, bullets: ['Today\'s calls, emails, and follow-ups in priority order', 'Every deal shows its next best action', 'Log activity in one tap, from anywhere'] },
       { title: 'Close with the whole story', body: `Open any deal and see the full history - emails, calls, quotes, and the buying committee - without hunting.`, bullets: ['Contact and company context on every deal', 'Draft the follow-up with Rook', 'Send a quote without leaving the record'] },
     ],
     nextActions: ['Clear today\'s task queue', 'Advance your closest deal one stage', 'Ask Rook to draft your top follow-up email'],
@@ -619,17 +619,17 @@ function deckFinance(name, m) {
 function deckOps(name, m) {
   return {
     headline: `Automate the busywork, trust the data`,
-    why: `Operations makes the whole thing run. This deck shows the automations doing the manual work for you, the hours that buys back, and whether the data underneath is clean. Every tool you consolidate into Rally is one less integration to babysit.`,
+    why: `Operations makes the whole thing run. This deck shows the automations doing the manual work for you, the hours that buys back, and whether the data underneath is clean. Every tool you consolidate into Ardovo is one less integration to babysit.`,
     kpis: [
       kpi('Hours saved / week', m.hoursSaved, 'number', 'Automation vs manual', 'up'),
       kpi('Workflows live', m.workflowsLive, 'number', 'Rules running now', 'up'),
-      kpi('Tools consolidated', m.toolsCut, 'number', 'Replaced by Rally', 'up'),
+      kpi('Tools consolidated', m.toolsCut, 'number', 'Replaced by Ardovo', 'up'),
       kpi('Data health', m.dataHealth, 'percent', 'Complete and de-duped', 'up'),
       kpi('Records synced', m.recordsSynced, 'number', 'Across the workspace', 'flat'),
     ],
     sections: [
       { title: 'The stack, consolidated', body: `Everything the team used to stitch together lives in one system, so there is one place to admin and one bill to pay.`, bullets: ['No-code workflows for routing and handoffs', 'Autopilot handles the repetitive SDR work', 'Two-way data sync with a health monitor'] },
-      { title: 'Clean data, by default', body: `Duplicate detection, field validation, and sync health keep the source of truth actually true.`, bullets: ['Data health score with the gaps listed', 'Custom objects for anything Rally does not model', 'Rook builds a workflow from a plain-English rule'] },
+      { title: 'Clean data, by default', body: `Duplicate detection, field validation, and sync health keep the source of truth actually true.`, bullets: ['Data health score with the gaps listed', 'Custom objects for anything Ardovo does not model', 'Rook builds a workflow from a plain-English rule'] },
     ],
     nextActions: ['Turn on routing for new inbound', 'Review the data-health gaps', 'Ask Rook to build a workflow from a rule'],
   };
@@ -674,7 +674,7 @@ function deckSupport(name, m) {
 function deckMaster(name, m, plan) {
   const layerNames = plan.decks.filter(d => d.role !== 'master').map(d => d.label);
   return {
-    headline: `${name}, running on Rally end to end`,
+    headline: `${name}, running on Ardovo end to end`,
     why: `This is the master view - the whole company in one place. Every layer below rolls up here, every module you activated is visible, and every person sees only the deck built for them. That is how a ${m.headcount}-person org stays transparent without drowning anyone in noise.`,
     kpis: [
       kpi('Pipeline', m.pipeline, 'moneyK', 'Open across the org', 'up'),

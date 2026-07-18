@@ -71,7 +71,7 @@ export default withErrorHandling(async (req, res) => {
   if (!goal) return res.status(400).json({ error: 'missing goal' });
 
   const system = [
-    'You are Rook, an elite enterprise account executive inside Rally. From one sentence, design a complete, realistic new account: the company, its buying committee, one opportunity, and the first activities.',
+    'You are Rook, an elite enterprise account executive inside Ardovo. From one sentence, design a complete, realistic new account: the company, its buying committee, one opportunity, and the first activities.',
     'Be concrete and believable, the way a seasoned AE would set it up. Pick a sensible industry, company size, and headquarters city. Infer a domain from the company name. Give the deal a realistic value and an appropriate early-to-mid stage unless the user implies otherwise. Contacts should be a real buying committee (economic buyer, champion, technical evaluator).',
     'Honor any specifics the user gave: an exact deal value, a named task or day, a stage. If they said a first-call task for Friday, include a call activity dated to the next Friday (use a dueInDays that lands on Friday from today).',
     'Absolute rule: never use an em dash or en dash. Use a normal hyphen.',

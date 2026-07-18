@@ -9,11 +9,11 @@ const entry = {
   slug: 'best-crm-for-consultants',
   title: 'The Best CRM for Consultants and Solopreneurs in 2026',
   h1: 'The Best CRM for Consultants and Solopreneurs in 2026',
-  metaTitle: 'The Best CRM for Consultants and Solopreneurs in 2026: Buyer Guide, Calculator, Comparison | Rally',
+  metaTitle: 'The Best CRM for Consultants and Solopreneurs in 2026: Buyer Guide, Calculator, Comparison | Ardovo',
   metaDescription: 'A practical guide to choosing a CRM as a consultant or solo operator in 2026: what actually matters, a time-saved calculator, a feature comparison, and a same-day rollout plan.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -133,7 +133,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Consultant CRM options compared',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet plus inbox', 'Full-suite CRM', 'All-in-one platform'],
+      columns: ['Ardovo', 'Spreadsheet plus inbox', 'Full-suite CRM', 'All-in-one platform'],
       highlightCol: 0,
       rows: [
         { feature: 'Useful on first load, no build project', cells: [true, 'partial', false, false] },
@@ -151,7 +151,7 @@ const entry = {
       title: 'A fair word on the alternatives',
       body: [
         'A spreadsheet plus a disciplined inbox is genuinely fine at the very start. If you have five active prospects and never drop a thread, do not let anyone talk you into software. The moment follow-up starts slipping or you cannot see your pipeline at a glance, that is your signal to move, not before. Full-suite CRMs like the established enterprise names are excellent when you have a real sales team, custom processes, and someone to administer them. For a solo consultant they are usually overbuilt and overpriced. All-in-one automation platforms can be powerful for high-volume marketing funnels, but they carry a real learning curve and contact-based pricing that can outgrow a boutique practice.',
-        'Rally sits deliberately in the middle: a real pipeline and an AI operator that are alive on first load, without the enterprise configuration tax or the per-seat-plus-add-on bill. The pitch is simple. You should spend your time on client work and proposals, not on administering the tool that is supposed to help you. As always, check current packaging directly, since every vendor in this space adjusts pricing and tiers frequently.',
+        'Ardovo sits deliberately in the middle: a real pipeline and an AI operator that are alive on first load, without the enterprise configuration tax or the per-seat-plus-add-on bill. The pitch is simple. You should spend your time on client work and proposals, not on administering the tool that is supposed to help you. As always, check current packaging directly, since every vendor in this space adjusts pricing and tiers frequently.',
       ],
     },
     {
@@ -160,7 +160,7 @@ const entry = {
       title: 'Time to a working pipeline',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: 'about 10 min', highlight: true },
+          { label: 'Ardovo', value: 10, display: 'about 10 min', highlight: true },
           { label: 'Spreadsheet setup', value: 60, display: 'about 1 hr, ongoing' },
           { label: 'All-in-one platform', value: 480, display: 'days' },
           { label: 'Full-suite CRM', value: 1200, display: 'weeks' },
@@ -216,7 +216,7 @@ const entry = {
     {
       type: 'quote',
       text: 'I stopped losing proposals in my drafts folder. The follow-ups draft themselves, and I signed two clients last month who I would have let go cold.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Independent strategy consultant',
     },
     {
@@ -238,7 +238,7 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Do I really need a CRM if it is just me?', a: 'If you can hold every open prospect in your head and never let a follow-up slip, a spreadsheet is honestly fine. The moment proposals go out late or nudges get forgotten, a CRM starts paying for itself. For most solo consultants that point arrives sooner than they expect, usually around the first time a warm deal goes cold from silence.' },
-        { q: 'What is the best CRM for a solo consultant in 2026?', a: 'The best one is simple, useful on first load, and priced flat so it does not punish you as you grow. You want a visible pipeline, fast proposals, and automated follow-up, and you want to ignore the enterprise features you will never use. Rally is built for exactly this profile: alive on first load, one flat price, and an AI operator, Rook, that drafts the follow-up you would otherwise forget. Verify current packaging before you buy.' },
+        { q: 'What is the best CRM for a solo consultant in 2026?', a: 'The best one is simple, useful on first load, and priced flat so it does not punish you as you grow. You want a visible pipeline, fast proposals, and automated follow-up, and you want to ignore the enterprise features you will never use. Ardovo is built for exactly this profile: alive on first load, one flat price, and an AI operator, Rook, that drafts the follow-up you would otherwise forget. Verify current packaging before you buy.' },
         { q: 'How is this different from just using my email and calendar?', a: 'Email and a calendar can capture the activity, but they cannot show you your pipeline at a glance, flag which prospects are going cold, or draft the next touch on their own. A CRM turns scattered threads into one record per person and turns "I should follow up" into a scheduled, drafted action. That is the gap that costs solo operators deals.' },
         { q: 'Will a CRM slow me down with setup?', a: 'It can, if you pick the wrong one. Full-suite enterprise CRMs are built to be configured over weeks, which is the last thing a billing-by-the-hour consultant needs. Favor a tool that is useful in an hour and resist the urge to over-configure. Import contacts, set a few stages, turn on follow-up, and start. Add complexity only when a real workflow demands it.' },
         { q: 'How much should a consultant pay for a CRM?', a: 'Watch the pricing shape more than the sticker. Contact-based tiers and seat-plus-add-on models tend to climb exactly as your practice grows. A flat price is easier to plan around for a small firm. Whatever you choose, run the numbers: for most consultants the reclaimed billable hours alone cover the cost several times over, before counting a single recovered deal.' },

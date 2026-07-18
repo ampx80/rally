@@ -380,7 +380,7 @@ export default function Juggernaut() {
           )}
 
           <section className="jug-block jug-reveal jug-cta">
-            <h2 className="jug-h">Run your revenue on Rally</h2>
+            <h2 className="jug-h">Run your revenue on Ardovo</h2>
             <p className="jug-p">Everything alive on first load. Ask Rook and it does the work.</p>
             <p><a className="jug-cta-btn" href="/app">Get started free</a> <a className="jug-cta-link" href="/guides">Browse all guides</a></p>
           </section>

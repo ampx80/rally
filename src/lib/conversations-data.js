@@ -1,9 +1,9 @@
 // ============================================================
-// RALLY CONVERSATIONS  (local-first, Supabase-swappable)
+// ARDOVO CONVERSATIONS  (local-first, Supabase-swappable)
 // One unified omni-channel inbox: SMS, email, WhatsApp, Instagram
 // DM, Facebook Messenger, Google Business messages, and voice/call
 // transcripts all merge into ONE thread per contact. This is the
-// single feature SMBs never leave GoHighLevel for - Rally does it
+// single feature SMBs never leave GoHighLevel for - Ardovo does it
 // with Rook drafting replies and missed-call text-back built in.
 //
 // Mirrors src/lib/store.js exactly: a deterministic PRNG seeds a
@@ -54,11 +54,11 @@ export const MISSED_CALL_RECIPE = {
   id: 'missed-call-textback',
   name: 'Missed-call text-back',
   trigger: 'Inbound call goes unanswered',
-  action: 'Rally texts the caller back within 30 seconds',
+  action: 'Ardovo texts the caller back within 30 seconds',
   windowLabel: '30s',
   recoveryRate: 87, // percent of missed callers who reply to the text
   template: (first, rep, biz) =>
-    `Hi ${first || 'there'}, this is ${rep || 'the team'} at ${biz || 'Rally'}. Sorry we missed your call! ` +
+    `Hi ${first || 'there'}, this is ${rep || 'the team'} at ${biz || 'Ardovo'}. Sorry we missed your call! ` +
     `I can help right here over text - what can I do for you?`,
 };
 
@@ -67,7 +67,7 @@ export const MISSED_CALL_RECIPE = {
    ============================================================ */
 export const QUICK_REPLIES = [
   { id: 'q_thanks', label: 'Thanks', body: 'Thanks so much - really appreciate you reaching out. Let me pull that up.' },
-  { id: 'q_book', label: 'Book a call', body: 'Happy to walk you through it live. Here is my calendar: rally.app/meet - grab any slot that works.' },
+  { id: 'q_book', label: 'Book a call', body: 'Happy to walk you through it live. Here is my calendar: ardovo.com/meet - grab any slot that works.' },
   { id: 'q_pricing', label: 'Send pricing', body: 'Sending pricing over now. Plans start at $99/mo and scale with your team - want me to tailor a quote?' },
   { id: 'q_followup', label: 'Follow up', body: 'Just circling back on this - are you still looking to move forward? No rush, just keeping it warm.' },
   { id: 'q_hours', label: 'Hours', body: 'We are around Mon-Fri 8a-6p CT, and I keep an eye on messages after hours too. What works for you?' },
@@ -118,8 +118,8 @@ function buildSeed() {
       { label: 'Redlined MSA sent to legal', at: ago(6 * H) },
     ],
     messages: [
-      msg('email', 'in', 'Following up after the exec review - the team loved the rollout plan. Can you send the redlined MSA so legal can start their pass this week?', 3 * D, { author: 'Priya Nair', subject: 'Re: Vertex x Rally - next steps' }),
-      msg('email', 'out', 'Absolutely, Priya. Redlines attached with the security addendum. I flagged the two clauses your team raised - both accepted. Want to grab 20 minutes Thursday to close the loop?', 3 * D - 2 * H, { author: 'Jordan Avery', subject: 'Re: Vertex x Rally - next steps' }),
+      msg('email', 'in', 'Following up after the exec review - the team loved the rollout plan. Can you send the redlined MSA so legal can start their pass this week?', 3 * D, { author: 'Priya Nair', subject: 'Re: Vertex x Ardovo - next steps' }),
+      msg('email', 'out', 'Absolutely, Priya. Redlines attached with the security addendum. I flagged the two clauses your team raised - both accepted. Want to grab 20 minutes Thursday to close the loop?', 3 * D - 2 * H, { author: 'Jordan Avery', subject: 'Re: Vertex x Ardovo - next steps' }),
       msg('call', 'in', 'Inbound call - 6m 12s. Transcript summary: Priya confirmed budget is approved for Q3. Wants SSO + audit log in the base tier. Asked about onboarding timeline (4 weeks). Positive, ready to sign pending legal.', 30 * H, { kind: 'voice', duration: '6:12', outcome: 'connected' }),
       msg('sms', 'out', 'Great call just now - sending the onboarding timeline over email. You are going to love how fast go-live is.', 29 * H),
       msg('sms', 'in', 'Perfect. Legal is reviewing today, should have signature by Friday.', 20 * H),
@@ -165,9 +165,9 @@ function buildSeed() {
     activity: [{ label: 'Message via Google Business Profile', at: ago(26 * H) }],
     messages: [
       msg('gbm', 'in', 'Hi - found you on Google. We are evaluating a patient-outreach platform for a 6-clinic pilot. Are you HIPAA-ready?', 26 * H, { author: 'Dr. Lena Boyd' }),
-      msg('gbm', 'out', 'Hi Dr. Boyd - yes, Rally supports a signed BAA and HIPAA-eligible messaging. I would love to scope the pilot with you. Want me to send a short overview by email?', 25 * H, { author: 'Simone Diaz' }),
+      msg('gbm', 'out', 'Hi Dr. Boyd - yes, Ardovo supports a signed BAA and HIPAA-eligible messaging. I would love to scope the pilot with you. Want me to send a short overview by email?', 25 * H, { author: 'Simone Diaz' }),
       msg('gbm', 'in', 'Please do - lena.boyd@cascadehealth.com', 24 * H, { author: 'Dr. Lena Boyd' }),
-      msg('email', 'out', 'Overview + a HIPAA one-pager attached, as promised. Happy to set up a 6-clinic pilot on a 30-day trial - no card required.', 23 * H, { author: 'Simone Diaz', subject: 'Rally for Cascade Health - pilot overview' }),
+      msg('email', 'out', 'Overview + a HIPAA one-pager attached, as promised. Happy to set up a 6-clinic pilot on a 30-day trial - no card required.', 23 * H, { author: 'Simone Diaz', subject: 'Ardovo for Cascade Health - pilot overview' }),
     ],
   });
 
@@ -191,7 +191,7 @@ function buildSeed() {
     ],
     messages: [
       msg('call', 'in', 'Missed call - 0:00, no voicemail. Caller: +1 (206) 555-0178.', 2 * D, { kind: 'voice', duration: '0:00', outcome: 'missed' }),
-      msg('sms', 'out', 'Hi Sam, this is Jordan at Rally. Sorry we missed your call! I can help right here over text - what can I do for you?', 2 * D - 30000, { auto: true, kind: 'text', autoLabel: 'Missed-call text-back' }),
+      msg('sms', 'out', 'Hi Sam, this is Jordan at Ardovo. Sorry we missed your call! I can help right here over text - what can I do for you?', 2 * D - 30000, { auto: true, kind: 'text', autoLabel: 'Missed-call text-back' }),
       msg('sms', 'in', 'Oh perfect, texting is easier anyway. We need quoting for a 50-seat rollout. Can you send options?', 2 * D - 4 * M),
       msg('sms', 'out', 'On it - putting together 50-seat options now. Quick q: annual or monthly billing preference?', 2 * D - 3 * M),
       msg('sms', 'in', 'Annual. And can we get SSO?', 40 * M),
@@ -340,7 +340,7 @@ export function aiDraftFor(conv) {
   if (/seat|team|rollout|fleet|clinic|trucks/.test(text))
     return `Love it, ${first}. A rollout that size is right in our wheelhouse${dealLine}. I will draft options now - do you prefer annual billing so I can lock the best per-seat rate?`;
   if (/book|call|demo|meet|time|calendar/.test(text))
-    return `Absolutely, ${first}. Grab any slot that works at rally.app/meet and I will come ready with a tailored walkthrough. Looking forward to it.`;
+    return `Absolutely, ${first}. Grab any slot that works at ardovo.com/meet and I will come ready with a tailored walkthrough. Looking forward to it.`;
   return `Thanks ${first} - on it. Give me a moment to pull the details together and I will follow right up. Anything specific you want me to prioritize?`;
 }
 
@@ -429,9 +429,9 @@ export function simulateMissedCall(convId) {
   const textback = {
     id: newId('m'), channel: 'sms', dir: 'out', kind: 'text', auto: true,
     autoLabel: 'Missed-call text-back',
-    body: MISSED_CALL_RECIPE.template(first, rep, 'Rally'),
+    body: MISSED_CALL_RECIPE.template(first, rep, 'Ardovo'),
     at: new Date(Date.now() + 30000).toISOString(),
-    author: getCurrentUser()?.name || 'Rally',
+    author: getCurrentUser()?.name || 'Ardovo',
   };
   const messages = [...(c.messages || []), call, textback];
   const channels = Array.from(new Set([...c.channels, 'call', 'sms']));

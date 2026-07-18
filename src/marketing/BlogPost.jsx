@@ -1,5 +1,5 @@
 // ============================================================
-// /blog/:slug - the Rally reading experience. Big gradient title,
+// /blog/:slug - the Ardovo reading experience. Big gradient title,
 // author + meta, long-form prose with pull quotes, a read-progress
 // bar, related posts, and a CTA. Sets title + meta + Article JSON-LD
 // through the SEO head manager (imports head.js, does not modify it).
@@ -208,7 +208,7 @@ export default function BlogPost() {
             <div className="mkt-wrap">
               <Reveal>
                 <div className="mkt-eyebrow" style={{ marginBottom: 6 }}>Keep reading</div>
-                <h2 className="mkt-h2" style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)' }}>More from the Rally blog</h2>
+                <h2 className="mkt-h2" style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)' }}>More from the Ardovo blog</h2>
               </Reveal>
               <div className="mkt-related-grid">
                 {related.map((r, i) => (
@@ -236,7 +236,7 @@ export default function BlogPost() {
       </article>
 
       <CtaBand
-        title="Run your revenue on Rally."
+        title="Run your revenue on Ardovo."
         sub="Everything alive on first load. Ask Rook and it does the work."
       />
     </>

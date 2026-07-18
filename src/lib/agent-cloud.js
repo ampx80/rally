@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY AGENT CLOUD  (the native agentic platform layer)
+// ARDOVO AGENT CLOUD  (the native agentic platform layer)
 //
-// Rally's answer to Agentforce 360 - but agent-native from day one, not
+// Ardovo's answer to Agentforce 360 - but agent-native from day one, not
 // layered on a 25-year-old core. This is the control plane:
 //   - a registry of specialized agents (role, tools, autonomy, model, mandate)
 //   - a run ledger with step traces + token/cost accounting (observability)
@@ -73,7 +73,7 @@ export const AUTONOMY = [
 export const DEFAULT_MANDATE = { maxDealValue: 250000, maxActionsPerRun: 12, allowWrites: true, noDiscount: true };
 
 /* ============================================================
-   DEFAULT FLEET  (mapped to Rally's real engines)
+   DEFAULT FLEET  (mapped to Ardovo's real engines)
    ============================================================ */
 function defaultAgents() {
   const now = Date.now();

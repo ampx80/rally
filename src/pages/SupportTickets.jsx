@@ -6,7 +6,7 @@
 //
 // Built on the integration backbone: reads the local-first Resolve connector
 // cache (deterministic demo tickets when not live), connects/syncs through the
-// env-gated server bridge, and resolves every ticket onto the right Rally
+// env-gated server bridge, and resolves every ticket onto the right Ardovo
 // company + contact. Additive + self-contained. No em-dash or en-dash.
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';

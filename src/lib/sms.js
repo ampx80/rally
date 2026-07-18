@@ -1,6 +1,6 @@
 // src/lib/sms.js
 //
-// Browser helper for Rally SMS. The browser cannot reach Twilio directly, so
+// Browser helper for Ardovo SMS. The browser cannot reach Twilio directly, so
 // everything routes through the same-origin /api/sms-send endpoint (Twilio,
 // env-gated). Mirrors the fire-and-forget shape used by the automation outbound
 // helpers in automations.js. NEVER throws.

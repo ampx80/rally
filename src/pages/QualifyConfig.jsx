@@ -1,4 +1,4 @@
-// QualifyConfig - the admin cockpit for Rally's sales pre-qualification.
+// QualifyConfig - the admin cockpit for Ardovo's sales pre-qualification.
 // Two tabs: (1) Configure - edit the questions, per-option fit points, the
 // qualify/review thresholds, the AE title, booking URL, and business-email +
 // voice toggles; (2) Pipeline - review every submission with its computed fit
@@ -28,7 +28,7 @@ export default function QualifyConfig() {
     <div className="fade-up">
       <SectionHeader
         title="Pre-qualification"
-        sub="The front door to Rally sales. Configure the qualifying questions and fit rules, then work the pipeline of leads they produce."
+        sub="The front door to Ardovo sales. Configure the qualifying questions and fit rules, then work the pipeline of leads they produce."
         action={<a className="btn btn-ghost btn-sm" href="/get-started" target="_blank" rel="noreferrer"><Icon name="eye" size={16} /> View live form</a>}
       />
 

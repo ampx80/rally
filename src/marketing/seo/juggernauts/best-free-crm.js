@@ -10,11 +10,11 @@ const entry = {
   slug: 'best-free-crm',
   title: 'The Best Free CRM in 2026',
   h1: 'The Best Free CRM in 2026: What Free Really Includes, and Where It Caps You',
-  metaTitle: 'The Best Free CRM in 2026: Real Limits, Comparison Matrix, and the Free-to-Paid Cliff | Rally',
+  metaTitle: 'The Best Free CRM in 2026: Real Limits, Comparison Matrix, and the Free-to-Paid Cliff | Ardovo',
   metaDescription: 'An honest buyer guide to free CRMs in 2026: what each free tier actually includes, where they cap you, a side-by-side comparison, when free is enough, and a calculator for the true cost of outgrowing your free plan.',
   eyebrow: 'Buyer Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -116,7 +116,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Free CRM comparison matrix (2026)',
       rowHeader: 'What you get on free',
-      columns: ['Rally', 'HubSpot Free', 'Zoho Free', 'Bitrix24 Free'],
+      columns: ['Ardovo', 'HubSpot Free', 'Zoho Free', 'Bitrix24 Free'],
       highlightCol: 0,
       rows: [
         { feature: 'Contacts on free', cells: ['Unlimited', 'Generous', 'Limited', 'Unlimited'] },
@@ -135,7 +135,7 @@ const entry = {
       title: 'A fair word on the incumbents',
       body: [
         'None of these tools are traps, and the free tiers are legitimately good. HubSpot free is arguably the most polished free CRM on the market, with a clean interface, a strong mobile app, and an enormous ecosystem; if you value design and breadth and your team is small, it is an excellent default and you should genuinely consider staying. Zoho free is a smart pick if you already live in the Zoho suite and want everything under one login. Bitrix24 free is remarkable for how much it hands you at zero cost, including telephony and unlimited users, and it deserves a look for teams that value capacity over polish.',
-        'The honest caveat is the same for all three: the free tier is the beginning of a pricing relationship, not the end of a purchasing decision. The question is not whether the free plan is good today. It is what happens on the day you outgrow it, which for most growing teams arrives within a year. Rally approaches that day differently, with one flat price across every module rather than a ladder of tiers, and a platform that arrives alive with a working pipeline instead of an empty database. But if your team will genuinely never outgrow free, the incumbents are a fine place to stay.',
+        'The honest caveat is the same for all three: the free tier is the beginning of a pricing relationship, not the end of a purchasing decision. The question is not whether the free plan is good today. It is what happens on the day you outgrow it, which for most growing teams arrives within a year. Ardovo approaches that day differently, with one flat price across every module rather than a ladder of tiers, and a platform that arrives alive with a working pipeline instead of an empty database. But if your team will genuinely never outgrow free, the incumbents are a fine place to stay.',
       ],
     },
     {
@@ -205,7 +205,7 @@ const entry = {
       caption: 'Illustrative monthly cost for a five-person team once it needs automation and custom reporting.',
       data: {
         bars: [
-          { label: 'Rally (flat)', value: 60, display: 'One flat price', highlight: true },
+          { label: 'Ardovo (flat)', value: 60, display: 'One flat price', highlight: true },
           { label: 'Free tier', value: 0, display: '$0 (until the wall)' },
           { label: 'Entry paid tier', value: 90, display: 'Missing key features' },
           { label: 'Tier that restores features', value: 250, display: 'Two steps up' },
@@ -247,21 +247,21 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally thinks about free and the cliff',
+      title: 'How Ardovo thinks about free and the cliff',
       body: [
-        'Rally is built on a different premise: the day you outgrow the entry point should not be a punishment. Where most platforms use a free tier as the first rung on a pricing ladder, Rally is one flat price across every module, so the automation, reporting, and multiple pipelines that live two tiers up elsewhere are simply included. There is no moment where the feature you depend on suddenly costs five times more.',
-        'Rally also removes the other tax of free tools, the empty-database problem. A blank CRM asking you to configure it for three weeks is its own kind of cost, paid in the deals that slip while you set it up. Rally arrives alive on first load, with a working pipeline and an AI operator, Rook, that captures leads, drafts follow-ups, and keeps the forecast current. If you are choosing a free CRM, weigh not just what it costs today but what it will cost the day it becomes load-bearing, and how much time you burn before it does any real work at all.',
+        'Ardovo is built on a different premise: the day you outgrow the entry point should not be a punishment. Where most platforms use a free tier as the first rung on a pricing ladder, Ardovo is one flat price across every module, so the automation, reporting, and multiple pipelines that live two tiers up elsewhere are simply included. There is no moment where the feature you depend on suddenly costs five times more.',
+        'Ardovo also removes the other tax of free tools, the empty-database problem. A blank CRM asking you to configure it for three weeks is its own kind of cost, paid in the deals that slip while you set it up. Ardovo arrives alive on first load, with a working pipeline and an AI operator, Rook, that captures leads, drafts follow-ups, and keeps the forecast current. If you are choosing a free CRM, weigh not just what it costs today but what it will cost the day it becomes load-bearing, and how much time you burn before it does any real work at all.',
       ],
     },
     {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'What is the best free CRM in 2026?', a: 'For polish and breadth on a small team, HubSpot free is the strongest all-around option. For unlimited records and users at zero cost, Bitrix24 free stretches furthest, and Zoho free is excellent if you already use the Zoho suite. The best choice for a team that expects to grow past free within a year is the platform that does not punish you the day you cross the line, which is where Rally flat pricing changes the math. Always verify current limits before deciding.' },
+        { q: 'What is the best free CRM in 2026?', a: 'For polish and breadth on a small team, HubSpot free is the strongest all-around option. For unlimited records and users at zero cost, Bitrix24 free stretches furthest, and Zoho free is excellent if you already use the Zoho suite. The best choice for a team that expects to grow past free within a year is the platform that does not punish you the day you cross the line, which is where Ardovo flat pricing changes the math. Always verify current limits before deciding.' },
         { q: 'Are free CRMs actually free, or is it a trial?', a: 'The plans covered here are permanently free, not time-limited trials. They stay free as long as you remain inside their caps on users, contacts, automation, and sending. The cost appears when you outgrow those caps, which is by design, since the free tier is how vendors acquire customers who will eventually pay.' },
         { q: 'Where do free CRMs cap you first?', a: 'Usually one of five walls: user seats, contact or record volume, workflow automation, reporting depth, or email sending limits. Automation is the most common first blocker because it is the feature that makes a CRM run itself, and it is almost universally locked behind the first paid tier.' },
         { q: 'When should I upgrade from a free CRM?', a: 'Upgrade when the revenue slipping through the gaps in a free plan exceeds the annual cost of the tier that would close them. Practically, that is when you hit a hard wall you cannot work around, when you add a seat past the free cap, or when a must-have feature like automation becomes load-bearing. Price the tier that restores everything you need, not the cheapest paid plan.' },
-        { q: 'How much does a CRM cost after the free tier?', a: 'The first genuinely usable paid seat is typically several times more than free implies, and the feature you lost from free often lives one or two tiers above the entry paid plan. Model the real tier you will need. Rally avoids the ladder entirely with one flat price across every module, so the automation and reporting that cost extra elsewhere are simply included.' },
+        { q: 'How much does a CRM cost after the free tier?', a: 'The first genuinely usable paid seat is typically several times more than free implies, and the feature you lost from free often lives one or two tiers above the entry paid plan. Model the real tier you will need. Ardovo avoids the ladder entirely with one flat price across every module, so the automation and reporting that cost extra elsewhere are simply included.' },
         { q: 'Is a free CRM better than a spreadsheet?', a: 'For anything beyond a single person tracking a handful of deals, yes. A free CRM gives you a shared source of truth, a pipeline view, and reminders that a spreadsheet cannot, at the same zero cost. The moment more than one person needs to see the same deals, or follow-ups start slipping, a free CRM pays for itself immediately.' },
       ],
     },

@@ -2,7 +2,7 @@
 // JUGGERNAUT GUIDE
 // Slug: netsuite-crm-alternative -> live at /guides/netsuite-crm-alternative
 // Competitor-alternative page. Fair to NetSuite (ERP+CRM unity),
-// positions Rally as the revenue-team-usability alternative.
+// positions Ardovo as the revenue-team-usability alternative.
 // NO em-dash / en-dash. ASCII only.
 // ============================================================
 
@@ -10,22 +10,22 @@ const entry = {
   slug: 'netsuite-crm-alternative',
   title: 'The Best NetSuite CRM Alternative in 2026',
   h1: 'The Best NetSuite CRM Alternative: A 2026 Buyer Guide',
-  metaTitle: 'The Best NetSuite CRM Alternative in 2026: Comparison, TCO Calculator, and Buyer Guide | Rally',
+  metaTitle: 'The Best NetSuite CRM Alternative in 2026: Comparison, TCO Calculator, and Buyer Guide | Ardovo',
   metaDescription: 'A fair, practical guide to the best NetSuite CRM alternative in 2026. When NetSuite CRM makes sense, when it does not, a total-cost-of-ownership calculator, a feature matrix, and the AI-native option for revenue teams.',
   eyebrow: 'Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'The short answer: NetSuite CRM is the right choice when your CRM must live inside your ERP, sharing one ledger with finance, inventory, and order management. If your sales team needs a CRM that is fast, modern, and worth updating every day, the ERP-anchored experience is usually more weight than a revenue team wants to carry.',
-    'This guide is a fair look at both sides. It credits what NetSuite does genuinely well, names who should stay on it, then walks through what an AI-native alternative like Rally offers a revenue team that wants usability without the full-ERP footprint and cost. There is a total-cost-of-ownership calculator and a feature matrix so you can decide on evidence, not vibes.',
+    'This guide is a fair look at both sides. It credits what NetSuite does genuinely well, names who should stay on it, then walks through what an AI-native alternative like Ardovo offers a revenue team that wants usability without the full-ERP footprint and cost. There is a total-cost-of-ownership calculator and a feature matrix so you can decide on evidence, not vibes.',
   ],
   heroStats: [
     { value: 3, prefix: '<', suffix: ' months', label: 'Typical NetSuite implementation window before go-live' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Rally' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean price on Rally, every module included' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Ardovo' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean price on Ardovo, every module included' },
   ],
   blocks: [
     {
@@ -51,7 +51,7 @@ const entry = {
       type: 'diagram',
       variant: 'architecture',
       title: 'Where the CRM ends and the ERP begins',
-      caption: 'NetSuite spans both columns as one suite. A revenue-team CRM like Rally owns the left column deeply and integrates to the right.',
+      caption: 'NetSuite spans both columns as one suite. A revenue-team CRM like Ardovo owns the left column deeply and integrates to the right.',
       data: {
         layers: [
           { label: 'Revenue team surface', nodes: ['Leads', 'Contacts', 'Deals', 'Forecast'] },
@@ -103,7 +103,7 @@ const entry = {
       title: 'The revenue-team-first option',
       body: [
         'Most sales teams do not need to own inventory or run revenue recognition. They need to capture every lead, work every deal, forecast without a spreadsheet ritual, and be worth updating on a Tuesday afternoon. For that job, a CRM that carries the full weight of an ERP is a tax, not a benefit.',
-        'Rally is built for exactly that team. It is AI-native, alive with a working pipeline on first load instead of an empty database asking to be configured for a quarter, and it ships every module for one flat price so the bill does not climb as you grow. Its operator, Rook, does the busywork a rep would otherwise skip: enriching leads, drafting the next follow-up, and keeping the forecast current. When you do need the back office, Rally integrates to your ERP or accounting system rather than making sellers live inside one.',
+        'Ardovo is built for exactly that team. It is AI-native, alive with a working pipeline on first load instead of an empty database asking to be configured for a quarter, and it ships every module for one flat price so the bill does not climb as you grow. Its operator, Rook, does the busywork a rep would otherwise skip: enriching leads, drafting the next follow-up, and keeping the forecast current. When you do need the back office, Ardovo integrates to your ERP or accounting system rather than making sellers live inside one.',
       ],
     },
     {
@@ -112,7 +112,7 @@ const entry = {
       title: 'Time to first value',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Standalone CRM', value: 90, display: '~1-2 weeks' },
           { label: 'NetSuite CRM', value: 300, display: '2-4 months' },
         ],
@@ -122,7 +122,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'NetSuite CRM vs a revenue-team CRM',
       rowHeader: 'Capability',
-      columns: ['Rally', 'NetSuite CRM', 'Standalone CRM'],
+      columns: ['Ardovo', 'NetSuite CRM', 'Standalone CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with data on first load', cells: [true, false, false] },
@@ -213,7 +213,7 @@ const entry = {
       data: {
         nodes: [
           { label: 'Lead in', sub: 'form or inbox' },
-          { label: 'Worked in Rally', sub: 'Rook drafts next step' },
+          { label: 'Worked in Ardovo', sub: 'Rook drafts next step' },
           { label: 'Deal won', sub: 'forecast updates' },
           { label: 'Order synced', sub: 'to ERP or accounting' },
           { label: 'Invoiced', sub: 'in the back office' },
@@ -236,7 +236,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We kept our ERP for what it is great at and moved the sales team onto something they actually open every day. Adoption went from a chore to a habit in a week.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Revenue, mid-market services',
     },
     {
@@ -244,7 +244,7 @@ const entry = {
       title: 'The bottom line',
       body: [
         'Stay on NetSuite CRM if you need the ERP and the single-record unity it delivers; that is a strength no bolt-on can fully match, and switching away from it purely for a nicer pipeline is usually a mistake. It is best for product, manufacturing, and distribution businesses whose sales and back office are one motion.',
-        'Choose a revenue-first alternative like Rally if your sellers need speed and usability more than they need to own the ledger, if you want to be live in an afternoon instead of a quarter, and if you prefer one flat price with an AI operator doing the busywork. Keep your ERP for the back office, and let the revenue team work where they actually want to work.',
+        'Choose a revenue-first alternative like Ardovo if your sellers need speed and usability more than they need to own the ledger, if you want to be live in an afternoon instead of a quarter, and if you prefer one flat price with an AI operator doing the busywork. Keep your ERP for the back office, and let the revenue team work where they actually want to work.',
       ],
     },
     {
@@ -252,11 +252,11 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Is NetSuite CRM the same as Salesforce?', a: 'No. Salesforce is a CRM-first platform that adds a back office through acquisitions and integrations. NetSuite is an ERP-first suite where CRM is one module sharing the same ledger as finance and inventory. They solve the unity problem from opposite directions.' },
-        { q: 'Do I have to keep NetSuite ERP if I move CRM to Rally?', a: 'No. You can keep NetSuite ERP for financials, inventory, and order management, and run your revenue team on Rally, syncing quotes, orders, and payment status between them. You only lose the single-record unity, which you replace with a clean integration.' },
+        { q: 'Do I have to keep NetSuite ERP if I move CRM to Ardovo?', a: 'No. You can keep NetSuite ERP for financials, inventory, and order management, and run your revenue team on Ardovo, syncing quotes, orders, and payment status between them. You only lose the single-record unity, which you replace with a clean integration.' },
         { q: 'How much does NetSuite CRM cost?', a: 'NetSuite pricing is quote-based and layered by modules, users, and add-ons, so there is no single public number. Because it is ERP-class, the fully loaded cost typically includes implementation and ongoing admin. Verify current terms with NetSuite and compare the total, not just the seat price.' },
         { q: 'When is NetSuite CRM overkill?', a: 'When your sales team does not need inventory, multi-entity accounting, or revenue recognition inside the CRM. If sellers just need to capture leads, work deals, and forecast, you are paying for a back office you will not use, and a lighter revenue tool will get higher adoption.' },
-        { q: 'How long does it take to switch to Rally?', a: 'On a live-on-first-load platform, minutes to first value and an afternoon to migrate open deals and connect finance sync. That contrasts with a typical multi-month ERP-class implementation.' },
-        { q: 'What makes Rally different from a standalone CRM?', a: 'Rally is AI-native and alive on first load rather than a blank database. Its operator, Rook, enriches leads, drafts follow-ups, and keeps the forecast current, and every module ships for one flat price so the bill stays predictable as you grow.' },
+        { q: 'How long does it take to switch to Ardovo?', a: 'On a live-on-first-load platform, minutes to first value and an afternoon to migrate open deals and connect finance sync. That contrasts with a typical multi-month ERP-class implementation.' },
+        { q: 'What makes Ardovo different from a standalone CRM?', a: 'Ardovo is AI-native and alive on first load rather than a blank database. Its operator, Rook, enriches leads, drafts follow-ups, and keeps the forecast current, and every module ships for one flat price so the bill stays predictable as you grow.' },
       ],
     },
   ],

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY TEAM-DATA  (roles, permissions, territories, invites)
+// ARDOVO TEAM-DATA  (roles, permissions, territories, invites)
 // Team.jsx owns the people/quota/attainment layer off the live
 // store; this module owns the org-setup layer (RBAC + territories
 // + pending invites) that has no home in store.js yet. Deterministic

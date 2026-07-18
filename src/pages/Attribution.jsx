@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ATTRIBUTION  (route /attribution, nav group Analytics)
+// ARDOVO ATTRIBUTION  (route /attribution, nav group Analytics)
 // Two surfaces on one page:
 //   1. ATTRIBUTION - campaign + channel influence over won revenue and
 //      open pipeline, switchable across four attribution models

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FLOW  -  the visual automation studio (crown jewel)
+// ARDOVO FLOW  -  the visual automation studio (crown jewel)
 // ------------------------------------------------------------
 // A real node canvas: drag nodes, drag-to-connect ports, click a
 // node to configure it, load a prebuilt recipe, and press Test run
@@ -268,7 +268,7 @@ export default function Flow() {
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: '1.15rem' }}>
         <StatCard label="Workflows" value={stats.flows} icon={<Icon name="workflow" size={18} />} sub={`${stats.live} live now`} />
         <StatCard label="Runs automated" value={stats.totalRuns} format={(n) => Math.round(n).toLocaleString()} icon={<Icon name="bolt" size={18} />} accent="var(--accent-teal)" sub="across all flows" />
-        <StatCard label="Rook AI steps" value={stats.aiNodes} icon={<Icon name="sparkles" size={18} />} accent="var(--accent-purple)" sub="native to Rally only" />
+        <StatCard label="Rook AI steps" value={stats.aiNodes} icon={<Icon name="sparkles" size={18} />} accent="var(--accent-purple)" sub="native to Ardovo only" />
         <StatCard label="Test runs" value={sims} icon={<Icon name="target" size={18} />} accent="var(--warn)" sub="simulated this session" />
       </div>
 
@@ -649,8 +649,8 @@ function RunOrHints({ run }) {
         ))}
       </div>
       <div className="panel" style={{ padding: '.9rem 1rem', background: 'color-mix(in srgb, var(--accent-purple) 7%, var(--paper))', borderColor: 'color-mix(in srgb, var(--accent-purple) 26%, var(--line))' }}>
-        <div className="row gap-1" style={{ color: 'var(--accent-purple)', fontWeight: 700, fontSize: '.86rem' }}><Icon name="sparkles" size={15} /> Only on Rally</div>
-        <div className="t-sm muted" style={{ marginTop: 4, lineHeight: 1.45 }}>HubSpot and GHL give you a canvas. Rally gives you a canvas that thinks. Drop a Rook node anywhere a human judgment call used to block the flow.</div>
+        <div className="row gap-1" style={{ color: 'var(--accent-purple)', fontWeight: 700, fontSize: '.86rem' }}><Icon name="sparkles" size={15} /> Only on Ardovo</div>
+        <div className="t-sm muted" style={{ marginTop: 4, lineHeight: 1.45 }}>HubSpot and GHL give you a canvas. Ardovo gives you a canvas that thinks. Drop a Rook node anywhere a human judgment call used to block the flow.</div>
       </div>
     </div>
   );

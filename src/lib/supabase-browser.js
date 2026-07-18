@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY BROWSER SUPABASE CLIENT  (additive auth layer)
+// ARDOVO BROWSER SUPABASE CLIENT  (additive auth layer)
 // Lazy, guarded client for real user authentication. This is a SEPARATE
 // module from src/lib/supabase.js (which powers the local-first data store)
 // so the auth foundation can land without touching anything already shipping.

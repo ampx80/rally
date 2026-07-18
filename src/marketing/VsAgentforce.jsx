@@ -1,6 +1,6 @@
-// VsAgentforce - the "Rally vs Salesforce Agentforce" positioning page.
+// VsAgentforce - the "Ardovo vs Salesforce Agentforce" positioning page.
 // Thesis: Salesforce is layering Agentforce 360 / Headless 360 / Data 360 onto
-// a 25-year-old CRM core; Rally is agent-native from the first commit. Same
+// a 25-year-old CRM core; Ardovo is agent-native from the first commit. Same
 // headline capabilities, none of the legacy tax. Claims kept tasteful and
 // defensible (Salesforce's own framing: "every capability built over 25 years").
 // Composes from the shared marketing kit. NO em-dash / en-dash. ASCII only.
@@ -26,13 +26,13 @@ const FOUNDATION = [
   },
   {
     icon: 'zap',
-    kicker: 'The Rally core',
+    kicker: 'The Ardovo core',
     title: 'Agent-native from commit one',
-    body: 'Rally has no legacy layer to retrofit. The data model, the write path, and the API were designed for agents to read and act on directly. There is no Data 360 to bolt on, because context is the product, not an upsell.',
+    body: 'Ardovo has no legacy layer to retrofit. The data model, the write path, and the API were designed for agents to read and act on directly. There is no Data 360 to bolt on, because context is the product, not an upsell.',
   },
 ];
 
-// Comparison rows. sf = Agentforce 360 today; rally = Rally equivalent.
+// Comparison rows. sf = Agentforce 360 today; rally = Ardovo equivalent.
 const ROWS = [
   {
     cap: 'Autonomous multi-agent',
@@ -95,7 +95,7 @@ const CRUSH = [
   {
     icon: 'dollar',
     title: 'Cost and TCO',
-    body: 'One flat price. No per-conversation meter, no Flex Credits to true-up, and no separate Data 360 baseline. You can forecast your Rally bill without a procurement spreadsheet.',
+    body: 'One flat price. No per-conversation meter, no Flex Credits to true-up, and no separate Data 360 baseline. You can forecast your Ardovo bill without a procurement spreadsheet.',
   },
   {
     icon: 'plug',
@@ -120,13 +120,13 @@ export default function VsAgentforce() {
         <div className="mkt-hero-mesh" aria-hidden />
         <div className="mkt-wrap" style={{ position: 'relative', zIndex: 2 }}>
           <Reveal>
-            <span className="mkt-pill"><span className="mkt-dot" /> Rally vs Salesforce Agentforce</span>
+            <span className="mkt-pill"><span className="mkt-dot" /> Ardovo vs Salesforce Agentforce</span>
             <h1 className="mkt-h1" style={{ margin: '22px auto 0', maxWidth: 900 }}>
               Agent-native, <span className="mkt-grad m-shine">not agent-retrofitted.</span>
             </h1>
             <p className="mkt-lead" style={{ margin: '22px auto 0', maxWidth: 660 }}>
               Salesforce is layering Agentforce 360, Headless 360, and Data 360 onto a 25-year-old CRM core.
-              Rally was built agent-first from the first commit. Same headline capabilities, none of the legacy tax.
+              Ardovo was built agent-first from the first commit. Same headline capabilities, none of the legacy tax.
               Faster, cheaper, simpler, open.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 30 }}>
@@ -149,7 +149,7 @@ export default function VsAgentforce() {
               <h2 className="mkt-h2" style={{ margin: '14px 0 0' }}>It is not about features. It is about the floor.</h2>
               <p className="mkt-lead" style={{ margin: '16px auto 0', maxWidth: 620 }}>
                 Salesforce is doing impressive work exposing its platform to agents. But you inherit the whole
-                stack underneath it. Rally starts from a floor that was poured for agents.
+                stack underneath it. Ardovo starts from a floor that was poured for agents.
               </p>
             </div>
           </Reveal>
@@ -176,7 +176,7 @@ export default function VsAgentforce() {
               <span className="mkt-eyebrow">Capability for capability</span>
               <h2 className="mkt-h2" style={{ margin: '14px 0 0' }}>Match the ambition. Skip the tax.</h2>
               <p className="mkt-lead" style={{ margin: '16px auto 0', maxWidth: 600 }}>
-                Every headline Agentforce 360 capability has a Rally equivalent that ships native, not bolted on.
+                Every headline Agentforce 360 capability has a Ardovo equivalent that ships native, not bolted on.
               </p>
             </div>
           </Reveal>
@@ -189,7 +189,7 @@ export default function VsAgentforce() {
                     <th style={{ width: '37%' }}>Salesforce Agentforce 360</th>
                     <th style={{ width: '37%', color: 'var(--m-accent)', background: 'rgba(14,159,143,.06)' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
-                        <span className="mkt-dot" /> Rally
+                        <span className="mkt-dot" /> Ardovo
                       </span>
                     </th>
                   </tr>
@@ -226,12 +226,12 @@ export default function VsAgentforce() {
         </div>
       </section>
 
-      {/* 4. Where Rally crushes */}
+      {/* 4. Where Ardovo crushes */}
       <section className="mkt-section" style={{ paddingTop: 0 }}>
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 44px' }}>
-              <span className="mkt-eyebrow">Where Rally crushes</span>
+              <span className="mkt-eyebrow">Where Ardovo crushes</span>
               <h2 className="mkt-h2" style={{ margin: '14px 0 0' }}>Four places the legacy tax shows up.</h2>
             </div>
           </Reveal>
@@ -259,7 +259,7 @@ export default function VsAgentforce() {
                 Match Agentforce capability for capability. Then be <span className="mkt-grad">1000x</span> easier to run.
               </h2>
               <p className="mkt-lead" style={{ margin: '20px auto 0', maxWidth: 640 }}>
-                Anything Agentforce 360 can do, Rally does too. The difference is what it costs you to get there:
+                Anything Agentforce 360 can do, Ardovo does too. The difference is what it costs you to get there:
                 no 25-year core to maintain, no Data 360 baseline, no consumption meter, no admin army. Just
                 agents that read your data, act with your mandate, and leave a reversible trail.
               </p>

@@ -9,11 +9,11 @@ const entry = {
   slug: 'sales-discovery-call-guide',
   title: 'The Sales Discovery Call: A Complete Playbook',
   h1: 'The Sales Discovery Call: A Complete Playbook',
-  metaTitle: 'The Sales Discovery Call: A Complete Playbook (Framework, Questions, Scoring) | Rally',
+  metaTitle: 'The Sales Discovery Call: A Complete Playbook (Framework, Questions, Scoring) | Ardovo',
   metaDescription: 'A deep, practical guide to running sales discovery calls that actually qualify: the purpose, a repeatable framework, a question flow, a scoring calculator, the timeline of a great call, and the mistakes that kill deals.',
   eyebrow: 'Sales Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 70, suffix: '%', label: 'Of a great discovery call is the buyer talking, not you' },
     { value: 4, label: 'Questions that separate a real deal from a nice chat' },
-    { value: 2, prefix: '<', suffix: ' min', label: 'To score a call in Rally after you hang up' },
+    { value: 2, prefix: '<', suffix: ' min', label: 'To score a call in Ardovo after you hang up' },
   ],
   blocks: [
     {
@@ -100,7 +100,7 @@ const entry = {
       body: [
         'Reps are optimists by trade, which is a strength on a cold call and a liability after a discovery call. A warm conversation feels like progress even when nothing was actually qualified. The cure is a simple, repeatable score you assign right after you hang up, before the good feeling fades and rewrites your memory.',
         'You do not need a fifteen-factor model. Four dimensions carry almost all the signal: is there a real, painful Problem; is there an Owner who feels it and can champion a fix; is there Budget or a plausible path to it; and is there a Timeline with a reason behind it. Score each from zero to five and add them up. The total tells you how hard to lean in, and the low scores tell you exactly what to chase on the next call.',
-        'The point of a score is not bureaucracy. It is honesty at scale. When every rep scores the same way, your pipeline stops being a wish list and starts being a forecast. In Rally, Rook captures the call, drafts the score from what was actually said, and flags the weakest dimension so the follow-up writes itself.',
+        'The point of a score is not bureaucracy. It is honesty at scale. When every rep scores the same way, your pipeline stops being a wish list and starts being a forecast. In Ardovo, Rook captures the call, drafts the score from what was actually said, and flags the weakest dimension so the follow-up writes itself.',
       ],
     },
     {
@@ -198,7 +198,7 @@ const entry = {
     {
       type: 'diagram',
       variant: 'architecture',
-      title: 'How Rally runs discovery for you',
+      title: 'How Ardovo runs discovery for you',
       caption: 'The call becomes structured data the moment it ends, so nothing lives only in a notebook or a memory.',
       data: {
         layers: [
@@ -211,9 +211,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Running discovery: notebook vs spreadsheet vs Rally',
+      title: 'Running discovery: notebook vs spreadsheet vs Ardovo',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Notebook', 'Spreadsheet CRM'],
+      columns: ['Ardovo', 'Notebook', 'Spreadsheet CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Structured qualification score', cells: [true, false, 'partial'] },
@@ -229,7 +229,7 @@ const entry = {
     {
       type: 'quote',
       text: 'The rep who wins is not the one with the best pitch. It is the one who understood the problem so well that the pitch became obvious.',
-      cite: 'A Rally sales lead',
+      cite: 'A Ardovo sales lead',
       role: 'Head of Revenue',
     },
     {

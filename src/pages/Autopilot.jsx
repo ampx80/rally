@@ -1,4 +1,4 @@
-// Autopilot - Rally's autonomous SDR/AE cockpit.
+// Autopilot - Ardovo's autonomous SDR/AE cockpit.
 //
 // The autonomous worker that actually books meetings, with a TRUST DIAL so
 // humans stay in control. Autopilot researches each lead, drafts a

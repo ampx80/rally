@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY RBAC  (spec Section 8 - Wave 8)
+// ARDOVO RBAC  (spec Section 8 - Wave 8)
 // Role-based access control: four roles, a capability matrix, an
 // admin-editable grant table, field-level security, and a "view as"
 // switcher so an admin can see the app exactly as a Rep or Viewer

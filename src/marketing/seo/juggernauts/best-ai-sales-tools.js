@@ -11,11 +11,11 @@ const entry = {
   slug: 'best-ai-sales-tools',
   title: 'The Best AI Sales Tools in 2026',
   h1: 'The Best AI Sales Tools in 2026: The Classes, The Trade-offs, and How to Choose',
-  metaTitle: 'The Best AI Sales Tools in 2026: Categories, Comparison, and Buyer Guide | Rally',
+  metaTitle: 'The Best AI Sales Tools in 2026: Categories, Comparison, and Buyer Guide | Ardovo',
   metaDescription: 'A deep, practical guide to AI sales tools in 2026: the four tool classes that matter, an architecture map, point tools vs an AI-native platform, an ROI model, and how to evaluate.',
   eyebrow: 'Buyer Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -26,7 +26,7 @@ const entry = {
   heroStats: [
     { value: 4, format: 'number', label: 'Distinct classes of AI sales tooling to know' },
     { value: 40, suffix: '%', label: 'Typical selling time reps lose to admin AI can absorb' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price for every module on Rally' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price for every module on Ardovo' },
   ],
   blocks: [
     {
@@ -97,8 +97,8 @@ const entry = {
     {
       type: 'callout',
       tone: 'accent',
-      title: 'Where Rally sits',
-      body: 'Rally is the AI-native platform version of all four classes at once. Its operator, Rook, prospects, reads conversations, scores the forecast, and runs outbound on the same records your reps use. One flat price per seat, alive with a working pipeline on first load, no sync tax between tools that were never meant to talk.',
+      title: 'Where Ardovo sits',
+      body: 'Ardovo is the AI-native platform version of all four classes at once. Its operator, Rook, prospects, reads conversations, scores the forecast, and runs outbound on the same records your reps use. One flat price per seat, alive with a working pipeline on first load, no sync tax between tools that were never meant to talk.',
     },
     {
       type: 'diagram',
@@ -246,7 +246,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We had five AI tools that were each brilliant alone and dumb together. Collapsing them onto one platform did not just cut the bill, it made the AI finally accurate, because it could see everything at once.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, mid-market SaaS',
     },
     {
@@ -254,7 +254,7 @@ const entry = {
       title: 'The buying principle to carry away',
       body: [
         'Do not shop for the smartest tool in each of the four classes and assume the combination is smart. The intelligence of any AI sales tool is bounded by the data it can reach, and a fragmented stack starves every tool of the context the others hold. The best-looking demo can become the weakest deployment the moment it is walled off from your real records.',
-        'Whether you choose a best-of-breed stack or an AI-native platform, choose it against that principle. If a lane has a specialist you cannot live without, go best-of-breed there with open eyes about the seams. If you want the forecast and the agent to be genuinely accurate and the bill to stay predictable, a unified platform like Rally is built precisely so the AI never has to guess on a slice.',
+        'Whether you choose a best-of-breed stack or an AI-native platform, choose it against that principle. If a lane has a specialist you cannot live without, go best-of-breed there with open eyes about the seams. If you want the forecast and the agent to be genuinely accurate and the bill to stay predictable, a unified platform like Ardovo is built precisely so the AI never has to guess on a slice.',
       ],
     },
     {
@@ -266,7 +266,7 @@ const entry = {
         { q: 'Why does data fragmentation hurt AI sales tools?', a: 'Every AI capability is only as smart as the data it can see. When prospecting data, conversations, activity, and the pipeline live in separate tools, each tool scores an incomplete picture, and the forecast in particular becomes unreliable. Unified data is the single biggest lever on how good the AI actually is.' },
         { q: 'What is an autonomous SDR and can I trust it?', a: 'An autonomous SDR is an agent that drafts and sends personalized outreach, handles simple replies, books meetings, and updates records, escalating to a human on real deals. Trust it the way you would a junior rep: with an approval gate on sends, full visibility into what it did, and reach into your real pipeline so it acts in context rather than guessing.' },
         { q: 'How do I evaluate an AI sales tool before buying?', a: 'Test it on a slice of your real data, not the vendor demo pipeline. Ask exactly which records it can see. Count the integrations you will have to maintain. Make it complete one task end to end with a human approval step. And price the entire stack, including add-ons and upkeep, against one flat platform price.' },
-        { q: 'Where does Rally fit among AI sales tools?', a: 'Rally is an AI-native revenue platform that covers all four tool classes at once. Its operator, Rook, prospects, reads conversations, scores the forecast, and runs outbound on the same records your reps use, for one flat price per seat, with a working pipeline live on first load and no sync tax between siloed tools.' },
+        { q: 'Where does Ardovo fit among AI sales tools?', a: 'Ardovo is an AI-native revenue platform that covers all four tool classes at once. Its operator, Rook, prospects, reads conversations, scores the forecast, and runs outbound on the same records your reps use, for one flat price per seat, with a working pipeline live on first load and no sync tax between siloed tools.' },
       ],
     },
   ],

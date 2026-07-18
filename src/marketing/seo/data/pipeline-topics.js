@@ -36,11 +36,11 @@ const GUIDES = [
       { h: `Work stalls, not the healthy deals`, body: `Deals moving forward on schedule need no attention. Spend your energy on deals stuck in-stage past their average time, missing a next step, or whose close date just slipped.`, bullets: [`Stuck in-stage: what is the exit criterion blocking it`, `No next step: book one before you move on`, `Slipped date: get the buyer to confirm a new one`] },
       { h: `Close-lost dead deals without guilt`, body: `A deal with no buyer activity for 30 to 45 days and no scheduled step is not pipeline, it is a story you are telling yourself. Mark it lost so your coverage and forecast reflect reality.` },
       { h: `Track coverage against quota every week`, body: `Compare qualified open pipeline to the remaining quota for the period. If coverage drops below your target multiple, the fix is pipeline generation now, not hope later.` },
-      { h: `Let Rook keep the data clean between reviews`, body: `Rally's Rook updates stages from meeting notes, flags stalls and missing next steps, and drafts the weekly exception list, so managing the pipeline stops being a data-entry chore.` },
+      { h: `Let Rook keep the data clean between reviews`, body: `Ardovo's Rook updates stages from meeting notes, flags stalls and missing next steps, and drafts the weekly exception list, so managing the pipeline stops being a data-entry chore.` },
     ],
     sections: [
       { h: `The manager's weekly checklist`, body: [`Before each review, answer four questions across the whole board: is coverage on target, which deals have not moved, which have no next step, and which close dates slipped since last week. Those four cuts surface almost every risk.`, `Reviewing clean data is the entire game. If half your review is spent fixing stages and dates live, the pipeline is being built during the meeting, not managed.`] },
-      { h: `How Rally helps`, body: `Rally is alive with real deal data on day one and Rook does the between-review upkeep: updating stages from activity, surfacing stalled deals, and flagging close dates with no supporting engagement. You walk into each review with the exception list already made.` },
+      { h: `How Ardovo helps`, body: `Ardovo is alive with real deal data on day one and Rook does the between-review upkeep: updating stages from activity, surfacing stalled deals, and flagging close dates with no supporting engagement. You walk into each review with the exception list already made.` },
     ],
     faqs: [
       { q: `What does it mean to manage a pipeline?`, a: `It means keeping the pipeline data accurate and moving: every deal in the right stage, with a dated next step and a realistic close date, reviewed on a fixed cadence, and pruned of dead deals. Management is the ongoing hygiene that makes the forecast trustworthy.` },
@@ -66,7 +66,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Keep it clean after the purge`, body: [`Add one standing rule: any deal untouched for 30 days auto-flags for review, and any deal without a next step cannot stay open. Enforced continuously, these two rules mean you never need a big cleanup again.`, `Resist the urge to keep deals alive for the coverage number. Padded coverage that never closes is how a quarter quietly misses.`] },
-      { h: `How Rally helps`, body: `Rook runs the cleanup continuously: it flags stale deals, spots stages that do not match the deal's evidence, and nudges reps to add next steps. The one-time purge becomes an always-on background process.` },
+      { h: `How Ardovo helps`, body: `Rook runs the cleanup continuously: it flags stale deals, spots stages that do not match the deal's evidence, and nudges reps to add next steps. The one-time purge becomes an always-on background process.` },
     ],
     faqs: [
       { q: `When should you close a deal as lost?`, a: `When there is no path forward: no buyer response for 30 to 45 days, no scheduled next step, no compelling event. Keeping it open only inflates coverage. A lost deal you can revive later is better than a fake-open deal skewing the forecast.` },
@@ -92,7 +92,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Do not confuse loud with important`, body: [`The prospect who emails constantly is not automatically your best deal. Measure priority by expected value and winnability, not by who demands the most attention.`, `Equally, do not abandon big long-cycle deals just because they will not close this quarter. Keep them warm with light, scheduled touches so they are ready when their timing arrives.`] },
-      { h: `How Rally helps`, body: `Rally scores every deal on value, stage, engagement, and timing, so Rook can hand a rep a ranked worklist each morning: here are the three deals worth your best hours today, and here is why.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores every deal on value, stage, engagement, and timing, so Rook can hand a rep a ranked worklist each morning: here are the three deals worth your best hours today, and here is why.` },
     ],
     faqs: [
       { q: `Should I always work the biggest deals first?`, a: `No. Work the deals with the highest expected value, which is deal size times win probability, adjusted for timing. A mid-size deal you will win this quarter often outranks a huge deal you will probably lose.` },
@@ -123,7 +123,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Why coverage alone can mislead`, body: [`A team can hit 4x coverage and still miss if the pipeline is full of unqualified or stale deals. Coverage quality matters as much as the ratio, so pair the number with a hygiene check.`, `Conversely, a team with a high, reliable win rate can hit quota on 2.5x coverage. Always interpret coverage through the lens of your actual conversion.`] },
-      { h: `How Rally helps`, body: `Rally computes coverage live against each rep and team quota using only qualified, in-period deals, and Rook flags the moment coverage drops below target and suggests which accounts to work to close the gap.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes coverage live against each rep and team quota using only qualified, in-period deals, and Rook flags the moment coverage drops below target and suggests which accounts to work to close the gap.` },
     ],
     faqs: [
       { q: `What is a good pipeline coverage ratio?`, a: `Three to four times quota is the common benchmark, but the right number depends on your win rate. Divide roughly one by your win rate to estimate the coverage you need. A 25 percent win rate implies about 4x.` },
@@ -149,7 +149,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Buyer stages vs seller stages`, body: [`A seller stage like "Demo delivered" tells you what your rep did. A buyer stage like "Buyer agreed to evaluate" tells you what the customer committed to. Only the second predicts a close.`, `When stages describe buyer commitments, an advancing deal is real progress, not just activity. That is what makes stage-based forecasting accurate.`] },
-      { h: `How Rally helps`, body: `Rally lets you define stages with explicit exit criteria and default probabilities, and Rook updates a deal's stage from meeting notes and activity, so stages reflect what the buyer actually did instead of wishful data entry.` },
+      { h: `How Ardovo helps`, body: `Ardovo lets you define stages with explicit exit criteria and default probabilities, and Rook updates a deal's stage from meeting notes and activity, so stages reflect what the buyer actually did instead of wishful data entry.` },
     ],
     faqs: [
       { q: `How many pipeline stages should I have?`, a: `Five to seven for most B2B teams. Fewer hides where deals stall; more creates data-entry busywork and forces reps to guess. Start with New, Qualified, Discovery, Proposal, Negotiation, Closed and adjust to your motion.` },
@@ -175,7 +175,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Signs a deal is stalled, not slow`, body: [`A slow deal still responds and advances between touches. A stalled deal has gone quiet, missed a scheduled step, or lost its champion. Look at engagement trend, not just elapsed time.`, `The hardest discipline is calling a stall dead. Deals you refuse to disqualify quietly drain the hours that would win your live deals.`] },
-      { h: `How Rally helps`, body: `Rally tracks engagement on every deal and Rook flags the moment a deal goes quiet, suggests a re-engagement angle from the deal's history, and warns when a champion stops responding, so you act while there is still a deal to save.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks engagement on every deal and Rook flags the moment a deal goes quiet, suggests a re-engagement angle from the deal's history, and warns when a champion stops responding, so you act while there is still a deal to save.` },
     ],
     faqs: [
       { q: `Why do deals stall?`, a: `Most stall for one of four reasons: no compelling event forcing a decision, the deal living with a stakeholder who lacks budget authority, a competing internal priority, or unspoken concerns about price or risk. Diagnose which before you re-engage.` },
@@ -201,7 +201,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Stalls are a qualification problem`, body: [`By the time a deal goes quiet, the cause was usually set weeks earlier: no compelling event, no economic buyer access, no agreed timeline. Treat prevention as a qualification discipline, not a rescue skill.`, `The teams with the fewest stalls are not better at reviving deals; they are better at not starting deals that were never real.`] },
-      { h: `How Rally helps`, body: `Rally enforces qualification fields and next-step discipline on every deal, and Rook flags single-threaded deals, deals with no compelling event, and falling engagement before they turn into full stalls.` },
+      { h: `How Ardovo helps`, body: `Ardovo enforces qualification fields and next-step discipline on every deal, and Rook flags single-threaded deals, deals with no compelling event, and falling engagement before they turn into full stalls.` },
     ],
     faqs: [
       { q: `What is the number one cause of stalled deals?`, a: `The absence of a compelling event. Without a real, dated reason to decide, buyers default to inaction because doing nothing feels safe. Qualifying for a genuine deadline up front prevents most stalls.` },
@@ -227,7 +227,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Stalled vs slow vs dead`, body: [`A slow deal advances between touches on a long cycle. A stalled deal has stopped responding or missed a step. A dead deal has no path forward at all. Each needs a different response, so label them honestly.`, `Elapsed time alone cannot separate these three. Engagement trend, time-in-stage, and next-step presence do the real work of classification.`] },
-      { h: `How Rally helps`, body: `Rally scores engagement on every deal and compares time-in-stage to your historical baseline, so Rook can hand you a ranked list of stalled deals each week with the specific reason each one triggered the flag.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores engagement on every deal and compares time-in-stage to your historical baseline, so Rook can hand you a ranked list of stalled deals each week with the specific reason each one triggered the flag.` },
     ],
     faqs: [
       { q: `How do I know if a deal is stalled or just slow?`, a: `Compare it to your normal cycle. A slow deal still responds and advances between touches on a long timeline. A stalled deal has gone quiet, missed a scheduled step, or exceeded its typical time-in-stage with no movement.` },
@@ -253,7 +253,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `The fields that actually matter`, body: [`Most CRMs let you track dozens of fields, but forecasts ride on five: stage, amount, close date, next step, and buying committee. Keep those five honest and you can neglect almost everything else.`, `Over-instrumenting the opportunity with mandatory fields backfires. Reps game or skip them, and the data gets worse. Require only what the forecast depends on.`] },
-      { h: `How Rally helps`, body: `Rally ships a deep opportunity object with line items, buying committee, competitors, and next steps built in, and Rook keeps the fields current from meeting notes and activity while flagging opportunities missing the data needed to forecast them.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships a deep opportunity object with line items, buying committee, competitors, and next steps built in, and Rook keeps the fields current from meeting notes and activity while flagging opportunities missing the data needed to forecast them.` },
     ],
     faqs: [
       { q: `What is the difference between a lead and an opportunity?`, a: `A lead is an unqualified expression of interest. An opportunity is a qualified deal with a value and close date that a rep is actively working. Leads convert into opportunities once they clear a qualification bar.` },
@@ -279,7 +279,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Why fake close dates cost you`, body: [`When close dates ignore the real cycle, the forecast slips quarter after quarter, and leadership plans hiring and spending on revenue that never arrives on time. The damage compounds far beyond the single deal.`, `A slightly later but honest date is worth more than an optimistic one. Sales leaders can plan around truth; they cannot plan around hope.`] },
-      { h: `How Rally helps`, body: `Rally measures your actual cycle length by segment from closed deals, so close-date suggestions are grounded in reality, and Rook warns when a deal's projected close date is unrealistic given its stage and your historical cycle.` },
+      { h: `How Ardovo helps`, body: `Ardovo measures your actual cycle length by segment from closed deals, so close-date suggestions are grounded in reality, and Rook warns when a deal's projected close date is unrealistic given its stage and your historical cycle.` },
     ],
     faqs: [
       { q: `How do I set a realistic close date?`, a: `Work backward from the buyer's confirmed decision and paper process, then cross-check against your average sales cycle for similar deals. Let the later of the two anchor the date, and add buffer for steps like legal and procurement that reps routinely underestimate.` },
@@ -305,7 +305,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `MEDDIC as a live tool, not a form`, body: [`The value of MEDDIC is not the completed record; it is the gaps it exposes. Every empty or weak element is a concrete next action: meet the economic buyer, quantify the metric, test the champion.`, `Score each element red, yellow, or green and let the reds drive your deal strategy. A deal with three reds late in the cycle is a forecast risk hiding behind an advanced stage.`] },
-      { h: `How Rally helps`, body: `Rally can hold MEDDIC as structured fields on the deal, and Rook flags which elements are missing or weak, so a deal review becomes a live inspection of the gaps instead of a slide rebuild. Reds become the rep's task list.` },
+      { h: `How Ardovo helps`, body: `Ardovo can hold MEDDIC as structured fields on the deal, and Rook flags which elements are missing or weak, so a deal review becomes a live inspection of the gaps instead of a slide rebuild. Reds become the rep's task list.` },
     ],
     faqs: [
       { q: `What does MEDDIC stand for?`, a: `Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, and Champion. The extended MEDDPICC adds Paper process and Competition. Each element is a question you answer and defend on a real deal.` },
@@ -331,7 +331,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Qualifying an opportunity vs a lead`, body: [`Qualifying a lead asks whether someone is worth a first real conversation. Qualifying an opportunity asks whether an active deal is worth continued investment. The bar is higher: you need budget, process, and a compelling event, not just interest.`, `Re-qualify at each stage, not just once. A deal that qualified at Discovery can lose its compelling event or its champion by Proposal, and pretending otherwise is how forecasts break.`] },
-      { h: `How Rally helps`, body: `Rally holds your qualification criteria as fields on the opportunity, and Rook flags deals missing a compelling event, an economic buyer, or a defined decision process, so unqualified deals get surfaced before they quietly inflate the forecast.` },
+      { h: `How Ardovo helps`, body: `Ardovo holds your qualification criteria as fields on the opportunity, and Rook flags deals missing a compelling event, an economic buyer, or a defined decision process, so unqualified deals get surfaced before they quietly inflate the forecast.` },
     ],
     faqs: [
       { q: `What is the difference between qualifying a lead and an opportunity?`, a: `Qualifying a lead decides whether interest warrants a real conversation. Qualifying an opportunity decides whether an active deal deserves continued investment, which requires confirming budget authority, a decision process, and a compelling event, not just interest.` },
@@ -357,7 +357,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `What makes a close plan work`, body: [`Specificity and shared ownership. A vague plan the buyer never saw does nothing. A dated plan the buyer helped build surfaces hidden steps early and gives your champion a tool to drive the deal internally.`, `The act of building it is itself a qualification test. A buyer who will not engage on a close plan is telling you the deal is not as real as it looks.`] },
-      { h: `How Rally helps`, body: `Rally lets you attach a close plan to a deal with owners and due dates, and Rook tracks progress, nudges owners on overdue steps, and warns when a slipping milestone puts the signature date at risk.` },
+      { h: `How Ardovo helps`, body: `Ardovo lets you attach a close plan to a deal with owners and due dates, and Rook tracks progress, nudges owners on overdue steps, and warns when a slipping milestone puts the signature date at risk.` },
     ],
     faqs: [
       { q: `What is a close plan?`, a: `A close plan is a dated, step-by-step map from a verbal commitment to a signed contract, listing every task, owner, and date on both the buyer and seller side. It surfaces hidden steps like legal and procurement early so the deal does not slip.` },
@@ -383,7 +383,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Measure before you optimize`, body: [`Shortening a cycle you have not measured is guesswork. Track average days by segment and by stage first, then attack the stage where deals sit longest. That is your true constraint.`, `Beware of shortening the cycle by only chasing small, easy deals. If average deal size falls faster than cycle time, velocity does not actually improve. Optimize the whole equation.`] },
-      { h: `How Rally helps`, body: `Rally measures actual cycle length by segment and by stage, so you can see exactly where deals slow down, and Rook flags deals sitting past their stage average and surfaces the hidden steps that stretch cycles, so you fix the real bottleneck.` },
+      { h: `How Ardovo helps`, body: `Ardovo measures actual cycle length by segment and by stage, so you can see exactly where deals slow down, and Rook flags deals sitting past their stage average and surfaces the hidden steps that stretch cycles, so you fix the real bottleneck.` },
     ],
     faqs: [
       { q: `What is the fastest way to shorten a sales cycle?`, a: `Usually disqualifying bad-fit deals sooner and multithreading early. The first cuts the long, doomed deals inflating your average; the second stops deals from waiting on a single busy contact. Both compress elapsed time without rushing genuine buyers.` },
@@ -409,7 +409,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Where win rate is really won`, body: [`Most win-rate problems are qualification and access problems, not closing problems. If you keep losing at the end, the cause is usually a missing economic buyer or weak differentiation set weeks earlier.`, `Measure win rate by segment, source, and rep so you can see exactly where deals are won and lost. A low win rate from one source usually means bad-fit leads, not bad selling.`] },
-      { h: `How Rally helps`, body: `Rally tracks win rate by rep, source, segment, and stage, so you can see precisely where deals are lost, and Rook surfaces the traits of your winning deals and flags at-risk deals missing the moves that correlate with wins.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks win rate by rep, source, segment, and stage, so you can see precisely where deals are lost, and Rook surfaces the traits of your winning deals and flags at-risk deals missing the moves that correlate with wins.` },
     ],
     faqs: [
       { q: `What is a good win rate?`, a: `It varies by market, but many B2B teams land between 15 and 30 percent of qualified opportunities. What matters more than the absolute number is the trend and how your win rate differs across segments, sources, and reps.` },
@@ -440,7 +440,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Which method should you use`, body: [`Early-stage teams with little history lean on stage and intuitive methods. Teams with clean data and volume benefit from weighted and AI methods. Complex enterprise deals need rep judgment layered on top of any statistical method.`, `Whatever you pick, reconcile it against a rep-commit roll-up. When the statistical forecast and the human forecast disagree, that gap is where your real risk lives.`] },
-      { h: `How Rally helps`, body: `Rally runs weighted, stage, and AI forecasts side by side from your live deal data, and Rook reconciles them against rep commits, flags the deals driving the gap, and tracks which method has been most accurate for your team over time.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs weighted, stage, and AI forecasts side by side from your live deal data, and Rook reconciles them against rep commits, flags the deals driving the gap, and tracks which method has been most accurate for your team over time.` },
     ],
     faqs: [
       { q: `What is the most accurate sales forecasting method?`, a: `For teams with rich, clean data, AI or predictive forecasting tends to be most accurate because it weighs real engagement signals rather than a fixed stage probability. But no single method wins alone; the most accurate teams combine methods and reconcile them against rep commits.` },
@@ -466,7 +466,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `The reconciliation habit`, body: [`The single most valuable practice is running two methods and investigating where they diverge. A weighted forecast that says 1.2 million and a rep commit that says 900 thousand is not a problem to average away; it is a list of deals to scrutinize.`, `As your data grows, revisit the choice. The method that fit a ten-person team rarely fits the same team at fifty reps and ten times the deal volume.`] },
-      { h: `How Rally helps`, body: `Rally runs several forecasting methods at once and tracks which has been most accurate for your team, so choosing is grounded in your own history, and Rook highlights the deals responsible for the gap between any two methods.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs several forecasting methods at once and tracks which has been most accurate for your team, so choosing is grounded in your own history, and Rook highlights the deals responsible for the gap between any two methods.` },
     ],
     faqs: [
       { q: `How do I know which forecasting method fits my team?`, a: `Match it to your data maturity and deal complexity. Little history or complex deals favor stage and rep-judgment methods; rich data and high volume favor weighted and AI methods. Then track accuracy over several periods and keep whatever predicts your actuals best.` },
@@ -492,7 +492,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Configuration is half the job`, body: [`The other half is discipline: accurate stages, honest close dates, and reps who use forecast categories truthfully. The cleanest CRM configuration still produces a bad forecast if the inputs are wishful.`, `Automate what you can so hygiene does not depend on willpower. Fields that update from activity and flags for stale data keep the forecast trustworthy between reviews.`] },
-      { h: `How Rally helps`, body: `Rally ships forecasting built in: stages with probabilities, forecast categories, and a roll-up by rep and team are alive on day one, and Rook keeps the underlying data clean and flags deals whose category does not match their real engagement.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships forecasting built in: stages with probabilities, forecast categories, and a roll-up by rep and team are alive on day one, and Rook keeps the underlying data clean and flags deals whose category does not match their real engagement.` },
     ],
     faqs: [
       { q: `What do I need to forecast in a CRM?`, a: `Pipeline stages with default win probabilities, forecast categories on each deal, a roll-up hierarchy from rep to company, and clean close dates and next steps. With those four in place, the forecast updates itself as deals move and rolls up by team.` },
@@ -518,7 +518,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Honesty beats precision early`, body: [`The worst thing a new team can do is present a confident single number built on assumptions. Leadership makes hiring and spending bets on it, and when reality diverges, trust is lost. A clearly labeled range preserves credibility.`, `Treat the first quarters as an investment in data. Every logged deal, even the lost ones, is raw material for a forecast that will soon stand on its own.`] },
-      { h: `How Rally helps`, body: `Rally is alive with data from day one, so even a new team forecasts against real deals, and Rook starts learning your conversion and cycle patterns immediately, replacing benchmark assumptions with your own data as quickly as deals close.` },
+      { h: `How Ardovo helps`, body: `Ardovo is alive with data from day one, so even a new team forecasts against real deals, and Rook starts learning your conversion and cycle patterns immediately, replacing benchmark assumptions with your own data as quickly as deals close.` },
     ],
     faqs: [
       { q: `How do you forecast sales for a brand new team?`, a: `Build bottom-up from rep-level deal commits, borrow stage probabilities and cycle length from benchmarks as clearly labeled assumptions, and present a conservative-to-optimistic range. Log every deal from day one so you can replace assumptions with your own data within a quarter or two.` },
@@ -544,7 +544,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Credibility over optimism`, body: [`Leaders remember whether your forecast held, not whether it was cheerful. A forecast you consistently hit, even a lower one, is worth more than an optimistic number that misses. Calibrated honesty is the whole game.`, `Be ready to drill from the headline number to any single deal in seconds. The ability to defend the number at the deal level is what separates a trusted forecast from a hopeful one.`] },
-      { h: `How Rally helps`, body: `Rally lets you present the forecast as a live drill-down from company number to individual deal, and Rook pre-builds the risk list, the gap-to-goal math, and the deals driving the number, so your forecast review is defensible rather than a slide rebuild.` },
+      { h: `How Ardovo helps`, body: `Ardovo lets you present the forecast as a live drill-down from company number to individual deal, and Rook pre-builds the risk list, the gap-to-goal math, and the deals driving the number, so your forecast review is defensible rather than a slide rebuild.` },
     ],
     faqs: [
       { q: `What should a sales forecast presentation include?`, a: `The commit number and gap to goal up front, a commit-to-best-case range, the specific deals driving the forecast, the key risks, and the actions underway to close any gap. Lead with the number and be ready to drill into any deal.` },
@@ -570,7 +570,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Speed is the whole point`, body: [`A deal desk that takes days destroys the velocity it was meant to protect. Reps start structuring deals to avoid the desk, which defeats the control. Fast, predictable turnaround is what makes the desk trusted.`, `Keep standard deals out. If most deals go through the desk, your thresholds are too tight and you have built a bottleneck, not a control.`] },
-      { h: `How Rally helps`, body: `Rally routes deals that trip discount or term thresholds into an approval workflow with a full audit trail, so the desk sees everything in one place, and Rook drafts the approval summary from the deal's line items and history to speed the review.` },
+      { h: `How Ardovo helps`, body: `Ardovo routes deals that trip discount or term thresholds into an approval workflow with a full audit trail, so the desk sees everything in one place, and Rook drafts the approval summary from the deal's line items and history to speed the review.` },
     ],
     faqs: [
       { q: `What is a deal desk and when do I need one?`, a: `A deal desk is a cross-functional process that reviews and approves complex, high-value, or nonstandard deals before they close. You need one when nonstandard discounts, custom terms, or large deals regularly get stuck bouncing between finance, legal, and management.` },
@@ -596,7 +596,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Quota is won early`, body: [`The single biggest predictor of hitting quota is coverage at the start of the period, not effort at the end. Teams that scramble at month end are usually paying for thin pipeline built weeks earlier.`, `Consistency beats heroics. A rep who keeps coverage on target and works winnable deals hits quota predictably; the month-end hero hits it occasionally and burns out.`] },
-      { h: `How Rally helps`, body: `Rally shows your gap to goal, coverage, and the deals that would close it live, and Rook flags when coverage dips, surfaces the winnable in-quarter deals to prioritize, and warns early when the math says you are trending toward a miss.` },
+      { h: `How Ardovo helps`, body: `Ardovo shows your gap to goal, coverage, and the deals that would close it live, and Rook flags when coverage dips, surfaces the winnable in-quarter deals to prioritize, and warns early when the math says you are trending toward a miss.` },
     ],
     faqs: [
       { q: `What is the most reliable way to hit quota?`, a: `Keep pipeline coverage ahead of target from the start of the period and work the winnable in-quarter deals first. Attainment is decided far more by early pipeline generation and prioritization than by month-end closing pushes.` },
@@ -622,7 +622,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Forecast review vs pipeline review`, body: [`A pipeline review inspects all open deals for coverage and movement. A forecast review focuses on what will close this period and how confident each commit is. They are complementary: pipeline review manages the future, forecast review defends the current number.`, `Keep the forecast review about change and risk. If it turns into a full deal-by-deal narration, you are wasting the time that should go to the deals that could move the number.`] },
-      { h: `How Rally helps`, body: `Rally shows week-over-week forecast movement, reconciles weighted against commit automatically, and lets you drill from the number to any deal, while Rook pre-builds the risk list of commits missing an economic buyer or supporting activity.` },
+      { h: `How Ardovo helps`, body: `Ardovo shows week-over-week forecast movement, reconciles weighted against commit automatically, and lets you drill from the number to any deal, while Rook pre-builds the risk list of commits missing an economic buyer or supporting activity.` },
     ],
     faqs: [
       { q: `What is the difference between a forecast review and a pipeline review?`, a: `A pipeline review inspects all open deals for coverage, movement, and hygiene. A forecast review focuses specifically on what will close this period and pressure-tests each commit. Use pipeline reviews to manage the future and forecast reviews to defend the current number.` },
@@ -648,7 +648,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Wins deserve analysis too`, body: [`Teams over-focus on losses, but your wins hold the blueprint for repeatable success: early access to the economic buyer, a strong champion, a quantified metric. Coding wins lets you build those moves into your standard process.`, `Guard against bias. Reps rationalize losses as "price" because it is nobody's fault. Third-party or structured interviews surface the real reasons, which are usually about value and access.`] },
-      { h: `How Rally helps`, body: `Rally captures close reasons on every won and lost deal and analyzes them by segment, competitor, and stage, so Rook can surface your top loss patterns and the common traits of your wins without a manual interview project.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures close reasons on every won and lost deal and analyzes them by segment, competitor, and stage, so Rook can surface your top loss patterns and the common traits of your wins without a manual interview project.` },
     ],
     faqs: [
       { q: `What is win-loss analysis?`, a: `It is the practice of interviewing recently won and lost deals to understand why buyers chose or rejected you, then coding the reasons to find actionable patterns. The output is one or two specific, fixable causes of loss you address to raise win rate.` },
@@ -679,7 +679,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Why the generic 3x rule misleads`, body: [`Three times coverage is a benchmark, not a law. A team with a 33 percent win rate needs only 3x; a team at 15 percent needs closer to 7x. Always back your target out of your own win rate rather than a rule of thumb.`, `Required pipeline also changes with quota and seasonality. Recalculate each period rather than reusing last quarter's target, or you will chronically under- or over-build.`] },
-      { h: `How Rally helps`, body: `Rally calculates required pipeline live from each rep and team's real win rate and quota, and Rook shows the coverage gap and the accounts to work to close it, so the "how much pipeline do I need" question always has a current answer.` },
+      { h: `How Ardovo helps`, body: `Ardovo calculates required pipeline live from each rep and team's real win rate and quota, and Rook shows the coverage gap and the accounts to work to close it, so the "how much pipeline do I need" question always has a current answer.` },
     ],
     faqs: [
       { q: `How do I calculate how much pipeline I need?`, a: `Divide your quota for the period by your win rate to get the required qualified pipeline, then add a buffer for slippage. A 1 million quota at a 25 percent win rate needs about 4 million in qualified, in-period pipeline before the buffer.` },
@@ -705,7 +705,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Weighted pipeline is not a forecast`, body: [`The weighted number is one input, not the answer. Good forecasts also use rep commit judgment, historical accuracy, and category roll-ups. Treating weighted pipeline as the forecast ignores the human signal that timing and risk carry.`, `Weighting is only as honest as your stage discipline. If reps park deals in advanced stages prematurely, the weighted number inflates. Clean stages first, then weight.`] },
-      { h: `How Rally helps`, body: `Rally weights pipeline by stage probability automatically and lets you override per deal, and Rook refines the weighting with real signals like engagement and buying-committee coverage rather than just the stage a rep parked the deal in.` },
+      { h: `How Ardovo helps`, body: `Ardovo weights pipeline by stage probability automatically and lets you override per deal, and Rook refines the weighting with real signals like engagement and buying-committee coverage rather than just the stage a rep parked the deal in.` },
     ],
     faqs: [
       { q: `How do I weight a sales pipeline?`, a: `Assign each stage a win probability from your historical stage-to-close conversion, multiply every open deal's amount by its stage probability, and sum the results. A 50,000 dollar deal at 40 percent contributes 20,000 to the weighted total.` },
@@ -731,7 +731,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Decisions, not decoration`, body: [`Every tile should answer "so what do I do." Coverage low means generate pipeline; aging high means work stalls; velocity down means find the dragging lever. If a chart triggers no action, cut it.`, `Resist the urge to add everything. A crowded dashboard hides the few numbers that matter. Ruthless editing is what makes it usable in a weekly review.`] },
-      { h: `How Rally helps`, body: `Rally ships pipeline and forecast dashboards alive with real data on day one, every tile drills straight to the underlying deals, and Rook can answer plain-language questions about the pipeline so you do not have to build a custom report for every question.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships pipeline and forecast dashboards alive with real data on day one, every tile drills straight to the underlying deals, and Rook can answer plain-language questions about the pipeline so you do not have to build a custom report for every question.` },
     ],
     faqs: [
       { q: `What metrics belong on a pipeline dashboard?`, a: `Coverage versus target, pipeline by stage, sales velocity, deal aging, week-over-week movement, win rate, and forecast versus goal. Each should drive a decision and drill down to the deals behind it. Leave off vanity charts that change no action.` },
@@ -757,7 +757,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Slippage vs a lost deal`, body: [`A slipped deal still closes, just later; a lost deal never closes. Both hurt the forecast, but slippage is more insidious because the deal looks healthy while quietly moving the number to next period.`, `Repeated slippage on the same deal is a red flag. A close date that has moved twice usually signals a deal the rep cannot actually control, and it should be re-qualified, not just re-dated.`] },
-      { h: `How Rally helps`, body: `Rally tracks how often each rep's deals slip and why, and Rook warns before a close date when a deal shows no recent buyer activity, giving reps time to re-engage or re-date honestly rather than discovering the slip at forecast time.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks how often each rep's deals slip and why, and Rook warns before a close date when a deal shows no recent buyer activity, giving reps time to re-engage or re-date honestly rather than discovering the slip at forecast time.` },
     ],
     faqs: [
       { q: `What causes deals to slip?`, a: `Optimistic close dates set to the calendar rather than the buyer's process, missing compelling events, unconfirmed decision makers, and single-threading. Most slippage traces back to weak qualification and guessed dates earlier in the cycle.` },
@@ -783,7 +783,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Coaching the rep, not the deal`, body: [`Fixing a single deal helps this quarter; building the rep's judgment helps every quarter. Aim your coaching at the habit behind the problem, not just the problem in front of you.`, `Consistency matters more than intensity. A short, focused weekly inspection that always asks the same core questions builds better reps than an occasional deep dive.`] },
-      { h: `How Rally helps`, body: `Rally surfaces each rep's stalls, missing next steps, and slipped dates automatically, so coaching sessions start from the real exception list, and Rook shows which coaching commitments actually got done between reviews.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces each rep's stalls, missing next steps, and slipped dates automatically, so coaching sessions start from the real exception list, and Rook shows which coaching commitments actually got done between reviews.` },
     ],
     faqs: [
       { q: `How do I coach a rep on their pipeline effectively?`, a: `Inspect their deals with questions rather than answers, focus on stalls and missing next steps, and teach them their own coverage math. The aim is a rep who manages their pipeline independently, not one who relies on you to catch every problem.` },
@@ -809,7 +809,7 @@ const GUIDES = [
     ],
     sections: [
       { h: `Narrow beats broad`, body: [`A focused campaign to 200 well-chosen accounts with a tailored offer beats a generic blast to 5,000. Relevance drives reply rates, and reply rates drive pipeline. Resist the temptation to widen the net for volume.`, `Time-box it. An open-ended "generate more pipeline" effort loses urgency. A four-week campaign with a target creates the focus that produces results.`] },
-      { h: `How Rally helps`, body: `Rally runs and tracks outbound sequences, surfaces intent signals to target the right accounts, and measures created pipeline by campaign and source, so Rook can tell you which campaign actually produced qualified pipeline, not just activity.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs and tracks outbound sequences, surfaces intent signals to target the right accounts, and measures created pipeline by campaign and source, so Rook can tell you which campaign actually produced qualified pipeline, not just activity.` },
     ],
     faqs: [
       { q: `What is a pipeline generation campaign?`, a: `A deliberate, time-boxed push to create new qualified opportunities, usually to fill a specific coverage gap. It combines a focused audience, a compelling offer, and coordinated multi-channel outreach, measured on qualified pipeline created rather than activity.` },
@@ -839,7 +839,7 @@ const TERMS = [
       `Best for teams with disciplined, well-defined stages.`,
     ],
     why: `It is the default method in most CRMs and the easiest to run, but it assumes stage placement and probabilities are honest. When they are, it gives a fast, defensible number; when they are not, it quietly inflates the forecast.`,
-    rally: `Rally calibrates stage probabilities from your real conversion history and Rook keeps deals in the stage their evidence supports, so stage forecasting runs on accurate inputs instead of optimistic data entry.`,
+    rally: `Ardovo calibrates stage probabilities from your real conversion history and Rook keeps deals in the stage their evidence supports, so stage forecasting runs on accurate inputs instead of optimistic data entry.`,
     faqs: [
       { q: `How accurate is opportunity stage forecasting?`, a: `As accurate as your stage discipline and probabilities. With clean stages and probabilities calibrated from real conversion, it is reliable. With drifted stages or guessed probabilities, it overstates the forecast.` },
       { q: `Where do stage probabilities come from?`, a: `From your historical stage-to-close conversion: the share of deals reaching each stage that eventually closed won. Guessed probabilities produce a forecast you cannot trust.` },
@@ -862,7 +862,7 @@ const TERMS = [
       `One input to a forecast, not a complete forecast alone.`,
     ],
     why: `Raw pipeline overstates what will close, so leaders need a risk-adjusted number to compare against quota. Weighted forecasting provides it without judging every deal by hand, which makes it a practical everyday tool.`,
-    rally: `Rally weights every deal by stage probability automatically and lets reps override per deal, while Rook refines the weighting with engagement and buying-committee signals rather than stage alone.`,
+    rally: `Ardovo weights every deal by stage probability automatically and lets reps override per deal, while Rook refines the weighting with engagement and buying-committee signals rather than stage alone.`,
     faqs: [
       { q: `What is the difference between weighted forecasting and a weighted pipeline?`, a: `They describe the same math: multiplying each deal by its probability and summing. Weighted pipeline names the resulting figure; weighted forecasting names the method of producing a forecast from it.` },
       { q: `Is weighted forecasting accurate?`, a: `It is more realistic than raw pipeline but not complete on its own. It captures probability but misses timing and rep judgment, so the best teams reconcile it against a rep-commit roll-up.` },
@@ -885,7 +885,7 @@ const TERMS = [
       `Weak when the market or business is changing fast.`,
     ],
     why: `It provides a quick sanity check and a baseline that ignores the noise of individual deals. But relying on it alone means missing a pipeline that has quietly gone thin or rich compared to history.`,
-    rally: `Rally pairs your historical trend with live pipeline and weighted forecasts, so Rook can flag when the current pipeline diverges from what history would predict, catching the change historical forecasting alone would miss.`,
+    rally: `Ardovo pairs your historical trend with live pipeline and weighted forecasts, so Rook can flag when the current pipeline diverges from what history would predict, catching the change historical forecasting alone would miss.`,
     faqs: [
       { q: `When is historical forecasting reliable?`, a: `When the business is stable and this period genuinely resembles prior ones. It works as a baseline and a sanity check but should not be the only method, since it ignores what is actually in the pipeline now.` },
       { q: `What are the limits of historical forecasting?`, a: `It is blind to changes: a new competitor, a thin pipeline, a product shift, or a demand spike. Because it assumes the future mirrors the past, it misses turning points entirely.` },
@@ -908,7 +908,7 @@ const TERMS = [
       `Less reliable for highly variable enterprise cycles.`,
     ],
     why: `It removes rep optimism from close-date setting by grounding projections in how long deals really take. That makes it a useful check against dates reps set to please a manager.`,
-    rally: `Rally measures actual cycle length by segment from your closed deals, so Rook can project realistic close dates and flag any deal whose rep-set date is far shorter than your history supports.`,
+    rally: `Ardovo measures actual cycle length by segment from your closed deals, so Rook can project realistic close dates and flag any deal whose rep-set date is far shorter than your history supports.`,
     faqs: [
       { q: `How does sales cycle length forecasting work?`, a: `It combines your average time-to-close with each deal's age and stage to project a close date, then aggregates expected revenue by period. A deal partway through your average cycle is projected to close after the remaining typical days.` },
       { q: `When is this method most accurate?`, a: `When your cycle data is clean and deals progress at a consistent pace, common in transactional and mid-market motions. It is weaker for enterprise deals whose cycles vary widely.` },
@@ -931,7 +931,7 @@ const TERMS = [
       `Prone to happy ears and sandbagging without calibration.`,
     ],
     why: `For deals too unique or too few for a model, human judgment is the best signal available. But that judgment must be tracked and calibrated, or the forecast swings with each rep's temperament rather than the deals.`,
-    rally: `Rally records each rep's commit calls and compares them to real engagement signals and their own historical accuracy, so Rook can flag overcalls and sandbags and coach reps toward calibrated judgment.`,
+    rally: `Ardovo records each rep's commit calls and compares them to real engagement signals and their own historical accuracy, so Rook can flag overcalls and sandbags and coach reps toward calibrated judgment.`,
     faqs: [
       { q: `Is intuitive forecasting reliable?`, a: `It is reliable only when the caller is calibrated. Experienced, honest reps produce excellent commit calls on complex deals; optimistic or cautious reps skew the number. Tracking accuracy over time is what makes intuition trustworthy.` },
       { q: `When should I use intuitive forecasting?`, a: `For complex, high-value, low-volume deals where each opportunity is too unique for a statistical model. Layer rep judgment on top of a weighted or stage method rather than using it alone.` },
@@ -954,7 +954,7 @@ const TERMS = [
       `Complements, not replaces, human judgment on complex deals.`,
     ],
     why: `A fixed stage probability treats every deal in a stage the same; an AI model distinguishes the engaged, well-qualified deal from the stalled one. That granularity is where the accuracy gain comes from.`,
-    rally: `Rally is AI-native, so Rook scores every deal on live signals and rolls up a prediction that updates as buyers engage, then reconciles it against rep commits and flags the deals driving any gap.`,
+    rally: `Ardovo is AI-native, so Rook scores every deal on live signals and rolls up a prediction that updates as buyers engage, then reconciles it against rep commits and flags the deals driving any gap.`,
     faqs: [
       { q: `How accurate is AI sales forecasting?`, a: `With rich, clean data it is usually the most accurate single method because it weighs real engagement and fit rather than a fixed stage probability. Accuracy degrades with thin or dirty data, so it pairs best with human judgment on complex deals.` },
       { q: `Does AI forecasting replace rep judgment?`, a: `No. It complements it. Models excel at high-volume pattern recognition; reps excel at the nuance of complex, low-volume deals. The best forecasts reconcile the model against rep commits.` },
@@ -977,7 +977,7 @@ const TERMS = [
       `Requires more frequent forecasting effort.`,
     ],
     why: `A constant horizon means leadership never loses forward visibility, which matters for hiring, capacity, and investment decisions that need a steady look ahead rather than a view that collapses at year end.`,
-    rally: `Rally maintains a live rolling view of pipeline and forecast across future periods, so Rook always shows the same forward horizon and updates it as deals move and periods close.`,
+    rally: `Ardovo maintains a live rolling view of pipeline and forecast across future periods, so Rook always shows the same forward horizon and updates it as deals move and periods close.`,
     faqs: [
       { q: `What is the difference between a rolling forecast and an annual forecast?`, a: `An annual forecast covers a fixed fiscal year and its horizon shrinks as the year passes. A rolling forecast always projects a constant window ahead, adding a period as each closes, so forward visibility never degrades.` },
       { q: `Who should use a rolling forecast?`, a: `Businesses that plan continuously and change frequently benefit most, because they need a steady forward horizon for hiring and investment rather than a plan that expires at year end.` },
@@ -1000,7 +1000,7 @@ const TERMS = [
       `Prepares leadership for downside before it happens.`,
     ],
     why: `Real forecasts are uncertain, and leaders who plan on a single number are blindsided when it misses. A range lets them size risk, prepare contingencies, and make hiring and spending decisions that survive a bad quarter.`,
-    rally: `Rally can present commit, likely, and best-case scenarios from the same live pipeline, and Rook shows which deals move the number between scenarios so leaders see exactly what drives the downside and upside.`,
+    rally: `Ardovo can present commit, likely, and best-case scenarios from the same live pipeline, and Rook shows which deals move the number between scenarios so leaders see exactly what drives the downside and upside.`,
     faqs: [
       { q: `What is scenario forecasting?`, a: `It is the practice of modeling several possible outcomes, typically worst case, most likely, and best case, using different assumptions about win rate, slippage, and timing. It gives leadership a range to plan around instead of a single fragile number.` },
       { q: `Why forecast a range instead of one number?`, a: `Because every forecast is uncertain. A range lets leaders size risk and prepare for downside, while a single point estimate implies a precision no forecast has and sets up surprise when reality diverges.` },
@@ -1023,7 +1023,7 @@ const TERMS = [
       `Correctable by adjusting each caller's number.`,
     ],
     why: `A roll-up built from biased calls is unreliable, but bias is a gift compared to random error: it is predictable. Knowing a rep's historical bias lets a leader calibrate the forecast instead of just hoping it holds.`,
-    rally: `Rally tracks each rep's forecast accuracy over time, so Rook surfaces consistent over- or under-calling and helps managers apply a calibration factor, turning biased calls into a trustworthy roll-up.`,
+    rally: `Ardovo tracks each rep's forecast accuracy over time, so Rook surfaces consistent over- or under-calling and helps managers apply a calibration factor, turning biased calls into a trustworthy roll-up.`,
     faqs: [
       { q: `What is the difference between forecast bias and forecast error?`, a: `Forecast error is any gap between forecast and actual, in either direction. Forecast bias is a systematic tendency to err in one direction, such as always overcalling. Bias is correctable because it is predictable; random error is not.` },
       { q: `How do I measure forecast bias?`, a: `Compare each rep's commit forecast to their actual results over several periods. A rep who consistently closes 80 percent of commit has a measurable upward bias you can adjust for.` },
@@ -1046,7 +1046,7 @@ const TERMS = [
       `High accuracy is what makes a forecast decision-grade.`,
     ],
     why: `Leadership makes hiring, spending, and investor commitments on the forecast. If accuracy is low or erratic, those decisions are built on sand. A reliably accurate forecast is a strategic asset, not just a sales metric.`,
-    rally: `Rally tracks forecast accuracy by rep, team, and method over time, so Rook can show which method and which callers are most reliable and where accuracy is slipping before it costs a quarter.`,
+    rally: `Ardovo tracks forecast accuracy by rep, team, and method over time, so Rook can show which method and which callers are most reliable and where accuracy is slipping before it costs a quarter.`,
     faqs: [
       { q: `How do you calculate forecast accuracy?`, a: `Compare forecasted to actual results as a percentage. One common form is 100 minus the absolute percentage error, so a 1 million forecast against 950,000 actual is 95 percent accurate. Measure it consistently over several periods.` },
       { q: `What is a good forecast accuracy rate?`, a: `Many mature teams aim to land within 5 to 10 percent of the forecast consistently. The exact benchmark matters less than steadiness: a reliably close forecast is more useful than an occasionally perfect one.` },
@@ -1069,7 +1069,7 @@ const TERMS = [
       `Managers can add judgment adjustments at each level.`,
     ],
     why: `Leadership needs one number, but that number is only trustworthy if it traces to real deals. A clean roll-up gives accountability at every level and lets anyone inspect what the company figure is actually made of.`,
-    rally: `Rally rolls forecasts from rep to team to company automatically and lets managers apply adjustments at each level, while Rook lets anyone drill from the top number straight to the deals driving it.`,
+    rally: `Ardovo rolls forecasts from rep to team to company automatically and lets managers apply adjustments at each level, while Rook lets anyone drill from the top number straight to the deals driving it.`,
     faqs: [
       { q: `What is a forecast roll-up?`, a: `It is the aggregation of individual forecasts from the deal and rep level up through managers to a company number, with each level able to view, adjust, and drill into its own figure. It gives leadership one number that traces back to real deals.` },
       { q: `Why do managers adjust the roll-up?`, a: `Because managers often have context a raw aggregation lacks, such as knowing a rep tends to overcall. Judgment adjustments at each level calibrate the number, though they should be transparent and defensible.` },
@@ -1092,7 +1092,7 @@ const TERMS = [
       `Closed with pipeline generation, acceleration, or risk mitigation.`,
     ],
     why: `The gap turns a vague worry into a specific target. Knowing you are 200,000 short focuses the team on exactly how much pipeline to generate or how many deals to accelerate, and how early you must start.`,
-    rally: `Rally shows your gap to goal live against quota, and Rook suggests the specific levers to close it, whether that is generating pipeline, accelerating winnable deals, or mitigating slippage risk.`,
+    rally: `Ardovo shows your gap to goal live against quota, and Rook suggests the specific levers to close it, whether that is generating pipeline, accelerating winnable deals, or mitigating slippage risk.`,
     faqs: [
       { q: `What is a forecast gap?`, a: `It is the difference between your forecasted number and your goal or quota for the period. A forecast of 800,000 against a 1 million target is a 200,000 gap. It quantifies exactly how much more you need to close.` },
       { q: `How do I close a forecast gap?`, a: `Diagnose the cause and pick the matching lever: generate new pipeline if coverage is thin, accelerate winnable in-quarter deals if timing is the issue, or mitigate slippage on at-risk deals. The earlier you start, the more options you have.` },
@@ -1115,7 +1115,7 @@ const TERMS = [
       `Should be filtered to qualified, in-period deals to be useful.`,
     ],
     why: `Open pipeline is the input to almost every pipeline metric, but taken raw it misleads. Filtering it to qualified, in-period deals is what turns a vanity number into a real read on coverage.`,
-    rally: `Rally shows open pipeline filtered by qualification, stage, and close period, so Rook reports the pipeline that actually matters for the current number instead of a padded total.`,
+    rally: `Ardovo shows open pipeline filtered by qualification, stage, and close period, so Rook reports the pipeline that actually matters for the current number instead of a padded total.`,
     faqs: [
       { q: `What counts as open pipeline?`, a: `Every deal that is still active, meaning not yet closed won or closed lost. It is the raw, unweighted value of all work in progress, before any probability or qualification filter is applied.` },
       { q: `Why is raw open pipeline misleading?`, a: `Because it treats a brand-new long shot the same as a deal about to sign, and it often includes stale or unqualified deals. Filtered to qualified, in-period deals it becomes meaningful; raw, it overstates reality.` },
@@ -1138,7 +1138,7 @@ const TERMS = [
       `Prevents padded coverage from hiding a real gap.`,
     ],
     why: `Coverage measured against unqualified pipeline is a comfortable lie. Using qualified pipeline as the base surfaces the real gap early, when there is still time to build more.`,
-    rally: `Rally distinguishes qualified from unqualified pipeline using your criteria, so coverage and forecasts run on real opportunities, and Rook flags deals sitting in the pipeline that have not actually been qualified.`,
+    rally: `Ardovo distinguishes qualified from unqualified pipeline using your criteria, so coverage and forecasts run on real opportunities, and Rook flags deals sitting in the pipeline that have not actually been qualified.`,
     faqs: [
       { q: `What makes pipeline qualified?`, a: `A deal is qualified when it clears your criteria: confirmed fit with your ICP, a real and quantified pain, access to budget authority, and a genuine chance to win. Unvetted, speculative deals are open pipeline but not qualified pipeline.` },
       { q: `Why measure coverage against qualified pipeline?`, a: `Because unqualified deals rarely close, so counting them inflates coverage and hides the real gap. Qualified pipeline gives an honest coverage read that surfaces problems while there is still time to act.` },
@@ -1161,7 +1161,7 @@ const TERMS = [
       `Neglecting it starves revenue two quarters out.`,
     ],
     why: `Today's revenue came from pipeline built weeks or months ago. Teams that stop generating feel fine now and miss badly later. Net new pipeline is the early warning that keeps future quarters safe.`,
-    rally: `Rally tracks net new pipeline created by rep and source each period, so leaders can see who is building future revenue, and Rook flags when creation falls below the rate needed to sustain coverage.`,
+    rally: `Ardovo tracks net new pipeline created by rep and source each period, so leaders can see who is building future revenue, and Rook flags when creation falls below the rate needed to sustain coverage.`,
     faqs: [
       { q: `What is net new pipeline?`, a: `It is the value of fresh qualified opportunities created during a period, before they close. It measures pipeline generation output and serves as a leading indicator of bookings in future periods.` },
       { q: `Why is net new pipeline important?`, a: `Because deals take time to close, so the pipeline you create now becomes revenue later. Teams that neglect creation feel fine this quarter and starve two quarters out. It is the earliest signal of future health.` },
@@ -1184,7 +1184,7 @@ const TERMS = [
       `Shortening the cycle is often the fastest lever.`,
     ],
     why: `Velocity turns four metrics into one figure leaders can trend by segment and period. It exposes whether a change actually helps: a win-rate gain that comes with a longer cycle may be a wash.`,
-    rally: `Rally computes pipeline velocity from live deal data and breaks it down by rep, segment, and source, so Rook can show which of the four levers is dragging and where a small improvement pays off most.`,
+    rally: `Ardovo computes pipeline velocity from live deal data and breaks it down by rep, segment, and source, so Rook can show which of the four levers is dragging and where a small improvement pays off most.`,
     faqs: [
       { q: `What is the pipeline velocity formula?`, a: `Number of qualified opportunities multiplied by average deal value multiplied by win rate, all divided by average sales cycle length in days. The result is revenue generated per day.` },
       { q: `How is pipeline velocity different from sales velocity?`, a: `They use the same formula and are often used interchangeably. Some teams reserve pipeline velocity for the speed of the whole pipeline and sales velocity for individual or team output, but the math is identical.` },
@@ -1207,7 +1207,7 @@ const TERMS = [
       `Measured per stage, per segment, and per rep.`,
     ],
     why: `The stage with the lowest conversion is your constraint. Fixing it lifts the whole pipeline more than spreading effort evenly, and you cannot find it without measuring conversion stage by stage.`,
-    rally: `Rally computes stage conversion between every pair of stages automatically from live data, so Rook can point to the exact transition that leaks most and suggest which stage to fix first.`,
+    rally: `Ardovo computes stage conversion between every pair of stages automatically from live data, so Rook can point to the exact transition that leaks most and suggest which stage to fix first.`,
     faqs: [
       { q: `How do you calculate stage conversion rate?`, a: `Divide the number of deals that reached a stage by the number that entered the prior stage. If 50 deals enter Proposal and 20 advance to Negotiation, the conversion rate is 40 percent.` },
       { q: `Why measure conversion at every stage?`, a: `Because the stage with the lowest conversion is your true constraint. Fixing the weakest transition lifts the entire pipeline, and you can only find it by measuring each stage separately rather than looking at the overall win rate.` },
@@ -1230,7 +1230,7 @@ const TERMS = [
       `Reducing it raises effective win rate.`,
     ],
     why: `Competitive losses are hard to prevent; leakage is often not. Deals that die from neglect or a fixable stall represent recoverable revenue, which is why finding and plugging leaks is high-leverage work.`,
-    rally: `Rally identifies where deals leak out by stage and reason, and Rook flags stalling deals before they die and surfaces the transition where the most avoidable losses occur.`,
+    rally: `Ardovo identifies where deals leak out by stage and reason, and Rook flags stalling deals before they die and surfaces the transition where the most avoidable losses occur.`,
     faqs: [
       { q: `What causes pipeline leakage?`, a: `Deals that stall and die from neglect, opportunities that reach no-decision, and deals that lose internal priority. Unlike competitive losses, much of this is avoidable through better follow-up, qualification, and process discipline.` },
       { q: `How do I reduce pipeline leakage?`, a: `Find the stage where deals most often exit without closing and fix that transition: tighten qualification, enforce next steps, and re-engage stalls early. Reducing avoidable losses raises your effective win rate without any new pipeline.` },
@@ -1253,7 +1253,7 @@ const TERMS = [
       `Best paired with engagement trend for confirmation.`,
     ],
     why: `A deal that has sat in Proposal twice as long as your average is a risk you can act on now, while re-engagement is still cheap. Aging surfaces those deals before the forecast is affected.`,
-    rally: `Rally tracks each deal's age in stage against your historical baseline, so Rook can flag deals aging past the norm and pair that with falling engagement to separate real stalls from naturally long cycles.`,
+    rally: `Ardovo tracks each deal's age in stage against your historical baseline, so Rook can flag deals aging past the norm and pair that with falling engagement to separate real stalls from naturally long cycles.`,
     faqs: [
       { q: `What is deal aging?`, a: `It is how long a deal has been open or has sat in its current stage, measured in days. Compared against your stage averages, it is an early indicator that a deal may be stalling.` },
       { q: `When is an aging deal a problem?`, a: `When it exceeds your historical average time-in-stage without movement, especially alongside falling engagement. In a long enterprise cycle an old deal may be perfectly healthy, so read aging relative to your norms, not in absolute days.` },
@@ -1276,7 +1276,7 @@ const TERMS = [
       `Chronic slippage signals weak qualification or optimistic dating.`,
     ],
     why: `A forecast is only as good as its close dates. If a rep's deals routinely slip, leadership plans on revenue that never arrives on time. Slippage rate makes that pattern visible so it can be coached.`,
-    rally: `Rally tracks slippage rate per rep and segment, and Rook warns before a close date when a deal shows no recent buyer activity, giving reps a chance to re-engage or re-date honestly before the slip happens.`,
+    rally: `Ardovo tracks slippage rate per rep and segment, and Rook warns before a close date when a deal shows no recent buyer activity, giving reps a chance to re-engage or re-date honestly before the slip happens.`,
     faqs: [
       { q: `How do you calculate slippage rate?`, a: `Divide the number of deals whose close date moved out of the expected period by the total number forecast to close in that period. If 20 of 100 slip, the slippage rate is 20 percent.` },
       { q: `What causes a high slippage rate?`, a: `Optimistic close dates set to the calendar rather than the buyer's process, missing compelling events, and weak qualification. Most slippage traces back to dates that were never grounded in the buyer's real timeline.` },
@@ -1299,7 +1299,7 @@ const TERMS = [
       `Only counts closed deals, won plus lost.`,
     ],
     why: `Some leaders read a ratio faster than a percentage. Seeing 1:3 immediately conveys that three deals are lost for every win, which can prompt a harder look at qualification than an abstract 25 percent might.`,
-    rally: `Rally reports both win rate and win-loss ratio by rep, source, segment, and stage, so Rook can present whichever framing makes the pattern clearest and drill into the losses driving it.`,
+    rally: `Ardovo reports both win rate and win-loss ratio by rep, source, segment, and stage, so Rook can present whichever framing makes the pattern clearest and drill into the losses driving it.`,
     faqs: [
       { q: `What is the difference between win-loss ratio and win rate?`, a: `They carry the same information differently. Win rate is wins as a percentage of all closed deals; win-loss ratio expresses wins against losses as a ratio like 1:2. A 33 percent win rate is a 1:2 win-loss ratio.` },
       { q: `How do you calculate win-loss ratio?`, a: `Divide closed-won deals by closed-lost deals over a period. Ten wins and twenty losses is a 1:2 ratio. Only closed deals count; open deals are excluded.` },
@@ -1322,7 +1322,7 @@ const TERMS = [
       `Often a larger loss source than losing to rivals.`,
     ],
     why: `Beating a competitor and losing to no-decision require different fixes. A high no-decision rate means you are advancing deals that lack urgency, and the cure is tighter qualification for a compelling event, not better closing.`,
-    rally: `Rally separates no-decision losses from competitive losses in win-loss reporting, so Rook can show whether your problem is losing to rivals or advancing deals with no real compelling event, and flag unqualified deals early.`,
+    rally: `Ardovo separates no-decision losses from competitive losses in win-loss reporting, so Rook can show whether your problem is losing to rivals or advancing deals with no real compelling event, and flag unqualified deals early.`,
     faqs: [
       { q: `What is a no-decision loss?`, a: `A deal that ends because the buyer decided to do nothing rather than choosing you or a competitor. It usually means there was no real compelling event forcing a decision, so inaction felt safest.` },
       { q: `Why is no-decision rate important?`, a: `Because it is often a bigger source of loss than competitors and it points to a specific, fixable cause: weak qualification. Reducing it requires screening harder for a compelling event, not better closing tactics.` },
@@ -1345,7 +1345,7 @@ const TERMS = [
       `Shapes staffing, pricing, and segmentation.`,
     ],
     why: `ASP affects almost every plan: how many reps you need, how long cycles run, and how much pipeline you require. A shift in ASP without a matching change in strategy is a warning worth investigating.`,
-    rally: `Rally tracks average sales price by segment, product, and rep, so Rook can show whether ASP is trending up or down and how that is moving your velocity and coverage requirements.`,
+    rally: `Ardovo tracks average sales price by segment, product, and rep, so Rook can show whether ASP is trending up or down and how that is moving your velocity and coverage requirements.`,
     faqs: [
       { q: `How do you calculate average sales price?`, a: `Divide total closed-won revenue by the number of closed-won deals over a period. If you booked 2 million across 40 deals, your ASP is 50,000.` },
       { q: `What is the difference between ASP and average deal size?`, a: `They are usually the same metric under different names: the average revenue per closed deal. Some teams use average deal size for all deals in the pipeline and ASP specifically for closed won.` },
@@ -1368,7 +1368,7 @@ const TERMS = [
       `Closely related to net new pipeline.`,
     ],
     why: `Closing and creating are different jobs, and conflating them hides risk. A team can close a great quarter while quietly failing to build the pipeline for the next one. Created pipeline keeps that build visible.`,
-    rally: `Rally tags every opportunity with its creation date and source, so Rook can report created pipeline by rep, source, and period and warn when the build rate falls below what coverage requires.`,
+    rally: `Ardovo tags every opportunity with its creation date and source, so Rook can report created pipeline by rep, source, and period and warn when the build rate falls below what coverage requires.`,
     faqs: [
       { q: `What is created pipeline?`, a: `It is the value of new opportunities added during a period, measured by their creation date. It captures pipeline-generation output separately from what closed, making it a leading indicator of future bookings.` },
       { q: `What is the difference between created pipeline and net new pipeline?`, a: `They are nearly synonymous. Both measure fresh opportunities added in a period. Some teams reserve net new pipeline for qualified opportunities specifically, while created pipeline may include all new deals regardless of qualification.` },
@@ -1391,7 +1391,7 @@ const TERMS = [
       `A thin early stage warns of a coming drought.`,
     ],
     why: `A pipeline that is full late-stage but empty early-stage will close well now and starve later. Watching early-stage volume gives leaders time to push generation before the drought arrives.`,
-    rally: `Rally breaks pipeline into early and late stages and tracks the balance over time, so Rook can warn when early-stage volume thins out even while the current-quarter forecast still looks healthy.`,
+    rally: `Ardovo breaks pipeline into early and late stages and tracks the balance over time, so Rook can warn when early-stage volume thins out even while the current-quarter forecast still looks healthy.`,
     faqs: [
       { q: `What counts as early stage pipeline?`, a: `Deals in the first stages of your pipeline, typically newly qualified opportunities with discovery and evaluation still ahead. They carry low win probability but high strategic importance as future revenue.` },
       { q: `Why watch early stage pipeline?`, a: `Because it predicts future bookings. A pipeline that is full late-stage but thin early-stage will close well now and run dry later. Monitoring the early stage gives you time to generate before the gap appears.` },
@@ -1414,7 +1414,7 @@ const TERMS = [
       `Heavy late-stage with thin early-stage warns of a future drought.`,
     ],
     why: `The forecast leans on these deals, so a single late-stage slip can swing the quarter. Inspecting them hard, for a named economic buyer and a real paper path, is where forecast risk is actually managed.`,
-    rally: `Rally highlights late-stage deals and their risk signals, and Rook flags any late-stage deal missing an economic buyer, a confirmed close date, or recent engagement, so the deals driving the forecast get real scrutiny.`,
+    rally: `Ardovo highlights late-stage deals and their risk signals, and Rook flags any late-stage deal missing an economic buyer, a confirmed close date, or recent engagement, so the deals driving the forecast get real scrutiny.`,
     faqs: [
       { q: `What is late stage pipeline?`, a: `It is the value of deals near closing, usually in proposal, negotiation, or verbal-commitment stages. These deals carry high win probability and drive most of the current-period forecast.` },
       { q: `Why inspect late stage deals most closely?`, a: `Because the forecast leans on them. A single late-stage deal slipping can move the number materially, so confirming the economic buyer, close date, and paper path on each is where forecast risk is actually managed.` },
@@ -1437,7 +1437,7 @@ const TERMS = [
       `A leading signal that a static stage cannot provide.`,
     ],
     why: `A stage tells you where a deal is; momentum tells you where it is going. Acting on fading momentum early, while re-engagement is easy, prevents stalls that a stage snapshot would only reveal too late.`,
-    rally: `Rally scores deal momentum from live engagement and stage movement, so Rook can flag deals losing steam before they stall and highlight the ones accelerating toward a close.`,
+    rally: `Ardovo scores deal momentum from live engagement and stage movement, so Rook can flag deals losing steam before they stall and highlight the ones accelerating toward a close.`,
     faqs: [
       { q: `What is deal momentum?`, a: `It is the pace and direction of a deal's progress, judged from engagement trend, stage movement, and buyer responsiveness. Rising momentum signals a healthy deal; fading momentum warns of a stall before the close date slips.` },
       { q: `How is momentum different from stage?`, a: `Stage is a static snapshot of where a deal is. Momentum is the trajectory: whether the deal is speeding up or slowing down. Two deals in the same stage can have very different momentum and very different odds.` },
@@ -1460,7 +1460,7 @@ const TERMS = [
       `Fixed by multithreading to several stakeholders.`,
     ],
     why: `Buyers reorganize, change jobs, and get pulled onto other priorities constantly. A deal riding on one person has no resilience, which is why single-threading correlates strongly with losses and slippage.`,
-    rally: `Rally maps the buying committee on every deal and Rook flags single-threaded deals, prompting reps to multithread before the one relationship they depend on disappears.`,
+    rally: `Ardovo maps the buying committee on every deal and Rook flags single-threaded deals, prompting reps to multithread before the one relationship they depend on disappears.`,
     faqs: [
       { q: `What is a single-threaded deal?`, a: `A deal that depends entirely on one contact at the buyer. It is fragile because if that person gets busy, changes roles, or leaves, the deal loses its only path forward and typically stalls or dies.` },
       { q: `Why are single-threaded deals risky?`, a: `Because buyers change jobs and priorities constantly. A deal resting on one relationship has no backup, so it can look healthy right up until that person disappears and the deal collapses.` },
@@ -1483,7 +1483,7 @@ const TERMS = [
       `Structured by frameworks like MEDDIC and BANT.`,
     ],
     why: `Unqualified pipeline is the root of inflated coverage, slipped forecasts, and low win rates. Qualifying hard, and disqualifying fast, is the highest-leverage discipline in a pipeline because it improves several metrics at once.`,
-    rally: `Rally holds your qualification criteria as fields on the deal, and Rook flags opportunities missing a compelling event, an economic buyer, or a defined decision process before they quietly inflate the forecast.`,
+    rally: `Ardovo holds your qualification criteria as fields on the deal, and Rook flags opportunities missing a compelling event, an economic buyer, or a defined decision process before they quietly inflate the forecast.`,
     faqs: [
       { q: `What is deal qualification?`, a: `It is confirming an opportunity is real and winnable by verifying fit, a quantified pain, budget authority, a decision process, and a compelling event. It decides whether a deal deserves continued selling investment.` },
       { q: `What is the difference between lead and deal qualification?`, a: `Lead qualification decides whether interest warrants a first real conversation. Deal or opportunity qualification decides whether an active deal deserves continued investment, which requires confirming budget, process, and a compelling event, not just interest.` },
@@ -1506,7 +1506,7 @@ const TERMS = [
       `Should be verifiable, not a matter of opinion.`,
     ],
     why: `When reps interpret stages differently, the forecast is built on inconsistent data. Exit criteria enforce a shared definition, which is the foundation of every reliable stage-based metric.`,
-    rally: `Rally lets you attach explicit exit criteria to each stage and Rook checks whether a deal actually meets them before advancing, so stages reflect real progress rather than optimistic data entry.`,
+    rally: `Ardovo lets you attach explicit exit criteria to each stage and Rook checks whether a deal actually meets them before advancing, so stages reflect real progress rather than optimistic data entry.`,
     faqs: [
       { q: `What is a stage exit criterion?`, a: `It is a specific, verifiable condition a deal must meet to advance to the next stage, such as "economic buyer confirmed" or "proposal accepted." It keeps stage data consistent across reps.` },
       { q: `Why do exit criteria matter?`, a: `Because without them, each rep interprets stages differently and the forecast becomes noise. Exit criteria enforce a shared definition of each stage, which makes conversion rates and stage-based forecasting trustworthy.` },
@@ -1529,7 +1529,7 @@ const TERMS = [
       `Keeps stage data clean for forecasting.`,
     ],
     why: `Without gates, reps drift deals forward prematurely and the forecast inflates. Gates enforce that a deal has actually met its criteria, which is what keeps stage-based conversion and forecasting honest.`,
-    rally: `Rally can enforce stage gates so a deal cannot advance until its exit criteria are met, and Rook surfaces deals that were pushed forward without clearing the gate, keeping the pipeline honest.`,
+    rally: `Ardovo can enforce stage gates so a deal cannot advance until its exit criteria are met, and Rook surfaces deals that were pushed forward without clearing the gate, keeping the pipeline honest.`,
     faqs: [
       { q: `What is a stage gate in sales?`, a: `It is a checkpoint between pipeline stages that a deal must clear before advancing, defined by exit criteria. It enforces process discipline by preventing deals from skipping ahead before they have met the required conditions.` },
       { q: `How is a stage gate different from exit criteria?`, a: `Exit criteria define the conditions; the stage gate is the enforcement that stops a deal from advancing until those conditions are met. Criteria are the bar, the gate is the gatekeeper.` },
@@ -1552,7 +1552,7 @@ const TERMS = [
       `Its accuracy shapes forecast reliability.`,
     ],
     why: `Every weighted forecast rests on win probabilities. If they are just stage defaults that reps ignore, the forecast is shaky; if they reflect real engagement and fit, the forecast sharpens considerably.`,
-    rally: `Rally assigns win probability from stage by default and Rook refines it per deal using real engagement, fit, and buying-committee signals, so the number reflects the deal, not just the stage it sits in.`,
+    rally: `Ardovo assigns win probability from stage by default and Rook refines it per deal using real engagement, fit, and buying-committee signals, so the number reflects the deal, not just the stage it sits in.`,
     faqs: [
       { q: `How is win probability calculated?`, a: `Most simply, it is the default probability of the deal's stage, drawn from historical stage-to-close conversion. More advanced approaches use a model or AI that scores each deal on engagement, fit, and history for a per-deal probability.` },
       { q: `What is the difference between win probability and forecast category?`, a: `Win probability is a numeric likelihood used for weighting. Forecast category is a rep's confidence label like commit or best case. Probability drives the math; category adds human judgment about timing and risk.` },
@@ -1575,7 +1575,7 @@ const TERMS = [
       `Turns qualification into an objective inspection.`,
     ],
     why: `Scorecards replace optimism with evidence. They surface exactly which elements of a deal are weak, giving reps and managers a concrete, prioritized list of what to fix before the deal is at risk.`,
-    rally: `Rally can hold a deal scorecard as structured fields, and Rook scores each factor from real signals and flags the weak spots, so a deal review becomes a targeted inspection of the gaps rather than a status update.`,
+    rally: `Ardovo can hold a deal scorecard as structured fields, and Rook scores each factor from real signals and flags the weak spots, so a deal review becomes a targeted inspection of the gaps rather than a status update.`,
     faqs: [
       { q: `What is a deal scorecard?`, a: `It is a tool that rates an opportunity on the factors that predict winning, such as economic-buyer access, champion strength, quantified pain, and a compelling event. It makes deal health and specific gaps visible and coachable.` },
       { q: `How is a scorecard different from a qualification framework?`, a: `A framework like MEDDIC defines what to check; a scorecard rates how well each item is satisfied and rolls it into an overall health read. The scorecard is the scored, at-a-glance version of the framework.` },
@@ -1598,7 +1598,7 @@ const TERMS = [
       `Keeps the forecast honest when done consistently.`,
     ],
     why: `Forecasts break when nobody challenges the inputs. Inspection is the mechanism that keeps reps honest about stages and dates, which is why it is the core discipline of sales management.`,
-    rally: `Rally pre-builds the inspection by surfacing stage mismatches, missing next steps, and slipped dates, so Rook hands managers the exception list and inspection focuses on the deals that actually need it.`,
+    rally: `Ardovo pre-builds the inspection by surfacing stage mismatches, missing next steps, and slipped dates, so Rook hands managers the exception list and inspection focuses on the deals that actually need it.`,
     faqs: [
       { q: `What is pipeline inspection?`, a: `It is the manager practice of examining open deals to verify accurate stages, real next steps, and defensible close dates. Unlike a status meeting, it interrogates the data to pressure-test optimism and keep the forecast honest.` },
       { q: `How is pipeline inspection different from a pipeline review?`, a: `Inspection is the underlying discipline of scrutinizing deal data; a pipeline review is the recurring meeting where it happens. Inspection can also be continuous, with a manager checking deals between formal reviews.` },
@@ -1621,7 +1621,7 @@ const TERMS = [
       `Early identification allows mitigation.`,
     ],
     why: `A forecast full of high-risk commits is a forecast about to miss. Surfacing deal risk lets managers discount shaky deals honestly and lets reps fix the risks while the deal is still winnable.`,
-    rally: `Rally scores deal risk from real signals and Rook flags at-risk commits, single-threaded deals, and slipping dates, so risk is visible early enough to mitigate rather than discovered at quarter end.`,
+    rally: `Ardovo scores deal risk from real signals and Rook flags at-risk commits, single-threaded deals, and slipping dates, so risk is visible early enough to mitigate rather than discovered at quarter end.`,
     faqs: [
       { q: `What signals indicate deal risk?`, a: `Single-threading, no compelling event, stalled or falling engagement, an unconfirmed economic buyer, and a close date that has already slipped. Any of these means a deal is riskier than its stage suggests.` },
       { q: `How do I reduce deal risk?`, a: `Address the specific signal: multithread a single-threaded deal, qualify for a compelling event, re-engage stalled buyers, and get in front of the economic buyer. Mitigation works only if the risk is spotted early enough to act.` },
@@ -1644,7 +1644,7 @@ const TERMS = [
       `Concentration in a few large deals raises forecast risk.`,
     ],
     why: `A forecast built on three large deals is fragile: one slip swings the quarter. Understanding deal-size distribution tells leaders how concentrated their risk is and how to structure quotas and coverage.`,
-    rally: `Rally tracks deal size and its distribution by segment and rep, so Rook can show whether the forecast is dangerously concentrated in a few large deals or healthily spread across many.`,
+    rally: `Ardovo tracks deal size and its distribution by segment and rep, so Rook can show whether the forecast is dangerously concentrated in a few large deals or healthily spread across many.`,
     faqs: [
       { q: `How is deal size measured?`, a: `Usually as annual contract value or total contract value of the opportunity. Teams pick one consistently so deal-size comparisons and averages are apples to apples across the pipeline.` },
       { q: `Why does deal-size distribution matter more than the average?`, a: `Because the average hides concentration risk. A pipeline where a few whales dominate forecasts lumpily and risks a big miss if one slips, while many small deals produce a smoother, more predictable forecast even at the same average.` },
@@ -1667,7 +1667,7 @@ const TERMS = [
       `Makes the forecast roll-up accountable per person.`,
     ],
     why: `Deals without a clear owner stall in handoffs and nobody notices. Clear ownership ensures every opportunity has someone responsible for its next step and its forecast, which is the basis of accountability.`,
-    rally: `Rally assigns a clear owner to every deal and Rook flags opportunities with ambiguous ownership or stalled in a handoff, so no deal drifts because nobody was accountable for it.`,
+    rally: `Ardovo assigns a clear owner to every deal and Rook flags opportunities with ambiguous ownership or stalled in a handoff, so no deal drifts because nobody was accountable for it.`,
     faqs: [
       { q: `What does a deal owner do?`, a: `The deal owner is accountable for advancing a specific opportunity to close, keeping its stage, next steps, and close date accurate, and standing behind its forecast. They are the single point of responsibility for the deal's outcome.` },
       { q: `Why does clear deal ownership matter?`, a: `Because deals without a clear owner stall in the gaps between roles and nobody notices. Clear ownership prevents cracks in handoffs and makes the forecast accountable, since every deal traces to a responsible person.` },
@@ -1690,7 +1690,7 @@ const TERMS = [
       `Mapping each member's position is essential to winning.`,
     ],
     why: `Deals are won or lost across a committee, not with a single contact. Mapping it exposes the stakeholders you have not met and the blockers you have not addressed, which is where late-stage losses come from.`,
-    rally: `Rally maps the buying committee on every deal with each member's role and position, and Rook flags unmapped power players, single-threaded deals, and blockers you have not engaged.`,
+    rally: `Ardovo maps the buying committee on every deal with each member's role and position, and Rook flags unmapped power players, single-threaded deals, and blockers you have not engaged.`,
     faqs: [
       { q: `What is a buying committee?`, a: `It is the group of people who influence a B2B purchase, typically including the economic buyer, champions, technical evaluators, end users, and potential blockers. Most significant deals now involve six or more stakeholders.` },
       { q: `Why map the buying committee?`, a: `Because deals are won or lost across the whole committee, not with one contact. Mapping it reveals the stakeholders you have not met and the blockers you have not addressed, which are common causes of late-stage losses.` },
@@ -1713,7 +1713,7 @@ const TERMS = [
       `Every commit deal should survive hard scrutiny.`,
     ],
     why: `Leadership commits resources and investor expectations to the commit number. If it is inflated, those decisions break. A reliable commit, even a conservative one, is far more valuable than an optimistic number that misses.`,
-    rally: `Rally captures each rep's commit and rolls it up by team, and Rook pressure-tests commit deals against real engagement, flagging any that lack an economic buyer or supporting activity before the number is trusted.`,
+    rally: `Ardovo captures each rep's commit and rolls it up by team, and Rook pressure-tests commit deals against real engagement, flagging any that lack an economic buyer or supporting activity before the number is trusted.`,
     faqs: [
       { q: `What does commit mean in forecasting?`, a: `Commit is the rep's pledge that specific deals will close in the current period. It is the highest-confidence category and forms the floor of the forecast that leadership plans and reports on.` },
       { q: `What is the difference between commit and best case?`, a: `Commit is what the rep is confident will close and is willing to be held to. Best case is the optimistic upside that could close if things break right. Commit is the floor; best case is the ceiling.` },
@@ -1736,7 +1736,7 @@ const TERMS = [
       `The commit-to-best-case gap shows upside in play.`,
     ],
     why: `Leaders need both a floor and a ceiling. Best case tells them the upside worth chasing and helps them decide whether to push for a stretch result or protect the commit, framing the range instead of a single point.`,
-    rally: `Rally rolls up best case alongside commit and shows the deals that separate them, so Rook can highlight which bubble deals, if won, would lift the number from commit toward best case.`,
+    rally: `Ardovo rolls up best case alongside commit and shows the deals that separate them, so Rook can highlight which bubble deals, if won, would lift the number from commit toward best case.`,
     faqs: [
       { q: `What is a best case forecast?`, a: `It is the optimistic version of the forecast, including deals that could close if things break favorably. It sits above the commit and gives leadership a credible ceiling for the period rather than a single expected number.` },
       { q: `How is best case different from commit?`, a: `Commit is what the rep is confident will close and can be held to; best case is the upside that could close if bubble deals go the right way. Commit is the floor, best case the ceiling, and the gap is the upside in play.` },
@@ -1759,7 +1759,7 @@ const TERMS = [
       `Produces a roll-up leadership can commit to.`,
     ],
     why: `Stage alone cannot express that a rep is unsure a late-stage deal closes this period. Categories add that judgment, which is why category roll-ups are the number most leadership teams actually manage against.`,
-    rally: `Rally supports forecast categories on every deal and rolls them up by rep and team, and Rook compares a rep's category choices against real engagement, flagging deals in commit that do not look ready.`,
+    rally: `Ardovo supports forecast categories on every deal and rolls them up by rep and team, and Rook compares a rep's category choices against real engagement, flagging deals in commit that do not look ready.`,
     faqs: [
       { q: `What is category forecasting?`, a: `It is forecasting by grouping deals into confidence categories, pipeline, best case, commit, and closed, then rolling them up. Categories capture rep judgment about whether a deal closes this period, adding a timing signal that stage alone misses.` },
       { q: `What are the standard forecast categories?`, a: `Pipeline (early, uncertain), best case (optimistic upside), commit (high confidence, will close), and closed (already won). Some teams add omitted or worst case. Each expresses a level of confidence independent of pipeline stage.` },
@@ -1782,7 +1782,7 @@ const TERMS = [
       `Thin early coverage predicts a miss.`,
     ],
     why: `Coverage is the earliest signal of whether a period will land, giving leaders time to push generation while there is still cycle time to react. Caught late, a coverage gap is unfixable.`,
-    rally: `Rally calculates quota coverage live against each rep and team target using qualified, in-period pipeline, and Rook flags when coverage dips below your win-rate-based target and suggests accounts to work.`,
+    rally: `Ardovo calculates quota coverage live against each rep and team target using qualified, in-period pipeline, and Rook flags when coverage dips below your win-rate-based target and suggests accounts to work.`,
     faqs: [
       { q: `What is a good quota coverage ratio?`, a: `Three to four times quota is a common benchmark, but the right number depends on your win rate. Divide roughly one by your win rate: a 25 percent win rate implies about 4x coverage to hit target after loss and slippage.` },
       { q: `Is quota coverage the same as pipeline coverage?`, a: `Effectively yes. Both express pipeline value as a multiple of the target for a period. Quota coverage emphasizes the quota as the denominator, but the concept and math are the same.` },
@@ -1805,7 +1805,7 @@ const TERMS = [
       `A sharper, more conservative safety read than total coverage.`,
     ],
     why: `A team can hit 4x total coverage yet have almost nothing in commit, meaning the number depends entirely on upside. Commit coverage exposes that fragility, so leaders know whether the period is safe or a gamble.`,
-    rally: `Rally tracks commit coverage alongside total coverage, so Rook can show how much of the target is genuinely locked versus riding on best case, and flag when commit is dangerously thin late in a period.`,
+    rally: `Ardovo tracks commit coverage alongside total coverage, so Rook can show how much of the target is genuinely locked versus riding on best case, and flag when commit is dangerously thin late in a period.`,
     faqs: [
       { q: `What is commit coverage?`, a: `It is the ratio of committed pipeline to remaining quota. Unlike total coverage, which counts all pipeline, it counts only high-confidence commit deals, showing how much of the target is effectively locked versus dependent on upside.` },
       { q: `Why look at commit coverage separately?`, a: `Because total coverage can look healthy while the number secretly rides on long-shot upside. Commit coverage reveals whether the target is genuinely secured, exposing fragility that total coverage hides.` },
@@ -1828,7 +1828,7 @@ const TERMS = [
       `Only closable if identified early.`,
     ],
     why: `Knowing the gap turns effort into a plan. A 250,000 gap tells the team precisely how much pipeline to build or how many deals to pull forward, and how early they must start to have a chance.`,
-    rally: `Rally shows gap to goal live against quota at every level, and Rook suggests the specific levers to close it, from pipeline generation to accelerating winnable in-period deals.`,
+    rally: `Ardovo shows gap to goal live against quota at every level, and Rook suggests the specific levers to close it, from pipeline generation to accelerating winnable in-period deals.`,
     faqs: [
       { q: `What is gap to goal?`, a: `It is the difference between your current forecast and your target for the period. A 750,000 forecast against a 1 million quota is a 250,000 gap to goal, quantifying exactly how much more you need to close.` },
       { q: `How is gap to goal different from a forecast gap?`, a: `They are essentially the same: the shortfall between expected results and the target. Gap to goal is the more common phrasing in day-to-day sales management for the number the team must still close.` },
@@ -1851,7 +1851,7 @@ const TERMS = [
       `A healthy top-line number can hide a low rate.`,
     ],
     why: `If only 20 percent of reps hit quota, the model is broken even when the total lands, because the team depends on a few individuals. Participation rate surfaces that fragility so leaders can fix quotas, enablement, or hiring.`,
-    rally: `Rally reports participation rate alongside total attainment, so Rook can show whether the number is broad-based or carried by a few reps and where quota or enablement gaps are dragging the middle of the team.`,
+    rally: `Ardovo reports participation rate alongside total attainment, so Rook can show whether the number is broad-based or carried by a few reps and where quota or enablement gaps are dragging the middle of the team.`,
     faqs: [
       { q: `What is quota participation rate?`, a: `It is the percentage of reps who hit their quota in a period. It shows whether attainment is broad-based or concentrated in a few top performers, which a healthy overall number can otherwise hide.` },
       { q: `What is a healthy participation rate?`, a: `Many well-run teams aim for a majority of reps at or above quota, often cited around 60 percent or higher. A rate far below that suggests quotas are set too high, enablement is weak, or hiring is off.` },
@@ -1874,7 +1874,7 @@ const TERMS = [
       `Preserves the meaning of attainment data.`,
     ],
     why: `Without relief, a rep out on leave looks like a failure and a ramping rep looks underperforming, distorting attainment analysis and hurting morale. Relief keeps the numbers fair and the comparisons valid.`,
-    rally: `Rally can apply quota relief for ramp, leave, or territory changes so a rep's attainment reflects the time they actually had to sell, and Rook keeps the adjusted targets consistent across reporting.`,
+    rally: `Ardovo can apply quota relief for ramp, leave, or territory changes so a rep's attainment reflects the time they actually had to sell, and Rook keeps the adjusted targets consistent across reporting.`,
     faqs: [
       { q: `What is quota relief?`, a: `It is a reduction in a rep's quota to account for time they could not sell, such as ramp, leave, or a mid-period territory change. It keeps targets fair and keeps attainment data meaningful.` },
       { q: `When should quota relief apply?`, a: `For legitimate non-selling time: new-hire ramp, parental or medical leave, extended training, or a disruptive territory change. It should not be used to lower targets for underperformance, which is a coaching matter.` },
@@ -1897,7 +1897,7 @@ const TERMS = [
       `Focuses on risk and change, not deal narration.`,
     ],
     why: `Leadership plans on the committed number, so it must be tested before it is trusted. The forecast call is where that testing happens, catching inflated commits and slipping deals before they become a miss.`,
-    rally: `Rally pre-builds the forecast call with week-over-week movement, reconciled weighted-versus-commit views, and a risk list, so Rook lets managers focus the call on the deals that actually threaten the number.`,
+    rally: `Ardovo pre-builds the forecast call with week-over-week movement, reconciled weighted-versus-commit views, and a risk list, so Rook lets managers focus the call on the deals that actually threaten the number.`,
     faqs: [
       { q: `What happens in a forecast call?`, a: `Reps commit their number for the period, managers pressure-test the commit deals for a real economic buyer, close date, and paper path, and the team reconciles the roll-up against goal. It is where the forecast is defended, not just reported.` },
       { q: `How often should you hold a forecast call?`, a: `Weekly for most teams, tightening near period end. The value comes from catching slippage and inflated commits week over week, so a fixed cadence beats an intense call only at quarter close.` },
@@ -1920,7 +1920,7 @@ const TERMS = [
       `Poor linearity signals forecast and operational risk.`,
     ],
     why: `A period that depends on a last-week rush is fragile: any slippage lands with no time to recover. Steadier linearity means earlier visibility, less operational strain, and more reliable forecasts.`,
-    rally: `Rally tracks bookings linearity across the period, so Rook can flag when a team is trending toward a risky end-of-period scramble and highlight the deals that need to close earlier to smooth the curve.`,
+    rally: `Ardovo tracks bookings linearity across the period, so Rook can flag when a team is trending toward a risky end-of-period scramble and highlight the deals that need to close earlier to smooth the curve.`,
     faqs: [
       { q: `What is sales linearity?`, a: `It is how evenly bookings land across a period. High linearity means deals close steadily throughout; low linearity means most bookings pile up in the final days, which signals risk and operational strain.` },
       { q: `Why is low sales linearity a problem?`, a: `Because a period that depends on a last-week close is fragile. Any slippage lands with no time to recover, slippage stays hidden until the end, and forecasting is harder. Steadier closes are more predictable and less stressful.` },
@@ -1943,7 +1943,7 @@ const TERMS = [
       `Lets you react before the period ends.`,
     ],
     why: `Waiting until period end to learn you missed is too late. Pacing gives an early, continuous read on trajectory, so a team trending behind can push generation or acceleration while there is still time.`,
-    rally: `Rally shows live pacing against target using your historical booking curve, so Rook can tell you not just where you are but whether that is ahead of or behind the pace needed to hit the number.`,
+    rally: `Ardovo shows live pacing against target using your historical booking curve, so Rook can tell you not just where you are but whether that is ahead of or behind the pace needed to hit the number.`,
     faqs: [
       { q: `What is sales pacing?`, a: `It is a measure of whether bookings are on track to hit the target, comparing progress to date against the pace expected at this point in the period. Being at 45 percent when you should be at 60 means you are pacing behind.` },
       { q: `How is pacing different from attainment?`, a: `Attainment is the final result at period end. Pacing is the in-flight signal during the period, telling you whether your current trajectory will get you to the target in time to still do something about it.` },
@@ -1966,7 +1966,7 @@ const TERMS = [
       `Must stay clearly distinct from the real target.`,
     ],
     why: `Stretch goals channel a team's ambition toward upside, but only if everyone knows they are aspirational. Confusing a stretch goal with the real quota erodes trust and turns motivation into resentment.`,
-    rally: `Rally can track a stretch goal alongside quota so reps see both the committed target and the upside, and Rook shows which additional deals would close the gap from quota to stretch.`,
+    rally: `Ardovo can track a stretch goal alongside quota so reps see both the committed target and the upside, and Rook shows which additional deals would close the gap from quota to stretch.`,
     faqs: [
       { q: `What is a stretch goal in sales?`, a: `It is an ambitious target set above the standard quota, representing upside a rep or team could reach in a strong period. It motivates reaching beyond the baseline while the quota remains the number leadership actually plans on.` },
       { q: `How is a stretch goal different from quota?`, a: `Quota is the committed target reps are measured and paid against. A stretch goal is aspirational upside above it. Keeping them distinct matters, because treating the stretch as the real quota demoralizes reps.` },
@@ -1989,7 +1989,7 @@ const TERMS = [
       `The basis for realistic close dates.`,
     ],
     why: `If reps set close dates that ignore real time to close, the forecast slips period after period. Measuring it by segment grounds close dates in reality and reveals which stage adds the most delay.`,
-    rally: `Rally measures actual time to close by segment from your closed deals, so Rook can suggest realistic close dates and warn when a rep's projected date is far shorter than your history supports.`,
+    rally: `Ardovo measures actual time to close by segment from your closed deals, so Rook can suggest realistic close dates and warn when a rep's projected date is far shorter than your history supports.`,
     faqs: [
       { q: `What is the difference between time to close and sales cycle length?`, a: `They are nearly the same, both measuring elapsed days to a won deal. Time to close is often measured from opportunity creation, while sales cycle length may be measured from first contact. Teams should define the start point consistently.` },
       { q: `Why measure time to close by segment?`, a: `Because it varies enormously: transactional deals close in days, enterprise deals in many months. A single blended average is misleading, so segment-level measurement is what makes close-date setting and forecasting accurate.` },
@@ -2012,7 +2012,7 @@ const TERMS = [
       `A lengthening cycle warns of process problems.`,
     ],
     why: `Cycle length drives forecast timing and cash planning. If reps ignore the real average when dating deals, the forecast slips, and if leaders ignore it when planning hires, they staff too late to hit the number.`,
-    rally: `Rally computes average sales cycle by segment from your closed deals, so Rook grounds close-date suggestions in reality and flags when the cycle is lengthening in a way that signals trouble.`,
+    rally: `Ardovo computes average sales cycle by segment from your closed deals, so Rook grounds close-date suggestions in reality and flags when the cycle is lengthening in a way that signals trouble.`,
     faqs: [
       { q: `What is an average sales cycle length?`, a: `It ranges widely: transactional deals can close in days, mid-market in one to three months, and enterprise in six to twelve months or more. The only figure that matters is your own, measured by segment, not a generic benchmark.` },
       { q: `Why does the average sales cycle matter?`, a: `It anchors realistic close dates, drives capacity and hiring plans, and feeds cycle-length forecasting. Ignoring it leads to slipping forecasts and staffing decisions made too late to hit the number.` },
@@ -2035,7 +2035,7 @@ const TERMS = [
       `Feeds budgeting, hiring, and investor planning.`,
     ],
     why: `The whole company plans on the sales projection. If it is unreliable, budgets, headcount, and commitments all misfire, which is why grounding projections in real pipeline and honest assumptions matters far beyond the sales team.`,
-    rally: `Rally builds projections from live pipeline plus historical trends, so Rook can produce multi-period revenue estimates grounded in real deals and flag when the assumptions behind a projection no longer match the pipeline.`,
+    rally: `Ardovo builds projections from live pipeline plus historical trends, so Rook can produce multi-period revenue estimates grounded in real deals and flag when the assumptions behind a projection no longer match the pipeline.`,
     faqs: [
       { q: `What is a sales projection?`, a: `It is an estimate of future revenue over a period, built from pipeline data, historical trends, and growth assumptions. It tends to look further out than a single-period forecast and feeds budgeting, hiring, and investor planning.` },
       { q: `What is the difference between a sales projection and a forecast?`, a: `They overlap heavily. A forecast usually estimates the current period from named deals and rep commits; a projection often reaches further out and leans more on trends and assumptions. Both estimate future revenue.` },
@@ -2058,7 +2058,7 @@ const TERMS = [
       `Drives sales planning and compensation.`,
     ],
     why: `Sales is measured and paid on bookings, so forecasting them accurately is what drives quota, comp, and capacity planning. Confusing bookings with revenue leads to misaligned targets and incentives.`,
-    rally: `Rally forecasts bookings from live pipeline and ties each booking to its deal's line items, so Rook can project sales output by product, segment, and rep and keep bookings cleanly separate from downstream revenue.`,
+    rally: `Ardovo forecasts bookings from live pipeline and ties each booking to its deal's line items, so Rook can project sales output by product, segment, and rep and keep bookings cleanly separate from downstream revenue.`,
     faqs: [
       { q: `What is a bookings forecast?`, a: `It projects the total contract value your team will sign in a period, counted at signature regardless of when revenue is recognized. It measures expected sales output and drives quota, compensation, and capacity planning.` },
       { q: `What is the difference between bookings and revenue forecasts?`, a: `A bookings forecast counts the full contract value when signed; a revenue forecast spreads that value over the delivery term as it is recognized. A 12-month deal books fully on day one but recognizes revenue monthly.` },
@@ -2081,7 +2081,7 @@ const TERMS = [
       `Requires forecasting all three ARR movements together.`,
     ],
     why: `Net ARR growth is what drives subscription valuations and planning. Forecasting only new business ignores expansion and churn, which can turn a strong new-sales quarter into flat or negative net growth.`,
-    rally: `Rally forecasts new-business, expansion, and churn ARR together from live pipeline and account data, so Rook can project net ARR movement rather than just new deals and flag when churn or contraction threatens net growth.`,
+    rally: `Ardovo forecasts new-business, expansion, and churn ARR together from live pipeline and account data, so Rook can project net ARR movement rather than just new deals and flag when churn or contraction threatens net growth.`,
     faqs: [
       { q: `What is an ARR forecast?`, a: `It projects how annual recurring revenue will change over a period by combining new-business ARR, expansion, and contraction or churn. It is the central forward metric for subscription businesses because it captures net recurring movement.` },
       { q: `Why include churn in an ARR forecast?`, a: `Because net ARR growth is what matters, and churn plus contraction can offset a strong new-sales quarter. An ARR forecast that ignores churn and expansion overstates growth and misleads planning.` },
@@ -2104,7 +2104,7 @@ const TERMS = [
       `Driven by health signals, not sales-stage probability.`,
     ],
     why: `In mature subscription businesses, retained revenue exceeds new sales, so a shaky renewal forecast puts more revenue at risk than a shaky new-business one. Forecasting renewals on real health signals protects the base.`,
-    rally: `Rally forecasts renewals using customer health, usage, and renewal-date data, so Rook can flag at-risk renewals early and project retained and expanded revenue alongside new business for a complete picture.`,
+    rally: `Ardovo forecasts renewals using customer health, usage, and renewal-date data, so Rook can flag at-risk renewals early and project retained and expanded revenue alongside new business for a complete picture.`,
     faqs: [
       { q: `What is a renewal forecast?`, a: `It projects which existing contracts will renew, when, and at what value, including likely expansions and contractions. For recurring-revenue businesses it is central to retention and net revenue planning.` },
       { q: `How is renewal forecasting different from new-business forecasting?`, a: `Renewals are driven by customer health, product usage, and support history rather than sales-stage probability. The signals and playbook differ, even though both feed the overall revenue forecast.` },
@@ -2127,7 +2127,7 @@ const TERMS = [
       `New business has lower win rates than expansion.`,
     ],
     why: `New-logo acquisition and base expansion behave differently, so blending them masks problems. A separate new business forecast reveals whether your engine for winning brand-new customers is healthy or stalling.`,
-    rally: `Rally separates new business from expansion and renewal in forecasting, so Rook can show new-logo performance on its own and flag when acquisition is slipping even while total revenue looks fine on the strength of the base.`,
+    rally: `Ardovo separates new business from expansion and renewal in forecasting, so Rook can show new-logo performance on its own and flag when acquisition is slipping even while total revenue looks fine on the strength of the base.`,
     faqs: [
       { q: `What is a new business forecast?`, a: `It projects revenue from net-new customers in a period, separate from renewals and expansion. Isolating it shows how new-logo acquisition is performing on its own rather than being masked by revenue from the existing base.` },
       { q: `Why separate new business from expansion?`, a: `Because they behave differently: new-logo deals typically have lower win rates and longer cycles than expansion into existing accounts. Forecasting them separately gives a clearer, more actionable read on each.` },
@@ -2150,7 +2150,7 @@ const TERMS = [
       `Often the highest-ROI part of the forecast.`,
     ],
     why: `Expansion revenue is cheaper to win and more predictable than new business, so forecasting it well captures growth that would otherwise be left on the table. It is central to net revenue retention.`,
-    rally: `Rally forecasts expansion using product-usage and account-health signals alongside pipeline, so Rook can surface accounts ripe for upsell and project expansion revenue with the same rigor as new business.`,
+    rally: `Ardovo forecasts expansion using product-usage and account-health signals alongside pipeline, so Rook can surface accounts ripe for upsell and project expansion revenue with the same rigor as new business.`,
     faqs: [
       { q: `What is an expansion forecast?`, a: `It projects additional revenue from existing customers through upsell, cross-sell, and seat growth. Because the relationship and usage data already exist, expansion converts faster and more reliably than new business.` },
       { q: `Why is expansion revenue easier to forecast?`, a: `Because you already have the account, its usage data, and a relationship, so buying signals are clearer and cycles are shorter. That makes expansion one of the more predictable, high-ROI parts of the revenue forecast.` },
@@ -2173,7 +2173,7 @@ const TERMS = [
       `Early forecasting enables intervention.`,
     ],
     why: `Gross bookings are meaningless if churn erases them. A churn forecast reveals net revenue movement and, more importantly, surfaces at-risk accounts early enough to intervene and prevent the loss.`,
-    rally: `Rally forecasts churn from account-health and usage signals, so Rook can flag at-risk accounts before their renewal date and give customer success time to intervene rather than discovering churn after it happens.`,
+    rally: `Ardovo forecasts churn from account-health and usage signals, so Rook can flag at-risk accounts before their renewal date and give customer success time to intervene rather than discovering churn after it happens.`,
     faqs: [
       { q: `What is a churn forecast?`, a: `It projects how much revenue you will lose to cancellations and downgrades over a period, using customer-health signals, usage trends, and renewal dates. It is essential to net revenue and ARR forecasting.` },
       { q: `Why is a churn forecast important?`, a: `Because gross new bookings mean little if churn quietly erases them. A churn forecast reveals net revenue movement and, crucially, identifies at-risk accounts early enough for customer success to intervene.` },
@@ -2196,7 +2196,7 @@ const TERMS = [
       `Essential for large enterprise opportunities.`,
     ],
     why: `Big deals have technical, executive, and commercial dimensions no single rep can own. A coordinated deal team covers all fronts and multithreads naturally, which raises win rates on complex opportunities.`,
-    rally: `Rally lets you assign a deal team with roles on any opportunity, and Rook keeps the team aligned on next steps and flags coverage gaps where a buyer stakeholder has no seller counterpart.`,
+    rally: `Ardovo lets you assign a deal team with roles on any opportunity, and Rook keeps the team aligned on next steps and flags coverage gaps where a buyer stakeholder has no seller counterpart.`,
     faqs: [
       { q: `What is a deal team?`, a: `It is the group of people who collaborate to win a complex opportunity beyond the owning rep, including sales engineers, executive sponsors, product specialists, and legal or finance support. It scales enterprise selling across technical, commercial, and executive fronts.` },
       { q: `When do I need a deal team?`, a: `For large, complex, multi-stakeholder deals that one rep cannot cover alone. If the buyer has a committee spanning technical, executive, and procurement roles, you need a deal team to match it stakeholder for stakeholder.` },
@@ -2219,7 +2219,7 @@ const TERMS = [
       `Turns a champion into an effective internal seller.`,
     ],
     why: `Deals are often decided in rooms the seller never enters. A champion letter ensures the business case survives that internal handoff intact, rather than being garbled or forgotten when it matters most.`,
-    rally: `Rally can draft a champion letter from the deal's captured value, metrics, and next steps, so Rook gives reps a ready artifact to equip their champion instead of leaving the internal pitch to chance.`,
+    rally: `Ardovo can draft a champion letter from the deal's captured value, metrics, and next steps, so Rook gives reps a ready artifact to equip their champion instead of leaving the internal pitch to chance.`,
     faqs: [
       { q: `What is a champion letter?`, a: `It is a concise written summary a seller gives their champion to advocate for the deal internally. It restates the quantified value, business case, and next steps in forwardable language, so the champion can sell effectively when the seller is not present.` },
       { q: `Why use a champion letter?`, a: `Because deals are often decided in internal rooms the seller never enters. A champion letter ensures the business case reaches the economic buyer intact, rather than being diluted or forgotten in secondhand retelling.` },
@@ -2242,7 +2242,7 @@ const TERMS = [
       `Slowing velocity flags process friction early.`,
     ],
     why: `A deal slowing its stage-to-stage progression is often the first sign of trouble, before engagement visibly drops. Watching velocity by stage catches friction early and shows exactly which transition to fix.`,
-    rally: `Rally tracks how fast deals move through each stage against your baseline, so Rook can flag deals decelerating and identify the specific stage transition where the pipeline is losing speed.`,
+    rally: `Ardovo tracks how fast deals move through each stage against your baseline, so Rook can flag deals decelerating and identify the specific stage transition where the pipeline is losing speed.`,
     faqs: [
       { q: `What is deal velocity rate?`, a: `It measures how quickly individual deals progress through pipeline stages, usually as average days per stage. It focuses on the speed of movement itself, unlike sales velocity, which measures revenue generated per day.` },
       { q: `How is deal velocity different from sales velocity?`, a: `Sales velocity is a revenue metric: deals times value times win rate divided by cycle length, yielding dollars per day. Deal velocity rate is about the pace of stage progression for individual deals, measured in days per stage.` },
@@ -2265,7 +2265,7 @@ const TERMS = [
       `Shaping them is a competitive-selling advantage.`,
     ],
     why: `If you do not know the criteria, you cannot prove you meet them, and you certainly cannot influence them. Deals are routinely lost to a competitor who understood and shaped the criteria better.`,
-    rally: `Rally holds decision criteria as fields on the deal, and Rook flags when they are unknown or when a competitor's strengths dominate them, so reps can address gaps and shape criteria before the decision.`,
+    rally: `Ardovo holds decision criteria as fields on the deal, and Rook flags when they are unknown or when a competitor's strengths dominate them, so reps can address gaps and shape criteria before the decision.`,
     faqs: [
       { q: `What are decision criteria in sales?`, a: `They are the specific requirements a buyer uses to evaluate options and choose a winner, spanning technical fit, commercial terms, and risk. They define exactly what a seller must prove to win the deal.` },
       { q: `How do I uncover a buyer's decision criteria?`, a: `Ask directly in discovery what factors will drive the decision and how they are weighted, and confirm with multiple stakeholders. Criteria often differ across the committee, so surface each key player's priorities.` },
@@ -2288,7 +2288,7 @@ const TERMS = [
       `Unmapped process is where complex deals die.`,
     ],
     why: `Enterprise deals slip because unspoken steps appear late. Mapping the decision process drags procurement, legal, and security into the open early, so the close date reflects reality and nothing ambushes the deal.`,
-    rally: `Rally captures the decision process on the deal and Rook flags missing steps like legal or procurement, so reps map the real path to signature and set close dates that account for every stage.`,
+    rally: `Ardovo captures the decision process on the deal and Rook flags missing steps like legal or procurement, so reps map the real path to signature and set close dates that account for every stage.`,
     faqs: [
       { q: `What is a decision process in sales?`, a: `It is the sequence of steps a buyer follows to reach a purchase, including evaluation, internal approvals, legal and security review, procurement, and final sign-off. Mapping it prevents hidden steps from derailing the deal late.` },
       { q: `What is the difference between decision criteria and decision process?`, a: `Decision criteria are what the buyer uses to judge options; the decision process is how and through whom they actually decide and buy. Criteria tell you what to prove; the process tells you the path and people to navigate.` },
@@ -2311,7 +2311,7 @@ const TERMS = [
       `Should be started early, not treated as a formality.`,
     ],
     why: `A verbal yes is not a signed deal. The paper process can add weeks through legal and procurement, so mapping and starting it early is what makes a close date real rather than optimistic.`,
-    rally: `Rally tracks the paper process as steps on the deal, and Rook warns when a late-stage deal has a verbal yes but no legal or procurement activity, so reps start the paperwork before it threatens the close date.`,
+    rally: `Ardovo tracks the paper process as steps on the deal, and Rook warns when a late-stage deal has a verbal yes but no legal or procurement activity, so reps start the paperwork before it threatens the close date.`,
     faqs: [
       { q: `What is the paper process in a deal?`, a: `It is the final path from a buyer's verbal commitment to a signed contract, including legal review, redline negotiation, security and compliance checks, and procurement approval. It is often underestimated and a frequent cause of late slippage.` },
       { q: `Why does the paper process cause deals to slip?`, a: `Because sellers treat a verbal yes as done and underestimate how long legal redlines, security review, and procurement queues take. These steps can add weeks, so a close date that ignores them slips.` },
@@ -2334,7 +2334,7 @@ const TERMS = [
       `Prevents coverage gaps that cause misses.`,
     ],
     why: `Revenue misses are usually pipeline-planning failures made a cycle earlier. Planning backward from the target ensures enough qualified pipeline is generated with time to close, rather than discovering the gap too late.`,
-    rally: `Rally computes required pipeline from each team's win rate, deal size, and cycle length, so Rook can lay out how much to generate each period to protect future quotas and flag when the plan falls behind.`,
+    rally: `Ardovo computes required pipeline from each team's win rate, deal size, and cycle length, so Rook can lay out how much to generate each period to protect future quotas and flag when the plan falls behind.`,
     faqs: [
       { q: `What is pipeline planning?`, a: `It is calculating how much qualified pipeline you must generate to hit future revenue targets, working backward from quota through win rate, deal size, and cycle length, with enough lead time for deals to close.` },
       { q: `How far ahead should I plan pipeline?`, a: `At least one full sales cycle, since pipeline created now closes a cycle later. For long enterprise cycles that may mean planning two or more quarters ahead to ensure coverage when the target period arrives.` },
@@ -2357,7 +2357,7 @@ const TERMS = [
       `Grounds coverage judgment in real conversion math.`,
     ],
     why: `Judging coverage against a generic 3x rule misleads teams whose win rates differ. A coverage model sets the right benchmark per segment, so leaders know precisely when pipeline is thin and how much to build.`,
-    rally: `Rally builds a coverage model from each segment's real win rate and slippage, so Rook can hold every team to its correct coverage benchmark and flag exactly when and where pipeline falls short.`,
+    rally: `Ardovo builds a coverage model from each segment's real win rate and slippage, so Rook can hold every team to its correct coverage benchmark and flag exactly when and where pipeline falls short.`,
     faqs: [
       { q: `What is a coverage model?`, a: `It is a definition of the pipeline-to-quota ratio a team needs to reliably hit targets, derived from win rate, slippage, and cycle length. It sets the coverage benchmark each rep and segment should maintain, replacing generic rules of thumb.` },
       { q: `Why not just use a 3x coverage rule?`, a: `Because 3x assumes a roughly 33 percent win rate. Teams with lower win rates need more coverage and higher-win-rate teams need less. A coverage model sets the right, segment-specific benchmark from your actual conversion data.` },
@@ -2380,7 +2380,7 @@ const TERMS = [
       `Complements the broad pipeline review.`,
     ],
     why: `Big deals carry the forecast, and one slipping can sink a quarter. A deal review finds the hidden risks in those deals early, when there is still time to address them, rather than explaining them after a loss.`,
-    rally: `Rally holds the buying committee, competitors, close plan, and risk log on the deal, so a deal review is a live inspection, and Rook flags single-threaded deals, missing economic buyers, and unsupported close dates.`,
+    rally: `Ardovo holds the buying committee, competitors, close plan, and risk log on the deal, so a deal review is a live inspection, and Rook flags single-threaded deals, missing economic buyers, and unsupported close dates.`,
     faqs: [
       { q: `What is a deal review meeting?`, a: `It is a focused deep dive on one strategic opportunity, examining its quantified value, buying committee, decision and paper process, and risks. The goal is to find what could kill the deal before it does, not to cheerlead it.` },
       { q: `How is a deal review different from a pipeline review?`, a: `A pipeline review scans all open deals for coverage and movement; a deal review goes deep on a single high-value opportunity. Use pipeline reviews for breadth and deal reviews for depth on the deals that carry the forecast.` },
@@ -2403,7 +2403,7 @@ const TERMS = [
       `Transparency lets leaders trace the number.`,
     ],
     why: `You cannot improve what you cannot measure. A defined forecast model produces a number you can track against actuals period after period, revealing where the method is off and how to sharpen it.`,
-    rally: `Rally runs multiple forecast models side by side and tracks each one's accuracy over time, so Rook can tell you which model best predicts your actuals and where a model's inputs are drifting from reality.`,
+    rally: `Ardovo runs multiple forecast models side by side and tracks each one's accuracy over time, so Rook can tell you which model best predicts your actuals and where a model's inputs are drifting from reality.`,
     faqs: [
       { q: `What is a forecast model?`, a: `It is the structured, repeatable method a team uses to predict revenue, combining inputs like pipeline, win probabilities, historical trends, and rep judgment into a defined process. Consistency and transparency are what make it improvable.` },
       { q: `What makes a good forecast model?`, a: `Consistency, so accuracy can be measured over time; transparency, so the number traces to its drivers; and fit to your data and deals. The best model for your team is the one that most reliably predicts your actuals.` },
@@ -2426,7 +2426,7 @@ const TERMS = [
       `Pairs with commit and best case for a full range.`,
     ],
     why: `Leaders who plan only on the expected number get caught flat-footed when a quarter goes badly. A worst case forecast lets them stress-test budgets and commitments so the business survives the downside.`,
-    rally: `Rally can present a worst case alongside commit and best case from the same live pipeline, so Rook shows the downside boundary and which deals falling through would push the number toward it.`,
+    rally: `Ardovo can present a worst case alongside commit and best case from the same live pipeline, so Rook shows the downside boundary and which deals falling through would push the number toward it.`,
     faqs: [
       { q: `What is a worst case forecast?`, a: `It is the conservative floor of the forecast, representing what would close if deals go poorly, key opportunities slip, and win rates dip. It sets the downside boundary so leadership can stress-test plans against a bad period.` },
       { q: `Why forecast a worst case?`, a: `Because planning only on the expected number leaves you exposed when a quarter goes badly. A worst case lets leaders pressure-test budgets and commitments so the business can absorb an unfavorable period without a crisis.` },
@@ -2449,7 +2449,7 @@ const TERMS = [
       `The number planning should anchor to.`,
     ],
     why: `Anchoring plans to either the floor or the ceiling misleads. The most likely forecast represents the genuine expectation, giving leadership the truest single number to plan around within the scenario range.`,
-    rally: `Rally computes a most likely forecast from commit plus a calibrated share of best case, so Rook presents the realistic central number alongside the worst and best case boundaries for a complete range.`,
+    rally: `Ardovo computes a most likely forecast from commit plus a calibrated share of best case, so Rook presents the realistic central number alongside the worst and best case boundaries for a complete range.`,
     faqs: [
       { q: `What is a most likely forecast?`, a: `It is the realistic central estimate of what a team expects to close, between the worst case floor and best case ceiling. It blends high-confidence commit deals with a reasonable share of upside to represent the genuine expectation.` },
       { q: `How is most likely different from commit?`, a: `Commit is only the deals a rep pledges will close. The most likely forecast adds a calibrated share of best-case upside to reflect what realistically lands, so it usually sits above commit and below best case.` },
@@ -2472,7 +2472,7 @@ const TERMS = [
       `The counterpart to weighted pipeline.`,
     ],
     why: `Unweighted pipeline is a fine measure of gross opportunity and coverage volume, but using it as a forecast guarantees overcommitment because it ignores that most early deals will not close.`,
-    rally: `Rally shows unweighted pipeline for volume and coverage views but forecasts on weighted and AI-refined numbers, so Rook keeps the raw total from being mistaken for what will actually close.`,
+    rally: `Ardovo shows unweighted pipeline for volume and coverage views but forecasts on weighted and AI-refined numbers, so Rook keeps the raw total from being mistaken for what will actually close.`,
     faqs: [
       { q: `What is unweighted pipeline?`, a: `It is the raw total value of all open deals with no close probability applied, so every deal counts at full value regardless of how likely it is to close. It shows gross opportunity but overstates likely bookings.` },
       { q: `When is unweighted pipeline useful?`, a: `For coverage ratios and volume views, where you want the total opportunity in play. It should not be used as a forecast, since treating early long shots as equal to near-certain deals overstates what will close.` },
@@ -2495,7 +2495,7 @@ const TERMS = [
       `Protects margin and policy while keeping velocity.`,
     ],
     why: `Without a clear approval path, nonstandard deals stall bouncing between finance, legal, and leadership. Deal desk approval centralizes the sign-off so reps get fast, consistent answers without breaking margin or policy.`,
-    rally: `Rally routes deals that trip discount or term thresholds into an approval workflow with a full audit trail, and Rook drafts the approval summary from the deal's line items so the desk can decide quickly.`,
+    rally: `Ardovo routes deals that trip discount or term thresholds into an approval workflow with a full audit trail, and Rook drafts the approval summary from the deal's line items so the desk can decide quickly.`,
     faqs: [
       { q: `What is deal desk approval?`, a: `It is the formal sign-off a nonstandard deal must get from the deal desk before closing, covering discounts, custom terms, unusual payment schedules, or large size. It protects margin and policy while giving reps a fast, consistent decision.` },
       { q: `Which deals need deal desk approval?`, a: `Only those that trip a defined threshold: discounts above a set level, custom legal terms, unusual payment schedules, or deal size over a limit. Standard deals should close without desk approval to preserve velocity.` },
@@ -2518,7 +2518,7 @@ const TERMS = [
       `Speeds exceptions while enforcing policy.`,
     ],
     why: `Approvals handled over email are slow, inconsistent, and impossible to audit. A workflow makes them fast, rule-driven, and traceable, which is what lets a business control margin without strangling deal velocity.`,
-    rally: `Rally routes approvals automatically by discount, term, and size thresholds with a complete audit trail, and Rook drafts the approval context, so exceptions move fast and every decision is recorded.`,
+    rally: `Ardovo routes approvals automatically by discount, term, and size thresholds with a complete audit trail, and Rook drafts the approval context, so exceptions move fast and every decision is recorded.`,
     faqs: [
       { q: `What is an approval workflow in sales?`, a: `It is an automated process that routes a deal needing sign-off to the correct approvers based on rules like discount level or deal size, tracks each decision, and records an audit trail. It replaces ad hoc email approvals with a consistent, fast, auditable path.` },
       { q: `Why use an approval workflow instead of email?`, a: `Because email approvals are slow, inconsistent, and impossible to audit. A workflow routes by rule, gives reps visibility into status, enforces policy automatically, and leaves a clean audit trail for compliance and analysis.` },
@@ -2541,7 +2541,7 @@ const TERMS = [
       `Joint ownership reduces slippage.`,
     ],
     why: `A plan the buyer never saw does little. A mutual close plan surfaces the buyer's hidden steps early and gives the champion a tool to drive the deal internally, which is why mutually owned plans slip far less.`,
-    rally: `Rally lets you build a mutual close plan on the deal with owners and dates on both sides, and Rook tracks progress, nudges owners on overdue steps, and warns when a slipping milestone threatens the close date.`,
+    rally: `Ardovo lets you build a mutual close plan on the deal with owners and dates on both sides, and Rook tracks progress, nudges owners on overdue steps, and warns when a slipping milestone threatens the close date.`,
     faqs: [
       { q: `What is a mutual close plan?`, a: `It is a shared, dated roadmap from a buyer's verbal commitment to a signed contract, built and owned jointly by seller and buyer, with owners and dates on every step including legal, security, and procurement. Joint ownership reduces slippage.` },
       { q: `Why make a close plan mutual?`, a: `Because a plan the buyer helped build surfaces their internal steps early and gives the champion a tool to drive the deal. A one-sided seller checklist the buyer never saw does far less to prevent slippage.` },
@@ -2564,7 +2564,7 @@ const TERMS = [
       `Must be broken down by stage, period, and qualification.`,
     ],
     why: `A big total pipeline feels reassuring and can be dangerously misleading. Decomposing it exposes whether the size is real qualified, in-period opportunity or padding that will never close.`,
-    rally: `Rally shows total pipeline but always lets you slice it by stage, period, and qualification, so Rook can tell you whether a healthy-looking total is genuinely covering the number or hiding a gap.`,
+    rally: `Ardovo shows total pipeline but always lets you slice it by stage, period, and qualification, so Rook can tell you whether a healthy-looking total is genuinely covering the number or hiding a gap.`,
     faqs: [
       { q: `What is total pipeline?`, a: `It is the combined value of every open deal across all stages, from new to near-close. It is a useful headline volume metric but too coarse for decisions without breaking it down by stage, period, and qualification.` },
       { q: `Why is total pipeline misleading on its own?`, a: `Because a large total can hide a pipeline that is unqualified, badly timed, or top-heavy with early deals that will not close soon. Size alone says nothing about whether the pipeline actually covers the number.` },
@@ -2587,7 +2587,7 @@ const TERMS = [
       `Turns a static view into a trend.`,
     ],
     why: `Without snapshots, you only ever see now, and slippage hides in plain sight. Comparing snapshots exposes the week-over-week movement where risk and progress actually live.`,
-    rally: `Rally automatically snapshots the pipeline over time, so Rook can show exactly what changed since last week, which deals slipped, which advanced, and which were newly created, without any manual tracking.`,
+    rally: `Ardovo automatically snapshots the pipeline over time, so Rook can show exactly what changed since last week, which deals slipped, which advanced, and which were newly created, without any manual tracking.`,
     faqs: [
       { q: `What is a pipeline snapshot?`, a: `It is a saved record of the pipeline's exact state at a point in time, capturing each deal's stage, value, and close date. Comparing snapshots over time reveals what changed, which is where movement and risk become visible.` },
       { q: `Why are pipeline snapshots useful?`, a: `Because a live-only view hides movement. Comparing weekly snapshots shows which deals advanced, slipped, were added, or dropped, turning the pipeline into a trend so you can see progress and slippage rather than just the current picture.` },
@@ -2610,7 +2610,7 @@ const TERMS = [
       `Weighted value is the realistic forecasting read.`,
     ],
     why: `Coverage and forecast conversations hinge on pipeline value, so confusing raw and weighted leads to overcommitment. Knowing which figure you are using is basic to reading pipeline health correctly.`,
-    rally: `Rally shows both raw and weighted pipeline value clearly labeled, so Rook never lets a raw total be mistaken for what will close and uses weighted value for coverage and forecast math.`,
+    rally: `Ardovo shows both raw and weighted pipeline value clearly labeled, so Rook never lets a raw total be mistaken for what will close and uses weighted value for coverage and forecast math.`,
     faqs: [
       { q: `What is pipeline value?`, a: `It is the total monetary worth of the deals in your pipeline, expressed either raw as full deal amounts or weighted by each deal's close probability. It is the headline figure for pipeline size and the basis for coverage.` },
       { q: `Should I use raw or weighted pipeline value?`, a: `Use weighted value for forecasting and realistic coverage, since raw value overstates what will close by treating every deal as certain. Raw value is fine for gross volume views as long as it is not mistaken for a forecast.` },
@@ -2633,7 +2633,7 @@ const TERMS = [
       `Sets the ceiling on achievable bookings.`,
     ],
     why: `If capacity is below the target, the gap is a hiring problem, not a pipeline problem. Knowing capacity prevents leaders from setting revenue goals the current team physically cannot reach.`,
-    rally: `Rally models quota capacity from ramped headcount and productivity, so Rook can flag when a revenue target exceeds what the team can carry and show how much hiring, and how early, is required to close it.`,
+    rally: `Ardovo models quota capacity from ramped headcount and productivity, so Rook can flag when a revenue target exceeds what the team can carry and show how much hiring, and how early, is required to close it.`,
     faqs: [
       { q: `What is quota capacity?`, a: `It is the total quota a sales team can realistically carry, based on ramped headcount, per-rep productivity, and the ramp state of newer hires. It sets the ceiling on achievable bookings and grounds capacity planning.` },
       { q: `Why does quota capacity account for ramp?`, a: `Because a newly hired rep cannot carry a full quota until they ramp. Simply multiplying headcount by quota overstates capacity; adjusting for ramp gives an honest read on what the team can actually carry this period.` },
@@ -2656,7 +2656,7 @@ const TERMS = [
       `Should be grounded in capacity and history.`,
     ],
     why: `Targets shape behavior. An attainable, motivating target drives healthy pipeline effort; an impossible one produces sandbagging, burnout, and attrition. Grounding targets in capacity and attainment history keeps them credible.`,
-    rally: `Rally sets and tracks sales targets against real capacity and historical attainment, so Rook can flag when a target is unrealistic given the team's capacity and pipeline, before it demoralizes the team.`,
+    rally: `Ardovo sets and tracks sales targets against real capacity and historical attainment, so Rook can flag when a target is unrealistic given the team's capacity and pipeline, before it demoralizes the team.`,
     faqs: [
       { q: `What is a sales target?`, a: `It is the revenue or bookings goal set for a rep, team, or period. It anchors quota, coverage, and forecasting, and its design directly shapes rep behavior and motivation.` },
       { q: `How do I set a realistic sales target?`, a: `Ground it in quota capacity, historical attainment, and pipeline reality rather than a top-down wish. A good target is ambitious but attainable for a majority of reps, which keeps participation and morale healthy.` },
@@ -2679,7 +2679,7 @@ const TERMS = [
       `Structures forecasting, analysis, and coaching.`,
     ],
     why: `Consistent, buyer-based stage definitions are the foundation of an honest pipeline. When reps interpret stages differently, the forecast becomes noise, so clear stages with exit criteria are essential.`,
-    rally: `Rally lets you define stages with explicit exit criteria and probabilities, and Rook updates a deal's stage from meeting notes and activity so stages reflect what the buyer actually did, not wishful data entry.`,
+    rally: `Ardovo lets you define stages with explicit exit criteria and probabilities, and Rook updates a deal's stage from meeting notes and activity so stages reflect what the buyer actually did, not wishful data entry.`,
     faqs: [
       { q: `What is a pipeline stage?`, a: `It is a defined step a deal occupies as it moves toward close, each mapped to a buyer milestone with an exit criterion and often a default win probability. Stages give a shared language for deal status and structure forecasting.` },
       { q: `How many pipeline stages should I have?`, a: `Five to seven for most B2B teams. Fewer hides where deals stall; more creates data-entry busywork and forces reps to guess. Start with New, Qualified, Discovery, Proposal, Negotiation, Closed.` },
@@ -2702,7 +2702,7 @@ const TERMS = [
       `A missing next step is the top stall indicator.`,
     ],
     why: `Deals die from neglect more than from competition, and neglect starts when there is no next step. Enforcing a scheduled next step on every deal is the cheapest, highest-impact hygiene rule in sales.`,
-    rally: `Rally requires a next step on every open deal and Rook flags any deal missing one, so the simplest and most predictive hygiene rule is enforced automatically rather than depending on rep willpower.`,
+    rally: `Ardovo requires a next step on every open deal and Rook flags any deal missing one, so the simplest and most predictive hygiene rule is enforced automatically rather than depending on rep willpower.`,
     faqs: [
       { q: `What is a next step in a sales deal?`, a: `It is the specific, dated action that will advance the deal, ideally a scheduled meeting with the buyer. Every open deal should have one, because a deal without a next step is about to stall.` },
       { q: `Why is a missing next step so important?`, a: `Because it is the single most reliable leading indicator of a stall. Deals die from neglect, and neglect begins the moment there is no scheduled next action. Enforcing next steps prevents most stalls cheaply.` },
@@ -2725,7 +2725,7 @@ const TERMS = [
       `Early action improves revival odds.`,
     ],
     why: `Stalled deals quietly drain a pipeline, inflating coverage while never closing. Identifying and either reviving or disqualifying them keeps the pipeline honest and reclaims the hours they waste.`,
-    rally: `Rally flags stalled deals from engagement and time-in-stage signals, and Rook suggests a re-engagement angle from the deal's history so reps can act while the stall is still recoverable.`,
+    rally: `Ardovo flags stalled deals from engagement and time-in-stage signals, and Rook suggests a re-engagement angle from the deal's history so reps can act while the stall is still recoverable.`,
     faqs: [
       { q: `What is a stalled deal?`, a: `It is an active opportunity that has stopped progressing, shown by falling or absent engagement, a missing next step, or time-in-stage past your historical average. It is at risk but not yet lost.` },
       { q: `How do I know if a deal is stalled or just slow?`, a: `Compare it to your normal cycle. A slow deal still responds and advances between touches on a long timeline. A stalled deal has gone quiet, missed a step, or exceeded its typical time-in-stage without movement.` },
@@ -2748,7 +2748,7 @@ const TERMS = [
       `Habitual use masks a pipeline problem.`,
     ],
     why: `Pulling deals forward can rescue a quarter but leaves the next one thinner. If a team routinely relies on pull forwards, the real issue is insufficient pipeline generation, which the pull forward only disguises.`,
-    rally: `Rally tracks how often deals are pulled forward and from which future periods, so Rook can flag when a team is borrowing from tomorrow to hit today and surface the underlying coverage gap.`,
+    rally: `Ardovo tracks how often deals are pulled forward and from which future periods, so Rook can flag when a team is borrowing from tomorrow to hit today and surface the underlying coverage gap.`,
     faqs: [
       { q: `What is a pull forward in sales?`, a: `It is a deal accelerated to close earlier than its natural timeline, usually to help hit the current period's number. It can be legitimate when the buyer is ready but risky when used to plug a gap.` },
       { q: `Is pulling deals forward a bad thing?`, a: `Not inherently. Accelerating a genuinely ready buyer is good selling. The problem is habitual pull forwards to cover gaps, which borrow from future periods and hide a chronic pipeline-generation shortfall.` },
@@ -2771,7 +2771,7 @@ const TERMS = [
       `Tracking pushes exposes forecast risk.`,
     ],
     why: `A close date that keeps pushing is a forecast you cannot trust. Watching pushes per deal and per rep surfaces the deals and habits driving slippage, so they can be re-qualified or coached rather than repeatedly re-dated.`,
-    rally: `Rally logs every close-date push on a deal, so Rook can flag deals pushed multiple times and reps whose deals push chronically, turning slippage from a period-end surprise into an early warning.`,
+    rally: `Ardovo logs every close-date push on a deal, so Rook can flag deals pushed multiple times and reps whose deals push chronically, turning slippage from a period-end surprise into an early warning.`,
     faqs: [
       { q: `What is a deal push?`, a: `It is moving an opportunity's close date out to a later period. A single push can be legitimate, but repeated pushes are the mechanics of slippage and often signal weak qualification or an uncontrolled deal.` },
       { q: `How many pushes is too many?`, a: `A second or third push on the same deal is a warning. It usually means the rep cannot control the timeline, often because there is no real compelling event or economic-buyer access. Such deals should be re-qualified, not just re-dated.` },
@@ -2794,7 +2794,7 @@ const TERMS = [
       `A core real-time attainment metric.`,
     ],
     why: `Waiting until quarter end to see attainment is too late to act. QTD bookings against pace gives a continuous read, so a team trending behind can push generation or acceleration while time remains.`,
-    rally: `Rally shows quarter to date bookings live against the pace needed for target, so Rook can tell you not just how much you have closed but whether that is ahead of or behind where you need to be.`,
+    rally: `Ardovo shows quarter to date bookings live against the pace needed for target, so Rook can tell you not just how much you have closed but whether that is ahead of or behind where you need to be.`,
     faqs: [
       { q: `What is quarter to date bookings?`, a: `It is the total contract value signed from the start of the current quarter through today. Compared against the pace needed to hit quota, it shows whether you are ahead of or behind target with time still to act.` },
       { q: `How is QTD bookings used?`, a: `As a real-time attainment and pacing signal. Comparing it to the pace required for target reveals whether the quarter is on track, feeding gap-to-goal analysis so the team can react before period end rather than after.` },
@@ -2817,7 +2817,7 @@ const TERMS = [
       `An implied rate above your real rate means thin coverage.`,
     ],
     why: `Teams often set coverage targets without checking the win rate they imply. If the implied rate exceeds reality, the pipeline will not deliver the number, and the gap surfaces only at period end unless you catch it early.`,
-    rally: `Rally compares your implied win rate against your actual measured win rate, so Rook can warn when your coverage is quietly assuming a conversion you do not achieve and quantify the real gap.`,
+    rally: `Ardovo compares your implied win rate against your actual measured win rate, so Rook can warn when your coverage is quietly assuming a conversion you do not achieve and quantify the real gap.`,
     faqs: [
       { q: `What is implied win rate?`, a: `It is the win rate baked into your coverage assumptions, calculated as quota divided by the pipeline you are counting on. Planning to hit a 1 million quota on 4 million of pipeline implies a 25 percent win rate.` },
       { q: `Why compare implied and actual win rate?`, a: `Because if your implied win rate is higher than the rate you actually achieve, your pipeline will not deliver the number. The comparison is a fast sanity check that reveals thin coverage before period end.` },
@@ -2840,7 +2840,7 @@ const TERMS = [
       `A concise leading indicator of momentum.`,
     ],
     why: `A book to bill above 1 signals healthy, growing demand and a building backlog; below 1 warns that the pipeline is not replacing what you fulfill. It is an early read on revenue direction that raw bookings alone can miss.`,
-    rally: `Rally tracks bookings against billings so Rook can surface the book to bill ratio and flag when it dips below 1, an early sign that new demand is not keeping pace with fulfillment.`,
+    rally: `Ardovo tracks bookings against billings so Rook can surface the book to bill ratio and flag when it dips below 1, an early sign that new demand is not keeping pace with fulfillment.`,
     faqs: [
       { q: `What is the book to bill ratio?`, a: `It compares the value of orders booked in a period to the value billed or fulfilled in the same period. Above 1 means new bookings exceed billings, signaling growing demand; below 1 means the pipeline may be slowing.` },
       { q: `What does a book to bill above 1 mean?`, a: `That new bookings are outpacing what you are billing, indicating healthy, growing demand and a building backlog. Sustained readings above 1 point to accelerating revenue, while a drop toward or below 1 signals deceleration.` },
@@ -2863,7 +2863,7 @@ const TERMS = [
       `The operational core of a sales team.`,
     ],
     why: `Every forecast, win-rate analysis, and coaching conversation depends on opportunity data. Disciplined opportunity management is what makes that data trustworthy, which is why it underpins the entire revenue operation.`,
-    rally: `Rally ships a deep opportunity object and Rook keeps its fields current from meeting notes and activity while flagging deals missing the data needed to forecast, so opportunity management stops being a data-entry chore.`,
+    rally: `Ardovo ships a deep opportunity object and Rook keeps its fields current from meeting notes and activity while flagging deals missing the data needed to forecast, so opportunity management stops being a data-entry chore.`,
     faqs: [
       { q: `What is opportunity management?`, a: `It is the discipline of tracking and advancing qualified deals through the pipeline, keeping each opportunity's stage, value, close date, next step, and buying committee accurate so the pipeline stays clean and the forecast stays trustworthy.` },
       { q: `How is opportunity management different from lead management?`, a: `Lead management handles unqualified interest and nurtures it toward qualification. Opportunity management takes over once a deal is qualified, advancing it to close. Leads become opportunities when they clear the qualification bar.` },
@@ -2886,7 +2886,7 @@ const TERMS = [
       `The deal-level counterpart to opportunity management.`,
     ],
     why: `Complex deals require orchestration, not just data entry. Strong deal management coordinates the buying committee, the close plan, and internal approvals so a winnable deal actually gets won rather than stalling in a gap.`,
-    rally: `Rally holds the buying committee, close plan, competitors, and approvals on the deal, and Rook coordinates next steps and flags gaps, so driving a deal to close is orchestrated in one place.`,
+    rally: `Ardovo holds the buying committee, close plan, competitors, and approvals on the deal, and Rook coordinates next steps and flags gaps, so driving a deal to close is orchestrated in one place.`,
     faqs: [
       { q: `What is deal management?`, a: `It is the end-to-end handling of an individual opportunity from qualification to signature, coordinating the buying committee, next steps, internal approvals, and the close plan to drive a specific deal to close.` },
       { q: `What is the difference between deal and opportunity management?`, a: `Opportunity management emphasizes keeping pipeline-wide deal data accurate; deal management focuses on driving one specific deal to close, orchestrating the stakeholders and steps required to win it. They are complementary altitudes.` },
@@ -2909,7 +2909,7 @@ const TERMS = [
       `Dead deals pruned to keep coverage honest.`,
     ],
     why: `A pipeline is only as good as its data, and data decays without maintenance. Pipeline management is the discipline that keeps coverage, velocity, and the forecast trustworthy week after week.`,
-    rally: `Rally keeps pipeline data clean between reviews: Rook updates stages from activity, flags stalls and missing next steps, and surfaces slipped dates, so pipeline management stops depending on manual upkeep.`,
+    rally: `Ardovo keeps pipeline data clean between reviews: Rook updates stages from activity, flags stalls and missing next steps, and surfaces slipped dates, so pipeline management stops depending on manual upkeep.`,
     faqs: [
       { q: `What is pipeline management?`, a: `It is the ongoing discipline of keeping every deal in the right stage with a dated next step and a realistic close date, reviewing the pipeline weekly, and pruning dead deals so coverage and the forecast stay honest.` },
       { q: `How is pipeline management different from building a pipeline?`, a: `Building sets up the stages and structure; management is the continuous hygiene that keeps the data accurate afterward. A well-built pipeline still decays into a fantasy forecast without ongoing management.` },
@@ -2932,7 +2932,7 @@ const TERMS = [
       `Prevents late surprises that cause slippage.`,
     ],
     why: `Complex deals slip on forgotten steps. A close plan checklist forces every step into the open with an owner and date, so the close date reflects the real path rather than an optimistic guess.`,
-    rally: `Rally provides a close plan checklist on the deal with owners and dates, and Rook nudges owners on overdue steps and warns when a slipping item threatens the close date, so nothing on the path to signature is missed.`,
+    rally: `Ardovo provides a close plan checklist on the deal with owners and dates, and Rook nudges owners on overdue steps and warns when a slipping item threatens the close date, so nothing on the path to signature is missed.`,
     faqs: [
       { q: `What goes in a close plan checklist?`, a: `Every step from verbal yes to signature, each with an owner and date: technical validation, business case approval, legal and security review, procurement, and final sign-off. The steps reps commonly skip are the most important to include.` },
       { q: `Why use a close plan checklist?`, a: `Because complex deals slip on forgotten steps. Making every step explicit with an owner and date surfaces hidden work like procurement early, so the close date reflects the real path and nothing ambushes the deal late.` },
@@ -2955,7 +2955,7 @@ const TERMS = [
       `Balances speed against margin and policy control.`,
     ],
     why: `A clear deal desk process is what keeps complex deals from stalling in approval limbo. It gives reps fast, consistent answers while protecting margin, and its audit trail supports compliance and analysis.`,
-    rally: `Rally implements the deal desk process as an automated approval workflow with thresholds, reviewers, and audit trail, and Rook drafts approval summaries so the desk decides quickly without slowing deals.`,
+    rally: `Ardovo implements the deal desk process as an automated approval workflow with thresholds, reviewers, and audit trail, and Rook drafts approval summaries so the desk decides quickly without slowing deals.`,
     faqs: [
       { q: `What is a deal desk process?`, a: `It is the defined workflow for reviewing and approving nonstandard deals, covering what triggers a review, approval thresholds, reviewers across finance and legal, and turnaround SLAs. It balances deal velocity against margin and policy control.` },
       { q: `How do I design a deal desk process?`, a: `Define clear triggers so only exceptions route to the desk, map each exception type to the right approvers and thresholds, set turnaround SLAs, and keep an audit trail. Keep standard deals out entirely to preserve velocity.` },
@@ -2978,7 +2978,7 @@ const TERMS = [
       `No clear metric means no real driver.`,
     ],
     why: `Metrics turn a vague interest into a fundable business case. When the buyer can name the number they want to move and its value, the deal has urgency and a justification for spend that survives internal scrutiny.`,
-    rally: `Rally captures deal metrics as structured fields, and Rook flags deals with no quantified metric so reps know to pin down the economic driver before investing further.`,
+    rally: `Ardovo captures deal metrics as structured fields, and Rook flags deals with no quantified metric so reps know to pin down the economic driver before investing further.`,
     faqs: [
       { q: `What are Metrics in MEDDIC?`, a: `They are the specific, quantified business outcomes a buyer wants to achieve and the dollar value of achieving them, such as cutting churn by two points or saving 200 hours a month. They form the economic justification for the purchase.` },
       { q: `Why are Metrics the first element of MEDDIC?`, a: `Because they are the foundation. Without a quantified outcome the buyer wants, there is no economic driver, and deals without a real driver tend to stall or end in no-decision regardless of how interested the buyer seems.` },
@@ -3001,7 +3001,7 @@ const TERMS = [
       `Never meeting them is a top loss cause.`,
     ],
     why: `A deal can look healthy while resting entirely on people who cannot fund it. Confirming and engaging the economic buyer is what makes a deal real, and skipping it is why many advanced deals collapse at the end.`,
-    rally: `Rally maps the economic buyer on every deal and Rook flags opportunities where the economic buyer has not been identified or engaged, so reps close that gap before it becomes a late-stage loss.`,
+    rally: `Ardovo maps the economic buyer on every deal and Rook flags opportunities where the economic buyer has not been identified or engaged, so reps close that gap before it becomes a late-stage loss.`,
     faqs: [
       { q: `Who is the economic buyer in MEDDIC?`, a: `The single person with authority to release budget and give final approval for the purchase. They are often distinct from the champion or the day-to-day contact and hold the real power to say yes.` },
       { q: `Why is reaching the economic buyer so important?`, a: `Because they are the only one who can fund the deal. A deal resting on stakeholders who cannot release budget is fragile, and never meeting the economic buyer is one of the most common causes of late-stage losses.` },
@@ -3024,7 +3024,7 @@ const TERMS = [
       `A strong predictor of a closed-won deal.`,
     ],
     why: `Most of a complex deal happens when you are not there. A capable champion carries your case through those internal conversations, which is why champion strength correlates so strongly with wins.`,
-    rally: `Rally tracks the champion on every deal and Rook flags single-threaded deals and untested champions, prompting reps to confirm their champion can actually act before relying on them.`,
+    rally: `Ardovo tracks the champion on every deal and Rook flags single-threaded deals and untested champions, prompting reps to confirm their champion can actually act before relying on them.`,
     faqs: [
       { q: `What is a champion in sales?`, a: `A champion is an influential person inside the buyer organization who wants your solution to win and actively sells it internally when you are not in the room. They arrange meetings, share information, and push the process forward.` },
       { q: `How do I know if I have a real champion?`, a: `Test them. Ask them to arrange a meeting with the economic buyer or advance an internal step. A real champion acts; someone who only speaks well of you is a supporter or friend, not a champion who can carry the deal.` },
@@ -3047,7 +3047,7 @@ const TERMS = [
       `Unquantified pain rarely produces budget.`,
     ],
     why: `Urgency and budget both flow from pain. A deal built on identified, quantified pain has a reason to close now, while one built on mild interest drifts into no-decision when priorities compete.`,
-    rally: `Rally captures identified pain and its cost on the deal, and Rook flags deals where the pain is vague or unquantified so reps can confirm a real, costly problem before investing.`,
+    rally: `Ardovo captures identified pain and its cost on the deal, and Rook flags deals where the pain is vague or unquantified so reps can confirm a real, costly problem before investing.`,
     faqs: [
       { q: `What does Identify Pain mean in MEDDIC?`, a: `It means confirming the specific business problem the buyer needs to solve and the consequences of leaving it unsolved. Identified, quantified pain creates the urgency and budget justification that make a deal real.` },
       { q: `Why does pain need to be quantified?`, a: `Because pain the buyer will not attach a cost to rarely produces budget. A quantified cost of inaction gives the deal urgency and a justification that survives internal scrutiny, while vague interest fades when priorities compete.` },
@@ -3070,7 +3070,7 @@ const TERMS = [
       `Missing one risks a late veto.`,
     ],
     why: `A single unengaged decision maker can sink a deal at the finish. Mapping all of them, including potential blockers, ensures no one with veto power surfaces late to derail a deal you thought was won.`,
-    rally: `Rally maps every decision maker on the buying committee with their role and position, and Rook flags power players you have not engaged so no veto emerges at the last minute.`,
+    rally: `Ardovo maps every decision maker on the buying committee with their role and position, and Rook flags power players you have not engaged so no veto emerges at the last minute.`,
     faqs: [
       { q: `What is a decision maker in sales?`, a: `Anyone with authority to approve, shape, or veto a purchase. Complex deals have several across functions, including the economic buyer, technical approvers, and security or compliance reviewers who can block.` },
       { q: `How many decision makers does a typical deal have?`, a: `Modern B2B deals often involve several, part of a buying committee of six or more stakeholders. Some are champions and supporters, others are neutral or potential blockers, and all with veto power must be identified.` },
@@ -3093,7 +3093,7 @@ const TERMS = [
       `Must be identified early and addressed directly.`,
     ],
     why: `A blocker addressed early is a manageable objection; a blocker ignored is a late-stage veto. Surfacing who loses if your deal closes, and engaging them, prevents the surprise resistance that kills advanced deals.`,
-    rally: `Rally lets you mark blockers on the buying committee with their concerns, and Rook flags unaddressed blockers so reps engage them before they resurface with veto power at the decision.`,
+    rally: `Ardovo lets you mark blockers on the buying committee with their concerns, and Rook flags unaddressed blockers so reps engage them before they resurface with veto power at the decision.`,
     faqs: [
       { q: `What is a blocker in a sales deal?`, a: `A blocker is a stakeholder who opposes your deal or could derail it, often because they favor a competitor, fear the change, lose something if it closes, or distrust the risk. They frequently stay quiet until late in the deal.` },
       { q: `How do I handle a blocker?`, a: `Identify them early and address their concerns directly rather than routing around them. Understand what they fear or lose, and either neutralize the objection or enlist your champion and economic buyer to counter it before the decision.` },
@@ -3116,7 +3116,7 @@ const TERMS = [
       `Hardens the forecast by exposing weak commits.`,
     ],
     why: `Forecasts break when nobody challenges individual deals. Inspection surfaces the missing economic buyer or unsupported date behind a confident commit, so the forecast reflects evidence rather than hope.`,
-    rally: `Rally surfaces each deal's risk signals so inspection starts from evidence, and Rook flags commits missing an economic buyer, a confirmed date, or recent engagement, focusing inspection where it matters.`,
+    rally: `Ardovo surfaces each deal's risk signals so inspection starts from evidence, and Rook flags commits missing an economic buyer, a confirmed date, or recent engagement, focusing inspection where it matters.`,
     faqs: [
       { q: `What is deal inspection?`, a: `It is a manager closely examining a single deal's evidence, stakeholders, risks, and close plan to test whether it is genuinely as strong as forecast. Unlike a status update, it interrogates the deal to expose weak commits before they miss.` },
       { q: `How is deal inspection different from a deal review?`, a: `They overlap heavily. A deal review is often the formal meeting; deal inspection is the underlying discipline of scrutinizing the evidence behind a deal, which can happen in a review or continuously as a manager checks deals.` },
@@ -3139,7 +3139,7 @@ const TERMS = [
       `Separates competitive losses from no-decision.`,
     ],
     why: `Knowing you lose 75 percent of deals is only actionable when you know why. Segmenting loss rate by reason reveals whether the problem is competitors, weak qualification, or unproven value, each of which needs a different fix.`,
-    rally: `Rally captures a loss reason on every closed-lost deal and reports loss rate by reason, competitor, and segment, so Rook can show exactly where and why you lose and which cause to attack first.`,
+    rally: `Ardovo captures a loss reason on every closed-lost deal and reports loss rate by reason, competitor, and segment, so Rook can show exactly where and why you lose and which cause to attack first.`,
     faqs: [
       { q: `What is loss rate?`, a: `It is the percentage of closed deals that end in a loss rather than a win, the mirror of win rate. A 25 percent win rate implies a 75 percent loss rate. Segmented by reason, it shows not just how often but why you lose.` },
       { q: `Why analyze loss rate instead of just win rate?`, a: `Because explicitly examining losses, and segmenting by reason, surfaces fixable causes that a win-rate number hides. Separating competitive losses from no-decisions and disqualifications tells you exactly where to improve.` },
@@ -3162,7 +3162,7 @@ const TERMS = [
       `Highlights which battlecards need work.`,
     ],
     why: `Knowing you win 20 percent against a particular rival tells you to either invest in differentiation there or qualify out of those deals. Competitive win rate turns a vague sense of rivalry into a precise, actionable position.`,
-    rally: `Rally tracks competitors on deals and computes win rate against each, so Rook can show which rivals you beat, which you lose to, and where better positioning or qualification would pay off most.`,
+    rally: `Ardovo tracks competitors on deals and computes win rate against each, so Rook can show which rivals you beat, which you lose to, and where better positioning or qualification would pay off most.`,
     faqs: [
       { q: `What is competitive win rate?`, a: `It is your win rate in deals where a specific competitor was involved. Tracking it per competitor reveals your real position against each rival, which the blended overall win rate hides.` },
       { q: `Why track win rate by competitor?`, a: `Because your position varies by opponent. Knowing you win 60 percent against one rival and 20 percent against another tells you where to compete aggressively, where to invest in differentiation, and which deals to qualify out of.` },
@@ -3185,7 +3185,7 @@ const TERMS = [
       `Reveals stages where deals most often die.`,
     ],
     why: `Accurate stage win rates make stage and weighted forecasting trustworthy and expose the highest-drop stages. Guessed probabilities, by contrast, produce a forecast that looks precise but is quietly wrong.`,
-    rally: `Rally calculates stage win rates from your real closed-deal history and uses them as forecast probabilities, so Rook keeps weighting grounded in evidence and highlights the stages with the steepest drop-off.`,
+    rally: `Ardovo calculates stage win rates from your real closed-deal history and uses them as forecast probabilities, so Rook keeps weighting grounded in evidence and highlights the stages with the steepest drop-off.`,
     faqs: [
       { q: `What is stage win rate?`, a: `It is the historical probability that a deal reaching a given stage eventually closes won. If 40 percent of deals that reach Proposal are won, the Proposal stage win rate is 40 percent. It sets default forecasting probabilities.` },
       { q: `How is stage win rate used in forecasting?`, a: `Each stage's win rate becomes its default probability in stage and weighted forecasting. Multiplying a deal by its stage win rate gives its weighted value, so accurate stage win rates are what make those forecasts reliable.` },
@@ -3208,7 +3208,7 @@ const TERMS = [
       `Cleaner than a lead-based close rate.`,
     ],
     why: `Measuring win rate from qualified opportunities separates selling skill from lead quality. A low opportunity win rate points to a selling or access problem, whereas a lead-based rate blends in leads that were never going to convert.`,
-    rally: `Rally computes opportunity win rate from the qualification point by rep, segment, and source, so Rook can distinguish a selling problem from a lead-quality problem and coach the right one.`,
+    rally: `Ardovo computes opportunity win rate from the qualification point by rep, segment, and source, so Rook can distinguish a selling problem from a lead-quality problem and coach the right one.`,
     faqs: [
       { q: `What is opportunity win rate?`, a: `It is the percentage of qualified opportunities that close won, measured from qualification rather than raw lead. Excluding unvetted early deals, it isolates how effectively reps convert genuine opportunities into wins.` },
       { q: `Why measure win rate from qualified opportunities?`, a: `Because measuring from raw lead dilutes the number with deals that were never real, masking selling effectiveness. Starting at qualification gives a cleaner read on how well reps convert genuine opportunities.` },
@@ -3231,7 +3231,7 @@ const TERMS = [
       `Underpins funnel and forecast analysis.`,
     ],
     why: `The transition with the lowest deal conversion rate is your constraint. Fixing it lifts overall throughput more than effort spread evenly, and you can only find it by measuring conversion point to point.`,
-    rally: `Rally computes deal conversion between any two points automatically, so Rook can highlight the weakest transition in your funnel and quantify what fixing it would do to overall throughput.`,
+    rally: `Ardovo computes deal conversion between any two points automatically, so Rook can highlight the weakest transition in your funnel and quantify what fixing it would do to overall throughput.`,
     faqs: [
       { q: `What is deal conversion rate?`, a: `It is the percentage of deals that move successfully from one defined point to another, most often qualified opportunity to closed won. Measured between any two points, it pinpoints where deals convert or fall out.` },
       { q: `How is deal conversion rate different from win rate?`, a: `Win rate is a specific conversion, closed-won divided by all closed deals. Deal conversion rate is the general concept, measurable between any two points such as lead to opportunity or opportunity to close, for finer diagnosis.` },
@@ -3254,7 +3254,7 @@ const TERMS = [
       `Closable only if identified early.`,
     ],
     why: `A quota gap named early is a closable target; named at period end it is a miss to explain. Quantifying it per rep focuses coaching and pipeline generation on exactly the amount and the reps that need it.`,
-    rally: `Rally shows each rep's quota gap live against target, and Rook suggests the specific deals to accelerate or pipeline to generate to close it, turning the gap into an action plan.`,
+    rally: `Ardovo shows each rep's quota gap live against target, and Rook suggests the specific deals to accelerate or pipeline to generate to close it, turning the gap into an action plan.`,
     faqs: [
       { q: `What is a quota gap?`, a: `It is the shortfall between a rep or team's expected attainment or forecast and their quota. A rep forecasting 80 percent of a 500,000 quota has a 100,000 quota gap, quantifying exactly how far short they are trending.` },
       { q: `How is quota gap different from gap to goal?`, a: `They are the same concept at different scopes. Quota gap usually refers to an individual rep's shortfall against their quota, while gap to goal often describes the team or company shortfall against the overall target.` },
@@ -3277,7 +3277,7 @@ const TERMS = [
       `Aligns marketing and sales on the weak link.`,
     ],
     why: `If only a small share of demos close, more demos will not fix a closing problem. Funnel conversion rate identifies the specific weak stage, so effort goes to the constraint instead of being spread thin.`,
-    rally: `Rally computes funnel conversion between every stage from live lead and deal data, so Rook can point to the exact stage that leaks most and suggest whether the fix belongs to marketing or sales.`,
+    rally: `Ardovo computes funnel conversion between every stage from live lead and deal data, so Rook can point to the exact stage that leaks most and suggest whether the fix belongs to marketing or sales.`,
     faqs: [
       { q: `How do you calculate funnel conversion rate?`, a: `Divide the number that reach a stage by the number that entered the prior stage. If 100 leads produce 20 opportunities, the lead-to-opportunity conversion rate is 20 percent. Measure it at every step to find the biggest leak.` },
       { q: `What is the difference between a funnel and a pipeline conversion rate?`, a: `Funnel conversion is an aggregate view across your whole go-to-market, often including marketing stages. Pipeline conversion focuses on the specific stages of open sales deals. The funnel is the shape; the pipeline is the deals.` },
@@ -3300,7 +3300,7 @@ const TERMS = [
       `Best analyzed by lead source.`,
     ],
     why: `A low lead to opportunity conversion rate signals either poor lead quality or a broken handoff. Measuring it by source shows whether marketing is sending bad leads or sales is failing to work good ones, ending the blame game.`,
-    rally: `Rally tracks lead to opportunity conversion by source, so Rook can show which sources produce leads that actually become opportunities and flag where the handoff or follow-up is breaking down.`,
+    rally: `Ardovo tracks lead to opportunity conversion by source, so Rook can show which sources produce leads that actually become opportunities and flag where the handoff or follow-up is breaking down.`,
     faqs: [
       { q: `What is lead to opportunity conversion?`, a: `It is the percentage of leads that become qualified opportunities. Sitting at the marketing-to-sales handoff, it measures both lead quality and the effectiveness of early qualification and follow-up.` },
       { q: `What causes a low lead to opportunity conversion rate?`, a: `Usually poor lead quality from a given source, or a broken process: slow follow-up, weak qualification, or a bad handoff. Measuring by source reveals whether the problem is the leads or how sales works them.` },
@@ -3323,7 +3323,7 @@ const TERMS = [
       `Aligns with how sales is compensated.`,
     ],
     why: `Because sales is measured and paid on bookings, the bookings target is the number that drives rep behavior and capacity planning. Setting it from real capacity and attainment history keeps it credible and motivating.`,
-    rally: `Rally sets bookings targets against capacity and historical attainment and derives the required coverage, so Rook can flag when a target exceeds what the team can carry or the pipeline can support.`,
+    rally: `Ardovo sets bookings targets against capacity and historical attainment and derives the required coverage, so Rook can flag when a target exceeds what the team can carry or the pipeline can support.`,
     faqs: [
       { q: `What is a bookings target?`, a: `It is the total contract value a rep or team is expected to sign in a period, counted at signature regardless of revenue recognition. It anchors quota, capacity planning, and the coverage you must build.` },
       { q: `How is a bookings target different from a revenue target?`, a: `A bookings target counts full contract value when signed; a revenue target counts value as it is recognized over the delivery term. A 12-month deal hits the bookings target fully on signing but the revenue target monthly.` },
@@ -3346,7 +3346,7 @@ const TERMS = [
       `Overassignment is standard quota design.`,
     ],
     why: `Not every rep hits quota, so setting individual quotas to exactly sum to the team target guarantees a team miss. Overassignment builds in a cushion so the team still lands even with normal underperformance and turnover.`,
-    rally: `Rally manages team and individual quotas with the overassignment buffer, and Rook tracks team attainment against the real target while showing how much cushion remains given current rep-level pacing.`,
+    rally: `Ardovo manages team and individual quotas with the overassignment buffer, and Rook tracks team attainment against the real target while showing how much cushion remains given current rep-level pacing.`,
     faqs: [
       { q: `What is a team quota?`, a: `It is the combined revenue or bookings target for an entire sales team. The sum of individual rep quotas is usually set above it, creating a buffer so the team hits its number even if some reps miss or leave.` },
       { q: `Why do individual quotas sum to more than the team quota?`, a: `Because not every rep hits quota. Overassigning individual quota builds a cushion that absorbs normal underperformance and attrition, so the team still lands its target. Setting them equal would guarantee a team miss.` },
@@ -3369,7 +3369,7 @@ const TERMS = [
       `Aligns specialists with the deals they influence.`,
     ],
     why: `Specialists who influence deals need a stake in the outcome. Overlay quotas give product and solutions experts skin in the game, aligning them with the primary reps they support rather than sitting outside the incentive system.`,
-    rally: `Rally supports overlay quotas and dual credit, so Rook can track a specialist's contribution across the deals they support and attribute influence without disrupting primary deal ownership.`,
+    rally: `Ardovo supports overlay quotas and dual credit, so Rook can track a specialist's contribution across the deals they support and attribute influence without disrupting primary deal ownership.`,
     faqs: [
       { q: `What is an overlay quota?`, a: `It is a target assigned to a specialist who supports deals they do not own, such as a solutions engineer or product specialist. They are credited on deals they help win, so the revenue counts for both the overlay and the primary rep.` },
       { q: `Why use overlay quotas?`, a: `To motivate specialists who influence deals without owning them. Crediting the same revenue to both the specialist and the primary rep aligns everyone on winning, giving product and solutions experts a real stake in outcomes.` },
@@ -3392,7 +3392,7 @@ const TERMS = [
       `Prevents far-future deals inflating the picture.`,
     ],
     why: `Coverage and forecast only mean something when measured against deals that can actually close in the period. Isolating in-quarter bookings prevents the inflated, false comfort of counting deals that will not land until later.`,
-    rally: `Rally filters pipeline to in-quarter close dates for current coverage and forecast views, so Rook keeps the quarter's math honest and flags when reps park should-be-current deals with far-future dates.`,
+    rally: `Ardovo filters pipeline to in-quarter close dates for current coverage and forecast views, so Rook keeps the quarter's math honest and flags when reps park should-be-current deals with far-future dates.`,
     faqs: [
       { q: `What are in-quarter bookings?`, a: `They are deals and their value expected to close within the current quarter, as opposed to pipeline with later close dates. Isolating them keeps the current forecast and coverage focused on what can actually contribute this quarter.` },
       { q: `Why separate in-quarter from later pipeline?`, a: `Because counting far-future deals as current coverage inflates the picture and hides a real gap. Only deals that can close in the period should count toward the current forecast and coverage math.` },
@@ -3415,7 +3415,7 @@ const TERMS = [
       `Tracked over time to improve reliability.`,
     ],
     why: `You cannot improve forecasting you do not measure. Variance is the measurement, and its pattern tells you whether to reduce noise through cleaner data or correct a systematic bias through calibration.`,
-    rally: `Rally tracks forecast variance by rep, team, and method over time, so Rook can show whether errors are random noise or a consistent bias and pinpoint where calibration would sharpen the number.`,
+    rally: `Ardovo tracks forecast variance by rep, team, and method over time, so Rook can show whether errors are random noise or a consistent bias and pinpoint where calibration would sharpen the number.`,
     faqs: [
       { q: `What is forecast variance?`, a: `It is the difference between what you forecast and what actually happened in a period, in dollars or percent. Tracking it over time reveals how reliable your forecasting is and whether it carries a consistent bias.` },
       { q: `What is the difference between forecast variance and forecast bias?`, a: `Variance is any gap between forecast and actual, in either direction. Bias is a consistent, one-directional pattern in that variance. Variance that averages near zero is noise; variance that consistently leans one way is bias.` },
@@ -3438,7 +3438,7 @@ const TERMS = [
       `Should be stated, not assumed.`,
     ],
     why: `A forecast presented as certain sets up bad decisions when it misses. Stating confidence lets leadership weight the number correctly, banking a high-confidence forecast and hedging a shaky one.`,
-    rally: `Rally derives forecast confidence from data quality, caller accuracy, and deal-level evidence, so Rook can present the number with an honest confidence level rather than false precision.`,
+    rally: `Ardovo derives forecast confidence from data quality, caller accuracy, and deal-level evidence, so Rook can present the number with an honest confidence level rather than false precision.`,
     faqs: [
       { q: `What is forecast confidence?`, a: `It is a measure of how much trust to place in a forecast, based on the quality of the underlying data, the forecaster's historical accuracy, and the evidence behind key deals. It should be stated explicitly rather than assumed.` },
       { q: `Why state forecast confidence explicitly?`, a: `Because presenting a number as certain leads to bad decisions when it misses. Stating confidence lets leadership weight the forecast appropriately, banking a high-confidence number and hedging a low-confidence one.` },
@@ -3461,7 +3461,7 @@ const TERMS = [
       `Should be transparent, not arbitrary.`,
     ],
     why: `Raw roll-ups inherit every rep's bias. A haircut grounded in historical accuracy corrects for known optimism, producing a committed number leadership can actually plan on rather than a sum of hopeful calls.`,
-    rally: `Rally shows each rep's historical accuracy so haircuts are evidence-based, and Rook suggests a calibration factor per rep, turning biased calls into a trustworthy roll-up without guesswork.`,
+    rally: `Ardovo shows each rep's historical accuracy so haircuts are evidence-based, and Rook suggests a calibration factor per rep, turning biased calls into a trustworthy roll-up without guesswork.`,
     faqs: [
       { q: `What is a forecast haircut?`, a: `It is a deliberate downward adjustment a manager applies to a rep's or the raw forecast to correct for known optimism or bias. If a rep consistently closes 80 percent of commit, the manager might haircut their number by 20 percent.` },
       { q: `When should a manager apply a haircut?`, a: `When a rep or team has a track record of over-calling. The haircut should be grounded in historical accuracy and applied transparently, so it calibrates the number rather than looking like arbitrary pessimism.` },
@@ -3484,7 +3484,7 @@ const TERMS = [
       `Best tracked as specific deals.`,
     ],
     why: `Leaders need to know not just the floor but the realistic ceiling and what drives it. Tracking upside shows how much room exists to exceed plan and which deals to push to capture it.`,
-    rally: `Rally separates commit from upside and shows the specific deals that make up the gap to best case, so Rook can tell a manager exactly which bubble deals to work to beat the number.`,
+    rally: `Ardovo separates commit from upside and shows the specific deals that make up the gap to best case, so Rook can tell a manager exactly which bubble deals to work to beat the number.`,
     faqs: [
       { q: `What is upside in forecasting?`, a: `It is the pipeline that could close in the period beyond the commit, if deals break favorably. It sits between the commit floor and the best case ceiling and represents the realistic room to exceed the number.` },
       { q: `How is upside different from best case?`, a: `Upside is the pool of deals above commit that could close; best case is the resulting ceiling number if that upside comes in. Upside is the deals, best case is the total they would produce on top of commit.` },
@@ -3507,7 +3507,7 @@ const TERMS = [
       `Analyzed by segment and source.`,
     ],
     why: `Conversion efficiency drives coverage math: a team converting 30 percent of pipeline needs far less than one converting 15 percent. Improving pipeline conversion lowers the pipeline you must generate for the same number.`,
-    rally: `Rally computes pipeline conversion by count and value across segments and sources, so Rook can show where pipeline converts efficiently, where it leaks, and how conversion changes your coverage requirement.`,
+    rally: `Ardovo computes pipeline conversion by count and value across segments and sources, so Rook can show where pipeline converts efficiently, where it leaks, and how conversion changes your coverage requirement.`,
     faqs: [
       { q: `What is pipeline conversion rate?`, a: `It is the percentage of pipeline, by deal count or value, that converts to closed won over a period. It measures how efficiently pipeline becomes revenue and directly influences how much coverage you need.` },
       { q: `How is pipeline conversion rate different from win rate?`, a: `Win rate is typically closed-won divided by all closed deals, by count. Pipeline conversion is often measured on pipeline value and can span the whole pipeline, capturing whether large or small deals convert better.` },
@@ -3530,7 +3530,7 @@ const TERMS = [
       `Anchors close dates and sits in velocity math.`,
     ],
     why: `Cycle length drives forecast timing, cash planning, and velocity. If reps set close dates ignoring the real cycle, forecasts slip; if leaders ignore it, they plan hiring and cash on revenue that arrives later than assumed.`,
-    rally: `Rally measures actual sales cycle length by segment from closed deals, so Rook grounds close-date suggestions in reality and flags when a rep projects a close far sooner than history supports.`,
+    rally: `Ardovo measures actual sales cycle length by segment from closed deals, so Rook grounds close-date suggestions in reality and flags when a rep projects a close far sooner than history supports.`,
     faqs: [
       { q: `What is sales cycle length?`, a: `It is the number of days a deal takes from a defined start, such as opportunity creation or first qualified contact, to close. It varies widely by segment and anchors close dates, capacity planning, and sales velocity.` },
       { q: `What is a typical sales cycle length?`, a: `It ranges enormously: transactional deals close in days, mid-market in one to three months, and enterprise in six to twelve months or more. The only figure that matters is your own, measured by segment, not a generic benchmark.` },
@@ -3553,7 +3553,7 @@ const TERMS = [
       `Sharpens close-date projections.`,
     ],
     why: `A single cycle average cannot tell you when a deal already in Negotiation will close. Days-to-close from each stage gives a stage-aware projection, producing far more accurate close dates and forecasts.`,
-    rally: `Rally measures days to close from every stage by segment, so Rook can project a realistic close date for any deal based on its current stage and flag dates that defy your historical pace.`,
+    rally: `Ardovo measures days to close from every stage by segment, so Rook can project a realistic close date for any deal based on its current stage and flag dates that defy your historical pace.`,
     faqs: [
       { q: `What is days to close?`, a: `It is the number of elapsed days from a reference point, often a deal entering a specific stage, until it closes won. Measured from any stage, it estimates how long a deal in that stage typically takes to close.` },
       { q: `How is days to close different from cycle length?`, a: `Cycle length usually measures the whole journey from start to close. Days to close can be measured from any point, such as from the Proposal stage, giving a more granular, stage-aware basis for projecting close dates.` },
@@ -3576,7 +3576,7 @@ const TERMS = [
       `Applying one consistently matters most.`,
     ],
     why: `Without a shared framework, every rep qualifies differently and the pipeline fills with inconsistent, unreliable deals. A framework standardizes judgment, which improves win rate, forecast accuracy, and the quality of coaching.`,
-    rally: `Rally can hold your chosen qualification framework as structured fields on the deal, and Rook flags missing or weak elements so qualification is a live checklist that drives next actions, not a form filled after the fact.`,
+    rally: `Ardovo can hold your chosen qualification framework as structured fields on the deal, and Rook flags missing or weak elements so qualification is a live checklist that drives next actions, not a form filled after the fact.`,
     faqs: [
       { q: `What is a qualification framework?`, a: `It is a structured set of criteria for judging whether a deal is real and winnable, such as MEDDIC, MEDDPICC, BANT, or GPCT. It standardizes what reps check so qualification is consistent across the team and coachable.` },
       { q: `Which qualification framework is best?`, a: `MEDDIC and MEDDPICC suit complex enterprise deals; BANT is simpler for transactional sales; GPCT and others fit different motions. The framework matters less than applying one consistently and re-qualifying as deals progress.` },
@@ -3599,7 +3599,7 @@ const TERMS = [
       `Keep stage definitions and forecasts consistent.`,
     ],
     why: `If deals can enter a stage without meeting a clear bar, stage data drifts and the forecast inflates. Entry criteria enforce that a deal genuinely belongs where it sits, which keeps stage-based metrics trustworthy.`,
-    rally: `Rally lets you define entry and exit criteria on each stage, and Rook flags deals placed in a stage without meeting its entry criteria, so stages reflect reality rather than optimistic placement.`,
+    rally: `Ardovo lets you define entry and exit criteria on each stage, and Rook flags deals placed in a stage without meeting its entry criteria, so stages reflect reality rather than optimistic placement.`,
     faqs: [
       { q: `What are entry criteria in a sales pipeline?`, a: `They are the conditions a deal must meet to enter a given stage, the counterpart to exit criteria. Together they define each stage clearly: what must be true to arrive and what must be true to leave.` },
       { q: `Why do entry criteria matter?`, a: `Because without them, deals get placed in stages they have not earned, drifting stage data and inflating the forecast. Entry criteria enforce that a deal genuinely belongs where it sits, keeping stage-based metrics honest.` },
@@ -3622,7 +3622,7 @@ const TERMS = [
       `A sound basis for prioritizing deals.`,
     ],
     why: `Prioritizing by size alone chases big long shots; prioritizing by expected value balances size against odds. It is the rational basis for where a rep should spend limited selling hours.`,
-    rally: `Rally computes each deal's expected value from amount and refined win probability, so Rook can rank a rep's worklist by expected value and show which deals truly deserve the best hours.`,
+    rally: `Ardovo computes each deal's expected value from amount and refined win probability, so Rook can rank a rep's worklist by expected value and show which deals truly deserve the best hours.`,
     faqs: [
       { q: `How do you calculate the expected value of a deal?`, a: `Multiply the deal's full amount by its probability of closing. A 100,000 deal at a 30 percent win probability has an expected value of 30,000. Summed across all deals, expected values produce the weighted pipeline.` },
       { q: `Why prioritize by expected value?`, a: `Because prioritizing by deal size alone chases big long shots that rarely close. Expected value balances size against win probability, so you focus on the deals with the best risk-adjusted return on your limited selling time.` },
@@ -3645,7 +3645,7 @@ const TERMS = [
       `Surfaces risk earlier than any single metric.`,
     ],
     why: `No single signal tells the whole story of a deal. A health score blends them, so managers can triage a whole pipeline quickly and reps know which deals need work before the problem shows up in the forecast.`,
-    rally: `Rally scores deal health from live engagement, stakeholder coverage, momentum, and stage signals, so Rook can rank a pipeline by health and flag deals whose score is dropping before they stall.`,
+    rally: `Ardovo scores deal health from live engagement, stakeholder coverage, momentum, and stage signals, so Rook can rank a pipeline by health and flag deals whose score is dropping before they stall.`,
     faqs: [
       { q: `What is a deal health score?`, a: `It is a composite rating of how likely an opportunity is to close well, combining signals like engagement, stage progression, stakeholder coverage, momentum, and time-in-stage into one number for an at-a-glance read on deal risk.` },
       { q: `How is a deal health score calculated?`, a: `By blending multiple weighted signals: buyer engagement trend, stakeholder or committee coverage, momentum through stages, and time-in-stage against your norms. The exact weighting varies, but the goal is one legible risk signal from many inputs.` },
@@ -3668,7 +3668,7 @@ const TERMS = [
       `Tracked per rep and segment.`,
     ],
     why: `Push rate warns of forecast erosion before it lands as a miss. A rising rate points to optimistic dating or weak qualification that can be coached now, rather than discovered at period end.`,
-    rally: `Rally tracks push rate across the pipeline and by rep, so Rook can flag a rising push rate early and identify the reps or segments whose dating and qualification habits are driving the slippage.`,
+    rally: `Ardovo tracks push rate across the pipeline and by rep, so Rook can flag a rising push rate early and identify the reps or segments whose dating and qualification habits are driving the slippage.`,
     faqs: [
       { q: `What is push rate?`, a: `It is the percentage of forecasted deals whose close date gets moved to a later period. It is the leading edge of slippage, and a rising push rate across the pipeline signals systemic optimism in dating or qualification.` },
       { q: `How is push rate different from slippage rate?`, a: `They are closely related. Push rate focuses on how often close dates get moved later; slippage rate emphasizes deals that fail to close in their expected period. Both measure the same underlying erosion of the forecast.` },
@@ -3691,7 +3691,7 @@ const TERMS = [
       `Consistency catches slippage early.`,
     ],
     why: `A forecast checked only at quarter end offers no time to react. A weekly cadence surfaces slippage and inflated commits while there is still cycle time to fix them, which is the whole point of forecasting.`,
-    rally: `Rally supports a weekly forecast cadence with automatic snapshots and reconciliation, so Rook shows week-over-week movement and flags erosion each cycle rather than letting problems hide until period end.`,
+    rally: `Ardovo supports a weekly forecast cadence with automatic snapshots and reconciliation, so Rook shows week-over-week movement and flags erosion each cycle rather than letting problems hide until period end.`,
     faqs: [
       { q: `What is forecast cadence?`, a: `It is the regular rhythm at which a team submits, reviews, and reconciles its forecast, typically weekly with tighter checks near period end. A consistent cadence keeps forecasting an ongoing discipline rather than an end-of-period scramble.` },
       { q: `How often should we run our forecast cadence?`, a: `Weekly for most teams, tightening toward period close. High-velocity teams may go more often; long enterprise cycles may run biweekly at some levels. The key is a fixed, predictable rhythm so slippage surfaces early.` },
@@ -3714,7 +3714,7 @@ const TERMS = [
       `Rolls up to the company forecast.`,
     ],
     why: `A forecast that is never formally submitted cannot be measured or trusted. Submission creates the record that enables accuracy tracking and the accountability that keeps commit numbers honest.`,
-    rally: `Rally captures each forecast submission and rolls it up by team, so Rook can track submitted versus actual over time and show each caller's accuracy history for calibration.`,
+    rally: `Ardovo captures each forecast submission and rolls it up by team, so Rook can track submitted versus actual over time and show each caller's accuracy history for calibration.`,
     faqs: [
       { q: `What is forecast submission?`, a: `It is the formal act of a rep or manager committing their forecast number for a period, usually within the weekly cadence. The submitted number becomes what they are measured against and rolls up to form the company forecast.` },
       { q: `Why does formal submission matter?`, a: `Because a number that is never recorded cannot be measured or trusted. Submission creates accountability and a historical record, which is what enables tracking forecast accuracy and calibrating callers over time.` },
@@ -3737,7 +3737,7 @@ const TERMS = [
       `Reveals risk the total value hides.`,
     ],
     why: `Total pipeline value can look healthy while the mix is dangerously concentrated. Examining mix exposes fragility, a source that could dry up, a whale that could slip, so leaders can diversify before it bites.`,
-    rally: `Rally breaks pipeline down by stage, segment, source, product, and size, so Rook can flag a concentrated or unbalanced mix and show where the pipeline is more fragile than its total suggests.`,
+    rally: `Ardovo breaks pipeline down by stage, segment, source, product, and size, so Rook can flag a concentrated or unbalanced mix and show where the pipeline is more fragile than its total suggests.`,
     faqs: [
       { q: `What is pipeline mix?`, a: `It is the composition of your pipeline across stages, segments, sources, products, and deal sizes. A balanced mix signals health, while concentration in a few large deals or one source hides risk the total pipeline value would not reveal.` },
       { q: `Why does pipeline mix matter?`, a: `Because two pipelines of equal value can carry very different risk depending on their composition. A mix concentrated in a few whales or a single source is fragile, so examining mix exposes vulnerability that the total hides.` },
@@ -3760,7 +3760,7 @@ const TERMS = [
       `Healthy distribution flows through every stage.`,
     ],
     why: `Stage distribution reveals whether your pipeline is balanced for both now and later. A shape skewed to one end predicts either a current-period gap or a future one, both fixable if seen early.`,
-    rally: `Rally visualizes stage distribution by value and count over time, so Rook can flag a top-heavy or bottom-heavy shape and warn when the profile predicts a current or future revenue gap.`,
+    rally: `Ardovo visualizes stage distribution by value and count over time, so Rook can flag a top-heavy or bottom-heavy shape and warn when the profile predicts a current or future revenue gap.`,
     faqs: [
       { q: `What is stage distribution?`, a: `It is how your pipeline's deals and value spread across the stages, from early to late. The shape signals risk: bottom-heavy means thin current pipeline, top-heavy means a possible future drought, and balanced means volume flowing through every stage.` },
       { q: `What does a top-heavy pipeline mean?`, a: `That most value sits in late stages. It will close well this period but, if early stages are thin, warns of a coming drought once those late deals resolve. It is a signal to increase pipeline generation now.` },
@@ -3783,7 +3783,7 @@ const TERMS = [
       `Strongest combined with engagement trend.`,
     ],
     why: `A deal far older than your cycle length is either stalling or headed for slippage. Watching deal age flags these deals for attention or disqualification before they quietly distort coverage and the forecast.`,
-    rally: `Rally tracks deal age against your segment cycle length, so Rook can flag deals aging past the norm and pair that with engagement signals to tell a real stall from a naturally long cycle.`,
+    rally: `Ardovo tracks deal age against your segment cycle length, so Rook can flag deals aging past the norm and pair that with engagement signals to tell a real stall from a naturally long cycle.`,
     faqs: [
       { q: `What is deal age?`, a: `It is the total number of days an opportunity has been open since creation. Compared against your average sales cycle length, an old deal warns of a likely stall or a close date that will slip.` },
       { q: `How is deal age different from time-in-stage?`, a: `Deal age is total days open since creation; time-in-stage is days in the current stage. Deal age flags overall staleness, while time-in-stage pinpoints which specific stage a deal is stuck in.` },
@@ -3806,7 +3806,7 @@ const TERMS = [
       `Signals quota, enablement, or hiring issues.`,
     ],
     why: `A team can hit its number while most reps miss, which is fragile and unsustainable. Attainment distribution exposes that concentration, pointing to whether quotas are set wrong, enablement is weak, or hiring is off.`,
-    rally: `Rally shows attainment distribution across the team, so Rook can reveal whether the number is broad-based or carried by a few reps and highlight where quota or enablement is failing the middle of the team.`,
+    rally: `Ardovo shows attainment distribution across the team, so Rook can reveal whether the number is broad-based or carried by a few reps and highlight where quota or enablement is failing the middle of the team.`,
     faqs: [
       { q: `What is attainment distribution?`, a: `It is the spread of quota attainment across a sales team, showing how many reps land above, at, and below quota. Its shape reveals whether success is broad-based or concentrated in a few top performers.` },
       { q: `What does a healthy attainment distribution look like?`, a: `Most reps clustered near or above quota, with a normal spread rather than a barbell of a few stars and many laggards. Broad-based attainment is more sustainable and less fragile than a number carried by a handful of reps.` },
@@ -3829,7 +3829,7 @@ const TERMS = [
       `Requires clear, upfront terms.`,
     ],
     why: `Without clawbacks, reps are paid the same for a customer who stays five years and one who churns in a month. Clawbacks align selling incentives with durable revenue, discouraging bad-fit deals that hurt the business.`,
-    rally: `Rally can model clawback terms in compensation, and Rook flags deals at churn risk within the clawback window so reps and managers can act to retain the customer before the clawback triggers.`,
+    rally: `Ardovo can model clawback terms in compensation, and Rook flags deals at churn risk within the clawback window so reps and managers can act to retain the customer before the clawback triggers.`,
     faqs: [
       { q: `What is a commission clawback?`, a: `It is the recovery of commission already paid to a rep when the underlying deal is later cancelled, refunded, or churns within a defined window. It aligns rep incentives with durable revenue rather than just closing deals.` },
       { q: `Why do companies use clawbacks?`, a: `To discourage reps from closing bad-fit customers who will not last. Without clawbacks, a rep earns the same for a customer who stays years and one who churns in a month, misaligning incentives with lasting revenue.` },
@@ -3852,7 +3852,7 @@ const TERMS = [
       `Its traits can be built into the process.`,
     ],
     why: `Wins contain the playbook. Coding what your won deals had in common, and building those moves into your process, is one of the most direct ways to raise win rate across the team.`,
-    rally: `Rally captures the traits of every won deal and Rook surfaces the patterns your wins share, so reps can replicate the moves, like early economic-buyer access, that reliably produce closed-won outcomes.`,
+    rally: `Ardovo captures the traits of every won deal and Rook surfaces the patterns your wins share, so reps can replicate the moves, like early economic-buyer access, that reliably produce closed-won outcomes.`,
     faqs: [
       { q: `What is a won deal?`, a: `It is an opportunity that has reached closed-won status, meaning the buyer signed and became a customer. Beyond the revenue, won deals are valuable data for understanding what produces wins.` },
       { q: `Why analyze won deals?`, a: `Because they hold the blueprint for repeatable success. Coding the common traits of your wins, such as early economic-buyer access or a strong champion, reveals the moves to build into your process to raise win rate.` },
@@ -3875,7 +3875,7 @@ const TERMS = [
       `The most valuable diagnostic a team has.`,
     ],
     why: `Losses are the most instructive data you have, if you capture why. Coding loss reasons turns painful outcomes into a prioritized roadmap for raising win rate, separating competitive losses from avoidable no-decisions.`,
-    rally: `Rally captures a coded loss reason on every lost deal and analyzes them by competitor, segment, and stage, so Rook can surface your top loss patterns and which fixable cause to attack first.`,
+    rally: `Ardovo captures a coded loss reason on every lost deal and analyzes them by competitor, segment, and stage, so Rook can surface your top loss patterns and which fixable cause to attack first.`,
     faqs: [
       { q: `What is a lost deal?`, a: `It is an opportunity that closed without a sale, whether lost to a competitor, ended in no-decision, or disqualified. Captured with a coded reason, lost deals are a sales team's most valuable diagnostic data.` },
       { q: `Why code the reason for a lost deal?`, a: `Because patterns across coded losses reveal exactly where and why you lose, whether the cause is a specific competitor, weak qualification, or unproven value. Without coded reasons, each loss is just an anecdote you cannot learn from.` },
@@ -3898,7 +3898,7 @@ const TERMS = [
       `Raises win rate and frees selling time.`,
     ],
     why: `Deals that were never real still consume hours before they die, dragging win rate and inflating coverage. Disqualifying them fast reclaims those hours for winnable deals and keeps the pipeline honest.`,
-    rally: `Rally flags deals that fail qualification criteria, and Rook surfaces no-compelling-event and no-economic-buyer deals for disqualification, so reps stop pouring hours into deals that will not close.`,
+    rally: `Ardovo flags deals that fail qualification criteria, and Rook surfaces no-compelling-event and no-economic-buyer deals for disqualification, so reps stop pouring hours into deals that will not close.`,
     faqs: [
       { q: `What is deal disqualification?`, a: `It is the deliberate decision to stop pursuing a deal that fails key qualification criteria, such as no compelling event, no budget access, or poor fit. Disqualifying fast removes deals that would slip or die anyway.` },
       { q: `Why is disqualification a good thing?`, a: `Because deals that were never real still consume selling hours before they die, dragging win rate and inflating coverage. Fast disqualification reclaims those hours for winnable deals and keeps the pipeline and forecast honest.` },
@@ -3921,7 +3921,7 @@ const TERMS = [
       `Close dates and reviews align to it.`,
     ],
     why: `The forecast period is the boundary that makes coverage and the forecast meaningful. Counting deals with close dates outside the period inflates the current number and blurs whether you are truly on track.`,
-    rally: `Rally scopes coverage and forecast views to the selected forecast period, so Rook keeps the current number focused on in-period deals and flags deals whose close dates fall outside the window.`,
+    rally: `Ardovo scopes coverage and forecast views to the selected forecast period, so Rook keeps the current number focused on in-period deals and flags deals whose close dates fall outside the window.`,
     faqs: [
       { q: `What is a forecast period?`, a: `It is the defined time window a forecast covers, most often a month, quarter, or fiscal year. Only deals with a close date inside the period count toward the current number, which keeps coverage and the forecast meaningful.` },
       { q: `Why does the forecast period matter?`, a: `Because it sets the boundary for which deals count now. Including deals with close dates outside the period inflates the current forecast and coverage, blurring whether the team is actually on track for the period.` },
@@ -3944,7 +3944,7 @@ const TERMS = [
       `Ties generation to real revenue.`,
     ],
     why: `Pipeline volume is easy to inflate and easy to fool yourself with. Pull-through rate reveals which generated pipeline actually converts, so you invest in the sources that produce real revenue, not just impressive numbers.`,
-    rally: `Rally tracks pull-through by tracing created pipeline cohorts to their outcomes by source and segment, so Rook can show which generation sources produce pipeline that actually closes versus pipeline that just looks good.`,
+    rally: `Ardovo tracks pull-through by tracing created pipeline cohorts to their outcomes by source and segment, so Rook can show which generation sources produce pipeline that actually closes versus pipeline that just looks good.`,
     faqs: [
       { q: `What is pull-through rate?`, a: `It is the percentage of pipeline created in a period that eventually converts to closed won, tracking a cohort of created deals through to their outcome. It measures the real quality of generated pipeline, not just its volume.` },
       { q: `Why measure pull-through rate?`, a: `Because pipeline volume alone can mislead. A source can create lots of pipeline with a low pull-through, meaning much of it never closes. Pull-through reveals which generated pipeline actually becomes revenue, guiding where to invest.` },
@@ -3967,7 +3967,7 @@ const TERMS = [
       `Accuracy depends on pipeline hygiene.`,
     ],
     why: `Because it is built from real deals, pipeline forecasting responds to what is actually happening in the business, unlike historical methods. But that also makes it only as good as the pipeline data behind it.`,
-    rally: `Rally forecasts from live pipeline with stage and AI-refined probabilities, and Rook keeps the underlying data clean and reconciles the pipeline forecast against rep commits so the number reflects reality.`,
+    rally: `Ardovo forecasts from live pipeline with stage and AI-refined probabilities, and Rook keeps the underlying data clean and reconciles the pipeline forecast against rep commits so the number reflects reality.`,
     faqs: [
       { q: `What is pipeline forecasting?`, a: `It is predicting a period's revenue from the deals currently in your pipeline, combining stage probabilities, deal amounts, and rep judgment. It is grounded in real open deals rather than historical trends, making it the most common CRM-based approach.` },
       { q: `How is pipeline forecasting different from historical forecasting?`, a: `Pipeline forecasting builds the number from the specific open deals you are working now; historical forecasting extrapolates from past performance. Pipeline forecasting responds to current reality but depends heavily on clean pipeline data.` },
@@ -3990,7 +3990,7 @@ const TERMS = [
       `Must be calibrated from real data.`,
     ],
     why: `Every weighted forecast rests on stage probabilities. If they reflect real conversion, the forecast is trustworthy; if they are optimistic guesses, the whole weighted number is quietly wrong.`,
-    rally: `Rally sets stage probabilities from your actual stage-to-close conversion and Rook refines them per deal with real signals, so the weighting reflects both the stage and the specific deal.`,
+    rally: `Ardovo sets stage probabilities from your actual stage-to-close conversion and Rook refines them per deal with real signals, so the weighting reflects both the stage and the specific deal.`,
     faqs: [
       { q: `What is stage probability?`, a: `It is the default win likelihood assigned to each pipeline stage, ideally derived from the historical share of deals in that stage that closed won. It is the multiplier used in weighted pipeline and stage forecasting.` },
       { q: `Where should stage probabilities come from?`, a: `From your real stage-to-close conversion history, not intuition. The share of deals reaching each stage that eventually closed won gives you calibrated probabilities. Guessed probabilities produce a weighted forecast you cannot trust.` },
@@ -4013,7 +4013,7 @@ const TERMS = [
       `Updates continuously as deals evolve.`,
     ],
     why: `Reps have limited hours and cannot treat every deal equally. Opportunity scoring points them at the winnable deals and surfaces the ones losing steam, improving both prioritization and forecast accuracy.`,
-    rally: `Rally scores every opportunity from live fit and engagement signals, so Rook can hand reps a ranked worklist and flag deals whose score is dropping before they stall or slip.`,
+    rally: `Ardovo scores every opportunity from live fit and engagement signals, so Rook can hand reps a ranked worklist and flag deals whose score is dropping before they stall or slip.`,
     faqs: [
       { q: `What is opportunity scoring?`, a: `It is rating each open deal's likelihood of closing won using signals like buyer fit, engagement, stakeholder coverage, and momentum. It ranks active deals so reps prioritize the winnable ones and managers spot risk early.` },
       { q: `How is opportunity scoring different from lead scoring?`, a: `Lead scoring ranks prospects by their likelihood to become qualified opportunities. Opportunity scoring ranks active deals by their likelihood to close won. One prioritizes who to pursue, the other how to prioritize deals already in the pipeline.` },
@@ -4036,7 +4036,7 @@ const TERMS = [
       `Core to scaling a sales org affordably.`,
     ],
     why: `Scaling by headcount alone is expensive and slow. Raising productivity lets a team grow revenue faster than cost, which is what makes a sales org efficient and durable rather than just large.`,
-    rally: `Rally raises productivity by automating data entry and surfacing next best actions, so Rook removes administrative drag and points reps at high-value deals, lifting revenue per rep without added headcount.`,
+    rally: `Ardovo raises productivity by automating data entry and surfacing next best actions, so Rook removes administrative drag and points reps at high-value deals, lifting revenue per rep without added headcount.`,
     faqs: [
       { q: `What is sales productivity?`, a: `It is the revenue output a team generates relative to the time, headcount, and resources invested, often measured as revenue per rep or per selling hour. Improving it means selling more without proportionally more cost or effort.` },
       { q: `How do I improve sales productivity?`, a: `Remove administrative drag so reps spend more time selling, sharpen prioritization so hours go to winnable deals, raise win rate through better qualification, and equip reps with tools and content. Efficiency gains usually beat simply working longer.` },
@@ -4059,7 +4059,7 @@ const TERMS = [
       `Informs capacity and compensation decisions.`,
     ],
     why: `Revenue per rep tells you whether your sales model scales efficiently. Watching its trend as you hire reveals whether new headcount is productive or whether you are diluting output by adding reps faster than they can produce.`,
-    rally: `Rally tracks revenue per rep over time and by segment, so Rook can show whether productivity is holding as the team grows and flag when hiring is outpacing the output each rep delivers.`,
+    rally: `Ardovo tracks revenue per rep over time and by segment, so Rook can show whether productivity is holding as the team grows and flag when hiring is outpacing the output each rep delivers.`,
     faqs: [
       { q: `What is revenue per rep?`, a: `It is total revenue or bookings divided by the number of quota-carrying reps in a period. It benchmarks productivity, and its trend reveals whether added headcount is translating into proportional output.` },
       { q: `Why does revenue per rep matter?`, a: `Because it shows whether your sales model scales efficiently. If revenue per rep holds or rises as you hire, growth is efficient; if it falls, you are adding cost faster than output, a warning sign for capacity planning.` },
@@ -4082,7 +4082,7 @@ const TERMS = [
       `Corrected by grounding forecasts in evidence.`,
     ],
     why: `Happy ears makes forecasts unreliable in the optimistic direction, leading leadership to over-plan resources on revenue that never arrives. Requiring evidence behind each commit is what corrects it.`,
-    rally: `Rally compares a deal's real engagement signals against the rep's optimism, so Rook can flag commits that lack a confirmed economic buyer or supporting activity, surfacing happy ears before it inflates the forecast.`,
+    rally: `Ardovo compares a deal's real engagement signals against the rep's optimism, so Rook can flag commits that lack a confirmed economic buyer or supporting activity, surfacing happy ears before it inflates the forecast.`,
     faqs: [
       { q: `What is happy ears in sales?`, a: `It is a rep's tendency to interpret buyer signals more optimistically than warranted, hearing interest as commitment and politeness as buying intent. It inflates forecasts by overstating how likely deals are to close.` },
       { q: `How is happy ears different from sandbagging?`, a: `They are opposite biases. Happy ears overstates deal likelihood from optimism; sandbagging understates it to create a cushion. Both distort forecasts, just in different directions, and both are corrected by grounding forecasts in evidence.` },
@@ -4105,7 +4105,7 @@ const TERMS = [
       `Treating it as done causes slippage.`,
     ],
     why: `A verbal commit advances the forecast but does not secure it. The paper process after a verbal yes can add weeks, so mapping and starting it early is what turns a verbal commit into a real, dated close.`,
-    rally: `Rally tracks the paper process after a verbal commit, and Rook warns when a deal has a verbal yes but no legal or procurement activity, so reps start the paperwork before the close date slips.`,
+    rally: `Ardovo tracks the paper process after a verbal commit, and Rook warns when a deal has a verbal yes but no legal or procurement activity, so reps start the paperwork before the close date slips.`,
     faqs: [
       { q: `What is a verbal commit?`, a: `It is a buyer's spoken agreement to proceed with a purchase before the contract is signed. It is a strong positive signal and often moves a deal to a late forecast category, but it is not a closed deal.` },
       { q: `Is a verbal commit the same as a closed deal?`, a: `No. Legal review, procurement, and final sign-off can still delay or derail a deal after a verbal yes. Treating a verbal commit as done and ignoring the remaining paper process is a classic cause of late-stage slippage.` },
@@ -4128,7 +4128,7 @@ const TERMS = [
       `Its signature marks the deal closed won.`,
     ],
     why: `The order form is the artifact that turns a verbal commit into revenue. Its execution is the objective, unambiguous marker of a closed deal, which is why forecasting should treat signature, not sentiment, as the close.`,
-    rally: `Rally can generate the order form from the deal's line items and pricing, and Rook tracks it through signature, so the transition to closed won and bookings recognition is clean and tied to the actual document.`,
+    rally: `Ardovo can generate the order form from the deal's line items and pricing, and Rook tracks it through signature, so the transition to closed won and bookings recognition is clean and tied to the actual document.`,
     faqs: [
       { q: `What is an order form in sales?`, a: `It is the document a buyer signs to formalize a purchase, specifying products or services, quantities, pricing, term length, and commercial conditions. Its execution typically marks a deal closed won and triggers bookings.` },
       { q: `What is the difference between an order form and a master service agreement?`, a: `A master service agreement holds the overarching legal terms of the relationship, while the order form specifies the particular transaction: what is being bought, how much, and at what price. They often work together on a deal.` },
@@ -4151,7 +4151,7 @@ const TERMS = [
       `Thin coverage means a fragile forecast.`,
     ],
     why: `A forecast without enough pipeline behind it cannot absorb slippage and misses the moment any deal falls through. Forecast coverage flags that fragility, so leaders know whether the number has a cushion or is a knife-edge.`,
-    rally: `Rally shows forecast coverage alongside the commit, so Rook can flag when the forecast rests on too little supporting pipeline to survive normal slippage and quantify how fragile the number is.`,
+    rally: `Ardovo shows forecast coverage alongside the commit, so Rook can flag when the forecast rests on too little supporting pipeline to survive normal slippage and quantify how fragile the number is.`,
     faqs: [
       { q: `What is forecast coverage?`, a: `It is the ratio of qualified pipeline behind a forecast to the forecasted number, showing whether there is enough backing to absorb normal slippage and still hit the commit. It checks whether the forecast is adequately supported by real deals.` },
       { q: `How is forecast coverage different from pipeline coverage?`, a: `Pipeline coverage compares pipeline to quota; forecast coverage compares supporting pipeline to the forecast itself. One asks if you can hit the target, the other asks if the committed number has enough backing to survive slippage.` },
@@ -4174,7 +4174,7 @@ const TERMS = [
       `Keeps channel ecosystems fair and motivated.`,
     ],
     why: `Partners will not invest in sourcing deals they might lose to another partner or the vendor's direct team. Deal registration protects their effort, which is essential to a healthy, motivated channel.`,
-    rally: `Rally can manage deal registration so partner-sourced deals are protected and tracked, and Rook flags conflicts or duplicate registrations, keeping channel deals clean and fair.`,
+    rally: `Ardovo can manage deal registration so partner-sourced deals are protected and tracked, and Rook flags conflicts or duplicate registrations, keeping channel deals clean and fair.`,
     faqs: [
       { q: `What is deal registration?`, a: `It is a channel-sales process where a partner registers a deal they have sourced to claim protection and priority on it. It prevents multiple partners or the vendor's direct team from competing over the same opportunity and secures the partner's margin.` },
       { q: `Why is deal registration important?`, a: `Because partners will not invest in sourcing deals they might lose to a competing partner or the vendor. Registration protects their effort and margin, which is essential to keeping a channel ecosystem fair, motivated, and productive.` },
@@ -4197,7 +4197,7 @@ const TERMS = [
       `Key to honest capacity planning.`,
     ],
     why: `Capacity based on total headcount overstates what a team can deliver, because ramping reps are not yet fully productive. Counting only ramped reps, and partial credit for ramping ones, keeps targets realistic.`,
-    rally: `Rally tracks each rep's ramp state and models capacity from ramped headcount, so Rook can flag when a revenue target assumes productivity that ramping reps cannot yet deliver.`,
+    rally: `Ardovo tracks each rep's ramp state and models capacity from ramped headcount, so Rook can flag when a revenue target assumes productivity that ramping reps cannot yet deliver.`,
     faqs: [
       { q: `What is a ramped rep?`, a: `It is a salesperson who has completed onboarding and reached full productivity, capable of carrying a full quota. Ramped reps are distinct from still-ramping new hires who cannot yet deliver full output.` },
       { q: `Why does the ramped-rep distinction matter?`, a: `Because capacity planning based on total headcount overstates what a team can deliver. Only ramped reps produce full output, so counting ramping reps as fully productive leads to targets the team cannot realistically hit.` },
@@ -4220,7 +4220,7 @@ const TERMS = [
       `Distinguishes star-carried teams from broad ones.`,
     ],
     why: `Attainment rate tells you how much of the target was hit, and paired with participation it tells you how broadly. Together they reveal whether success is sustainable or concentrated in a fragile few.`,
-    rally: `Rally tracks quota attainment rate by rep and team alongside participation, so Rook can show not just whether the number was hit but whether attainment is broad-based or dangerously concentrated.`,
+    rally: `Ardovo tracks quota attainment rate by rep and team alongside participation, so Rook can show not just whether the number was hit but whether attainment is broad-based or dangerously concentrated.`,
     faqs: [
       { q: `How do you calculate quota attainment rate?`, a: `Divide actual bookings by the quota for the period. A rep who books 450,000 against a 500,000 quota has a 90 percent attainment rate. It can be measured per rep, per team, or company-wide.` },
       { q: `Why read attainment rate with participation rate?`, a: `Because a strong overall attainment rate can hide that a few stars carried the team while many reps missed. Participation rate, the share of reps hitting quota, reveals whether attainment is broad-based and sustainable or fragile.` },
@@ -4243,7 +4243,7 @@ const TERMS = [
       `The basis for worst-case planning.`,
     ],
     why: `A forecast without a downside view invites overconfidence. Quantifying downside risk from the at-risk deals lets leaders build contingency and avoid the crisis of a surprise miss.`,
-    rally: `Rally identifies the deals driving downside risk and their combined value, so Rook can show leadership how far the number could fall and which at-risk deals to shore up first.`,
+    rally: `Ardovo identifies the deals driving downside risk and their combined value, so Rook can show leadership how far the number could fall and which at-risk deals to shore up first.`,
     faqs: [
       { q: `What is downside risk in forecasting?`, a: `It is the amount by which the forecast could fall below the commit if key deals slip, lose, or shrink. Quantifying it from the most at-risk deals lets leadership plan for a bad outcome rather than be blindsided.` },
       { q: `How do I quantify downside risk?`, a: `Identify the commit and near-commit deals most likely to slip or lose, based on risk signals like single-threading or a missing economic buyer, and sum their value. That total is the downside the forecast is exposed to.` },
@@ -4266,7 +4266,7 @@ const TERMS = [
       `A low rate points to selling or qualification issues.`,
     ],
     why: `Separating opportunity conversion from lead generation tells you where to focus. A low opportunity to close rate is a selling and qualification problem, not a marketing one, so the fix lives inside the sales process.`,
-    rally: `Rally computes opportunity to close rate by rep, segment, and source, so Rook can distinguish an execution problem from a lead problem and coach the specific stage where deals fall out.`,
+    rally: `Ardovo computes opportunity to close rate by rep, segment, and source, so Rook can distinguish an execution problem from a lead problem and coach the specific stage where deals fall out.`,
     faqs: [
       { q: `What is opportunity to close rate?`, a: `It is the percentage of qualified opportunities that reach closed won, measured from opportunity creation to signature. It isolates sales execution, showing how effectively the team converts genuine deals into customers.` },
       { q: `How is it different from win rate?`, a: `It is essentially a win rate measured specifically from the qualified-opportunity stage to close, excluding earlier lead stages. The framing emphasizes conversion of real deals, separating sales execution from lead-generation quality.` },
@@ -4289,7 +4289,7 @@ const TERMS = [
       `Maximizes results from the same effort.`,
     ],
     why: `Selling hours are the scarcest resource, and where they go decides the quarter. Disciplined prioritization directs them to the deals with the best risk-adjusted return, rather than to whoever demands the most attention.`,
-    rally: `Rally scores deals on value, winnability, and timing, so Rook can hand each rep a ranked worklist every morning, pointing them at the deals worth their best hours and away from long shots.`,
+    rally: `Ardovo scores deals on value, winnability, and timing, so Rook can hand each rep a ranked worklist every morning, pointing them at the deals worth their best hours and away from long shots.`,
     faqs: [
       { q: `What is deal prioritization?`, a: `It is deciding which deals get a rep's best time, ranking open opportunities by expected value, winnability, and close timing so effort flows to the deals that matter most. It is how reps make the most of finite selling hours.` },
       { q: `How should I prioritize my deals?`, a: `Rank by expected value (amount times win probability), adjusted for timing, so high-value, winnable, in-period deals get your best hours. Nurture big but later deals with light touches, and disqualify or minimally work long shots.` },
@@ -4312,7 +4312,7 @@ const TERMS = [
       `Its value depends on accuracy.`,
     ],
     why: `The entire company plans on forecasted revenue, so its reliability shapes budgets, headcount, and commitments. An accurate forecast is a strategic asset; an unreliable one propagates bad decisions across the business.`,
-    rally: `Rally produces forecasted revenue from live pipeline reconciled against rep commits and tracks its accuracy over time, so Rook can give leadership a number they can plan on with a stated confidence.`,
+    rally: `Ardovo produces forecasted revenue from live pipeline reconciled against rep commits and tracks its accuracy over time, so Rook can give leadership a number they can plan on with a stated confidence.`,
     faqs: [
       { q: `What is forecasted revenue?`, a: `It is the amount a team predicts it will book or recognize in a period, the headline output of forecasting. It drives budgeting, hiring, and investor expectations, so its accuracy directly affects company-wide decisions.` },
       { q: `Does forecasted revenue mean bookings or recognized revenue?`, a: `It depends on context. Sales forecasts often express bookings, the contract value expected to be signed, while finance may forecast recognized revenue spread over delivery. Clarify which a given forecast means to avoid misalignment.` },
@@ -4335,7 +4335,7 @@ const TERMS = [
       `Longer-range projections are best shown as ranges.`,
     ],
     why: `The business commits budgets, hiring, and guidance to the revenue projection. Grounding near-term projections in real pipeline and expressing long-range ones as ranges keeps planning honest and avoids false precision.`,
-    rally: `Rally builds revenue projections from live pipeline plus trend data, so Rook can produce grounded near-term projections and flag when the assumptions behind a longer-range projection drift from the pipeline.`,
+    rally: `Ardovo builds revenue projections from live pipeline plus trend data, so Rook can produce grounded near-term projections and flag when the assumptions behind a longer-range projection drift from the pipeline.`,
     faqs: [
       { q: `What is a revenue projection?`, a: `It is an estimate of future revenue across one or more periods, blending pipeline data, historical trends, and growth assumptions. It feeds financial planning, budgeting, and investor guidance, and reaches further out than a single-period forecast.` },
       { q: `How is a revenue projection different from a sales forecast?`, a: `A sales forecast usually estimates the current period from named deals and rep commits. A revenue projection often spans multiple periods and leans more on trends and assumptions, especially for longer horizons where specific deals do not yet exist.` },
@@ -4358,7 +4358,7 @@ const TERMS = [
       `Nonstandard structures route through the deal desk.`,
     ],
     why: `The right structure can turn a lost deal into a won one, such as a ramp deal that eases a buyer's early budget. But structure also drives margin, which is why nonstandard arrangements need deal-desk review.`,
-    rally: `Rally captures deal structure on the line items and routes nonstandard structures through the approval workflow, so Rook can flag margin impact and speed the deal desk's review of creative terms.`,
+    rally: `Ardovo captures deal structure on the line items and routes nonstandard structures through the approval workflow, so Rook can flag margin impact and speed the deal desk's review of creative terms.`,
     faqs: [
       { q: `What is deal structure?`, a: `It is how a deal's commercial terms are arranged, including pricing, contract length, payment schedule, discounts, ramp deals, and add-ons. Smart structuring can make a deal winnable while protecting the vendor's margin.` },
       { q: `Why does deal structure matter?`, a: `Because the same value can be arranged in ways that win or lose the deal and that protect or erode margin. A ramp deal or extended term can unlock a stuck buyer, so structure is a lever for both winning and profitability.` },
@@ -4381,7 +4381,7 @@ const TERMS = [
       `Fixable only if caught early.`,
     ],
     why: `A coverage gap warns of a miss weeks before it happens, while there is still time to generate pipeline. Catching it early turns a future miss into a present pipeline-generation target.`,
-    rally: `Rally computes the coverage gap live from your required and actual pipeline, and Rook flags it early and suggests the accounts and campaigns to close it before the period runs out of cycle time.`,
+    rally: `Ardovo computes the coverage gap live from your required and actual pipeline, and Rook flags it early and suggests the accounts and campaigns to close it before the period runs out of cycle time.`,
     faqs: [
       { q: `What is a coverage gap?`, a: `It is the shortfall between your current qualified pipeline and the coverage you need to hit quota after loss and slippage. Needing 4 million and having 3 million is a 1 million coverage gap, a leading indicator of a likely miss.` },
       { q: `How do I close a coverage gap?`, a: `Generate qualified pipeline through outbound, partner, and inbound sources, reactivate stalled and closed-lost deals, and raise win rate to lower the coverage you need. The earlier you spot the gap, the more of these levers still have time to work.` },
@@ -4404,7 +4404,7 @@ const TERMS = [
       `Every commit deal should withstand scrutiny.`,
     ],
     why: `Leadership builds plans and investor expectations on the commit number, so an inflated one breaks those decisions. A reliable, defensible commit is far more valuable than an optimistic figure that misses.`,
-    rally: `Rally captures the commit number and rolls it up by team, and Rook pressure-tests each commit deal against real engagement, flagging any that lack an economic buyer or supporting activity before the number is trusted.`,
+    rally: `Ardovo captures the commit number and rolls it up by team, and Rook pressure-tests each commit deal against real engagement, flagging any that lack an economic buyer or supporting activity before the number is trusted.`,
     faqs: [
       { q: `What is the commit number?`, a: `It is the total revenue a rep or team formally pledges to close in a period, the sum of their highest-confidence deals. It is the floor of the forecast and the figure leadership plans and reports on.` },
       { q: `How is the commit number different from the forecast?`, a: `The commit number is specifically the high-confidence floor a rep will stand behind. The full forecast may include upside and best-case deals above the commit. Commit is the number leadership can safely bank on.` },
@@ -4427,7 +4427,7 @@ const TERMS = [
       `Anchors compensation and capacity planning.`,
     ],
     why: `The annual quota drives comp, hiring, and pipeline planning for the whole year. Grounding it in capacity and attainment history, and splitting it realistically, keeps it motivating rather than demoralizing.`,
-    rally: `Rally manages annual quotas with realistic period splits for seasonality and ramp, and Rook tracks attainment against them so reps and leaders see whether the year is on pace, not just the current period.`,
+    rally: `Ardovo manages annual quotas with realistic period splits for seasonality and ramp, and Rook tracks attainment against them so reps and leaders see whether the year is on pace, not just the current period.`,
     faqs: [
       { q: `What is an annual quota?`, a: `It is a rep or team's total revenue or bookings target for the full year, usually broken into quarterly and monthly sub-targets that account for seasonality and ramp. It anchors compensation, capacity, and pipeline planning.` },
       { q: `How should an annual quota be split across the year?`, a: `Not evenly. Account for seasonality, ramp for new reps, and any known business cycles. Splitting a quota into equal quarters ignores these realities and sets reps up to miss in slow periods and scramble in strong ones.` },
@@ -4450,7 +4450,7 @@ const TERMS = [
       `Keeps new-hire attainment data meaningful.`,
     ],
     why: `Measuring a new rep against a full quota they cannot yet hit demoralizes them and distorts attainment analysis. A ramp quota sets fair early expectations and keeps the team's attainment data honest.`,
-    rally: `Rally applies ramp quotas that step up over a new hire's onboarding, and Rook tracks their attainment against the ramped target so early performance is judged fairly against realistic expectations.`,
+    rally: `Ardovo applies ramp quotas that step up over a new hire's onboarding, and Rook tracks their attainment against the ramped target so early performance is judged fairly against realistic expectations.`,
     faqs: [
       { q: `What is a ramp quota?`, a: `It is a reduced, graduated target assigned to a new rep during onboarding, rising step by step to full quota as they reach productivity. It reflects that new hires cannot produce at full capacity immediately.` },
       { q: `Why use a ramp quota?`, a: `Because measuring a new rep against a full quota they cannot yet hit is unfair and distorts attainment data. A ramp quota sets realistic early expectations, keeps new hires motivated, and keeps team attainment analysis honest.` },
@@ -4473,7 +4473,7 @@ const TERMS = [
       `The foundation of capacity planning.`,
     ],
     why: `A target above capacity is unhittable regardless of pipeline or effort, and the gap is a hiring problem. Knowing capacity prevents leaders from setting goals the current team physically cannot reach.`,
-    rally: `Rally models sales capacity from ramped headcount and productivity, so Rook can flag when a revenue target exceeds capacity and show how much hiring, and how early, is needed to close the gap.`,
+    rally: `Ardovo models sales capacity from ramped headcount and productivity, so Rook can flag when a revenue target exceeds capacity and show how much hiring, and how early, is needed to close the gap.`,
     faqs: [
       { q: `What is sales capacity?`, a: `It is the total revenue a team can realistically produce given its ramped headcount, per-rep productivity, and the ramp state of newer hires. It sets the ceiling on achievable revenue and is the foundation of capacity planning.` },
       { q: `What if the revenue target exceeds sales capacity?`, a: `Then the gap is a hiring and capacity problem, not a pipeline one. No amount of pipeline generation closes a capacity shortfall; you need to hire earlier, raise per-rep productivity, or adjust the target to reality.` },
@@ -4496,7 +4496,7 @@ const TERMS = [
       `Enables honest accuracy tracking.`,
     ],
     why: `Accuracy can only be measured against a fixed commitment. A forecast lock preserves what was actually committed, so the team learns from real variance rather than a number that was quietly adjusted to look good.`,
-    rally: `Rally locks forecast submissions at each cycle and preserves the record, so Rook can measure actual results against what was genuinely committed and report accuracy that cannot be gamed by later edits.`,
+    rally: `Ardovo locks forecast submissions at each cycle and preserves the record, so Rook can measure actual results against what was genuinely committed and report accuracy that cannot be gamed by later edits.`,
     faqs: [
       { q: `What is a forecast lock?`, a: `It is the point in a period when submitted forecasts are frozen and recorded, creating an accountable baseline. Once locked, the committed number cannot be quietly revised, so actual results can be measured against what was actually committed.` },
       { q: `Why lock a forecast?`, a: `Because accuracy can only be measured against a fixed commitment. Without a lock, forecasts can be edited after the fact, making accuracy tracking meaningless. Locking preserves the real baseline so the team learns from genuine variance.` },
@@ -4519,7 +4519,7 @@ const TERMS = [
       `Prevents future-period starvation.`,
     ],
     why: `Teams focused only on closing quietly starve future quarters by neglecting generation. Pipeline attainment makes building a measured, accountable target, protecting the revenue two and three quarters out.`,
-    rally: `Rally tracks pipeline attainment against creation targets by rep and source, so Rook can flag when a team is closing well but not building enough pipeline to sustain future coverage.`,
+    rally: `Ardovo tracks pipeline attainment against creation targets by rep and source, so Rook can flag when a team is closing well but not building enough pipeline to sustain future coverage.`,
     faqs: [
       { q: `What is pipeline attainment?`, a: `It is the percentage of a pipeline-creation target that a team actually generated in a period. It measures the building side of sales, holding reps and marketing accountable for creating enough qualified pipeline to fuel future quarters.` },
       { q: `Why measure pipeline attainment?`, a: `Because teams focused only on closing quietly starve future periods by neglecting generation. Making pipeline creation a measured, accountable target protects the revenue two and three quarters out that today's generation produces.` },
@@ -4542,7 +4542,7 @@ const TERMS = [
       `Aggregates into your average sales cycle.`,
     ],
     why: `Understanding the deal cycle exposes the stages where deals reliably slow or stall, which is where process improvement pays off most. It also grounds close-date projections in how deals actually progress.`,
-    rally: `Rally tracks each deal cycle stage by stage and Rook surfaces where deals commonly stall in your motion, so you can fix the slow stage and project close dates from how deals really move.`,
+    rally: `Ardovo tracks each deal cycle stage by stage and Rook surfaces where deals commonly stall in your motion, so you can fix the slow stage and project close dates from how deals really move.`,
     faqs: [
       { q: `What is a deal cycle?`, a: `It is the full journey of one opportunity from creation to close, passing through each stage and buyer milestone. Analyzing deal cycles reveals how long each stage takes and where deals commonly speed up or stall.` },
       { q: `How is a deal cycle different from a sales cycle?`, a: `A deal cycle is the journey of a single opportunity; the sales cycle is usually the average across many deals. The deal cycle is the individual case whose aggregate becomes your average sales cycle length.` },
@@ -4565,7 +4565,7 @@ const TERMS = [
       `Fair credit keeps collaborators aligned.`,
     ],
     why: `On team-sold deals, how quota credit is divided determines whether reps collaborate or compete. Fair, clear credit rules align everyone on winning the deal rather than fighting over ownership.`,
-    rally: `Rally supports quota credit splits across contributors and overlays, and Rook tracks each person's credited attainment, so team selling is rewarded fairly without disputes over who owns a deal.`,
+    rally: `Ardovo supports quota credit splits across contributors and overlays, and Rook tracks each person's credited attainment, so team selling is rewarded fairly without disputes over who owns a deal.`,
     faqs: [
       { q: `What is quota credit?`, a: `It is the portion of a deal's value that counts toward a rep's quota attainment. On team-sold deals it may be split across an account executive, an overlay specialist, and others according to defined allocation rules.` },
       { q: `Why does quota credit allocation matter?`, a: `Because how credit is split drives behavior. Fair rules encourage reps to collaborate on deals, while unclear or winner-take-all credit makes reps hoard deals and avoid helping colleagues, hurting overall team results.` },
@@ -4588,7 +4588,7 @@ const TERMS = [
       `Unaccounted competition causes losses.`,
     ],
     why: `You cannot differentiate against a competitor you have not identified, and the status quo quietly wins deals sellers never contested. Mapping competition lets you position deliberately and defend against no-decision.`,
-    rally: `Rally tracks competitors on every deal and Rook computes your win rate against each and flags deals where a rival's strengths dominate the decision criteria, so reps position and differentiate deliberately.`,
+    rally: `Ardovo tracks competitors on every deal and Rook computes your win rate against each and flags deals where a rival's strengths dominate the decision criteria, so reps position and differentiate deliberately.`,
     faqs: [
       { q: `What does Competition mean in MEDDPICC?`, a: `It is understanding every alternative the buyer is weighing, including rival vendors, an internal build, and the status quo of doing nothing, plus how you are positioned against each. It shapes messaging, differentiation, and deal strategy.` },
       { q: `Why is the status quo a competitor?`, a: `Because the buyer can always choose to do nothing, which is a no-decision loss. Treating the status quo as a competitor forces you to build enough urgency and value that inaction is not the easiest choice.` },
@@ -4611,7 +4611,7 @@ const TERMS = [
       `The step MEDDPICC adds beyond MEDDIC.`,
     ],
     why: `Enterprise deals die in the paperwork sellers forget to map. Understanding the paper process early lets you start legal and procurement in parallel and set a close date that reflects the real path to signature.`,
-    rally: `Rally tracks the paper process as steps on the deal, and Rook warns when a late-stage deal has a verbal yes but no legal or procurement activity, so the paperwork starts before it threatens the close date.`,
+    rally: `Ardovo tracks the paper process as steps on the deal, and Rook warns when a late-stage deal has a verbal yes but no legal or procurement activity, so the paperwork starts before it threatens the close date.`,
     faqs: [
       { q: `What is the paper process in MEDDPICC?`, a: `It is the specific sequence of steps to turn a verbal commitment into a signed contract, including legal review, redlines, security and compliance checks, and procurement. MEDDPICC adds it beyond MEDDIC because it is a frequent cause of late slippage.` },
       { q: `Why does MEDDPICC add the paper process?`, a: `Because enterprise deals routinely slip in the final paperwork that MEDDIC does not explicitly cover. Adding paper process forces sellers to map and start legal, security, and procurement early rather than treating signature as a formality.` },
@@ -4634,7 +4634,7 @@ const TERMS = [
       `Turns the forecast into a trackable trend.`,
     ],
     why: `A forecast seen only in the present hides erosion. Comparing snapshots exposes whether the number is strengthening or slipping and which deals are driving the change, so leaders can react in time.`,
-    rally: `Rally snapshots the forecast automatically each cycle, so Rook can show how the commit moved week over week, which deals caused the change, and whether the number is trending toward or away from goal.`,
+    rally: `Ardovo snapshots the forecast automatically each cycle, so Rook can show how the commit moved week over week, which deals caused the change, and whether the number is trending toward or away from goal.`,
     faqs: [
       { q: `What is a forecast snapshot?`, a: `It is a saved record of the forecast at a specific point, capturing the commit, best case, and the deals behind them. Comparing snapshots across the cycle shows how the number moved and why.` },
       { q: `Why take forecast snapshots?`, a: `Because a forecast seen only in the present hides erosion. Comparing snapshots week over week reveals whether the number is strengthening or slipping and which deals drive the change, so leaders can act in time.` },
@@ -4657,7 +4657,7 @@ const TERMS = [
       `Consistency surfaces problems early.`,
     ],
     why: `Inspection done occasionally lets stale data and slippage accumulate. A fixed cadence keeps the pipeline honest and the forecast reliable by catching issues within days, which is the essence of sales management discipline.`,
-    rally: `Rally pre-builds each review in the cadence with exception lists and week-over-week movement, so Rook makes a consistent inspection rhythm easy to sustain rather than a manual burden.`,
+    rally: `Ardovo pre-builds each review in the cadence with exception lists and week-over-week movement, so Rook makes a consistent inspection rhythm easy to sustain rather than a manual burden.`,
     faqs: [
       { q: `What is a sales inspection cadence?`, a: `It is the regular schedule of pipeline reviews, deal reviews, and forecast calls that keeps deal data honest and the forecast reliable. A typical cadence pairs weekly pipeline reviews and forecast calls with periodic deep deal reviews.` },
       { q: `Why does a consistent inspection cadence matter?`, a: `Because occasional inspection lets stale data and slippage accumulate unseen. A predictable rhythm surfaces problems within days rather than at period end, which is what keeps the pipeline and forecast trustworthy over time.` },
@@ -4680,7 +4680,7 @@ const TERMS = [
       `Gross bookings can hide weak net new ARR.`,
     ],
     why: `Net new ARR is what actually grows a subscription business, so it drives valuation and planning. Watching only gross new bookings can mask churn quietly eroding the base, which net new ARR exposes.`,
-    rally: `Rally forecasts and tracks net new ARR by combining new-business, expansion, and churn views, so Rook can show real recurring growth and flag when churn or contraction is undercutting strong new sales.`,
+    rally: `Ardovo forecasts and tracks net new ARR by combining new-business, expansion, and churn views, so Rook can show real recurring growth and flag when churn or contraction is undercutting strong new sales.`,
     faqs: [
       { q: `How do you calculate net new ARR?`, a: `Add new-business ARR and expansion ARR, then subtract churned and contracted ARR for the period. The result is the net change in annual recurring revenue, the real recurring growth of the business.` },
       { q: `Why is net new ARR important?`, a: `Because it captures real recurring growth in one figure, which is what drives SaaS valuation and planning. Gross new bookings can look strong while high churn and contraction quietly erode the base, which net new ARR exposes.` },
@@ -4703,7 +4703,7 @@ const TERMS = [
       `Protects margin and policy on complex deals.`,
     ],
     why: `Without a deal desk analyst, complex deals stall bouncing between finance, legal, and management. The analyst centralizes the review, so reps get quick, consistent decisions that protect margin without killing velocity.`,
-    rally: `Rally routes nonstandard deals into an approval workflow and Rook drafts the approval summary from the deal's line items, so a deal desk analyst can review and decide quickly with full context.`,
+    rally: `Ardovo routes nonstandard deals into an approval workflow and Rook drafts the approval summary from the deal's line items, so a deal desk analyst can review and decide quickly with full context.`,
     faqs: [
       { q: `What does a deal desk analyst do?`, a: `They review, structure, and shepherd nonstandard deals through approval, coordinating pricing, discounts, legal terms, and sign-offs across finance, legal, and leadership, so reps get fast, consistent answers while margin and policy are protected.` },
       { q: `When does a company need a deal desk analyst?`, a: `When nonstandard discounts, custom terms, and large deals regularly stall bouncing between teams. The role is central to enterprise sales, where complex structures and approvals would otherwise slow deals to a crawl.` },
@@ -4726,7 +4726,7 @@ const TERMS = [
       `Compared to net new ARR to reveal churn drag.`,
     ],
     why: `Separating gross from net new ARR tells you whether weak growth comes from not adding enough or from losing too much. That distinction points to whether to invest in acquisition or retention.`,
-    rally: `Rally tracks gross and net new ARR side by side, so Rook can show whether a growth shortfall is an acquisition problem or a churn problem and direct effort to the real cause.`,
+    rally: `Ardovo tracks gross and net new ARR side by side, so Rook can show whether a growth shortfall is an acquisition problem or a churn problem and direct effort to the real cause.`,
     faqs: [
       { q: `What is gross new ARR?`, a: `It is the total annual recurring revenue added in a period from new business and expansion, before subtracting churn or contraction. It measures the raw output of your acquisition and growth engine, separate from retention.` },
       { q: `What is the difference between gross and net new ARR?`, a: `Gross new ARR counts only additions from new business and expansion. Net new ARR subtracts churn and contraction. The gap between them shows how much churn is eroding your growth, separating an acquisition problem from a retention one.` },
@@ -4749,7 +4749,7 @@ const TERMS = [
       `More accurate than one uniform method.`,
     ],
     why: `Enterprise and self-serve deals behave nothing alike, so one blended forecast averages away the truth. Forecasting each segment on its own conversion math and combining them produces a materially more accurate number.`,
-    rally: `Rally forecasts each segment on its own win rate, cycle length, and deal size, then rolls them into one number, so Rook keeps the combined forecast accurate rather than blurring distinct motions together.`,
+    rally: `Ardovo forecasts each segment on its own win rate, cycle length, and deal size, then rolls them into one number, so Rook keeps the combined forecast accurate rather than blurring distinct motions together.`,
     faqs: [
       { q: `What is a multi-segment forecast?`, a: `It is a forecast that builds separate estimates for each sales motion or segment, such as enterprise, mid-market, and self-serve, then rolls them up. Each segment uses its own win rate and cycle length, which is more accurate than one uniform method.` },
       { q: `Why forecast segments separately?`, a: `Because segments behave differently: enterprise deals have low win rates and long cycles, self-serve the opposite. Applying one blended win rate and cycle across them averages away the truth and produces avoidable forecast error.` },
@@ -4763,7 +4763,7 @@ const guideEntries = GUIDES.map((g) => ({
   slug: g.slug,
   type: 'guide',
   title: g.title,
-  metaTitle: g.metaTitle || `${g.title} (2026) | Rally`,
+  metaTitle: g.metaTitle || `${g.title} (2026) | Ardovo`,
   metaDescription: clampDesc(g.desc),
   eyebrow: g.eyebrow || 'Pipeline playbook',
   h1: g.h1 || g.title,
@@ -4781,7 +4781,7 @@ const termEntries = TERMS.map((t) => ({
   slug: t.slug,
   type: 'glossary',
   title: t.title || `What is ${t.term}?`,
-  metaTitle: t.metaTitle || `${t.term}: definition and examples | Rally`,
+  metaTitle: t.metaTitle || `${t.term}: definition and examples | Ardovo`,
   metaDescription: clampDesc(t.desc),
   eyebrow: t.eyebrow || 'Forecasting glossary',
   h1: t.h1 || t.title || `What is ${t.term}?`,
@@ -4791,7 +4791,7 @@ const termEntries = TERMS.map((t) => ({
   ...(t.stats ? { stats: t.stats } : {}),
   sections: t.sections || [
     { h: 'Why it matters', body: t.why },
-    { h: 'How Rally handles it', body: t.rally },
+    { h: 'How Ardovo handles it', body: t.rally },
   ],
   faqs: t.faqs,
   published: PUB,

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY BLOG DATA
+// ARDOVO BLOG DATA
 // Long-form content marketing posts. Real insight, written to rank
 // and to be worth reading. Each post is a normalized record the
 // Blog index and BlogPost renderer both read from.
@@ -25,7 +25,7 @@ export const POSTS = [
     title: 'Why CRMs became data-entry prisons (and how AI ends that)',
     excerpt:
       'The CRM was sold as a memory for your revenue team. It became a tax on it. Here is how the system inverted, and what an AI-native CRM does differently.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Product',
     date: '2026-07-02',
     readMins: 7,
@@ -92,7 +92,7 @@ export const POSTS = [
     title: 'The AI-native revenue stack',
     excerpt:
       'Most revenue teams run eight tools held together by integrations and a person who knows how the wiring works. Here is what the stack looks like when an operator sits at the center instead of glue code.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Product',
     date: '2026-06-24',
     readMins: 8,
@@ -159,7 +159,7 @@ export const POSTS = [
     title: 'Forecasting you can actually trust',
     excerpt:
       'Most forecasts are a negotiation dressed up as a number. Here is how to build one that survives contact with the quarter, and what an AI operator adds that a spreadsheet cannot.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'RevOps',
     date: '2026-06-16',
     readMins: 8,
@@ -230,7 +230,7 @@ export const POSTS = [
     title: 'How to run a pipeline review that is not a status meeting',
     excerpt:
       'Most pipeline reviews are a rep reading a list while a manager nods. Here is a format that finds risk, moves deals, and ends on time.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Sales Leadership',
     date: '2026-06-09',
     readMins: 7,
@@ -300,7 +300,7 @@ export const POSTS = [
     title: 'MEDDIC in practice, not on a poster',
     excerpt:
       'MEDDIC is the most used and least practiced qualification framework in sales. Here is how to run it as a working discipline instead of a checklist nobody fills in.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Sales Enablement',
     date: '2026-05-30',
     readMins: 9,
@@ -369,7 +369,7 @@ export const POSTS = [
     title: 'The end of the six-month CRM rollout',
     excerpt:
       'CRM migrations became legendary projects with consultants, phases, and a launch date that slips. They do not have to be. Here is why the six-month rollout is a choice, not a law.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Implementation',
     date: '2026-05-21',
     readMins: 7,
@@ -439,7 +439,7 @@ export const POSTS = [
     title: 'Building a RevOps function from scratch',
     excerpt:
       'RevOps is either the team that makes revenue predictable or the team that owns the CRM tickets. Here is how to build the first version and avoid becoming the second.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'RevOps',
     date: '2026-05-12',
     readMins: 9,
@@ -514,7 +514,7 @@ export const POSTS = [
     title: 'Sales email that gets replies',
     excerpt:
       'The cold email playbook everyone copied stopped working because everyone copied it. Here is what actually earns a reply now, and where AI helps without making it worse.',
-    author: 'The Rally Team',
+    author: 'The Ardovo Team',
     role: 'Sales',
     date: '2026-05-02',
     readMins: 7,

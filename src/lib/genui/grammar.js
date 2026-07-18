@@ -343,7 +343,7 @@ export function buildFallbackSpec(question = '', snap = {}) {
 // PROMPT CONTRACT handed to Rook so its output matches the whitelist.
 // ============================================================
 export const PROMPT_GRAMMAR = [
-  'You author a ui_spec: a small JSON tree Rally renders as a live, interactive micro-app bound to the user data. NO code, NO expressions, NO formulas - only declarative blocks that reference WHITELISTED selectors. Anything off-whitelist is dropped.',
+  'You author a ui_spec: a small JSON tree Ardovo renders as a live, interactive micro-app bound to the user data. NO code, NO expressions, NO formulas - only declarative blocks that reference WHITELISTED selectors. Anything off-whitelist is dropped.',
   '',
   'Top level: { "title": string, "subtitle"?: string, "blocks": Block[] } (max 14 blocks).',
   '',

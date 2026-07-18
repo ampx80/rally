@@ -1,4 +1,4 @@
-// Universal field editor for the Rally field registry (Wave 2).
+// Universal field editor for the Ardovo field registry (Wave 2).
 // One component renders the right display + inline editor for ANY fieldDef
 // from src/lib/fields.js: text, longtext, number, currency, percent, date,
 // datetime, checkbox (switch), picklist, multipicklist, email, phone, url,

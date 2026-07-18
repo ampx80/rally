@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY MIGRATION - browser helpers
+// ARDOVO MIGRATION - browser helpers
 // The client side of "migrate straight from Salesforce / HubSpot".
 // Talks to /api/migrate-* and funnels pulled records through the SAME
 // import path a CSV upload uses: importer.autoMap builds the column
@@ -11,7 +11,7 @@
 // ============================================================
 import { autoMap, runImport, importObject } from './importer.js';
 
-// Source metadata for the UI. `objects` are the Rally importer object
+// Source metadata for the UI. `objects` are the Ardovo importer object
 // ids each source can migrate; labels come back live from the API too,
 // but this gives the panel something to render before a connect.
 export const MIGRATE_SOURCES = [
@@ -29,8 +29,8 @@ export const MIGRATE_SOURCES = [
 
 export const migrateSource = (id) => MIGRATE_SOURCES.find(s => s.id === id);
 
-// Field pre-maps: which Rally field keys each source object supplies.
-// The pull endpoint already emits records keyed by these Rally keys, so
+// Field pre-maps: which Ardovo field keys each source object supplies.
+// The pull endpoint already emits records keyed by these Ardovo keys, so
 // the "map" is an identity map. Kept explicit here so the panel can show
 // and (if ever needed) override the mapping before import. autoMap is the
 // fallback so this stays correct even if the API adds columns.
@@ -49,7 +49,7 @@ export const PRE_MAPS = {
 };
 
 // Build the { header: fieldKey } mapping importer.runImport expects.
-// Pulled headers ARE Rally field keys, so we prefer an identity map and
+// Pulled headers ARE Ardovo field keys, so we prefer an identity map and
 // fall back to importer.autoMap for anything unexpected.
 export function buildMapping(objectType, headers) {
   const auto = autoMap(objectType, headers);

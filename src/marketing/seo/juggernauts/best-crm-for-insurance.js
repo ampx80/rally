@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-insurance',
   title: 'The Best CRM for Insurance Agencies in 2026',
   h1: 'The Best CRM for Insurance Agencies: A 2026 Buyer Guide',
-  metaTitle: 'The Best CRM for Insurance Agencies in 2026: Pipeline, Renewals, and Retention | Rally',
+  metaTitle: 'The Best CRM for Insurance Agencies in 2026: Pipeline, Renewals, and Retention | Ardovo',
   metaDescription: 'A deep, practical guide to choosing a CRM for an insurance agency in 2026: policy pipeline, renewal automation, compliance-aware notes, a book-of-business retention calculator, comparison matrix, and a rollout plan.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 90, suffix: '%', label: 'Typical policy retention agencies target on a renewed book' },
     { value: 9, prefix: '~', suffix: 'x', label: 'Cheaper to retain a policy than to write a new one' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every module included' },
   ],
   blocks: [
     {
@@ -109,7 +109,7 @@ const entry = {
       body: [
         'Agencies run two pipelines at once and most CRMs only understand one of them. The new-business pipeline looks familiar: lead, quoted, bound. But the second pipeline, the renewal pipeline, runs on a calendar, not a stage. It is driven by effective dates, and it repeats every term for the life of the client.',
         'When you force renewals through a deal pipeline built for one-time sales, they fall off the board the moment a policy binds. The producer moves on, the renewal date arrives unwatched, and the client shops elsewhere. The fix is a CRM that keeps every bound policy on a rolling renewal clock and re-surfaces it automatically before the term ends.',
-        'Rally models both. New business flows through a pipeline, and every bound policy spawns a renewal that Rook watches on your behalf, so nothing that already pays you goes quiet.',
+        'Ardovo models both. New business flows through a pipeline, and every bound policy spawns a renewal that Rook watches on your behalf, so nothing that already pays you goes quiet.',
       ],
     },
     {
@@ -134,7 +134,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Insurance CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet', 'Legacy agency CRM'],
+      columns: ['Ardovo', 'Spreadsheet', 'Legacy agency CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Models policies against households', cells: [true, 'partial', true] },
@@ -154,7 +154,7 @@ const entry = {
       title: 'Time to a working book of business',
       data: {
         bars: [
-          { label: 'Rally', value: 8, display: '8 min', highlight: true },
+          { label: 'Ardovo', value: 8, display: '8 min', highlight: true },
           { label: 'Spreadsheet', value: 45, display: '45 min' },
           { label: 'Legacy agency CRM', value: 240, display: '3+ weeks' },
         ],
@@ -207,7 +207,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing renewals to nobody-called-them. The system flags every policy before the term ends and drafts the note. Our retention moved several points in a year.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Principal, independent P and C agency',
     },
     {
@@ -216,7 +216,7 @@ const entry = {
       body: [
         'Do not try to migrate every carrier integration and custom field on day one. Import your book, set your renewal clocks, and turn on renewal drafting. That alone stops the most expensive leak in an agency: renewals nobody worked.',
         'Add lines of business, carrier-specific fields, and cross-sell automations only when a real workflow demands them. A CRM your producers actually update beats a perfectly configured one they route around. The goal is a system of record the whole agency trusts, not a museum of fields.',
-        'Rally is alive on first load, priced as one flat number across every module, and operated by Rook, the AI that watches your renewals so your producers can sell. Verify current pricing and specifics on the Rally site, then run the calculator above against your own book to see what retention is worth.',
+        'Ardovo is alive on first load, priced as one flat number across every module, and operated by Rook, the AI that watches your renewals so your producers can sell. Verify current pricing and specifics on the Ardovo site, then run the calculator above against your own book to see what retention is worth.',
       ],
     },
     {
@@ -224,11 +224,11 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'What makes an insurance CRM different from a normal CRM?', a: 'An insurance CRM models policies, not one-time deals. It tracks coverage lines, carriers, premiums, and effective dates against households or businesses, and it runs a renewal clock so recurring premium is never lost to a missed follow-up. A generic sales CRM goes quiet after the close; an agency relationship never does.' },
-        { q: 'How does a CRM help with policy renewals?', a: 'The best agency CRMs put every bound policy on a rolling renewal schedule and surface it automatically 90, 60, and 30 days before the term ends. Rally goes further: Rook, the AI operator, watches the renewal clock and drafts the outreach for a producer to approve, so nothing that already pays you goes unworked.' },
+        { q: 'How does a CRM help with policy renewals?', a: 'The best agency CRMs put every bound policy on a rolling renewal schedule and surface it automatically 90, 60, and 30 days before the term ends. Ardovo goes further: Rook, the AI operator, watches the renewal clock and drafts the outreach for a producer to approve, so nothing that already pays you goes unworked.' },
         { q: 'Can a CRM keep compliance-aware notes for E and O protection?', a: 'A good one keeps timestamped, attributed, tamper-evident records of interactions tied to advice, coverage changes, and disclosures. That is what you produce for carrier audits or an E and O defense. No CRM makes you compliant by itself, so confirm your specific obligations with your compliance counsel and carriers, but an accurate record is the foundation.' },
-        { q: 'How much should an agency pay for a CRM?', a: 'Avoid per-seat-plus-add-on pricing that climbs every time you add a producer or a line of business. Rally is one flat price with every module included, so the bill is predictable from a two-person shop to a 30-producer agency. Always verify current pricing directly with any vendor.' },
+        { q: 'How much should an agency pay for a CRM?', a: 'Avoid per-seat-plus-add-on pricing that climbs every time you add a producer or a line of business. Ardovo is one flat price with every module included, so the bill is predictable from a two-person shop to a 30-producer agency. Always verify current pricing directly with any vendor.' },
         { q: 'What is a realistic retention rate for an agency book?', a: 'Many agencies target around 90 percent annual policy retention, though it varies by line, carrier mix, and market. The exact number matters less than the trend: even a few points of retention lift compounds on a renewing book, which is why automated renewals pay for the CRM many times over. Use the calculator above with your own numbers.' },
-        { q: 'How long does it take to get value from a new agency CRM?', a: 'On a live-on-first-load platform like Rally, minutes to a working book: import clients and policies, set renewal clocks, turn on drafting. On a blank legacy agency CRM, expect weeks of carrier-by-carrier configuration before the first useful retention report.' },
+        { q: 'How long does it take to get value from a new agency CRM?', a: 'On a live-on-first-load platform like Ardovo, minutes to a working book: import clients and policies, set renewal clocks, turn on drafting. On a blank legacy agency CRM, expect weeks of carrier-by-carrier configuration before the first useful retention report.' },
       ],
     },
   ],

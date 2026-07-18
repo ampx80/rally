@@ -1,4 +1,4 @@
-// GetStarted - Rally's pre-qualification front door at /get-started.
+// GetStarted - Ardovo's pre-qualification front door at /get-started.
 // A prospect gives name, business email, phone, headcount, and a few
 // admin-configurable questions. The engine (src/lib/prequalify.js) scores
 // fit live and, on submit, routes: qualified -> book a call with an AE
@@ -138,7 +138,7 @@ export default function GetStarted() {
               </div>
             </div>
             <ul className="gs-why">
-              {['A real Rally account executive, not a bot wall', 'Walkthrough tailored to your stack and team', 'See migration and go-live mapped to your data', 'Rook set up on your pipeline before you decide'].map(t => (
+              {['A real Ardovo account executive, not a bot wall', 'Walkthrough tailored to your stack and team', 'See migration and go-live mapped to your data', 'Rook set up on your pipeline before you decide'].map(t => (
                 <li key={t}><span className="gs-why-ic"><Icon name="check" size={12} stroke={3} /></span>{t}</li>
               ))}
             </ul>
@@ -185,7 +185,7 @@ function ResultScreen({ result, config, form, nav }) {
             {result.tier === 'qualified' && (
               <>
                 <p className="mkt-lead" style={{ maxWidth: 520, margin: '14px auto 0' }}>
-                  You are exactly who Rally is built for. Book time with a {config.aeTitle} and we will tailor the
+                  You are exactly who Ardovo is built for. Book time with a {config.aeTitle} and we will tailor the
                   walkthrough to your team, map your migration, and stand up Rook on your pipeline.
                 </p>
                 <div className="gs-result-cta">
@@ -205,7 +205,7 @@ function ResultScreen({ result, config, form, nav }) {
             {result.tier === 'review' && (
               <>
                 <p className="mkt-lead" style={{ maxWidth: 520, margin: '14px auto 0' }}>
-                  You look promising. We captured your details and a Rally rep will reach out to see if the timing
+                  You look promising. We captured your details and a Ardovo rep will reach out to see if the timing
                   is right. In the meantime, you can explore the product yourself.
                 </p>
                 <div className="gs-result-cta">
@@ -218,12 +218,12 @@ function ResultScreen({ result, config, form, nav }) {
             {result.tier === 'low' && (
               <>
                 <p className="mkt-lead" style={{ maxWidth: 520, margin: '14px auto 0' }}>
-                  Rally shines for teams actively running revenue. Start free, drive it yourself, and come back when
+                  Ardovo shines for teams actively running revenue. Start free, drive it yourself, and come back when
                   you are ready for a tailored walkthrough. No pressure.
                 </p>
                 <div className="gs-result-cta">
                   <button className="mkt-btn mkt-btn-primary mkt-btn-lg" onClick={() => nav('/demo')}><Icon name="eye" size={18} /> Explore the demo</button>
-                  <button className="mkt-btn mkt-btn-ghost mkt-btn-lg" onClick={() => nav('/features')}>See what Rally does</button>
+                  <button className="mkt-btn mkt-btn-ghost mkt-btn-lg" onClick={() => nav('/features')}>See what Ardovo does</button>
                 </div>
               </>
             )}

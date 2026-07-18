@@ -1,12 +1,12 @@
 // ============================================================
-// RALLY MIGRATION LIB (shared, server-only)
+// ARDOVO MIGRATION LIB (shared, server-only)
 // Provider metadata + record normalizers for the "migrate straight
 // from Salesforce / HubSpot" flow, plus the sealed-cookie helpers
 // that carry a short-lived access token between the OAuth callback
 // and the pull endpoint WITHOUT ever exposing it to client JS or a
 // URL. Additive + env-gated: nothing here runs unless the source's
 // client env (SALESFORCE_CLIENT_ID / HUBSPOT_CLIENT_ID + secret) is
-// set. Normalizers emit Rally field KEYS so pulled records flow
+// set. Normalizers emit Ardovo field KEYS so pulled records flow
 // through the exact same importer.autoMap + importer.runImport path
 // a CSV upload uses. NO em-dash / en-dash anywhere.
 // ============================================================
@@ -14,7 +14,7 @@ import crypto from 'node:crypto';
 
 export const SF_API_VERSION = 'v59.0';
 
-// Strip protocol / path so a website becomes a bare domain (Rally's
+// Strip protocol / path so a website becomes a bare domain (Ardovo's
 // company.domain shape). Best-effort; returns '' on junk.
 function bareDomain(raw) {
   if (!raw) return '';
@@ -29,8 +29,8 @@ function joinLoc(...parts) {
 
 // ------------------------------------------------------------
 // Provider registry. Each object declares how to fetch it and how to
-// turn one raw provider record into a Rally-keyed row. Object ids
-// match Rally importer object ids (contact / company / deal / lead).
+// turn one raw provider record into a Ardovo-keyed row. Object ids
+// match Ardovo importer object ids (contact / company / deal / lead).
 // ------------------------------------------------------------
 export const PROVIDERS = {
   salesforce: {

@@ -9,11 +9,11 @@ const entry = {
   slug: 'freshsales-alternative',
   title: 'The Best Freshsales Alternative in 2026',
   h1: 'The Best Freshsales Alternative: A 2026 Buyer Guide',
-  metaTitle: 'The Best Freshsales Alternative in 2026: Comparison, Calculator, and Migration Plan | Rally',
+  metaTitle: 'The Best Freshsales Alternative in 2026: Comparison, Calculator, and Migration Plan | Ardovo',
   metaDescription: 'A deep, fair guide to replacing Freshsales in 2026 for teams that have outgrown its automation and want real revenue intelligence plus a true AI operator. Comparison matrix, ROI calculator, and a migration plan.',
   eyebrow: 'Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   ],
   heroStats: [
     { value: 30, prefix: '~', suffix: '%', label: 'Of CRM buyers cite outgrown automation as the reason they switch' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module included' },
   ],
   blocks: [
@@ -31,7 +31,7 @@ const entry = {
       type: 'richText',
       title: 'The short answer',
       body: [
-        'If you want the single best Freshsales alternative for a team that has outgrown starter automation and wants deep revenue intelligence plus an AI operator that actually does the work, Rally is the pick. It is AI-native rather than AI-added, it is alive with a working pipeline on first load instead of a blank database, and it is one flat price per seat with every module included rather than a base plan plus a stack of add-ons.',
+        'If you want the single best Freshsales alternative for a team that has outgrown starter automation and wants deep revenue intelligence plus an AI operator that actually does the work, Ardovo is the pick. It is AI-native rather than AI-added, it is alive with a working pipeline on first load instead of a blank database, and it is one flat price per seat with every module included rather than a base plan plus a stack of add-ons.',
         'But the honest answer has a fork in it. If Freshsales still covers your workflows and you value its tight fit with Freshdesk and the wider Freshworks suite, the right move may be to stay. This guide is built to help you make that call with clear eyes, not to talk everyone into a migration they do not need.',
       ],
     },
@@ -112,7 +112,7 @@ const entry = {
       title: 'AI-native versus AI-added',
       body: [
         'This is the difference that matters most in 2026. An AI-added CRM bolts a scoring model and a chat box onto a database that was designed before AI existed. It can tell you a deal looks risky, but a human still has to open the record, write the email, and update the stage. The intelligence lives beside the data, not inside the workflow.',
-        'An AI-native CRM is built so the operator sits in the middle of the loop. In Rally the operator is Rook: it reads the same single source of truth every report reads, so when it enriches a company, routes a lead, or drafts a follow-up, the pipeline and the forecast move with it. You are not reviewing suggestions, you are reviewing completed work. That is the upgrade teams are really buying when they leave a starter CRM.',
+        'An AI-native CRM is built so the operator sits in the middle of the loop. In Ardovo the operator is Rook: it reads the same single source of truth every report reads, so when it enriches a company, routes a lead, or drafts a follow-up, the pipeline and the forecast move with it. You are not reviewing suggestions, you are reviewing completed work. That is the upgrade teams are really buying when they leave a starter CRM.',
       ],
     },
     {
@@ -147,9 +147,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Rally versus Freshsales at a glance',
+      title: 'Ardovo versus Freshsales at a glance',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Freshsales', 'Legacy CRM'],
+      columns: ['Ardovo', 'Freshsales', 'Legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with a working pipeline on first load', cells: [true, false, false] },
@@ -170,7 +170,7 @@ const entry = {
       title: 'Time to first value',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Freshsales', value: 180, display: '1-3 days' },
           { label: 'Legacy CRM', value: 420, display: '3+ weeks' },
         ],
@@ -257,14 +257,14 @@ const entry = {
       title: 'The bottom line',
       body: [
         'Freshsales is a strong on-ramp, and for plenty of teams it is still the right seat. The teams that outgrow it share a pattern: automation that stalls at simple workflows, forecasts that need a spreadsheet to trust, and AI that suggests without acting. If that is you, the upgrade to look for is not a bigger database with more scores bolted on. It is an AI-native system where the operator does the work inside the loop.',
-        'Rally is built for exactly that transition: alive on first load, one flat price with every module included, and Rook doing the enrichment, drafting, routing, and forecasting your reps do by hand today. Model the numbers with the calculator above, weigh the honest trade-offs, and if Freshsales still fits, stay. If it does not, migrate with a plan and keep your quarter intact.',
+        'Ardovo is built for exactly that transition: alive on first load, one flat price with every module included, and Rook doing the enrichment, drafting, routing, and forecasting your reps do by hand today. Model the numbers with the calculator above, weigh the honest trade-offs, and if Freshsales still fits, stay. If it does not, migrate with a plan and keep your quarter intact.',
       ],
     },
     {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'Is Rally a good Freshsales alternative for a small team?', a: 'Yes, especially if you want to skip the early ceilings entirely. Rally is alive with a working pipeline in minutes and includes every module at one flat price, so a small team gets deep automation and an AI operator without buying up through tiers. That said, if your needs are still very simple and you are happy inside the Freshworks suite, Freshsales remains a reasonable and affordable starter choice.' },
+        { q: 'Is Ardovo a good Freshsales alternative for a small team?', a: 'Yes, especially if you want to skip the early ceilings entirely. Ardovo is alive with a working pipeline in minutes and includes every module at one flat price, so a small team gets deep automation and an AI operator without buying up through tiers. That said, if your needs are still very simple and you are happy inside the Freshworks suite, Freshsales remains a reasonable and affordable starter choice.' },
         { q: 'What does Freshsales do well that I should not give up lightly?', a: 'Freshsales has genuinely strong built-in phone and email, a clean interface, fair entry pricing, and native handoff to Freshdesk for support. If your business leans heavily on that Freshworks integration, factor in how you will connect support before you switch.' },
         { q: 'How is an AI-native CRM different from Freshsales AI features?', a: 'Freshsales offers AI scoring and suggestions, which sit beside your data. An AI-native CRM puts the operator inside the workflow: it reads the same single source of truth your reports read, so when it enriches, routes, drafts, or forecasts, the pipeline moves with it. You review completed work instead of acting on suggestions yourself.' },
         { q: 'How long does migrating off Freshsales take?', a: 'For most teams it is a one-to-two-week project, not a lost quarter. Export and map your data, import open pipeline first, rebuild only the sequences that earn their keep, run both systems in parallel for a week, then cut over once your forecast ties out.' },

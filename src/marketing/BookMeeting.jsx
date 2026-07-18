@@ -1,5 +1,5 @@
 // BookMeeting.jsx
-// PUBLIC booking page for a Rally meeting type. Mounted at /meet/:slug inside
+// PUBLIC booking page for a Ardovo meeting type. Mounted at /meet/:slug inside
 // the marketing Routes block (see App.jsx). A prospect picks a day, picks a
 // slot, drops their details, and books in one flow. On confirm it calls
 // scheduler.bookMeeting(), which assigns a free owner by round-robin and writes
@@ -47,8 +47,8 @@ function downloadIcs(meeting, type, ownerName) {
   const fmt = (iso) => new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
   const esc = (s) => String(s || '').replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n');
   const ics = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Rally//Scheduler//EN', 'BEGIN:VEVENT',
-    `UID:${meeting.id}@rally.app`, `DTSTAMP:${fmt(new Date().toISOString())}`,
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Ardovo//Scheduler//EN', 'BEGIN:VEVENT',
+    `UID:${meeting.id}@ardovo.com`, `DTSTAMP:${fmt(new Date().toISOString())}`,
     `DTSTART:${fmt(meeting.startAt)}`, `DTEND:${fmt(meeting.endAt)}`,
     `SUMMARY:${esc(type.name)} with ${esc(ownerName)}`,
     `DESCRIPTION:${esc(type.description || '')}`,
@@ -83,7 +83,7 @@ export default function BookMeeting() {
           <div style={{ fontSize: 44, marginBottom: 12 }}>🔍</div>
           <h1 style={{ color: c.ink, fontSize: 26, margin: '0 0 8px' }}>Booking link not found</h1>
           <p style={{ margin: '0 0 20px' }}>This meeting type may have been unpublished or removed.</p>
-          <Link to="/" style={{ color: c.accent, fontWeight: 700 }}>Back to Rally</Link>
+          <Link to="/" style={{ color: c.accent, fontWeight: 700 }}>Back to Ardovo</Link>
         </div>
       </div>
     );
@@ -133,7 +133,7 @@ export default function BookMeeting() {
               </div>
 
               <div style={{ display: 'flex', gap: 10, marginTop: 22, justifyContent: 'center', flexWrap: 'wrap' }}>
-                <button onClick={() => downloadIcs(meeting, type, owner?.name || 'Rally')}
+                <button onClick={() => downloadIcs(meeting, type, owner?.name || 'Ardovo')}
                   style={btn(c, true)}><Icon name="download" size={16} /> Add to calendar</button>
                 <button onClick={() => { setBooked(null); setSlot(null); setForm({ name: '', email: '', phone: '', notes: '' }); }}
                   style={btn(c, false)}>Book another time</button>
@@ -156,7 +156,7 @@ export default function BookMeeting() {
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${c.accent}, transparent)` }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: c.dim, fontSize: 13, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase' }}>
               <span style={{ width: 26, height: 26, borderRadius: 7, background: `linear-gradient(135deg, ${c.accent}, #0b8578)`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}><Icon name="zap" size={15} fill="currentColor" stroke={0} /></span>
-              Rally
+              Ardovo
             </div>
             <h1 style={{ color: c.ink, fontSize: 27, margin: '18px 0 10px', letterSpacing: '-.02em', lineHeight: 1.15 }}>{type.name}</h1>
 
@@ -167,7 +167,7 @@ export default function BookMeeting() {
                 <div style={{ display: 'flex' }}>
                   {owners.slice(0, 4).map((o, i) => <span key={o.id} style={{ marginLeft: i ? -10 : 0 }}><Avatar name={o.name} size={30} ring={c.card2} /></span>)}
                 </div>
-                <span>{owners.length > 1 ? `The Rally team (${owners.length})` : owners[0]?.name}</span>
+                <span>{owners.length > 1 ? `The Ardovo team (${owners.length})` : owners[0]?.name}</span>
               </div>
             </div>
 
@@ -301,7 +301,7 @@ function btn(c, primary) {
 function PoweredBy({ c }) {
   return (
     <div style={{ textAlign: 'center', marginTop: 18, color: c.dim, fontSize: 13 }}>
-      Powered by <Link to="/" style={{ color: c.muted, fontWeight: 700 }}>Rally</Link>, the AI-native revenue platform.
+      Powered by <Link to="/" style={{ color: c.muted, fontWeight: 700 }}>Ardovo</Link>, the AI-native revenue platform.
     </div>
   );
 }

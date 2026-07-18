@@ -1,6 +1,6 @@
 // POST /api/unlock   { code }
 //
-// Gates the Rally product app behind a private access code held ONLY in a
+// Gates the Ardovo product app behind a private access code held ONLY in a
 // Vercel environment variable (never shipped in the client bundle). The
 // operator enters the code once on the coming-soon gate; on a match the
 // client stores an unlock flag so it does not have to ask again on that
@@ -8,7 +8,7 @@
 // public out of the product while the waitlist fills, it is not a substitute
 // for real auth. NO em-dash / en-dash.
 //
-// Env: ACCESS_CODE (or RALLY_ACCESS_CODE) - the shared passcode.
+// Env: ACCESS_CODE (or ARDOVO_ACCESS_CODE) - the shared passcode.
 import { withErrorHandling, methodNotAllowed, readJsonBody } from './_utils.js';
 
 // Constant-time-ish compare so response timing does not leak the code length.
@@ -21,7 +21,7 @@ function safeEqual(a, b) {
 
 export default withErrorHandling(async (req, res) => {
   if (req.method !== 'POST') return methodNotAllowed(res, ['POST']);
-  const expected = (process.env.ACCESS_CODE || process.env.RALLY_ACCESS_CODE || '').trim();
+  const expected = (process.env.ACCESS_CODE || process.env.ARDOVO_ACCESS_CODE || '').trim();
   if (!expected) return res.status(503).json({ ok: false, error: 'Access is not configured yet.' });
 
   const { code } = readJsonBody(req);

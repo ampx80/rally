@@ -1,6 +1,6 @@
 // SecurityViz - calm, credible trust motion. A shield that assembles with a
 // lock clicking in and pulse rings, an encrypted data-flow diagram (browser ->
-// Rally edge -> encrypted store, packets in transit), and an animated compliance
+// Ardovo edge -> encrypted store, packets in transit), and an animated compliance
 // badge row. No em-dash / en-dash.
 import React, { useEffect, useState } from 'react';
 import { Icon } from '../../components/icons.jsx';
@@ -42,14 +42,14 @@ export function ShieldAssemble() {
 
 const NODES = [
   { icon: 'user', label: 'Your browser', accent: false },
-  { icon: 'shield', label: 'Rally edge', accent: true },
+  { icon: 'shield', label: 'Ardovo edge', accent: true },
   { icon: 'lock', label: 'Encrypted store', accent: false },
 ];
 const SEALS = ['TLS 1.2+', 'AES-256'];
 
 export function DataFlow() {
   return (
-    <div className="v2 v2-flow" role="img" aria-label="Encrypted data flow: browser to Rally edge to encrypted store">
+    <div className="v2 v2-flow" role="img" aria-label="Encrypted data flow: browser to Ardovo edge to encrypted store">
       <div className="v2-flow-row">
         {NODES.map((n, i) => (
           <React.Fragment key={n.label}>

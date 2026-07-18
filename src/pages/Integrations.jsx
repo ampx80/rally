@@ -2,7 +2,7 @@
 // connect experience on top of the integration backbone.
 //
 // Two layers, both on one page:
-//   1) RALLY NETWORK (native, first-party) - the sibling apps Nate builds
+//   1) ARDOVO NETWORK (native, first-party) - the sibling apps Nate builds
 //      (Tango, Resolve, The Way). These are driven by the declarative registry
 //      (src/lib/integrations/registry.js) and connect for real: a one-click
 //      handshake persists a live connection through connections.js, a status
@@ -154,7 +154,7 @@ function Logo({ domain, name, size = 40 }) {
   );
 }
 
-/* ---------- NATIVE (Rally network) ---------- */
+/* ---------- NATIVE (Ardovo network) ---------- */
 
 // Which required, non-secret fields a live connection is still missing.
 function missingRequired(desc, metadata = {}) {
@@ -294,7 +294,7 @@ function ConfigModal({ desc, conn, open, onClose, onSave, onDisconnect }) {
           <div className="row gap-2" style={{ alignItems: 'flex-start', padding: '.7rem .85rem', borderRadius: 'var(--r-sm)', background: 'var(--accent-50)', border: '1px solid var(--line)' }}>
             <Icon name="shield" size={16} style={{ color: 'var(--accent-600)', flex: 'none', marginTop: 2 }} />
             <div className="t-sm" style={{ color: 'var(--ink-2)' }}>
-              Rally records this connection locally. Live two-way sync activates once {desc.name}'s
+              Ardovo records this connection locally. Live two-way sync activates once {desc.name}'s
               server keys are configured for this workspace. Nothing you enter here is lost in the meantime,
               and secret fields are never stored in your browser.
             </div>
@@ -339,7 +339,7 @@ function ConfigModal({ desc, conn, open, onClose, onSave, onDisconnect }) {
 
         <div className="row gap-3 wrap" style={{ borderTop: '1px solid var(--line)', paddingTop: 14 }}>
           <div className="col gap-1" style={{ flex: 1, minWidth: 190 }}>
-            <div className="eyebrow">Syncs into Rally</div>
+            <div className="eyebrow">Syncs into Ardovo</div>
             {(desc.inboundEvents || []).map(e => (
               <div key={e.key} className="row gap-2 t-sm" style={{ color: 'var(--ink-2)', alignItems: 'center' }}>
                 <Icon name="arrowDown" size={13} style={{ color: 'var(--accent-600)', flex: 'none' }} />
@@ -348,7 +348,7 @@ function ConfigModal({ desc, conn, open, onClose, onSave, onDisconnect }) {
             ))}
           </div>
           <div className="col gap-1" style={{ flex: 1, minWidth: 190 }}>
-            <div className="eyebrow">Rally sends out</div>
+            <div className="eyebrow">Ardovo sends out</div>
             {(desc.outboundEvents || []).map(e => (
               <div key={e.key} className="row gap-2 t-sm" style={{ color: 'var(--ink-2)', alignItems: 'center' }}>
                 <Icon name="arrowUp" size={13} style={{ color: 'var(--accent-600)', flex: 'none' }} />
@@ -432,7 +432,7 @@ export default function Integrations() {
     // secret out before persistence; here there are none, only the default URL.
     setTimeout(async () => {
       connectConn(desc.id, defaults);
-      toast(`${desc.name} connected. Events now sync into Rally.`);
+      toast(`${desc.name} connected. Events now sync into Ardovo.`);
       // Native scheduling connector: pull booked meetings onto contacts now.
       // Graceful and env-gated - runs the deterministic demo set when the
       // server bridge is not configured; the connection is recorded either way.
@@ -547,10 +547,10 @@ export default function Integrations() {
               <span style={{ fontSize: '.72rem', fontWeight: 800, letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--accent-300)' }}>Integrations</span>
             </div>
             <h1 style={{ margin: 0, fontSize: 'clamp(1.9rem, 3.4vw, 2.7rem)', lineHeight: 1.08, color: '#fff' }}>
-              Rally connects to your entire stack.
+              Ardovo connects to your entire stack.
             </h1>
             <p style={{ margin: '10px 0 0', fontSize: '1.05rem', color: '#c9cbe6', lineHeight: 1.5 }}>
-              One-click into the Rally network apps, plus Salesforce, SAP, NetSuite, Jira, Gmail, Slack,
+              One-click into the Ardovo network apps, plus Salesforce, SAP, NetSuite, Jira, Gmail, Slack,
               Zapier, webhooks, and hundreds more. Not on the list? Search below. If it exists anywhere,
               we connect it, usually within a day.
             </p>
@@ -611,13 +611,13 @@ export default function Integrations() {
         </Card>
       )}
 
-      {/* native (Rally network) */}
+      {/* native (Ardovo network) */}
       <div className="col gap-2">
         <div className="col gap-1">
-          <div className="eyebrow">Rally network</div>
+          <div className="eyebrow">Ardovo network</div>
           <h3 style={{ margin: 0 }}>First-party apps, one click to connect</h3>
           <p className="t-sm" style={{ color: 'var(--n-600)', margin: 0 }}>
-            The apps built on the same backbone as Rally. Connecting flows meetings, tickets, and sessions
+            The apps built on the same backbone as Ardovo. Connecting flows meetings, tickets, and sessions
             straight onto the right contact and deal, with full provenance in the timeline.
           </p>
         </div>

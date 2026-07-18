@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DEMO MODE  (session-scoped, additive, safe)
+// ARDOVO DEMO MODE  (session-scoped, additive, safe)
 //
 // Lets a prospect walk the REAL app as a clearly-labeled demo instead of a
 // scripted tour. A marketing CTA calls enterDemo(): it grants the access code

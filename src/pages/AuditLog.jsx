@@ -116,7 +116,7 @@ export default function AuditLog() {
           </span>
           <h3 style={{ margin: 0 }}>Restricted</h3>
           <span className="muted" style={{ maxWidth: '44ch' }}>
-            The audit log is an admin surface. You are viewing Rally as
+            The audit log is an admin surface. You are viewing Ardovo as
             <strong style={{ color: role.color }}> {role.label}</strong>, which does not include
             the "View audit log" permission. Switch back to Admin in Settings to see it.
           </span>

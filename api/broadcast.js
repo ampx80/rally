@@ -4,7 +4,7 @@
 //
 // Sends a Marketing-hub campaign (a broadcast email) to a resolved audience
 // list. Adapted from Class Reunly's api/workspace-blast.js but re-skinned for
-// Rally: it routes EVERY message through Rally's hardened send primitive
+// Ardovo: it routes EVERY message through Ardovo's hardened send primitive
 // (api/_lib-email.js -> sendEmail) so Resend rate limits (429), transient
 // 5xx/network blips, idempotency and suppression are all handled for free.
 //
@@ -18,7 +18,7 @@
 // Merge tokens {firstName} and {company} are interpolated per recipient in both
 // the subject and the body. The body is authored as plain text; it is escaped
 // and converted to HTML paragraphs, an unsubscribe footer is appended, then the
-// whole thing is wrapped in Rally's dark branded shell by sendEmail.
+// whole thing is wrapped in Ardovo's dark branded shell by sendEmail.
 //
 // Not-configured-clean: with no RESEND_API_KEY the endpoint still returns 200
 // with { ok: true, configured: false, sent: 0 } so the feature degrades
@@ -26,8 +26,8 @@
 //
 // Env:
 //   RESEND_API_KEY   - required for mail to actually send (studio-wide key)
-//   RALLY_FROM / NOTIFY_FROM / RESEND_FROM - default sender (via _lib-email)
-//   RALLY_UNSUBSCRIBE_EMAIL - List-Unsubscribe mailbox (optional)
+//   ARDOVO_FROM / NOTIFY_FROM / RESEND_FROM - default sender (via _lib-email)
+//   ARDOVO_UNSUBSCRIBE_EMAIL - List-Unsubscribe mailbox (optional)
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY - optional dedupe + suppression
 //
 // ASCII only. NO em-dash / en-dash.
@@ -116,8 +116,8 @@ export default withErrorHandling(async (req, res) => {
   }
 
   const configured = !!process.env.RESEND_API_KEY;
-  const base = (process.env.APP_BASE_URL || (req.headers?.host ? `https://${req.headers.host}` : 'https://rally.app')).replace(/\/+$/, '');
-  const unsubMail = process.env.RALLY_UNSUBSCRIBE_EMAIL || process.env.NOTIFY_EMAIL || 'unsubscribe@rally.app';
+  const base = (process.env.APP_BASE_URL || (req.headers?.host ? `https://${req.headers.host}` : 'https://ardovo.com')).replace(/\/+$/, '');
+  const unsubMail = process.env.ARDOVO_UNSUBSCRIBE_EMAIL || process.env.NOTIFY_EMAIL || 'unsubscribe@ardovo.com';
   const campaignId = String(campaign.id || 'adhoc').slice(0, 64);
 
   // Not-configured-clean: report a clean no-op so the client can inform the

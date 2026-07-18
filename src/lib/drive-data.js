@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DRIVE  (local-first file engine, Supabase-swappable)
+// ARDOVO DRIVE  (local-first file engine, Supabase-swappable)
 // A native, permissioned document store that lives INSIDE the
 // revenue system of record - so contracts, decks and models stay
 // attached to the accounts and deals they belong to, instead of
@@ -236,10 +236,10 @@ function buildSeed() {
   // ---- Sales Collateral --------------------------------------------------
   const brand = addFolder('Brand & Logos', collateral, { age: 250 });
   const oneP = addFolder('One-Pagers', collateral, { age: 200 });
-  addFile('Rally Overview Deck.pptx', collateral, 'slide', { starred: true, age: 120, modAge: 9, versions: 3 });
+  addFile('Ardovo Overview Deck.pptx', collateral, 'slide', { starred: true, age: 120, modAge: 9, versions: 3 });
   addFile('Product Screenshots.zip', collateral, 'zip', { age: 90, modAge: 30 });
-  addFile('Company Logo (primary).png', brand, 'image', { age: 240, modAge: 60, label: 'Rally' });
-  addFile('Company Logo (mono).png', brand, 'image', { age: 240, modAge: 60, label: 'Rally mono' });
+  addFile('Company Logo (primary).png', brand, 'image', { age: 240, modAge: 60, label: 'Ardovo' });
+  addFile('Company Logo (mono).png', brand, 'image', { age: 240, modAge: 60, label: 'Ardovo mono' });
   addFile('Brand Guidelines.pdf', brand, 'pdf', { age: 200, modAge: 50 });
   addFile('Platform One-Pager.pdf', oneP, 'pdf', { age: 80, modAge: 20 });
   addFile('Security One-Pager.pdf', oneP, 'pdf', { age: 80, modAge: 22 });
@@ -263,7 +263,7 @@ function buildSeed() {
   addFile('Org Chart.png', team, 'image', { age: 60, modAge: 12, label: 'Org', ownerId: someoneElse() });
 
   // ---- Root-level loose files --------------------------------------------
-  addFile('Welcome to Rally Drive.pdf', null, 'pdf', { starred: true, age: 2, modAge: 2 });
+  addFile('Welcome to Ardovo Drive.pdf', null, 'pdf', { starred: true, age: 2, modAge: 2 });
   const forecast = addFile('Q3 Forecast Model.xlsx', null, 'sheet', { starred: true, age: 5, modAge: 0, versions: 2 });
 
   // ---- Trash (a couple of restorable items) ------------------------------
@@ -633,5 +633,5 @@ export function setLinkShare(nodeId, { enabled, access = 'viewer' } = {}) {
 export function shareUrl(nodeId) {
   const s = state.shares[nodeId];
   const t = s?.token || nodeId;
-  return `https://rally.app/d/${t}`;
+  return `https://ardovo.com/d/${t}`;
 }

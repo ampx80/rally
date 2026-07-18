@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY MARKETING AUTOMATION ENGINE  (local-first, additive)
+// ARDOVO MARKETING AUTOMATION ENGINE  (local-first, additive)
 //
 // A trigger / audience / send orchestration layer that sits over
-// Rally's contacts (src/lib/store.js). An "automation" pairs an
+// Ardovo's contacts (src/lib/store.js). An "automation" pairs an
 // AUDIENCE SEGMENT (a pure filter over live contacts) with an
 // email TEMPLATE (subject + body + merge tags). The engine can:
 //
@@ -94,9 +94,9 @@ function buildSeed() {
       template: {
         subject: 'Welcome to the conversation, {{firstName}}',
         preheader: 'A quick hello and one idea for {{company}}.',
-        body: 'Hi {{firstName}},\n\nThanks for the interest in Rally. Teams like {{company}} usually come to us because forecasting feels like guesswork and the busywork never ends.\n\nWorth 20 minutes to show you how we compress it?\n\nBest,\n{{senderName}}',
+        body: 'Hi {{firstName}},\n\nThanks for the interest in Ardovo. Teams like {{company}} usually come to us because forecasting feels like guesswork and the busywork never ends.\n\nWorth 20 minutes to show you how we compress it?\n\nBest,\n{{senderName}}',
         ctaLabel: 'Book 20 minutes',
-        ctaUrl: 'https://rally.app/demo',
+        ctaUrl: 'https://ardovo.com/demo',
       },
       throttleDays: 21,
       dailyCap: 200,
@@ -112,9 +112,9 @@ function buildSeed() {
       template: {
         subject: 'One number your board asks about, {{firstName}}',
         preheader: 'Pipeline coverage, win rate, net-new ARR - in one place.',
-        body: 'Hi {{firstName}},\n\nAs {{company}} works through this evaluation, here is the one-pager on how revenue leaders report pipeline coverage, win rate, and net-new ARR in Rally.\n\nHappy to walk your team through it live.\n\n{{senderName}}',
+        body: 'Hi {{firstName}},\n\nAs {{company}} works through this evaluation, here is the one-pager on how revenue leaders report pipeline coverage, win rate, and net-new ARR in Ardovo.\n\nHappy to walk your team through it live.\n\n{{senderName}}',
         ctaLabel: 'See the metrics',
-        ctaUrl: 'https://rally.app/features',
+        ctaUrl: 'https://ardovo.com/features',
       },
       throttleDays: 14,
       dailyCap: 200,
@@ -129,10 +129,10 @@ function buildSeed() {
       audience: defaultAudience({ stages: ['customer'], tags: ['expansion', 'renewal'] }),
       template: {
         subject: 'An idea for {{company}} next quarter',
-        preheader: 'A small expansion idea based on how your team uses Rally.',
-        body: 'Hi {{firstName}},\n\nGreat to see {{company}} getting real value from Rally. Two teams your size recently expanded into forecasting and sequences and saw a quick lift.\n\nWant me to put together a short plan?\n\n{{senderName}}',
+        preheader: 'A small expansion idea based on how your team uses Ardovo.',
+        body: 'Hi {{firstName}},\n\nGreat to see {{company}} getting real value from Ardovo. Two teams your size recently expanded into forecasting and sequences and saw a quick lift.\n\nWant me to put together a short plan?\n\n{{senderName}}',
         ctaLabel: 'Review the plan',
-        ctaUrl: 'https://rally.app/pricing',
+        ctaUrl: 'https://ardovo.com/pricing',
       },
       throttleDays: 30,
       dailyCap: 100,
@@ -148,9 +148,9 @@ function buildSeed() {
       template: {
         subject: 'Still on your radar, {{firstName}}?',
         preheader: 'One number that might change your mind.',
-        body: 'Hi {{firstName}},\n\nIt has been a while. Priorities shift. Is modernizing revenue ops at {{company}} still on the table this year?\n\nTeams that adopted Rally saw a 22 percent lift in meetings booked in 90 days. Happy to show you the playbook.\n\n{{senderName}}',
+        body: 'Hi {{firstName}},\n\nIt has been a while. Priorities shift. Is modernizing revenue ops at {{company}} still on the table this year?\n\nTeams that adopted Ardovo saw a 22 percent lift in meetings booked in 90 days. Happy to show you the playbook.\n\n{{senderName}}',
         ctaLabel: 'See the playbook',
-        ctaUrl: 'https://rally.app/customers',
+        ctaUrl: 'https://ardovo.com/customers',
       },
       throttleDays: 45,
       dailyCap: 200,
@@ -288,7 +288,7 @@ export function mergeContext(contact, sender) {
     fullName: contact ? contactName(contact) : 'there',
     company: co?.name || 'your team',
     title: contact?.title || '',
-    senderName: s?.name || 'the Rally team',
+    senderName: s?.name || 'the Ardovo team',
     senderEmail: s?.email || '',
   };
 }
@@ -303,7 +303,7 @@ export function renderMergeTags(text, ctx) {
 }
 
 // Turn a plain-text body into safe body-only HTML paragraphs. The server
-// primitive (_lib-email.js) wraps this fragment in the Rally dark shell.
+// primitive (_lib-email.js) wraps this fragment in the Ardovo dark shell.
 function esc(s) {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

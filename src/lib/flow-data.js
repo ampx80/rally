@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FLOW  (visual workflow builder - local-first data layer)
+// ARDOVO FLOW  (visual workflow builder - local-first data layer)
 // ------------------------------------------------------------
 // The node-graph model, the palette of node types, a library of
 // seeded recipe workflows, a localStorage-backed pub/sub store
@@ -7,7 +7,7 @@
 // simulator that walks a sample record through a graph so the
 // canvas can animate it.
 //
-// This is the heart of both HubSpot Workflows and GHL. Rally's
+// This is the heart of both HubSpot Workflows and GHL. Ardovo's
 // version adds native AI nodes (Rook decides / drafts / qualifies)
 // that no other builder ships.
 //
@@ -45,14 +45,14 @@ export const GROUP_META = {
   Triggers: { color: 'var(--accent)', hint: 'Start a flow when something happens' },
   Logic: { color: 'var(--warn)', hint: 'Branch and filter the path' },
   Comms: { color: 'var(--accent-teal)', hint: 'Reach out on any channel' },
-  CRM: { color: 'var(--info)', hint: 'Change records in Rally' },
+  CRM: { color: 'var(--info)', hint: 'Change records in Ardovo' },
   AI: { color: 'var(--accent-purple)', hint: 'Hand the wheel to Rook' },
   Timing: { color: 'var(--n-600)', hint: 'Pause and schedule' },
 };
 
 export const NODE_TYPES = {
   // ---- Triggers ----
-  form_submitted: { group: 'Triggers', kind: 'trigger', icon: 'list', color: 'var(--accent)', label: 'Form submitted', desc: 'Someone completes a Rally form', config: { form: 'Contact us' } },
+  form_submitted: { group: 'Triggers', kind: 'trigger', icon: 'list', color: 'var(--accent)', label: 'Form submitted', desc: 'Someone completes a Ardovo form', config: { form: 'Contact us' } },
   lead_created: { group: 'Triggers', kind: 'trigger', icon: 'funnel', color: 'var(--accent)', label: 'New lead', desc: 'A lead enters the CRM', config: { source: 'Any source' } },
   deal_stage: { group: 'Triggers', kind: 'trigger', icon: 'target', color: 'var(--accent)', label: 'Deal stage changed', desc: 'A deal moves into a stage', config: { stage: 'Closed Won' } },
   missed_call: { group: 'Triggers', kind: 'trigger', icon: 'phone', color: 'var(--accent)', label: 'Missed call', desc: 'An inbound call goes unanswered', config: { line: 'Main line' } },
@@ -78,7 +78,7 @@ export const NODE_TYPES = {
   create_deal: { group: 'CRM', kind: 'action', icon: 'target', color: 'var(--info)', label: 'Create deal', desc: 'Open a new opportunity', config: { pipeline: 'Sales' } },
   webhook: { group: 'CRM', kind: 'action', icon: 'plug', color: 'var(--info)', label: 'Webhook', desc: 'POST the record to an external URL', config: { url: 'https://' } },
 
-  // ---- AI (Rally exclusive) ----
+  // ---- AI (Ardovo exclusive) ----
   rook_decide: { group: 'AI', kind: 'branch', icon: 'sparkles', color: 'var(--accent-purple)', label: 'Rook decides', desc: 'Let Rook choose which path to take', config: { question: 'Is this lead sales-ready?' } },
   rook_draft: { group: 'AI', kind: 'action', icon: 'sparkles', color: 'var(--accent-purple)', label: 'Rook drafts', desc: 'Rook writes the message for you', config: { instruction: 'Warm re-engagement email' } },
   rook_qualify: { group: 'AI', kind: 'action', icon: 'sparkles', color: 'var(--accent-purple)', label: 'Rook qualifies', desc: 'Rook scores and enriches the lead', config: { rubric: 'Budget, authority, need, timing' } },

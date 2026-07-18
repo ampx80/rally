@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ACCOUNT HIERARCHY  (sub-companies / parent-child engine)
+// ARDOVO ACCOUNT HIERARCHY  (sub-companies / parent-child engine)
 // Additive selectors + roll-up over the live core store. A company
 // carries a `parentCompanyId` (declared in registry-seeds/company.js);
 // this module reads that field, walks the parent/child graph, and

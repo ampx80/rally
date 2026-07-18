@@ -8,11 +8,11 @@ const entry = {
   slug: 'revenue-operations-guide',
   title: 'Revenue Operations (RevOps): The Complete Guide',
   h1: 'Revenue Operations: The Complete Guide to RevOps in 2026',
-  metaTitle: 'Revenue Operations (RevOps): The Complete Guide for 2026 | Rally',
+  metaTitle: 'Revenue Operations (RevOps): The Complete Guide for 2026 | Ardovo',
   metaDescription: 'A deep, practical guide to Revenue Operations: what RevOps is, why it exists, the maturity model, the metrics that matter, and how AI is rewriting the discipline.',
   eyebrow: 'RevOps Field Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -188,7 +188,7 @@ const entry = {
       body: [
         'For most of its history, RevOps was a rear-view discipline. Analysts pulled data, reconciled it across systems, and produced reports describing what had already happened. By the time a forecast landed, the quarter it described was often half gone. The work was necessary, but it was slow, manual, and always a step behind the deals it was trying to influence.',
         'AI changes the shape of the work. An operating layer that sits on top of the unified spine can read every account, deal, and activity continuously and act on what it sees: enriching a new lead the moment it lands, routing it to the right rep, flagging an opportunity that has gone quiet, and drafting the follow-up before anyone asks. Forecasting stops being a Friday ritual and becomes a live number that updates as reality does.',
-        'This is precisely why the unified data spine matters so much. An AI operator is only as good as the data it can see, and a model reading three disconnected systems produces three disconnected guesses. When capture, enrichment, and reporting all share one source of truth, the operator has the full context to act accurately. This is the thesis behind Rally: an AI-native revenue platform where the operator, Rook, is not a chatbot bolted onto a legacy CRM but an operating layer wired directly into a single spine, alive with data on first load and priced as one flat rate across every module.',
+        'This is precisely why the unified data spine matters so much. An AI operator is only as good as the data it can see, and a model reading three disconnected systems produces three disconnected guesses. When capture, enrichment, and reporting all share one source of truth, the operator has the full context to act accurately. This is the thesis behind Ardovo: an AI-native revenue platform where the operator, Rook, is not a chatbot bolted onto a legacy CRM but an operating layer wired directly into a single spine, alive with data on first load and priced as one flat rate across every module.',
       ],
     },
     {
@@ -210,7 +210,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Traditional RevOps stack vs an AI-native platform',
       rowHeader: 'Capability',
-      columns: ['AI-native (Rally)', 'Stitched-together stack', 'Legacy CRM plus add-ons'],
+      columns: ['AI-native (Ardovo)', 'Stitched-together stack', 'Legacy CRM plus add-ons'],
       highlightCol: 0,
       rows: [
         { feature: 'One shared data spine', cells: [true, false, 'partial'] },
@@ -257,7 +257,7 @@ const entry = {
     {
       type: 'quote',
       text: 'The moment marketing, sales, and success were reading the same pipeline, our forecast stopped being an argument and started being a number we could plan around.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP of Revenue Operations',
     },
     {
@@ -275,7 +275,7 @@ const entry = {
         { q: 'What is the difference between RevOps and sales operations?', a: 'Sales operations supports one department, the sales team, with tooling, reporting, and process. RevOps owns the shared architecture across marketing, sales, and customer success, along with the definitions and metrics all three are measured on. RevOps scope is the entire customer lifecycle, not a single stage of it.' },
         { q: 'When should a company invest in RevOps?', a: 'The trigger is friction at the handoffs. When marketing and sales argue about lead quality with no shared definition, when the forecast misses because teams count pipeline differently, or when leadership cannot get one straight answer on performance without a week of reconciliation, you have outgrown the siloed model and RevOps starts paying for itself.' },
         { q: 'What metrics should a RevOps team track?', a: 'Focus on lifecycle metrics that only make sense together: pipeline coverage (aim for three to four times quota), win rate on qualified deals, net revenue retention (above 100% means growth compounds), and sales cycle length. Track them as a system, because any one in isolation can be gamed at the expense of the others.' },
-        { q: 'How does AI change Revenue Operations?', a: 'AI shifts RevOps from reporting on the past to acting in the present. An operating layer on a unified data spine can enrich, route, score, and follow up automatically, and forecast continuously instead of weekly. The catch is that the AI is only as good as the data it can see, which is why a single source of truth is the prerequisite. This is the model Rally is built on, with its operator Rook wired directly into one spine.' },
+        { q: 'How does AI change Revenue Operations?', a: 'AI shifts RevOps from reporting on the past to acting in the present. An operating layer on a unified data spine can enrich, route, score, and follow up automatically, and forecast continuously instead of weekly. The catch is that the AI is only as good as the data it can see, which is why a single source of truth is the prerequisite. This is the model Ardovo is built on, with its operator Rook wired directly into one spine.' },
         { q: 'Do you need a big team to do RevOps?', a: 'No. RevOps is an operating model, not a headcount. A small company can practice it by aligning on shared definitions and running on one system of record. AI-native platforms compress the analyst-heavy work that used to require a team, so even a single operator can run a mature revenue engine.' },
         { q: 'What is the first step to building RevOps?', a: 'Get marketing, sales, and success to agree on shared definitions and shared metrics before touching any tooling. Then consolidate onto one system of record, automate the handoffs, and only then layer AI on top. Define, unify, automate, then apply intelligence, in that order.' },
       ],

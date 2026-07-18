@@ -1,4 +1,4 @@
-// Training - Rally's self-serve implementation trainer. Replaces the human
+// Training - Ardovo's self-serve implementation trainer. Replaces the human
 // onboarding team: guided modules, a live "training session" that Rook drives
 // by voice or chat, and Zoom-style session summaries you can revisit. Each
 // step either takes you to the real screen or asks Rook to do the thing with
@@ -45,7 +45,7 @@ export default function Training() {
     <div className="fade-up">
       <SectionHeader
         title="Training"
-        sub="Learn Rally at your own pace with a patient AI trainer. No year-long rollout, no burned hours - just you, Rook, and the real product."
+        sub="Learn Ardovo at your own pace with a patient AI trainer. No year-long rollout, no burned hours - just you, Rook, and the real product."
         action={
           <Button variant={active ? 'ghost' : 'primary'} onClick={toggleSession}>
             <Icon name={active ? 'check' : 'rocket'} size={16} /> {active ? 'End + summarize session' : 'Start a training session'}

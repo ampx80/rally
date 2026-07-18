@@ -5,7 +5,7 @@
 // which the client connector (src/lib/integrations/connectors/tango.js) reads
 // as "run in deterministic demo mode". When it IS set, `action=meetings` does a
 // bounded, best-effort pull of confirmed bookings from the Tango workspace and
-// normalizes them to the shape the connector maps onto Rally activities; any
+// normalizes them to the shape the connector maps onto Ardovo activities; any
 // failure degrades to live:false (still 200) so the client falls back cleanly.
 //
 // Actions (via ?action=):
@@ -78,7 +78,7 @@ export default withErrorHandling(async (req, res) => {
       configured: false,
       live: false,
       origin: cfg.origin,
-      reason: 'TANGO_API_KEY not set. Rally uses deterministic demo meetings.',
+      reason: 'TANGO_API_KEY not set. Ardovo uses deterministic demo meetings.',
     });
   }
 

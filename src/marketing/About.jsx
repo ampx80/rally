@@ -24,7 +24,7 @@ const TIMELINE = [
   { year: 'The thesis', title: 'CRMs got so big they needed administrators.', copy: 'We watched revenue teams spend more time feeding their CRM than selling. The tool that promised leverage had become overhead with a login. That was the problem worth a company.' },
   { year: 'First commit', title: 'AI-native, not AI-added.', copy: 'Instead of bolting a chatbot onto a system of record, we started with the operator. Rook was the first thing we built, and the platform was shaped around what it needed to see and do.' },
   { year: 'The build', title: 'Fourteen modules, one operator, one design.', copy: 'CRM, CPQ, billing, marketing, service, analytics, automation. One data model end to end, so the intelligence reaches every corner of the revenue motion natively.' },
-  { year: 'Now', title: 'Run your revenue on Rally.', copy: 'The platform is live, the operator is working, and teams are switching in a weekend. This is the beginning of AI-native revenue software, and we intend to define it.', live: true },
+  { year: 'Now', title: 'Run your revenue on Ardovo.', copy: 'The platform is live, the operator is working, and teams are switching in a weekend. This is the beginning of AI-native revenue software, and we intend to define it.', live: true },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -38,13 +38,13 @@ export default function About() {
         <div className="mkt-wrap">
           <Reveal>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 22 }}>
-              <Pill>About Rally</Pill>
+              <Pill>About Ardovo</Pill>
             </div>
             <h1 className="mkt-h1" style={{ maxWidth: 960, margin: '0 auto' }}>
               We are building the platform where <span className="mkt-grad m-shine">the AI does the work.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 680, margin: '24px auto 0' }}>
-              Rally is an AI-native revenue platform run by Rook, the operator that reads your whole workspace
+              Ardovo is an AI-native revenue platform run by Rook, the operator that reads your whole workspace
               and acts on command. One system to replace the stack of tools you never wanted to manage.
             </p>
             <div className="co-hero-rail">
@@ -156,7 +156,7 @@ export default function About() {
                 We are betting the company on it, and we intend to be that platform.
               </p>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 30 }}>
-                <MktButton to="/app" size="lg">Run your revenue on Rally <Icon name="chevronRight" size={18} /></MktButton>
+                <MktButton to="/app" size="lg">Run your revenue on Ardovo <Icon name="chevronRight" size={18} /></MktButton>
                 <Link to="/manifesto" className="mkt-btn mkt-btn-ghost mkt-btn-lg">Read the manifesto</Link>
               </div>
             </div>

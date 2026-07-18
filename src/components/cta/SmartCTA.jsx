@@ -3,7 +3,7 @@
 // Used by the hosted landing renderer for `cta` blocks, and drop-in anywhere
 // else a conversion band is needed. Deliberately style-agnostic (inline styles
 // only, no dependency on the product or marketing CSS systems) so it looks
-// right in either context. Accent defaults to Rally's #5b4bf5.
+// right in either context. Accent defaults to Ardovo's #5b4bf5.
 //
 // The button "deep-links" intelligently:
 //   - an in-app / marketing path ("/app", "/pricing")  -> react-router <Link>

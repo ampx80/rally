@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY BILLING  (browser helpers)
+// ARDOVO BILLING  (browser helpers)
 // Thin client over the /api/billing-* routes with a local demo fallback.
 // When Stripe is configured server-side, startCheckout redirects to the
 // hosted Checkout and openPortal redirects to the Billing Portal. When it

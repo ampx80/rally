@@ -1,4 +1,4 @@
-// Shared server-side tool catalog for Rally's headless + MCP layer. Kept in
+// Shared server-side tool catalog for Ardovo's headless + MCP layer. Kept in
 // plain JS (no React) so serverless functions can import it. Mirrors the
 // client TOOL_CATALOG in src/lib/agent-cloud.js. NO em-dash / en-dash.
 

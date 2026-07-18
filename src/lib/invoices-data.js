@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY BILLING DATA  (local-first, deterministic)
+// ARDOVO BILLING DATA  (local-first, deterministic)
 // Seeds a believable invoice ledger tied to REAL companies + deals
 // from the core store, then persists status/line changes to
 // localStorage so the billing surface stays alive across reloads.

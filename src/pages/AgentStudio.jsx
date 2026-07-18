@@ -1,5 +1,5 @@
 // Agent Studio - design and configure a custom agent against the agent-cloud
-// core (createAgent / updateAgent + the shared TOOL_CATALOG). Rally's answer to
+// core (createAgent / updateAgent + the shared TOOL_CATALOG). Ardovo's answer to
 // Agentforce Builder, simpler: pick an icon and role, set autonomy + model,
 // grant tools, and draw the mandate envelope, with a live preview of what the
 // agent will do and its cost per run. Violet marks the AI layer; teal is the

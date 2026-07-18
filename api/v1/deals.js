@@ -1,4 +1,4 @@
-// Rally Public REST API - Deals resource
+// Ardovo Public REST API - Deals resource
 //   GET  /api/v1/deals            list (pagination + filters)
 //   GET  /api/v1/deals?id=d_1     fetch one (or /api/v1/deals/d_1 if routed)
 //   POST /api/v1/deals            create

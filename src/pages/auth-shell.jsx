@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTH SHELL - premium gate: dark brand panel + light form.
+// ARDOVO AUTH SHELL - premium gate: dark brand panel + light form.
 // Teal product accent. Violet only for Rook / AI mentions.
 // Shared by SignIn, SignUp, ForgotPassword. NO em-dash / en-dash.
 // ============================================================
@@ -24,7 +24,7 @@ export function AuthShell({ children }) {
 
         <Link to="/" className="auth-aside-brand">
           <span className="auth-mark"><Icon name="zap" size={20} fill="#fff" stroke={0} /></span>
-          Rally
+          Ardovo
         </Link>
 
         <div className="auth-aside-copy">
@@ -50,7 +50,7 @@ export function AuthShell({ children }) {
         <div className="auth-card">
           <Link to="/" className="auth-brand-mobile">
             <span className="auth-mark"><Icon name="zap" size={18} fill="#fff" stroke={0} /></span>
-            Rally
+            Ardovo
           </Link>
           {children}
         </div>

@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY ACADEMY  (local-first, Supabase-swappable)
+// ARDOVO ACADEMY  (local-first, Supabase-swappable)
 // Courses + memberships + client portal + community. Keeping
 // customers inside the platform and adding a revenue line is how
-// GHL monetizes; Rally does it natively. One module owns every
+// GHL monetizes; Ardovo does it natively. One module owns every
 // Academy data shape + the read/write API. A deterministic PRNG
 // builds a believable catalog on first run; mutations persist to
 // localStorage so the demo stays alive across reloads. Every
@@ -54,12 +54,12 @@ const COURSE_DEFS = [
     ],
   },
   {
-    id: 'crs_ros', title: 'The Rally Operating System',
+    id: 'crs_ros', title: 'The Ardovo Operating System',
     subtitle: 'Master the platform your whole revenue team runs on.',
     category: 'Product', level: 'Beginner', accent: 'var(--accent-teal)',
     status: 'published', instructor: 'Nina Kapoor', drip: true,
     modules: [
-      { title: 'Your First Week in Rally', lessons: [['Command center tour', 'video', 9], ['Working a deal end to end', 'video', 13], ['Keyboard shortcuts that save an hour a day', 'text', 5]] },
+      { title: 'Your First Week in Ardovo', lessons: [['Command center tour', 'video', 9], ['Working a deal end to end', 'video', 13], ['Keyboard shortcuts that save an hour a day', 'text', 5]] },
       { title: 'Automations and Playbooks', lessons: [['Building your first workflow', 'video', 12], ['Sequences that never miss a follow-up', 'video', 10], ['Playbook design 101', 'text', 7], ['Automation quiz', 'quiz', 6]] },
       { title: 'Reporting and Forecasting', lessons: [['Dashboards that leaders trust', 'video', 11], ['Forecasting with confidence', 'text', 9], ['Certification quiz', 'quiz', 8]] },
     ],
@@ -92,7 +92,7 @@ const COURSE_DEFS = [
     category: 'Success', level: 'Intermediate', accent: 'var(--ok)',
     status: 'published', instructor: 'Simone Diaz', drip: true,
     modules: [
-      { title: 'Onboarding That Sticks', lessons: [['The first 90 days', 'video', 11], ['Defining the success plan', 'text', 8], ['Health scoring in Rally', 'video', 9]] },
+      { title: 'Onboarding That Sticks', lessons: [['The first 90 days', 'video', 11], ['Defining the success plan', 'text', 8], ['Health scoring in Ardovo', 'video', 9]] },
       { title: 'Growing the Account', lessons: [['Spotting expansion signals', 'video', 10], ['The renewal conversation', 'video', 12], ['Save plays for at-risk accounts', 'text', 7], ['Retention quiz', 'quiz', 6]] },
     ],
   },
@@ -132,7 +132,7 @@ const MEMBER_NAMES = [
 const POST_BODIES = [
   { ch: 'ch_wins', body: 'Closed my first six-figure deal today using the mutual action plan from Closing Masterclass. The buying-committee map was the unlock.' },
   { ch: 'ch_questions', body: 'For the 12-touch cadence, how many of you mix in a video message? Curious whether it lifts reply rate or just feels novel.' },
-  { ch: 'ch_general', body: 'Two weeks into Academy All-Access and my pipeline hygiene has never been cleaner. The Rally Operating System course paid for itself already.' },
+  { ch: 'ch_general', body: 'Two weeks into Academy All-Access and my pipeline hygiene has never been cleaner. The Ardovo Operating System course paid for itself already.' },
   { ch: 'ch_playbooks', body: 'Sharing my discovery question bank from the Foundations course. Steal it, tweak it, and let me know what lands for you.' },
   { ch: 'ch_intros', body: 'Hi everyone. AE at a logistics startup, three years in, here to sharpen my late-stage game. Excited to learn alongside you all.' },
   { ch: 'ch_wins', body: 'The at-risk save play from the Success Playbook rescued a renewal I had written off. Customer just signed a two-year extension.' },

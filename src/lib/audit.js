@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUDIT LOG  (spec Section 5.9 - Wave 1)
+// ARDOVO AUDIT LOG  (spec Section 5.9 - Wave 1)
 // One org-wide changelog: every field change on every object as
 // { at, who, objectType, recordId, field, from, to }. Generalizes
 // dealExtras.history to the whole platform. Persisted to

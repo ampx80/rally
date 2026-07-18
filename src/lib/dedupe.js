@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY DUPLICATE MANAGEMENT + MERGE  (the HubSpot/Salesforce
-// "Manage duplicates" tool). Rally only dedupes on IMPORT today
+// ARDOVO DUPLICATE MANAGEMENT + MERGE  (the HubSpot/Salesforce
+// "Manage duplicates" tool). Ardovo only dedupes on IMPORT today
 // (src/lib/importer.js drops rows that collide with the book).
 // This slice finds the duplicates that already LIVE in the book
 // of business and gives you a real, reversible-by-construction

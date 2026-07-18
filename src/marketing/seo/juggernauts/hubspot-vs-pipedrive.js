@@ -1,7 +1,7 @@
 // ============================================================
 // JUGGERNAUT GUIDE
 // Slug: hubspot-vs-pipedrive -> live at /guides/hubspot-vs-pipedrive
-// Head-to-head comparison. Fair to both incumbents, Rally as the
+// Head-to-head comparison. Fair to both incumbents, Ardovo as the
 // AI-native third option. ASCII only. NO em-dash / en-dash.
 // ============================================================
 
@@ -9,17 +9,17 @@ const entry = {
   slug: 'hubspot-vs-pipedrive',
   title: 'HubSpot vs Pipedrive in 2026: A Complete Comparison',
   h1: 'HubSpot vs Pipedrive: The Complete 2026 Comparison',
-  metaTitle: 'HubSpot vs Pipedrive in 2026: Full Comparison, Cost Calculator, and Verdict | Rally',
+  metaTitle: 'HubSpot vs Pipedrive in 2026: Full Comparison, Cost Calculator, and Verdict | Ardovo',
   metaDescription: 'An honest, in-depth 2026 comparison of HubSpot and Pipedrive: features, pricing, who each is best for, a total-cost calculator, and where an AI-native CRM fits.',
   eyebrow: 'CRM Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'HubSpot and Pipedrive both call themselves a CRM, but they are answers to two different questions. HubSpot is a broad growth platform that wraps marketing, sales, service, and content around a shared contact record. Pipedrive is a focused sales tool built to move deals through a pipeline with as little friction as possible. Picking between them is really a question about what you are trying to run.',
-    'This guide compares them fairly on the things that decide the bill and the daily experience: what each one is genuinely good at, who each one fits, how the pricing actually behaves as you grow, and where the real trade-offs hide. Then it looks at what an AI-native option changes about the whole equation. The goal is to help you choose well, whether or not that choice is Rally.',
+    'This guide compares them fairly on the things that decide the bill and the daily experience: what each one is genuinely good at, who each one fits, how the pricing actually behaves as you grow, and where the real trade-offs hide. Then it looks at what an AI-native option changes about the whole equation. The goal is to help you choose well, whether or not that choice is Ardovo.',
   ],
   heroStats: [
     { value: 2, suffix: ' philosophies', label: 'All-in-one platform vs focused sales pipeline' },
@@ -32,7 +32,7 @@ const entry = {
       title: 'The short answer',
       body: [
         'Choose HubSpot if you want one connected system for marketing, sales, and service, and you expect to use the marketing engine (email, landing pages, forms, automation) as heavily as the sales pipeline. Its strength is breadth and a genuinely polished all-in-one experience. Choose Pipedrive if sales is the job and you want a fast, clean, affordable pipeline that a rep will actually keep updated, without paying for a marketing suite you will not touch.',
-        'Both are good products with large, happy customer bases. The friction shows up later: HubSpot can get expensive and complex as you climb its tiers and add marketing contacts, and Pipedrive can feel thin once you need real marketing, service, or reporting depth. That gap between "simple but limited" and "powerful but pricey" is exactly where an AI-native CRM like Rally aims, one flat price with the pipeline alive on first load and an operator that does the busywork.',
+        'Both are good products with large, happy customer bases. The friction shows up later: HubSpot can get expensive and complex as you climb its tiers and add marketing contacts, and Pipedrive can feel thin once you need real marketing, service, or reporting depth. That gap between "simple but limited" and "powerful but pricey" is exactly where an AI-native CRM like Ardovo aims, one flat price with the pipeline alive on first load and an operator that does the busywork.',
       ],
     },
     {
@@ -85,9 +85,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'HubSpot vs Pipedrive vs Rally',
+      title: 'HubSpot vs Pipedrive vs Ardovo',
       rowHeader: 'Capability',
-      columns: ['Rally', 'HubSpot', 'Pipedrive'],
+      columns: ['Ardovo', 'HubSpot', 'Pipedrive'],
       highlightCol: 0,
       rows: [
         { feature: 'Visual sales pipeline', cells: [true, true, true] },
@@ -213,14 +213,14 @@ const entry = {
     {
       type: 'heading',
       text: 'The AI-native third option',
-      eyebrow: 'Where Rally fits',
+      eyebrow: 'Where Ardovo fits',
     },
     {
       type: 'richText',
       title: 'What changes when the CRM is built AI-first',
       body: [
         'HubSpot and Pipedrive were both designed in an era where the CRM was a place to store what humans did. You log the call, update the stage, write the follow-up. The tool remembers; the work is still yours. That framing is why the choice feels like a trade between breadth and simplicity, because more capability has always meant more for a human to configure and maintain.',
-        'Rally starts from a different premise: the CRM should do the work, not just record it. It is alive on first load with a working pipeline instead of an empty database, it runs on one flat price across every module instead of tiers and contact counts, and it ships with Rook, an AI operator that captures leads, enriches records, drafts follow-ups, and keeps the forecast current. The pitch is not "more features," it is "the same outcomes with less human busywork," which is exactly the tax both incumbents leave on the table.',
+        'Ardovo starts from a different premise: the CRM should do the work, not just record it. It is alive on first load with a working pipeline instead of an empty database, it runs on one flat price across every module instead of tiers and contact counts, and it ships with Rook, an AI operator that captures leads, enriches records, drafts follow-ups, and keeps the forecast current. The pitch is not "more features," it is "the same outcomes with less human busywork," which is exactly the tax both incumbents leave on the table.',
       ],
     },
     {
@@ -276,7 +276,7 @@ const entry = {
         { q: 'Which is cheaper, HubSpot or Pipedrive?', a: 'Pipedrive is usually cheaper at the entry level and for pure sales use, since it is per-seat without a marketing suite. HubSpot can be competitive at the low end but grows more expensive as you climb tiers and add marketing contacts. Price your real configuration, including add-ons, and verify current published pricing.' },
         { q: 'Is Pipedrive good for marketing?', a: 'Pipedrive has grown add-ons for email campaigns and web forms, but marketing is not its core. If marketing automation, nurture, and landing pages are central to your motion, a platform like HubSpot or an AI-native option with marketing built in will serve you better.' },
         { q: 'Is HubSpot too complex for a small sales team?', a: 'It can be. HubSpot is a broad platform, and a small team that only wants a pipeline may pay for and configure more than it needs. If sales is the whole job, Pipedrive or an AI-native CRM that is alive on first load will feel lighter.' },
-        { q: 'How does Rally compare to HubSpot and Pipedrive?', a: 'Rally is an AI-native CRM built so the system does the work rather than just recording it. It runs on one flat price across every module instead of tiers and contact counts, is alive with a working pipeline on first load, and includes Rook, an AI operator that captures leads, drafts follow-ups, and keeps the forecast current. It is aimed at teams who want platform breadth without platform overhead.' },
+        { q: 'How does Ardovo compare to HubSpot and Pipedrive?', a: 'Ardovo is an AI-native CRM built so the system does the work rather than just recording it. It runs on one flat price across every module instead of tiers and contact counts, is alive with a working pipeline on first load, and includes Rook, an AI operator that captures leads, drafts follow-ups, and keeps the forecast current. It is aimed at teams who want platform breadth without platform overhead.' },
         { q: 'Can I switch CRMs without a painful migration?', a: 'Yes, if the new tool imports cleanly and is usable on day one. Export your contacts, companies, and open deals, import them, set your stages, and turn on follow-up automation. A live-on-first-load platform can have you working in an afternoon rather than weeks.' },
       ],
     },

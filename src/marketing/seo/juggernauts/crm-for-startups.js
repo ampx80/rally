@@ -10,11 +10,11 @@ const entry = {
   slug: 'crm-for-startups',
   title: 'The Best CRM for Startups in 2026',
   h1: 'The Best CRM for Startups: A Complete 2026 Playbook',
-  metaTitle: 'The Best CRM for Startups in 2026: Full Playbook, Calculator, and Comparison | Rally',
+  metaTitle: 'The Best CRM for Startups in 2026: Full Playbook, Calculator, and Comparison | Ardovo',
   metaDescription: 'A deep, practical guide to choosing and running a CRM as a startup in 2026: what to buy, when, an ROI calculator, a feature comparison matrix, and a rollout plan.',
   eyebrow: 'Founder Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '14 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   ],
   heroStats: [
     { value: 21, suffix: '%', label: 'Average win-rate lift after real CRM adoption' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean price, every module' },
   ],
   blocks: [
@@ -119,7 +119,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Startup CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet', 'Legacy CRM'],
+      columns: ['Ardovo', 'Spreadsheet', 'Legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with data on first load', cells: [true, false, false] },
@@ -138,7 +138,7 @@ const entry = {
       title: 'Time to first value',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Spreadsheet', value: 30, display: '30 min' },
           { label: 'Legacy CRM', value: 240, display: '3+ weeks' },
         ],
@@ -191,7 +191,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We went from a shared spreadsheet to a real pipeline in an afternoon, and closed two deals that week that would have slipped.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Founder, seed-stage SaaS',
     },
     {
@@ -207,8 +207,8 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'When is a startup too small for a CRM?', a: 'If one person can hold every open deal in their head and follow-ups never slip, a spreadsheet is fine. The moment that stops being true, a CRM starts paying for itself.' },
-        { q: 'How much should a startup pay for a CRM?', a: 'Avoid per-seat-plus-add-on pricing that climbs as you grow. Rally is one clean price across every module, so the bill is predictable from five reps to fifty.' },
-        { q: 'How long does it take to get value?', a: 'On a live-on-first-load platform like Rally, minutes. On a blank legacy CRM, expect weeks of configuration before the first useful report.' },
+        { q: 'How much should a startup pay for a CRM?', a: 'Avoid per-seat-plus-add-on pricing that climbs as you grow. Ardovo is one clean price across every module, so the bill is predictable from five reps to fifty.' },
+        { q: 'How long does it take to get value?', a: 'On a live-on-first-load platform like Ardovo, minutes. On a blank legacy CRM, expect weeks of configuration before the first useful report.' },
         { q: 'Will we have to migrate again later?', a: 'Not if you pick a tool that scales. The whole point of choosing well early is that the CRM you adopt at five people still fits at fifty.' },
       ],
     },

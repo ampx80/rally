@@ -116,8 +116,8 @@ export default function StatusPage() {
 
   const trail = [{ name: 'Home', href: '/' }, { name: 'Status' }];
   useSeoHead({
-    title: 'System status | Rally',
-    description: 'Live operational status for Rally: overall health, per-dependency checks, build and region info, and 90-day uptime.',
+    title: 'System status | Ardovo',
+    description: 'Live operational status for Ardovo: overall health, per-dependency checks, build and region info, and 90-day uptime.',
     canonical: `${SITE}/status`,
     jsonLd: [orgLd(), breadcrumbLd(trail)],
   });
@@ -178,7 +178,7 @@ export default function StatusPage() {
               <div style={{ textAlign: 'left' }}>
                 <div className="mkt-h3" style={{ color: 'var(--m-ink)', fontSize: 'clamp(1.35rem,2.8vw,1.85rem)', letterSpacing: '-.02em' }}>{headline}</div>
                 <div className="mkt-dim" style={{ fontSize: 14.5, marginTop: 4 }}>
-                  {lastFetched ? `Updated ${lastFetched.toLocaleTimeString()} - refreshes every 30s` : 'Live probe of Rally and its dependencies'}
+                  {lastFetched ? `Updated ${lastFetched.toLocaleTimeString()} - refreshes every 30s` : 'Live probe of Ardovo and its dependencies'}
                 </div>
               </div>
             </div>
@@ -192,7 +192,7 @@ export default function StatusPage() {
           <Reveal>
             <div style={{ ...PANEL, padding: 26 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
-                <h2 className="mkt-h3" style={{ fontSize: '1.3rem', letterSpacing: '-.02em' }}>Rally platform</h2>
+                <h2 className="mkt-h3" style={{ fontSize: '1.3rem', letterSpacing: '-.02em' }}>Ardovo platform</h2>
                 <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--m-teal)' }}>{pct}% uptime, last 90 days</span>
               </div>
               <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 40 }}>

@@ -1,4 +1,4 @@
-// Surveys. Rally's closed-loop feedback engine - NPS, CSAT and CES with
+// Surveys. Ardovo's closed-loop feedback engine - NPS, CSAT and CES with
 // automated follow-up. HubSpot charges for Service Hub to get this; GoHighLevel
 // simply does not have it. Four surfaces over one local-first store
 // (src/lib/surveys-data.js): a program list, a survey builder, a results
@@ -140,7 +140,7 @@ function SurveyList({ onOpen, onBuild, toast }) {
           <div className="col gap-1" style={{ minWidth: 0 }}>
             <div className="eyebrow">Closed-loop feedback</div>
             <h3 style={{ margin: 0 }}>NPS, CSAT and CES that actually feed retention</h3>
-            <div className="muted t-sm" style={{ maxWidth: 560 }}>Score every moment of truth, then let the loop close itself: a detractor opens a ticket, a promoter gets asked for a review. The Service Hub staple, free with Rally.</div>
+            <div className="muted t-sm" style={{ maxWidth: 560 }}>Score every moment of truth, then let the loop close itself: a detractor opens a ticket, a promoter gets asked for a review. The Service Hub staple, free with Ardovo.</div>
           </div>
           <div className="row gap-1" style={{ flex: 'none' }}>
             <Button variant="ghost" onClick={() => askRook('Summarize my survey program. Which survey needs attention and what should I do about open detractors?')}><Icon name="sparkles" size={15} /> Ask Rook</Button>
@@ -340,7 +340,7 @@ function Builder({ activeId, setActiveId, toast, onViewResults }) {
             <ScaleRow type={form.type} />
             <p style={{ margin: '1.2rem 0 .5rem', fontSize: '.92rem', fontWeight: 600, color: 'var(--ink-2)' }}>{form.followUp}</p>
             <div className="input" style={{ color: 'var(--n-400)', minHeight: 54, display: 'flex', alignItems: 'flex-start' }}>Type your answer...</div>
-            <div className="row center" style={{ marginTop: '1rem' }}><span className="t-xs muted">Powered by Rally</span></div>
+            <div className="row center" style={{ marginTop: '1rem' }}><span className="t-xs muted">Powered by Ardovo</span></div>
           </div>
           {!hasSendEnv() && <div className="t-xs muted row gap-1" style={{ marginTop: '.9rem' }}><Icon name="lock" size={13} /> No send provider connected. Waves queue locally and go out once email/SMS env is wired.</div>}
         </Card>
@@ -571,7 +571,7 @@ function Rules({ toast }) {
           <div className="col gap-1" style={{ minWidth: 0 }}>
             <div className="eyebrow">Close the loop automatically</div>
             <h3 style={{ margin: 0 }}>Every score triggers the right next move</h3>
-            <div className="muted t-sm" style={{ maxWidth: 540 }}>Feedback without action is just a number. Rally routes each response the moment it lands, so no detractor goes quiet and no promoter goes unasked.</div>
+            <div className="muted t-sm" style={{ maxWidth: 540 }}>Feedback without action is just a number. Ardovo routes each response the moment it lands, so no detractor goes quiet and no promoter goes unasked.</div>
           </div>
           <Button variant="ghost" style={{ flex: 'none' }} onClick={() => askRook('Recommend follow-up rules for my NPS, CSAT and CES surveys and explain the retention impact.')}><Icon name="sparkles" size={15} /> Ask Rook</Button>
         </div>
@@ -668,7 +668,7 @@ export default function Surveys() {
       <PageTitle
         eyebrow="Success & Delivery"
         title={<>Surveys <GradientText>&amp; Feedback</GradientText></>}
-        sub="NPS, CSAT and CES in one place, with the follow-up built in. Score every moment of truth and let the loop close itself. The Service Hub staple, free with Rally."
+        sub="NPS, CSAT and CES in one place, with the follow-up built in. Score every moment of truth and let the loop close itself. The Service Hub staple, free with Ardovo."
         action={
           <div className="row gap-1">
             <Button variant="ghost" onClick={() => askRook('Give me a read on my feedback program: scores, trends, and the single most important action to take today.')}><Icon name="sparkles" size={16} /> Ask Rook</Button>

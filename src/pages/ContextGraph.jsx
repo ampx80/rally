@@ -1,5 +1,5 @@
-// ContextGraph - Rally's context layer (the "Data 360" answer): a unified,
-// governed view of everything an AI agent can ground on. Rally is local-first,
+// ContextGraph - Ardovo's context layer (the "Data 360" answer): a unified,
+// governed view of everything an AI agent can ground on. Ardovo is local-first,
 // so the whole book already lives in the store; this page visualizes and
 // governs that context layer. Every source card reads a live count + a real
 // coverage metric; governance toggles (expose / mask PII) persist through
@@ -194,7 +194,7 @@ export default function ContextGraph() {
         eyebrow="Context Layer"
         title="Everything an agent"
         highlight="can ground on."
-        sub="Rally is local-first, so your whole book is already indexed. This is the read scope every agent inherits, and the controls that keep it safe."
+        sub="Ardovo is local-first, so your whole book is already indexed. This is the read scope every agent inherits, and the controls that keep it safe."
       />
 
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', marginBottom: '1.15rem' }}>

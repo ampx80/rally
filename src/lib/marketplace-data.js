@@ -1,10 +1,10 @@
 // ============================================================
-// RALLY MARKETPLACE  (local-first, deterministic)
-// The app ecosystem for Rally. A curated directory of installable
+// ARDOVO MARKETPLACE  (local-first, deterministic)
+// The app ecosystem for Ardovo. A curated directory of installable
 // integrations plus a real install store: one click flips an app
 // to "Connected", persists to localStorage, and every surface that
 // reads the store re-renders. An ecosystem is a moat - this is the
-// module that makes Rally extensible and sticky.
+// module that makes Ardovo extensible and sticky.
 //
 // TDZ SAFETY: the catalog is enriched at module-eval time (APPS =
 // buildCatalog()). Every helper it calls (mulberry32, luminance,
@@ -44,7 +44,7 @@ export function textOn(hex) {
    CATEGORIES
    ============================================================ */
 export const CATEGORIES = [
-  { id: 'all', label: 'All apps', icon: 'grid', color: 'var(--accent)', blurb: 'Everything in the Rally ecosystem.' },
+  { id: 'all', label: 'All apps', icon: 'grid', color: 'var(--accent)', blurb: 'Everything in the Ardovo ecosystem.' },
   { id: 'crm', label: 'CRM & Sales', icon: 'users', color: '#2563a8', blurb: 'Sync your book of business across every system of record.' },
   { id: 'comms', label: 'Comms', icon: 'messages', color: '#a855f7', blurb: 'Email, chat, voice and SMS, unified on the timeline.' },
   { id: 'payments', label: 'Payments', icon: 'dollar', color: '#1a7f52', blurb: 'Invoicing, billing and revenue recognition.' },
@@ -84,7 +84,7 @@ const RAW = [
   { id: 'mixpanel', name: 'Mixpanel', cat: 'analytics', color: '#7856ff', mono: 'MP', dev: 'Mixpanel', pricing: 'freemium', blurb: 'Product usage signals that flag expansion and churn risk.', tags: ['product', 'events'] },
   { id: 'amplitude', name: 'Amplitude', cat: 'analytics', color: '#1f6fff', mono: 'AM', dev: 'Amplitude', pricing: 'freemium', blurb: 'Behavioral cohorts pushed to the customer success view.', tags: ['product', 'cohorts'] },
   { id: 'looker', name: 'Looker', cat: 'analytics', color: '#4285f4', mono: 'LK', dev: 'Google Cloud', pricing: 'paid', blurb: 'Embed governed BI dashboards next to your reports.', tags: ['bi', 'dashboards'] },
-  { id: 'tableau', name: 'Tableau', cat: 'analytics', color: '#1f457e', mono: 'TB', dev: 'Salesforce', pricing: 'paid', blurb: 'Send Rally datasets to Tableau for deep exploration.', tags: ['bi', 'viz'] },
+  { id: 'tableau', name: 'Tableau', cat: 'analytics', color: '#1f457e', mono: 'TB', dev: 'Salesforce', pricing: 'paid', blurb: 'Send Ardovo datasets to Tableau for deep exploration.', tags: ['bi', 'viz'] },
 
   // ---- Productivity ----
   { id: 'gcal', name: 'Google Calendar', cat: 'productivity', color: '#4285f4', mono: 'GC', dev: 'Google', pricing: 'free', blurb: 'Two-way calendar sync with automatic meeting logging.', tags: ['calendar', 'sync'], featured: true },
@@ -94,14 +94,14 @@ const RAW = [
   { id: 'trello', name: 'Trello', cat: 'productivity', color: '#0079bf', mono: 'TR', dev: 'Atlassian', pricing: 'freemium', blurb: 'Mirror deal stages onto a Trello board for delivery.', tags: ['tasks', 'kanban'] },
   { id: 'airtable', name: 'Airtable', cat: 'productivity', color: '#fcb400', mono: 'AT', dev: 'Airtable', pricing: 'freemium', blurb: 'Sync any object to a flexible Airtable base.', tags: ['database', 'sync'] },
   { id: 'dropbox', name: 'Dropbox', cat: 'productivity', color: '#0061ff', mono: 'DB', dev: 'Dropbox', pricing: 'freemium', blurb: 'Attach contracts and collateral straight from Dropbox.', tags: ['files', 'storage'] },
-  { id: 'docusign', name: 'DocuSign', cat: 'productivity', color: '#d4472b', mono: 'DS', dev: 'DocuSign', pricing: 'paid', blurb: 'Send, track and countersign contracts without leaving Rally.', tags: ['esign', 'contracts'], featured: true },
-  { id: 'zapier', name: 'Zapier', cat: 'productivity', color: '#ff4a00', mono: 'ZP', dev: 'Zapier', pricing: 'freemium', blurb: 'Connect Rally to 7,000+ apps with no-code automations.', tags: ['automation', 'nocode'], featured: true },
+  { id: 'docusign', name: 'DocuSign', cat: 'productivity', color: '#d4472b', mono: 'DS', dev: 'DocuSign', pricing: 'paid', blurb: 'Send, track and countersign contracts without leaving Ardovo.', tags: ['esign', 'contracts'], featured: true },
+  { id: 'zapier', name: 'Zapier', cat: 'productivity', color: '#ff4a00', mono: 'ZP', dev: 'Zapier', pricing: 'freemium', blurb: 'Connect Ardovo to 7,000+ apps with no-code automations.', tags: ['automation', 'nocode'], featured: true },
 
   // ---- AI ----
   { id: 'openai', name: 'OpenAI', cat: 'ai', color: '#10a37f', mono: 'OA', dev: 'OpenAI', pricing: 'usage', blurb: 'Bring GPT models to Rook for drafting and enrichment.', tags: ['llm', 'copilot'], featured: true },
   { id: 'anthropic', name: 'Anthropic Claude', cat: 'ai', color: '#d97757', mono: 'AN', dev: 'Anthropic', pricing: 'usage', blurb: 'Route Rook reasoning through Claude for long-context work.', tags: ['llm', 'copilot'], featured: true },
   { id: 'perplexity', name: 'Perplexity', cat: 'ai', color: '#20808d', mono: 'PX', dev: 'Perplexity', pricing: 'freemium', blurb: 'Live web research on accounts, cited inline for reps.', tags: ['research', 'search'] },
-  { id: 'elevenlabs', name: 'ElevenLabs', cat: 'ai', color: '#1a1a2e', mono: 'EL', dev: 'ElevenLabs', pricing: 'usage', blurb: 'Natural voice for Rally Voice AI and call summaries.', tags: ['voice', 'tts'] },
+  { id: 'elevenlabs', name: 'ElevenLabs', cat: 'ai', color: '#1a1a2e', mono: 'EL', dev: 'ElevenLabs', pricing: 'usage', blurb: 'Natural voice for Ardovo Voice AI and call summaries.', tags: ['voice', 'tts'] },
 
   // ---- CRM ----
   { id: 'salesforce', name: 'Salesforce', cat: 'crm', color: '#00a1e0', mono: 'SF', dev: 'Salesforce', pricing: 'paid', blurb: 'Bi-directional sync to migrate off or run side by side.', tags: ['crm', 'migration'] },
@@ -114,11 +114,11 @@ const RAW = [
   { id: 'mailchimp', name: 'Mailchimp', cat: 'vertical', color: '#ffe01b', mono: 'MC', dev: 'Intuit', pricing: 'freemium', blurb: 'Sync audiences and campaign engagement to contacts.', tags: ['marketing', 'email'] },
   { id: 'zendesk', name: 'Zendesk', cat: 'vertical', color: '#03363d', mono: 'ZD', dev: 'Zendesk', pricing: 'paid', blurb: 'Support tickets surfaced on the account health view.', tags: ['support', 'tickets'] },
 
-  // ---- Rally-native ----
-  { id: 'tango', name: 'Tango Scheduling', cat: 'productivity', color: '#5b4bf5', mono: 'TA', dev: 'Rally', pricing: 'native', native: true, blurb: 'Native AI scheduling. Barge-in voice booking and no-show radar built in.', tags: ['scheduling', 'native'], featured: true },
-  { id: 'resolve', name: 'Resolve Support', cat: 'vertical', color: '#0ea5a3', mono: 'RS', dev: 'Rally', pricing: 'native', native: true, blurb: 'AI-first support that auto-resolves most tickets with zero humans.', tags: ['support', 'native'], featured: true },
-  { id: 'theway', name: 'The Way HQ', cat: 'vertical', color: '#a855f7', mono: 'WY', dev: 'Rally', pricing: 'native', native: true, blurb: 'External-constraint command center for permits and long-lead procurement.', tags: ['ops', 'native'] },
-  { id: 'rook', name: 'Rook AI', cat: 'ai', color: '#5b4bf5', mono: 'RK', dev: 'Rally', pricing: 'native', native: true, blurb: 'The AI operator at the core of Rally. Always on, already installed.', tags: ['ai', 'native'], featured: true, core: true },
+  // ---- Ardovo-native ----
+  { id: 'tango', name: 'Tango Scheduling', cat: 'productivity', color: '#5b4bf5', mono: 'TA', dev: 'Ardovo', pricing: 'native', native: true, blurb: 'Native AI scheduling. Barge-in voice booking and no-show radar built in.', tags: ['scheduling', 'native'], featured: true },
+  { id: 'resolve', name: 'Resolve Support', cat: 'vertical', color: '#0ea5a3', mono: 'RS', dev: 'Ardovo', pricing: 'native', native: true, blurb: 'AI-first support that auto-resolves most tickets with zero humans.', tags: ['support', 'native'], featured: true },
+  { id: 'theway', name: 'The Way HQ', cat: 'vertical', color: '#a855f7', mono: 'WY', dev: 'Ardovo', pricing: 'native', native: true, blurb: 'External-constraint command center for permits and long-lead procurement.', tags: ['ops', 'native'] },
+  { id: 'rook', name: 'Rook AI', cat: 'ai', color: '#5b4bf5', mono: 'RK', dev: 'Ardovo', pricing: 'native', native: true, blurb: 'The AI operator at the core of Ardovo. Always on, already installed.', tags: ['ai', 'native'], featured: true, core: true },
 ];
 
 /* ---------- pricing display ---------- */
@@ -127,7 +127,7 @@ export const PRICING_LABEL = {
   freemium: 'Free plan + paid',
   paid: 'Paid plans',
   usage: 'Usage-based',
-  native: 'Included with Rally',
+  native: 'Included with Ardovo',
 };
 
 /* Permission templates per category, so every app shows realistic scopes. */
@@ -138,7 +138,7 @@ const PERMS = {
   analytics: ['Read product and web events', 'Read account identities', 'Write intent scores to records'],
   productivity: ['Read and write calendar and files', 'Create tasks and documents', 'Read contact details'],
   ai: ['Send record context to the model', 'Read notes and activity', 'Draft content on your behalf'],
-  vertical: ['Read orders and tickets', 'Create accounts and contacts', 'Write status back to Rally'],
+  vertical: ['Read orders and tickets', 'Create accounts and contacts', 'Write status back to Ardovo'],
 };
 
 /* Deterministic public stats for one app (rating, installs, reviews, spark).
@@ -228,7 +228,7 @@ export function installApp(id) {
 // SUPABASE: from('rally_installed_apps').delete().eq('app_id', id)
 export function uninstallApp(id) {
   const app = appById(id);
-  if (app?.core) return { error: 'core', message: 'Rook AI is core to Rally and cannot be removed.' };
+  if (app?.core) return { error: 'core', message: 'Rook AI is core to Ardovo and cannot be removed.' };
   if (!mstate.installed[id]) return { ok: true, already: true };
   const next = { ...mstate.installed };
   delete next[id];

@@ -1,4 +1,4 @@
-// Reports - the answers layer on top of Rally. A live KPI dashboard, a
+// Reports - the answers layer on top of Ardovo. A live KPI dashboard, a
 // gallery of saved reports (seed + custom), a full report view with the
 // right recharts chart plus a data table, and a "New report" builder that
 // composes a report from a data source, metric, dimension and chart type

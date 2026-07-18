@@ -1,5 +1,5 @@
 /* ============================================================
-   RALLY E-SIGN  (scoped styles for the signing flow)
+   ARDOVO E-SIGN  (scoped styles for the signing flow)
    Prefix: .es-  - never touches product or marketing globals.
    Leans on the app's shared CSS variables (--ink, --paper, --line,
    --accent, radii, shadows) so it themes light/dark for free.

@@ -1,6 +1,6 @@
 // ============================================================
 // SMS ALERTS  (/sms)
-// The home for Rally's SMS channel. Three calm panels:
+// The home for Ardovo's SMS channel. Three calm panels:
 //   1. Connection status - reads /api/sms-send config state. Until
 //      TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM are set the
 //      page shows a "not connected yet" state. NOTHING about the live app

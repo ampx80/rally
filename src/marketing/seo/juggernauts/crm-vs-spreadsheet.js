@@ -9,11 +9,11 @@ const entry = {
   slug: 'crm-vs-spreadsheet',
   title: 'CRM vs Spreadsheet: When to Switch',
   h1: 'CRM vs Spreadsheet: An Honest Guide to When You Should Switch',
-  metaTitle: 'CRM vs Spreadsheet: When to Switch (Honest 2026 Guide + Calculator) | Rally',
+  metaTitle: 'CRM vs Spreadsheet: When to Switch (Honest 2026 Guide + Calculator) | Ardovo',
   metaDescription: 'A fair, practical comparison of running sales on a spreadsheet versus a CRM: the one-sentence switch test, a feature matrix, the real cost of staying on Sheets, a switching-cost calculator, and when a spreadsheet is genuinely still the right call.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 88, suffix: '%', label: 'Of business spreadsheets contain at least one material error (typical audit finding)' },
     { value: 23, prefix: '$', suffix: 'K', format: 'number', label: 'Median pipeline a rep leaks per quarter to slow follow-up' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Rally, no migration project' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Ardovo, no migration project' },
   ],
   blocks: [
     {
@@ -60,7 +60,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Spreadsheet vs CRM, capability by capability',
       rowHeader: 'Capability',
-      columns: ['Rally CRM', 'Spreadsheet', 'Generic CRM'],
+      columns: ['Ardovo CRM', 'Spreadsheet', 'Generic CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Cost to start', cells: ['One flat price', 'Free', 'Per seat, climbs'] },
@@ -75,7 +75,7 @@ const entry = {
         { feature: 'Audit trail of who changed what', cells: [true, false, true] },
         { feature: 'Scales past 10 reps without breaking', cells: [true, false, true] },
       ],
-      footnote: 'Spreadsheet column reflects a shared cloud sheet. Generic CRM column reflects a typical seat-plus-add-on configuration. Rally is one flat price across every module.',
+      footnote: 'Spreadsheet column reflects a shared cloud sheet. Generic CRM column reflects a typical seat-plus-add-on configuration. Ardovo is one flat price across every module.',
     },
     {
       type: 'callout',
@@ -128,7 +128,7 @@ const entry = {
       caption: 'Manual entry, deduping, chasing updates, and rebuilding the forecast, for a small sales team.',
       data: {
         bars: [
-          { label: 'Rally (auto-captured)', value: 1, display: '~1 hr', highlight: true },
+          { label: 'Ardovo (auto-captured)', value: 1, display: '~1 hr', highlight: true },
           { label: 'Generic CRM', value: 3, display: '~3 hrs' },
           { label: 'Shared spreadsheet', value: 8, display: '~8 hrs' },
         ],
@@ -166,7 +166,7 @@ const entry = {
       data: {
         milestones: [
           { date: '0:00', label: 'Export the spreadsheet to CSV', body: 'One file, every deal and contact' },
-          { date: '0:10', label: 'Import into Rally', body: 'Columns map to fields automatically' },
+          { date: '0:10', label: 'Import into Ardovo', body: 'Columns map to fields automatically' },
           { date: '0:25', label: 'Set your pipeline stages', body: 'Describe them in a sentence to Rook' },
           { date: '0:45', label: 'Turn on follow-up drafting', body: 'Cold deals surface themselves' },
           { date: '1:15', label: 'First real forecast', body: 'Roll-up by stage, one click, no pivot table' },
@@ -222,7 +222,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We swore the spreadsheet was fine until we realized we had called the same account three times and lost a bigger deal that never got a second email. We moved it all over in an afternoon and closed two deals that week that would have slipped.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Founder, seed-stage SaaS',
     },
     {
@@ -232,18 +232,18 @@ const entry = {
       steps: [
         { title: 'Freeze the sheet as your backup', body: 'Keep the last spreadsheet version untouched so you always have a rollback. You will not need it, but it removes the fear.' },
         { title: 'Export to a single clean CSV', body: 'One row per deal or contact, headers in the top row. Delete dead junk columns now so you do not import mess.' },
-        { title: 'Import and map fields', body: 'Bring the CSV into the CRM and let it match columns to fields. In Rally this is minutes, and you see a live pipeline immediately.' },
+        { title: 'Import and map fields', body: 'Bring the CSV into the CRM and let it match columns to fields. In Ardovo this is minutes, and you see a live pipeline immediately.' },
         { title: 'Set stages and turn on reminders', body: 'Define your pipeline stages and switch on follow-up drafting so cold deals start surfacing on their own.' },
         { title: 'Run both for one week, then retire the sheet', body: 'Work exclusively in the CRM for a week to build the habit, then archive the spreadsheet for good.' },
       ],
     },
     {
       type: 'richText',
-      title: 'How Rally makes the switch a non-event',
+      title: 'How Ardovo makes the switch a non-event',
       body: [
         'The reason this comparison usually ends with "we should switch but not right now" is that switching has historically meant a migration project: exporting, cleaning, importing into a blank system, configuring fields for weeks, and training everyone before it does anything useful. That cost is real for legacy CRMs, and it is exactly why teams over-stay on spreadsheets.',
-        'Rally removes that cost. It is alive on first load, so importing your CSV gives you a working pipeline in minutes rather than an empty database to configure. Rook, the built-in AI operator, sets up your stages from a sentence, captures new leads automatically, drafts the follow-ups your spreadsheet would have let slip, and rolls up the forecast without a pivot table. It is one flat price across every module, so the bill does not punish you for growing, which was the other reason to fear leaving free.',
-        'You do not have to buy Rally to use this guide. The switch test, the funnel, and the calculator apply to any CRM decision. But if the math says switch, the entire point of a live-on-first-load platform is that the switch stops being a project and becomes an afternoon.',
+        'Ardovo removes that cost. It is alive on first load, so importing your CSV gives you a working pipeline in minutes rather than an empty database to configure. Rook, the built-in AI operator, sets up your stages from a sentence, captures new leads automatically, drafts the follow-ups your spreadsheet would have let slip, and rolls up the forecast without a pivot table. It is one flat price across every module, so the bill does not punish you for growing, which was the other reason to fear leaving free.',
+        'You do not have to buy Ardovo to use this guide. The switch test, the funnel, and the calculator apply to any CRM decision. But if the math says switch, the entire point of a live-on-first-load platform is that the switch stops being a project and becomes an afternoon.',
       ],
     },
     {
@@ -252,9 +252,9 @@ const entry = {
       items: [
         { q: 'Is a spreadsheet really that bad for sales?', a: 'No, and that is the honest answer. A spreadsheet is excellent when you are one person with a handful of deals and a process still in flux. It only becomes a liability once multiple people touch the pipeline or the volume of leads grows past what one person can remember. The problem is not the spreadsheet, it is staying on it after that point.' },
         { q: 'What are the clearest signs it is time to switch?', a: 'Three signals matter most: a lead has already been dropped because a follow-up slipped, two people have worked the same deal or you have found duplicate rows, and you cannot answer what the next step is on your biggest deals without asking a teammate. Any one of those means the spreadsheet has become a passive record you have outgrown.' },
-        { q: 'How much does switching from a spreadsheet actually cost?', a: 'Far less than the reputation suggests, if you pick a live-on-first-load CRM. The real cost is a few hours to export a clean CSV, import it, and set your stages. On Rally that is an afternoon, not a quarter. The switching-cost calculator above lets you model the one-time hours against the recurring admin time and pipeline you get back.' },
+        { q: 'How much does switching from a spreadsheet actually cost?', a: 'Far less than the reputation suggests, if you pick a live-on-first-load CRM. The real cost is a few hours to export a clean CSV, import it, and set your stages. On Ardovo that is an afternoon, not a quarter. The switching-cost calculator above lets you model the one-time hours against the recurring admin time and pipeline you get back.' },
         { q: 'Will I lose my data or history when I move?', a: 'No. You export your spreadsheet to CSV, keep the original file frozen as a backup, and import into the CRM. Nothing is deleted from the source. A good practice is to run both in parallel for a week before retiring the sheet, so the transition is fully reversible until you are confident.' },
-        { q: 'Can a CRM stay as flexible as my spreadsheet?', a: 'Modern CRMs let you add custom fields and adjust stages, so you keep most of the flexibility while gaining reminders, dedupe, safe multi-user editing, and forecasting the spreadsheet never had. Rally goes further by letting you describe changes to Rook in plain language instead of rebuilding a schema by hand.' },
+        { q: 'Can a CRM stay as flexible as my spreadsheet?', a: 'Modern CRMs let you add custom fields and adjust stages, so you keep most of the flexibility while gaining reminders, dedupe, safe multi-user editing, and forecasting the spreadsheet never had. Ardovo goes further by letting you describe changes to Rook in plain language instead of rebuilding a schema by hand.' },
         { q: 'Is a free spreadsheet cheaper than paying for a CRM?', a: 'Only on the line item you can see. The subscription is free, but the manual entry, deduping, status-chasing, and weekly forecast rebuilds are real labor hours, and the follow-ups that slip are lost revenue on top. Once you price in the hours and the leaked pipeline, a flat-price CRM is usually cheaper well before you would guess.' },
       ],
     },

@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY FUNNELS  (local-first, Supabase-swappable)
+// ARDOVO FUNNELS  (local-first, Supabase-swappable)
 // A visual funnel + website builder - GoHighLevel's flagship,
-// the single biggest gap Rally had. A funnel is an ordered set
+// the single biggest gap Ardovo had. A funnel is an ordered set
 // of steps (Opt-in -> Sales -> Order -> Upsell -> Thank you);
 // each step is a page of stacked blocks with a live conversion
 // rate. This module owns the funnels/steps/blocks store, a

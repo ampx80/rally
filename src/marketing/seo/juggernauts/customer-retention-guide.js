@@ -8,11 +8,11 @@ const entry = {
   slug: 'customer-retention-guide',
   title: 'Customer Retention: The Complete 2026 Guide',
   h1: 'Customer Retention: The Complete 2026 Guide',
-  metaTitle: 'Customer Retention Guide 2026: Churn Math, NRR, Health Scores, and a Playbook | Rally',
+  metaTitle: 'Customer Retention Guide 2026: Churn Math, NRR, Health Scores, and a Playbook | Ardovo',
   metaDescription: 'A deep, practical guide to customer retention in 2026: why retention beats acquisition, the churn and NRR math (with a live calculator), the retention lifecycle, health scoring, and a proven playbook.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -223,7 +223,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'How retention gets run: manual versus system versus AI-native',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet tracking', 'Legacy CRM plus CS tool'],
+      columns: ['Ardovo', 'Spreadsheet tracking', 'Legacy CRM plus CS tool'],
       highlightCol: 0,
       rows: [
         { feature: 'One source of truth for revenue and accounts', cells: [true, false, 'partial'] },
@@ -238,17 +238,17 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
         'Most retention programs stall on the same rock: the data lives in three places. Revenue is in billing, relationship history is in the CRM, and product signals are in yet another tool, so the health score is always slightly wrong and the numbers never quite tie out. The fix is a single source of truth where revenue, accounts, and activity live together and every report derives from the same data.',
-        'Rally is built that way on purpose. It is AI-native, alive on first load rather than a blank database, and one flat price across every module instead of a CRM seat plus a customer-success add-on plus an analytics upsell. Rook, the operator, watches account health, surfaces the reds before renewal, and drafts the outreach so the team spends its time on the conversation, not the spreadsheet.',
+        'Ardovo is built that way on purpose. It is AI-native, alive on first load rather than a blank database, and one flat price across every module instead of a CRM seat plus a customer-success add-on plus an analytics upsell. Rook, the operator, watches account health, surfaces the reds before renewal, and drafts the outreach so the team spends its time on the conversation, not the spreadsheet.',
         'The point of this guide is to make you better at retention regardless of what you run it on. But if you are tired of reconciling three tools to answer one question, a system where the math ties out by default is worth a look.',
       ],
     },
     {
       type: 'quote',
       text: 'We stopped treating renewals as fire drills once the health score was live. The at-risk accounts came to us weeks early, and the save rate followed.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of Customer Success',
     },
     {

@@ -1,4 +1,4 @@
-// Developers - the Rally public API console.
+// Developers - the Ardovo public API console.
 //
 // A real developer surface: create / copy / reveal / revoke API keys, subscribe
 // to outbound webhooks (with a live "send test event" that hits the SSRF-guarded
@@ -25,7 +25,7 @@ const WEBHOOK_LS = 'rally_webhooks_v1';
 const loadHooks = () => { try { return JSON.parse(localStorage.getItem(WEBHOOK_LS)) || []; } catch { return []; } };
 const saveHooks = (h) => { try { localStorage.setItem(WEBHOOK_LS, JSON.stringify(h)); } catch {} };
 
-const apiBase = () => (typeof window !== 'undefined' ? window.location.origin : 'https://rally.app');
+const apiBase = () => (typeof window !== 'undefined' ? window.location.origin : 'https://ardovo.com');
 
 /* ---------- clipboard helper ---------- */
 function useCopy() {
@@ -132,7 +132,7 @@ function KeysPanel() {
         action={<Button size="sm" onClick={() => setShowNew(true)}><Icon name="plus" size={15} /> New key</Button>}
       />
       {keys.length === 0 ? (
-        <EmptyState icon="&#128273;" title="No API keys yet" body="Create a key to start calling the Rally REST API." action={<Button onClick={() => setShowNew(true)}>Create your first key</Button>} />
+        <EmptyState icon="&#128273;" title="No API keys yet" body="Create a key to start calling the Ardovo REST API." action={<Button onClick={() => setShowNew(true)}>Create your first key</Button>} />
       ) : (
         <div className="col gap-2" style={{ marginTop: '.5rem' }}>
           {keys.map(k => (
@@ -203,7 +203,7 @@ function WebhooksPanel() {
     try {
       const r = await fetch('/api/webhooks-dispatch', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: h.url, event: h.event, secret: h.secret, data: { sample: true, note: 'Test event from the Rally developer console.' } }),
+        body: JSON.stringify({ url: h.url, event: h.event, secret: h.secret, data: { sample: true, note: 'Test event from the Ardovo developer console.' } }),
       });
       const j = await r.json().catch(() => ({}));
       if (j.ok) toast(`Delivered ${h.event} (HTTP ${j.status}).`);
@@ -215,7 +215,7 @@ function WebhooksPanel() {
 
   return (
     <Card>
-      <SectionHeader title="Webhooks" sub="Get a signed POST the moment something changes in Rally. Deliveries are HMAC-SHA256 signed." />
+      <SectionHeader title="Webhooks" sub="Get a signed POST the moment something changes in Ardovo. Deliveries are HMAC-SHA256 signed." />
       <div className="row gap-2 wrap" style={{ alignItems: 'flex-end', marginTop: '.4rem' }}>
         <div style={{ flex: '2 1 260px' }}>
           <Field label="Subscriber URL">
@@ -300,7 +300,7 @@ export default function Developers() {
               <span style={{ fontSize: '.72rem', fontWeight: 800, letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--accent-300)' }}>Developers</span>
             </div>
             <h1 style={{ margin: 0, fontSize: 'clamp(1.9rem, 3.4vw, 2.7rem)', lineHeight: 1.08, color: '#fff' }}>
-              Build on Rally.
+              Build on Ardovo.
             </h1>
             <p style={{ margin: '10px 0 0', fontSize: '1.05rem', color: '#c9cbe6', lineHeight: 1.5 }}>
               A versioned REST API, signed outbound webhooks, and first-class key management.
@@ -373,7 +373,7 @@ Retry-After: 42`} />
         <div style={{ marginTop: '.6rem' }}>
           <CodeBlock lang="javascript" code={`import crypto from 'node:crypto';
 
-// header: X-Rally-Signature: t=<unix>,v1=<hex>
+// header: X-Ardovo-Signature: t=<unix>,v1=<hex>
 function verify(rawBody, header, secret) {
   const parts = Object.fromEntries(header.split(',').map(p => p.split('=')));
   const expected = crypto

@@ -3,7 +3,7 @@
 // One deliberate, sequential palette used by every stage-colored surface:
 // kanban columns, deal badges, command-center pulse, dashboards charts,
 // and forecasting. The scale runs cool-to-teal so a deal visibly "warms"
-// toward Rally's brand teal as it advances to the close.
+// toward Ardovo's brand teal as it advances to the close.
 //
 //   lead        slate   just entered, dormant
 //   qualified   blue    a real opportunity

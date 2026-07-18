@@ -9,11 +9,11 @@ const entry = {
   slug: 'customer-onboarding-guide',
   title: 'Customer Onboarding: The Complete Guide',
   h1: 'Customer Onboarding: The Complete Guide to Time-to-Value and Retention',
-  metaTitle: 'Customer Onboarding: The Complete Guide (2026) with Playbook, Calculator, and Metrics | Rally',
+  metaTitle: 'Customer Onboarding: The Complete Guide (2026) with Playbook, Calculator, and Metrics | Ardovo',
   metaDescription: 'A deep, practical guide to customer onboarding: why it drives retention, the onboarding journey and timeline, time-to-value math, a step-by-step playbook, and how bad onboarding causes churn.',
   eyebrow: 'Retention Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 63, suffix: '%', label: 'Of buyers weigh onboarding when choosing to renew' },
     { value: 2.6, prefix: '', suffix: 'x', format: 'decimal:1', label: 'Higher retention when first value arrives fast' },
-    { value: 5, prefix: '<', suffix: ' min', label: 'Time to first value on Rally, alive on first load' },
+    { value: 5, prefix: '<', suffix: ' min', label: 'Time to first value on Ardovo, alive on first load' },
   ],
   blocks: [
     {
@@ -90,7 +90,7 @@ const entry = {
       body: [
         'Time-to-value is the number of days between purchase and first real outcome. It is the most important onboarding metric because it maps almost linearly to retention. The longer a customer waits for their first win, the more time they have to doubt the decision, get pulled back to their old way of working, or simply forget why they signed up.',
         'The relationship is not gentle. Research across subscription products consistently shows that customers who reach value in their first session or first day retain far better than those who take a week or more, and that a large share of eventual churn is already decided within the first two weeks. Shortening time-to-value is therefore one of the highest-leverage moves a company can make, because it improves retention without touching the product roadmap.',
-        'This is where alive-on-first-load matters. A product that greets a new customer with a working example, populated with their own data or a realistic starting state, compresses time-to-value from weeks to minutes. Rally is built this way on purpose: a new team sees a live pipeline immediately, and Rook, the built-in operator, does the setup work a customer would otherwise have to learn.',
+        'This is where alive-on-first-load matters. A product that greets a new customer with a working example, populated with their own data or a realistic starting state, compresses time-to-value from weeks to minutes. Ardovo is built this way on purpose: a new team sees a live pipeline immediately, and Rook, the built-in operator, does the setup work a customer would otherwise have to learn.',
       ],
     },
     {
@@ -220,16 +220,16 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing customers in month two once they got a real result in the first hour. The renewal conversation had already been won by then.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of Revenue, B2B software',
     },
     {
       type: 'richText',
-      title: 'How Rally makes onboarding the product, not a phase',
+      title: 'How Ardovo makes onboarding the product, not a phase',
       body: [
-        'Most tools treat onboarding as a wrapper around an empty product: a checklist, a tour, a sequence of emails begging the customer to finish setup. Rally inverts that. The product is alive on first load, so a new team sees a working pipeline immediately instead of a blank database, and first value arrives in minutes rather than weeks.',
+        'Most tools treat onboarding as a wrapper around an empty product: a checklist, a tour, a sequence of emails begging the customer to finish setup. Ardovo inverts that. The product is alive on first load, so a new team sees a working pipeline immediately instead of a blank database, and first value arrives in minutes rather than weeks.',
         'Rook, the built-in AI operator, does the configuration a customer would otherwise have to learn. It imports and enriches records, sets up stages from a single sentence, drafts the first follow-ups, and surfaces the next step, so the customer reaches their outcome before they have a chance to stall. One flat price covers every module, which means the onboarding never hits a paywall exactly when a customer is ready to go deeper.',
-        'None of this replaces the discipline in this guide. Rally is genuinely useful even if you never buy it, because the playbook here works on any product. What Rally does is remove the single biggest source of onboarding failure, the gap between login and first value, by closing it before the customer ever notices it was there.',
+        'None of this replaces the discipline in this guide. Ardovo is genuinely useful even if you never buy it, because the playbook here works on any product. What Ardovo does is remove the single biggest source of onboarding failure, the gap between login and first value, by closing it before the customer ever notices it was there.',
       ],
     },
     {
@@ -246,7 +246,7 @@ const entry = {
         { q: 'What is the single most important onboarding metric?', a: 'Time-to-value, the number of days between purchase and first real outcome. It maps almost linearly to retention, so shortening it improves churn without touching the product roadmap. Track it as a funnel alongside first-value rate and week-one habit.' },
         { q: 'How long should customer onboarding take?', a: 'First value should arrive in the first session, ideally minutes. The habit-forming portion typically runs the first one to two weeks. If your onboarding takes weeks before a customer gets any concrete outcome, that delay is itself a leading cause of churn.' },
         { q: 'How much of churn is caused by bad onboarding?', a: 'Across subscription products, a large share of churn, often cited around forty percent, traces back to customers who never reached first value. Because acquiring a replacement typically costs several times more than retaining an existing customer, fixing onboarding is usually the cheapest growth lever available.' },
-        { q: 'Do we need a customer success manager for every account to onboard well?', a: 'No. High-touch onboarding works but does not scale. The more durable approach is to make the product deliver first value on its own, so a human is a bonus rather than a requirement. Rally does this by being alive on first load with an operator that handles setup.' },
+        { q: 'Do we need a customer success manager for every account to onboard well?', a: 'No. High-touch onboarding works but does not scale. The more durable approach is to make the product deliver first value on its own, so a human is a bonus rather than a requirement. Ardovo does this by being alive on first load with an operator that handles setup.' },
         { q: 'How do we measure whether onboarding is actually working?', a: 'Build a funnel: signed up, first login, first value, weekly habit, renewed. Find the steepest drop and fix that stage first. Avoid vanity metrics like tour completion or clicks, which can rise while real outcomes stay flat. The metric that matters is customers who reached an outcome they would miss.' },
       ],
     },

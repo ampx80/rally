@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+import fs from 'fs';
+fs.mkdirSync('tmp/shots', { recursive: true });
+const B = process.env.SHOOT_BASE || 'https://rally-psi-five.vercel.app';
+const browser = await chromium.launch();
+// Truly fresh visitor: no localStorage, no access granted.
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 950 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+await page.goto(B + '/app', { waitUntil: 'networkidle', timeout: 45000 });
+await page.waitForTimeout(2500);
+const body = (await page.locator('body').innerText()).replace(/\s+/g, ' ').slice(0, 400);
+const hasWaitlist = /waitlist|early access|request access|coming soon|launching/i.test(body);
+const hasAppShell = await page.locator('.rl-content, .spine-nav, .cc-hero').count();
+const access = await page.evaluate(() => { try { return localStorage.getItem('rally_access'); } catch { return 'err'; } });
+await page.screenshot({ path: 'tmp/shots/app-gate.png' });
+console.log('rally_access=' + access, 'hasWaitlistCopy=' + hasWaitlist, 'appShellEls=' + hasAppShell, 'errors=' + errs.length);
+console.log('BODY:', body);
+await browser.close();

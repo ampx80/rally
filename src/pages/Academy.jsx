@@ -1,4 +1,4 @@
-// Rally Academy. Courses, memberships, community, and a client portal that
+// Ardovo Academy. Courses, memberships, community, and a client portal that
 // keep customers inside the platform and add a recurring revenue line. Five
 // tabs over one local-first store (src/lib/academy-data.js): Courses (grid +
 // builder), Offers (pricing bundles + checkout preview), Members (progress +
@@ -282,7 +282,7 @@ function CheckoutPreviewModal({ offerId, onClose }) {
   const courses = offerCourses(offer);
   const paymentsLive = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_STRIPE_KEY;
   const copyLink = async () => {
-    const link = `https://rally.app/checkout/${offer.id}`;
+    const link = `https://ardovo.com/checkout/${offer.id}`;
     try { await navigator.clipboard.writeText(link); toast('Checkout link copied'); } catch { toast(link, 'warn'); }
   };
   return (
@@ -745,7 +745,7 @@ export default function Academy() {
     <div className="fade-up">
       <PageTitle
         eyebrow="Delivery"
-        title={<>Rally <GradientText>Academy</GradientText></>}
+        title={<>Ardovo <GradientText>Academy</GradientText></>}
         sub="Courses, memberships, and community that keep customers inside the platform and add a recurring revenue line."
         action={<Button variant="ghost" size="sm" onClick={() => askRook('Give me a 3-step plan to grow Academy membership revenue this quarter.')}><Icon name="sparkles" size={15} /> Ask Rook</Button>}
       />

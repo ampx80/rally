@@ -110,8 +110,8 @@ export default function WorkspaceDetail() {
       {/* Economics rail */}
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))' }}>
         <StatCard label="Client MRR" value={Math.round(econ.mrr)} format={money} icon={<Icon name="dollar" size={18} />} sub={`${money(econ.subRevenue)} plan + ${money(Math.round(econ.usageRevenue))} usage`} />
-        <StatCard label="Your margin / mo" value={Math.round(econ.margin)} format={money} icon={<Icon name="trendUp" size={18} />} accent="var(--ok)" sparkColor="var(--ok)" sub={`${econ.marginPct}% after Rally cost`} spark={ws.trend} />
-        <StatCard label="Rally wholesale" value={Math.round(econ.rallyCost)} format={money} icon={<Icon name="receipt" size={18} />} accent="var(--n-600)" sub="what you pay per month" />
+        <StatCard label="Your margin / mo" value={Math.round(econ.margin)} format={money} icon={<Icon name="trendUp" size={18} />} accent="var(--ok)" sparkColor="var(--ok)" sub={`${econ.marginPct}% after Ardovo cost`} spark={ws.trend} />
+        <StatCard label="Ardovo wholesale" value={Math.round(econ.rallyCost)} format={money} icon={<Icon name="receipt" size={18} />} accent="var(--n-600)" sub="what you pay per month" />
         <StatCard label="Contacts" value={ws.contacts} icon={<Icon name="users" size={18} />} accent="var(--accent-teal)" sub={`${ws.deals} open deals`} />
       </div>
 

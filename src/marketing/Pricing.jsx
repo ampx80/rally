@@ -58,7 +58,7 @@ const TIERS = [
 const FAQ = [
   {
     q: 'Do I need an admin team?',
-    a: 'No. Rally is alive on first load with a full book of business, and Rook does the setup work you would normally hand to a specialist admin. Most teams are running in minutes, not months.',
+    a: 'No. Ardovo is alive on first load with a full book of business, and Rook does the setup work you would normally hand to a specialist admin. Most teams are running in minutes, not months.',
   },
   {
     q: 'Is Rook included?',
@@ -66,7 +66,7 @@ const FAQ = [
   },
   {
     q: 'Can I migrate from Salesforce?',
-    a: 'Yes. Rally imports your accounts, contacts, and deals, and Rook helps map your old fields to Rally objects so nothing gets lost in the move. See the full Salesforce comparison for the details.',
+    a: 'Yes. Ardovo imports your accounts, contacts, and deals, and Rook helps map your old fields to Ardovo objects so nothing gets lost in the move. See the full Salesforce comparison for the details.',
   },
   {
     q: 'Is my data secure?',
@@ -164,7 +164,7 @@ export default function Pricing() {
           <Reveal>
             <p className="mkt-eyebrow mkt-center" style={{ marginBottom: 12 }}>Support</p>
             <h2 className="mkt-h2 mkt-center" style={{ marginBottom: 8 }}>Questions, answered</h2>
-            <p className="mkt-muted mkt-center" style={{ marginBottom: 34 }}>Everything you need before you run your revenue on Rally.</p>
+            <p className="mkt-muted mkt-center" style={{ marginBottom: 34 }}>Everything you need before you run your revenue on Ardovo.</p>
           </Reveal>
           <div style={{ maxWidth: 800, margin: '0 auto', border: '1px solid var(--m-line)', borderRadius: 20, background: '#fff', boxShadow: 'var(--m-shadow-sm)', overflow: 'hidden' }}>
             {FAQ.map((item, i) => (

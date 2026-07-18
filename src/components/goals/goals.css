@@ -1,5 +1,5 @@
 /* ============================================================
-   RALLY GOALS - scoped motion + polish (CSS-only).
+   ARDOVO GOALS - scoped motion + polish (CSS-only).
    Everything here is namespaced under .goals-page so it cannot
    leak into other surfaces. Do NOT move any of this into
    src/index.css. Uses the global theme tokens (--accent, --line,

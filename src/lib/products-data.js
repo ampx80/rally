@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PRODUCTS + PRICE BOOK
+// ARDOVO PRODUCTS + PRICE BOOK
 // A local-first product catalog + multi-book pricing layer.
 // A deterministic PRNG seeds a believable SaaS catalog (platform
 // tiers, add-on modules, seats, services). Edits, new SKUs and
@@ -37,9 +37,9 @@ export const priceBookById = (id) => PRICE_BOOKS.find(b => b.id === id) || PRICE
 /* ---------- seed catalog ---------- */
 // [name, sku, family, billing, listPrice, description]
 const CATALOG = [
-  ['Rally Core Platform', 'PLT-CORE', 'Platform', 'annual', 18000, 'Foundational CRM: pipeline, contacts, activities, reporting.'],
-  ['Rally Growth Platform', 'PLT-GROW', 'Platform', 'annual', 42000, 'Core plus forecasting, territories, and advanced automation.'],
-  ['Rally Enterprise Platform', 'PLT-ENT', 'Platform', 'annual', 96000, 'Full suite: multi-org, governance, SSO, and unlimited pipelines.'],
+  ['Ardovo Core Platform', 'PLT-CORE', 'Platform', 'annual', 18000, 'Foundational CRM: pipeline, contacts, activities, reporting.'],
+  ['Ardovo Growth Platform', 'PLT-GROW', 'Platform', 'annual', 42000, 'Core plus forecasting, territories, and advanced automation.'],
+  ['Ardovo Enterprise Platform', 'PLT-ENT', 'Platform', 'annual', 96000, 'Full suite: multi-org, governance, SSO, and unlimited pipelines.'],
   ['Revenue Intelligence', 'MOD-RI', 'Module', 'annual', 24000, 'AI deal scoring, risk signals, and next-best-action.'],
   ['CPQ + Quoting', 'MOD-CPQ', 'Module', 'annual', 19500, 'Configure, price, quote with approval workflows.'],
   ['Forecasting Suite', 'MOD-FCST', 'Module', 'annual', 15000, 'Weighted, AI, and manager-adjusted forecast rollups.'],

@@ -1,5 +1,5 @@
 // EarlyAccess - the "next generation" marketing capture at /early-access.
-// A cinematic, animated pitch for Rally's AI-native platform with a living
+// A cinematic, animated pitch for Ardovo's AI-native platform with a living
 // diagram of the agent stack, then an early-access form (name, work email,
 // phone, company size, which AI features they want, and one open question).
 // Submissions POST to /api/waitlist (durable + email) AND dispatch the
@@ -66,7 +66,7 @@ export default function EarlyAccess() {
             <span className="ea-badge" style={{ marginInline: 'auto' }}><Icon name="check" size={14} /> You are on the list</span>
             <h1 className="mkt-h2" style={{ marginTop: 20 }}>Welcome to the next generation, {form.name.split(' ')[0]}.</h1>
             <p className="mkt-lead" style={{ maxWidth: 480, margin: '16px auto 0' }}>
-              We captured what you want to build. A Rally operator will reach out with early access shaped around it. In the meantime, drive the live demo.
+              We captured what you want to build. A Ardovo operator will reach out with early access shaped around it. In the meantime, drive the live demo.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 28, flexWrap: 'wrap' }}>
               <a className="mkt-btn mkt-btn-primary mkt-btn-lg" href="/demo"><Icon name="eye" size={18} /> Try the live demo</a>
@@ -88,7 +88,7 @@ export default function EarlyAccess() {
             <span className="ea-badge"><span className="ea-badge-dot" /> Next generation - early access</span>
             <h1 className="ea-h1">The CRM that <span className="ea-grad">runs itself.</span></h1>
             <p className="ea-lead">
-              Rally is the first AI-native revenue platform where agents do the work: qualify, forecast, migrate, and close - grounded in your book, governed by you. We are opening access in waves.
+              Ardovo is the first AI-native revenue platform where agents do the work: qualify, forecast, migrate, and close - grounded in your book, governed by you. We are opening access in waves.
             </p>
           </Reveal>
 

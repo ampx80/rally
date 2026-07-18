@@ -1,4 +1,4 @@
-// Settings - the admin surface for the Rally workspace. Tabbed sub-sections
+// Settings - the admin surface for the Ardovo workspace. Tabbed sub-sections
 // (Workspace, Pipeline, Notifications, Branding, Data) styled to feel like a
 // real enterprise console. Everything is local state; the Data tab's danger
 // zone resets the demo seed for both stores and reloads.
@@ -286,7 +286,7 @@ function RolesTab() {
   const toggle = (roleId, capId, on) => { setGrant(roleId, capId, on); };
   const viewAs = (roleId) => {
     setActiveRole(roleId);
-    toast(roleId === 'admin' ? 'Viewing as Admin (full access)' : `Now viewing Rally as ${roleMeta(roleId).label}`);
+    toast(roleId === 'admin' ? 'Viewing as Admin (full access)' : `Now viewing Ardovo as ${roleMeta(roleId).label}`);
   };
 
   return (
@@ -300,7 +300,7 @@ function RolesTab() {
               <h4 style={{ margin: 0 }}>View as role</h4>
             </div>
             <span className="muted t-sm" style={{ maxWidth: '54ch' }}>
-              See Rally exactly as another role would. Gated pages (like the audit log) and
+              See Ardovo exactly as another role would. Gated pages (like the audit log) and
               field-level security respond live. Switch back to Admin to regain full control.
             </span>
           </div>
@@ -511,11 +511,11 @@ export default function Settings() {
         <Card className="col" style={{ gap: '1.25rem' }}>
           <div className="col gap-1">
             <h4 style={{ margin: 0 }}>Workspace</h4>
-            <span className="muted t-sm">The basics for your Rally instance.</span>
+            <span className="muted t-sm">The basics for your Ardovo instance.</span>
           </div>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.1rem' }}>
             <Field label="Workspace name">
-              <Input defaultValue="Rally" />
+              <Input defaultValue="Ardovo" />
             </Field>
             <Field label="Plan">
               <div className="row" style={{ height: 42, alignItems: 'center' }}>
@@ -576,7 +576,7 @@ export default function Settings() {
         <Card className="col" style={{ gap: '.25rem' }}>
           <div className="col gap-1" style={{ marginBottom: '.5rem' }}>
             <h4 style={{ margin: 0 }}>Notifications</h4>
-            <span className="muted t-sm">Choose what Rally pings you about.</span>
+            <span className="muted t-sm">Choose what Ardovo pings you about.</span>
           </div>
           <ToggleRow label="Deal won" hint="A deal you own moves to Closed Won." checked={notif.won} onChange={setN('won')} />
           <ToggleRow label="Task due" hint="An activity assigned to you is due today." checked={notif.task} onChange={setN('task')} />
@@ -595,7 +595,7 @@ export default function Settings() {
           <div className="row gap-3" style={{ alignItems: 'center' }}>
             <span style={{ width: 64, height: 64, borderRadius: 14, background: ACCENT, boxShadow: 'var(--accent-glow, 0 6px 18px rgba(91,75,245,.35))', flex: 'none' }} />
             <div className="col gap-1">
-              <span className="fw-7" style={{ fontSize: '1.05rem' }}>Rally Violet</span>
+              <span className="fw-7" style={{ fontSize: '1.05rem' }}>Ardovo Violet</span>
               <span className="muted t-sm tnum" style={{ fontFamily: 'var(--font-mono)' }}>{ACCENT.toUpperCase()}</span>
             </div>
           </div>

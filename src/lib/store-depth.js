@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DEPTH STORE
+// ARDOVO DEPTH STORE
 // The real substance under the surface: rich Deal objects
 // (line items, buying committee with roles + influence,
 // competitors, close plan, win/loss reasons, full audit
@@ -64,7 +64,7 @@ function buildSeed() {
     const coContacts = co ? getContactsForCompany(co.id) : [];
     // line items: 1-3 products roughly reconciling to the deal value
     const nLines = range(1, 3);
-    const chosen = sampleN(products.length ? products : [{ id: 'p_x', name: 'Rally CRM', price: 90, billing: 'monthly/seat' }], nLines);
+    const chosen = sampleN(products.length ? products : [{ id: 'p_x', name: 'Ardovo CRM', price: 90, billing: 'monthly/seat' }], nLines);
     let lineItems = chosen.map((p, i) => {
       const seat = /seat/.test(p.billing);
       const qty = seat ? range(20, 220) : (p.billing === 'one-time' ? 1 : range(1, 3));

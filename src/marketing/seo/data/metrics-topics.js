@@ -35,7 +35,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Suppose in Q1 you spent 120,000 dollars on marketing (ads, content, tools) and 80,000 dollars on the sales team (salary, commission, software), a total of 200,000 dollars. In the same quarter you closed 50 new customers.`, `CAC = 200,000 / 50 = 4,000 dollars per customer. If you had counted only the 120,000 dollars of marketing spend, you would report a misleadingly low 2,400 dollars and understate your true cost by 40 percent.`] },
-      { h: `How Rally handles it`, body: `Rally computes CAC live from closed-won deals and connected spend, blended and by channel, so the number is never a quarter-end spreadsheet scramble. Rook explains what moved it: a channel whose CAC crept up, or a campaign quietly dragging the blended average.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes CAC live from closed-won deals and connected spend, blended and by channel, so the number is never a quarter-end spreadsheet scramble. Rook explains what moved it: a channel whose CAC crept up, or a campaign quietly dragging the blended average.` },
     ],
     faqs: [
       { q: `What is the CAC formula?`, a: `Total sales and marketing spend for a period divided by the number of new customers acquired in that same period. Use a fully loaded numerator that includes salaries, ad spend, tools, and overhead, not just media cost.` },
@@ -62,7 +62,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `The benchmarks that actually matter`, body: [`For B2B SaaS, the widely cited healthy targets are an LTV to CAC ratio of 3 to 1 and a CAC payback period of 12 months or less. Enterprise deals can justify longer payback because they retain longer; SMB should recover CAC faster because those customers churn sooner.`, `A ratio far above 3 to 1 (say 6 to 1) is not always good news; it can mean you are underinvesting in growth and leaving the market to competitors.`] },
-      { h: `How Rally handles it`, body: `Rally shows CAC beside LTV to CAC and payback on one screen, so you always see cost in the context that makes it meaningful. Rook flags when CAC drifts out of the healthy band for a segment and points to the channel driving it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows CAC beside LTV to CAC and payback on one screen, so you always see cost in the context that makes it meaningful. Rook flags when CAC drifts out of the healthy band for a segment and points to the channel driving it.` },
     ],
     faqs: [
       { q: `What is a good CAC for SaaS?`, a: `Not a fixed dollar amount. A good SaaS CAC yields an LTV to CAC ratio of at least 3 to 1 and recovers within 12 months. Enterprise can run longer payback, SMB should be shorter.` },
@@ -93,7 +93,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A customer pays 1,000 dollars per month. Your gross margin is 75 percent, so each customer produces 750 dollars of gross profit monthly. Your fully loaded CAC is 9,000 dollars.`, `CAC payback = 9,000 / 750 = 12 months. If you had used revenue instead of margin (9,000 / 1,000), you would report 9 months and overstate how fast you actually recover cash.`] },
-      { h: `How Rally handles it`, body: `Rally calculates payback on gross margin automatically and trends it by cohort and segment, so you catch a lengthening payback before it becomes a cash crunch. Rook flags which segment's payback is slipping and why.` },
+      { h: `How Ardovo handles it`, body: `Ardovo calculates payback on gross margin automatically and trends it by cohort and segment, so you catch a lengthening payback before it becomes a cash crunch. Rook flags which segment's payback is slipping and why.` },
     ],
     faqs: [
       { q: `What is the CAC payback period formula?`, a: `CAC divided by monthly gross margin per customer. Using gross margin rather than revenue is essential, because you only recover the profit a customer generates, not their full payment.` },
@@ -120,7 +120,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why the benchmark scales with churn`, body: [`If a segment churns in 10 months but takes 14 months to pay back CAC, you lose money on every customer. Payback must be shorter than the customer's expected life, which is why fast-churning SMB needs quick payback and sticky enterprise can wait.`, `Best-in-class SaaS often recovers CAC in 5 to 7 months. Anything over 18 months for a mid-market motion warrants a hard look at acquisition efficiency.`] },
-      { h: `How Rally handles it`, body: `Rally trends payback by cohort so you see whether newer customers repay faster or slower than older ones. Rook alerts you when a segment's payback crosses your threshold and shows the CAC or margin change behind it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo trends payback by cohort so you see whether newer customers repay faster or slower than older ones. Rook alerts you when a segment's payback crosses your threshold and shows the CAC or margin change behind it.` },
     ],
     faqs: [
       { q: `What is a good CAC payback period for SaaS?`, a: `Under 12 months is healthy. Elite companies recover in 5 to 7 months. SMB should be faster because it churns sooner, and enterprise can stretch to 18 to 24 months given longer retention.` },
@@ -146,7 +146,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `When to use each`, body: [`Use blended CAC for board-level unit economics and overall efficiency trends. Use paid CAC when deciding whether to increase spend on a specific channel, because it tells you the real marginal cost of the next customer from that channel.`, `A healthy business watches both: a widening gap between paid and blended CAC means organic is carrying the growth, which is great until you try to scale paid and CAC jumps.`] },
-      { h: `How Rally handles it`, body: `Rally reports blended and per-channel paid CAC side by side from live spend and closed deals. Rook warns when paid CAC climbs while blended stays flat, the classic sign that organic is masking a paid-efficiency problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports blended and per-channel paid CAC side by side from live spend and closed deals. Rook warns when paid CAC climbs while blended stays flat, the classic sign that organic is masking a paid-efficiency problem.` },
     ],
     faqs: [
       { q: `What is the difference between blended and paid CAC?`, a: `Blended CAC includes all customers and all spend, including free organic wins. Paid CAC counts only paid spend and paid-acquired customers, so it is higher and shows the true cost of paid acquisition.` },
@@ -177,7 +177,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A customer pays 2,000 dollars per year. Gross margin is 80 percent, so annual gross profit is 1,600 dollars. Annual customer churn is 20 percent, implying an average customer life of 5 years (1 divided by 0.20).`, `LTV = 1,600 x 5 = 8,000 dollars, or equivalently 1,600 / 0.20 = 8,000 dollars. If CAC is 2,000 dollars, your LTV to CAC ratio is a healthy 4 to 1.`] },
-      { h: `How Rally handles it`, body: `Rally computes LTV from live revenue, margin, and actual churn by cohort, so it reflects reality instead of an optimistic assumption. Rook shows how expansion and churn are moving LTV and flags cohorts where lifetime value is eroding.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes LTV from live revenue, margin, and actual churn by cohort, so it reflects reality instead of an optimistic assumption. Rook shows how expansion and churn are moving LTV and flags cohorts where lifetime value is eroding.` },
     ],
     faqs: [
       { q: `What is the LTV formula?`, a: `A common version is average revenue per account times gross margin percentage, divided by the customer churn rate. For products with expansion, substitute net revenue retention for churn to capture growth within accounts.` },
@@ -209,7 +209,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`LTV is 12,000 dollars (built on gross margin and real churn). Fully loaded CAC is 4,000 dollars. The ratio is 12,000 / 4,000 = 3 to 1, right in the healthy band.`, `If someone quoted a revenue-based LTV of 18,000 dollars and a media-only CAC of 2,500 dollars, they would claim 7.2 to 1. The honest, margin-and-fully-loaded version tells the real story.`] },
-      { h: `How Rally handles it`, body: `Rally derives both inputs from the same source of truth, so the ratio ties out and cannot be gamed by mixing definitions. Rook explains movement: whether the ratio changed because CAC rose, churn worsened, or expansion improved.` },
+      { h: `How Ardovo handles it`, body: `Ardovo derives both inputs from the same source of truth, so the ratio ties out and cannot be gamed by mixing definitions. Rook explains movement: whether the ratio changed because CAC rose, churn worsened, or expansion improved.` },
     ],
     faqs: [
       { q: `What is the LTV to CAC ratio formula?`, a: `Customer lifetime value divided by customer acquisition cost. Build LTV on gross margin and real churn, and use a fully loaded CAC, so the ratio reflects true unit economics.` },
@@ -244,7 +244,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 100 customers. 60 pay 500 dollars per month (30,000 dollars MRR) and 40 pay 1,000 dollars per month (40,000 dollars MRR), for 70,000 dollars total MRR.`, `ARR = 70,000 x 12 = 840,000 dollars. A separate 50,000 dollar one-time implementation fee is revenue but is excluded from ARR because it does not recur.`] },
-      { h: `How Rally handles it`, body: `Rally tracks ARR live from billing and contracts, separating recurring from one-time automatically so the number stays clean. Rook produces the ARR bridge on demand and explains which motion (new, expansion, or churn) drove the change.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks ARR live from billing and contracts, separating recurring from one-time automatically so the number stays clean. Rook produces the ARR bridge on demand and explains which motion (new, expansion, or churn) drove the change.` },
     ],
     faqs: [
       { q: `What is the ARR formula?`, a: `Monthly recurring revenue multiplied by 12, or the sum of the annualized value of all active subscriptions. Exclude one-time fees, services, and uncommitted usage so ARR reflects only recurring revenue.` },
@@ -276,7 +276,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 80 monthly customers at 500 dollars (40,000 dollars) and 20 annual customers paying 9,600 dollars per year, which normalizes to 800 dollars per month each (16,000 dollars).`, `MRR = 40,000 + 16,000 = 56,000 dollars. If next month you add 5,000 dollars of new subscriptions, gain 2,000 dollars of expansion, and lose 1,000 dollars to churn, net new MRR is 6,000 dollars.`] },
-      { h: `How Rally handles it`, body: `Rally computes MRR and its four components in real time from billing, so the number is always current and the movement is always explained. Rook flags a spike in contraction or churn MRR the moment it appears, not at month end.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes MRR and its four components in real time from billing, so the number is always current and the movement is always explained. Rook flags a spike in contraction or churn MRR the moment it appears, not at month end.` },
     ],
     faqs: [
       { q: `What is the MRR formula?`, a: `The sum of the monthly value of all active subscriptions, with annual plans divided by 12. Exclude one-time fees and uncommitted usage so MRR reflects only recurring monthly revenue.` },
@@ -303,7 +303,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `When to use each`, body: [`Use MRR when you bill monthly and want a fast operating pulse, because month-to-month movement is where you catch problems early. Use ARR when contracts are annual or multi-year and you are planning, fundraising, or reporting to a board that thinks in annual run-rate.`, `Most companies track both. The danger is mixing them: quoting ARR growth while operating on MRR churn creates confusion. Keep the definitions consistent and reconcile them (ARR should equal MRR times 12).`] },
-      { h: `How Rally handles it`, body: `Rally shows MRR and ARR from one revenue source so the two never drift apart. Rook can present either view and reconcile them instantly, so a board deck and the daily operating dashboard tell the same story.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows MRR and ARR from one revenue source so the two never drift apart. Rook can present either view and reconcile them instantly, so a board deck and the daily operating dashboard tell the same story.` },
     ],
     faqs: [
       { q: `Is ARR just MRR times 12?`, a: `Generally yes. ARR annualizes your current recurring run-rate, so ARR equals MRR times 12. They can diverge if one-time items leak into a recurring calculation, which signals a data hygiene problem.` },
@@ -334,7 +334,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your MRR is 300,000 dollars across 600 paying accounts. ARPU (per account, so technically ARPA) is 300,000 / 600 = 500 dollars per month.`, `A year later MRR is 480,000 dollars across 800 accounts: ARPU is 600 dollars. The 20 percent ARPU lift means each customer is worth more, likely from upsell or a richer plan mix, not just more logos.`] },
-      { h: `How Rally handles it`, body: `Rally computes ARPU by plan, cohort, and segment automatically, so you see whether growth comes from more customers or richer ones. Rook flags when blended ARPU hides a declining segment underneath the average.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes ARPU by plan, cohort, and segment automatically, so you see whether growth comes from more customers or richer ones. Rook flags when blended ARPU hides a declining segment underneath the average.` },
     ],
     faqs: [
       { q: `What is the ARPU formula?`, a: `Total recurring revenue in a period divided by the number of active users or accounts in that period. Use a consistent monthly or annual window and recurring revenue only.` },
@@ -361,7 +361,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Which one fits your business`, body: [`If you sell to companies where one contract covers many users, ARPA reflects the real economics because your unit of sale is the account. If you sell to individuals or price per seat and want to understand per-person value, ARPU is the sharper lens.`, `Many B2B teams track both: ARPA for deal and pricing strategy, ARPU to understand adoption depth within accounts.`] },
-      { h: `How Rally handles it`, body: `Rally reports both per-account and per-user revenue from the same data, so you never accidentally mix them. Rook flags when ARPA is rising while per-user revenue falls, a sign accounts are adding seats faster than they add value.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports both per-account and per-user revenue from the same data, so you never accidentally mix them. Rook flags when ARPA is rising while per-user revenue falls, a sign accounts are adding seats faster than they add value.` },
     ],
     faqs: [
       { q: `What is the difference between ARPU and ARPA?`, a: `ARPU divides revenue by individual users; ARPA divides it by accounts or companies. The denominator is the only difference, but it changes what the number means for your motion.` },
@@ -387,7 +387,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `When to use each`, body: [`Use ACV for sales metrics that compare deals: average deal size, quota, win rate by size, and ARR contribution. Because it strips out contract length, a 1-year and a 3-year deal become comparable. Use TCV for bookings, cash planning, and measuring the total value a customer has committed to.`, `A common definitional choice is whether ACV includes one-time fees. Most teams exclude them from ACV (keeping it purely recurring) but include them in TCV.`] },
-      { h: `How Rally handles it`, body: `Rally stores both ACV and TCV on every deal and rolls them up separately, so bookings and recurring metrics never get crossed. Rook can show average ACV trends while keeping TCV available for cash and commitment views.` },
+      { h: `How Ardovo handles it`, body: `Ardovo stores both ACV and TCV on every deal and rolls them up separately, so bookings and recurring metrics never get crossed. Rook can show average ACV trends while keeping TCV available for cash and commitment views.` },
     ],
     faqs: [
       { q: `What is the difference between ACV and TCV?`, a: `ACV is the annual value of a contract; TCV is its total value across the full term, usually including one-time fees. A 3-year 300,000 dollar deal is 100,000 dollars ACV and 300,000 dollars TCV.` },
@@ -421,7 +421,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`At the start of the quarter, a cohort of customers generated 500,000 dollars of MRR. During the quarter they added 60,000 dollars of expansion, downgraded 15,000 dollars, and churned 25,000 dollars.`, `NRR = (500,000 + 60,000 - 15,000 - 25,000) / 500,000 = 520,000 / 500,000 = 104 percent. The base grew 4 percent with zero new customers, which compounds powerfully over a year.`] },
-      { h: `How Rally handles it`, body: `Rally computes NRR by cohort from live billing, keeping new logos out so the number is honest. Rook explains the drivers: whether NRR moved because expansion accelerated or churn crept up, and which segment is responsible.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes NRR by cohort from live billing, keeping new logos out so the number is honest. Rook explains the drivers: whether NRR moved because expansion accelerated or churn crept up, and which segment is responsible.` },
     ],
     faqs: [
       { q: `What is the NRR formula?`, a: `Starting MRR plus expansion minus contraction minus churn, all divided by starting MRR, for a fixed cohort of existing customers. New customers acquired during the period are excluded.` },
@@ -448,7 +448,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `NRR benchmarks by segment`, body: [`Enterprise SaaS commonly reports 110 to 130 percent NRR because large accounts add seats and modules over years. Mid-market often lands 100 to 115 percent. SMB and self-serve frequently sit at 85 to 100 percent because small customers churn and expand less.`, `The very best usage-based and platform businesses can exceed 130 percent. Public SaaS leaders are often prized precisely because their NRR sustains above 120 percent at scale.`] },
-      { h: `How Rally handles it`, body: `Rally benchmarks your NRR by segment against your own history so you compare like with like. Rook flags when a segment slips below 100 percent and traces whether the cause is rising churn or stalling expansion.` },
+      { h: `How Ardovo handles it`, body: `Ardovo benchmarks your NRR by segment against your own history so you compare like with like. Rook flags when a segment slips below 100 percent and traces whether the cause is rising churn or stalling expansion.` },
     ],
     faqs: [
       { q: `What is a good NRR for SaaS?`, a: `Above 100 percent is healthy; 120 percent or more is best-in-class for B2B. Enterprise typically runs higher because accounts expand over years, while SMB often sits near 90 to 100 percent.` },
@@ -479,7 +479,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A cohort starts the year at 1,000,000 dollars of ARR. Over the year, 70,000 dollars churns and 30,000 dollars contracts through downgrades. Expansion is ignored for GRR.`, `GRR = (1,000,000 - 30,000 - 70,000) / 1,000,000 = 900,000 / 1,000,000 = 90 percent. Even if the same cohort expanded 150,000 dollars (NRR of 105 percent), GRR still reads 90 percent, exposing the true churn underneath.`] },
-      { h: `How Rally handles it`, body: `Rally reports GRR next to NRR so you always see the honest floor beside the headline. Rook alerts you when the gap between them widens, the classic sign that expansion is masking a growing churn problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports GRR next to NRR so you always see the honest floor beside the headline. Rook alerts you when the gap between them widens, the classic sign that expansion is masking a growing churn problem.` },
     ],
     faqs: [
       { q: `What is the GRR formula?`, a: `Starting MRR minus contraction minus churn, divided by starting MRR, for a fixed cohort. Expansion is excluded, so GRR is always 100 percent or lower.` },
@@ -506,7 +506,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the two together`, body: [`Imagine NRR of 115 percent and GRR of 85 percent. The 30-point gap says expansion is impressive but underlying churn is high; you are losing 15 percent of revenue and clawing it back plus more through upsell. That works until expansion slows.`, `Now imagine NRR of 108 percent and GRR of 96 percent. That is healthier: modest expansion on top of very sticky retention. Same NRR band, very different quality.`] },
-      { h: `How Rally handles it`, body: `Rally shows NRR and GRR side by side with the gap called out, so you never celebrate NRR while GRR erodes. Rook flags a widening gap and points to the churning segment expansion is masking.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows NRR and GRR side by side with the gap called out, so you never celebrate NRR while GRR erodes. Rook flags a widening gap and points to the churning segment expansion is masking.` },
     ],
     faqs: [
       { q: `What is the difference between NRR and GRR?`, a: `NRR includes expansion revenue and can exceed 100 percent; GRR excludes expansion and caps at 100 percent. NRR shows net growth in your base, GRR shows how much you retain before any upsell.` },
@@ -537,7 +537,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You start the month with 800 customers and lose 24. Logo churn = 24 / 800 = 3 percent for the month.`, `To annualize, the naive answer of 36 percent is wrong because churn compounds. The correct figure is 1 minus (1 minus 0.03) to the 12th power, which equals about 30.6 percent annual churn. Compounding makes the annual number lower than 12 times the monthly rate.`] },
-      { h: `How Rally handles it`, body: `Rally tracks logo and revenue churn together, monthly and annualized correctly, by cohort and segment. Rook surfaces which segment is churning fastest and flags at-risk accounts before they cancel, not after.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks logo and revenue churn together, monthly and annualized correctly, by cohort and segment. Rook surfaces which segment is churning fastest and flags at-risk accounts before they cancel, not after.` },
     ],
     faqs: [
       { q: `What is the churn rate formula?`, a: `Customers lost during a period divided by customers at the start of the period, times 100. Revenue churn uses lost recurring revenue in place of customer count. Keep the period and unit consistent.` },
@@ -564,7 +564,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Churn benchmarks by segment`, body: [`Enterprise SaaS often achieves annual gross revenue churn under 5 percent because contracts are sticky and switching is expensive. Mid-market lands higher. SMB and self-serve products routinely see 3 to 5 percent monthly churn, since small businesses fail and switch more often.`, `Negative revenue churn, where expansion from retained customers more than offsets losses, is the gold standard. It means your revenue base grows even if you stop selling to new customers.`] },
-      { h: `How Rally handles it`, body: `Rally shows churn against your own segment history and against NRR, so you judge it in context. Rook predicts which accounts are likely to churn from engagement and support signals, turning a lagging metric into an early warning.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows churn against your own segment history and against NRR, so you judge it in context. Rook predicts which accounts are likely to churn from engagement and support signals, turning a lagging metric into an early warning.` },
     ],
     faqs: [
       { q: `What is a good annual churn rate for SaaS?`, a: `For enterprise, under 5 to 7 percent annual logo churn is strong. SMB runs much higher, often 30 percent or more annually. Compare within your segment and watch revenue churn, not just logos.` },
@@ -590,7 +590,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why the gap matters`, body: [`If you lose 20 small customers but keep every large one, logo churn looks bad while revenue churn is minor. If you lose one enterprise account paying for a third of your revenue, logo churn is tiny but revenue churn is severe. The two numbers must be read together.`, `Revenue churn can go negative when expansion outpaces losses; logo churn cannot, because you cannot lose a negative number of customers. That is why revenue-based retention (NRR) is the headline for growth quality.`] },
-      { h: `How Rally handles it`, body: `Rally reports logo and revenue churn side by side and weights at-risk accounts by revenue, so you focus retention effort where the dollars are. Rook flags when a small number of large accounts drives most of your revenue churn.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports logo and revenue churn side by side and weights at-risk accounts by revenue, so you focus retention effort where the dollars are. Rook flags when a small number of large accounts drives most of your revenue churn.` },
     ],
     faqs: [
       { q: `What is the difference between customer churn and revenue churn?`, a: `Customer churn counts logos lost; revenue churn counts recurring revenue lost. They differ when the accounts that leave are larger or smaller than your average customer.` },
@@ -624,7 +624,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In Q2 you closed 200 deals: 50 won and 150 lost. Win rate = 50 / 200 = 25 percent. If inbound produced a 40 percent win rate and outbound 15 percent, the blended 25 percent hides that inbound is far more efficient.`, `If you instead divided 50 wins by all 400 opportunities including the 200 still open, you would report a misleading 12.5 percent. Use closed deals only.`] },
-      { h: `How Rally handles it`, body: `Rally calculates win rate by source, segment, rep, and stage automatically, so you see exactly where deals are won and lost. Rook surfaces the traits shared by your winning deals so reps can replicate them.` },
+      { h: `How Ardovo handles it`, body: `Ardovo calculates win rate by source, segment, rep, and stage automatically, so you see exactly where deals are won and lost. Rook surfaces the traits shared by your winning deals so reps can replicate them.` },
     ],
     faqs: [
       { q: `What is the win rate formula?`, a: `Closed-won deals divided by total closed deals (won plus lost) in a period, times 100. Exclude open deals from the denominator, and be consistent about whether you count deals or revenue.` },
@@ -651,7 +651,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Win rate by source`, body: [`Inbound demo requests and warm referrals often convert at 30 to 50 percent because intent is high. Sales-qualified marketing leads land somewhere in the middle. Cold outbound frequently wins 5 to 15 percent because you are creating demand rather than harvesting it.`, `A single blended win rate obscures all of this. Two teams at 25 percent can have completely different economics if one leans on high-converting inbound and the other grinds outbound.`] },
-      { h: `How Rally handles it`, body: `Rally breaks win rate out by source and segment so a 25 percent blended number becomes an actionable map of where you win. Rook flags a source whose win rate is quietly declining before it drags the whole number down.` },
+      { h: `How Ardovo handles it`, body: `Ardovo breaks win rate out by source and segment so a 25 percent blended number becomes an actionable map of where you win. Rook flags a source whose win rate is quietly declining before it drags the whole number down.` },
     ],
     faqs: [
       { q: `What is a good win rate in sales?`, a: `Commonly 15 to 30 percent overall for B2B, but it depends on source and segment. Inbound and referral win far more than cold outbound, so judge win rate by channel rather than one blended figure.` },
@@ -677,7 +677,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Pin down your definition`, body: [`If you measure from qualified opportunities, closed-won over closed deals is your win rate. If you measure from raw leads, lead-to-customer is a close rate that will be much lower because most leads never become qualified opportunities.`, `Teams get into trouble comparing their lead-based close rate to a competitor's opportunity-based win rate and concluding they are underperforming when they are simply counting differently.`] },
-      { h: `How Rally handles it`, body: `Rally measures conversion at every point from lead to customer, so you can quote win rate from opportunities and close rate from leads without ambiguity. Rook makes the starting point explicit on every report so numbers stay comparable.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures conversion at every point from lead to customer, so you can quote win rate from opportunities and close rate from leads without ambiguity. Rook makes the starting point explicit on every report so numbers stay comparable.` },
     ],
     faqs: [
       { q: `Is win rate the same as close rate?`, a: `Often, but not always. Win rate is usually closed-won over closed deals from qualified opportunities. Close rate is frequently measured from an earlier point such as lead to customer, which produces a lower number.` },
@@ -708,7 +708,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A cohort of 1,000 leads produces 300 MQLs (30 percent), 120 SQLs (40 percent of MQLs), 48 opportunities (40 percent of SQLs), and 12 customers (25 percent of opportunities). The overall lead-to-customer rate is 12 / 1,000 = 1.2 percent.`, `The biggest leak is lead to MQL at 30 percent, but a 5-point gain at the 25 percent opportunity-to-close step (the last multiplier) may be worth more per point. Model each before choosing where to invest.`] },
-      { h: `How Rally handles it`, body: `Rally computes conversion between every stage automatically from live data, so the funnel is always current. Rook points to the stage with the biggest drop and estimates the revenue impact of fixing it first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes conversion between every stage automatically from live data, so the funnel is always current. Rook points to the stage with the biggest drop and estimates the revenue impact of fixing it first.` },
     ],
     faqs: [
       { q: `What is the sales conversion rate formula?`, a: `The number who advance to a stage divided by the number who entered the prior stage, times 100. Measure it at every handoff to find where prospects leak, not just the overall lead-to-customer rate.` },
@@ -735,7 +735,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What drives the rate`, body: [`The rate depends on how MQL and SQL are defined and how well the two teams agree on them. Shared, documented definitions and a feedback loop where sales tells marketing why leads were rejected are what pull the rate into a healthy band.`, `A rate stuck below 20 percent usually means marketing is optimizing for MQL volume, a vanity metric, rather than for leads sales can actually close.`] },
-      { h: `How Rally handles it`, body: `Rally tracks MQL to SQL conversion by source and campaign so both teams see which programs produce accepted leads. Rook flags sources whose leads look busy but rarely convert, so you stop paying for volume that never becomes revenue.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks MQL to SQL conversion by source and campaign so both teams see which programs produce accepted leads. Rook flags sources whose leads look busy but rarely convert, so you stop paying for volume that never becomes revenue.` },
     ],
     faqs: [
       { q: `What is a good MQL to SQL conversion rate?`, a: `Commonly 20 to 40 percent for B2B. Below 20 percent usually signals loose MQL criteria or weak lead quality. Above 50 percent can mean marketing is being too conservative and limiting volume.` },
@@ -761,7 +761,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the rate`, body: [`A low lead to opportunity rate can mean the leads are poorly qualified, the reps are not working them fast enough, or the definition of opportunity is too strict. Speed to lead matters enormously; conversion drops sharply when follow-up is slow.`, `Compare rates across sources before judging performance. A 12 percent rate on cold outbound may be excellent, while the same 12 percent on warm inbound would be a warning sign.`] },
-      { h: `How Rally handles it`, body: `Rally tracks lead to opportunity conversion by source and rep, and Rook flags leads sitting untouched past your speed-to-lead target. That turns a lagging conversion metric into a same-day nudge that lifts the rate.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks lead to opportunity conversion by source and rep, and Rook flags leads sitting untouched past your speed-to-lead target. That turns a lagging conversion metric into a same-day nudge that lifts the rate.` },
     ],
     faqs: [
       { q: `What is a good lead to opportunity conversion rate?`, a: `Commonly 10 to 25 percent of qualified leads for B2B, but it depends heavily on source. Inbound and referral convert much higher than cold outbound, so judge the rate by channel.` },
@@ -787,7 +787,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What moves the rate`, body: [`Deals that reach the opportunity stage without a confirmed economic buyer, a compelling event, or a real budget close at much lower rates. Tightening what qualifies as an opportunity often raises this rate more than any closing tactic.`, `Late-stage execution matters too: mutual action plans, multithreading, and clean paper processes lift the rate by preventing avoidable losses in negotiation and procurement.`] },
-      { h: `How Rally handles it`, body: `Rally tracks opportunity to close rate by rep, segment, and source and ties it to deal attributes, so Rook can show which qualification gaps most often precede a loss and coach reps to close them earlier.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks opportunity to close rate by rep, segment, and source and ties it to deal attributes, so Rook can show which qualification gaps most often precede a loss and coach reps to close them earlier.` },
     ],
     faqs: [
       { q: `What is a good opportunity to close rate?`, a: `Commonly 20 to 30 percent for B2B, though it varies by market and how strictly you define an opportunity. Compare within your segments and sources rather than to a single benchmark.` },
@@ -818,7 +818,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 50 qualified opportunities, an average deal value of 20,000 dollars, a win rate of 25 percent, and an average sales cycle of 60 days.`, `Sales velocity = (50 x 20,000 x 0.25) / 60 = 250,000 / 60 = about 4,167 dollars per day. If you shortened the cycle to 45 days with everything else equal, velocity rises to about 5,556 dollars per day, a 33 percent gain from one lever.`] },
-      { h: `How Rally handles it`, body: `Rally computes sales velocity from live deal data and breaks it down by rep, segment, and source. Rook highlights which of the four levers is dragging and estimates the velocity gain from fixing it, so you invest where it pays off most.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes sales velocity from live deal data and breaks it down by rep, segment, and source. Rook highlights which of the four levers is dragging and estimates the velocity gain from fixing it, so you invest where it pays off most.` },
     ],
     faqs: [
       { q: `What is the sales velocity formula?`, a: `Number of qualified opportunities multiplied by average deal value multiplied by win rate, all divided by average sales cycle length in days. The result is revenue generated per day.` },
@@ -850,7 +850,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Five closed-won deals took 30, 45, 60, 90, and 120 days. The total is 345 days; divided by 5, the average cycle is 69 days.`, `But those five span two segments: three SMB deals averaging 45 days and two enterprise deals averaging 105 days. The blended 69-day figure would set unrealistic close dates for both. Always segment.`] },
-      { h: `How Rally handles it`, body: `Rally measures actual cycle length by segment from your closed deals, so close-date suggestions are grounded in reality. Rook warns when a deal's projected close date is unrealistic given its stage and your historical cycle.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures actual cycle length by segment from your closed deals, so close-date suggestions are grounded in reality. Rook warns when a deal's projected close date is unrealistic given its stage and your historical cycle.` },
     ],
     faqs: [
       { q: `What is the sales cycle length formula?`, a: `Sum the days from creation to close for each won deal, then divide by the number of deals. Define your start and end points consistently and segment by deal size for a meaningful average.` },
@@ -877,7 +877,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Benchmarks by segment`, body: [`Transactional and product-led deals often close in days because the buyer self-qualifies. Mid-market deals with a small buying group typically run one to three months. Enterprise deals with procurement, security review, and multiple stakeholders commonly take six to twelve months, sometimes longer.`, `A shortening cycle is good only if win rate and deal size hold. Rushing complex deals to hit a cycle target usually trades a shorter average for a lower win rate.`] },
-      { h: `How Rally handles it`, body: `Rally benchmarks cycle length by segment against your own history so you know what realistic looks like. Rook flags deals whose projected close dates ignore your actual cycle, keeping forecasts honest and cash timing accurate.` },
+      { h: `How Ardovo handles it`, body: `Ardovo benchmarks cycle length by segment against your own history so you know what realistic looks like. Rook flags deals whose projected close dates ignore your actual cycle, keeping forecasts honest and cash timing accurate.` },
     ],
     faqs: [
       { q: `What is a good sales cycle length?`, a: `As short as your complexity allows without hurting win rate or deal size. Self-serve closes in days, mid-market in one to three months, enterprise in six to twelve months or more. Measure and trend your own by segment.` },
@@ -908,7 +908,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You closed 20 deals last quarter with a total ACV of 1,000,000 dollars, so the mean average deal size is 50,000 dollars. But 18 deals were around 25,000 dollars and 2 were 275,000 dollars each.`, `The median deal size is about 25,000 dollars, half the mean. The typical deal is 25,000 dollars; the 50,000 dollar average is pulled up by two large deals. Report both so planning is not built on a distorted mean.`] },
-      { h: `How Rally handles it`, body: `Rally reports mean and median deal size by segment and source, so a couple of whales never distort your planning. Rook flags when average deal size shifts and shows whether it is a real mix change or one outlier deal.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports mean and median deal size by segment and source, so a couple of whales never distort your planning. Rook flags when average deal size shifts and shows whether it is a real mix change or one outlier deal.` },
     ],
     faqs: [
       { q: `What is the average deal size formula?`, a: `Total value of closed-won deals divided by the number of closed-won deals in a period. Use ACV to normalize contracts of different lengths, and check the median to catch skew from large outliers.` },
@@ -943,7 +943,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A team of 10 reps has a combined quota of 5,000,000 dollars and booked 5,100,000 dollars, so team attainment is 102 percent, which looks great.`, `But only 4 reps hit their individual quota; two overperformers at 180 percent carried the team. With 60 percent of reps below quota, the real story is a quota-setting or enablement problem the 102 percent average hides.`] },
-      { h: `How Rally handles it`, body: `Rally shows attainment as a distribution, not just an average, so you see how many reps actually hit quota. Rook flags when a small number of reps are carrying the team and points to who needs coaching or a quota reset.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows attainment as a distribution, not just an average, so you see how many reps actually hit quota. Rook flags when a small number of reps are carrying the team and points to who needs coaching or a quota reset.` },
     ],
     faqs: [
       { q: `What is the quota attainment formula?`, a: `Actual bookings or revenue divided by the quota for the period, times 100. Use the same basis for actuals and quota, and track the distribution across reps rather than only the team average.` },
@@ -970,7 +970,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the distribution`, body: [`If 90 percent of reps hit quota, you are likely under-setting targets and leaving growth on the table. If only 30 percent hit, quotas are probably unrealistic, comp is at risk, and attrition will follow. The 60 to 70 percent band balances ambition and attainability.`, `Watch the shape too. A healthy team has a cluster near quota with a few stars above; an unhealthy one is bimodal, a few stars and a long tail of misses, which points to hiring, enablement, or territory problems.`] },
-      { h: `How Rally handles it`, body: `Rally shows the full attainment distribution and how it shifts each period, so you can calibrate quotas with evidence. Rook flags when the distribution skews unhealthy and links it to territory, ramp, or pipeline-coverage gaps.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows the full attainment distribution and how it shifts each period, so you can calibrate quotas with evidence. Rook flags when the distribution skews unhealthy and links it to territory, ramp, or pipeline-coverage gaps.` },
     ],
     faqs: [
       { q: `What is a good quota attainment rate?`, a: `A healthy org has 60 to 70 percent of reps hitting quota with team attainment near 100 percent. Too high means quotas are too easy; too low means they are unrealistic or enablement is weak.` },
@@ -1001,7 +1001,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your quarterly quota is 2,000,000 dollars and you have 6,000,000 dollars of open pipeline set to close this quarter, so coverage is 3x.`, `But if your win rate is only 20 percent, expected bookings are 6,000,000 x 0.20 = 1,200,000 dollars, short of quota. At a 20 percent win rate you actually need 5x coverage (1 divided by 0.20) to expect to hit 2,000,000 dollars. The 3x rule of thumb would have misled you.`] },
-      { h: `How Rally handles it`, body: `Rally calculates coverage live against each rep and team quota and ties the target multiple to your actual win rate, not a generic 3x. Rook flags when coverage dips below your win-rate-adjusted target and suggests which accounts to work.` },
+      { h: `How Ardovo handles it`, body: `Ardovo calculates coverage live against each rep and team quota and ties the target multiple to your actual win rate, not a generic 3x. Rook flags when coverage dips below your win-rate-adjusted target and suggests which accounts to work.` },
     ],
     faqs: [
       { q: `What is the pipeline coverage formula?`, a: `Open pipeline value expected to close in the period divided by the quota for that period. A result of 3 means 3x coverage. Exclude far-future deals so the ratio reflects what can actually close in time.` },
@@ -1028,7 +1028,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Coverage by win rate`, body: [`At a 33 percent win rate, 3x coverage means you expect to convert exactly to quota, so 3x is the floor. At 25 percent you need 4x; at 20 percent, 5x. The lower your win rate, the more pipeline you must carry to absorb the losses.`, `Coverage also has to be timed. Three times coverage in week one of a quarter is very different from 3x in the final week, when little new pipeline can still close. Watch coverage against time remaining.`] },
-      { h: `How Rally handles it`, body: `Rally sets your coverage target from your real win rate rather than a generic 3x and tracks it against time left in the period. Rook warns early when coverage is thin enough to threaten the number, while there is still time to build pipeline.` },
+      { h: `How Ardovo handles it`, body: `Ardovo sets your coverage target from your real win rate rather than a generic 3x and tracks it against time left in the period. Rook warns early when coverage is thin enough to threaten the number, while there is still time to build pipeline.` },
     ],
     faqs: [
       { q: `What is a good pipeline coverage ratio?`, a: `3x to 4x quota is the common benchmark, but the precise target is about 1 divided by your win rate. A 25 percent win rate needs roughly 4x; a 33 percent win rate needs about 3x.` },
@@ -1059,7 +1059,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`At the start of Q3 you forecast 2,000,000 dollars. Actual bookings came in at 1,850,000 dollars. The absolute error is 150,000 dollars.`, `Accuracy = 1 minus (150,000 / 1,850,000) = 1 minus 0.081 = 91.9 percent. If the team forecasts 2,000,000 dollars every quarter but actuals swing from 1.6M to 2.3M, the average may look fine while the quarter-to-quarter accuracy is poor. Track each period.`] },
-      { h: `How Rally handles it`, body: `Rally snapshots the forecast at a fixed point and scores accuracy automatically at close, by rep and team. Rook surfaces systematic bias, such as a rep who always forecasts high, so you can correct it rather than rediscover it each quarter.` },
+      { h: `How Ardovo handles it`, body: `Ardovo snapshots the forecast at a fixed point and scores accuracy automatically at close, by rep and team. Rook surfaces systematic bias, such as a rep who always forecasts high, so you can correct it rather than rediscover it each quarter.` },
     ],
     faqs: [
       { q: `What is the forecast accuracy formula?`, a: `One common version is 1 minus the absolute difference between forecast and actual, divided by actual, times 100. It treats over and under forecasting symmetrically and yields a percentage where higher is better.` },
@@ -1094,7 +1094,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In Q2 you spent 1,200,000 dollars on sales and marketing. In Q3, ARR grew from 8,000,000 to 9,000,000 dollars, so net new ARR was 1,000,000 dollars.`, `Magic number = 1,000,000 / 1,200,000 = 0.83. That is above 0.75, which says your go-to-market is efficient and you can justify increasing spend to grow faster. A result of 0.4 would say the opposite: fix conversion before spending more.`] },
-      { h: `How Rally handles it`, body: `Rally computes the magic number from live ARR movement and connected spend, with the correct one-period lag built in. Rook tells you whether the number supports leaning into spend or signals an efficiency problem to fix first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the magic number from live ARR movement and connected spend, with the correct one-period lag built in. Rook tells you whether the number supports leaning into spend or signals an efficiency problem to fix first.` },
     ],
     faqs: [
       { q: `What is the SaaS magic number formula?`, a: `Net new ARR added in a period divided by the sales and marketing spend of the prior period. The one-period lag reflects that spend takes time to convert into recurring revenue.` },
@@ -1126,7 +1126,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Company A grows ARR 50 percent year over year but runs a negative 15 percent free cash flow margin. Its score is 50 minus 15 = 35, just below the bar.`, `Company B grows 20 percent with a 25 percent margin, scoring 45. Despite growing far slower, Company B clears the Rule of 40 because its profitability compensates. The rule rewards either lever, or a balance of both.`] },
-      { h: `How Rally handles it`, body: `Rally combines revenue growth from your ARR data with margin from finance to compute the Rule of 40 in one place. Rook shows how each lever contributes and what a change in growth or margin would do to the score.` },
+      { h: `How Ardovo handles it`, body: `Ardovo combines revenue growth from your ARR data with margin from finance to compute the Rule of 40 in one place. Rook shows how each lever contributes and what a change in growth or margin would do to the score.` },
     ],
     faqs: [
       { q: `What is the Rule of 40 formula?`, a: `Revenue growth rate percent plus profit margin percent. A combined score of 40 or higher is considered healthy. A negative margin subtracts from growth, so a fast grower burning cash can still fall short.` },
@@ -1153,7 +1153,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What good looks like by stage`, body: [`A high-growth early company might score 40 through 55 percent growth and negative 15 percent margin. A mature company might score the same 40 through 15 percent growth and 25 percent margin. Both pass, by different routes.`, `Public SaaS leaders often sustain scores in the 50s. Consistently scoring below 40 at scale usually draws pressure to either reaccelerate growth or expand margin, because the market prizes the balance.`] },
-      { h: `How Rally handles it`, body: `Rally tracks your Rule of 40 score over time and decomposes it into growth and margin, so you see which lever is carrying it. Rook models how a change in either would move the score, helping you plan the tradeoff.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks your Rule of 40 score over time and decomposes it into growth and margin, so you see which lever is carrying it. Rook models how a change in either would move the score, helping you plan the tradeoff.` },
     ],
     faqs: [
       { q: `What is a good Rule of 40 score?`, a: `40 or higher passes; elite software companies reach 50 to 60. Below 40 signals an imbalance where growth and profitability together are not strong enough. The benchmark is most meaningful at scale.` },
@@ -1184,7 +1184,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Over the year you burned 6,000,000 dollars net. ARR grew from 4,000,000 to 8,000,000 dollars, so net new ARR was 4,000,000 dollars.`, `Burn multiple = 6,000,000 / 4,000,000 = 1.5, which is good. If you had burned the same 6,000,000 dollars but added only 2,000,000 dollars of net new ARR, the multiple would be 3.0, a warning that growth is far too expensive.`] },
-      { h: `How Rally handles it`, body: `Rally pairs ARR movement with finance burn data to compute the burn multiple each period. Rook flags when the multiple is deteriorating and whether the cause is slowing net new ARR or rising burn, so you address the right side.` },
+      { h: `How Ardovo handles it`, body: `Ardovo pairs ARR movement with finance burn data to compute the burn multiple each period. Rook flags when the multiple is deteriorating and whether the cause is slowing net new ARR or rising burn, so you address the right side.` },
     ],
     faqs: [
       { q: `What is the burn multiple formula?`, a: `Net cash burned in a period divided by net new ARR added in that period. It uses total net burn across the whole business, so it captures inefficiency everywhere, not just in sales and marketing.` },
@@ -1216,7 +1216,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you added 200,000 dollars of new MRR and 80,000 dollars of expansion, for 280,000 dollars of gains. You lost 50,000 dollars to churn and 20,000 dollars to contraction, for 70,000 dollars of losses.`, `Quick ratio = 280,000 / 70,000 = 4.0, right at the healthy line. Net new MRR is 210,000 dollars, but the ratio reveals you are losing 70,000 dollars a quarter, worth watching even as you grow.`] },
-      { h: `How Rally handles it`, body: `Rally computes the quick ratio from its live MRR components, so you see growth efficiency, not just net change. Rook flags when the denominator (churn plus contraction) is climbing, catching a leaky bucket before net new MRR turns negative.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the quick ratio from its live MRR components, so you see growth efficiency, not just net change. Rook flags when the denominator (churn plus contraction) is climbing, catching a leaky bucket before net new MRR turns negative.` },
     ],
     faqs: [
       { q: `What is the SaaS quick ratio formula?`, a: `New MRR plus expansion MRR, divided by churned MRR plus contraction MRR. It compares total recurring-revenue gains to losses in a period, revealing how efficient your growth really is.` },
@@ -1246,7 +1246,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `The activity metrics that matter`, body: [`The most useful are meetings booked and held, opportunities created, speed to lead (time to first contact), follow-up completion, and multithreading (contacts engaged per deal). Raw dials and emails have a place, but only as inputs to those outputs.`, `Speed to lead deserves special attention. Conversion drops sharply as response time grows, so measuring and shrinking it is often the single highest-return activity metric.`] },
-      { h: `How Rally handles it`, body: `Rally logs activity automatically from email, calendar, and calls, so reps do not lose selling time to data entry. Rook ties activity to outcomes and flags the behaviors that actually precede won deals, so coaching focuses on what works.` },
+      { h: `How Ardovo handles it`, body: `Ardovo logs activity automatically from email, calendar, and calls, so reps do not lose selling time to data entry. Rook ties activity to outcomes and flags the behaviors that actually precede won deals, so coaching focuses on what works.` },
     ],
     faqs: [
       { q: `What sales activity metrics should I track?`, a: `Meetings booked and held, opportunities created, speed to lead, follow-up completion, and multithreading. Favor these output metrics over raw dials and emails, which measure effort rather than progress.` },
@@ -1277,7 +1277,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Five new enterprise reps reached sustained full quota at months 5, 6, 4, 7, and 3 after starting. The average is 25 divided by 5 = 5 months of ramp.`, `If your quota is 1,000,000 dollars a year and reps carry no quota during a 5-month ramp, each new hire effectively contributes for only 7 months in their first year. Plan hiring and quota-setting around that reality rather than assuming instant productivity.`] },
-      { h: `How Rally handles it`, body: `Rally measures ramp from real attainment data by segment, so your hiring plan uses actual ramp, not a guess. Rook coaches new hires through the process with next-best-action prompts, which measurably shortens time to first deal.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures ramp from real attainment data by segment, so your hiring plan uses actual ramp, not a guess. Rook coaches new hires through the process with next-best-action prompts, which measurably shortens time to first deal.` },
     ],
     faqs: [
       { q: `How do you calculate sales ramp time?`, a: `Measure the months from a rep's start date to sustained full quota productivity, averaged across a cohort. Time to first deal or time to first full-quota month are simpler proxies. Measure by segment for accuracy.` },
@@ -1309,7 +1309,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Channel A costs 10,000 dollars and produces 500 leads (CPL 20 dollars). Channel B costs 10,000 dollars and produces 200 leads (CPL 50 dollars). Channel A looks cheaper.`, `But Channel A leads convert to customers at 1 percent (5 customers, 2,000 dollars each) and Channel B at 5 percent (10 customers). Channel B's cost per customer is 1,000 dollars versus Channel A's 2,000 dollars. The higher CPL channel is actually more efficient once conversion is included.`] },
-      { h: `How Rally handles it`, body: `Rally tracks CPL by channel alongside downstream conversion and cost per customer, so you never optimize for cheap leads that do not close. Rook flags channels whose low CPL hides poor conversion and a high true cost per customer.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks CPL by channel alongside downstream conversion and cost per customer, so you never optimize for cheap leads that do not close. Rook flags channels whose low CPL hides poor conversion and a high true cost per customer.` },
     ],
     faqs: [
       { q: `What is the cost per lead formula?`, a: `Total marketing spend in a period divided by the number of leads generated in that period. Break it out by channel, and always read it alongside conversion rates to avoid optimizing for cheap, low-quality leads.` },
@@ -1340,7 +1340,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In Q1 you spent 300,000 dollars on demand generation and created 100 qualified opportunities, so cost per opportunity is 3,000 dollars.`, `If your opportunity-to-close rate is 25 percent, it takes 4 opportunities to win a customer, implying roughly 12,000 dollars of demand-gen cost per customer before sales costs. That chain, cost per opportunity times deals per win, is how mid-funnel efficiency rolls up into CAC.`] },
-      { h: `How Rally handles it`, body: `Rally computes cost per opportunity by channel and links it to opportunity-to-close rates and CAC, so the whole funnel economics tie together. Rook flags a channel with cheap leads but expensive opportunities, the classic lead-quality problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes cost per opportunity by channel and links it to opportunity-to-close rates and CAC, so the whole funnel economics tie together. Rook flags a channel with cheap leads but expensive opportunities, the classic lead-quality problem.` },
     ],
     faqs: [
       { q: `What is the cost per opportunity formula?`, a: `Sales and marketing spend in a period divided by the number of qualified opportunities created in that period. It is a mid-funnel efficiency metric that predicts revenue better than cost per lead.` },
@@ -1371,7 +1371,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Last month you generated 250 qualified leads; this month, 300. LVR = (300 minus 250) / 250 = 50 / 250 = 20 percent month over month.`, `If you sustain 15 to 20 percent monthly LVR, your qualified-lead volume roughly doubles every four to five months, which foreshadows a similar acceleration in revenue once those leads work through the cycle. A drop to 2 percent LVR would predict a revenue plateau ahead.`] },
-      { h: `How Rally handles it`, body: `Rally tracks LVR in real time from live lead data, so you see the leading signal without waiting for revenue to confirm it. Rook alerts you when LVR decelerates, giving you a quarter or two of lead time to fix demand generation.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks LVR in real time from live lead data, so you see the leading signal without waiting for revenue to confirm it. Rook alerts you when LVR decelerates, giving you a quarter or two of lead time to fix demand generation.` },
     ],
     faqs: [
       { q: `What is the lead velocity rate formula?`, a: `This month's qualified leads minus last month's, divided by last month's, times 100. It expresses the month-over-month percentage growth in qualified leads, a real-time leading indicator of revenue.` },
@@ -1406,7 +1406,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`The biggest is metric overload: twenty tiles that impress in a demo and paralyze in practice. If a metric would not change a decision, it does not belong on the dashboard.`, `The second is static data. A dashboard pasted together in a spreadsheet each Monday is stale by Tuesday. Live data is what makes a dashboard a tool rather than a report.`] },
-      { h: `How Rally handles it`, body: `Rally dashboards are alive with data on first load, every metric drills into the underlying records, and Rook explains what moved. Ask Rook to build a manager dashboard and it assembles the right metrics with trends and targets automatically.` },
+      { h: `How Ardovo handles it`, body: `Ardovo dashboards are alive with data on first load, every metric drills into the underlying records, and Rook explains what moved. Ask Rook to build a manager dashboard and it assembles the right metrics with trends and targets automatically.` },
     ],
     faqs: [
       { q: `How many metrics should a sales dashboard have?`, a: `Five to seven for one audience. More than that and viewers cannot tell what matters or what to do. Every metric should change a decision; if it would not, leave it off.` },
@@ -1438,7 +1438,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Showing ARR without the bridge. A flat ARR number can hide large offsetting churn and new business; the bridge exposes it. Never present the level without the movement.`, `Mixing operating detail into an executive view. Rep-level activity belongs on a manager dashboard, not the revenue dashboard. Keep this one at the altitude of steering the business.`] },
-      { h: `How Rally handles it`, body: `Rally builds the ARR bridge, NRR, and coverage from one reconciled source, so the revenue dashboard ties out to billing. Rook narrates the quarter, explaining which motion drove the change, so the board deck writes itself.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds the ARR bridge, NRR, and coverage from one reconciled source, so the revenue dashboard ties out to billing. Rook narrates the quarter, explaining which motion drove the change, so the board deck writes itself.` },
     ],
     faqs: [
       { q: `What metrics belong on a revenue dashboard?`, a: `ARR or MRR and its growth rate, the revenue bridge (new, expansion, contraction, churn), net revenue retention, and pipeline coverage or forecast versus plan. Keep it to executive-grade metrics that steer the business.` },
@@ -1470,7 +1470,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Forecasting from raw pipeline without weighting or history, which produces a best case dressed up as a forecast. Always risk-adjust and reconcile against your real conversion.`, `Never measuring accuracy. A forecast you do not score against actuals cannot improve. Lock the forecast at a set point and grade it every period to find and fix systematic bias.`] },
-      { h: `How Rally handles it`, body: `Rally combines weighted pipeline, rep commit categories, and your historical accuracy into one forecast, then scores it at close. Rook flags commits with no supporting activity and reconciles the rep roll-up against a top-down model automatically.` },
+      { h: `How Ardovo handles it`, body: `Ardovo combines weighted pipeline, rep commit categories, and your historical accuracy into one forecast, then scores it at close. Rook flags commits with no supporting activity and reconciles the rep roll-up against a top-down model automatically.` },
     ],
     faqs: [
       { q: `How do you build a sales forecast?`, a: `Start from open pipeline, weight deals by win probability, layer in rep commit judgment, and adjust for your historical win rate, cycle, and slippage. Reconcile bottom-up and top-down views, then track accuracy each period.` },
@@ -1501,7 +1501,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Relying on the rep's version of why a deal was lost. Reps often cite price because it is easy; buyer interviews frequently reveal a different real reason. Triangulate.`, `Collecting loss reasons but never acting. If the same product gap loses ten deals a quarter and nothing changes, the report is theater. Close the loop with owners and fixes.`] },
-      { h: `How Rally handles it`, body: `Rally requires a structured reason on every close and analyzes win rate by segment, competitor, and reason automatically. Rook surfaces the patterns, such as a rival you keep losing to late in the cycle, and suggests where a battlecard or pricing fix would pay off.` },
+      { h: `How Ardovo handles it`, body: `Ardovo requires a structured reason on every close and analyzes win rate by segment, competitor, and reason automatically. Rook surfaces the patterns, such as a rival you keep losing to late in the cycle, and suggests where a battlecard or pricing fix would pay off.` },
     ],
     faqs: [
       { q: `What is a win-loss report?`, a: `A structured analysis of why deals are won and lost, combining required close reasons with win-rate breakdowns by segment and competitor and often buyer interviews. It turns closed deals into strategy you can act on.` },
@@ -1532,7 +1532,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to read the curves`, body: [`A healthy retention curve drops in the early periods, then flattens as the committed core remains. The flattening point and level tell you your true long-term retention. A curve that never flattens signals a product that does not retain.`, `Revenue cohorts can curve upward above 100 percent when expansion outpaces churn, the visual signature of net revenue retention above 100 percent. That upward curve is the best sign in SaaS.`] },
-      { h: `How Rally handles it`, body: `Rally builds cohort retention grids and curves from live billing automatically, in both revenue and logo terms. Rook compares newer cohorts to older ones and flags when retention is degrading, so you catch a slipping onboarding before it hits the P and L.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds cohort retention grids and curves from live billing automatically, in both revenue and logo terms. Rook compares newer cohorts to older ones and flags when retention is degrading, so you catch a slipping onboarding before it hits the P and L.` },
     ],
     faqs: [
       { q: `What is a cohort retention report?`, a: `A view that groups customers by their start period and tracks how much of each cohort's revenue or customer count remains over time. It reveals whether retention is improving and where revenue stabilizes.` },
@@ -1563,7 +1563,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Mixing time periods so the counts do not reconcile. If this month's leads are compared to last month's opportunities, the rates are meaningless. Follow one cohort through the funnel.`, `Focusing on the widest part of the funnel out of habit. The stage worth fixing is the one furthest below its benchmark, which is often mid-funnel, not the top.`] },
-      { h: `How Rally handles it`, body: `Rally builds the funnel from live lead and deal data with conversion at every stage, and Rook points to the biggest leak and estimates the revenue from fixing it. The report updates itself, so it is never a manual month-end rebuild.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds the funnel from live lead and deal data with conversion at every stage, and Rook points to the biggest leak and estimates the revenue from fixing it. The report updates itself, so it is never a manual month-end rebuild.` },
     ],
     faqs: [
       { q: `How do you build a sales funnel report?`, a: `Count entries and conversion at each stage from lead to closed-won for a fixed cohort, then highlight the biggest drop-off. The weakest conversion step relative to its benchmark is your constraint and where to focus.` },
@@ -1594,7 +1594,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Making the scorecard a pure leaderboard. Ranking motivates the top and demoralizes the bottom without helping anyone improve. Pair results with the behaviors that drive them so it teaches.`, `Overloading it with metrics. A scorecard with fifteen numbers is not read. Pick the handful that most predict success in your motion and cut the rest.`] },
-      { h: `How Rally handles it`, body: `Rally builds rep scorecards that pair outcomes with the leading activity and pipeline metrics behind them, each against target and team median. Rook highlights the one metric most likely to move a rep's number, so coaching is specific instead of generic.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds rep scorecards that pair outcomes with the leading activity and pipeline metrics behind them, each against target and team median. Rook highlights the one metric most likely to move a rep's number, so coaching is specific instead of generic.` },
     ],
     faqs: [
       { q: `What should be on a sales rep scorecard?`, a: `A few outcome metrics (quota attainment, win rate, average deal size) plus leading indicators (pipeline created, meetings booked, speed to lead), each shown against a target and the team benchmark. Keep it short.` },
@@ -1625,7 +1625,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Reporting only logo churn. If your churned customers are larger than average, logo churn understates the damage. Always show revenue churn beside it.`, `Making it purely backward-looking. A dashboard that only tallies who already left cannot save revenue. Add leading risk signals so the team intervenes before the cancellation, not after.`] },
-      { h: `How Rally handles it`, body: `Rally tracks logo and revenue churn by segment and reason and predicts at-risk accounts from engagement and support signals. Rook weights the risk list by revenue and prompts the owner before renewal, turning a lagging metric into a save.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks logo and revenue churn by segment and reason and predicts at-risk accounts from engagement and support signals. Rook weights the risk list by revenue and prompts the owner before renewal, turning a lagging metric into a save.` },
     ],
     faqs: [
       { q: `What should a churn dashboard show?`, a: `Logo and revenue churn, breakdowns by segment, cohort, and churn reason, net and gross revenue retention for context, and a revenue-weighted list of at-risk accounts. The aim is to predict churn, not just report it.` },
@@ -1656,7 +1656,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to read it`, body: [`If 60 to 70 percent of fully ramped reps hit quota, the team is healthy and quotas are calibrated. Far below that suggests quotas are too high or enablement is weak; near 100 percent suggests they are too easy.`, `Watch the shape. A bimodal distribution, a cluster of stars and a long tail of misses, points to hiring, territory, or enablement problems rather than a quota-level issue.`] },
-      { h: `How Rally handles it`, body: `Rally shows attainment as a distribution segmented by tenure and territory, not a single average, so calibration problems are visible. Rook flags when a few reps carry the team and links weak territories to coverage and ramp gaps.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows attainment as a distribution segmented by tenure and territory, not a single average, so calibration problems are visible. Rook flags when a few reps carry the team and links weak territories to coverage and ramp gaps.` },
     ],
     faqs: [
       { q: `What should a quota attainment report show?`, a: `Each rep's actual versus quota and, crucially, the distribution: the share of reps hitting quota, the spread, trend over time, and breakdowns by tenure and segment. The distribution matters more than the average.` },
@@ -1687,7 +1687,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Using a flat 3x target for everyone. If your win rate is 20 percent, 3x coverage falls short. Tie the target to each team's actual win rate for an accurate read.`, `Ignoring timing. Coverage without a time dimension treats week-one and week-twelve pipeline as equal, which they are not. Always read coverage against the calendar.`] },
-      { h: `How Rally handles it`, body: `Rally computes coverage per rep and team against a win-rate-adjusted target and overlays time remaining. Rook warns early when coverage is thin for the days left and suggests which accounts to work to close the gap.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes coverage per rep and team against a win-rate-adjusted target and overlays time remaining. Rook warns early when coverage is thin for the days left and suggests which accounts to work to close the gap.` },
     ],
     faqs: [
       { q: `How do you build a pipeline coverage report?`, a: `Divide open pipeline expected to close in the period by quota, per rep and team. Set the target multiple from your win rate, and read coverage against time remaining so thin coverage surfaces early.` },
@@ -1718,7 +1718,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Using total deal age instead of time-in-stage. A long, healthy enterprise deal can be old overall but moving fine. What matters is whether it is stuck in one stage past the norm.`, `Flagging without acting. An aging report that no one uses to drive next steps just documents decay. Tie it to the weekly pipeline review so every stalled deal gets an owner and an action.`] },
-      { h: `How Rally handles it`, body: `Rally flags deals past their stage's average time-in-stage and shows days since last activity, so your pipeline review starts with the exception list already made. Rook nudges owners on stalled, high-value deals before they slip the quarter.` },
+      { h: `How Ardovo handles it`, body: `Ardovo flags deals past their stage's average time-in-stage and shows days since last activity, so your pipeline review starts with the exception list already made. Rook nudges owners on stalled, high-value deals before they slip the quarter.` },
     ],
     faqs: [
       { q: `What is a deal aging report?`, a: `A report showing how long each open deal has sat in its current stage, flagging any deal past the average time-in-stage for that step. It detects stalls early so you can act before deals slip or die.` },
@@ -1749,7 +1749,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to read the waterfall`, body: [`A healthy bridge shows expansion as a meaningful upward bar and churn plus contraction as small downward ones. When the down bars rival the up bars, growth is a leaky bucket even if net ARR rose.`, `Compare the shape over time. Growing expansion relative to churn is the visual signature of improving net revenue retention and durable growth, the opposite of new business papering over losses.`] },
-      { h: `How Rally handles it`, body: `Rally builds the ARR bridge from live billing automatically, splitting every component cleanly. Rook narrates it, explaining whether the quarter's growth came from new logos or from a base that is compounding on its own, so the board story is ready.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds the ARR bridge from live billing automatically, splitting every component cleanly. Rook narrates it, explaining whether the quarter's growth came from new logos or from a base that is compounding on its own, so the board story is ready.` },
     ],
     faqs: [
       { q: `What is an ARR bridge?`, a: `A decomposition of ARR change over a period into new, expansion, contraction, and churned ARR, usually shown as a waterfall chart. It explains why ARR moved, not just how much, which the net number alone cannot.` },
@@ -1780,7 +1780,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Including new customers in the cohort, which inflates NRR and defeats the purpose. NRR measures the existing base only; new logos belong in the new-ARR line, not retention.`, `Reporting NRR without GRR. A 120 percent NRR can hide 80 percent GRR when a few expansions cover widespread churn. Always show the gross floor beside the net headline.`] },
-      { h: `How Rally handles it`, body: `Rally computes NRR and GRR by cohort from live billing, keeping new logos out automatically. Rook flags a widening gap between them and points to the churning segment expansion is masking, so you fix retention before it catches up with you.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes NRR and GRR by cohort from live billing, keeping new logos out automatically. Rook flags a widening gap between them and points to the churning segment expansion is masking, so you fix retention before it catches up with you.` },
     ],
     faqs: [
       { q: `How do you build an NRR report?`, a: `Fix a cohort of existing customers, track their starting revenue plus expansion minus contraction and churn, and divide by starting revenue. Show NRR beside gross revenue retention by cohort and segment, trended over time.` },
@@ -1811,7 +1811,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Ranking on raw bookings when territories and quotas differ. A rep in a rich territory tops the board on geography, not skill. Attainment normalizes for that and is usually fairer.`, `Making the board the only feedback. A pure ranking motivates the top few and discourages everyone else. Balance it with recognition for behaviors and with real coaching.`] },
-      { h: `How Rally handles it`, body: `Rally drives leaderboards from live data on attainment and leading behaviors, so the ranking is fair and current. Rook pairs the board with scorecards so reps see not just where they rank but the one behavior most likely to move them up.` },
+      { h: `How Ardovo handles it`, body: `Ardovo drives leaderboards from live data on attainment and leading behaviors, so the ranking is fair and current. Rook pairs the board with scorecards so reps see not just where they rank but the one behavior most likely to move them up.` },
     ],
     faqs: [
       { q: `What metric should a sales leaderboard rank on?`, a: `Usually quota attainment, because it normalizes for different quotas and territories, or bookings when quotas are uniform. Add secondary recognition for leading behaviors so the whole team has something to compete for.` },
@@ -1842,7 +1842,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Letting operating detail creep in. Rep-level activity and individual deals dilute an executive view. If a metric would not change a board-level decision, it does not belong here.`, `Showing growth without efficiency. A soaring ARR chart can hide an unsustainable burn multiple. Pairing growth with an efficiency metric is what keeps the executive view honest.`] },
-      { h: `How Rally handles it`, body: `Rally assembles the executive dashboard from one reconciled source, growth, retention, forecast, and efficiency, all tying out to billing. Rook narrates the quarter at board altitude and drills into any metric on request, so detail is available without cluttering the view.` },
+      { h: `How Ardovo handles it`, body: `Ardovo assembles the executive dashboard from one reconciled source, growth, retention, forecast, and efficiency, all tying out to billing. Rook narrates the quarter at board altitude and drills into any metric on request, so detail is available without cluttering the view.` },
     ],
     faqs: [
       { q: `What belongs on an executive revenue dashboard?`, a: `A handful of steering metrics: ARR and growth, the revenue bridge, net and gross retention, pipeline coverage or forecast versus plan, and one efficiency metric. Keep operating detail like rep activity off it.` },
@@ -1873,7 +1873,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Rewarding raw activity volume. A rep who books more meetings with fewer, better calls beats one who dials constantly. Measure outputs, and treat inputs only as context.`, `Divorcing activity from outcomes. Activity that produces no pipeline is motion, not progress. Always tie activity metrics back to the opportunities and revenue they generate.`] },
-      { h: `How Rally handles it`, body: `Rally logs activity automatically from email, calendar, and calls, then ties it to the pipeline it produced. Rook flags the behaviors that actually precede won deals, so the activity dashboard coaches results instead of rewarding busywork.` },
+      { h: `How Ardovo handles it`, body: `Ardovo logs activity automatically from email, calendar, and calls, then ties it to the pipeline it produced. Rook flags the behaviors that actually precede won deals, so the activity dashboard coaches results instead of rewarding busywork.` },
     ],
     faqs: [
       { q: `What should a sales activity dashboard track?`, a: `Output activities: meetings booked and held, opportunities created, speed to lead, and follow-up completion, each tied to the pipeline it produces. Treat raw dials and emails as context, not the headline.` },
@@ -1904,7 +1904,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Presenting only a single number with no movement or accuracy history. Leaders cannot judge a forecast they cannot see the track record of. Show change over time and past accuracy.`, `Treating commit as optimistic pipeline. Commit should be a promise backed by a named economic buyer and a real close plan. If commit routinely slips, the category has lost its meaning.`] },
-      { h: `How Rally handles it`, body: `Rally rolls deals into forecast categories, shows week-over-week movement against plan, and scores accuracy automatically at close. Rook flags commits with no supporting activity and surfaces systematic rep bias so the forecast keeps earning trust.` },
+      { h: `How Ardovo handles it`, body: `Ardovo rolls deals into forecast categories, shows week-over-week movement against plan, and scores accuracy automatically at close. Rook flags commits with no supporting activity and surfaces systematic rep bias so the forecast keeps earning trust.` },
     ],
     faqs: [
       { q: `What should a sales forecast report include?`, a: `Deals rolled into commit, best case, and pipeline categories against quota per rep and team, the weighted forecast and gap to plan, week-over-week movement, and accuracy tracked against actuals each period.` },
@@ -1930,7 +1930,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why attribution matters`, body: [`Without attribution, you cannot tell which channels actually produce revenue, so budget flows by habit or by whichever channel gets the last click. Good attribution reveals the channels that create pipeline, not just the ones that close it.`, `Attribution is directional, not exact. Used to compare channels and shift budget at the margin, it is invaluable; treated as precise truth, it misleads. The best teams pair it with incrementality tests.`] },
-      { h: `How Rally handles it`, body: `Rally captures every touch on the path to a closed deal and supports multiple attribution models, so you can see the journey rather than just the last click. Rook flags channels that consistently create pipeline early even when they rarely get last-touch credit.` },
+      { h: `How Ardovo handles it`, body: `Ardovo captures every touch on the path to a closed deal and supports multiple attribution models, so you can see the journey rather than just the last click. Rook flags channels that consistently create pipeline early even when they rarely get last-touch credit.` },
     ],
     faqs: [
       { q: `What is marketing attribution?`, a: `The practice of assigning credit for a conversion to the marketing touchpoints that influenced it. Because buyers touch many channels before purchasing, attribution models decide how the credit is divided among them.` },
@@ -1956,7 +1956,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `When to use each`, body: [`Use first-touch when you want to understand which channels generate awareness and start journeys, useful for judging top-of-funnel demand creation. Use last-touch when you want to see what closes, though it tends to over-credit branded search and retargeting that simply harvest existing intent.`, `Because each is biased, sophisticated teams use them together or move to multi-touch. Looking at first and last touch side by side already reveals whether a channel creates or captures demand.`] },
-      { h: `How Rally handles it`, body: `Rally records the full touch path, so you can view first-touch, last-touch, and multi-touch side by side rather than committing to one biased model. Rook highlights channels that create demand early but rarely get last-touch credit, so you do not defund what actually starts your best deals.` },
+      { h: `How Ardovo handles it`, body: `Ardovo records the full touch path, so you can view first-touch, last-touch, and multi-touch side by side rather than committing to one biased model. Rook highlights channels that create demand early but rarely get last-touch credit, so you do not defund what actually starts your best deals.` },
     ],
     faqs: [
       { q: `What is the difference between first-touch and last-touch attribution?`, a: `First-touch credits the channel that first introduced a prospect; last-touch credits the channel immediately before conversion. First-touch favors demand-creation channels, last-touch favors demand-capture channels, and both ignore the middle.` },
@@ -1982,7 +1982,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Choosing a model`, body: [`Linear is simple and fair but treats a throwaway touch like a decisive one. Time-decay suits fast cycles where recent touches drive the decision. U-shaped fits when the first impression and the closing touch matter most. W-shaped suits B2B, crediting the key funnel milestones.`, `The right model reflects your buying journey, and consistency matters more than picking the theoretically perfect one. Switching models constantly makes trends unreadable.`] },
-      { h: `How Rally handles it`, body: `Rally supports linear, time-decay, U-shaped, and W-shaped models on the same underlying touch data, so you can compare how each allocates credit. Rook explains why a channel's credit shifts between models, helping you choose one that fits your journey and stick with it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports linear, time-decay, U-shaped, and W-shaped models on the same underlying touch data, so you can compare how each allocates credit. Rook explains why a channel's credit shifts between models, helping you choose one that fits your journey and stick with it.` },
     ],
     faqs: [
       { q: `What are the main multi-touch attribution models?`, a: `Linear (equal credit to all touches), time-decay (more credit to recent touches), U-shaped (first and last weighted most), and W-shaped (first, lead-creation, and opportunity-creation touches weighted most). Each places weight differently.` },
@@ -2011,7 +2011,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Building a KPI system`, body: [`Start with the outcome you are accountable for (usually bookings versus quota), then add the pipeline metrics that predict it (coverage, velocity) and the leading activities that build it (opportunities created, speed to lead). Each KPI should connect to the next in a chain from activity to revenue.`, `Avoid vanity metrics. A KPI belongs on the list only if a change in it would change a decision. If you would not act differently, it is a number, not a KPI.`] },
-      { h: `How Rally handles it`, body: `Rally computes the full sales KPI set live and links them in a chain from activity to pipeline to revenue. Rook explains what moved each KPI and which one, if improved, would most raise bookings, so the dashboard drives action.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the full sales KPI set live and links them in a chain from activity to pipeline to revenue. Rook explains what moved each KPI and which one, if improved, would most raise bookings, so the dashboard drives action.` },
     ],
     faqs: [
       { q: `What are the most important sales KPIs?`, a: `Win rate, quota attainment, pipeline coverage, sales cycle length, average deal size, forecast accuracy, and leading activity like opportunities created and speed to lead. Balance lagging results with leading indicators.` },
@@ -2037,7 +2037,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the metrics together`, body: [`Growth without retention is a leaky bucket; retention without growth is stagnation; both without sound unit economics is unprofitable; and all three without efficiency can still burn too much cash. The metrics only make sense as a set covering all four questions.`, `Stage matters too. Early companies lean on growth and LVR; mature ones lean on retention, Rule of 40, and burn multiple. The important metrics shift as the business scales.`] },
-      { h: `How Rally handles it`, body: `Rally computes the full SaaS metric set from one reconciled source, so growth, retention, unit economics, and efficiency all tie out. Rook explains how they interact, flagging when strong growth is hiding weak retention or an inefficient burn multiple.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the full SaaS metric set from one reconciled source, so growth, retention, unit economics, and efficiency all tie out. Rook explains how they interact, flagging when strong growth is hiding weak retention or an inefficient burn multiple.` },
     ],
     faqs: [
       { q: `What are the most important SaaS metrics?`, a: `ARR and MRR for growth, NRR and GRR for retention, CAC, LTV, and CAC payback for unit economics, and the magic number, burn multiple, and Rule of 40 for efficiency. They answer whether growth is fast, durable, profitable, and efficient.` },
@@ -2063,7 +2063,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why RevOps metrics span teams`, body: [`RevOps exists to align marketing, sales, and customer success around one revenue number, so its metrics deliberately cross team boundaries: MQL to SQL conversion (marketing to sales), win rate and velocity (sales), and NRR (customer success). The handoffs between teams are where revenue leaks, and RevOps owns them.`, `Data health underpins everything. If CRM data is incomplete, every downstream metric is suspect, which is why mature RevOps teams track field completeness and hygiene as a core KPI.`] },
-      { h: `How Rally handles it`, body: `Rally gives RevOps one system spanning marketing, sales, and success, with every metric tied to clean, shared data. Rook keeps records complete and flags the funnel handoffs where conversion drops, so RevOps fixes leaks instead of hunting for them.` },
+      { h: `How Ardovo handles it`, body: `Ardovo gives RevOps one system spanning marketing, sales, and success, with every metric tied to clean, shared data. Rook keeps records complete and flags the funnel handoffs where conversion drops, so RevOps fixes leaks instead of hunting for them.` },
     ],
     faqs: [
       { q: `What metrics does RevOps track?`, a: `Full-funnel metrics: pipeline coverage and creation, stage conversion rates, sales velocity, forecast accuracy, CAC and payback, net revenue retention, and CRM data health. RevOps owns the whole revenue engine, so its metrics span teams.` },
@@ -2089,7 +2089,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Managing with the numbers`, body: [`The attainment distribution tells a manager whether the team is broadly healthy or carried by a few stars. Win rate by rep points to who needs coaching and on what. Coverage and forecast accuracy predict whether the number lands. Deal aging surfaces stalls before they slip.`, `Used together, these KPIs turn management from reactive firefighting into proactive coaching. The manager who watches leading indicators fixes problems that a bookings-only view would only reveal after the quarter is lost.`] },
-      { h: `How Rally handles it`, body: `Rally gives managers the attainment distribution, coverage, win rate by rep, and deal aging on one live view, with drill-down to the deals behind each. Rook flags which rep and which stalled deals most threaten the number, so coaching time goes where it pays off.` },
+      { h: `How Ardovo handles it`, body: `Ardovo gives managers the attainment distribution, coverage, win rate by rep, and deal aging on one live view, with drill-down to the deals behind each. Rook flags which rep and which stalled deals most threaten the number, so coaching time goes where it pays off.` },
     ],
     faqs: [
       { q: `What KPIs should a sales manager track?`, a: `Team quota attainment and its distribution, pipeline coverage, win rate by rep and segment, forecast accuracy, deal aging, and leading rep activity. These reveal whether the team will hit the number and who needs coaching.` },
@@ -2115,7 +2115,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Building the right SDR incentives`, body: [`Comp and KPIs should reward qualified pipeline created, ideally meetings that convert to accepted opportunities, not raw meeting counts that a rep can game with low-quality bookings. Adding a quality gate (meetings held and accepted by sales) keeps the incentive honest.`, `Speed to lead deserves a dedicated KPI. Responding to inbound in minutes rather than hours can multiply conversion, so it is one of the highest-leverage things an SDR controls.`] },
-      { h: `How Rally handles it`, body: `Rally logs SDR activity automatically and ties meetings booked to the opportunities and pipeline they became, so quality is visible, not just volume. Rook flags leads sitting past the speed-to-lead target, helping SDRs convert more of what they are handed.` },
+      { h: `How Ardovo handles it`, body: `Ardovo logs SDR activity automatically and ties meetings booked to the opportunities and pipeline they became, so quality is visible, not just volume. Rook flags leads sitting past the speed-to-lead target, helping SDRs convert more of what they are handed.` },
     ],
     faqs: [
       { q: `What KPIs should SDRs be measured on?`, a: `Qualified meetings booked and held, opportunities created, and pipeline generated, plus speed to lead and lead-to-meeting conversion. Calls and emails are inputs that matter only insofar as they produce those outputs.` },
@@ -2141,7 +2141,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Coaching an AE with metrics`, body: [`Win rate and average deal size show how well an AE closes and at what size; a low win rate with high activity points to qualification or closing gaps. Cycle length shows deal control. Coverage shows whether the pipeline can sustain the number, and multithreading predicts whether large deals will survive.`, `Self-sourced pipeline is worth watching separately. An AE who only closes marketing-fed deals is more fragile than one who also generates their own pipeline, especially when inbound softens.`] },
-      { h: `How Rally handles it`, body: `Rally shows each AE's win rate, deal size, cycle, and coverage with drill-down to the deals behind them, and flags single-threaded deals at risk. Rook surfaces the one metric most likely to move an AE's attainment, so coaching is specific.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows each AE's win rate, deal size, cycle, and coverage with drill-down to the deals behind them, and flags single-threaded deals at risk. Rook surfaces the one metric most likely to move an AE's attainment, so coaching is specific.` },
     ],
     faqs: [
       { q: `What KPIs should account executives be measured on?`, a: `Quota attainment, win rate, average deal size, and sales cycle length as results, supported by pipeline coverage, deal aging, and multithreading. These capture whether an AE wins enough, at the right size, fast enough, and sustainably.` },
@@ -2167,7 +2167,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Leading vs lagging CS metrics`, body: [`Churn and NRR are lagging results; by the time they move, the outcome is set. Health scores, product adoption, and time to value are leading indicators that let CS intervene before a customer decides to leave. A strong CS motion watches the leading signals daily.`, `Expansion is the offense of customer success. Tracking expansion revenue and upsell rate keeps CS focused not just on preventing loss but on growing accounts, which is what pushes NRR above 100 percent.`] },
-      { h: `How Rally handles it`, body: `Rally combines retention, health scores, adoption, and expansion in one view and predicts at-risk accounts from live signals. Rook prompts the owner before a renewal is threatened and flags expansion-ready accounts, so CS plays both defense and offense.` },
+      { h: `How Ardovo handles it`, body: `Ardovo combines retention, health scores, adoption, and expansion in one view and predicts at-risk accounts from live signals. Rook prompts the owner before a renewal is threatened and flags expansion-ready accounts, so CS plays both defense and offense.` },
     ],
     faqs: [
       { q: `What metrics should customer success track?`, a: `Net and gross revenue retention, logo and revenue churn, product adoption and health scores, expansion revenue, and time to first value. These measure whether customers are retained, healthy, expanding, and reaching value quickly.` },
@@ -2193,7 +2193,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What boards actually want to see`, body: [`Boards want to know four things: is growth strong (ARR and the bridge), is it durable (retention), is it efficient (payback, magic number, Rule of 40), and how long does the cash last (burn and runway). Every slide should serve one of these questions.`, `Consistency and honesty win trust. Show the ARR bridge so growth quality is visible, present retention with GRR beside NRR, and never change definitions quarter to quarter. A board that trusts the numbers is far easier to work with.`] },
-      { h: `How Rally handles it`, body: `Rally produces board-grade metrics from one reconciled source, so the ARR bridge, retention, and efficiency numbers tie out. Rook drafts the narrative, explaining what drove the quarter, so the deck is accurate and the story is ready.` },
+      { h: `How Ardovo handles it`, body: `Ardovo produces board-grade metrics from one reconciled source, so the ARR bridge, retention, and efficiency numbers tie out. Rook drafts the narrative, explaining what drove the quarter, so the deck is accurate and the story is ready.` },
     ],
     faqs: [
       { q: `What SaaS metrics belong in a board deck?`, a: `ARR and growth rate, the ARR bridge, net and gross revenue retention, CAC payback, the magic number or burn multiple, the Rule of 40, and cash burn with runway. These cover growth, durability, efficiency, and survival.` },
@@ -2219,7 +2219,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `From lead volume to revenue contribution`, body: [`Lead count and traffic are vanity to sales unless they convert. The metrics that matter are marketing-sourced pipeline (opportunities marketing created), influenced pipeline (deals marketing touched), MQL to SQL conversion (handoff quality), and ultimately revenue contribution.`, `Cost per opportunity beats cost per lead because it reflects quality. A channel producing cheap leads that never become opportunities is expensive where it counts, and sourced-pipeline metrics expose that.`] },
-      { h: `How Rally handles it`, body: `Rally ties marketing activity to sourced and influenced pipeline and closed revenue on shared data, so marketing and sales judge the same outcomes. Rook flags channels that generate leads but little pipeline, ending the volume-versus-revenue argument with evidence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ties marketing activity to sourced and influenced pipeline and closed revenue on shared data, so marketing and sales judge the same outcomes. Rook flags channels that generate leads but little pipeline, ending the volume-versus-revenue argument with evidence.` },
     ],
     faqs: [
       { q: `What marketing metrics do salespeople care about?`, a: `Marketing-sourced and influenced pipeline, MQL to SQL conversion, cost per opportunity, lead-to-customer conversion, and contribution to closed revenue. Sales values metrics tied to pipeline and bookings, not lead volume or traffic.` },
@@ -2245,7 +2245,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What RevOps actually does`, body: [`RevOps runs the systems and processes the revenue teams depend on: CRM administration, data hygiene, lead routing, forecasting cadence, territory and quota planning, tooling, and analytics. It removes friction so reps sell and success teams retain, rather than fight the systems.`, `The strategic value is a single source of truth. When marketing, sales, and success share one clean data model, leadership can see the whole funnel, trust the forecast, and fix the handoffs where revenue leaks.`] },
-      { h: `How Rally handles it`, body: `Rally is built to be that single source of truth, spanning marketing, sales, and success on shared, clean data. Rook handles the operational load, keeping records complete, routing leads, and flagging funnel leaks, so a small RevOps team runs a large revenue engine.` },
+      { h: `How Ardovo handles it`, body: `Ardovo is built to be that single source of truth, spanning marketing, sales, and success on shared, clean data. Rook handles the operational load, keeping records complete, routing leads, and flagging funnel leaks, so a small RevOps team runs a large revenue engine.` },
     ],
     faqs: [
       { q: `What is revenue operations?`, a: `The function that aligns marketing, sales, and customer success under shared systems, data, and one revenue number. RevOps owns the CRM and tech stack, the underlying data, and the process and analytics that keep revenue predictable.` },
@@ -2274,7 +2274,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why the distinction matters`, body: [`If you count a 12-month deal as revenue on signing, you overstate current earnings and distort margins. If you judge sales performance on recognized revenue, you understate what the team actually sold this period. Each metric belongs to its own purpose.`, `Bookings also lead revenue. Strong bookings today become recognized revenue over the coming months, which is why bookings are a leading indicator of future revenue while revenue is the lagging result.`] },
-      { h: `How Rally handles it`, body: `Rally records bookings the moment a deal closes and keeps recognized revenue separate, so sales output and accounting revenue never get crossed. Rook can show either view and reconcile them, so sales and finance work from the same deal without confusion.` },
+      { h: `How Ardovo handles it`, body: `Ardovo records bookings the moment a deal closes and keeps recognized revenue separate, so sales output and accounting revenue never get crossed. Rook can show either view and reconcile them, so sales and finance work from the same deal without confusion.` },
     ],
     faqs: [
       { q: `What is the difference between bookings and revenue?`, a: `Bookings are the total value committed when a contract is signed; revenue is recognized gradually as you deliver. A 12-month deal books fully on day one but recognizes revenue monthly over the term.` },
@@ -2300,7 +2300,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why billings matter for cash`, body: [`A 120,000 dollar annual booking billed monthly generates 10,000 dollars of billings a month, so cash arrives gradually. The same booking billed annually up front generates 120,000 dollars of billings immediately, a very different cash position from identical bookings.`, `This is why finance watches billings closely: they, not bookings, determine when invoices go out and cash comes in. Annual up-front billing is a common lever for improving cash flow.`] },
-      { h: `How Rally handles it`, body: `Rally connects bookings to billing schedules and invoicing, so you see committed value and invoiced billings separately and can plan cash. Rook flags upcoming billings and renewals, keeping the link between what was sold and when cash arrives clear.` },
+      { h: `How Ardovo handles it`, body: `Ardovo connects bookings to billing schedules and invoicing, so you see committed value and invoiced billings separately and can plan cash. Rook flags upcoming billings and renewals, keeping the link between what was sold and when cash arrives clear.` },
     ],
     faqs: [
       { q: `What is the difference between bookings and billings?`, a: `Bookings are the total value a customer committed to at signing; billings are what you have actually invoiced so far. A customer can book a year but be billed monthly or quarterly, so the two differ by billing schedule.` },
@@ -2326,7 +2326,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the two together`, body: [`Gross churn tells you how leaky the bucket is; net churn tells you whether expansion is filling it faster than it leaks. A business with 15 percent gross churn but negative 5 percent net churn is losing customers yet growing revenue from its base through expansion.`, `Relying on net churn alone can mask a real retention problem, just as relying on NRR alone can. Always look at gross churn beside it to see the underlying leak.`] },
-      { h: `How Rally handles it`, body: `Rally reports gross and net churn side by side from live billing, so expansion never hides a growing leak. Rook flags when gross churn is climbing even as net churn stays healthy, catching the problem before expansion can no longer cover it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports gross and net churn side by side from live billing, so expansion never hides a growing leak. Rook flags when gross churn is climbing even as net churn stays healthy, catching the problem before expansion can no longer cover it.` },
     ],
     faqs: [
       { q: `What is the difference between gross churn and net churn?`, a: `Gross churn counts only revenue lost to cancellations and downgrades. Net churn subtracts expansion from that loss, so it can be negative when expansion beats churn. Gross shows the raw leak; net shows it after upsell.` },
@@ -2352,7 +2352,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `When to use each`, body: [`Use ACV when talking about deals: average deal size, quota, win rate by deal value, and sales comp. Use ARR when talking about the business: total scale, growth rate, and valuation. A rep closes ACV; a company reports ARR.`, `The one nuance is one-time fees. ACV is sometimes defined to include them and sometimes not, while ARR is strictly recurring. Keep the definitions consistent so summed ACV reconciles to ARR.`] },
-      { h: `How Rally handles it`, body: `Rally tracks ACV on every deal and rolls it up to ARR automatically, so deal-level and company-level numbers reconcile. Rook can show average ACV trends and total ARR from the same data without the two ever drifting apart.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks ACV on every deal and rolls it up to ARR automatically, so deal-level and company-level numbers reconcile. Rook can show average ACV trends and total ARR from the same data without the two ever drifting apart.` },
     ],
     faqs: [
       { q: `What is the difference between ACV and ARR?`, a: `ACV is the annualized value of a single contract; ARR is the total annualized recurring revenue across all active contracts. ACV is a per-deal sales metric, while ARR is a company-wide metric.` },
@@ -2383,7 +2383,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you added 800,000 dollars of new ARR and 300,000 dollars of expansion. You lost 200,000 dollars to churn and 100,000 dollars to contraction.`, `Net new ARR = 800,000 + 300,000 - 200,000 - 100,000 = 800,000 dollars. Gross new ARR of 1,100,000 dollars would have overstated growth by nearly 40 percent by ignoring the 300,000 dollars of losses.`] },
-      { h: `How Rally handles it`, body: `Rally computes net new ARR from its live ARR bridge, so every component is accounted for automatically. Rook flags when gross new business looks strong but churn is eroding net new ARR, so you see real growth, not just the top line.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes net new ARR from its live ARR bridge, so every component is accounted for automatically. Rook flags when gross new business looks strong but churn is eroding net new ARR, so you see real growth, not just the top line.` },
     ],
     faqs: [
       { q: `What is the net new ARR formula?`, a: `New ARR plus expansion ARR minus contraction ARR minus churned ARR. It is the true change in annual recurring revenue over a period, equal to the net of the ARR bridge from beginning to ending ARR.` },
@@ -2414,7 +2414,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your existing base started the quarter at 1,000,000 dollars of MRR. During the quarter, upsells and seat growth added 90,000 dollars of expansion MRR.`, `Expansion revenue rate = 90,000 / 1,000,000 = 9 percent. If gross churn was 6 percent over the same period, net revenue retention is roughly 103 percent, because expansion of 9 percent outweighs the 6 percent lost.`] },
-      { h: `How Rally handles it`, body: `Rally tracks expansion MRR by account and segment, so you see which customers and motions drive growth in the base. Rook flags expansion-ready accounts from usage and engagement signals, turning the expansion rate into a pipeline of upsell opportunities.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks expansion MRR by account and segment, so you see which customers and motions drive growth in the base. Rook flags expansion-ready accounts from usage and engagement signals, turning the expansion rate into a pipeline of upsell opportunities.` },
     ],
     faqs: [
       { q: `What is the expansion revenue rate formula?`, a: `Expansion MRR (upsell, cross-sell, seat and usage growth from existing customers) divided by the starting MRR of that base, as a percentage. It measures growth within the existing base, excluding new customers.` },
@@ -2445,7 +2445,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your fully ramped team of 8 reps booked 12,000,000 dollars last year, so revenue per rep is 1,500,000 dollars. To hit a 21,000,000 dollar target next year, you need about 14 fully ramped reps (21,000,000 divided by 1,500,000).`, `Accounting for a 5-month ramp and some attrition, you would hire more than the six additional reps the raw math implies, and earlier, so they are productive when you need them.`] },
-      { h: `How Rally handles it`, body: `Rally computes revenue per rep segmented by tenure and team, so ramping reps do not distort the productivity read. Rook turns it into a capacity plan, factoring ramp time and attrition to tell you how many reps to hire and when.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes revenue per rep segmented by tenure and team, so ramping reps do not distort the productivity read. Rook turns it into a capacity plan, factoring ramp time and attrition to tell you how many reps to hire and when.` },
     ],
     faqs: [
       { q: `What is the revenue per rep formula?`, a: `Total sales revenue or bookings in a period divided by the number of quota-carrying reps. Use fully ramped reps for a true productivity read; include ramping reps only for a blended capacity view, and note it.` },
@@ -2476,7 +2476,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You closed 40 deals last quarter for a total ACV of 1,200,000 dollars, so ASP is 30,000 dollars. Your list price for the typical package is 40,000 dollars.`, `The 10,000 dollar gap means an average 25 percent discount. If ASP drifts down to 27,000 dollars next quarter while list holds, discounting has crept from 25 to 33 percent, worth investigating before it erodes margin.`] },
-      { h: `How Rally handles it`, body: `Rally tracks ASP by segment and against list price, so discount creep is visible early. Rook flags when ASP falls faster than mix explains, pointing to a discounting problem rather than a strategic move downmarket.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks ASP by segment and against list price, so discount creep is visible early. Rook flags when ASP falls faster than mix explains, pointing to a discounting problem rather than a strategic move downmarket.` },
     ],
     faqs: [
       { q: `What is the average selling price formula?`, a: `Total revenue or ACV from deals closed in a period divided by the number of deals or units sold. It reflects actual prices after discounts, so it reveals real pricing power and discount behavior.` },
@@ -2507,7 +2507,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Three deals close at 25, 30, and 20 percent discounts off list. The simple average discount is 25 percent. But if the 20 percent-discount deal was by far the largest, the value-weighted average discount is lower and more accurate.`, `If your gross margin is 80 percent and you discount 25 percent, you are handing back roughly a third of your margin on price alone, which is why even small discount creep matters.`] },
-      { h: `How Rally handles it`, body: `Rally tracks average discount by rep, segment, and deal size and routes deals past a threshold to an approval workflow. Rook flags reps whose discounts are creeping up and quantifies the margin at stake, so discounting stays disciplined.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks average discount by rep, segment, and deal size and routes deals past a threshold to an approval workflow. Rook flags reps whose discounts are creeping up and quantifies the margin at stake, so discounting stays disciplined.` },
     ],
     faqs: [
       { q: `What is the average discount rate formula?`, a: `For each deal, 1 minus (actual selling price divided by list price); then average across deals, ideally weighted by deal value. It measures how far below list you sell and the margin you give up on price.` },
@@ -2538,7 +2538,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your sales team generated 8,000,000 dollars of gross margin last year at a fully loaded sales cost of 2,000,000 dollars. The productivity ratio is 8,000,000 / 2,000,000 = 4 to 1.`, `If revenue grew but the ratio fell to 3 to 1, sales costs rose faster than the margin they produced, which argues for fixing efficiency, ramp, or win rate before hiring more reps.`] },
-      { h: `How Rally handles it`, body: `Rally measures sales productivity as both revenue per rep and a margin-to-cost ratio, trended by segment. Rook flags when productivity is declining and points to the driver, whether it is ramp, win rate, or rising cost, so you fix the right thing.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures sales productivity as both revenue per rep and a margin-to-cost ratio, trended by segment. Rook flags when productivity is declining and points to the driver, whether it is ramp, win rate, or rising cost, so you fix the right thing.` },
     ],
     faqs: [
       { q: `How do you measure sales productivity?`, a: `As output relative to input: revenue per rep per period, or the ratio of gross margin generated to fully loaded sales cost. The cost-based ratio is more complete because it reflects what the sales engine actually consumes.` },
@@ -2567,7 +2567,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why 3 to 1 and not higher`, body: [`Three to one leaves room to reinvest in growth while keeping acquisition profitable. A much higher ratio, say 6 to 1, is not automatically better; it often means you are spending too little on acquisition and ceding the market to competitors who are willing to grow faster.`, `The ratio must be built on gross-margin LTV and a fully loaded CAC. A suspiciously high number usually hides revenue-based LTV, understated churn, or a CAC that omits salaries.`] },
-      { h: `How Rally handles it`, body: `Rally builds both inputs from one source of truth so the ratio cannot be gamed by mixing definitions. Rook flags when the ratio drifts outside the healthy band and shows whether CAC, churn, or expansion drove the move.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds both inputs from one source of truth so the ratio cannot be gamed by mixing definitions. Rook flags when the ratio drifts outside the healthy band and shows whether CAC, churn, or expansion drove the move.` },
     ],
     faqs: [
       { q: `What is a good LTV to CAC ratio?`, a: `Around 3 to 1. Below 3 means acquisition is too expensive relative to value; below 1 means you lose money per customer. Above 5 can mean you are underinvesting and could grow faster.` },
@@ -2593,7 +2593,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Growth benchmarks by stage`, body: [`From 1 to 10,000,000 dollars, top companies often triple ARR. From 10 to roughly 100,000,000 dollars, doubling is the elite bar. Past 100,000,000 dollars, sustaining 40 to 50 percent growth is exceptional. The law of large numbers makes each stage harder than the last.`, `Growth alone is not enough; efficiency matters. A company growing 80 percent while burning unsustainably can be worse off than one growing 40 percent efficiently. Judge growth beside the burn multiple and Rule of 40.`] },
-      { h: `How Rally handles it`, body: `Rally tracks ARR growth against your scale and pairs it with efficiency metrics, so growth is never judged in isolation. Rook decomposes the growth rate into new and expansion so you see whether it is durable or dependent on new logos.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks ARR growth against your scale and pairs it with efficiency metrics, so growth is never judged in isolation. Rook decomposes the growth rate into new and expansion so you see whether it is durable or dependent on new logos.` },
     ],
     faqs: [
       { q: `What is a good ARR growth rate?`, a: `It depends on scale. Early-stage SaaS can double or triple yearly; past 10,000,000 dollars, 40 to 60 percent is strong; past 100,000,000 dollars, 40 to 50 percent is exceptional. Growth naturally slows as the base grows.` },
@@ -2619,7 +2619,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the magic number`, body: [`Above 0.75, each dollar of sales and marketing is producing enough new ARR that pouring in more is justified. Between 0.5 and 0.75, growth is real but not clearly worth accelerating. Below 0.5, you are buying revenue inefficiently and adding spend would waste it.`, `The magic number is a go-to-market metric, not a whole-company one. Pair it with the burn multiple, which captures total burn, for a complete efficiency picture.`] },
-      { h: `How Rally handles it`, body: `Rally computes the magic number from live ARR movement and connected spend with the correct lag. Rook tells you whether the number supports leaning into spend or signals an efficiency problem to fix first, so growth decisions rest on evidence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the magic number from live ARR movement and connected spend with the correct lag. Rook tells you whether the number supports leaning into spend or signals an efficiency problem to fix first, so growth decisions rest on evidence.` },
     ],
     faqs: [
       { q: `What is a good magic number?`, a: `0.75 or higher signals efficient growth and a case to invest more. Between 0.5 and 0.75 is acceptable but worth watching. Below 0.5 means your go-to-market is inefficient and you should fix conversion before adding spend.` },
@@ -2645,7 +2645,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Consistency over perfection`, body: [`A team within 5 percent every quarter is more valuable than one that is perfect once and 20 percent off the next. Predictable accuracy lets leadership plan with confidence, which is the entire point of a forecast.`, `Systematic bias, always high or always low, is a gift, because once you see the pattern you can correct for it. The goal is to remove random error and then adjust for any consistent bias.`] },
-      { h: `How Rally handles it`, body: `Rally locks the forecast at a fixed point and scores accuracy at close by rep and team, so bias becomes visible instead of anecdotal. Rook flags reps who consistently forecast high or low so leadership can correct the roll-up.` },
+      { h: `How Ardovo handles it`, body: `Ardovo locks the forecast at a fixed point and scores accuracy at close by rep and team, so bias becomes visible instead of anecdotal. Rook flags reps who consistently forecast high or low so leadership can correct the roll-up.` },
     ],
     faqs: [
       { q: `What is a good sales forecast accuracy?`, a: `Landing within 5 to 10 percent of actual, or 90 to 95 percent accuracy, each period is strong. Consistency over time and the absence of systematic bias matter more than hitting a single accuracy target once.` },
@@ -2671,7 +2671,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Ramp benchmarks by segment`, body: [`Transactional roles can ramp in a few weeks because the product self-qualifies and cycles are short. Mid-market reps typically take two to four months. Enterprise reps often need six months or more to learn the product, the buyers, and the long, complex cycle.`, `The lever is warm pipeline, clear playbooks, and structured onboarding, not pressure. A rep given real pipeline and coaching ramps faster than one handed a blank CRM and a quota.`] },
-      { h: `How Rally handles it`, body: `Rally is alive with data on day one, so new reps inherit real pipeline and playbooks instead of a blank CRM. Rook coaches new hires through the process with next-best-action prompts, which measurably shortens time to first deal.` },
+      { h: `How Ardovo handles it`, body: `Ardovo is alive with data on day one, so new reps inherit real pipeline and playbooks instead of a blank CRM. Rook coaches new hires through the process with next-best-action prompts, which measurably shortens time to first deal.` },
     ],
     faqs: [
       { q: `What is a good sales ramp time?`, a: `As short as complexity allows: weeks for transactional roles, two to four months for mid-market, and six months or more for enterprise. Faster ramp means quicker payback, but forcing it usually hurts win rate.` },
@@ -2697,7 +2697,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to use velocity`, body: [`Track velocity over time and by segment rather than against an external benchmark. A rising trend is the goal. When velocity falls, decompose it: is deal count down, deal value shrinking, win rate slipping, or the cycle lengthening. The four levers make the diagnosis clear.`, `Because cycle length is the denominator, shortening it often lifts velocity fastest. But do not chase a shorter cycle at the cost of win rate or deal size, which would offset the gain.`] },
-      { h: `How Rally handles it`, body: `Rally computes velocity from live deal data and breaks it into its four levers by rep and segment. Rook highlights which lever is dragging when velocity dips and estimates the gain from fixing it, so improvement effort goes where it pays off.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes velocity from live deal data and breaks it into its four levers by rep and segment. Rook highlights which lever is dragging when velocity dips and estimates the gain from fixing it, so improvement effort goes where it pays off.` },
     ],
     faqs: [
       { q: `What is a good sales velocity?`, a: `There is no universal benchmark; velocity is a dollars-per-day figure specific to your deal size and cycle. Judge it by whether it is rising over time and how it compares across your own segments, not against other companies.` },
@@ -2726,7 +2726,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why CMRR is useful`, body: [`Plain MRR is a snapshot of today and misses known future movements. CMRR incorporates them, so a signed deal that starts next quarter or a customer who has given notice is reflected now. That makes near-term planning and forecasting more accurate.`, `CMRR is especially valuable for businesses with delayed starts or annual renewals, where a lot of known change sits just outside the current-MRR window.`] },
-      { h: `How Rally handles it`, body: `Rally derives committed MRR from signed contracts and known renewals, so you see recurring revenue you can already count on. Rook flags upcoming starts and scheduled churn, keeping CMRR current and near-term forecasts grounded.` },
+      { h: `How Ardovo handles it`, body: `Ardovo derives committed MRR from signed contracts and known renewals, so you see recurring revenue you can already count on. Rook flags upcoming starts and scheduled churn, keeping CMRR current and near-term forecasts grounded.` },
     ],
     faqs: [
       { q: `What is committed MRR?`, a: `Current MRR plus signed contracts not yet started, minus known upcoming churn and downgrades. It is a forward-looking view of recurring revenue that folds in changes you can already see coming.` },
@@ -2752,7 +2752,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why net, not gross`, body: [`Gross new MRR counts only additions and ignores what you lost. A month of 100,000 dollars new MRR looks great until you see 70,000 dollars of churn, leaving 30,000 dollars of net new MRR. Netting the components is what makes the number honest.`, `Breaking net new MRR into its four parts also shows the story: whether growth came from new logos, expansion, or simply lower churn. The composition matters as much as the total.`] },
-      { h: `How Rally handles it`, body: `Rally computes net new MRR and its four components in real time from billing, so momentum is always current and always explained. Rook flags when a strong new-business month is being eroded by rising churn or contraction.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes net new MRR and its four components in real time from billing, so momentum is always current and always explained. Rook flags when a strong new-business month is being eroded by rising churn or contraction.` },
     ],
     faqs: [
       { q: `What is the net new MRR formula?`, a: `New MRR plus expansion MRR minus churned MRR minus contraction MRR. It nets the four ways recurring revenue moves into one number, the true monthly change and the clearest measure of growth momentum.` },
@@ -2778,7 +2778,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What logo churn reveals`, body: [`Because it ignores size, logo churn is a purer measure of whether customers are happy and the product fits. A rising logo churn rate is an early warning about the broad health of the base, even if revenue churn stays low because the departures are small.`, `Read it beside revenue churn. High logo churn with low revenue churn means you are losing small accounts, which may be acceptable; low logo churn with high revenue churn means you are losing big ones, which is urgent.`] },
-      { h: `How Rally handles it`, body: `Rally reports logo churn beside revenue churn and by segment, so you see both the count and the dollars leaving. Rook flags rising logo churn in a segment early, catching a satisfaction or fit problem before it spreads to larger accounts.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports logo churn beside revenue churn and by segment, so you see both the count and the dollars leaving. Rook flags rising logo churn in a segment early, catching a satisfaction or fit problem before it spreads to larger accounts.` },
     ],
     faqs: [
       { q: `What is logo churn?`, a: `The percentage of customers, or logos, you lose in a period, counted by number rather than revenue. It treats every customer equally regardless of size, reflecting product-market fit and satisfaction across the base.` },
@@ -2804,7 +2804,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why negative churn is the goal`, body: [`When expansion outpaces losses, each new customer you add lands on top of a base that is already growing, so growth accelerates. This is why net revenue retention above 100 percent is prized so highly; it means the flywheel spins on its own.`, `Negative churn is usually driven by usage-based or seat-based pricing and strong customer success, where accounts naturally grow as they adopt more. It is easier to achieve in enterprise than in SMB.`] },
-      { h: `How Rally handles it`, body: `Rally shows net revenue churn and its expansion and loss components, so you can see how close you are to negative churn and what is driving it. Rook surfaces expansion-ready accounts to help push the existing base into compounding territory.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows net revenue churn and its expansion and loss components, so you can see how close you are to negative churn and what is driving it. Rook surfaces expansion-ready accounts to help push the existing base into compounding territory.` },
     ],
     faqs: [
       { q: `What is negative churn?`, a: `When expansion revenue from existing customers exceeds the revenue lost to cancellations and downgrades, so the base grows without new customers. It is equivalent to net revenue retention above 100 percent.` },
@@ -2835,7 +2835,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your SaaS product earns 2,000,000 dollars in revenue. COGS, hosting, support, and processing, totals 400,000 dollars.`, `Gross margin = (2,000,000 - 400,000) / 2,000,000 = 1,600,000 / 2,000,000 = 80 percent. That 80 percent is what funds sales, marketing, R&D, and profit. If COGS were 700,000 dollars, margin would fall to 65 percent, below the SaaS benchmark and a flag to investigate cost to serve.`] },
-      { h: `How Rally handles it`, body: `Rally uses gross margin to compute margin-based metrics like LTV and CAC payback, so they reflect profit rather than revenue. Rook flags when margin-based metrics move because gross margin shifted, not just because volume changed.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses gross margin to compute margin-based metrics like LTV and CAC payback, so they reflect profit rather than revenue. Rook flags when margin-based metrics move because gross margin shifted, not just because volume changed.` },
     ],
     faqs: [
       { q: `What is the gross margin formula?`, a: `Revenue minus cost of goods sold, divided by revenue, times 100. COGS includes the direct costs of delivering the product, hosting, support, and processing, but excludes sales, marketing, and overhead.` },
@@ -2866,7 +2866,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you booked 1,500,000 dollars of new orders and billed 1,200,000 dollars. Book-to-bill = 1,500,000 / 1,200,000 = 1.25.`, `A ratio of 1.25 means new demand is running 25 percent ahead of what you are invoicing, so backlog and future revenue are growing. If it fell to 0.9 next quarter, new bookings would be lagging billings, an early warning of a demand slowdown.`] },
-      { h: `How Rally handles it`, body: `Rally tracks bookings and billings from the same deal and billing data, so book-to-bill is always current. Rook flags when the ratio dips below 1, surfacing a demand slowdown before it shows up in revenue.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks bookings and billings from the same deal and billing data, so book-to-bill is always current. Rook flags when the ratio dips below 1, surfacing a demand slowdown before it shows up in revenue.` },
     ],
     faqs: [
       { q: `What is the book-to-bill ratio formula?`, a: `Bookings (new orders received) divided by billings (amount invoiced) in a period. A ratio above 1 means you are booking more than billing, signaling growing demand; below 1 means billings exceed new bookings.` },
@@ -2897,7 +2897,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your company earns 30,000,000 dollars in annual revenue with 120 employees. Revenue per employee = 30,000,000 / 120 = 250,000 dollars.`, `If revenue grows to 45,000,000 dollars while headcount rises only to 150, revenue per employee climbs to 300,000 dollars, showing you added revenue faster than people, which is exactly the leverage investors reward.`] },
-      { h: `How Rally handles it`, body: `Rally tracks revenue per employee as revenue scales, so operational leverage is visible alongside growth. Rook flags when headcount is growing faster than revenue, an early sign that efficiency is slipping as you scale.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks revenue per employee as revenue scales, so operational leverage is visible alongside growth. Rook flags when headcount is growing faster than revenue, an early sign that efficiency is slipping as you scale.` },
     ],
     faqs: [
       { q: `What is the revenue per employee formula?`, a: `Total revenue in a period, usually annualized, divided by total headcount. It measures whole-company efficiency and operational leverage, not just sales productivity, and is best read as a trend and against peers.` },
@@ -2928,7 +2928,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You added 3,000,000 dollars of net new ARR this year on 3,000,000 dollars of sales and marketing spend. Sales efficiency = 3,000,000 / 3,000,000 = 1.0, meaning each dollar of spend generated a dollar of new recurring revenue.`, `Using the magic-number variant, you would divide this year's net new ARR by last year's spend to account for the lag between investment and revenue, often giving a slightly different, more flattering or conservative figure.`] },
-      { h: `How Rally handles it`, body: `Rally computes sales efficiency and the magic number from live revenue and connected spend, so you can see both the immediate and lagged views. Rook explains what moved efficiency, whether spend rose or new revenue slowed.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes sales efficiency and the magic number from live revenue and connected spend, so you can see both the immediate and lagged views. Rook explains what moved efficiency, whether spend rose or new revenue slowed.` },
     ],
     faqs: [
       { q: `What is the sales efficiency ratio formula?`, a: `New or net new revenue in a period divided by the sales and marketing spend that produced it. Above 1 means each dollar of spend generated more than a dollar of new revenue. The magic number is a lagged variant.` },
@@ -2959,7 +2959,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter, 80 contracts worth 4,000,000 dollars were up for renewal. 72 contracts renewed, worth 3,800,000 dollars.`, `Count-based renewal rate = 72 / 80 = 90 percent. Dollar-based renewal rate = 3,800,000 / 4,000,000 = 95 percent. The higher dollar rate means the contracts that did not renew were smaller than average, so the revenue impact was milder than the count suggests.`] },
-      { h: `How Rally handles it`, body: `Rally tracks count-based and dollar-based renewal rates and flags upcoming renewals weighted by value. Rook surfaces at-risk renewals early from engagement and support signals, turning renewal rate from a scorecard into a save list.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks count-based and dollar-based renewal rates and flags upcoming renewals weighted by value. Rook surfaces at-risk renewals early from engagement and support signals, turning renewal rate from a scorecard into a save list.` },
     ],
     faqs: [
       { q: `What is the renewal rate formula?`, a: `Renewed contracts (or dollars) divided by contracts (or dollars) up for renewal in the period, times 100. Count-based treats every contract equally; dollar-based weights by value and better reflects revenue impact.` },
@@ -2990,7 +2990,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Three deals: 100,000 dollars at 20 percent, 60,000 dollars at 50 percent, and 40,000 dollars at 80 percent. Weighted contributions are 20,000, 30,000, and 32,000 dollars.`, `Weighted pipeline = 20,000 + 30,000 + 32,000 = 82,000 dollars, versus 200,000 dollars of raw pipeline. The weighted figure is a far more realistic estimate of what these deals will actually contribute this period.`] },
-      { h: `How Rally handles it`, body: `Rally weights pipeline by stage probability automatically and lets you override per deal. Rook refines the weighting with real signals like engagement and buying-committee coverage, not just the stage a rep parked the deal in.` },
+      { h: `How Ardovo handles it`, body: `Ardovo weights pipeline by stage probability automatically and lets you override per deal. Rook refines the weighting with real signals like engagement and buying-committee coverage, not just the stage a rep parked the deal in.` },
     ],
     faqs: [
       { q: `What is the weighted pipeline formula?`, a: `The sum of each open deal's value multiplied by its win probability. A 50,000 dollar deal at 40 percent contributes 20,000 dollars. The total is a risk-adjusted estimate between raw pipeline and zero.` },
@@ -3021,7 +3021,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 20 contracts. Eighteen are one-year deals averaging 30,000 dollars; two are three-year deals worth 180,000 dollars total each, or 60,000 dollars of ACV each.`, `Total ACV = (18 x 30,000) + (2 x 60,000) = 540,000 + 120,000 = 660,000 dollars. Average contract value = 660,000 / 20 = 33,000 dollars. Note the multi-year deals contributed their annual value, not their 180,000 dollar totals, keeping the average honest.`] },
-      { h: `How Rally handles it`, body: `Rally computes ACV by annualizing every contract and rolls it up to ARR automatically, so per-deal and company numbers reconcile. Rook reports mean and median ACV by segment, so a few large multi-year deals never distort your planning.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes ACV by annualizing every contract and rolls it up to ARR automatically, so per-deal and company numbers reconcile. Rook reports mean and median ACV by segment, so a few large multi-year deals never distort your planning.` },
     ],
     faqs: [
       { q: `What is the average contract value formula?`, a: `The sum of the annualized value of all contracts divided by the number of contracts. Annualize multi-year deals to their yearly value so long contracts do not distort the average.` },
@@ -3052,7 +3052,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Trying to rush the buyer rather than removing friction. Pressure late in the cycle loses deals; removing avoidable delay earlier shortens the cycle without costing win rate.`, `Ignoring the paper process until the end. Security review and procurement are predictable and slow. Surface them early via a mutual action plan so they do not add weeks at the finish.`] },
-      { h: `How Rally handles it`, body: `Rally attaches mutual action plans to deals and tracks the paper process as milestones, so hidden steps surface early. Rook flags single-threaded deals and deals with unrealistic close dates, the two patterns that most often stretch the cycle.` },
+      { h: `How Ardovo handles it`, body: `Ardovo attaches mutual action plans to deals and tracks the paper process as milestones, so hidden steps surface early. Rook flags single-threaded deals and deals with unrealistic close dates, the two patterns that most often stretch the cycle.` },
     ],
     faqs: [
       { q: `How do I shorten my sales cycle?`, a: `Qualify harder up front, multithread to the economic buyer early, build a mutual action plan with dated milestones, and remove late-stage legal and procurement friction. Disqualifying bad-fit deals sooner also shortens the average.` },
@@ -3083,7 +3083,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A campaign spends 25,000 dollars and, by your attribution model, drives 100,000 dollars of revenue. ROAS = 100,000 / 25,000 = 4 to 1.`, `Whether 4 to 1 is good depends on margin. At 75 percent gross margin, that 100,000 dollars of revenue is 75,000 dollars of gross profit against 25,000 dollars of spend, a healthy return. At 25 percent margin, it would barely break even.`] },
-      { h: `How Rally handles it`, body: `Rally ties ad spend to attributed revenue and shows ROAS beside CAC and payback, so paid performance is seen in full context. Rook flags campaigns whose ROAS looks fine but whose customers churn fast, where the fuller metrics tell a different story.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ties ad spend to attributed revenue and shows ROAS beside CAC and payback, so paid performance is seen in full context. Rook flags campaigns whose ROAS looks fine but whose customers churn fast, where the fuller metrics tell a different story.` },
     ],
     faqs: [
       { q: `What is the ROAS formula?`, a: `Revenue attributed to advertising divided by the ad spend that produced it, expressed as a ratio. A 4 to 1 ROAS means four dollars of revenue for every dollar of ad spend. Use a consistent attribution model.` },
@@ -3114,7 +3114,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your base starts the month at 400,000 dollars of MRR. You lose 16,000 dollars to cancellations and 4,000 dollars to downgrades, for 20,000 dollars of gross churn.`, `Gross revenue churn = 20,000 / 400,000 = 5 percent. If you also gained 30,000 dollars of expansion, net revenue churn is (20,000 - 30,000) / 400,000 = negative 2.5 percent, meaning the base grew and net revenue retention was 102.5 percent.`] },
-      { h: `How Rally handles it`, body: `Rally computes gross and net revenue churn from live billing, by segment and cohort. Rook flags when gross revenue churn is climbing even while net stays negative, catching a leak that expansion is temporarily masking.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes gross and net revenue churn from live billing, by segment and cohort. Rook flags when gross revenue churn is climbing even while net stays negative, catching a leak that expansion is temporarily masking.` },
     ],
     faqs: [
       { q: `What is the revenue churn rate formula?`, a: `Recurring revenue lost to cancellations and downgrades divided by starting recurring revenue, times 100. Net revenue churn subtracts expansion from the losses and can be negative when the base grows.` },
@@ -3140,7 +3140,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Using pipeline velocity`, body: [`Track it over time and by segment to see whether your pipeline is converting faster or slower. A rising velocity means deals are moving quicker or converting better; a falling one flags a slowdown you can trace to one of the four inputs.`, `Shortening the sales cycle often lifts velocity most, since it is the denominator, but watch that a faster cycle does not come at the cost of win rate or deal size, which would offset the gain.`] },
-      { h: `How Rally handles it`, body: `Rally computes pipeline velocity from live deal data and decomposes it into its four levers by segment. Rook flags which lever is dragging when velocity dips, so you fix the real constraint rather than guessing.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes pipeline velocity from live deal data and decomposes it into its four levers by segment. Rook flags which lever is dragging when velocity dips, so you fix the real constraint rather than guessing.` },
     ],
     faqs: [
       { q: `What is pipeline velocity?`, a: `How fast deals move through the pipeline and convert to revenue, expressed as dollars per day. It blends opportunity count, average deal value, win rate, and sales cycle length, and is often used interchangeably with sales velocity.` },
@@ -3166,7 +3166,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How deal size fits your economics`, body: [`A larger average deal size can justify a longer sales cycle and a higher CAC, because there is more revenue to recover the cost. A small deal size demands a short cycle and low CAC, which usually means self-serve or low-touch sales. The three must be consistent.`, `Moving upmarket raises deal size but also lengthens the cycle and raises CAC. Whether that is good depends on whether LTV to CAC and payback stay healthy at the larger size.`] },
-      { h: `How Rally handles it`, body: `Rally tracks average deal size beside CAC, cycle length, and payback, so you see whether your deal size fits your economics. Rook flags when a shift in deal size is stretching your cycle or CAC out of a healthy range.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks average deal size beside CAC, cycle length, and payback, so you see whether your deal size fits your economics. Rook flags when a shift in deal size is stretching your cycle or CAC out of a healthy range.` },
     ],
     faqs: [
       { q: `What is a good average deal size?`, a: `There is no universal figure; it depends on your market and motion. Self-serve averages small deals, enterprise averages large ones. What matters is that deal size supports your CAC and cycle and trends as your strategy intends.` },
@@ -3192,7 +3192,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `GRR benchmarks by segment`, body: [`Enterprise SaaS commonly achieves GRR above 90 percent because contracts are annual or multi-year and switching is costly. Mid-market lands somewhat lower. SMB and self-serve often see GRR in the low 80s or below, since small customers churn more readily.`, `The gap between GRR and NRR tells you how much of your net retention is expansion versus pure stickiness. A small gap means genuinely sticky revenue; a large one means expansion is doing heavy lifting.`] },
-      { h: `How Rally handles it`, body: `Rally reports GRR beside NRR by segment, so you always see the honest retention floor. Rook flags when GRR is eroding even as NRR holds, the classic sign that expansion is masking a growing churn problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports GRR beside NRR by segment, so you always see the honest retention floor. Rook flags when GRR is eroding even as NRR holds, the classic sign that expansion is masking a growing churn problem.` },
     ],
     faqs: [
       { q: `What is a good gross revenue retention?`, a: `90 percent or higher for B2B SaaS. Enterprise often exceeds 90 percent because of sticky contracts, while SMB and self-serve run lower, sometimes in the low 80s. GRR excludes expansion, so it caps at 100 percent.` },
@@ -3223,7 +3223,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter, total new pipeline created was 8,000,000 dollars. Opportunities with a marketing first touch totaled 3,600,000 dollars.`, `Marketing-sourced pipeline = 3,600,000 / 8,000,000 = 45 percent. If marketing also influenced (touched at some point) another 2,000,000 dollars of sales-sourced deals, marketing-influenced pipeline would be 5,600,000 dollars, or 70 percent, a broader measure of its reach.`] },
-      { h: `How Rally handles it`, body: `Rally attributes every opportunity to its source and tracks both sourced and influenced pipeline on shared data. Rook shows which marketing programs originate the most pipeline and closed revenue, ending the lead-volume-versus-revenue debate with evidence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo attributes every opportunity to its source and tracks both sourced and influenced pipeline on shared data. Rook shows which marketing programs originate the most pipeline and closed revenue, ending the lead-volume-versus-revenue debate with evidence.` },
     ],
     faqs: [
       { q: `What is marketing-sourced pipeline?`, a: `The total value of opportunities that marketing originated, based on first touch or lead source. Dividing it by total new pipeline gives the sourced percentage, a measure of marketing's direct contribution to revenue.` },
@@ -3249,7 +3249,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Benchmarks by stage and source`, body: [`Early stages (lead to MQL, MQL to SQL) filter for fit and intent, so rates are moderate. Later stages (opportunity to close) reflect selling skill and deal quality. Multiplying the stage rates gives the overall lead-to-customer rate, usually low single digits.`, `Source dominates. Inbound demo requests can convert to close at 30 to 50 percent while cold outbound wins 5 to 15 percent. Comparing a cold-outbound rate to an inbound benchmark will always look like underperformance when it is just a different motion.`] },
-      { h: `How Rally handles it`, body: `Rally computes conversion at every stage by source, so a blended number becomes an actionable map. Rook points to the stage furthest below its benchmark and estimates the revenue from fixing it first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes conversion at every stage by source, so a blended number becomes an actionable map. Rook points to the stage furthest below its benchmark and estimates the revenue from fixing it first.` },
     ],
     faqs: [
       { q: `What is a good sales conversion rate?`, a: `It varies by stage: lead to MQL 25 to 40 percent, MQL to SQL 20 to 40 percent, opportunity to close 20 to 30 percent, and overall lead to customer often 1 to 3 percent. Compare each stage by source.` },
@@ -3275,7 +3275,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Raising the demo to close rate`, body: [`The highest-leverage move is qualifying harder before the demo: confirm fit, a real problem, budget, and the right stakeholders. Demoing to unqualified prospects wastes the rep's most expensive activity and drags the rate down regardless of demo skill.`, `Tailoring the demo to the buyer's specific problem, rather than a generic feature tour, also lifts conversion. A demo that shows the prospect solving their exact problem converts far better than a walkthrough of every feature.`] },
-      { h: `How Rally handles it`, body: `Rally tracks demo to close rate by source and rep and ties it to pre-demo qualification data. Rook flags reps demoing to under-qualified prospects, so the fix targets qualification rather than blaming demo skills.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks demo to close rate by source and rep and ties it to pre-demo qualification data. Rook flags reps demoing to under-qualified prospects, so the fix targets qualification rather than blaming demo skills.` },
     ],
     faqs: [
       { q: `What is a good demo to close rate?`, a: `Commonly 20 to 30 percent for B2B, and higher for inbound demos with strong intent. It reflects both qualification quality and demo effectiveness, so compare it by source and against your own trend.` },
@@ -3301,7 +3301,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why minutes matter`, body: [`Studies repeatedly find that responding within 5 minutes versus 30 minutes can increase the odds of qualifying a lead many times over, and that odds decay rapidly after the first hour. Buyers are most engaged right after they raise their hand, and they often shop multiple vendors.`, `Because response time is entirely within your control, unlike lead quality or win rate, it is often the fastest way to lift conversion. Automating instant routing and follow-up is a common high-return fix.`] },
-      { h: `How Rally handles it`, body: `Rally routes inbound leads instantly and flags any lead sitting past your speed-to-lead target. Rook can trigger immediate follow-up, so the first-responder advantage is captured automatically rather than lost to a slow manual handoff.` },
+      { h: `How Ardovo handles it`, body: `Ardovo routes inbound leads instantly and flags any lead sitting past your speed-to-lead target. Rook can trigger immediate follow-up, so the first-responder advantage is captured automatically rather than lost to a slow manual handoff.` },
     ],
     faqs: [
       { q: `What is a good lead response time?`, a: `Under 5 minutes for inbound leads. Conversion odds drop sharply as response time grows, so contacting a lead within minutes rather than hours can multiply the chance of qualifying it. Speed to lead is highly controllable.` },
@@ -3327,7 +3327,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What makes a good PQL signal`, body: [`The best PQL signals are actions that correlate with realizing value and expanding usage: reaching a key activation milestone, inviting teammates, hitting a usage limit, or using a feature associated with paying customers. These behaviors predict willingness to pay far better than form fills.`, `Defining the PQL threshold requires analyzing which in-product behaviors precede conversion. Set the bar where usage reliably predicts a buy, then route those users to sales or an in-product upgrade prompt.`] },
-      { h: `How Rally handles it`, body: `Rally can ingest product usage signals and score PQLs alongside traditional leads, so sales works the highest-intent users first. Rook flags accounts hitting value or usage milestones, turning product behavior into a prioritized pipeline.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can ingest product usage signals and score PQLs alongside traditional leads, so sales works the highest-intent users first. Rook flags accounts hitting value or usage milestones, turning product behavior into a prioritized pipeline.` },
     ],
     faqs: [
       { q: `What is a product qualified lead?`, a: `A user who has experienced meaningful value in your product, usually via a free trial or freemium tier, and shows behavior signaling readiness to buy. PQLs are qualified on actual usage, not marketing engagement.` },
@@ -3358,7 +3358,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In a month you had 2,000 signups. Your activation milestone is creating a first project and inviting a teammate. 700 users did both within 7 days.`, `Activation rate = 700 / 2,000 = 35 percent. If a cohort that activates retains at 80 percent while non-activated users retain at 20 percent, lifting activation from 35 to 45 percent would meaningfully raise overall retention, making activation one of the highest-leverage metrics to improve.`] },
-      { h: `How Rally handles it`, body: `Rally can track activation from product signals and tie it to downstream retention and expansion, so the value of improving onboarding is visible. Rook flags where users drop off before activating, pointing to the onboarding step worth fixing.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can track activation from product signals and tie it to downstream retention and expansion, so the value of improving onboarding is visible. Rook flags where users drop off before activating, pointing to the onboarding step worth fixing.` },
     ],
     faqs: [
       { q: `What is the activation rate formula?`, a: `Users who reach the key value milestone divided by total signups in the period, times 100. The milestone should be the action or usage level that best predicts long-term retention, found by analyzing your data.` },
@@ -3384,7 +3384,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Building a health score that works`, body: [`Start from data: which signals actually preceded churn and renewal in your history. Common inputs are product usage depth and breadth, login frequency, feature adoption, support ticket volume and sentiment, NPS, and executive engagement. Weight them by how well each predicts the outcome.`, `A health score should drive action, not just color-code accounts. Each risk band needs a defined play, so a declining score triggers outreach while there is still time to save the account.`] },
-      { h: `How Rally handles it`, body: `Rally builds health scores from live usage, engagement, and support signals and predicts at-risk accounts. Rook prompts the owner before a renewal is threatened and flags healthy accounts ready for expansion, so success plays both defense and offense.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds health scores from live usage, engagement, and support signals and predicts at-risk accounts. Rook prompts the owner before a renewal is threatened and flags healthy accounts ready for expansion, so success plays both defense and offense.` },
     ],
     faqs: [
       { q: `What is a customer health score?`, a: `A composite metric combining signals like product usage, engagement, support activity, and sentiment into one number that predicts whether an account will renew, churn, or expand, so success teams can act before churn happens.` },
@@ -3415,7 +3415,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You survey 200 customers. 120 score 9 to 10 (promoters, 60 percent), 50 score 7 to 8 (passives, 25 percent), and 30 score 0 to 6 (detractors, 15 percent).`, `NPS = 60 percent minus 15 percent = 45. The 25 percent passives do not enter the calculation directly but do dilute your promoter percentage. Moving passives to promoters is often the fastest way to lift NPS.`] },
-      { h: `How Rally handles it`, body: `Rally can track NPS by segment and tie it to retention and expansion, so the score connects to revenue rather than sitting alone. Rook flags detractor clusters in a segment, turning a survey number into a targeted retention action.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can track NPS by segment and tie it to retention and expansion, so the score connects to revenue rather than sitting alone. Rook flags detractor clusters in a segment, turning a survey number into a targeted retention action.` },
     ],
     faqs: [
       { q: `What is the NPS formula?`, a: `Percent of promoters (scoring 9 to 10) minus percent of detractors (scoring 0 to 6). Passives (7 to 8) are excluded from the subtraction. The result ranges from negative 100 to positive 100.` },
@@ -3441,7 +3441,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Making the handoff work`, body: [`The MQL and SQL definitions must be agreed by both teams and backed by a feedback loop: when sales rejects an MQL, the reason should flow back to marketing so the criteria improve. Without that, marketing optimizes MQL volume while sales drowns in poor-fit leads.`, `A healthy MQL to SQL conversion of 20 to 40 percent signals aligned definitions. Much lower means the MQL bar is too loose; much higher can mean marketing is being too conservative and limiting volume.`] },
-      { h: `How Rally handles it`, body: `Rally tracks the MQL to SQL handoff by source and campaign on shared data, so both teams see which programs produce accepted leads. Rook flags sources whose leads rarely convert, ending the volume-versus-quality argument with evidence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks the MQL to SQL handoff by source and campaign on shared data, so both teams see which programs produce accepted leads. Rook flags sources whose leads rarely convert, ending the volume-versus-quality argument with evidence.` },
     ],
     faqs: [
       { q: `What is the difference between an MQL and an SQL?`, a: `An MQL is a marketing-qualified lead based on engagement signals like content downloads. An SQL is a sales-qualified lead that sales has accepted as worth active pursuit after confirming fit and intent. The conversion between them measures alignment.` },
@@ -3472,7 +3472,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your win rate is 25 percent and you want 4x coverage on a 2,000,000 dollar quarterly quota, so you need 8,000,000 dollars of pipeline covering that quarter. With a 60-day cycle, much of it must be created a quarter ahead.`, `If you created only 5,000,000 dollars of new pipeline last quarter against an 8,000,000 dollar need, you are heading for a coverage shortfall. Pipeline created surfaced the gap early, while there was still time to run more pipegen.`] },
-      { h: `How Rally handles it`, body: `Rally tracks pipeline created by source and rep and compares it to the coverage your quotas require. Rook flags when creation falls below the run rate needed to hit future targets, so pipegen problems surface a quarter early rather than at close.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks pipeline created by source and rep and compares it to the coverage your quotas require. Rook flags when creation falls below the run rate needed to hit future targets, so pipegen problems surface a quarter early rather than at close.` },
     ],
     faqs: [
       { q: `What is pipeline created?`, a: `The total value of new qualified opportunities added to the pipeline in a period, often called pipegen. Because deals constantly exit the pipeline, consistent pipeline creation is a leading indicator of future bookings.` },
@@ -3503,7 +3503,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Channel A produces leads at 30 dollars each but converts only 5 percent to SQLs, so cost per SQL is 600 dollars. Channel B produces leads at 60 dollars but converts 20 percent to SQLs, so cost per SQL is 300 dollars.`, `Despite double the cost per lead, Channel B's cost per SQL is half of Channel A's. Optimizing on cost per lead would have sent budget to the worse channel; cost per SQL reveals the truth.`] },
-      { h: `How Rally handles it`, body: `Rally computes cost per SQL by channel and links it to downstream conversion and CAC, so you never optimize for cheap leads that never qualify. Rook flags channels with low cost per lead but high cost per SQL, the classic lead-quality trap.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes cost per SQL by channel and links it to downstream conversion and CAC, so you never optimize for cheap leads that never qualify. Rook flags channels with low cost per lead but high cost per SQL, the classic lead-quality trap.` },
     ],
     faqs: [
       { q: `What is the cost per SQL formula?`, a: `Sales and marketing spend in a period divided by the number of sales-qualified leads generated. It is sharper than cost per lead because SQLs are qualified and closer to revenue, filtering out worthless cheap leads.` },
@@ -3529,7 +3529,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why shorter time to value wins`, body: [`Customers judge a purchase early. If they reach a clear win quickly, they justify the decision and deepen usage; if value is slow, doubt and churn set in before they ever see the payoff. Shortening TTV front-loads the value that keeps customers.`, `Measuring TTV requires defining the first value milestone, similar to activation, then timing how long customers take to reach it. Segmenting TTV shows where onboarding friction slows customers down.`] },
-      { h: `How Rally handles it`, body: `Rally can track time to value from product signals and tie it to retention, so the payoff of faster onboarding is visible. Rook flags where new customers stall before reaching value, pointing to the onboarding step worth fixing first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can track time to value from product signals and tie it to retention, so the payoff of faster onboarding is visible. Rook flags where new customers stall before reaching value, pointing to the onboarding step worth fixing first.` },
     ],
     faqs: [
       { q: `What is time to value?`, a: `How long it takes a new customer to reach their first meaningful outcome with your product, from signup or purchase to realizing value. Shorter time to value strongly predicts retention, adoption, and expansion.` },
@@ -3560,7 +3560,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your total ARR is 10,000,000 dollars. Your largest customer contributes 2,000,000 dollars, and your top 5 contribute 5,000,000 dollars.`, `Top-customer concentration = 2,000,000 / 10,000,000 = 20 percent, and top-5 concentration is 50 percent. Losing the top customer would erase a fifth of revenue overnight, a serious risk that argues for diversifying the base and locking in that account with multi-year terms.`] },
-      { h: `How Rally handles it`, body: `Rally reports customer concentration by top-N cuts and flags accounts whose share of revenue makes them a risk. Rook highlights concentration creeping up as a few accounts grow, so you diversify or protect those relationships before they become a single point of failure.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports customer concentration by top-N cuts and flags accounts whose share of revenue makes them a risk. Rook highlights concentration creeping up as a few accounts grow, so you diversify or protect those relationships before they become a single point of failure.` },
     ],
     faqs: [
       { q: `What is the customer concentration formula?`, a: `Revenue from your top customers (often the top 1, 5, or 10) divided by total revenue, times 100. It measures how dependent the business is on a small number of large accounts.` },
@@ -3591,7 +3591,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Relying on last-touch only, which over-credits branded search and retargeting that harvest existing intent while starving the awareness channels that created it. Capture the full path and compare models.`, `Treating attribution as exact truth. No model perfectly isolates one touch. Use attribution to compare channels and shift budget at the margin, and validate big bets with incrementality tests.`] },
-      { h: `How Rally handles it`, body: `Rally captures every touch on the path to a closed deal and supports multiple attribution models on the same data, so you can compare how each credits channels. Rook flags channels that create demand early but rarely get last-touch credit, so you do not defund what starts your best deals.` },
+      { h: `How Ardovo handles it`, body: `Ardovo captures every touch on the path to a closed deal and supports multiple attribution models on the same data, so you can compare how each credits channels. Rook flags channels that create demand early but rarely get last-touch credit, so you do not defund what starts your best deals.` },
     ],
     faqs: [
       { q: `How do you build a marketing attribution report?`, a: `Capture every touchpoint on the path to closed deals, choose an attribution model, credit pipeline and revenue to channels, and add cost data for ROI. Report both sourced and influenced pipeline by channel.` },
@@ -3622,7 +3622,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Forecasting from raw amounts without probability, which turns the spreadsheet into a best-case list. Always include the weighted column and reconcile against your real win rate.`, `Letting the sheet go stale. A forecast built on last month's stages and close dates is fiction. If you keep forecasting in a spreadsheet, schedule a disciplined refresh, and move to your CRM once the manual burden outweighs the flexibility.`] },
-      { h: `How Rally handles it`, body: `Rally replaces the spreadsheet with a live forecast that weights pipeline, rolls up rep commits, and scores accuracy automatically, always current. Rook flags commits with no supporting activity and reconciles bottom-up and top-down views, so you never rebuild the sheet again.` },
+      { h: `How Ardovo handles it`, body: `Ardovo replaces the spreadsheet with a live forecast that weights pipeline, rolls up rep commits, and scores accuracy automatically, always current. Rook flags commits with no supporting activity and reconciles bottom-up and top-down views, so you never rebuild the sheet again.` },
     ],
     faqs: [
       { q: `How do you build a sales forecast in a spreadsheet?`, a: `List each open deal with columns for amount, stage, win probability, and close date, add a weighted-value column (amount times probability), sum by period, and compare to quota. Layer in rep commit and a historical adjustment.` },
@@ -3653,7 +3653,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to read it`, body: [`A rising velocity is the goal, but the levers tell the real story. Velocity up because the cycle shortened is healthy; velocity up because you added low-quality opportunities that will not close is illusory. Always read velocity with its inputs.`, `Because cycle length is the denominator, it often moves velocity most. But watch that a shorter cycle has not come at the cost of win rate or deal size, which would offset the gain.`] },
-      { h: `How Rally handles it`, body: `Rally computes velocity from live deal data and shows all four levers by segment, so a change is instantly traceable. Rook flags which lever is dragging when velocity dips and estimates the gain from fixing it, so effort goes where it pays off.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes velocity from live deal data and shows all four levers by segment, so a change is instantly traceable. Rook flags which lever is dragging when velocity dips and estimates the gain from fixing it, so effort goes where it pays off.` },
     ],
     faqs: [
       { q: `How do you build a sales velocity report?`, a: `Track opportunities, average deal value, win rate, and cycle length, then compute velocity as opportunities times value times win rate divided by cycle days, by segment and over time. Show the four levers beside the velocity number.` },
@@ -3684,7 +3684,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Reporting total pipeline value without flagging stale deals, so a number inflated by zombies looks healthy. Always surface age and last activity so dead deals are visible.`, `Confusing a pipeline report with a funnel report. The pipeline shows the actual deals in play now; the funnel shows aggregate conversion rates. You need both, for different purposes.`] },
-      { h: `How Rally handles it`, body: `Rally shows the live pipeline by stage with age, next step, and coverage, and flags stalled deals and unrealistic close dates automatically. Rook builds the exception list for your pipeline review, so the meeting starts with the deals that actually need attention.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows the live pipeline by stage with age, next step, and coverage, and flags stalled deals and unrealistic close dates automatically. Rook builds the exception list for your pipeline review, so the meeting starts with the deals that actually need attention.` },
     ],
     faqs: [
       { q: `How do you build a sales pipeline report?`, a: `Group open deals by stage with columns for value, owner, age in stage, next step, and close date, then total pipeline value and coverage against quota. Flag stalled deals, missing next steps, and unrealistic close dates.` },
@@ -3715,7 +3715,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Building an everything dashboard for every role. Analytics depth is only useful when focused; design separate views for reps, managers, and executives rather than one crowded screen.`, `Showing metrics that cannot be drilled or segmented. A number you cannot break down or click into is a dead end. The value of an analytics dashboard is investigation, which requires segmentation and drill-down.`] },
-      { h: `How Rally handles it`, body: `Rally dashboards layer results, pipeline, and activity with full segmentation and drill-down to the underlying records, live on first load. Rook explains what moved each metric and lets you ask follow-up questions in plain language, so investigation is instant.` },
+      { h: `How Ardovo handles it`, body: `Ardovo dashboards layer results, pipeline, and activity with full segmentation and drill-down to the underlying records, live on first load. Rook explains what moved each metric and lets you ask follow-up questions in plain language, so investigation is instant.` },
     ],
     faqs: [
       { q: `How do you build a sales analytics dashboard?`, a: `Layer results, pipeline health, and activity metrics, make each segmentable and drillable to the underlying deals, wire it to live data, and design it for one audience. Each layer should explain the one above it.` },
@@ -3746,7 +3746,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You start the quarter with 800 customers. During the quarter you gain 120 new customers and end with 860.`, `Retention rate = (860 minus 120) divided by 800 = 740 / 800 = 92.5 percent. That means you kept 92.5 percent of your original base and lost 7.5 percent, which is your logo churn. The 120 new customers are excluded so retention reflects the existing base only.`] },
-      { h: `How Rally handles it`, body: `Rally computes customer retention rate by cohort and segment from live data, keeping new customers out automatically. Rook flags segments where retention is slipping and predicts at-risk accounts, so you can act before they leave.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes customer retention rate by cohort and segment from live data, keeping new customers out automatically. Rook flags segments where retention is slipping and predicts at-risk accounts, so you can act before they leave.` },
     ],
     faqs: [
       { q: `What is the customer retention rate formula?`, a: `End-of-period customers minus new customers acquired, divided by start-of-period customers, times 100. Excluding new customers ensures you measure how much of the original base you kept, not growth from acquisition.` },
@@ -3777,7 +3777,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you worked 250 qualified opportunities and won 55. Close rate from opportunities = 55 / 250 = 22 percent, which is also your win rate.`, `If instead you measured from the 2,500 raw leads those opportunities came from, the lead-to-customer close rate is 55 / 2,500 = 2.2 percent. Same wins, very different rate, because the denominators differ tenfold. Always state the starting point.`] },
-      { h: `How Rally handles it`, body: `Rally measures conversion at every point from lead to customer, so you can report a lead-based close rate and an opportunity-based win rate without ambiguity. Rook makes the starting point explicit on every view so numbers stay comparable.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures conversion at every point from lead to customer, so you can report a lead-based close rate and an opportunity-based win rate without ambiguity. Rook makes the starting point explicit on every view so numbers stay comparable.` },
     ],
     faqs: [
       { q: `What is the close rate formula?`, a: `Deals won divided by the total opportunities or leads worked in a period, times 100. The result depends heavily on the starting point: raw leads give a low rate, qualified opportunities give a rate equal to win rate.` },
@@ -3803,7 +3803,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why two names exist`, body: [`The metric grew popular across finance and SaaS communities that adopted different terminology. Investors often say net dollar retention; product and RevOps teams often say net revenue retention. Both refer to starting revenue plus expansion minus contraction and churn, over starting revenue.`, `Because they are identical, mixing the terms is harmless as long as the calculation is consistent. Pick one label for your own reporting to avoid confusing your audience.`] },
-      { h: `How Rally handles it`, body: `Rally computes the metric once and labels it clearly, so NDR and NRR never appear to conflict in your reporting. Rook explains the drivers, expansion versus churn, regardless of which name your audience prefers.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the metric once and labels it clearly, so NDR and NRR never appear to conflict in your reporting. Rook explains the drivers, expansion versus churn, regardless of which name your audience prefers.` },
     ],
     faqs: [
       { q: `Is net dollar retention the same as net revenue retention?`, a: `Yes, they are the same metric under two names. Both measure the change in recurring revenue from existing customers, including expansion and excluding new customers. The terms are fully interchangeable.` },
@@ -3834,7 +3834,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Last month MRR was 250,000 dollars; this month it is 275,000 dollars. Net new MRR is 25,000 dollars, so MRR growth rate = 25,000 / 250,000 = 10 percent for the month.`, `Compounded, sustaining 10 percent monthly growth for a year multiplies MRR by (1.10) to the 12th power, about 3.14 times, far more than the naive 120 percent that multiplying 10 percent by 12 would suggest. Compounding is powerful.`] },
-      { h: `How Rally handles it`, body: `Rally tracks MRR growth rate and its net new MRR driver in real time, correctly compounded when annualized. Rook flags when growth decelerates and shows whether the cause is slowing new business or rising churn.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks MRR growth rate and its net new MRR driver in real time, correctly compounded when annualized. Rook flags when growth decelerates and shows whether the cause is slowing new business or rising churn.` },
     ],
     faqs: [
       { q: `What is the MRR growth rate formula?`, a: `This month's MRR minus last month's MRR, divided by last month's MRR, times 100. It is the month-over-month percentage change in recurring revenue, driven by net new MRR.` },
@@ -3865,7 +3865,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you had 500 customers. 50 upgraded to a higher tier, generating 40,000 dollars of expansion revenue on a starting base of 800,000 dollars of MRR.`, `Count-based upsell rate = 50 / 500 = 10 percent. Revenue-based expansion from upsell = 40,000 / 800,000 = 5 percent, which flows directly into net revenue retention. If churn was 3 percent, upsell alone would push NRR above 100 percent.`] },
-      { h: `How Rally handles it`, body: `Rally tracks upsell rate by count and revenue and ties it to expansion MRR and NRR. Rook flags accounts showing expansion signals, like hitting usage limits or adopting new features, turning upsell rate into a prioritized pipeline of opportunities.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks upsell rate by count and revenue and ties it to expansion MRR and NRR. Rook flags accounts showing expansion signals, like hitting usage limits or adopting new features, turning upsell rate into a prioritized pipeline of opportunities.` },
     ],
     faqs: [
       { q: `What is the upsell rate formula?`, a: `Customers upsold (or expansion revenue generated) divided by total customers (or total revenue) in the period, times 100. The revenue version ties directly to expansion MRR and net revenue retention.` },
@@ -3896,7 +3896,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Setting total quota exactly equal to the target, which leaves no room for the reps who miss. Total quota should exceed the plan by a buffer sized to your attainment distribution.`, `Ignoring ramp and territory. Even quotas across uneven territories and tenures reward geography and seniority, not performance, and set new reps up to fail. Adjust for both.`] },
-      { h: `How Rally handles it`, body: `Rally sets and models quotas against territory potential, ramp schedules, and historical attainment, so targets are calibrated rather than guessed. Rook shows the resulting attainment distribution and flags when quotas are likely too high or too low before the period starts.` },
+      { h: `How Ardovo handles it`, body: `Ardovo sets and models quotas against territory potential, ramp schedules, and historical attainment, so targets are calibrated rather than guessed. Rook shows the resulting attainment distribution and flags when quotas are likely too high or too low before the period starts.` },
     ],
     faqs: [
       { q: `How do you set sales quotas?`, a: `Start from the company target with a buffer, divide it across the team by territory and segment potential, adjust for ramp and tenure, and calibrate so roughly 60 to 70 percent of reps can realistically hit their number.` },
@@ -3927,7 +3927,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You forecast 30 deals worth 3,000,000 dollars to close this quarter. By quarter end, 9 deals worth 1,200,000 dollars had slipped to next quarter.`, `Count-based slippage = 9 / 30 = 30 percent; value-based slippage = 1,200,000 / 3,000,000 = 40 percent. The higher value-based rate means the deals that slipped were larger than average, a bigger hit to the forecast than the count alone suggests.`] },
-      { h: `How Rally handles it`, body: `Rally tracks how often each rep's deals slip and why, by count and value. Rook warns before a close date when a deal shows no recent buyer activity, giving reps time to re-engage or re-date honestly, which reduces slippage over time.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks how often each rep's deals slip and why, by count and value. Rook warns before a close date when a deal shows no recent buyer activity, giving reps time to re-engage or re-date honestly, which reduces slippage over time.` },
     ],
     faqs: [
       { q: `What is the deal slippage rate formula?`, a: `Deals that pushed their close date divided by deals expected to close in the period, times 100. Measured by value rather than count, it shows the revenue-weighted impact, which is often larger.` },
@@ -3958,7 +3958,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your MRR is 600,000 dollars across 400 accounts, so ARPA is 1,500 dollars per month. A year later MRR is 1,000,000 dollars across 500 accounts, giving an ARPA of 2,000 dollars.`, `The 33 percent ARPA increase means each account is worth more, likely from upsell or a richer plan mix, not just more logos. That is a healthier growth signal than adding accounts at a flat or falling ARPA.`] },
-      { h: `How Rally handles it`, body: `Rally computes ARPA by plan, cohort, and segment automatically, so you see whether growth comes from more accounts or richer ones. Rook flags when blended ARPA hides a declining segment underneath the average.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes ARPA by plan, cohort, and segment automatically, so you see whether growth comes from more accounts or richer ones. Rook flags when blended ARPA hides a declining segment underneath the average.` },
     ],
     faqs: [
       { q: `What is the ARPA formula?`, a: `Total recurring revenue in a period divided by the number of active accounts in that period. Use a consistent monthly or annual window and recurring revenue only, so the trend is comparable over time.` },
@@ -3989,7 +3989,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Last year you booked 5,000,000 dollars; this year, 6,500,000 dollars. Sales growth rate = (6,500,000 minus 5,000,000) divided by 5,000,000 = 1,500,000 / 5,000,000 = 30 percent year over year.`, `If you had instead compared December to November, a seasonally strong month to a weaker one, the month-over-month figure could look far higher or lower and mislead. Year-over-year comparison removes that seasonal distortion.`] },
-      { h: `How Rally handles it`, body: `Rally computes sales growth year over year and period over period from live data, so seasonality is easy to control for. Rook decomposes growth into new and expansion so you see whether it is durable or dependent on one-time deals.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes sales growth year over year and period over period from live data, so seasonality is easy to control for. Rook decomposes growth into new and expansion so you see whether it is durable or dependent on one-time deals.` },
     ],
     faqs: [
       { q: `What is the sales growth rate formula?`, a: `Current-period sales minus prior-period sales, divided by prior-period sales, times 100. Compare like periods, such as year over year, to avoid seasonal distortion in the result.` },
@@ -4020,7 +4020,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`SDRs booked 120 meetings; 100 were held (20 no-shows). Of those 100, AEs created 35 opportunities.`, `Meeting to opportunity rate = 35 / 100 = 35 percent. If one SDR's meetings convert at 50 percent and another's at 15 percent, the aggregate hides a big quality gap. Segmenting by booker reveals which SDRs book real meetings versus filler.`] },
-      { h: `How Rally handles it`, body: `Rally ties booked meetings to the opportunities they produce, by booker and rep, so meeting quality is visible, not just volume. Rook flags SDRs whose meetings rarely convert, so coaching targets meeting quality rather than raw booking counts.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ties booked meetings to the opportunities they produce, by booker and rep, so meeting quality is visible, not just volume. Rook flags SDRs whose meetings rarely convert, so coaching targets meeting quality rather than raw booking counts.` },
     ],
     faqs: [
       { q: `What is the meeting to opportunity rate formula?`, a: `Opportunities created divided by qualified meetings held in the period, times 100. Count meetings held, not just booked, so no-shows do not inflate the denominator and distort the rate.` },
@@ -4051,7 +4051,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Last month you earned 250,000 dollars of recurring revenue. Annual run rate = 250,000 x 12 = 3,000,000 dollars, which equals your ARR.`, `But if you closed a large one-time deal last month, including it would inflate the run rate to a level you will not sustain. And if you are growing 10 percent monthly, a static run rate understates where you will actually be in a year. Always sanity-check the base period.`] },
-      { h: `How Rally handles it`, body: `Rally computes run rate from recurring revenue, excluding one-time items so it equals a clean ARR. Rook flags when a chosen base period is distorted by a one-time deal or rapid growth, so the run rate is not taken at face value.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes run rate from recurring revenue, excluding one-time items so it equals a clean ARR. Rook flags when a chosen base period is distorted by a one-time deal or rapid growth, so the run rate is not taken at face value.` },
     ],
     faqs: [
       { q: `What is the annual run rate formula?`, a: `A recent period's revenue multiplied by the number of those periods in a year: monthly revenue times 12 or quarterly times 4. For recurring revenue it equals ARR, using MRR times 12 and excluding one-time fees.` },
@@ -4082,7 +4082,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 4,800,000 dollars in the bank. You spend 700,000 dollars a month and collect 300,000 dollars in revenue, so net burn is 400,000 dollars a month.`, `Runway = 4,800,000 / 400,000 = 12 months. If revenue grows to 500,000 dollars a month, net burn falls to 200,000 dollars and runway extends to 24 months. Modeling revenue growth against burn shows whether you reach profitability before the cash runs out.`] },
-      { h: `How Rally handles it`, body: `Rally pairs revenue growth from its ARR data with finance burn to model runway under different scenarios. Rook flags when rising burn or slowing growth shortens runway, so you see the fundraising clock moving before it becomes urgent.` },
+      { h: `How Ardovo handles it`, body: `Ardovo pairs revenue growth from its ARR data with finance burn to model runway under different scenarios. Rook flags when rising burn or slowing growth shortens runway, so you see the fundraising clock moving before it becomes urgent.` },
     ],
     faqs: [
       { q: `What is the cash runway formula?`, a: `Cash on hand divided by monthly net burn, where net burn is cash spent minus cash received in a typical month. The result is how many months your cash lasts at the current rate.` },
@@ -4113,7 +4113,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A subscription sells for 1,000 dollars a month. Variable costs, hosting, processing, and variable support, total 250 dollars. Contribution margin is 750 dollars, or 75 percent.`, `If your fixed costs are 300,000 dollars a month, you need 300,000 divided by 750, or 400 subscriptions, to break even. Contribution margin is what turns fixed-cost coverage into a concrete unit target.`] },
-      { h: `How Rally handles it`, body: `Rally can surface contribution margin by product and segment, so you see which lines actually contribute to covering fixed costs. Rook flags segments whose contribution margin is thin despite healthy revenue, pointing to a cost-to-serve problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can surface contribution margin by product and segment, so you see which lines actually contribute to covering fixed costs. Rook flags segments whose contribution margin is thin despite healthy revenue, pointing to a cost-to-serve problem.` },
     ],
     faqs: [
       { q: `What is the contribution margin formula?`, a: `Revenue minus variable costs, per unit or in total. As a percentage, it is contribution margin divided by revenue, times 100. It shows how much each sale contributes toward covering fixed costs and profit.` },
@@ -4139,7 +4139,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Judging LTV correctly`, body: [`The meaningful tests are the LTV to CAC ratio (target around 3 to 1) and CAC payback (under 12 months for SaaS). A high LTV that comes with an even higher CAC is not good; a modest LTV with a very low CAC can be excellent.`, `The other trap is inflating LTV itself. Building it on revenue instead of gross margin, or on optimistic churn, produces a flattering number that makes the ratio look better than the economics really are.`] },
-      { h: `How Rally handles it`, body: `Rally shows LTV beside CAC, LTV to CAC, and payback on one screen, so lifetime value is always seen in the context that makes it meaningful. Rook flags when LTV rises only because churn assumptions changed rather than real retention improving.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows LTV beside CAC, LTV to CAC, and payback on one screen, so lifetime value is always seen in the context that makes it meaningful. Rook flags when LTV rises only because churn assumptions changed rather than real retention improving.` },
     ],
     faqs: [
       { q: `What is a good LTV?`, a: `There is no universal dollar figure; a good LTV is one that exceeds CAC by roughly 3 to 1 and supports a payback under 12 months. Judge lifetime value against CAC and payback, and build it on gross margin.` },
@@ -4165,7 +4165,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What lowers SaaS gross margin`, body: [`Common culprits are heavy infrastructure or hosting costs relative to price, high-touch support and success costs, third-party software embedded in the product, and a large share of low-margin professional services blended into revenue. Separating software from services margin often reveals a healthy core hidden by services.`, `Very low margins limit everything downstream: less of each dollar is left for sales, marketing, and R&D, which constrains growth and makes efficiency benchmarks like the Rule of 40 harder to hit.`] },
-      { h: `How Rally handles it`, body: `Rally uses gross margin to compute margin-based metrics like LTV and payback, and can separate software from services margin. Rook flags when blended margin is dragged down by services, so you see the true software economics underneath.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses gross margin to compute margin-based metrics like LTV and payback, and can separate software from services margin. Rook flags when blended margin is dragged down by services, so you see the true software economics underneath.` },
     ],
     faqs: [
       { q: `What is a good gross margin for SaaS?`, a: `70 to 80 percent or higher. High software gross margins are what let SaaS businesses fund growth and profitability. Margins well below 70 percent suggest an expensive-to-serve product or heavy services revenue.` },
@@ -4196,7 +4196,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A cohort of 2,000 leads produces 200 opportunities and, eventually, 50 customers. Lead-to-opportunity conversion = 200 / 2,000 = 10 percent. Lead-to-customer conversion = 50 / 2,000 = 2.5 percent.`, `Both are lead conversion rates, but to different endpoints. Quoting the 10 percent opportunity rate against a benchmark meant for lead-to-customer would wrongly suggest strong performance. Always match the endpoint.`] },
-      { h: `How Rally handles it`, body: `Rally measures lead conversion at every endpoint and by source, so you can quote lead-to-opportunity and lead-to-customer without ambiguity. Rook flags sources whose leads look busy but rarely convert, so you stop spending on volume that never becomes revenue.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures lead conversion at every endpoint and by source, so you can quote lead-to-opportunity and lead-to-customer without ambiguity. Rook flags sources whose leads look busy but rarely convert, so you stop spending on volume that never becomes revenue.` },
     ],
     faqs: [
       { q: `What is the lead conversion rate formula?`, a: `Leads that converted to a defined endpoint divided by total leads in the period, times 100. The endpoint, opportunity or customer, must be explicit, because the rate differs greatly depending on which you measure.` },
@@ -4227,7 +4227,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 500 customers. During the year, 75 added a second product, generating 150,000 dollars of new revenue on an 800,000 dollar base.`, `Cross-sell rate = 75 / 500 = 15 percent. The revenue expansion of 150,000 / 800,000 = 18.75 percent flows into net revenue retention. Customers with two products almost always retain better than single-product ones, so cross-sell lifts retention as well as revenue.`] },
-      { h: `How Rally handles it`, body: `Rally tracks cross-sell rate by count and revenue and ties it to account value and retention. Rook flags accounts that fit a second product based on usage and profile, turning cross-sell rate into a prioritized expansion pipeline.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks cross-sell rate by count and revenue and ties it to account value and retention. Rook flags accounts that fit a second product based on usage and profile, turning cross-sell rate into a prioritized expansion pipeline.` },
     ],
     faqs: [
       { q: `What is the cross-sell rate formula?`, a: `Customers who bought an additional product divided by total customers in the period, times 100. A revenue version divides cross-sell revenue by total revenue. It measures how effectively you sell more products into accounts.` },
@@ -4258,7 +4258,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you won 45 deals and lost 55. Win-loss ratio = 45 / 55 = 0.82 to 1, meaning you lose slightly more than you win.`, `The equivalent win rate is 45 / (45 plus 55) = 45 percent. If against one specific competitor your ratio is 0.3 to 1 (you lose three for every win), that competitor is where a targeted battlecard or product improvement would pay off most.`] },
-      { h: `How Rally handles it`, body: `Rally tracks win-loss ratio and win rate by competitor and segment from structured close reasons. Rook surfaces the rivals you lose to most and the patterns behind those losses, so you know exactly where to strengthen your position.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks win-loss ratio and win rate by competitor and segment from structured close reasons. Rook surfaces the rivals you lose to most and the patterns behind those losses, so you know exactly where to strengthen your position.` },
     ],
     faqs: [
       { q: `What is the win-loss ratio formula?`, a: `Deals won divided by deals lost in a period. A ratio above 1 means you win more than you lose. It excludes open deals and is closely related to win rate, framed as a direct comparison of wins to losses.` },
@@ -4289,7 +4289,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You forecast 2,000,000 dollars at the start of the quarter and booked 1,850,000 dollars. Variance = 1,850,000 minus 2,000,000 = negative 150,000 dollars, or negative 7.5 percent.`, `If the last four quarters all showed negative variance between 5 and 10 percent, you have a consistent optimism bias. You can correct the roll-up by discounting the forecast, or fix the root cause in close-date and commit discipline.`] },
-      { h: `How Rally handles it`, body: `Rally locks the forecast at a fixed point and computes variance at close by rep and team. Rook surfaces consistent directional bias, such as a rep who always forecasts high, so leadership corrects the roll-up rather than being surprised each quarter.` },
+      { h: `How Ardovo handles it`, body: `Ardovo locks the forecast at a fixed point and computes variance at close by rep and team. Rook surfaces consistent directional bias, such as a rep who always forecasts high, so leadership corrects the roll-up rather than being surprised each quarter.` },
     ],
     faqs: [
       { q: `What is the forecast variance formula?`, a: `Actual minus forecast, in dollars, or that difference divided by the forecast for a percentage. A negative variance means you fell short of the forecast; a positive one means you beat it. Lock the forecast at a fixed point.` },
@@ -4320,7 +4320,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you sold 200 core subscriptions. Of those deals, 70 included a premium support add-on and 50 included an onboarding package.`, `Premium support attach rate = 70 / 200 = 35 percent; onboarding attach rate = 50 / 200 = 25 percent. If the premium add-on carries high margin, lifting its attach from 35 to 50 percent through better positioning would raise average deal value meaningfully with no new customers.`] },
-      { h: `How Rally handles it`, body: `Rally tracks attach rate by add-on, rep, and segment, so you see which reps and motions position add-ons well. Rook flags deals where a common add-on was not attached, prompting reps to include it before close.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks attach rate by add-on, rep, and segment, so you see which reps and motions position add-ons well. Rook flags deals where a common add-on was not attached, prompting reps to include it before close.` },
     ],
     faqs: [
       { q: `What is the attach rate formula?`, a: `Units of an add-on sold divided by units of the core product sold, times 100. It measures how often a complementary product, module, or service sells alongside the core, a direct lever on average deal value.` },
@@ -4346,7 +4346,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Retention benchmarks by segment`, body: [`Enterprise SaaS commonly retains 90 percent or more of customers annually, thanks to multi-year contracts and high switching costs. Mid-market lands lower. SMB and self-serve often retain 70 to 85 percent, since small businesses are price-sensitive and more likely to fail or switch.`, `Logo retention is only half the picture. Revenue retention, weighted by account value, matters more for the P and L, and net revenue retention above 100 percent can offset logo losses through expansion.`] },
-      { h: `How Rally handles it`, body: `Rally reports customer retention beside revenue and net revenue retention by segment, so you see both the count and the dollars. Rook predicts at-risk accounts from engagement signals, turning retention from a lagging scorecard into an early-warning system.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports customer retention beside revenue and net revenue retention by segment, so you see both the count and the dollars. Rook predicts at-risk accounts from engagement signals, turning retention from a lagging scorecard into an early-warning system.` },
     ],
     faqs: [
       { q: `What is a good customer retention rate?`, a: `90 percent or higher annually for enterprise B2B SaaS. SMB and self-serve run lower, often 70 to 85 percent, because small customers churn more. Retention plus logo churn always equals 100 percent.` },
@@ -4372,7 +4372,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Interpreting your NPS`, body: [`Because NPS subtracts detractors from promoters and ignores passives, scores are lower than intuition expects. A score of 40 is strong; many beloved brands sit in the 30s to 50s. Compare within your industry, where typical scores differ, rather than to a universal bar.`, `The most actionable use of NPS is following up: understanding why detractors are unhappy and moving passives to promoters. Segmenting NPS by customer type reveals where loyalty is strong or at risk.`] },
-      { h: `How Rally handles it`, body: `Rally tracks NPS by segment and ties it to retention and expansion, so the score connects to revenue. Rook flags detractor clusters in a segment, turning survey feedback into a targeted retention action rather than a standalone number.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks NPS by segment and ties it to retention and expansion, so the score connects to revenue. Rook flags detractor clusters in a segment, turning survey feedback into a targeted retention action rather than a standalone number.` },
     ],
     faqs: [
       { q: `What is a good NPS score?`, a: `Any positive score means more promoters than detractors. Above 30 is good, above 50 excellent, and above 70 world-class. Because NPS ranges from negative 100 to positive 100 and varies by industry, compare within your sector.` },
@@ -4403,7 +4403,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Judging performance on bookings alone. A rep can hit the number one quarter on luck or a single whale. The balanced view shows whether the result is repeatable and how it was produced.`, `Measuring only lagging results. By the time bookings dip, the cause is months old. Including leading activity and pipeline health lets you intervene while there is still time to change the outcome.`] },
-      { h: `How Rally handles it`, body: `Rally presents sales performance as a balanced scorecard across results, efficiency, pipeline, and activity, each against target and trend, with drill-down to the deals behind them. Rook flags the one metric most likely to move a rep's or team's number, so coaching is specific.` },
+      { h: `How Ardovo handles it`, body: `Ardovo presents sales performance as a balanced scorecard across results, efficiency, pipeline, and activity, each against target and trend, with drill-down to the deals behind them. Rook flags the one metric most likely to move a rep's or team's number, so coaching is specific.` },
     ],
     faqs: [
       { q: `How do you measure sales performance?`, a: `With a balanced set of metrics: results (bookings, attainment, win rate), efficiency (cycle, deal size, velocity), pipeline health (coverage, forecast accuracy, aging), and leading activity (opportunities created, meetings, speed to lead), each against a target and trend.` },
@@ -4434,7 +4434,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter, marketing passed 500 MQLs. Sales accepted 150 as SQLs. MQL to SQL conversion = 150 / 500 = 30 percent, a healthy rate.`, `But if one channel's MQLs convert at 45 percent and another's at 10 percent, the blended 30 percent hides a quality problem in the second channel. Segmenting by source shows where to tighten targeting or shift spend.`] },
-      { h: `How Rally handles it`, body: `Rally tracks MQL to SQL conversion by source and campaign on shared data, and captures rejection reasons for the feedback loop. Rook flags sources whose MQLs rarely convert, so marketing stops optimizing for volume that sales will not accept.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks MQL to SQL conversion by source and campaign on shared data, and captures rejection reasons for the feedback loop. Rook flags sources whose MQLs rarely convert, so marketing stops optimizing for volume that sales will not accept.` },
     ],
     faqs: [
       { q: `What is the MQL to SQL conversion rate formula?`, a: `SQLs accepted by sales divided by MQLs passed by marketing, times 100, from the same cohort. It measures the quality of the marketing-to-sales handoff and depends on shared MQL and SQL definitions.` },
@@ -4465,7 +4465,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You spent 400,000 dollars total and won 120 new customers: 80 from paid channels (on 350,000 dollars of paid spend) and 40 from organic.`, `Blended CAC = 400,000 / 120 = 3,333 dollars. Paid CAC = 350,000 / 80 = 4,375 dollars. The blended number looks efficient, but paid CAC reveals that scaling paid acquisition costs over 30 percent more per customer than the blended figure suggests.`] },
-      { h: `How Rally handles it`, body: `Rally reports blended and per-channel paid CAC side by side from live spend and closed deals. Rook warns when paid CAC climbs while blended stays flat, the classic sign that organic is masking a paid-efficiency problem.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reports blended and per-channel paid CAC side by side from live spend and closed deals. Rook warns when paid CAC climbs while blended stays flat, the classic sign that organic is masking a paid-efficiency problem.` },
     ],
     faqs: [
       { q: `What is the blended CAC formula?`, a: `Total sales and marketing spend divided by all new customers won in the period, including organic and referral. Use a fully loaded spend figure that includes salaries and tools, not just media cost.` },
@@ -4491,7 +4491,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How the two relate`, body: [`CPA measures the cost of an action like a lead or free signup; CAC measures the cost of a paying customer. Because only a fraction of actions convert to customers, and CAC includes sales costs CPA usually ignores, CAC is many times higher than CPA.`, `The two connect through conversion: CAC is roughly CPA divided by the conversion rate from that action to a paying customer, plus sales costs. Confusing CPA for CAC makes acquisition look far cheaper than it is.`] },
-      { h: `How Rally handles it`, body: `Rally tracks cost per action at each funnel step and the fully loaded CAC, so you never mistake one for the other. Rook shows how CPA at each stage rolls up into true CAC through conversion, keeping acquisition economics honest.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks cost per action at each funnel step and the fully loaded CAC, so you never mistake one for the other. Rook shows how CPA at each stage rolls up into true CAC through conversion, keeping acquisition economics honest.` },
     ],
     faqs: [
       { q: `What is the difference between CAC and CPA?`, a: `CAC is the fully loaded cost to win one paying customer, including sales and marketing salaries. CPA usually measures the cost of an earlier action like a lead, signup, or trial. CPA is much lower and upstream of CAC.` },
@@ -4522,7 +4522,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A campaign costs 100,000 dollars and, by your attribution model, drives 400,000 dollars of revenue at 75 percent gross margin, or 300,000 dollars of gross profit.`, `ROMI = (300,000 minus 100,000) divided by 100,000 = 200 percent, meaning every dollar of spend returned two dollars of profit above cost. Using revenue instead of gross profit would overstate the return by ignoring the cost to deliver.`] },
-      { h: `How Rally handles it`, body: `Rally ties marketing spend to attributed revenue and applies gross margin, so ROMI reflects profit, not just revenue. Rook compares ROMI across channels and flags programs whose return is slipping, so budget flows to what actually pays back.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ties marketing spend to attributed revenue and applies gross margin, so ROMI reflects profit, not just revenue. Rook compares ROMI across channels and flags programs whose return is slipping, so budget flows to what actually pays back.` },
     ],
     faqs: [
       { q: `What is the ROMI formula?`, a: `Revenue or gross profit attributed to marketing, minus marketing cost, divided by marketing cost, times 100. Using gross profit rather than revenue gives a truer return by accounting for the cost to deliver.` },
@@ -4548,7 +4548,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Using both together`, body: [`Leading indicators like pipeline created and speed to lead move weeks or months before revenue, so watching them lets you fix a problem while there is still time. Lagging indicators like bookings and win rate confirm whether the leading work paid off.`, `The chain connects them: activity produces pipeline, pipeline produces bookings. A good scorecard shows the whole chain, so when a lagging result dips, you can trace it back to the leading metric that caused it.`] },
-      { h: `How Rally handles it`, body: `Rally links leading and lagging metrics in one chain from activity to pipeline to revenue, so a change downstream is traceable upstream. Rook flags when a leading indicator like pipeline created falls below the run rate needed to hit future targets, a warning weeks before bookings show it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo links leading and lagging metrics in one chain from activity to pipeline to revenue, so a change downstream is traceable upstream. Rook flags when a leading indicator like pipeline created falls below the run rate needed to hit future targets, a warning weeks before bookings show it.` },
     ],
     faqs: [
       { q: `What is the difference between leading and lagging indicators in sales?`, a: `Leading indicators like opportunities created and speed to lead predict future results and can be influenced now. Lagging indicators like bookings and win rate report outcomes after the fact. Leading enables early action; lagging confirms results.` },
@@ -4574,7 +4574,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `What qualifies a lead as an SQL`, body: [`An SQL has passed a sales review confirming it fits the ideal customer profile, has a real need, and shows intent to act. Some teams add a sales accepted lead (SAL) step between MQL and SQL to formalize the acceptance before full qualification.`, `Clear, shared SQL criteria are what keep the marketing-to-sales handoff healthy. When sales and marketing disagree on what an SQL is, the conversion rate becomes noise and the two teams blame each other.`] },
-      { h: `How Rally handles it`, body: `Rally tracks the MQL to SQL handoff on shared data with agreed definitions, so both teams see which sources produce accepted leads. Rook flags MQLs that fit the SQL profile so sales works the strongest leads first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks the MQL to SQL handoff on shared data with agreed definitions, so both teams see which sources produce accepted leads. Rook flags MQLs that fit the SQL profile so sales works the strongest leads first.` },
     ],
     faqs: [
       { q: `What is a sales qualified lead?`, a: `A prospect that sales has accepted as worth active pursuit after confirming fit, genuine need, and buying intent. Unlike a marketing qualified lead based on engagement, an SQL has passed a sales judgment that it is a real opportunity.` },
@@ -4600,7 +4600,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How MQLs are scored`, body: [`Most teams score leads on two axes: engagement (content downloads, email clicks, demo requests, site visits) and fit (industry, company size, role matching the ideal customer profile). A lead crossing a scoring threshold becomes an MQL. Scoring on engagement alone, without fit, produces busy but poor-fit leads.`, `The MQL bar should be calibrated against the MQL to SQL conversion rate. If sales rejects most MQLs, the bar is too low; if marketing passes very few, it may be too high and limiting volume.`] },
-      { h: `How Rally handles it`, body: `Rally scores MQLs on engagement and fit and tracks their conversion to SQLs by source. Rook flags sources whose MQLs rarely convert, so marketing can raise the bar or shift spend away from volume that never becomes revenue.` },
+      { h: `How Ardovo handles it`, body: `Ardovo scores MQLs on engagement and fit and tracks their conversion to SQLs by source. Rook flags sources whose MQLs rarely convert, so marketing can raise the bar or shift spend away from volume that never becomes revenue.` },
     ],
     faqs: [
       { q: `What is a marketing qualified lead?`, a: `A prospect that has shown enough engagement and fit, through actions like content downloads or demo requests, for marketing to judge it ready to pass to sales. It is qualified on behavior and profile, not yet on a sales conversation.` },
@@ -4626,7 +4626,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Close rate by definition and source`, body: [`Measured from qualified opportunities, a good close rate is 20 to 30 percent, the same as win rate. Measured from raw leads, a 2 to 5 percent lead-to-customer rate can be perfectly healthy, because most leads never become opportunities.`, `Source matters as much as definition. Inbound demo requests may close at 30 to 50 percent while cold outbound wins 5 to 15 percent. Comparing an outbound rate to an inbound benchmark always looks like underperformance.`] },
-      { h: `How Rally handles it`, body: `Rally measures close rate at every point from lead to customer and by source, so you compare like with like. Rook makes the starting point explicit on every view and flags sources whose close rate is quietly declining.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures close rate at every point from lead to customer and by source, so you compare like with like. Rook makes the starting point explicit on every view and flags sources whose close rate is quietly declining.` },
     ],
     faqs: [
       { q: `What is a good close rate?`, a: `From qualified opportunities, 20 to 30 percent for B2B, matching win rate. From raw leads, far lower, often low single digits. Inbound closes much higher than cold outbound, so judge close rate by source and definition.` },
@@ -4652,7 +4652,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Benchmarks by endpoint and source`, body: [`Lead to opportunity for qualified leads commonly lands 10 to 25 percent; lead to customer is usually 1 to 3 percent because it compounds several stage conversions. Both are lead conversion rates, just to different endpoints, so always state which.`, `Speed to lead is one of the biggest levers. Responding within minutes rather than hours can multiply conversion, and because it is fully controllable, it is often the fastest way to improve the rate.`] },
-      { h: `How Rally handles it`, body: `Rally measures lead conversion at every endpoint and by source, so lead-to-opportunity and lead-to-customer are never confused. Rook flags leads sitting past your speed-to-lead target and sources whose leads rarely convert.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures lead conversion at every endpoint and by source, so lead-to-opportunity and lead-to-customer are never confused. Rook flags leads sitting past your speed-to-lead target and sources whose leads rarely convert.` },
     ],
     faqs: [
       { q: `What is a good lead conversion rate?`, a: `It depends on the endpoint: lead to opportunity is often 10 to 25 percent for qualified leads, while lead to customer is usually low single digits. Inbound and referral convert far higher than cold outbound.` },
@@ -4683,7 +4683,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you acquired 200 new customers and lost 60 to churn. Net new customers = 200 minus 60 = 140.`, `If gross adds held at 200 next quarter but churn rose to 120, net new customers would fall to 80 even though acquisition was unchanged. The net figure caught a churn problem that the gross adds alone would have hidden.`] },
-      { h: `How Rally handles it`, body: `Rally computes net new customers alongside gross adds and churn from live data. Rook flags when strong acquisition is being eroded by rising churn, so you see real logo growth rather than a flattering gross number.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes net new customers alongside gross adds and churn from live data. Rook flags when strong acquisition is being eroded by rising churn, so you see real logo growth rather than a flattering gross number.` },
     ],
     faqs: [
       { q: `What is the net new customers formula?`, a: `New customers added minus customers churned in the period. Gross additions alone overstate growth by ignoring churn, so net new customers is the honest measure of how your customer base is actually growing.` },
@@ -4714,7 +4714,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A cohort enters the pipeline: 200 reach discovery, 120 reach proposal (60 percent), 48 reach negotiation (40 percent), and 36 close (75 percent). The weakest stage is proposal to negotiation at 40 percent.`, `Improving that 40 percent stage to 55 percent would flow through to every later stage, producing more closed deals than an equal improvement at a healthier stage. Stage conversion pinpoints exactly where to work.`] },
-      { h: `How Rally handles it`, body: `Rally computes conversion between every stage from live deal data, so the pipeline map is always current. Rook points to the stage with the biggest drop relative to benchmark and estimates the revenue from fixing it first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes conversion between every stage from live deal data, so the pipeline map is always current. Rook points to the stage with the biggest drop relative to benchmark and estimates the revenue from fixing it first.` },
     ],
     faqs: [
       { q: `What is the stage conversion rate formula?`, a: `Deals that advanced to a stage divided by deals that entered the prior stage, times 100, for a fixed cohort. Measuring every stage pair reveals exactly where deals stall in the pipeline.` },
@@ -4745,7 +4745,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Building a sales-only view and calling it a RevOps dashboard. RevOps spans marketing, sales, and success; a dashboard that stops at sales misses the handoffs where most revenue leaks.`, `Ignoring data health. If the underlying CRM data is incomplete, every metric on the dashboard is suspect. Tracking data completeness protects the credibility of everything else.`] },
-      { h: `How Rally handles it`, body: `Rally gives RevOps one system spanning marketing, sales, and success on shared, clean data, so the full-funnel dashboard ties out. Rook keeps records complete and flags the handoffs where conversion drops, so RevOps fixes leaks instead of hunting for them.` },
+      { h: `How Ardovo handles it`, body: `Ardovo gives RevOps one system spanning marketing, sales, and success on shared, clean data, so the full-funnel dashboard ties out. Rook keeps records complete and flags the handoffs where conversion drops, so RevOps fixes leaks instead of hunting for them.` },
     ],
     faqs: [
       { q: `What belongs on a RevOps dashboard?`, a: `Full-funnel metrics: marketing sourced pipeline and stage conversion, sales velocity and forecast accuracy, net revenue retention, and CRM data health. Emphasize the handoffs between marketing, sales, and success, where revenue leaks.` },
@@ -4776,7 +4776,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Building a purely backward-looking dashboard that only tallies churn. By then it is too late. Add leading signals so the team intervenes before the cancellation.`, `Focusing only on defense. Customer success also drives expansion, so a dashboard that ignores upsell and cross-sell misses half the job. Show both retention and growth.`] },
-      { h: `How Rally handles it`, body: `Rally combines retention, health scores, adoption, and expansion in one view and predicts at-risk accounts from live signals. Rook prompts the owner before a renewal is threatened and flags expansion-ready accounts, so success plays defense and offense.` },
+      { h: `How Ardovo handles it`, body: `Ardovo combines retention, health scores, adoption, and expansion in one view and predicts at-risk accounts from live signals. Rook prompts the owner before a renewal is threatened and flags expansion-ready accounts, so success plays defense and offense.` },
     ],
     faqs: [
       { q: `What belongs on a customer success dashboard?`, a: `Net and gross revenue retention, churn, product adoption and health scores, expansion revenue, and a revenue-weighted list of at-risk accounts. Emphasize leading signals so the team can act before churn happens.` },
@@ -4807,7 +4807,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Mixing definitions so the ratios do not reconcile, using revenue LTV with fully loaded CAC, for example. Build every metric from one consistent source on gross margin and real churn.`, `Showing only blended numbers. A healthy blended LTV to CAC can hide a segment with terrible economics. Segment and trend by cohort to catch deterioration early.`] },
-      { h: `How Rally handles it`, body: `Rally derives CAC, LTV, the ratios, and payback from one source of truth, so they tie out and cannot be gamed by mixing definitions. Rook shows how each moved, whether CAC rose, churn worsened, or margin shifted, by segment and cohort.` },
+      { h: `How Ardovo handles it`, body: `Ardovo derives CAC, LTV, the ratios, and payback from one source of truth, so they tie out and cannot be gamed by mixing definitions. Rook shows how each moved, whether CAC rose, churn worsened, or margin shifted, by segment and cohort.` },
     ],
     faqs: [
       { q: `What belongs on a unit economics dashboard?`, a: `Fully loaded CAC, gross-margin LTV, LTV to CAC ratio, CAC payback period, and gross margin, all segmented and trended by cohort. Show cost against value so acquisition is always judged in context.` },
@@ -4838,7 +4838,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Total open pipeline is 10,000,000 dollars. Marketing originated 4,000,000 dollars (sourced). Of the remaining 6,000,000 dollars of sales-sourced deals, marketing touched 3,000,000 dollars through nurture and events.`, `Marketing-influenced pipeline = 4,000,000 plus 3,000,000 = 7,000,000 dollars, or 70 percent, versus 40 percent sourced. Reporting both shows marketing originated 40 percent and touched 70 percent, a fuller and fairer picture than either alone.`] },
-      { h: `How Rally handles it`, body: `Rally records every touch on the path to a deal, so sourced and influenced pipeline both compute from the same data. Rook shows which programs originate versus influence pipeline, so you credit each fairly and invest accordingly.` },
+      { h: `How Ardovo handles it`, body: `Ardovo records every touch on the path to a deal, so sourced and influenced pipeline both compute from the same data. Rook shows which programs originate versus influence pipeline, so you credit each fairly and invest accordingly.` },
     ],
     faqs: [
       { q: `What is marketing-influenced pipeline?`, a: `The total value of opportunities marketing touched at any point in the journey, not just those it originated. Dividing it by total pipeline gives the influenced percentage, a broad measure of marketing's contribution.` },
@@ -4869,7 +4869,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 12 fully ramped reps at 1,000,000 dollars quota (12,000,000 dollars) and 4 ramping reps effectively carrying 400,000 dollars each (1,600,000 dollars), for 13,600,000 dollars gross capacity.`, `If you expect 15 percent attrition, reduce capacity by roughly 2,000,000 dollars to about 11,600,000 dollars of realistic capacity. If your target is 14,000,000 dollars, you must hire ahead, accounting for ramp, to close the gap in time.`] },
-      { h: `How Rally handles it`, body: `Rally models sales capacity from ramped and ramping reps, average quota, and attrition, and compares it to the target. Rook flags when planned capacity falls short of the number and how many reps to hire, and by when, to close the gap given ramp time.` },
+      { h: `How Ardovo handles it`, body: `Ardovo models sales capacity from ramped and ramping reps, average quota, and attrition, and compares it to the target. Rook flags when planned capacity falls short of the number and how many reps to hire, and by when, to close the gap given ramp time.` },
     ],
     faqs: [
       { q: `What is the sales capacity formula?`, a: `Fully ramped reps times average quota, plus ramping reps at partial quota, minus expected attrition. It gives the realistic total quota your team can carry, which is always less than headcount times full quota.` },
@@ -4895,7 +4895,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Why lead quality decides`, body: [`Two channels at 30 and 60 dollars per lead can flip completely once conversion is included: if the pricier channel converts three times better, its cost per customer is lower. CPL only becomes meaningful when read alongside lead-to-opportunity and lead-to-customer conversion.`, `The metric CPL should always feed is cost per customer, a component of CAC. Optimizing CPL in isolation steers budget toward cheap leads that fill the funnel but never produce revenue.`] },
-      { h: `How Rally handles it`, body: `Rally tracks CPL by channel alongside downstream conversion and cost per customer, so you never optimize for cheap, low-converting leads. Rook flags channels whose low CPL hides poor conversion and a high true cost per customer.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks CPL by channel alongside downstream conversion and cost per customer, so you never optimize for cheap, low-converting leads. Rook flags channels whose low CPL hides poor conversion and a high true cost per customer.` },
     ],
     faqs: [
       { q: `What is a good cost per lead?`, a: `There is no universal figure. A good CPL is one whose leads convert well enough to produce customers at an acceptable CAC. Judge it by lead quality and downstream conversion, and compare by channel rather than a single benchmark.` },
@@ -4921,7 +4921,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Judging cost per opportunity`, body: [`Multiply cost per opportunity by the number of opportunities needed to win a customer (1 divided by your opportunity-to-close rate) to get demand-gen cost per customer. If that, plus sales costs, keeps CAC and LTV to CAC healthy, the cost per opportunity is good.`, `Segment it by channel. A channel with a higher cost per opportunity but better win rate or larger deals can still produce the most efficient customers, which the raw cost per opportunity alone would hide.`] },
-      { h: `How Rally handles it`, body: `Rally computes cost per opportunity by channel and links it to opportunity-to-close rates, deal size, and CAC, so you see the full economics. Rook flags channels whose cost per opportunity looks fine but whose deals close poorly or run small.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes cost per opportunity by channel and links it to opportunity-to-close rates, deal size, and CAC, so you see the full economics. Rook flags channels whose cost per opportunity looks fine but whose deals close poorly or run small.` },
     ],
     faqs: [
       { q: `What is a good cost per opportunity?`, a: `One that, with your win rate and deal size, produces a healthy CAC and LTV to CAC ratio. There is no universal figure: the same cost per opportunity can be excellent for large deals and ruinous for small ones.` },
@@ -4952,7 +4952,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the month, four customers cancelled entirely, paying 1,500, 2,500, 800, and 1,200 dollars a month. Churned MRR = 1,500 plus 2,500 plus 800 plus 1,200 = 6,000 dollars.`, `Separately, two customers downgraded, losing 1,000 dollars of MRR between them; that is contraction MRR, not churn. Keeping them apart shows that 6,000 dollars left through cancellations and 1,000 dollars through downgrades, a clearer picture than lumping them together.`] },
-      { h: `How Rally handles it`, body: `Rally computes churned MRR separately from contraction MRR in its live MRR bridge, so you see exactly how revenue was lost. Rook flags a spike in churned MRR the moment it appears and identifies which segment or cohort it came from.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes churned MRR separately from contraction MRR in its live MRR bridge, so you see exactly how revenue was lost. Rook flags a spike in churned MRR the moment it appears and identifies which segment or cohort it came from.` },
     ],
     faqs: [
       { q: `What is churned MRR?`, a: `The monthly recurring revenue lost from customers who cancelled entirely in a period. Sum the MRR of every fully churned customer. It excludes downgrades, which count as contraction MRR, a separate component of the MRR bridge.` },
@@ -4983,7 +4983,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Over the year, your existing customers added ARR through upgrades: 120,000 dollars in seat growth, 90,000 dollars in tier upgrades, and 40,000 dollars in cross-sell. Expansion ARR = 120,000 plus 90,000 plus 40,000 = 250,000 dollars.`, `On a starting base of 2,500,000 dollars, that is 10 percent expansion. If churn and contraction totaled 6 percent, net revenue retention would be about 104 percent, driven by expansion outpacing losses.`] },
-      { h: `How Rally handles it`, body: `Rally tracks expansion ARR by account and segment in its live ARR bridge, separate from new ARR. Rook flags expansion-ready accounts from usage and engagement signals, turning expansion ARR into a prioritized pipeline of upsell opportunities.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks expansion ARR by account and segment in its live ARR bridge, separate from new ARR. Rook flags expansion-ready accounts from usage and engagement signals, turning expansion ARR into a prioritized pipeline of upsell opportunities.` },
     ],
     faqs: [
       { q: `What is expansion ARR?`, a: `The annual recurring revenue gained from existing customers through upsell, cross-sell, and seat or usage growth in a period, excluding new customers. It is a key driver of net revenue retention above 100 percent.` },
@@ -5014,7 +5014,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the proposal stage, eight deals spent 15, 20, 25, 10, 30, 18, 22, and 20 days. The total is 160 days; divided by 8, the average time in proposal is 20 days.`, `Now any open deal sitting in proposal past 20 days is aging beyond the norm and worth attention. Comparing stages, if proposal averages 20 days but negotiation averages 45, negotiation is your slowest step and a candidate for process improvement.`] },
-      { h: `How Rally handles it`, body: `Rally measures average time in stage from live deal history and flags deals exceeding it automatically. Rook surfaces the slowest stage and the aging deals within it, so your pipeline review starts with the stalls that matter.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures average time in stage from live deal history and flags deals exceeding it automatically. Rook surfaces the slowest stage and the aging deals within it, so your pipeline review starts with the stalls that matter.` },
     ],
     faqs: [
       { q: `What is the average time in stage formula?`, a: `The total days all deals spent in a stage divided by the number of deals that passed through it. Measured per stage, it benchmarks how long deals normally take, which is the basis for flagging stalls.` },
@@ -5040,7 +5040,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Choosing a north star metric`, body: [`A strong north star reflects the value customers actually get, not surface activity. For a collaboration tool it might be weekly active teams; for a marketplace, transactions completed. The test is whether growth in the metric reliably precedes revenue growth and customer success.`, `Avoid vanity north stars like total signups or page views, which can rise while the business stagnates. The metric should be something the whole company can influence and that genuinely tracks value delivered.`] },
-      { h: `How Rally handles it`, body: `Rally lets you designate and track a north star metric alongside its supporting inputs, so the whole team sees the one number that matters and what drives it. Rook explains what moved the north star and which input to focus on to grow it.` },
+      { h: `How Ardovo handles it`, body: `Ardovo lets you designate and track a north star metric alongside its supporting inputs, so the whole team sees the one number that matters and what drives it. Rook explains what moved the north star and which input to focus on to grow it.` },
     ],
     faqs: [
       { q: `What is a north star metric?`, a: `The single measure that best captures the core value your product delivers and predicts sustainable growth. It aligns the whole company around one number that, if it grows, means the business is genuinely healthy.` },
@@ -5071,7 +5071,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You send 600 cold emails; 550 are delivered (50 bounce). You receive 22 replies, of which 8 express genuine interest.`, `Reply rate = 22 / 550 = 4 percent; positive reply rate = 8 / 550 = 1.5 percent. The positive reply rate is the one that predicts meetings and pipeline, so a sequence with a high overall reply rate but few positive replies may just be generating objections.`] },
-      { h: `How Rally handles it`, body: `Rally tracks email reply and positive reply rates by sequence and persona, tied to the meetings and pipeline they produce. Rook flags sequences with high replies but low positive replies, so you optimize for interest, not just responses.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks email reply and positive reply rates by sequence and persona, tied to the meetings and pipeline they produce. Rook flags sequences with high replies but low positive replies, so you optimize for interest, not just responses.` },
     ],
     faqs: [
       { q: `What is the email reply rate formula?`, a: `Replies received divided by emails delivered, times 100. Use delivered rather than sent so bounces do not distort the rate, and track positive replies separately to measure genuine interest, not just any response.` },
@@ -5102,7 +5102,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`SDRs booked 150 meetings in the quarter. 120 were held; 30 were no-shows or unrescheduled cancellations.`, `Show rate = 120 / 150 = 80 percent, a 20 percent no-show rate. If meetings booked more than a week out show at 65 percent while those within two days show at 90 percent, shortening the booking-to-meeting gap is the clearest fix.`] },
-      { h: `How Rally handles it`, body: `Rally tracks meeting show rate by source and booking gap, and Rook can trigger reminders and easy reschedule links automatically. That turns a lagging no-show number into a set of interventions that raise the show rate.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks meeting show rate by source and booking gap, and Rook can trigger reminders and easy reschedule links automatically. That turns a lagging no-show number into a set of interventions that raise the show rate.` },
     ],
     faqs: [
       { q: `What is the meeting show rate formula?`, a: `Meetings held divided by meetings booked, times 100. The no-show rate is 100 percent minus the show rate. Count only meetings that actually took place, excluding no-shows and unrescheduled cancellations.` },
@@ -5133,7 +5133,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Over a week, 200 inbound leads were contacted at an average of 35 minutes after creation. But the median was 8 minutes; a handful of leads contacted hours later dragged the average up.`, `The more useful metric is the share contacted within 5 minutes, say 40 percent. Raising that share is what lifts conversion, because research shows the odds of qualifying drop sharply after the first few minutes.`] },
-      { h: `How Rally handles it`, body: `Rally routes inbound leads instantly and measures speed to lead per lead, flagging any that sit past your target. Rook can trigger immediate follow-up, so the first-responder advantage is captured automatically rather than lost to a slow handoff.` },
+      { h: `How Ardovo handles it`, body: `Ardovo routes inbound leads instantly and measures speed to lead per lead, flagging any that sit past your target. Rook can trigger immediate follow-up, so the first-responder advantage is captured automatically rather than lost to a slow handoff.` },
     ],
     faqs: [
       { q: `What is the speed to lead formula?`, a: `The time of first contact attempt minus the time the lead was created, per lead, averaged across leads. Track the median and the share contacted within 5 minutes too, since averages can hide slow outliers.` },
@@ -5164,7 +5164,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Tracking everything measurable. A dashboard of thirty numbers hides what matters. Fewer, well-chosen metrics beat comprehensive noise.`, `Choosing only lagging metrics. Bookings and win rate confirm the past but cannot warn you in time. Every metric set needs leading indicators to enable early action.`] },
-      { h: `How Rally handles it`, body: `Rally links leading and lagging metrics in one chain from activity to revenue, so you track a focused set that connects cause to effect. Rook flags which metric, if improved, would most move the number, so attention goes to what matters.` },
+      { h: `How Ardovo handles it`, body: `Ardovo links leading and lagging metrics in one chain from activity to revenue, so you track a focused set that connects cause to effect. Rook flags which metric, if improved, would most move the number, so attention goes to what matters.` },
     ],
     faqs: [
       { q: `How do I choose the right sales metrics?`, a: `Start from the decision each metric informs, keep only those that would change an action, balance leading and lagging indicators, connect them in a chain from activity to revenue, and cut vanity numbers. Keep the set small and focused.` },
@@ -5195,7 +5195,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Total pipeline is 12,000,000 dollars: inbound 5,000,000 (42 percent), outbound 4,000,000 (33 percent), partner 2,000,000 (17 percent), and referral 1,000,000 (8 percent).`, `Inbound looks dominant, but if inbound closes at 30 percent and outbound at 15 percent, inbound produces far more revenue per pipeline dollar. Comparing pipeline mix to closed revenue reveals which sources are efficient, not just large.`] },
-      { h: `How Rally handles it`, body: `Rally attributes pipeline to source and compares each source's pipeline to its win rate and closed revenue. Rook flags sources generating pipeline that rarely closes and warns when the mix grows too dependent on one channel.` },
+      { h: `How Ardovo handles it`, body: `Ardovo attributes pipeline to source and compares each source's pipeline to its win rate and closed revenue. Rook flags sources generating pipeline that rarely closes and warns when the mix grows too dependent on one channel.` },
     ],
     faqs: [
       { q: `How do you calculate pipeline by source?`, a: `Attribute each opportunity to its acquisition source, sum pipeline value by source, and divide each by total pipeline for its percentage share. The shares sum to 100 percent and reveal your dependence on each channel.` },
@@ -5226,7 +5226,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A rep makes 500 dials in a week and reaches 50 live conversations. Connect rate = 50 / 500 = 10 percent.`, `If 1 in 5 conversations books a meeting, that is 10 meetings from 500 dials, or 50 dials per meeting. Raising connect rate to 15 percent through better timing and data would produce 15 meetings from the same effort, a 50 percent gain with no extra dials.`] },
-      { h: `How Rally handles it`, body: `Rally tracks connect rate alongside downstream conversion, so you see the full outbound math from dials to meetings. Rook flags when connect rate drops, pointing to data quality or timing issues before they drag down meetings booked.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks connect rate alongside downstream conversion, so you see the full outbound math from dials to meetings. Rook flags when connect rate drops, pointing to data quality or timing issues before they drag down meetings booked.` },
     ],
     faqs: [
       { q: `What is the connect rate formula?`, a: `Live connects divided by dials or contact attempts, times 100. Count only attempts that reached a live conversation, excluding voicemails and no-answers, so the rate reflects real human contact.` },
@@ -5257,7 +5257,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A customer signs a two-year contract at 120,000 dollars per year, plus a one-time 30,000 dollar onboarding fee.`, `TCV = (120,000 x 2) plus 30,000 = 240,000 plus 30,000 = 270,000 dollars. The ACV, by contrast, is 120,000 dollars (the annual recurring value). TCV shows total commitment; ACV normalizes for comparison across deals of different lengths.`] },
-      { h: `How Rally handles it`, body: `Rally stores both TCV and ACV on every deal and rolls them up separately, so bookings and recurring metrics never get crossed. Rook can report total commitment via TCV while keeping ACV available for deal comparison.` },
+      { h: `How Ardovo handles it`, body: `Ardovo stores both TCV and ACV on every deal and rolls them up separately, so bookings and recurring metrics never get crossed. Rook can report total commitment via TCV while keeping ACV available for deal comparison.` },
     ],
     faqs: [
       { q: `What is the total contract value formula?`, a: `The recurring value per period multiplied by the number of periods in the term, plus any one-time fees. A three-year deal at 100,000 dollars a year with a 20,000 dollar setup fee has a TCV of 320,000 dollars.` },
@@ -5283,7 +5283,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Interpreting the tiers`, body: [`A burn multiple under 1 means each dollar of net new ARR cost less than a dollar of burn, exceptional efficiency. Between 1 and 2 is healthy. Above 3, you are burning more than three dollars for every dollar of new ARR, which is hard to sustain and hard to fund.`, `Because it captures total burn, the burn multiple is harsher than the magic number, which covers only sales and marketing. A company can have a decent magic number but a poor burn multiple if other functions are inefficient.`] },
-      { h: `How Rally handles it`, body: `Rally pairs ARR movement with finance burn to compute the burn multiple each period against these tiers. Rook flags when it deteriorates and whether the cause is slowing net new ARR or rising burn, so you address the right side.` },
+      { h: `How Ardovo handles it`, body: `Ardovo pairs ARR movement with finance burn to compute the burn multiple each period against these tiers. Rook flags when it deteriorates and whether the cause is slowing net new ARR or rising burn, so you address the right side.` },
     ],
     faqs: [
       { q: `What is a good burn multiple?`, a: `Under 1 is amazing, 1 to 2 is good, 2 to 3 is suspect, and above 3 is bad. Lower is always better because it means you burn less cash per dollar of net new ARR. Early-stage companies get more leeway.` },
@@ -5309,7 +5309,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Reading the quick ratio`, body: [`At a ratio of 4, gains are four times losses, so growth is comfortable and durable. Between 1 and 4, you are still growing but a large denominator (churn plus contraction) signals a leaky bucket worth fixing. Below 1, losses exceed gains and the base is contracting.`, `The quick ratio complements net new MRR: net new MRR can look positive while the ratio reveals large underlying churn. Watching both catches a leaky bucket before net new MRR turns negative.`] },
-      { h: `How Rally handles it`, body: `Rally computes the quick ratio from its live MRR components against this benchmark. Rook flags when the denominator, churn plus contraction, is climbing, catching a leaky bucket before it drags net new MRR negative.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes the quick ratio from its live MRR components against this benchmark. Rook flags when the denominator, churn plus contraction, is climbing, catching a leaky bucket before it drags net new MRR negative.` },
     ],
     faqs: [
       { q: `What is a good SaaS quick ratio?`, a: `4 or higher, meaning you add four dollars of new and expansion MRR for every dollar lost to churn and contraction. A ratio of 2 to 4 is growing but leaky, and below 1 means the base is shrinking.` },
@@ -5335,7 +5335,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Expansion benchmarks in context`, body: [`Elite SaaS companies expand their existing base by 15 to 30 percent or more annually, driven by usage-based or seat-based pricing and strong customer success. That expansion, set against modest churn, produces net revenue retention well above 100 percent.`, `The right target depends on churn. If your gross churn is 8 percent, you need more than 8 percent expansion just to reach 100 percent NRR. Lower churn lets a smaller expansion rate cross the compounding line.`] },
-      { h: `How Rally handles it`, body: `Rally tracks the expansion rate against churn and shows the resulting net revenue retention, so expansion is judged in context. Rook flags expansion-ready accounts from usage and engagement signals, turning the rate into a pipeline of upsell opportunities.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks the expansion rate against churn and shows the resulting net revenue retention, so expansion is judged in context. Rook flags expansion-ready accounts from usage and engagement signals, turning the rate into a pipeline of upsell opportunities.` },
     ],
     faqs: [
       { q: `What is a good expansion revenue rate?`, a: `One that, with low churn, pushes net revenue retention above 100 percent. Best-in-class B2B SaaS expands its existing base 15 to 30 percent or more annually. The right target depends on your churn rate.` },
@@ -5366,7 +5366,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Overloading the dashboard with every available metric. Focus is the whole point; a dozen well-chosen KPIs beat fifty. If a metric would not change a decision, leave it off.`, `Showing bare numbers without targets or trends. A KPI with no benchmark and no direction is uninterpretable. Every metric needs context to drive action.`] },
-      { h: `How Rally handles it`, body: `Rally builds sales KPI dashboards that are alive on first load, each metric against target and trend, drillable to the deals behind it, and designed per audience. Rook explains what moved each KPI and which one, if improved, would most raise the number.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds sales KPI dashboards that are alive on first load, each metric against target and trend, drillable to the deals behind it, and designed per audience. Rook explains what moved each KPI and which one, if improved, would most raise the number.` },
     ],
     faqs: [
       { q: `What KPIs go on a sales KPI dashboard?`, a: `A focused set across results (bookings, win rate, quota attainment), pipeline health (coverage, velocity, deal aging), and leading activity (opportunities created, meetings, speed to lead), each with a target and trend and drillable to the deals behind it.` },
@@ -5397,7 +5397,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Historically, of deals that reached discovery, 20 percent won; of those that reached proposal, 35 percent won; and of those that reached negotiation, 60 percent won. These are your stage win rates.`, `Now a deal in negotiation carries a 60 percent win probability grounded in real history, not a guess. Applying these rates to open deals produces a weighted pipeline and forecast far more accurate than arbitrary stage defaults.`] },
-      { h: `How Rally handles it`, body: `Rally calculates win rate by stage from your closed-deal history and uses it as the default stage probability for weighting and forecasting. Rook refines it with deal-level signals, so probabilities reflect both stage and real engagement.` },
+      { h: `How Ardovo handles it`, body: `Ardovo calculates win rate by stage from your closed-deal history and uses it as the default stage probability for weighting and forecasting. Rook refines it with deal-level signals, so probabilities reflect both stage and real engagement.` },
     ],
     faqs: [
       { q: `What is the win rate by stage formula?`, a: `For each stage, deals that reached the stage and eventually won divided by all deals that reached it, times 100. The rate rises at later stages and provides empirical win probabilities for forecasting.` },
@@ -5428,7 +5428,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`You have 50 open deals summing to 10,000,000 dollars of raw pipeline. But 12 of them, worth 3,000,000 dollars, have had no activity in 45 days.`, `After closing those zombies, real open pipeline is 7,000,000 dollars. Weighted by stage probability, the expected value might be 2,500,000 dollars. The raw 10,000,000 dollar figure would have badly overstated both coverage and forecast.`] },
-      { h: `How Rally handles it`, body: `Rally shows raw, cleaned, and weighted pipeline, flagging stale deals automatically so the number reflects reality. Rook keeps the pipeline clean by surfacing zombies and updating stages from activity, so total pipeline value stays trustworthy.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shows raw, cleaned, and weighted pipeline, flagging stale deals automatically so the number reflects reality. Rook keeps the pipeline clean by surfacing zombies and updating stages from activity, so total pipeline value stays trustworthy.` },
     ],
     faqs: [
       { q: `What is the total pipeline value formula?`, a: `The sum of the amounts of all open deals not yet won or lost. It is the raw pipeline figure, a starting point for coverage and forecasting that should be weighted by probability and cleaned of stale deals to be useful.` },
@@ -5459,7 +5459,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`This quarter you have already closed 1,200,000 dollars. Reps have placed eight deals worth 900,000 dollars in commit.`, `Committed forecast = 1,200,000 plus 900,000 = 2,100,000 dollars. If history shows commit deals close 90 percent of the time, the realistic commit-based expectation is about 2,010,000 dollars. Tracking that conversion keeps the commit category honest over time.`] },
-      { h: `How Rally handles it`, body: `Rally rolls up the committed forecast from closed and commit-category deals and pressure-tests each commit against real signals. Rook flags commits with no named economic buyer or no recent activity, so the floor leadership counts on is genuinely reliable.` },
+      { h: `How Ardovo handles it`, body: `Ardovo rolls up the committed forecast from closed and commit-category deals and pressure-tests each commit against real signals. Rook flags commits with no named economic buyer or no recent activity, so the floor leadership counts on is genuinely reliable.` },
     ],
     faqs: [
       { q: `What is the committed forecast?`, a: `The revenue you are confident will close in the period: already-closed revenue plus deals reps have placed in the commit category. It is the forecast floor that leadership counts on, so each commit should be backed by evidence.` },
@@ -5490,7 +5490,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`A deal lists at 120,000 dollars but closes at a 25 percent discount, so revenue is 90,000 dollars. Delivery and cost to serve total 36,000 dollars.`, `Deal margin = (90,000 minus 36,000) divided by 90,000 = 54,000 / 90,000 = 60 percent. A smaller 70,000 dollar deal with only 14,000 dollars of cost would have an 80 percent margin and produce 56,000 dollars of profit, more than the larger deal's 54,000 dollars.`] },
-      { h: `How Rally handles it`, body: `Rally can surface deal margin alongside deal size, factoring discounts and cost to serve, so reps and leaders see profitability, not just revenue. Rook flags large deals whose margin is thin from heavy discounting, so you weigh them properly.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can surface deal margin alongside deal size, factoring discounts and cost to serve, so reps and leaders see profitability, not just revenue. Rook flags large deals whose margin is thin from heavy discounting, so you weigh them properly.` },
     ],
     faqs: [
       { q: `What is the deal margin formula?`, a: `Deal revenue after discounts minus deal costs (cost to serve, delivery, deal-specific expenses), divided by deal revenue, times 100. It measures the profitability of an individual deal, not just its size.` },
@@ -5521,7 +5521,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`ARR was 12,000,000 dollars a year ago and is 18,000,000 dollars now. ARR growth rate = (18,000,000 minus 12,000,000) divided by 12,000,000 = 6,000,000 / 12,000,000 = 50 percent year over year.`, `Decomposing it: if 4,000,000 dollars came from new customers and 2,000,000 dollars net from the existing base, the growth is broad-based. If most came from a single large deal, it is less durable. The rate alone does not reveal this; the bridge does.`] },
-      { h: `How Rally handles it`, body: `Rally computes ARR growth year over year and period over period, and decomposes it via the live ARR bridge. Rook explains whether growth came from new logos or a compounding base, and pairs it with efficiency metrics so growth is never judged alone.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes ARR growth year over year and period over period, and decomposes it via the live ARR bridge. Rook explains whether growth came from new logos or a compounding base, and pairs it with efficiency metrics so growth is never judged alone.` },
     ],
     faqs: [
       { q: `What is the ARR growth rate formula?`, a: `Current ARR minus prior ARR, divided by prior ARR, times 100. Measure it year over year for a clean comparison, and decompose the growth into new versus expansion to understand its quality.` },
@@ -5547,7 +5547,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `How to judge productivity`, body: [`Use two lenses: revenue per rep for a simple output view, and the ratio of gross margin generated to fully loaded sales cost for an efficiency view. A ratio above 1 means the team produces more margin than it costs; higher is better. Track the trend, since a rising ratio means efficiency is improving.`, `Compare to peers with a similar motion and price point, not to companies in a different model. A self-serve business and a high-touch enterprise business have incomparable productivity numbers.`] },
-      { h: `How Rally handles it`, body: `Rally measures sales productivity as both revenue per rep and a margin-to-cost ratio, trended by segment. Rook flags when productivity is declining and points to the driver, ramp, win rate, or rising cost, so you fix the right thing.` },
+      { h: `How Ardovo handles it`, body: `Ardovo measures sales productivity as both revenue per rep and a margin-to-cost ratio, trended by segment. Rook flags when productivity is declining and points to the driver, ramp, win rate, or rising cost, so you fix the right thing.` },
     ],
     faqs: [
       { q: `What is a good sales productivity?`, a: `There is no universal figure; it depends on your margins, price point, and motion. Judge it by the trend and against comparable peers. A margin-to-sales-cost ratio above 1 is strong, and a rising ratio signals efficient scaling.` },
@@ -5578,7 +5578,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Channel A produced 2,000 leads at 20 dollars each (40,000 dollars spent) that generated 300,000 dollars of revenue, so revenue per lead is 150 dollars. Channel B produced 500 leads at 60 dollars each (30,000 dollars) that generated 250,000 dollars, so revenue per lead is 500 dollars.`, `Despite triple the cost per lead, Channel B's revenue per lead is over three times higher. Comparing revenue per lead to cost per lead reveals Channel B as the far more profitable source, which cost per lead alone would have hidden.`] },
-      { h: `How Rally handles it`, body: `Rally attributes revenue back to lead sources and shows revenue per lead beside cost per lead by channel. Rook flags channels with cheap leads but low revenue per lead, so budget flows to sources that actually produce revenue.` },
+      { h: `How Ardovo handles it`, body: `Ardovo attributes revenue back to lead sources and shows revenue per lead beside cost per lead by channel. Rook flags channels with cheap leads but low revenue per lead, so budget flows to sources that actually produce revenue.` },
     ],
     faqs: [
       { q: `What is the revenue per lead formula?`, a: `Total revenue attributed to a set of leads divided by the number of leads, allowing enough time for the sales cycle to play out. Compared to cost per lead, it reveals the true profitability of a lead source.` },
@@ -5609,7 +5609,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Common mistakes`, body: [`Reporting vanity metrics like traffic, impressions, and raw lead count that impress but do not tie to revenue. Sales and finance discount them, and they can rise while the business stagnates.`, `Ignoring quality. High lead volume with poor MQL to SQL conversion is a cost, not an achievement. Always pair volume metrics with the conversion and revenue they produce.`] },
-      { h: `How Rally handles it`, body: `Rally ties marketing activity to sourced and influenced pipeline, cost per opportunity, and closed revenue on shared data, so marketing is measured on outcomes. Rook flags channels that generate leads but little pipeline, ending the volume-versus-revenue debate with evidence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ties marketing activity to sourced and influenced pipeline, cost per opportunity, and closed revenue on shared data, so marketing is measured on outcomes. Rook flags channels that generate leads but little pipeline, ending the volume-versus-revenue debate with evidence.` },
     ],
     faqs: [
       { q: `How do you measure marketing performance?`, a: `With revenue-tied metrics: marketing-sourced and influenced pipeline, MQL to SQL conversion, cost per opportunity, return on marketing investment, and lead velocity rate, tracked by channel from lead to closed revenue, not vanity metrics like traffic.` },
@@ -5640,7 +5640,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the month, 1,200 users started a free trial. 300 converted to paid. Trial to paid conversion = 300 / 1,200 = 25 percent.`, `Splitting by activation: of 500 users who reached the value milestone, 240 converted (48 percent), while of 700 who did not activate, only 60 converted (about 9 percent). Activation is the dominant driver, so improving onboarding to lift activation would raise overall conversion most.`] },
-      { h: `How Rally handles it`, body: `Rally can track trial to paid conversion tied to activation and time to value, so you see what actually drives it. Rook flags trials that have not activated partway through, prompting intervention while there is still time to convert them.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can track trial to paid conversion tied to activation and time to value, so you see what actually drives it. Rook flags trials that have not activated partway through, prompting intervention while there is still time to convert them.` },
     ],
     faqs: [
       { q: `What is the trial to paid conversion rate formula?`, a: `Trials that converted to paid divided by total trials started in the period, times 100. Segment it by whether users activated during the trial, since activated trials convert far higher than unactivated ones.` },
@@ -5666,7 +5666,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Trial design and the tradeoff`, body: [`Opt-out trials convert higher because a card up front filters out the merely curious, but they generate far fewer trials. Opt-in trials convert lower but attract more volume at the top. The right choice depends on whether you optimize for volume or conversion quality.`, `Within either model, activation is decisive. A trial that gets users to value converts multiples higher than one that does not, so onboarding is usually the highest-leverage place to improve the rate.`] },
-      { h: `How Rally handles it`, body: `Rally tracks trial to paid conversion by trial type and activation status, so you compare like with like. Rook flags unactivated trials mid-window, so you can intervene where conversion is most at risk.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks trial to paid conversion by trial type and activation status, so you compare like with like. Rook flags unactivated trials mid-window, so you can intervene where conversion is most at risk.` },
     ],
     faqs: [
       { q: `What is a good trial to paid conversion rate?`, a: `Opt-in free trials (no card) typically convert 15 to 25 percent; opt-out trials (card required) convert 40 to 60 percent because they pre-qualify intent. Activation during the trial is the biggest driver in either model.` },
@@ -5697,7 +5697,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Your annual logo churn is 16 percent. Average customer lifespan = 1 divided by 0.16 = 6.25 years.`, `If you reduce churn to 10 percent, lifespan jumps to 1 divided by 0.10 = 10 years, a 60 percent increase from a 6-point churn improvement. Because LTV scales with lifespan, that retention gain flows straight into a much higher lifetime value.`] },
-      { h: `How Rally handles it`, body: `Rally derives average customer lifespan from real churn by segment and feeds it into LTV automatically. Rook shows how a churn improvement would extend lifespan and lift LTV, so retention work is tied to its dollar impact.` },
+      { h: `How Ardovo handles it`, body: `Ardovo derives average customer lifespan from real churn by segment and feeds it into LTV automatically. Rook shows how a churn improvement would extend lifespan and lift LTV, so retention work is tied to its dollar impact.` },
     ],
     faqs: [
       { q: `What is the average customer lifespan formula?`, a: `1 divided by the churn rate for the same period. A 20 percent annual churn gives a 5-year average lifespan. Keep churn and lifespan in matching time units, monthly or annual.` },
@@ -5728,7 +5728,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the month, you generated 2,000 leads. 600 met your MQL threshold. Lead to MQL conversion = 600 / 2,000 = 30 percent.`, `If those 600 MQLs then convert to SQLs at only 15 percent, the MQL bar is too loose, passing weak leads. Tightening the scoring so fewer, better leads become MQLs would raise MQL to SQL conversion even as lead to MQL falls.`] },
-      { h: `How Rally handles it`, body: `Rally tracks lead to MQL conversion by source alongside downstream MQL to SQL conversion, so you can calibrate the MQL bar. Rook flags sources whose leads rarely qualify, so you stop paying for volume that never advances.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks lead to MQL conversion by source alongside downstream MQL to SQL conversion, so you can calibrate the MQL bar. Rook flags sources whose leads rarely qualify, so you stop paying for volume that never advances.` },
     ],
     faqs: [
       { q: `What is the lead to MQL conversion rate formula?`, a: `MQLs divided by total leads in the period, times 100. It measures top-of-funnel quality and how well your lead scoring separates genuine interest and fit from noise.` },
@@ -5754,7 +5754,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Judging ARPU in context`, body: [`ARPU must be high enough that, given your CAC, the unit economics work. A low ARPU demands a very low CAC (usually self-serve); a high ARPU can support a high-touch, higher-CAC sales motion. The two must be consistent.`, `Track the trend and segment it. A rising blended ARPU is usually good, but it can hide a declining segment. Segmenting by plan and cohort shows whether growth comes from bigger customers or better monetization.`] },
-      { h: `How Rally handles it`, body: `Rally tracks ARPU by plan, cohort, and segment beside CAC and payback, so it is always judged in context. Rook flags when blended ARPU hides a declining segment or when ARPU is not keeping pace with rising CAC.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks ARPU by plan, cohort, and segment beside CAC and payback, so it is always judged in context. Rook flags when blended ARPU hides a declining segment or when ARPU is not keeping pace with rising CAC.` },
     ],
     faqs: [
       { q: `What is a good ARPU?`, a: `There is no universal figure; ARPU depends on your market, pricing, and model. What matters is whether ARPU supports your CAC and whether it is trending up through better pricing or a richer customer mix.` },
@@ -5780,7 +5780,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `MRR growth in context`, body: [`A young SaaS growing 15 percent monthly more than quintuples MRR in a year, an elite pace that is only possible from a small base. As MRR reaches millions, monthly growth naturally falls into the single digits, and companies shift to annual growth benchmarks.`, `What matters most is durability. Growth from steady net new MRR is far healthier than a spike from one large deal. Decomposing growth into new and expansion shows whether it will hold.`] },
-      { h: `How Rally handles it`, body: `Rally tracks MRR growth rate against your scale and decomposes it into net new MRR components. Rook flags when growth decelerates and whether the cause is slowing new business or rising churn, so you act on the real driver.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks MRR growth rate against your scale and decomposes it into net new MRR components. Rook flags when growth decelerates and whether the cause is slowing new business or rising churn, so you act on the real driver.` },
     ],
     faqs: [
       { q: `What is a good MRR growth rate?`, a: `It depends on scale. Early-stage SaaS often targets 10 to 20 percent or more month over month, which compounds dramatically. As MRR grows, sustaining double-digit monthly growth is very hard, so larger companies measure growth annually.` },
@@ -5811,7 +5811,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`Paid search: 120,000 dollars spent, 40 customers, CAC 3,000 dollars. Content: 60,000 dollars spent, 30 customers, CAC 2,000 dollars. Events: 100,000 dollars spent, 20 customers, CAC 5,000 dollars.`, `Blended CAC across all three is 280,000 / 90 = about 3,111 dollars, which hides that content is most efficient and events most expensive. If event customers have higher LTV, events may still be worth it, but only channel-level CAC beside LTV reveals the truth.`] },
-      { h: `How Rally handles it`, body: `Rally computes CAC by channel from attributed spend and customers, beside each channel's LTV and payback. Rook flags channels whose CAC is rising or whose customers churn fast, so budget flows to the channels that produce the best customers.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes CAC by channel from attributed spend and customers, beside each channel's LTV and payback. Rook flags channels whose CAC is rising or whose customers churn fast, so budget flows to the channels that produce the best customers.` },
     ],
     faqs: [
       { q: `What is the CAC by channel formula?`, a: `For each channel, its spend divided by the customers it acquired in the period. Use fully loaded spend and consistent attribution, and compare each channel's CAC to the LTV and payback of the customers it produces.` },
@@ -5842,7 +5842,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`At quarter end, accounts receivable is 450,000 dollars. Credit sales for the 90-day quarter were 1,800,000 dollars.`, `DSO = (450,000 / 1,800,000) times 90 = 0.25 times 90 = 22.5 days. That means, on average, it takes about 22 days to collect after a sale. If DSO rose to 40 days next quarter, collections would be slowing and working capital tightening, worth investigating.`] },
-      { h: `How Rally handles it`, body: `Rally connects bookings and billings to collections, so DSO ties back to the deals behind it. Rook flags overdue invoices and rising DSO, so slow collections surface as an actionable list rather than a quarter-end surprise.` },
+      { h: `How Ardovo handles it`, body: `Ardovo connects bookings and billings to collections, so DSO ties back to the deals behind it. Rook flags overdue invoices and rising DSO, so slow collections surface as an actionable list rather than a quarter-end surprise.` },
     ],
     faqs: [
       { q: `What is the DSO formula?`, a: `Accounts receivable divided by total credit sales for a period, times the number of days in that period. It measures the average number of days it takes to collect payment after a sale.` },
@@ -5873,7 +5873,7 @@ const TOPICS = [
     ],
     sections: [
       { h: `Worked example`, body: [`In the quarter you recognized 2,000,000 dollars of revenue. Deferred revenue rose from 1,500,000 to 2,100,000 dollars, a change of 600,000 dollars.`, `Billings = 2,000,000 plus 600,000 = 2,600,000 dollars. The 600,000 dollar rise in deferred revenue reflects contracts invoiced up front that will be recognized in future periods, which is why billings ran ahead of recognized revenue this quarter.`] },
-      { h: `How Rally handles it`, body: `Rally connects billings to bookings and recognized revenue, so the three views reconcile. Rook flags when billings diverge from revenue and explains why, whether from up-front annual invoicing or a shift in billing terms.` },
+      { h: `How Ardovo handles it`, body: `Ardovo connects billings to bookings and recognized revenue, so the three views reconcile. Rook flags when billings diverge from revenue and explains why, whether from up-front annual invoicing or a shift in billing terms.` },
     ],
     faqs: [
       { q: `What is the billings formula?`, a: `A common version is recognized revenue plus the change in deferred revenue over the period. It captures amounts invoiced, including up-front payments not yet recognized as revenue, so it can exceed recognized revenue.` },
@@ -5896,7 +5896,7 @@ export default TOPICS.map((t) => ({
   slug: t.slug,
   type: t.type,
   title: t.title,
-  metaTitle: t.metaTitle || `${t.title.replace(/\s*\(.*\)\s*$/, '')}: formula, example, benchmark (2026) | Rally`,
+  metaTitle: t.metaTitle || `${t.title.replace(/\s*\(.*\)\s*$/, '')}: formula, example, benchmark (2026) | Ardovo`,
   metaDescription: clampMeta(t.metaDescription),
   eyebrow: t.eyebrow || (t.type === `guide` ? `Sales metrics guide` : `Sales metrics`),
   h1: t.h1 || t.title,

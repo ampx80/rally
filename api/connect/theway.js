@@ -1,9 +1,9 @@
 // POST /api/connect/theway   (GET also accepted)
 // ============================================================
-// Rally  <-  The Way   delivery-projects bridge (env-gated).
+// Ardovo  <-  The Way   delivery-projects bridge (env-gated).
 // The server-side half of the The Way connector (see
 // src/lib/integrations/connectors/theway.js). Proxies The Way's
-// projects list into Rally so the CRM can show live post-sale
+// projects list into Ardovo so the CRM can show live post-sale
 // delivery status on a deal / company record.
 //
 // ENV GATE (non-negotiable, per platform contract):
@@ -27,7 +27,7 @@ function originOf(url, fallback) {
   try { return new URL(url).origin; } catch { return fallback; }
 }
 
-// Slim a raw the_way_projects row down to what the Rally connector normalizes.
+// Slim a raw the_way_projects row down to what the Ardovo connector normalizes.
 function slim(r) {
   if (!r || typeof r !== 'object') return null;
   return {

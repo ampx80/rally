@@ -1,11 +1,11 @@
 // api/sequence-tick.js
 //
-// Rally SEQUENCES runner - the real send surface behind the Sequences page.
+// Ardovo SEQUENCES runner - the real send surface behind the Sequences page.
 // Two shapes, one route:
 //
 //   1) POST { action: 'send', to, subject, text, idempotencyKey, ... }
 //      The browser-side cadence engine (src/lib/sequences-data.js) calls this
-//      for every DUE email step. We compose the Rally dark shell and hand the
+//      for every DUE email step. We compose the Ardovo dark shell and hand the
 //      message to the hardened sendEmail() primitive (Resend + retry/backoff +
 //      idempotency + suppression). A safe NO-OP without RESEND_API_KEY.
 //
@@ -21,7 +21,7 @@
 //
 // Env:
 //   RESEND_API_KEY   - required to actually deliver (studio-wide key)
-//   RALLY_FROM / NOTIFY_FROM / RESEND_FROM - default sender (via sendEmail)
+//   ARDOVO_FROM / NOTIFY_FROM / RESEND_FROM - default sender (via sendEmail)
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY - optional outbox + dedupe
 //   CRON_SECRET      - optional; when set, the tick/drain path requires
 //                      `Authorization: Bearer <CRON_SECRET>` (Vercel cron sends
@@ -34,7 +34,7 @@ import { sendEmail, escapeHtml, EMAIL_RE } from './_lib-email.js';
 const clean = (s, max = 4000) => String(s == null ? '' : s).trim().slice(0, max);
 
 // Plain sequence body -> a lightweight branded fragment. Blank lines become
-// paragraph breaks, single newlines become <br/>. Wrapped in the Rally shell
+// paragraph breaks, single newlines become <br/>. Wrapped in the Ardovo shell
 // by sendEmail (via bodyHtml).
 function textToBodyHtml(text) {
   const safe = escapeHtml(String(text || ''));
@@ -55,7 +55,7 @@ async function sendStep(row) {
     bodyHtml: textToBodyHtml(text),
     text: text || undefined,
     category: 'sequence',
-    eyebrow: clean(row.sequenceName, 80) || 'Rally sequence',
+    eyebrow: clean(row.sequenceName, 80) || 'Ardovo sequence',
     idempotencyKey: row.idempotencyKey ? clean(row.idempotencyKey, 200) : undefined,
   });
 }

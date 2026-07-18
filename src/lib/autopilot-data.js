@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY AUTOPILOT  (local-first, deterministic worker sim)
+// ARDOVO AUTOPILOT  (local-first, deterministic worker sim)
 //
-// Autopilot is Rally's autonomous SDR/AE. It works a lead list end
+// Autopilot is Ardovo's autonomous SDR/AE. It works a lead list end
 // to end: researches each account (enrichment), drafts a personalized
 // multi-channel opener (email + SMS + LinkedIn), sequences follow-ups,
 // and books the meeting. Every proposed send lands in a governed
@@ -90,7 +90,7 @@ const SIGNALS = [
   'Migrated off a legacy CRM in Q2 (job posts reference the switch)',
   'Series C led by a growth fund closed 9 weeks ago',
   'Headcount up 22% year over year',
-  'Two competitors already run Rally in the same vertical',
+  'Two competitors already run Ardovo in the same vertical',
   'Opened a new regional office in the target territory',
   'Website now runs a demo-request form with no follow-up automation',
   'VP of Sales started 4 months ago and is rebuilding the stack',
@@ -110,7 +110,7 @@ function firstSignalShort(sig) {
     'Migrated off a legacy CRM in Q2 (job posts reference the switch)': 'the CRM change you made this year',
     'Series C led by a growth fund closed 9 weeks ago': 'the growth push after your Series C',
     'Headcount up 22% year over year': 'the pace you are hiring at',
-    'Two competitors already run Rally in the same vertical': 'what teams like yours are doing in the space',
+    'Two competitors already run Ardovo in the same vertical': 'what teams like yours are doing in the space',
     'Opened a new regional office in the target territory': 'the new region you just opened',
     'Website now runs a demo-request form with no follow-up automation': 'the inbound demo requests coming in',
     'VP of Sales started 4 months ago and is rebuilding the stack': 'the stack rebuild underway',
@@ -127,12 +127,12 @@ function draftFor(channel, lead, step) {
   const fn = lead.firstName;
   if (channel === 'email') {
     if (step === 'opener') return {
-      subject: `${co} + Rally: ${clause}`,
-      body: `Hi ${fn},\n\nI was reading up on ${co} and noticed ${clause}. Teams hitting that exact moment usually feel it as reps drowning in follow-up instead of selling.\n\nRally runs an autonomous SDR that researches, drafts, and sequences outbound with a human approval step you control. Worth a 20-minute look?\n\nBest,\nJordan`,
+      subject: `${co} + Ardovo: ${clause}`,
+      body: `Hi ${fn},\n\nI was reading up on ${co} and noticed ${clause}. Teams hitting that exact moment usually feel it as reps drowning in follow-up instead of selling.\n\nArdovo runs an autonomous SDR that researches, drafts, and sequences outbound with a human approval step you control. Worth a 20-minute look?\n\nBest,\nJordan`,
     };
     if (step === 'followup') return {
-      subject: `Re: ${co} + Rally`,
-      body: `Hi ${fn},\n\nQuick follow-up. I put together a short view of how Rally would work ${clause} for a team your size. Happy to walk you through it live, or send the async version if that is easier.\n\nWhich do you prefer?\n\nJordan`,
+      subject: `Re: ${co} + Ardovo`,
+      body: `Hi ${fn},\n\nQuick follow-up. I put together a short view of how Ardovo would work ${clause} for a team your size. Happy to walk you through it live, or send the async version if that is easier.\n\nWhich do you prefer?\n\nJordan`,
     };
     return {
       subject: `Should I close the loop, ${fn}?`,
@@ -142,7 +142,7 @@ function draftFor(channel, lead, step) {
   if (channel === 'sms') {
     return {
       subject: 'SMS',
-      body: `Hi ${fn}, Jordan at Rally here. Saw ${clause} at ${co} - we run an autonomous SDR with a human approval step. Open to a quick 20-min look this week? Reply STOP to opt out.`,
+      body: `Hi ${fn}, Jordan at Ardovo here. Saw ${clause} at ${co} - we run an autonomous SDR with a human approval step. Open to a quick 20-min look this week? Reply STOP to opt out.`,
     };
   }
   // linkedin
@@ -152,7 +152,7 @@ function draftFor(channel, lead, step) {
   };
   return {
     subject: 'LinkedIn message',
-    body: `Thanks for connecting, ${fn}. Given ${clause}, I think Rally's approval-gated autopilot would land well with your team. Open to a short call? I can send a couple of times.`,
+    body: `Thanks for connecting, ${fn}. Given ${clause}, I think Ardovo's approval-gated autopilot would land well with your team. Open to a short call? I can send a couple of times.`,
   };
 }
 

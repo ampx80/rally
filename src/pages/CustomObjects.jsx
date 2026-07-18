@@ -185,7 +185,7 @@ export default function CustomObjects() {
       <PageTitle
         eyebrow="Admin"
         title="Custom objects"
-        sub="Model anything Rally does not ship out of the box - assets, contracts, properties, sites. Your objects behave exactly like the built-in ones."
+        sub="Model anything Ardovo does not ship out of the box - assets, contracts, properties, sites. Your objects behave exactly like the built-in ones."
         action={<Button variant="accent" onClick={() => setObjModal({})}><Icon name="plus" size={16} /> New object</Button>}
       />
 

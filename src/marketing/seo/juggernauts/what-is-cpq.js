@@ -9,11 +9,11 @@ const entry = {
   slug: 'what-is-cpq',
   title: 'What Is CPQ? Configure, Price, Quote Explained',
   h1: 'What Is CPQ? Configure, Price, Quote Explained (2026)',
-  metaTitle: 'What Is CPQ? Configure, Price, Quote Explained (2026) | Rally',
+  metaTitle: 'What Is CPQ? Configure, Price, Quote Explained (2026) | Ardovo',
   metaDescription: 'CPQ (Configure, Price, Quote) is software that turns a complex deal into an accurate quote in minutes. A deep explainer with the CPQ flow, a quote-error cost calculator, and when you actually need it.',
   eyebrow: 'Revenue Operations',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 10, prefix: '', suffix: 'x', label: 'Typical speed-up from days of manual quoting to minutes' },
     { value: 20, suffix: '%', label: 'Of manual quotes carry a pricing or configuration error, industry-typical' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Rally: one flat price, quoting included, no CPQ add-on' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Ardovo: one flat price, quoting included, no CPQ add-on' },
   ],
   blocks: [
     {
@@ -188,7 +188,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Spreadsheet quotes vs bolt-on CPQ vs built-in quoting',
       rowHeader: 'Capability',
-      columns: ['Rally built-in', 'Spreadsheet quotes', 'Bolt-on CPQ'],
+      columns: ['Ardovo built-in', 'Spreadsheet quotes', 'Bolt-on CPQ'],
       highlightCol: 0,
       rows: [
         { feature: 'Enforces valid product configurations', cells: [true, false, true] },
@@ -208,7 +208,7 @@ const entry = {
       title: 'Time to send an accurate quote',
       data: {
         bars: [
-          { label: 'Rally built-in', value: 5, display: '~5 min', highlight: true },
+          { label: 'Ardovo built-in', value: 5, display: '~5 min', highlight: true },
           { label: 'Spreadsheet + finance email', value: 480, display: '1-3 days' },
           { label: 'Bolt-on CPQ (once configured)', value: 20, display: '~20 min' },
         ],
@@ -219,7 +219,7 @@ const entry = {
       title: 'CPQ, or a CRM that already quotes?',
       body: [
         'For a long time CPQ was a separate product you bolted onto a CRM, because early CRMs stored contacts but had no idea what you sold or what it should cost. That created a permanent seam: the deal lived in one system, the quote in another, and someone paid to keep them in sync. It is why "CPQ" became a category of its own and why implementations run into months.',
-        'The modern answer is to collapse the seam. When quoting shares the same source of truth as your pipeline, contacts, and forecast, configure-price-quote stops being a bolt-on and becomes a native step in the deal. Rally takes this approach: the catalog, pricing rules, and guardrails live next to the deal, the AI operator Rook can draft and sanity-check a quote before it goes out, and it is all one flat price rather than a CPQ add-on stacked on a seat license. If your pricing is genuinely complex enough to need a dedicated configuration engine, a specialist CPQ still earns its keep. For most teams, built-in quoting closes the leak without the second system.',
+        'The modern answer is to collapse the seam. When quoting shares the same source of truth as your pipeline, contacts, and forecast, configure-price-quote stops being a bolt-on and becomes a native step in the deal. Ardovo takes this approach: the catalog, pricing rules, and guardrails live next to the deal, the AI operator Rook can draft and sanity-check a quote before it goes out, and it is all one flat price rather than a CPQ add-on stacked on a seat license. If your pricing is genuinely complex enough to need a dedicated configuration engine, a specialist CPQ still earns its keep. For most teams, built-in quoting closes the leak without the second system.',
       ],
     },
     {
@@ -238,7 +238,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped emailing finance for every discount. The rules are in the tool now, so reps quote in minutes and nobody prices below margin by accident.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'RevOps lead, B2B software',
     },
     {
@@ -256,9 +256,9 @@ const entry = {
         { q: 'What does CPQ stand for?', a: 'CPQ stands for Configure, Price, Quote. Configure decides which products and options can be sold together, Price applies the correct discounts and terms, and Quote produces the document the buyer signs. It is one enforced flow instead of three disconnected steps.' },
         { q: 'What problem does CPQ solve?', a: 'It stops revenue leaking through manual quoting. Hand-built quotes invite mispriced lines, discounts past policy, invalid bundles, and slow turnaround that loses deals. CPQ makes the number correct and fast by enforcing your business rules while the rep builds the deal.' },
         { q: 'Do small businesses need CPQ?', a: 'Not always. If your catalog is simple, discounts do not need approval, and only one person quotes, a spreadsheet or a CRM with basic quoting is fine. CPQ starts paying off when you have real product complexity, discount guardrails, multiple people quoting, or quotes that slow deals down.' },
-        { q: 'What is the difference between CPQ and a CRM?', a: 'A CRM tracks contacts, deals, and pipeline. CPQ turns a deal into an accurate, approved quote. Historically they were separate systems joined by a sync. Modern platforms like Rally build quoting into the CRM so configure-price-quote is a native step on the same source of truth, with no bolt-on to maintain.' },
+        { q: 'What is the difference between CPQ and a CRM?', a: 'A CRM tracks contacts, deals, and pipeline. CPQ turns a deal into an accurate, approved quote. Historically they were separate systems joined by a sync. Modern platforms like Ardovo build quoting into the CRM so configure-price-quote is a native step on the same source of truth, with no bolt-on to maintain.' },
         { q: 'How long does CPQ take to implement?', a: 'A heavy standalone CPQ connected to a separate CRM can take weeks to months to configure. Built-in quoting that shares your existing catalog and deal data can be live in minutes to days. Start with your discount cap and invalid combinations, then add rules as real deals require them.' },
-        { q: 'How much does CPQ cost?', a: 'Standalone CPQ is usually an add-on priced per seat on top of a CRM license, so the bill climbs as you grow. Verify current pricing and packaging with each vendor. Rally includes quoting in one flat per-seat price with no separate CPQ tier, so quoting is not a line item you bolt on later.' },
+        { q: 'How much does CPQ cost?', a: 'Standalone CPQ is usually an add-on priced per seat on top of a CRM license, so the bill climbs as you grow. Verify current pricing and packaging with each vendor. Ardovo includes quoting in one flat per-seat price with no separate CPQ tier, so quoting is not a line item you bolt on later.' },
       ],
     },
   ],

@@ -1,5 +1,5 @@
 // Programmatic comparison template. One component, rendered for every
-// /compare/:slug - the first seeds of Rally's SEO engine. Cross-links every
+// /compare/:slug - the first seeds of Ardovo's SEO engine. Cross-links every
 // competitor so each page lifts the others. NO em-dash / en-dash.
 // Teal #0e9f8f product accent; violet reserved for Rook/AI only.
 import React from 'react';
@@ -38,7 +38,7 @@ export default function Compare() {
           <Reveal>
             <Pill>Comparison</Pill>
             <h1 className="mkt-h1" style={{ marginTop: 22, letterSpacing: '-.03em', lineHeight: 1.05 }}>
-              Rally vs <span className="mkt-grad m-shine">{c.name}</span>
+              Ardovo vs <span className="mkt-grad m-shine">{c.name}</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 680, margin: '20px auto 0' }}>{c.tagline}</p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 32 }}>
@@ -78,7 +78,7 @@ export default function Compare() {
                 <div className="mkt-icon">
                   <Icon name="zap" size={22} />
                 </div>
-                <h3 className="mkt-h3" style={{ marginTop: 18, letterSpacing: '-.02em' }}>Where Rally wins</h3>
+                <h3 className="mkt-h3" style={{ marginTop: 18, letterSpacing: '-.02em' }}>Where Ardovo wins</h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {c.rallyWins.map((t, i) => (
                     <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
@@ -98,14 +98,14 @@ export default function Compare() {
         <div className="mkt-wrap">
           <Reveal>
             <p className="mkt-eyebrow" style={{ marginBottom: 10 }}>Capabilities</p>
-            <h2 className="mkt-h2" style={{ marginBottom: 8, letterSpacing: '-.02em' }}>Rally vs {c.name}, line by line</h2>
+            <h2 className="mkt-h2" style={{ marginBottom: 8, letterSpacing: '-.02em' }}>Ardovo vs {c.name}, line by line</h2>
             <p className="mkt-muted" style={{ marginBottom: 26, maxWidth: 560 }}>The capabilities that decide whether your revenue team runs or crawls.</p>
             <div style={{ ...PANEL, padding: '6px 8px', overflowX: 'auto' }}>
               <table className="mkt-table">
                 <thead>
                   <tr>
                     <th>Capability</th>
-                    <th style={{ width: 120, color: 'var(--m-accent)' }}>Rally</th>
+                    <th style={{ width: 120, color: 'var(--m-accent)' }}>Ardovo</th>
                     <th style={{ width: 160 }}>{c.name}</th>
                   </tr>
                 </thead>
@@ -142,7 +142,7 @@ export default function Compare() {
               <div className="mkt-eyebrow" style={{ marginBottom: 14 }}>The bottom line</div>
               <p className="mkt-lead" style={{ color: 'var(--m-ink)', maxWidth: 820, margin: 0 }}>{c.summary}</p>
               <div style={{ marginTop: 26 }}>
-                <MktButton to="/app">Run your revenue on Rally <Icon name="chevronRight" size={18} /></MktButton>
+                <MktButton to="/app">Run your revenue on Ardovo <Icon name="chevronRight" size={18} /></MktButton>
               </div>
             </div>
           </Reveal>
@@ -153,7 +153,7 @@ export default function Compare() {
       <section className="mkt-section-sm">
         <div className="mkt-wrap">
           <Reveal>
-            <div className="mkt-eyebrow" style={{ marginBottom: 16 }}>Compare Rally to:</div>
+            <div className="mkt-eyebrow" style={{ marginBottom: 16 }}>Compare Ardovo to:</div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {others.map(s => (
                 <Link
@@ -162,7 +162,7 @@ export default function Compare() {
                   className="mkt-btn mkt-btn-ghost"
                   style={{ borderRadius: 999 }}
                 >
-                  Rally vs {COMPETITORS[s].name}
+                  Ardovo vs {COMPETITORS[s].name}
                   <Icon name="chevronRight" size={16} />
                 </Link>
               ))}

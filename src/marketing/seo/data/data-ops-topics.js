@@ -34,7 +34,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Do the big cleanup once, then maintain`, body: [`The trap is treating cleanup as recurring heroics. Do one thorough pass, then shift to prevention: required fields, validation, dedupe rules, and a monthly review of new gaps. Prevention costs a fraction of another full cleanup.`] },
-      { h: `How Rally helps`, body: `Rally ships with duplicate blocking, field validation, and enrichment on by default, so the data starts clean and stays clean. Rook runs the busywork - flagging stale records, merging duplicates, standardizing values, and filling gaps - so your team never faces a giant cleanup again.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships with duplicate blocking, field validation, and enrichment on by default, so the data starts clean and stays clean. Rook runs the busywork - flagging stale records, merging duplicates, standardizing values, and filling gaps - so your team never faces a giant cleanup again.` },
     ],
     faqs: [
       { q: `How often should you clean CRM data?`, a: `Do one deep cleanup, then maintain continuously. A light monthly review of new duplicates, missing fields, and stale records prevents the buildup that forces another full project. Automated validation and dedupe rules handle most of it in the background.` },
@@ -49,7 +49,7 @@ const ROWS = [
     keyPoints: [`Covers accuracy, completeness, consistency, and freshness of records.`, `Prevents duplicates, missing fields, and stale data from accumulating.`, `Best maintained continuously with validation and automation, not periodic heroics.`, `Directly determines whether reports, routing, and forecasts can be trusted.`],
     sections: [
       { h: `Why it matters`, body: `Every downstream system depends on the data underneath it. Bad hygiene means leads route to the wrong rep, dedupe fails, campaigns email the wrong people, and forecasts are built on fiction. Clean data is the foundation everything else stands on.` },
-      { h: `How Rally handles it`, body: `Rally treats hygiene as a platform job, not a chore for reps. Rook continuously dedupes, validates, standardizes, and enriches records in the background, so the database stays clean without anyone running a cleanup project.` },
+      { h: `How Ardovo handles it`, body: `Ardovo treats hygiene as a platform job, not a chore for reps. Rook continuously dedupes, validates, standardizes, and enriches records in the background, so the database stays clean without anyone running a cleanup project.` },
     ],
     faqs: [
       { q: `What is the difference between data hygiene and data quality?`, a: `Data quality is the state of the data at a moment - how accurate and complete it is. Data hygiene is the ongoing practice that keeps quality high over time. Hygiene is the process, quality is the result.` },
@@ -70,7 +70,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Measure, fix, prevent`, body: `Most teams jump straight to fixing and skip measuring and preventing. Without a baseline you cannot prove progress, and without prevention the gains evaporate. The full loop - measure, fix, prevent - is what makes quality durable.` },
-      { h: `How Rally helps`, body: `Rally scores data quality live per object and field, so you always see the baseline. Rook does the fixing and preventing automatically: standardizing values, enriching gaps, and blocking duplicates at entry, so quality climbs without a manual project.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores data quality live per object and field, so you always see the baseline. Rook does the fixing and preventing automatically: standardizing values, enriching gaps, and blocking duplicates at entry, so quality climbs without a manual project.` },
     ],
     faqs: [
       { q: `How do you measure CRM data quality?`, a: `Score records on completeness (are key fields filled), accuracy (are values correct), consistency (are formats standardized), uniqueness (no duplicates), and timeliness (is it current). Track these as percentages per object so you can see gaps and prove improvement over time.` },
@@ -92,7 +92,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Run it once, keep prevention on forever`, body: `The audit, purge, dedupe, standardize, and enrich steps are a one-time deep clean. The prevention step is permanent. Teams that skip prevention repeat the whole checklist every year; teams that keep it on never do it again.` },
-      { h: `How Rally helps`, body: `Rally automates most of this checklist. Rook runs the audit continuously, merges duplicates, standardizes values, enriches gaps, and blocks bad data at entry, so the cleanup is ongoing and automatic rather than a dreaded annual project.` },
+      { h: `How Ardovo helps`, body: `Ardovo automates most of this checklist. Rook runs the audit continuously, merges duplicates, standardizes values, enriches gaps, and blocks bad data at entry, so the cleanup is ongoing and automatic rather than a dreaded annual project.` },
     ],
     faqs: [
       { q: `How long does a CRM data cleanup take?`, a: `A first deep clean of a mid-size database usually takes a few days to two weeks depending on record count and how bad the mess is. Deduping and standardizing are the slowest steps. Automation cuts this dramatically and prevents the need to repeat it.` },
@@ -107,7 +107,7 @@ const ROWS = [
     keyPoints: [`Records lose accuracy over time as jobs, companies, and contact details change.`, `B2B contact data decays around 25 to 30 percent per year.`, `Decay happens even to data that was perfectly clean when entered.`, `The remedy is continuous re-verification and enrichment, not a single cleanup.`],
     sections: [
       { h: `Why it matters`, body: `Decay silently erodes everything: outreach bounces, reps call disconnected numbers, and routing sends leads to people who left. A database that was accurate a year ago can be a quarter wrong today if nothing refreshes it.` },
-      { h: `How Rally handles it`, body: `Rally continuously re-verifies and enriches records, so Rook flags when a contact likely changed jobs or an email stopped resolving. Decay gets caught and corrected as it happens instead of discovered when a campaign bounces.` },
+      { h: `How Ardovo handles it`, body: `Ardovo continuously re-verifies and enriches records, so Rook flags when a contact likely changed jobs or an email stopped resolving. Decay gets caught and corrected as it happens instead of discovered when a campaign bounces.` },
     ],
     faqs: [
       { q: `How fast does CRM data decay?`, a: `B2B contact data typically decays 25 to 30 percent per year as people change jobs and companies change details. That means a meaningful share of your database is wrong within a year unless something actively refreshes it.` },
@@ -127,7 +127,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Split machine gaps from human gaps`, body: `The mistake is making reps fill everything, including data a provider already has. That creates friction and resentment. Enrich what machines can fill, and only ask people for the judgment fields they alone know.` },
-      { h: `How Rally helps`, body: `Rally enriches firmographic and contact fields automatically, so records arrive mostly complete. Rook fills the machine-knowable gaps and prompts reps only for the judgment fields at the moment they matter, so completeness rises without a data-entry tax.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches firmographic and contact fields automatically, so records arrive mostly complete. Rook fills the machine-knowable gaps and prompts reps only for the judgment fields at the moment they matter, so completeness rises without a data-entry tax.` },
     ],
     faqs: [
       { q: `Which CRM fields are most important to fill?`, a: `The ones that drive automation and outreach: a valid email, company, industry, title, owner, and deal stage. Completeness on these matters far more than filling every field. Focus effort where an empty value actually breaks something.` },
@@ -147,7 +147,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Standardize the fields you filter on`, body: `You do not need to standardize every field, only the ones used in filters, segments, and reports. A perfectly formatted "notes" field helps nobody, but a standardized industry or country field makes every downstream report trustworthy.` },
-      { h: `How Rally helps`, body: `Rally uses picklists and validation for the fields that matter, so values stay consistent by design. Rook normalizes messy existing values into the canonical form and standardizes new entries automatically, so segments and reports never scatter across spellings.` },
+      { h: `How Ardovo helps`, body: `Ardovo uses picklists and validation for the fields that matter, so values stay consistent by design. Rook normalizes messy existing values into the canonical form and standardizes new entries automatically, so segments and reports never scatter across spellings.` },
     ],
     faqs: [
       { q: `Why does standardizing CRM data matter?`, a: `Because filters and segments match on exact values. If the same industry is spelled five ways, a segment for that industry misses most of it and every report undercounts. Standardized values are what make filtering, segmentation, and reporting actually reliable.` },
@@ -162,7 +162,7 @@ const ROWS = [
     keyPoints: [`Converts variant values into one canonical format per field.`, `Focuses on fields used for filtering, matching, and reporting.`, `A prerequisite for reliable deduplication and segmentation.`, `Best enforced with picklists and validation, not manual cleanup.`],
     sections: [
       { h: `Why it matters`, body: `Matching is exact. Deduplication cannot merge two records if their company names are formatted differently, and a segment cannot capture accounts whose industry is spelled inconsistently. Standardization is the quiet foundation that makes matching-based features work.` },
-      { h: `How Rally handles it`, body: `Rally standardizes on entry through picklists and validation, and Rook normalizes historical values into canonical form. Consistent data means dedupe, segmentation, and reporting all operate on values that actually match.` },
+      { h: `How Ardovo handles it`, body: `Ardovo standardizes on entry through picklists and validation, and Rook normalizes historical values into canonical form. Consistent data means dedupe, segmentation, and reporting all operate on values that actually match.` },
     ],
     faqs: [
       { q: `What is the difference between standardization and normalization?`, a: `They overlap and are often used interchangeably. Standardization means enforcing one consistent format for a value. Normalization more broadly means organizing data into a consistent, non-redundant structure. In CRM practice both aim at consistent, matchable values.` },
@@ -183,7 +183,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Archive over hard-delete`, body: `Hard-deleting feels satisfying but destroys history you may need for churn analysis, compliance, or re-engagement. Archiving or flagging inactive removes records from active views while keeping the trail. Reserve permanent deletion for genuine junk.` },
-      { h: `How Rally helps`, body: `Rally flags likely-bad records - bounced emails, test entries, long-dead accounts - so you review a curated list instead of hunting. Rook archives what it should keep, and validation plus dedupe stop bad data at the source so removal is not a recurring chore.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags likely-bad records - bounced emails, test entries, long-dead accounts - so you review a curated list instead of hunting. Rook archives what it should keep, and validation plus dedupe stop bad data at the source so removal is not a recurring chore.` },
     ],
     faqs: [
       { q: `Should you delete or archive bad CRM records?`, a: `Archive when you might need the history for reporting, compliance, or re-engagement; hard-delete only genuine junk and test data. Archiving removes records from active views without destroying the trail, which is safer and reversible.` },
@@ -198,7 +198,7 @@ const ROWS = [
     keyPoints: [`Covers inaccurate, incomplete, duplicate, stale, and inconsistent records.`, `Usually invisible until it causes a downstream failure.`, `Erodes trust in the CRM, causing reps to work around it.`, `Prevented with validation, dedupe, and enrichment rather than periodic cleanups.`],
     sections: [
       { h: `Why it matters`, body: `Dirty data has a compounding cost. One bad record wastes a little time; a database full of them breaks automation, corrupts forecasts, and pushes reps back to spreadsheets. The damage is rarely dramatic, which is what makes it dangerous.` },
-      { h: `How Rally handles it`, body: `Rally attacks the sources of dirty data - duplicates, gaps, and inconsistency - at the point of entry, and Rook cleans what slips through. The database stays clean enough that people trust it, which is the whole point.` },
+      { h: `How Ardovo handles it`, body: `Ardovo attacks the sources of dirty data - duplicates, gaps, and inconsistency - at the point of entry, and Rook cleans what slips through. The database stays clean enough that people trust it, which is the whole point.` },
     ],
     faqs: [
       { q: `What are examples of dirty data?`, a: `A contact with a bounced email, two records for the same person, an account with no industry, a lead created two years ago with no activity, and a country field with five different spellings of the same country. All of it is dirty data.` },
@@ -218,7 +218,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Make it repeatable`, body: `A one-time audit tells you the state today; a repeatable audit proves cleanup worked and catches regressions. Save the queries or dashboard so you can rerun the exact same measurement next quarter and compare.` },
-      { h: `How Rally helps`, body: `Rally runs the audit continuously and shows data quality live per object and field. Rook surfaces the biggest gaps and their downstream cost, so the audit is always current rather than a report that goes stale the day after you run it.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs the audit continuously and shows data quality live per object and field. Rook surfaces the biggest gaps and their downstream cost, so the audit is always current rather than a report that goes stale the day after you run it.` },
     ],
     faqs: [
       { q: `What should a CRM data audit measure?`, a: `Five dimensions: completeness (are key fields filled), accuracy (are values correct), consistency (are formats standard), uniqueness (duplicate rate), and timeliness (is the data current). Measure these across contacts, accounts, leads, and deals for a full picture.` },
@@ -238,7 +238,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Prevention over cleanup`, body: `Every hour spent on prevention saves many on cleanup. Validation, dedupe, and enrichment running continuously keep quality flat instead of sawtoothing - decaying, then a painful cleanup, then decaying again. Aim for a flat, high line.` },
-      { h: `How Rally helps`, body: `Rally makes clean the default: validation and dedupe are on by entry, and Rook re-verifies and enriches records continuously. Maintenance becomes something the platform does in the background rather than a quarterly fire drill for your team.` },
+      { h: `How Ardovo helps`, body: `Ardovo makes clean the default: validation and dedupe are on by entry, and Rook re-verifies and enriches records continuously. Maintenance becomes something the platform does in the background rather than a quarterly fire drill for your team.` },
     ],
     faqs: [
       { q: `How do you keep CRM data clean over time?`, a: `Shift from cleanup to prevention. Validate at entry, block duplicates automatically, enrich on a schedule to fight decay, and review new gaps briefly each month. Continuous prevention keeps quality high instead of letting it slide and forcing another cleanup.` },
@@ -253,7 +253,7 @@ const ROWS = [
     keyPoints: [`Combines completeness, accuracy, consistency, uniqueness, and timeliness into one measure.`, `Can be computed per record, per field, or per object.`, `The trend over time matters more than any single reading.`, `Makes data health visible and cleanup progress provable.`],
     sections: [
       { h: `Why it matters`, body: `Without a score, data quality is invisible and improvement is unprovable. A score makes it a managed metric with a target and a trend, so leaders can see whether the database is getting healthier or quietly rotting.` },
-      { h: `How Rally handles it`, body: `Rally computes a live data quality score per object and field, so health is always visible. Rook works to raise it - deduping, enriching, and standardizing - and you can watch the score climb as prevention takes hold.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes a live data quality score per object and field, so health is always visible. Rook works to raise it - deduping, enriching, and standardizing - and you can watch the score climb as prevention takes hold.` },
     ],
     faqs: [
       { q: `How is a data quality score calculated?`, a: `By scoring records on completeness, accuracy, consistency, uniqueness, and timeliness, then combining those into one weighted number or grade. Weighting usually favors the fields that drive routing, scoring, and outreach, since their quality matters most.` },
@@ -273,7 +273,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Validate without creating friction`, body: `Over-validation backfires: if a form demands twelve fields, reps type "x" into half of them. Validate only what matters, explain why a value is rejected, and let enrichment fill what a machine can fill so reps are not asked for it.` },
-      { h: `How Rally helps`, body: `Rally validates at entry by default - required fields, format checks, picklists, and duplicate blocking - so bad data rarely gets in. Rook fills the machine-knowable fields automatically, keeping the required list short so validation protects quality without punishing reps.` },
+      { h: `How Ardovo helps`, body: `Ardovo validates at entry by default - required fields, format checks, picklists, and duplicate blocking - so bad data rarely gets in. Rook fills the machine-knowable fields automatically, keeping the required list short so validation protects quality without punishing reps.` },
     ],
     faqs: [
       { q: `What is data validation in a CRM?`, a: `Rules enforced at the point of entry that stop bad data before it saves: required fields, format checks on emails and phones, picklist constraints, and duplicate blocking. It is prevention rather than cleanup, which makes it the cheapest way to keep data clean.` },
@@ -288,7 +288,7 @@ const ROWS = [
     keyPoints: [`Formats values consistently and structures data to avoid redundancy.`, `Stores each fact once and links related records instead of duplicating.`, `A prerequisite for accurate matching, dedupe, and segmentation.`, `Reduces the inconsistency that breaks filters and reports.`],
     sections: [
       { h: `Why it matters`, body: `Redundant, inconsistent data is where duplicates and reporting errors breed. Normalizing - one canonical format, facts stored once and referenced - removes the ambiguity that makes matching fail and reports disagree with each other.` },
-      { h: `How Rally handles it`, body: `Rally's data model links contacts to accounts and stores shared facts once, so company details are not copied onto every contact. Rook normalizes value formats too, keeping the whole database consistent and matchable.` },
+      { h: `How Ardovo handles it`, body: `Ardovo's data model links contacts to accounts and stores shared facts once, so company details are not copied onto every contact. Rook normalizes value formats too, keeping the whole database consistent and matchable.` },
     ],
     faqs: [
       { q: `What does it mean to normalize CRM data?`, a: `To format values consistently and structure them so each fact is stored once and linked rather than duplicated. For example, storing a company's industry on the account and linking contacts to it, instead of copying the industry onto every contact record.` },
@@ -312,7 +312,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Merge, do not delete`, body: `Deleting a duplicate throws away its activity, emails, and relationships. Merging preserves all of it under one surviving record. Always merge into a golden record so no history is lost, and let the merge pick the best value for each field.` },
-      { h: `How Rally helps`, body: `Rally detects duplicates with exact and fuzzy matching, presents clean merge candidates, and builds the golden record automatically. Rook handles the busywork of merging and keeps duplicate blocking on at entry, so contacts stay unified without a manual dedupe project.` },
+      { h: `How Ardovo helps`, body: `Ardovo detects duplicates with exact and fuzzy matching, presents clean merge candidates, and builds the golden record automatically. Rook handles the busywork of merging and keeps duplicate blocking on at entry, so contacts stay unified without a manual dedupe project.` },
     ],
     faqs: [
       { q: `How do you find duplicate contacts?`, a: `Match on strong keys first - primarily email - then use fuzzy matching on name plus company to catch duplicates with missing or different emails. Exact-only matching misses the messy real-world duplicates, so combine both approaches.` },
@@ -327,7 +327,7 @@ const ROWS = [
     keyPoints: [`Finds records representing the same entity and merges them into one.`, `Applies to contacts, accounts, and leads.`, `Merges into a golden record to preserve history, rather than deleting.`, `Includes prevention at entry, not just one-time cleanup.`],
     sections: [
       { h: `Why it matters`, body: `Duplicates break trust and automation. A rep sees half a person's history, two reps work the same account unaware, and a customer gets emailed twice. Deduplication restores a single source of truth per entity so everything downstream works.` },
-      { h: `How Rally handles it`, body: `Rally detects duplicates with exact and fuzzy matching and merges them into golden records automatically, preserving all history. Rook keeps duplicate blocking on at entry, so the database stays deduplicated instead of drifting back apart.` },
+      { h: `How Ardovo handles it`, body: `Ardovo detects duplicates with exact and fuzzy matching and merges them into golden records automatically, preserving all history. Rook keeps duplicate blocking on at entry, so the database stays deduplicated instead of drifting back apart.` },
     ],
     faqs: [
       { q: `What is a golden record in deduplication?`, a: `The single surviving record created when duplicates are merged, holding the best value for each field and all the combined history. It becomes the one source of truth for that person or company, replacing the scattered duplicates.` },
@@ -347,7 +347,7 @@ const ROWS = [
     ],
     sections: [
       { h: `A bad merge is expensive`, body: `Merging is destructive: it collapses two records into one. If they were not actually duplicates, you have blended two entities and lost the boundary. Always confirm identity first, and prefer platforms that let you review conflicts before committing.` },
-      { h: `How Rally helps`, body: `Rally proposes merges only for high-confidence matches, shows every field conflict with a recommended surviving value, and preserves all history on the master. Rook handles routine merges automatically and escalates ambiguous ones for a quick human check.` },
+      { h: `How Ardovo helps`, body: `Ardovo proposes merges only for high-confidence matches, shows every field conflict with a recommended surviving value, and preserves all history on the master. Rook handles routine merges automatically and escalates ambiguous ones for a quick human check.` },
     ],
     faqs: [
       { q: `Which value should survive a merge?`, a: `Generally the most recent value for fields that change over time, the most complete value when one record is empty, and the verified value over an unverified one. Good merge tools recommend a surviving value per field so you review rather than guess.` },
@@ -367,7 +367,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Why exact matching is not enough`, body: `Exact matching on email misses the messiest duplicates: the same person with two emails, a typo in the name, or a lead that shadows a contact. Fuzzy matching on name plus company is what catches the real-world duplicates that cause double outreach.` },
-      { h: `How Rally helps`, body: `Rally runs exact and fuzzy matching across contacts and leads continuously, scoring each candidate by confidence. Rook auto-merges the high-confidence duplicates and surfaces the rest for a quick review, so duplicates get caught as they form rather than piling up.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs exact and fuzzy matching across contacts and leads continuously, scoring each candidate by confidence. Rook auto-merges the high-confidence duplicates and surfaces the rest for a quick review, so duplicates get caught as they form rather than piling up.` },
     ],
     faqs: [
       { q: `What is the best way to find duplicate contacts?`, a: `Layer your matching: exact on email first for the easy wins, then fuzzy on name plus company to catch duplicates with missing or different emails, plus cross-object matching so leads that duplicate contacts surface. No single rule catches them all.` },
@@ -382,7 +382,7 @@ const ROWS = [
     keyPoints: [`A second record for an entity that already exists in the system.`, `Splits activity, ownership, and preferences across records.`, `Forms from re-entry, imports, and form submissions.`, `Resolved by merging into a golden record, prevented by entry-time blocking.`],
     sections: [
       { h: `Why it matters`, body: `Duplicates defeat the core purpose of a CRM: one view of each customer. When history splits, reps make decisions on half the picture, two people work the same account, and customers get double-emailed. Every duplicate is a small crack in the single source of truth.` },
-      { h: `How Rally handles it`, body: `Rally catches duplicates at entry with exact and fuzzy matching and merges existing ones into golden records. Rook keeps the database unified so each person and company has exactly one living record with its full history intact.` },
+      { h: `How Ardovo handles it`, body: `Ardovo catches duplicates at entry with exact and fuzzy matching and merges existing ones into golden records. Rook keeps the database unified so each person and company has exactly one living record with its full history intact.` },
     ],
     faqs: [
       { q: `How do duplicate records get created?`, a: `From manual re-entry when a rep does not find an existing record, from imports that do not check against current data, and from web forms where a returning person submits again. Without duplicate blocking at entry, all three quietly create duplicates.` },
@@ -402,7 +402,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Every entry point needs a guard`, body: `Duplicates enter through three doors: manual entry, imports, and forms. Guarding only one leaves the others open. Prevention has to cover all three, and standardization underneath makes the matching reliable enough to trust with blocking.` },
-      { h: `How Rally helps`, body: `Rally checks every entry point - manual, import, and form - against existing records with exact and fuzzy matching, and routes returning people to their existing record. Rook does this automatically so duplicates are stopped at the door instead of merged after the fact.` },
+      { h: `How Ardovo helps`, body: `Ardovo checks every entry point - manual, import, and form - against existing records with exact and fuzzy matching, and routes returning people to their existing record. Rook does this automatically so duplicates are stopped at the door instead of merged after the fact.` },
     ],
     faqs: [
       { q: `How do you stop duplicates before they are created?`, a: `Check each new record against existing data at the moment of entry and block or flag matches. Cover all three entry points - manual creation, imports, and web forms - since guarding only one leaves duplicates flowing in through the others.` },
@@ -417,7 +417,7 @@ const ROWS = [
     keyPoints: [`Matches similar-but-not-identical values by scoring similarity.`, `Handles typos, nicknames, abbreviations, and formatting differences.`, `Catches duplicates that exact matching misses.`, `Usually tuned with a confidence threshold to balance false matches against misses.`],
     sections: [
       { h: `Why it matters`, body: `Exact matching only catches perfect copies, which are the minority of real duplicates. Fuzzy matching catches the rest - the typos, nicknames, and format differences that cause most double outreach and split history. It is what makes dedupe effective on actual data.` },
-      { h: `How Rally handles it`, body: `Rally uses fuzzy matching alongside exact rules and scores every candidate by confidence, so it catches messy duplicates without wrongly merging distinct records. Rook auto-merges high-confidence matches and flags borderline ones for review.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses fuzzy matching alongside exact rules and scores every candidate by confidence, so it catches messy duplicates without wrongly merging distinct records. Rook auto-merges high-confidence matches and flags borderline ones for review.` },
     ],
     faqs: [
       { q: `How is fuzzy matching different from exact matching?`, a: `Exact matching requires values to be identical; fuzzy matching scores how similar they are and matches above a threshold. Exact catches perfect copies, fuzzy catches the typos, nicknames, and formatting differences that make up most real duplicates.` },
@@ -437,7 +437,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Block the obvious, warn on the fuzzy`, body: `The safe pattern is to hard-block exact high-confidence duplicates (same email) and only warn on fuzzy matches, so you never wrongly block a legitimate record. As your fuzzy matching proves accurate, you can promote some fuzzy rules to blocking.` },
-      { h: `How Rally helps`, body: `Rally ships sensible duplicate rules per object out of the box - exact blocking on strong keys, confidence-scored fuzzy matching with review. Rook tunes and applies them automatically, so you get duplicate prevention without hand-building and babysitting rule sets.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships sensible duplicate rules per object out of the box - exact blocking on strong keys, confidence-scored fuzzy matching with review. Rook tunes and applies them automatically, so you get duplicate prevention without hand-building and babysitting rule sets.` },
     ],
     faqs: [
       { q: `What match keys should duplicate rules use?`, a: `Per object: email for contacts, web domain plus company name for accounts, and email or name-plus-company for leads. Strong unique identifiers like email make the best blocking keys; softer signals like name are better for fuzzy warn rules.` },
@@ -452,7 +452,7 @@ const ROWS = [
     keyPoints: [`The single authoritative record for an entity after duplicates merge.`, `Holds the best value per field and all combined history.`, `Serves as the trusted source of truth across the business.`, `Maintained by ongoing dedupe and enrichment, not created once.`],
     sections: [
       { h: `Why it matters`, body: `Without a golden record, each team works from a different partial copy and no one agrees on the truth. The golden record consolidates scattered data into one trustworthy version, which is the entire promise of a CRM as a single source of truth.` },
-      { h: `How Rally handles it`, body: `Rally builds golden records automatically when it merges duplicates, choosing the best value per field and preserving all history. Rook keeps them golden over time by enriching, re-verifying, and blocking new duplicates that would fragment them.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds golden records automatically when it merges duplicates, choosing the best value per field and preserving all history. Rook keeps them golden over time by enriching, re-verifying, and blocking new duplicates that would fragment them.` },
     ],
     faqs: [
       { q: `How is a golden record created?`, a: `By merging all duplicate records for an entity into one surviving record that takes the best value for each field - most recent, most complete, or verified - and combines the activity history from every source record. The result is one authoritative version.` },
@@ -472,7 +472,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Duplicate versus parent-child`, body: `The classic account-merge mistake is merging a subsidiary into its parent because the names are similar. They are not duplicates - they are a hierarchy. Confirm whether two similar accounts are the same legal entity or a related pair before merging; the wrong call loses a real business relationship.` },
-      { h: `How Rally helps`, body: `Rally matches accounts on domain and name, distinguishes true duplicates from hierarchy relationships, and reparents all contacts, deals, and activity onto the master automatically. Rook handles the reparenting busywork so no deal or contact is orphaned in a merge.` },
+      { h: `How Ardovo helps`, body: `Ardovo matches accounts on domain and name, distinguishes true duplicates from hierarchy relationships, and reparents all contacts, deals, and activity onto the master automatically. Rook handles the reparenting busywork so no deal or contact is orphaned in a merge.` },
     ],
     faqs: [
       { q: `How do you match duplicate accounts?`, a: `Use web domain as the strongest identifier, supported by fuzzy matching on company name to catch formatting differences. Domain matching is reliable because a company's domain is far more unique and stable than its variously-spelled name.` },
@@ -492,7 +492,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Cleanup tools versus prevention`, body: `A bolt-on dedupe utility can merge existing duplicates but cannot stop new ones, so you re-run it forever. Native prevention inside the CRM guards every entry point, so duplicates rarely form. Prefer prevention; treat cleanup-only tools as a temporary fix.` },
-      { h: `How Rally helps`, body: `Rally has deduplication built in, not bolted on: exact and fuzzy matching across leads, contacts, and accounts, confidence-scored merges into golden records, and blocking at every entry point. Rook runs it continuously, so you never buy or babysit a separate dedupe tool.` },
+      { h: `How Ardovo helps`, body: `Ardovo has deduplication built in, not bolted on: exact and fuzzy matching across leads, contacts, and accounts, confidence-scored merges into golden records, and blocking at every entry point. Rook runs it continuously, so you never buy or babysit a separate dedupe tool.` },
     ],
     faqs: [
       { q: `What makes a good deduplication tool?`, a: `Exact plus fuzzy matching, cross-object coverage, confidence scoring, safe golden-record merges that preserve history, and - most important - prevention at the point of entry. A tool that only cleans up after the fact leaves you re-running it forever.` },
@@ -510,7 +510,7 @@ const ROWS = [
     keyPoints: [`Fills and updates records from external data providers automatically.`, `Adds firmographic, technographic, and verified contact data.`, `Reduces manual research and fights data decay.`, `Works best continuously, refreshing records as the world changes.`],
     sections: [
       { h: `Why it matters`, body: `A thin record cannot be scored, routed, or segmented well. Enrichment turns sparse data into complete profiles, which powers better routing, scoring, and targeting - and it fights decay by refreshing records as companies and people change.` },
-      { h: `How Rally handles it`, body: `Rally enriches records automatically on creation and on a refresh schedule, so profiles are complete and current. Rook fills firmographic and contact gaps without a rep lifting a finger, and re-verifies data as it decays.` },
+      { h: `How Ardovo handles it`, body: `Ardovo enriches records automatically on creation and on a refresh schedule, so profiles are complete and current. Rook fills firmographic and contact gaps without a rep lifting a finger, and re-verifies data as it decays.` },
     ],
     faqs: [
       { q: `What data does enrichment add?`, a: `Firmographic data like company size, industry, revenue, and location; technographic data about the tools a company uses; and verified contact details like titles, corrected emails, and phone numbers. It fills what a machine can know so reps do not research it manually.` },
@@ -530,7 +530,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Enrich on create, refresh on schedule`, body: `One-time enrichment leaves you with a database that was complete last year. The durable pattern is enriching at creation so records start full, plus a scheduled refresh so they stay current. Together they beat both incompleteness and decay.` },
-      { h: `How Rally helps`, body: `Rally enriches records at creation and refreshes them on a schedule automatically. Rook fills company size, industry, location, and verified contact details the moment a record appears, and keeps them current, so reps inherit complete profiles instead of blank forms.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches records at creation and refreshes them on a schedule automatically. Rook fills company size, industry, location, and verified contact details the moment a record appears, and keeps them current, so reps inherit complete profiles instead of blank forms.` },
     ],
     faqs: [
       { q: `When should you enrich CRM records?`, a: `Both at creation and on a recurring schedule. Enriching on creation means new records start complete; scheduled refresh keeps them current as data decays. Doing only one leaves you either with thin new records or stale old ones.` },
@@ -550,7 +550,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Enrichment enables instant routing`, body: `Speed-to-lead depends on knowing enough about a lead to route it correctly the moment it lands. If routing has to wait for a rep to research the company, minutes become hours and conversion drops. Enrichment at capture is what makes instant, accurate routing possible.` },
-      { h: `How Rally helps`, body: `Rally enriches leads at capture, so each one arrives with company, role, and fit data already filled. Rook scores and routes it instantly on that enriched profile, and flags undeliverable emails, so reps get real, prioritized leads in seconds.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches leads at capture, so each one arrives with company, role, and fit data already filled. Rook scores and routes it instantly on that enriched profile, and flags undeliverable emails, so reps get real, prioritized leads in seconds.` },
     ],
     faqs: [
       { q: `Why enrich leads at capture?`, a: `Because routing and scoring need company and role data, and if that has to wait for manual research, speed-to-lead collapses. Enriching the instant a lead is captured lets you score fit and route to the right rep in seconds, when conversion odds are highest.` },
@@ -570,7 +570,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Do not nag reps for machine-knowable data`, body: `Asking a rep to fill in company size or industry - data a provider already has - is wasted effort that breeds resentment and garbage entries. Enrich those automatically. Reserve the rare prompt for judgment fields that genuinely require a human.` },
-      { h: `How Rally helps`, body: `Rally enriches machine-knowable fields automatically and prompts reps only for judgment fields, at the moment they are relevant. Rook does the filling so completeness rises without a data-entry tax, and reps are asked only for what they alone know.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches machine-knowable fields automatically and prompts reps only for judgment fields, at the moment they are relevant. Rook does the filling so completeness rises without a data-entry tax, and reps are asked only for what they alone know.` },
     ],
     faqs: [
       { q: `What is the best way to fill missing CRM fields?`, a: `Split the gaps: enrich machine-knowable fields like company and title automatically from a data provider, and prompt reps only for judgment fields like budget and use case, at the moment they matter. Automate the bulk, reserve human effort for judgment.` },
@@ -585,7 +585,7 @@ const ROWS = [
     keyPoints: [`Company attributes: industry, size, revenue, headcount, location, structure.`, `The B2B analog of demographic data for individuals.`, `Drives fit scoring, segmentation, and territory assignment.`, `Commonly filled through enrichment rather than manual entry.`],
     sections: [
       { h: `Why it matters`, body: `Fit scoring, territory routing, and account targeting all rest on firmographics. Without industry and size on a record, you cannot tell whether an account matches your ideal profile, route it correctly, or segment your outreach. It is foundational B2B data.` },
-      { h: `How Rally handles it`, body: `Rally enriches firmographic fields automatically, so every account carries industry, size, revenue, and location. Rook uses that data to score fit, assign territories, and segment lists without anyone researching companies by hand.` },
+      { h: `How Ardovo handles it`, body: `Ardovo enriches firmographic fields automatically, so every account carries industry, size, revenue, and location. Rook uses that data to score fit, assign territories, and segment lists without anyone researching companies by hand.` },
     ],
     faqs: [
       { q: `What are examples of firmographic data?`, a: `Industry, number of employees, annual revenue, company size tier, headquarters and office locations, ownership structure, and growth stage. These attributes describe the company itself, as opposed to any individual person who works there.` },
@@ -600,7 +600,7 @@ const ROWS = [
     keyPoints: [`Describes the software and technology a company uses.`, `Signals fit, timing, and competitive displacement opportunities.`, `Lets sellers tailor messaging to a known stack.`, `Appended through enrichment alongside firmographic data.`],
     sections: [
       { h: `Why it matters`, body: `Knowing a prospect's stack sharpens both targeting and messaging. A company running a tool you integrate with, or a competitor you displace, is a higher-value, better-timed lead - and you can speak directly to their setup instead of guessing.` },
-      { h: `How Rally handles it`, body: `Rally can enrich accounts with technographic signals, so Rook surfaces prospects whose stack indicates fit or a displacement opening. Reps get accounts pre-qualified by the tools they use, with messaging angles ready.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can enrich accounts with technographic signals, so Rook surfaces prospects whose stack indicates fit or a displacement opening. Reps get accounts pre-qualified by the tools they use, with messaging angles ready.` },
     ],
     faqs: [
       { q: `What is the difference between firmographic and technographic data?`, a: `Firmographic data describes the company itself - industry, size, revenue, location. Technographic data describes the technology the company uses. Firmographics tell you if an account fits your profile; technographics tell you about their stack and buying context.` },
@@ -620,7 +620,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Store company data once, on the account`, body: `Copying industry and size onto every contact means updating in a hundred places and drift the moment one changes. Storing it once on the account and linking contacts keeps company data consistent - update the account, and every contact reflects it instantly.` },
-      { h: `How Rally helps`, body: `Rally links contacts to accounts by domain and enriches the account once, so contacts inherit company data by reference. Rook keeps the account enriched and current, and every related contact reflects the latest firmographics without redundant copies.` },
+      { h: `How Ardovo helps`, body: `Ardovo links contacts to accounts by domain and enriches the account once, so contacts inherit company data by reference. Rook keeps the account enriched and current, and every related contact reflects the latest firmographics without redundant copies.` },
     ],
     faqs: [
       { q: `Should company data be stored on the contact or the account?`, a: `On the account, with contacts linked to it. Storing company attributes once on the account and letting contacts inherit them keeps data consistent - one update flows everywhere. Copying company data onto every contact creates redundancy that drifts out of sync.` },
@@ -635,7 +635,7 @@ const ROWS = [
     keyPoints: [`Maintains and supplies company and contact data for enrichment.`, `Offers firmographic, technographic, and verified contact information.`, `Delivered via integration or API into the CRM.`, `Chosen on coverage and accuracy for your specific market.`],
     sections: [
       { h: `Why it matters`, body: `Enrichment is only as good as the provider behind it. A source with poor coverage of your market leaves records thin; one with stale data appends decay. The provider choice determines whether enrichment helps or quietly introduces bad data.` },
-      { h: `How Rally handles it`, body: `Rally connects to trusted data sources and validates appended values, so enrichment adds reliable data rather than noise. Rook applies it automatically, and you get complete profiles without managing provider integrations yourself.` },
+      { h: `How Ardovo handles it`, body: `Ardovo connects to trusted data sources and validates appended values, so enrichment adds reliable data rather than noise. Rook applies it automatically, and you get complete profiles without managing provider integrations yourself.` },
     ],
     faqs: [
       { q: `How do you choose a data provider?`, a: `Evaluate coverage and accuracy for your specific market - a provider strong in one region or industry may be weak in another. Test it against records you can verify, and weigh freshness, since stale provider data appends decay rather than fixing it.` },
@@ -655,7 +655,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Verify at capture, not after a bounce`, body: `Discovering a bad email when a campaign bounces is too late - deliverability already took the hit and the rep already wasted time. Verifying at capture stops undeliverable addresses from ever routing as real leads, and scheduled re-verification catches decay before it bounces.` },
-      { h: `How Rally helps`, body: `Rally verifies emails at capture and re-verifies on a schedule, so undeliverable addresses are flagged before they route and caught as they decay. Rook keeps deliverability high and stops reps from wasting time on dead addresses.` },
+      { h: `How Ardovo helps`, body: `Ardovo verifies emails at capture and re-verifies on a schedule, so undeliverable addresses are flagged before they route and caught as they decay. Rook keeps deliverability high and stops reps from wasting time on dead addresses.` },
     ],
     faqs: [
       { q: `Why verify email addresses in a CRM?`, a: `Because an invalid email looks usable but bounces, wasting rep time and hurting sender reputation. Verifying catches typos, dead domains, and fake addresses before they are worked or emailed, protecting both deliverability and productivity.` },
@@ -670,7 +670,7 @@ const ROWS = [
     keyPoints: [`Describes the accounts that get the most value and are easiest to win and keep.`, `Built from firmographic and technographic attributes.`, `Drives fit scoring, targeting, and territory design.`, `Refined over time from the traits of your best actual customers.`],
     sections: [
       { h: `Why it matters`, body: `Selling to everyone wastes effort on accounts that will not close or will churn. The ICP concentrates time on the accounts most likely to become good, lasting customers, which lifts win rate, retention, and efficiency all at once.` },
-      { h: `How Rally handles it`, body: `Rally scores every account's fit against your ICP using enriched firmographic data, so Rook can prioritize the best-fit accounts and flag poor-fit ones. The ICP becomes an active filter on where the team spends time, not a slide.` },
+      { h: `How Ardovo handles it`, body: `Ardovo scores every account's fit against your ICP using enriched firmographic data, so Rook can prioritize the best-fit accounts and flag poor-fit ones. The ICP becomes an active filter on where the team spends time, not a slide.` },
     ],
     faqs: [
       { q: `How do you define an ideal customer profile?`, a: `Analyze your best current customers - the ones who get the most value, close fastest, and stay longest - and find the firmographic and technographic traits they share. Those shared attributes become the ICP you score and target new accounts against.` },
@@ -690,7 +690,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Keep fit and engagement separate`, body: `Fit and engagement measure different things and mixing them hides signal. A great-fit account with no engagement needs nurturing; a poor-fit account that is very active is often a bad use of time. Score them separately, then combine for prioritization.` },
-      { h: `How Rally helps`, body: `Rally computes fit scores from enriched firmographic data against your ICP, kept separate from engagement. Rook enriches the underlying attributes automatically, so fit scores are always based on complete data rather than the gaps a manual model would inherit.` },
+      { h: `How Ardovo helps`, body: `Ardovo computes fit scores from enriched firmographic data against your ICP, kept separate from engagement. Rook enriches the underlying attributes automatically, so fit scores are always based on complete data rather than the gaps a manual model would inherit.` },
     ],
     faqs: [
       { q: `What is the difference between a fit score and a lead score?`, a: `Fit score measures how well an account matches your ideal profile, based on firmographics. Lead score often blends fit and engagement into one number. Keeping fit separate from engagement gives clearer signal about which accounts to pursue versus when to act.` },
@@ -714,7 +714,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Test before the full load`, body: `The single most valuable import habit is a small test batch. Mapping errors and format problems that would corrupt thousands of records show up on twenty, where they are trivial to fix. Never run a full import you have not tested on a sample.` },
-      { h: `How Rally helps`, body: `Rally guides imports with automatic field mapping, de-dupes incoming rows against existing records, and previews results before committing. Rook flags mapping and format problems on a test batch, so the full load lands clean instead of creating a duplicate mess.` },
+      { h: `How Ardovo helps`, body: `Ardovo guides imports with automatic field mapping, de-dupes incoming rows against existing records, and previews results before committing. Rook flags mapping and format problems on a test batch, so the full load lands clean instead of creating a duplicate mess.` },
     ],
     faqs: [
       { q: `What is the most important step when importing CRM data?`, a: `Testing on a small sample before the full load. Field mapping mistakes and format issues that would corrupt thousands of records appear on a batch of twenty, where they cost nothing to fix. Skipping the test is how imports create big messes.` },
@@ -735,7 +735,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Relationships and history are the hard part`, body: `Moving flat records is easy; moving the links between them - which contacts belong to which accounts, which activities belong to which deals - is where migrations fail. Plan and test the relationship and history migration explicitly, not as an afterthought.` },
-      { h: `How Rally helps`, body: `Rally's migration tooling maps objects and fields, preserves contact-account links and activity history, and runs a validated test migration first. Rook handles the mapping and relationship busywork, so the cutover keeps your history and structure intact instead of arriving as flat, disconnected rows.` },
+      { h: `How Ardovo helps`, body: `Ardovo's migration tooling maps objects and fields, preserves contact-account links and activity history, and runs a validated test migration first. Rook handles the mapping and relationship busywork, so the cutover keeps your history and structure intact instead of arriving as flat, disconnected rows.` },
     ],
     faqs: [
       { q: `What is the hardest part of a CRM migration?`, a: `Preserving relationships and history. Moving flat records is straightforward, but carrying over which contacts belong to which accounts, which activities attach to which deals, and the full timeline is where migrations break. Plan and test that explicitly.` },
@@ -755,7 +755,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Migrate structure, not just rows`, body: `A migration that copies contacts and accounts but drops the links between them, or loses activity history, technically moved the data but destroyed its value. Treat relationships and history as first-class migration objects that get their own mapping and validation.` },
-      { h: `How Rally helps`, body: `Rally migrates from major CRMs with field mapping and relationship preservation built in, so contact-account links and activity history survive the move. Rook runs a validated test migration first and handles the mapping busywork, so you land on a clean, connected database.` },
+      { h: `How Ardovo helps`, body: `Ardovo migrates from major CRMs with field mapping and relationship preservation built in, so contact-account links and activity history survive the move. Rook runs a validated test migration first and handles the mapping busywork, so you land on a clean, connected database.` },
     ],
     faqs: [
       { q: `How long does a CRM migration take?`, a: `Anywhere from days to a few weeks depending on data volume, how many custom objects and fields you have, and how much cleanup the source needs. Most of the time goes into cleaning, mapping, and validating relationships - the actual data transfer is usually fast.` },
@@ -770,7 +770,7 @@ const ROWS = [
     keyPoints: [`Moves records and history from one CRM into another.`, `Remaps data into the destination's model and field structure.`, `Must preserve relationships and activity history, not just values.`, `Best done on clean source data with a tested subset first.`],
     sections: [
       { h: `Why it matters`, body: `A migration decides whether the new CRM starts alive and useful or arrives as a disconnected data dump. Preserving relationships and history means reps keep their context; losing them means the team effectively starts over despite the data technically being there.` },
-      { h: `How Rally handles it`, body: `Rally migrates from major CRMs with field mapping and relationship preservation, and validates a test migration before the full run. Rook handles the mapping and relationship work so the new database is clean, connected, and alive on day one.` },
+      { h: `How Ardovo handles it`, body: `Ardovo migrates from major CRMs with field mapping and relationship preservation, and validates a test migration before the full run. Rook handles the mapping and relationship work so the new database is clean, connected, and alive on day one.` },
     ],
     faqs: [
       { q: `What is the difference between data migration and data import?`, a: `Import loads a batch of records, often from a file, into an existing CRM. Migration is the larger project of moving an entire system's data - all objects, relationships, and history - into a new platform and remapping it to the new model. Import is a step; migration is the whole move.` },
@@ -790,7 +790,7 @@ const ROWS = [
     ],
     sections: [
       { h: `A clean file is half the battle`, body: `Most import problems trace back to the file: inconsistent columns, values that do not match the CRM's picklists, and stray junk rows. Ten minutes formatting the CSV cleanly prevents hours untangling a bad import. Prepare the file, then the mapping is easy.` },
-      { h: `How Rally helps`, body: `Rally auto-maps CSV columns to fields, de-dupes rows against existing contacts, and previews the import before committing. Rook flags format and mapping issues on a test batch, so a CSV import updates the right records and never quietly floods the database with duplicates.` },
+      { h: `How Ardovo helps`, body: `Ardovo auto-maps CSV columns to fields, de-dupes rows against existing contacts, and previews the import before committing. Rook flags format and mapping issues on a test batch, so a CSV import updates the right records and never quietly floods the database with duplicates.` },
     ],
     faqs: [
       { q: `How do you avoid duplicates when importing a CSV?`, a: `De-dupe the import against existing contacts on a strong key like email before loading, so returning people update their existing record instead of creating a duplicate. Also de-dupe within the file itself, since CSVs often contain their own repeats.` },
@@ -810,7 +810,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Add structure, do not just copy rows`, body: `The point of leaving spreadsheets is structure: relationships, stages, ownership, and history. A migration that just dumps the sheet into a CRM as flat records misses the upgrade. Use the move to link records and add the pipeline and tracking the spreadsheet never had.` },
-      { h: `How Rally helps`, body: `Rally imports spreadsheet data, links contacts to accounts, and comes with pipeline stages, ownership, and activity tracking ready. Rook cleans and structures the incoming rows, so a flat spreadsheet becomes a live, connected CRM that is useful on day one.` },
+      { h: `How Ardovo helps`, body: `Ardovo imports spreadsheet data, links contacts to accounts, and comes with pipeline stages, ownership, and activity tracking ready. Rook cleans and structures the incoming rows, so a flat spreadsheet becomes a live, connected CRM that is useful on day one.` },
     ],
     faqs: [
       { q: `Why move from spreadsheets to a CRM?`, a: `Spreadsheets store flat rows with no relationships, no shared source of truth, no activity history, and no automation. A CRM adds all of that: linked records, pipeline stages, ownership, tracking, and reporting. The migration is worth it precisely because a CRM is structurally more than a sheet.` },
@@ -825,7 +825,7 @@ const ROWS = [
     keyPoints: [`Documents scope, field mapping, and how relationships and history transfer.`, `Defines testing, validation, and cutover steps.`, `Includes a rollback path if the migration fails.`, `Turns a one-shot move into a tested, reversible project.`],
     sections: [
       { h: `Why it matters`, body: `Migrations move everything at once, so mistakes are expensive and often surface after cutover. A plan forces the hard decisions - mapping, relationships, validation, rollback - up front, so the actual move is executing a tested procedure rather than improvising.` },
-      { h: `How Rally handles it`, body: `Rally structures migrations with mapping, a validated test run, and preserved relationships, so the plan is built into the tooling. Rook executes the mapping and validation steps, turning the plan into an automated, verifiable process rather than a manual scramble.` },
+      { h: `How Ardovo handles it`, body: `Ardovo structures migrations with mapping, a validated test run, and preserved relationships, so the plan is built into the tooling. Rook executes the mapping and validation steps, turning the plan into an automated, verifiable process rather than a manual scramble.` },
     ],
     faqs: [
       { q: `What should a data migration plan include?`, a: `Scope (what migrates and what does not), object and field mapping, how relationships and history transfer, testing and validation steps, cutover timing, and a rollback path. Writing these down before moving anything is what turns a risky move into a controlled project.` },
@@ -845,7 +845,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Test the hard cases, not the easy ones`, body: `A test batch of clean, simple records passes trivially and proves nothing. Include the records most likely to break: special characters, missing fields, duplicates, and complex relationships. If those load correctly, the full import will too.` },
-      { h: `How Rally helps`, body: `Rally previews and validates a test import before committing, flagging mapping mismatches, format problems, and duplicate matches. Rook surfaces exactly what would go wrong, so you fix it on the sample and the full load lands clean.` },
+      { h: `How Ardovo helps`, body: `Ardovo previews and validates a test import before committing, flagging mapping mismatches, format problems, and duplicate matches. Rook surfaces exactly what would go wrong, so you fix it on the sample and the full load lands clean.` },
     ],
     faqs: [
       { q: `How big should a test import be?`, a: `Small but representative - a few dozen records that include the hard cases: special characters, missing fields, likely duplicates, and complex relationships. Size matters less than coverage; a test that only includes easy records passes without proving anything.` },
@@ -865,7 +865,7 @@ const ROWS = [
     ],
     sections: [
       { h: `A migration is a chance to leave junk behind`, body: `Do not reflexively migrate everything. Stale records, unused fields, and dead pipeline are baggage. Scope the migration to what has value, and the new system starts lean and clean instead of inheriting years of accumulated cruft.` },
-      { h: `How Rally helps`, body: `Rally structures the migration with mapping, relationship preservation, and a validated test run, and comes alive with data on day one. Rook handles the mapping and validation busywork, so your plan becomes an automated procedure and the team lands on a clean, connected system.` },
+      { h: `How Ardovo helps`, body: `Ardovo structures the migration with mapping, relationship preservation, and a validated test run, and comes alive with data on day one. Rook handles the mapping and validation busywork, so your plan becomes an automated procedure and the team lands on a clean, connected system.` },
     ],
     faqs: [
       { q: `What decisions come first in a CRM migration plan?`, a: `Scope and cleanup: what data moves, what gets left behind, and cleaning the source before anything transfers. Deciding scope early keeps the migration lean, and cleaning first ensures you build the new system on good data rather than importing old problems.` },
@@ -885,7 +885,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Match before you load`, body: `The entire trick to avoiding duplicate imports is matching incoming rows to existing records before loading, and choosing update-over-insert for matches. An import that inserts every row is guaranteed to duplicate everyone already in the system. Match first, and duplicates never form.` },
-      { h: `How Rally helps`, body: `Rally matches every import row against existing records and within the file, updating matches instead of creating duplicates, and previews the outcome first. Rook handles the matching automatically, so imports enrich known records rather than flooding the database with copies.` },
+      { h: `How Ardovo helps`, body: `Ardovo matches every import row against existing records and within the file, updating matches instead of creating duplicates, and previews the outcome first. Rook handles the matching automatically, so imports enrich known records rather than flooding the database with copies.` },
     ],
     faqs: [
       { q: `Why do imports create duplicates?`, a: `Because a naive import inserts every row as a new record without checking whether that person or company already exists. Every row for someone already in the system becomes a duplicate. Matching rows against existing data before loading is what prevents it.` },
@@ -903,7 +903,7 @@ const ROWS = [
     keyPoints: [`Defines how source fields correspond to destination fields.`, `Includes translating value formats and picklist options.`, `Central to imports, migrations, and integrations.`, `A wrong mapping misplaces data silently, without an error.`],
     sections: [
       { h: `Why it matters`, body: `A mapping mistake does not throw an error - it just loads phone numbers into a notes field or one picklist value as another. Because it fails silently, bad mapping corrupts data invisibly, which is why testing a mapping on a sample matters so much.` },
-      { h: `How Rally handles it`, body: `Rally auto-maps common fields and lets you adjust the rest, translating picklist values between systems, and previews the result before committing. Rook flags likely mismaps on a test batch, so data lands where it belongs instead of failing silently.` },
+      { h: `How Ardovo handles it`, body: `Ardovo auto-maps common fields and lets you adjust the rest, translating picklist values between systems, and previews the result before committing. Rook flags likely mismaps on a test batch, so data lands where it belongs instead of failing silently.` },
     ],
     faqs: [
       { q: `Why is field mapping important?`, a: `Because it determines whether data lands in the right place. A wrong mapping fails silently - no error, just values in the wrong field or picklist options that did not translate. Since the failure is invisible, correct mapping and a test are what keep imports and integrations clean.` },
@@ -924,7 +924,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Watch for near-match fields`, body: `The subtle mapping trap is fields that look like matches but are not: billing versus shipping address, company name versus account name, created date versus close date. These map cleanly by name but load wrong data. Read field meanings, not just labels.` },
-      { h: `How Rally helps`, body: `Rally auto-maps obvious columns, prompts you on ambiguous ones, and translates picklist values between systems. Rook previews the mapped result on a sample and flags near-match mistakes, so values land in the field you actually meant.` },
+      { h: `How Ardovo helps`, body: `Ardovo auto-maps obvious columns, prompts you on ambiguous ones, and translates picklist values between systems. Rook previews the mapped result on a sample and flags near-match mistakes, so values land in the field you actually meant.` },
     ],
     faqs: [
       { q: `What is the hardest part of field mapping?`, a: `Near-match fields that look like a clean pairing but mean different things - billing versus shipping address, company versus account name, created versus close date. They map by label but load wrong data. Reading what each field means, not just its name, is what avoids this.` },
@@ -944,7 +944,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Too many required fields backfire`, body: `A twelve-field required form does not produce complete data - it produces reps typing "x" and "n/a" to escape. Requiring fewer, truly critical fields, and enriching the rest, yields cleaner data than a long mandatory form that everyone games.` },
-      { h: `How Rally helps`, body: `Rally keeps the required list short by enriching machine-knowable fields automatically, so reps are only asked for what truly needs a human. Rook fills the rest and prompts for judgment fields at the right stage, so required fields protect quality without breeding junk.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the required list short by enriching machine-knowable fields automatically, so reps are only asked for what truly needs a human. Rook fills the rest and prompts for judgment fields at the right stage, so required fields protect quality without breeding junk.` },
     ],
     faqs: [
       { q: `How many fields should be required in a CRM?`, a: `As few as possible - just the fields that break routing, scoring, or outreach when empty, typically email, company, owner, and stage. Every extra required field raises friction and the risk reps enter garbage to get past the form. Require sparingly.` },
@@ -959,7 +959,7 @@ const ROWS = [
     keyPoints: [`A field that must be filled before saving or advancing a record.`, `Enforces completeness on the most critical data.`, `Best applied to a few truly essential fields only.`, `Overuse breeds garbage values as reps bypass the form.`],
     sections: [
       { h: `Why it matters`, body: `Required fields decide whether records arrive usable. The right few keep every record routable and scoreable; too many turn the form into an obstacle reps defeat with junk. Restraint is what makes them work.` },
-      { h: `How Rally handles it`, body: `Rally keeps required fields minimal by enriching machine-knowable data automatically, so reps are asked only for the judgment fields that genuinely need a human. Rook fills the rest, so completeness comes from enrichment rather than a long mandatory form.` },
+      { h: `How Ardovo handles it`, body: `Ardovo keeps required fields minimal by enriching machine-knowable data automatically, so reps are asked only for the judgment fields that genuinely need a human. Rook fills the rest, so completeness comes from enrichment rather than a long mandatory form.` },
     ],
     faqs: [
       { q: `When should a field be required?`, a: `When an empty value breaks something downstream - routing, scoring, or outreach - and only a human can supply it. Email, company, owner, and stage are common examples. If a provider can fill the field, enrich it instead of requiring it.` },
@@ -979,7 +979,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Every field is a liability until it earns its place`, body: `Custom fields are easy to add and hard to remove, so they accumulate into bloated, half-empty forms. Add each one only when the data is genuinely needed, not already captured, and clearly owned. A lean, well-defined field set beats a sprawling one every time.` },
-      { h: `How Rally helps`, body: `Rally makes custom fields easy to add with the right type and placement, and flags redundant or unused fields so the model stays lean. Rook enriches machine-knowable fields, so you add custom fields only for the judgment data your business genuinely needs.` },
+      { h: `How Ardovo helps`, body: `Ardovo makes custom fields easy to add with the right type and placement, and flags redundant or unused fields so the model stays lean. Rook enriches machine-knowable fields, so you add custom fields only for the judgment data your business genuinely needs.` },
     ],
     faqs: [
       { q: `When should you create a custom field?`, a: `When you genuinely need to capture data no existing field holds, the data drives a decision or workflow, and someone clearly owns filling it. If none of those are true, the field will sit empty and add clutter, so skip it.` },
@@ -994,7 +994,7 @@ const ROWS = [
     keyPoints: [`A user-added field for business-specific data beyond the defaults.`, `Tailors the CRM to how a specific team sells.`, `Each field adds complexity and maintenance cost.`, `Best kept lean, well-defined, and pruned of unused fields.`],
     sections: [
       { h: `Why it matters`, body: `Custom fields determine how well the CRM fits your business, but unchecked they become clutter - dozens of half-empty fields that slow reps and hide the important data. The value is in a lean, deliberate set, not in how many you can add.` },
-      { h: `How Rally handles it`, body: `Rally supports custom fields with the right types and placement, and surfaces unused or redundant ones so the model stays lean. Rook enriches machine-knowable data, so custom fields are reserved for the judgment data unique to your business.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports custom fields with the right types and placement, and surfaces unused or redundant ones so the model stays lean. Rook enriches machine-knowable data, so custom fields are reserved for the judgment data unique to your business.` },
     ],
     faqs: [
       { q: `What is the difference between a standard and a custom field?`, a: `Standard fields ship with the CRM and cover common data like name, email, and stage. Custom fields are ones you add for business-specific data the defaults do not capture. Standard fields make the CRM work; custom fields make it fit your specific way of selling.` },
@@ -1014,7 +1014,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Work backward from what you act on`, body: `The right question is not "what could we capture?" but "what do we act on?" Every field should trace to a routing rule, a report, or an automation. Fields with no downstream use are pure cost - form length, maintenance, and noise - with no benefit.` },
-      { h: `How Rally helps`, body: `Rally enriches machine-knowable fields and flags unused ones, so the fields reps fill map to real decisions. Rook keeps the model lean by filling what it can and surfacing clutter, so your field set stays purposeful instead of sprawling.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches machine-knowable fields and flags unused ones, so the fields reps fill map to real decisions. Rook keeps the model lean by filling what it can and surfacing clutter, so your field set stays purposeful instead of sprawling.` },
     ],
     faqs: [
       { q: `How do you decide which CRM fields to keep?`, a: `Work backward from decisions: keep a field only if some routing rule, report, or automation depends on it. Fields captured "just in case" with no downstream use are clutter. If nothing acts on a field, it costs form length and trust while adding no value.` },
@@ -1029,7 +1029,7 @@ const ROWS = [
     keyPoints: [`Restricts a field to a defined set of options.`, `Prevents inconsistent values by design.`, `Keeps fields filterable, segmentable, and reportable.`, `Best for any field with a finite, known set of valid values.`],
     sections: [
       { h: `Why it matters`, body: `Filtering, segmentation, and reporting all match on exact values. A free-text field scatters the same concept across variant spellings and breaks every one of them. A picklist guarantees consistency, which is why it is the default choice for any finite-value field.` },
-      { h: `How Rally handles it`, body: `Rally uses picklists for the fields that need standardizing, so values stay consistent and reportable by design. Rook normalizes any legacy free-text values into the picklist options, so segments and reports operate on clean, matchable data.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses picklists for the fields that need standardizing, so values stay consistent and reportable by design. Rook normalizes any legacy free-text values into the picklist options, so segments and reports operate on clean, matchable data.` },
     ],
     faqs: [
       { q: `When should a field be a picklist instead of free text?`, a: `Whenever the valid values are finite and you filter, segment, or report on the field - industry, stage, status, lead source, region. A picklist keeps those consistent by design. Reserve free text for genuinely open-ended data like notes that you do not filter on.` },
@@ -1049,7 +1049,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Govern additions or the list re-sprawls`, body: `Standardizing a picklist once does nothing if anyone can add "Tech" back next to "Technology." The lasting fix is governance: restrict who adds options and require they check for an existing match first. A governed picklist stays clean; an open one drifts right back.` },
-      { h: `How Rally helps`, body: `Rally keeps picklists tight by consolidating near-duplicate values and mapping legacy entries to the canonical set. Rook governs additions and normalizes stray values, so the option list stays clean and segmentation and reporting keep matching correctly.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps picklists tight by consolidating near-duplicate values and mapping legacy entries to the canonical set. Rook governs additions and normalizes stray values, so the option list stays clean and segmentation and reporting keep matching correctly.` },
     ],
     faqs: [
       { q: `Why do picklists get messy over time?`, a: `Because people add near-duplicate options - "Tech" next to "Technology" next to "Software/Tech" - fragmenting the data the picklist was meant to standardize. Without governance on who can add values, the list sprawls into overlapping options that break segmentation.` },
@@ -1064,7 +1064,7 @@ const ROWS = [
     keyPoints: [`A condition a value must meet before a record saves.`, `Enforces format, range, and logical consistency at entry.`, `Prevents bad data rather than cleaning it later.`, `Should target the fields that matter, to avoid excess friction.`],
     sections: [
       { h: `Why it matters`, body: `Catching a malformed email or an impossible date at entry is far cheaper than discovering it when a campaign bounces or a report breaks. Validation rules move quality control to the source, which is the highest-leverage place to enforce it.` },
-      { h: `How Rally handles it`, body: `Rally validates key fields at entry by default - formats, ranges, and logical checks - so bad values are caught before they save. Rook keeps the rules focused on fields that matter, so validation protects quality without turning entry into a fight.` },
+      { h: `How Ardovo handles it`, body: `Ardovo validates key fields at entry by default - formats, ranges, and logical checks - so bad values are caught before they save. Rook keeps the rules focused on fields that matter, so validation protects quality without turning entry into a fight.` },
     ],
     faqs: [
       { q: `What can a validation rule check?`, a: `Format (a well-formed email or URL), range (a positive amount, a future close date), and logical consistency (a stage that matches a status). Anything expressible as a pass-or-fail condition on a value can be a validation rule enforced at save time.` },
@@ -1084,7 +1084,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Test rules against messy real data`, body: `A validation rule that looks right on clean examples often rejects legitimate real-world values - international phone formats, valid but unusual emails. Test every rule against actual data before turning it on, or you will block good entries and train reps to work around the system.` },
-      { h: `How Rally helps`, body: `Rally validates key fields with sensible defaults tuned to real-world values, and clear inline messages. Rook keeps validation focused where correctness matters, so rules catch genuine errors without rejecting the messy-but-valid data that trips up naive validation.` },
+      { h: `How Ardovo helps`, body: `Ardovo validates key fields with sensible defaults tuned to real-world values, and clear inline messages. Rook keeps validation focused where correctness matters, so rules catch genuine errors without rejecting the messy-but-valid data that trips up naive validation.` },
     ],
     faqs: [
       { q: `Which fields need validation rules?`, a: `The ones where a bad value causes real harm: email and phone for deliverability, amount and close date for forecasting, and any field where a wrong format breaks a downstream system. Low-stakes fields rarely need validation and adding it just creates friction.` },
@@ -1102,7 +1102,7 @@ const ROWS = [
     keyPoints: [`Lead: an unqualified individual who expressed interest.`, `Contact: a qualified person you have a real relationship with.`, `Account: the company that contacts belong to and deals attach to.`, `Leads convert into contacts; contacts link to accounts.`],
     sections: [
       { h: `Why it matters`, body: `Using the wrong object scrambles reporting and routing. Treating companies as contacts loses the account structure; never converting leads clogs the pipeline with unqualified noise. A clear model keeps data clean and reports meaningful.` },
-      { h: `How Rally handles it`, body: `Rally ships leads, contacts, and accounts as distinct, properly linked objects, so the structure is right by default. Rook converts qualified leads into contacts, links them to the correct account, and keeps the relationships clean without manual bookkeeping.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ships leads, contacts, and accounts as distinct, properly linked objects, so the structure is right by default. Rook converts qualified leads into contacts, links them to the correct account, and keeps the relationships clean without manual bookkeeping.` },
     ],
     faqs: [
       { q: `What is the difference between a lead and a contact?`, a: `A lead is an unqualified individual who expressed interest but has not been vetted. A contact is a qualified person you have an established relationship with, usually linked to an account. Leads convert into contacts once qualified, moving from raw interest into your relationship structure.` },
@@ -1117,7 +1117,7 @@ const ROWS = [
     keyPoints: [`Represents a company you sell to or work with.`, `Gathers contacts, deals, activity, and firmographics in one place.`, `The company-level source of truth for a relationship.`, `Deals and hierarchies attach at the account level.`],
     sections: [
       { h: `Why it matters`, body: `B2B selling is to companies, not just people. The account is where you see every contact, deal, and interaction for a customer together, which is essential for coordinated selling, account planning, and understanding the full relationship.` },
-      { h: `How Rally handles it`, body: `Rally's account object gathers contacts, deals, activity, and enriched firmographics, and supports hierarchies for complex organizations. Rook keeps the account complete and current, so the whole relationship is visible in one place.` },
+      { h: `How Ardovo handles it`, body: `Ardovo's account object gathers contacts, deals, activity, and enriched firmographics, and supports hierarchies for complex organizations. Rook keeps the account complete and current, so the whole relationship is visible in one place.` },
     ],
     faqs: [
       { q: `What is the difference between an account and a contact?`, a: `An account is a company; a contact is a person at that company. One account holds many contacts. Deals and firmographic data live at the account level, while contacts hold the individual people's details and roles within it.` },
@@ -1132,7 +1132,7 @@ const ROWS = [
     keyPoints: [`Represents an individual person you have a relationship with.`, `Holds role, contact details, and activity history.`, `Links to an account and to deals.`, `Together, contacts on an account form the buying committee.`],
     sections: [
       { h: `Why it matters`, body: `Deals are won by people, not companies. Contacts capture who those people are, their role in the decision, and your history with them - the information that lets reps multithread and reach the real decision-makers.` },
-      { h: `How Rally handles it`, body: `Rally links contacts to their account and the deals they touch, and enriches their role and details. Rook keeps contact data current, logs activity automatically, and maps the buying committee, so reps always know who they are working and where each person stands.` },
+      { h: `How Ardovo handles it`, body: `Ardovo links contacts to their account and the deals they touch, and enriches their role and details. Rook keeps contact data current, logs activity automatically, and maps the buying committee, so reps always know who they are working and where each person stands.` },
     ],
     faqs: [
       { q: `What is the difference between a lead and a contact?`, a: `A lead is an unqualified individual who showed interest; a contact is a qualified person you have an established relationship with, usually linked to an account. Leads convert into contacts once vetted, so a contact represents a real, working relationship rather than raw interest.` },
@@ -1147,7 +1147,7 @@ const ROWS = [
     keyPoints: [`An unqualified individual who has shown interest.`, `The top of the funnel, before qualification.`, `Gets scored, routed, and either converted or disqualified.`, `Kept separate from contacts to protect relationship data.`],
     sections: [
       { h: `Why it matters`, body: `Leads are where volume enters and where qualification filters it. Treating every lead as a contact pollutes your relationship data with unvetted noise; a proper lead stage lets you score, route, and qualify before anyone becomes part of the trusted contact base.` },
-      { h: `How Rally handles it`, body: `Rally captures, enriches, scores, and routes leads, then converts the qualified ones into contacts linked to accounts. Rook handles the qualification busywork - scoring fit, routing to the right rep, flagging the leads worth working - so reps focus on real prospects.` },
+      { h: `How Ardovo handles it`, body: `Ardovo captures, enriches, scores, and routes leads, then converts the qualified ones into contacts linked to accounts. Rook handles the qualification busywork - scoring fit, routing to the right rep, flagging the leads worth working - so reps focus on real prospects.` },
     ],
     faqs: [
       { q: `What makes someone a lead versus a contact?`, a: `A lead is unqualified - they showed interest but have not been vetted for fit or genuine intent. A contact is qualified and part of your relationship structure, linked to an account. The qualification step is what converts a lead into a contact.` },
@@ -1162,7 +1162,7 @@ const ROWS = [
     keyPoints: [`Links related company records in a parent-child structure.`, `Models corporate parents, subsidiaries, divisions, and offices.`, `Lets you roll up deals and revenue across the whole organization.`, `Essential for selling into large, multi-entity accounts.`],
     sections: [
       { h: `Why it matters`, body: `Without hierarchy, a global customer looks like a dozen disconnected accounts, hiding the true size and structure of the relationship. Hierarchy reveals the whole organization, enabling enterprise account planning and accurate revenue rollups across every entity.` },
-      { h: `How Rally handles it`, body: `Rally supports account hierarchies, linking parents to subsidiaries and rolling up deals and revenue across the tree. Rook keeps the structure accurate and distinguishes true hierarchy relationships from duplicates, so large accounts are seen whole rather than fragmented.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports account hierarchies, linking parents to subsidiaries and rolling up deals and revenue across the tree. Rook keeps the structure accurate and distinguishes true hierarchy relationships from duplicates, so large accounts are seen whole rather than fragmented.` },
     ],
     faqs: [
       { q: `Why is account hierarchy important?`, a: `Because large customers are multi-entity organizations - parents, subsidiaries, divisions. Without hierarchy they appear as disconnected accounts, hiding the relationship's true size. Hierarchy lets you see the whole organization and roll up deals and revenue across it for real enterprise account planning.` },
@@ -1182,7 +1182,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Do not merge what you should link`, body: `The central hierarchy mistake is merging a subsidiary into its parent because the names match. They are distinct entities that should be linked, not one record. Before merging any similar accounts, confirm whether they are duplicates or a real hierarchy - the wrong call loses a relationship.` },
-      { h: `How Rally helps`, body: `Rally links parent and child accounts, rolls up deals and revenue across the tree, and distinguishes hierarchy relationships from duplicates. Rook maintains the structure as the organization changes, so enterprise accounts stay accurately modeled and seen whole.` },
+      { h: `How Ardovo helps`, body: `Ardovo links parent and child accounts, rolls up deals and revenue across the tree, and distinguishes hierarchy relationships from duplicates. Rook maintains the structure as the organization changes, so enterprise accounts stay accurately modeled and seen whole.` },
     ],
     faqs: [
       { q: `How do you decide the parent account?`, a: `The parent is the top corporate entity - usually the headquarters or holding company - with subsidiaries, divisions, and regional offices as children beneath it. Model the real legal and organizational structure so rollups reflect how the company is actually arranged.` },
@@ -1202,7 +1202,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Domain matching is the workhorse`, body: `Email domain is the most reliable way to connect a person to their company, because it is far more unique and stable than a variously-spelled company name. Domain matching powers contact-to-account linking and lead-to-account matching alike, so getting it right pays off across the whole data model.` },
-      { h: `How Rally helps`, body: `Rally links contacts to accounts by domain automatically, so people are grouped under their company with no manual bookkeeping. Rook fixes orphaned contacts and keeps company data on the account, so every contact carries accurate company context by inheritance.` },
+      { h: `How Ardovo helps`, body: `Ardovo links contacts to accounts by domain automatically, so people are grouped under their company with no manual bookkeeping. Rook fixes orphaned contacts and keeps company data on the account, so every contact carries accurate company context by inheritance.` },
     ],
     faqs: [
       { q: `How do you match a contact to the right account?`, a: `Primarily through the email domain, which reliably maps a person to their employer and is far more stable than a company name that gets spelled many ways. Match on domain to find or create the account, then link the contact so it appears under the company.` },
@@ -1217,7 +1217,7 @@ const ROWS = [
     keyPoints: [`Links a parent account above related child accounts.`, `Models headquarters-to-subsidiary and division relationships.`, `Children stay separately workable; the link enables rollups.`, `The building block of account hierarchy.`],
     sections: [
       { h: `Why it matters`, body: `Large customers are structured, not flat. Parent-child links model that structure, so a global account is not a dozen disconnected records but one visible organization with enterprise-wide rollups and per-entity detail both available.` },
-      { h: `How Rally handles it`, body: `Rally supports parent-child relationships and rolls up deals and revenue across them, while distinguishing them from duplicates. Rook keeps the links accurate as organizations restructure, so hierarchies reflect reality.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports parent-child relationships and rolls up deals and revenue across them, while distinguishing them from duplicates. Rook keeps the links accurate as organizations restructure, so hierarchies reflect reality.` },
     ],
     faqs: [
       { q: `What is an example of a parent-child account?`, a: `A corporate headquarters as the parent, with regional offices or subsidiaries as children beneath it - for instance, a global company parent over its country-level entities. Each child is worked separately, but the hierarchy connects them for organization-wide visibility and rollups.` },
@@ -1237,7 +1237,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Single-threaded deals are fragile`, body: `A deal with one engaged contact collapses if that person leaves, loses influence, or goes cold. Managing multiple contacts per account and multithreading across the committee is the single biggest way to de-risk complex deals. Coverage of the buying group is what wins.` },
-      { h: `How Rally helps`, body: `Rally gathers all of an account's contacts with their roles and engagement, and maps the buying committee. Rook flags single-threaded deals and the missing stakeholders, so reps multithread deliberately instead of relying on one contact and hoping.` },
+      { h: `How Ardovo helps`, body: `Ardovo gathers all of an account's contacts with their roles and engagement, and maps the buying committee. Rook flags single-threaded deals and the missing stakeholders, so reps multithread deliberately instead of relying on one contact and hoping.` },
     ],
     faqs: [
       { q: `Why manage multiple contacts per account?`, a: `Because B2B deals are decided by committees, not individuals. Relying on one contact is fragile - if they leave or go quiet, the deal stalls. Managing all the stakeholders with their roles lets you multithread, which is the most reliable way to de-risk and win complex deals.` },
@@ -1257,7 +1257,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Matching prevents cross-rep collisions`, body: `The worst routing failure is two reps working the same company because a lead was not matched to its existing account. Lead-to-account matching routes inbound interest to the account owner, so relationships are respected and no one steps on an active deal or customer.` },
-      { h: `How Rally helps`, body: `Rally matches leads to accounts by domain automatically, routing them to the account owner with full account context. Rook flags leads from existing customers and open opportunities, so inbound interest is handled correctly instead of restarting a relationship someone already owns.` },
+      { h: `How Ardovo helps`, body: `Ardovo matches leads to accounts by domain automatically, routing them to the account owner with full account context. Rook flags leads from existing customers and open opportunities, so inbound interest is handled correctly instead of restarting a relationship someone already owns.` },
     ],
     faqs: [
       { q: `What is lead-to-account matching?`, a: `Connecting an inbound lead to the company account it belongs to, usually through the email domain. It ensures leads are routed to the account owner, scored with account context, and recognized when they come from existing customers or open deals rather than treated as net-new.` },
@@ -1275,7 +1275,7 @@ const ROWS = [
     keyPoints: [`Automatically assigns each lead to the right rep by rule.`, `Rules include territory, company size, product, and round-robin.`, `Aims to route in seconds so follow-up is fast.`, `The mechanism that makes speed-to-lead possible.`],
     sections: [
       { h: `Why it matters`, body: `A lead's conversion odds drop sharply with every hour of delay. Routing that instantly sends each lead to the right available rep is what makes fast follow-up possible and ensures no lead is dropped or worked by the wrong person.` },
-      { h: `How Rally handles it`, body: `Rally routes leads instantly by your rules - territory, size, product, round-robin - matching each to the account owner where one exists. Rook enriches and scores the lead first, so routing decisions use complete data and the best-fit rep gets it in seconds.` },
+      { h: `How Ardovo handles it`, body: `Ardovo routes leads instantly by your rules - territory, size, product, round-robin - matching each to the account owner where one exists. Rook enriches and scores the lead first, so routing decisions use complete data and the best-fit rep gets it in seconds.` },
     ],
     faqs: [
       { q: `How does lead routing work?`, a: `Incoming leads are evaluated against rules - territory, company size, product interest, round-robin, or account ownership - and automatically assigned to the matching rep. Good routing enriches and scores the lead first, then assigns it to the best-fit, available rep in seconds.` },
@@ -1296,7 +1296,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Enrich first, then route`, body: `Routing rules that depend on company size or industry fail on leads missing that data - they hit the fallback or route wrong. Enriching leads before routing ensures the rules have what they need, so leads reach the right rep instead of defaulting to a catch-all.` },
-      { h: `How Rally helps`, body: `Rally enriches and scores leads before routing, then applies your prioritized rules with round-robin and a fallback so nothing is stranded. Rook monitors for fall-through and rebalances load, so routing stays fair and every lead reaches the best-fit rep fast.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches and scores leads before routing, then applies your prioritized rules with round-robin and a fallback so nothing is stranded. Rook monitors for fall-through and rebalances load, so routing stays fair and every lead reaches the best-fit rep fast.` },
     ],
     faqs: [
       { q: `What is the first step in setting up lead routing?`, a: `Mapping how your team is organized - by territory, segment, industry, or product - so the rules mirror reality. And enriching leads first, since routing rules that depend on company size or location misfire on leads missing that data. Enrich, then route on complete information.` },
@@ -1311,7 +1311,7 @@ const ROWS = [
     keyPoints: [`Logic that decides who owns each new record.`, `Evaluate attributes like territory, size, and product.`, `Often include round-robin for even distribution.`, `Ensure records get an owner automatically, not by hand.`],
     sections: [
       { h: `Why it matters`, body: `Ownership is accountability. Without assignment rules, records land unassigned and get ignored, or a manager hand-assigns them slowly. Rules make ownership instant and consistent, which is what keeps leads worked and accounts covered.` },
-      { h: `How Rally handles it`, body: `Rally applies assignment rules to route leads and set account ownership automatically, with round-robin and fallbacks. Rook enriches records first so the rules have accurate data, and rebalances assignments as territories and capacity change.` },
+      { h: `How Ardovo handles it`, body: `Ardovo applies assignment rules to route leads and set account ownership automatically, with round-robin and fallbacks. Rook enriches records first so the rules have accurate data, and rebalances assignments as territories and capacity change.` },
     ],
     faqs: [
       { q: `What is the difference between assignment rules and lead routing?`, a: `Lead routing is the specific application of assignment rules to incoming leads. Assignment rules are the broader logic that decides ownership of any record - leads, accounts, cases. Routing is assignment rules pointed at leads, focused on speed to the right rep.` },
@@ -1331,7 +1331,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Order and fallback are what people miss`, body: `Two failure modes dominate assignment rules: rules in the wrong order (a broad rule fires before a specific one, so records land generically) and no fallback (unmatched records sit ownerless). Order specific-to-general and always include a catch-all, and assignment stays reliable.` },
-      { h: `How Rally helps`, body: `Rally applies ordered assignment rules with round-robin and a fallback, and previews how sample records would assign. Rook enriches records first so rules match accurately, and rebalances as your team and territories change, so ownership stays fair and current.` },
+      { h: `How Ardovo helps`, body: `Ardovo applies ordered assignment rules with round-robin and a fallback, and previews how sample records would assign. Rook enriches records first so rules match accurately, and rebalances as your team and territories change, so ownership stays fair and current.` },
     ],
     faqs: [
       { q: `Why does the order of assignment rules matter?`, a: `Because records usually match the first applicable rule, so a broad rule placed before a specific one fires first and assigns generically. Ordering rules from most specific to most general ensures each record matches the most precise applicable rule rather than a catch-all.` },
@@ -1346,7 +1346,7 @@ const ROWS = [
     keyPoints: [`Rotates leads one at a time through a group of reps.`, `Aims for roughly even volume per rep.`, `Better versions respect availability and capacity.`, `Ensures fair distribution within a team or territory.`],
     sections: [
       { h: `Why it matters`, body: `Without even distribution, leads pile on the quickest or favored reps and others starve, which is both unfair and inefficient. Round-robin balances volume, and capacity-aware round-robin ensures leads go to reps actually able to work them promptly.` },
-      { h: `How Rally handles it`, body: `Rally runs capacity-aware round-robin within matched groups, skipping reps who are out or overloaded. Rook balances distribution against real availability, so leads are shared fairly and reach someone able to follow up fast, not just next in line.` },
+      { h: `How Ardovo handles it`, body: `Ardovo runs capacity-aware round-robin within matched groups, skipping reps who are out or overloaded. Rook balances distribution against real availability, so leads are shared fairly and reach someone able to follow up fast, not just next in line.` },
     ],
     faqs: [
       { q: `How does round-robin lead assignment work?`, a: `Leads are handed out one at a time in rotation through a group of reps, so over time each receives roughly equal volume. The basic version simply cycles through the list; refined versions skip reps who are unavailable or at capacity so leads still get worked promptly.` },
@@ -1366,7 +1366,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Group first, then round-robin`, body: `Round-robin alone ignores fit - it would rotate an enterprise lead to an SMB rep. The right pattern is routing rules to pick the correct group by territory or segment, then round-robin to distribute fairly within it. Fit first, fairness second.` },
-      { h: `How Rally helps`, body: `Rally combines routing rules with capacity-aware round-robin, selecting the right group then rotating within it while skipping unavailable reps. Rook monitors balance and rebalances as availability changes, so distribution stays fair and every lead reaches someone ready to work it.` },
+      { h: `How Ardovo helps`, body: `Ardovo combines routing rules with capacity-aware round-robin, selecting the right group then rotating within it while skipping unavailable reps. Rook monitors balance and rebalances as availability changes, so distribution stays fair and every lead reaches someone ready to work it.` },
     ],
     faqs: [
       { q: `Should you use round-robin alone for routing?`, a: `No - alone it ignores fit and would send a mismatched lead to the wrong rep. Use routing rules to select the correct group by territory or segment first, then round-robin to distribute evenly within that group. Fit first, fairness second.` },
@@ -1381,7 +1381,7 @@ const ROWS = [
     keyPoints: [`Time from lead submission to first rep contact.`, `A top predictor of contact and conversion rates.`, `Advantage decays sharply within the first hour.`, `Enabled by fast routing and instant notification.`],
     sections: [
       { h: `Why it matters`, body: `Studies consistently show contact rates fall off a cliff as response time stretches from minutes to hours. A lead responded to in five minutes is far more likely to convert than the same lead reached an hour later. Speed to lead is where fast routing pays off in revenue.` },
-      { h: `How Rally handles it`, body: `Rally enriches, scores, and routes leads in seconds and notifies the rep instantly, so response can happen while intent is hot. Rook can even draft the first outreach, so speed to lead is measured in minutes rather than hours.` },
+      { h: `How Ardovo handles it`, body: `Ardovo enriches, scores, and routes leads in seconds and notifies the rep instantly, so response can happen while intent is hot. Rook can even draft the first outreach, so speed to lead is measured in minutes rather than hours.` },
     ],
     faqs: [
       { q: `Why is speed to lead so important?`, a: `Because contact and conversion rates drop sharply as response time grows. Reaching a lead within minutes rather than hours can multiply the odds of connecting and winning, since intent is highest right after submission. It is one of the most reliable levers on conversion.` },
@@ -1401,7 +1401,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Delete every manual step`, body: `Speed to lead dies in the gaps: a lead waiting for enrichment, an unassigned queue, a notification nobody saw. Each manual step adds minutes that cost conversion. Automate enrichment, routing, and notification end to end so the only human step is the response itself.` },
-      { h: `How Rally helps`, body: `Rally enriches, scores, routes, and notifies in seconds, and Rook can draft the first outreach so reps respond immediately. Response time is tracked per rep and source, so delay is visible and fixable, and speed to lead stays in minutes rather than drifting back to hours.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches, scores, routes, and notifies in seconds, and Rook can draft the first outreach so reps respond immediately. Response time is tracked per rep and source, so delay is visible and fixable, and speed to lead stays in minutes rather than drifting back to hours.` },
     ],
     faqs: [
       { q: `What slows down speed to lead?`, a: `Manual steps: leads waiting to be enriched or researched, unassigned queues, routing that takes minutes, and notifications reps do not see. Each gap adds delay that costs conversion. The fix is automating the whole path from submission to notification so only the response is manual.` },
@@ -1421,7 +1421,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Automation removes the manager bottleneck`, body: `When a person hand-assigns leads, follow-up waits on their availability and judgment, and consistency suffers. Automated assignment applies the same logic instantly to every lead, so ownership is immediate and fair, and managers spend time coaching instead of triaging a queue.` },
-      { h: `How Rally helps`, body: `Rally automates assignment with enrichment, rules, account matching, round-robin, and fallbacks, so every lead gets the right owner in seconds. Rook rebalances as the team changes and flags any lead that slips, so assignment runs itself without a manager in the loop.` },
+      { h: `How Ardovo helps`, body: `Ardovo automates assignment with enrichment, rules, account matching, round-robin, and fallbacks, so every lead gets the right owner in seconds. Rook rebalances as the team changes and flags any lead that slips, so assignment runs itself without a manager in the loop.` },
     ],
     faqs: [
       { q: `Why automate lead assignment?`, a: `Because manual assignment is slow, inconsistent, and a bottleneck - follow-up waits on a manager's availability. Automated assignment applies consistent logic instantly, giving every lead an owner in seconds. That immediacy is the foundation of strong speed to lead and fair distribution.` },
@@ -1436,7 +1436,7 @@ const ROWS = [
     keyPoints: [`A shared holding area where leads wait to be claimed or assigned.`, `Reps or automation pull leads from it.`, `Suits shared-coverage and specialized-team models.`, `Risks leads sitting unclaimed without alerts and escalation.`],
     sections: [
       { h: `Why it matters`, body: `Queues can distribute work flexibly, but a pure pull model lets leads languish when everyone assumes someone else will grab them. Pairing queues with instant alerts and time-based escalation keeps the flexibility without sacrificing response speed.` },
-      { h: `How Rally handles it`, body: `Rally supports queues with instant alerts and escalation, so a lead that sits unclaimed too long is reassigned or surfaced. Rook watches the queue and pushes leads to owners when needed, so the pull model never becomes a place leads go to die.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports queues with instant alerts and escalation, so a lead that sits unclaimed too long is reassigned or surfaced. Rook watches the queue and pushes leads to owners when needed, so the pull model never becomes a place leads go to die.` },
     ],
     faqs: [
       { q: `What is the difference between a lead queue and direct assignment?`, a: `Direct assignment pushes each lead to a specific owner; a queue holds leads in a shared pool that reps pull from. Assignment guarantees an owner and speed; queues offer flexibility but risk leads sitting unclaimed unless paired with alerts and escalation.` },
@@ -1454,7 +1454,7 @@ const ROWS = [
     keyPoints: [`Assigns a conversion-likelihood score to each lead.`, `Combines fit (ICP match) and engagement (activity).`, `Prioritizes the highest-scoring leads for fast follow-up.`, `Keeps fit and engagement separate for clearer signal.`],
     sections: [
       { h: `Why it matters`, body: `Reps have limited time, and working leads in arrival order wastes it on poor prospects while good ones cool. Scoring focuses effort on the leads most likely to convert, raising efficiency and conversion without adding headcount.` },
-      { h: `How Rally handles it`, body: `Rally scores leads on fit and engagement separately using enriched data and real activity, and Rook prioritizes the queue accordingly. Reps get a ranked list with the best leads on top, so time goes where it converts rather than to whoever came in first.` },
+      { h: `How Ardovo handles it`, body: `Ardovo scores leads on fit and engagement separately using enriched data and real activity, and Rook prioritizes the queue accordingly. Reps get a ranked list with the best leads on top, so time goes where it converts rather than to whoever came in first.` },
     ],
     faqs: [
       { q: `What factors go into a lead score?`, a: `Two categories: fit, meaning how well the company matches your ideal customer profile (industry, size, role), and engagement, meaning how actively the person interacts (visits, opens, replies, demo requests). Combining both predicts conversion likelihood better than either alone.` },
@@ -1475,7 +1475,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Tune against real conversions`, body: `A scoring model built on assumptions misranks leads until it is calibrated against reality. Periodically check which scores actually converted and adjust the weights, so the model reflects what predicts a real customer rather than what you guessed would. Calibration is what earns rep trust.` },
-      { h: `How Rally helps`, body: `Rally scores fit and engagement separately on enriched data and real activity, and Rook tunes the model against actual conversions. The score reflects what truly predicts a customer, so reps trust the ranking and work the right leads first.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit and engagement separately on enriched data and real activity, and Rook tunes the model against actual conversions. The score reflects what truly predicts a customer, so reps trust the ranking and work the right leads first.` },
     ],
     faqs: [
       { q: `What data do you need for lead scoring?`, a: `Firmographic data for the fit score (industry, size, revenue, role) and behavioral data for engagement (visits, opens, replies, demo requests). Fit requires enriched company data, which is why enrichment is a prerequisite - you cannot score fit on missing firmographics.` },
@@ -1490,7 +1490,7 @@ const ROWS = [
     keyPoints: [`Measures a prospect's activity and interaction level.`, `Draws on visits, opens, replies, downloads, and meetings.`, `Signals intent and timing rather than fit.`, `Pairs with a fit score to prioritize who and when.`],
     sections: [
       { h: `Why it matters`, body: `A rising engagement score is a buying signal - the moment to reach out while interest is hot. Tracking engagement lets teams time outreach to intent, catching prospects when they are leaning in rather than guessing when to follow up.` },
-      { h: `How Rally handles it`, body: `Rally computes engagement scores from captured activity across email, web, and meetings, kept separate from fit. Rook flags when a lead or account's engagement spikes, so reps reach out at the moment intent is highest instead of on a fixed cadence.` },
+      { h: `How Ardovo handles it`, body: `Ardovo computes engagement scores from captured activity across email, web, and meetings, kept separate from fit. Rook flags when a lead or account's engagement spikes, so reps reach out at the moment intent is highest instead of on a fixed cadence.` },
     ],
     faqs: [
       { q: `What is the difference between an engagement score and a fit score?`, a: `Fit measures how well an account matches your ideal profile, from firmographics. Engagement measures how actively a prospect is interacting, from behavior. Fit answers whether to pursue an account; engagement answers when to act. Together they prioritize both who and when.` },
@@ -1505,7 +1505,7 @@ const ROWS = [
     keyPoints: [`Scores leads using a model trained on historical outcomes.`, `Learns which traits and behaviors preceded wins.`, `More calibrated than manual point-based scoring.`, `Requires sufficient historical data to be reliable.`],
     sections: [
       { h: `Why it matters`, body: `Manual scoring is only as good as the guesses behind its weights. Predictive scoring replaces guesses with patterns from your actual wins and losses, so the score reflects what truly precedes a customer - often catching signals a human would not have weighted.` },
-      { h: `How Rally handles it`, body: `Rally can score leads predictively from your own won and lost history, so the model is calibrated to your business, not a generic template. Rook keeps it tuned as outcomes accumulate, so the score stays accurate as your market and product evolve.` },
+      { h: `How Ardovo handles it`, body: `Ardovo can score leads predictively from your own won and lost history, so the model is calibrated to your business, not a generic template. Rook keeps it tuned as outcomes accumulate, so the score stays accurate as your market and product evolve.` },
     ],
     faqs: [
       { q: `How is predictive lead scoring different from traditional scoring?`, a: `Traditional scoring uses point weights a human assigns based on assumptions. Predictive scoring learns the weights from your historical won and lost deals, finding the traits and behaviors that actually preceded wins. It is calibrated to real outcomes rather than to guesswork.` },
@@ -1525,7 +1525,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Make the score drive action`, body: `A score that only displays a number changes nothing. The value comes when thresholds trigger behavior - high-scoring leads jump the routing queue and kick off immediate follow-up, low-scoring ones enter nurture. Wire the score to action, or it is just decoration.` },
-      { h: `How Rally helps`, body: `Rally scores fit and engagement on enriched, real-time data and wires thresholds to routing and follow-up, so high scores act automatically. Rook tunes the model against conversions and drives the follow-up, so scoring produces action, not just numbers.` },
+      { h: `How Ardovo helps`, body: `Ardovo scores fit and engagement on enriched, real-time data and wires thresholds to routing and follow-up, so high scores act automatically. Rook tunes the model against conversions and drives the follow-up, so scoring produces action, not just numbers.` },
     ],
     faqs: [
       { q: `What is the first step to score leads?`, a: `Enrich them, so the fit score can be computed. Fit depends on firmographic attributes like industry and company size that leads often arrive without. Without enrichment, fit scoring runs on missing data and misranks leads, so enrichment comes before scoring.` },
@@ -1540,7 +1540,7 @@ const ROWS = [
     keyPoints: [`The score level that triggers a specific action.`, `Separates sales-ready leads from nurture-stage ones.`, `Turns a continuous score into clear decisions.`, `Needs calibration to balance volume against quality.`],
     sections: [
       { h: `Why it matters`, body: `Thresholds define the handoff between marketing and sales and the pace of follow-up. A well-set threshold sends sales exactly the leads worth their time; a badly set one either starves reps of good leads or floods them with noise.` },
-      { h: `How Rally handles it`, body: `Rally lets you set thresholds that trigger routing and follow-up, and Rook calibrates them against conversion data so the line between sales-ready and nurture reflects reality. The threshold sends sales the right volume of genuinely qualified leads.` },
+      { h: `How Ardovo handles it`, body: `Ardovo lets you set thresholds that trigger routing and follow-up, and Rook calibrates them against conversion data so the line between sales-ready and nurture reflects reality. The threshold sends sales the right volume of genuinely qualified leads.` },
     ],
     faqs: [
       { q: `How do you set a lead score threshold?`, a: `Start from your capacity and conversion data: set the threshold so sales receives the volume of leads it can work and that actually convert at an acceptable rate. Then calibrate against outcomes - if too many threshold-crossing leads are poor, raise it; if good leads wait, lower it.` },
@@ -1555,7 +1555,7 @@ const ROWS = [
     keyPoints: [`Grading rates fit against the ICP, often as a letter grade.`, `Scoring often measures engagement or conversion likelihood.`, `Grade answers "right company"; score answers "how interested".`, `Used together to prioritize on both fit and intent.`],
     sections: [
       { h: `Why it matters`, body: `Separating fit (grade) from intent (score) prevents the classic mistake of chasing an engaged but poor-fit lead or ignoring a quiet ideal one. A grade-plus-score view makes both dimensions visible, so reps prioritize leads that are both good-fit and interested.` },
-      { h: `How Rally handles it`, body: `Rally scores fit and engagement separately, which is the grade-and-score model in practice. Rook enriches for the fit grade and tracks activity for the engagement score, so reps see both dimensions and work the leads that are the right company and warming up.` },
+      { h: `How Ardovo handles it`, body: `Ardovo scores fit and engagement separately, which is the grade-and-score model in practice. Rook enriches for the fit grade and tracks activity for the engagement score, so reps see both dimensions and work the leads that are the right company and warming up.` },
     ],
     faqs: [
       { q: `What is the difference between lead grading and lead scoring?`, a: `Grading rates how well a lead fits your ideal customer profile, typically a letter grade from firmographic data. Scoring often measures engagement or overall conversion likelihood as a number. Grade answers whether it is the right company; score answers how interested they are.` },
@@ -1573,7 +1573,7 @@ const ROWS = [
     keyPoints: [`Divides accounts and prospects among reps by defined boundaries.`, `Boundaries can be geography, industry, size, or named accounts.`, `Prevents rep collisions and neglected markets.`, `Underpins routing, quotas, and coverage planning.`],
     sections: [
       { h: `Why it matters`, body: `Without clear territories, reps chase the same attractive accounts and ignore the rest, creating conflict and coverage gaps. Territory management gives every account a clear owner and every rep a fair, focused patch, which makes routing, quotas, and coverage all coherent.` },
-      { h: `How Rally handles it`, body: `Rally models territories by geography, industry, size, or named accounts, and routes leads to the territory owner automatically. Rook flags coverage gaps and imbalances, so territories stay fair and every account has a clear, current owner.` },
+      { h: `How Ardovo handles it`, body: `Ardovo models territories by geography, industry, size, or named accounts, and routes leads to the territory owner automatically. Rook flags coverage gaps and imbalances, so territories stay fair and every account has a clear, current owner.` },
     ],
     faqs: [
       { q: `What are territories based on?`, a: `Commonly geography (region, country), but also industry vertical, company size or segment, or named-account lists for strategic selling. Many teams combine dimensions - for example region plus segment. The right basis reflects how your market is structured and how reps specialize.` },
@@ -1593,7 +1593,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Balance opportunity, not just geography`, body: `The classic territory mistake is dividing by area or account count, which leaves one rep with a dense high-value patch and another with a sprawling thin one. Balance by opportunity - potential revenue - so territories are genuinely fair and quotas are achievable across the team.` },
-      { h: `How Rally helps`, body: `Rally models territories on any dimension, uses account data to balance them by opportunity, and routes leads to the owner. Rook flags imbalance and coverage gaps as the market shifts, so territories stay fair and every account keeps a clear owner.` },
+      { h: `How Ardovo helps`, body: `Ardovo models territories on any dimension, uses account data to balance them by opportunity, and routes leads to the owner. Rook flags imbalance and coverage gaps as the market shifts, so territories stay fair and every account keeps a clear owner.` },
     ],
     faqs: [
       { q: `How do you balance sales territories?`, a: `Balance by opportunity - potential revenue and account value - not just geography or account count. A rep with a sprawling low-value region is not equal to one with a dense high-value patch. Sizing territories by potential makes quotas fair and achievable across the team.` },
@@ -1608,7 +1608,7 @@ const ROWS = [
     keyPoints: [`The set of accounts and prospects a rep owns.`, `Bounded by geography, industry, size, or named accounts.`, `Gives reps a focused patch and prevents overlap.`, `The unit quotas, routing, and coverage organize around.`],
     sections: [
       { h: `Why it matters`, body: `A clear territory gives a rep focus and accountability, and gives the organization clean coverage with no gaps or collisions. It is the boundary that makes it obvious who owns each account and who is responsible for each part of the market.` },
-      { h: `How Rally handles it`, body: `Rally defines territories on any dimension and ties account ownership and lead routing to them. Rook keeps territory assignments current and flags gaps or overlaps, so each rep's patch stays clear and coverage stays complete.` },
+      { h: `How Ardovo handles it`, body: `Ardovo defines territories on any dimension and ties account ownership and lead routing to them. Rook keeps territory assignments current and flags gaps or overlaps, so each rep's patch stays clear and coverage stays complete.` },
     ],
     faqs: [
       { q: `What defines a sales territory?`, a: `A boundary rule - a geography, an industry, a company-size segment, or a named-account list - that assigns a specific set of accounts and prospects to a rep. The rep owns everything within that boundary, which gives them a focused patch and prevents overlap with other reps.` },
@@ -1628,7 +1628,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Balance on opportunity, and expect drift`, body: `Two principles: balance by potential revenue, not geography or count, so fairness is real; and accept that territories drift as accounts grow and demand shifts, so balancing is periodic, not one-time. A map balanced last year is likely uneven now.` },
-      { h: `How Rally helps`, body: `Rally measures territory opportunity from live account and pipeline data, surfaces imbalance, and models reallocation. Rook flags when territories have drifted out of balance, so you rebalance on evidence rather than complaints, keeping quotas fair as the market moves.` },
+      { h: `How Ardovo helps`, body: `Ardovo measures territory opportunity from live account and pipeline data, surfaces imbalance, and models reallocation. Rook flags when territories have drifted out of balance, so you rebalance on evidence rather than complaints, keeping quotas fair as the market moves.` },
     ],
     faqs: [
       { q: `What does it mean to balance a territory?`, a: `To size territories so each rep has comparable opportunity - potential revenue and pipeline - and thus a fair shot at quota. Balancing on opportunity rather than area or account count is what makes territories genuinely equitable and quotas achievable across the team.` },
@@ -1643,7 +1643,7 @@ const ROWS = [
     keyPoints: [`Designing how a market is divided among reps for a period.`, `Decides dividing dimensions and sizes territories by potential.`, `Aims to maximize coverage and balance opportunity.`, `Sets the structure routing, quotas, and coverage run on.`],
     sections: [
       { h: `Why it matters`, body: `The territory plan determines whether the whole market is covered and whether reps have fair, achievable patches. A good plan set before the period prevents the gaps, overlaps, and imbalances that otherwise get discovered painfully mid-quarter.` },
-      { h: `How Rally handles it`, body: `Rally supports territory planning with account and opportunity data to size and balance territories before a period, then operationalizes the plan through routing and ownership. Rook flags where the plan leaves gaps, so coverage is complete from day one.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports territory planning with account and opportunity data to size and balance territories before a period, then operationalizes the plan through routing and ownership. Rook flags where the plan leaves gaps, so coverage is complete from day one.` },
     ],
     faqs: [
       { q: `When does territory planning happen?`, a: `Before a selling period - typically at the start of a fiscal year or when the team restructures - as an upfront design exercise. It sets the map that routing, quotas, and coverage run on for the period, so it is strategic planning rather than a live, moment-to-moment decision.` },
@@ -1663,7 +1663,7 @@ const ROWS = [
     ],
     sections: [
       { h: `One owner per account, made visible`, body: `The failures in territory assignment are contested accounts (two reps claim one) and orphaned accounts (nobody owns them). Both come from unclear assignment. Ensure exactly one owner per account and publish the map, so ownership is unambiguous and routing has a clear target.` },
-      { h: `How Rally helps`, body: `Rally ties account ownership and lead routing to territory assignments, so every account has one clear owner and leads flow to them automatically. Rook flags contested or orphaned accounts, so the assignment map stays clean as reps and territories change.` },
+      { h: `How Ardovo helps`, body: `Ardovo ties account ownership and lead routing to territory assignments, so every account has one clear owner and leads flow to them automatically. Rook flags contested or orphaned accounts, so the assignment map stays clean as reps and territories change.` },
     ],
     faqs: [
       { q: `How do you match reps to territories?`, a: `Deliberately, by fit: assign vertical specialists to industry patches, senior reps to strategic or complex territories, and balance experience across the map. Matching a rep's strengths to a territory's needs improves coverage quality, not just fairness of size.` },
@@ -1686,7 +1686,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Automate the frequent and rule-based`, body: `The automations worth building target work that is repetitive and follows clear rules: assignment, reminders, logging, stage updates, alerts. Leave judgment to reps and hand the mechanical work to the system. That split is what frees selling time without losing the human touch where it matters.` },
-      { h: `How Rally helps`, body: `Rally ships these automations ready to run, and Rook executes the busywork - assigning leads, creating tasks, updating stages, logging activity, and alerting the right people - so reps inherit an automated CRM instead of configuring one. The mechanical work happens on its own.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships these automations ready to run, and Rook executes the busywork - assigning leads, creating tasks, updating stages, logging activity, and alerting the right people - so reps inherit an automated CRM instead of configuring one. The mechanical work happens on its own.` },
     ],
     faqs: [
       { q: `What are the best CRM automations to start with?`, a: `The high-frequency, rule-based ones: auto-assigning leads, creating follow-up tasks after meetings, logging emails and calls, updating deal stages from activity, and alerting on key events. These target daily busywork, so they free the most selling time for the least setup effort.` },
@@ -1706,7 +1706,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Automate between the selling moments`, body: `The real conversations - discovery, negotiation, closing - stay human. Automation targets the connective work around them: routing, logging, reminding, nudging. Automating that tissue is what lets reps spend more of their week actually selling instead of feeding the CRM.` },
-      { h: `How Rally helps`, body: `Rally runs these automations natively, and Rook does the connective busywork - routing, sequencing, logging, and nudging - so reps stay in conversations while the CRM maintains itself. The system handles the between-moments work that used to eat the day.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs these automations natively, and Rook does the connective busywork - routing, sequencing, logging, and nudging - so reps stay in conversations while the CRM maintains itself. The system handles the between-moments work that used to eat the day.` },
     ],
     faqs: [
       { q: `Where does sales automation add the most value?`, a: `In the repetitive connective work between selling moments: routing leads, running follow-up cadence, logging activity, and nudging stalled deals and renewals. The real conversations stay human, but automating the tissue around them reclaims hours reps otherwise lose to admin.` },
@@ -1721,7 +1721,7 @@ const ROWS = [
     keyPoints: [`Software handling repetitive, rule-based sales tasks.`, `Covers routing, logging, task creation, updates, and alerts.`, `Targets busywork, not qualifying and negotiating.`, `Frees rep time for the conversations that win deals.`],
     sections: [
       { h: `Why it matters`, body: `Reps lose a large share of their week to non-selling admin. Sales automation returns those hours by handling the mechanical work automatically, which raises selling capacity without adding headcount - as long as it stays out of the judgment work that needs a human.` },
-      { h: `How Rally handles it`, body: `Rally automates the mechanical work through Rook, which routes leads, logs activity, creates tasks, updates records, and alerts the right people. Reps get the time back for real conversations, while the judgment work stays firmly in their hands.` },
+      { h: `How Ardovo handles it`, body: `Ardovo automates the mechanical work through Rook, which routes leads, logs activity, creates tasks, updates records, and alerts the right people. Reps get the time back for real conversations, while the judgment work stays firmly in their hands.` },
     ],
     faqs: [
       { q: `What tasks can sales automation handle?`, a: `Repetitive, rule-based work: routing and assigning leads, logging emails and calls, creating follow-up tasks, updating deal stages from activity, sending alerts, and enriching records. These recur constantly and follow clear rules, making them ideal for software to handle.` },
@@ -1736,7 +1736,7 @@ const ROWS = [
     keyPoints: [`An automated sequence triggered by an event or condition.`, `Runs actions like assigning, tasking, updating, and alerting.`, `Encodes a repeatable process for consistent execution.`, `Removes manual effort and the errors that come with it.`],
     sections: [
       { h: `Why it matters`, body: `Manual processes are inconsistent - people forget steps, do them differently, or skip them under pressure. A workflow runs the same steps every time a trigger fires, making the process reliable and freeing people from remembering to execute it.` },
-      { h: `How Rally handles it`, body: `Rally supports workflows that trigger on events and run multi-step actions, and Rook can build and run them from a plain-language description. Processes execute consistently without anyone remembering to trigger them, and Rook handles the steps in between.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports workflows that trigger on events and run multi-step actions, and Rook can build and run them from a plain-language description. Processes execute consistently without anyone remembering to trigger them, and Rook handles the steps in between.` },
     ],
     faqs: [
       { q: `What can a CRM workflow do?`, a: `Run a sequence of actions when a trigger fires: assign an owner, create a task, update a field, change a stage, send an alert or email, or start another process. Workflows chain these steps so a whole process executes automatically from a single triggering event or condition.` },
@@ -1756,7 +1756,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Keep workflows simple and tested`, body: `Complex, sprawling workflows are hard to reason about and break in surprising ways. Favor simple, single-purpose workflows with a clear trigger and tight conditions, and always test on samples before enabling. A workflow that fires wrongly on real records is worse than no automation.` },
-      { h: `How Rally helps`, body: `Rally lets you build workflows with clear triggers, conditions, and actions, and Rook can assemble one from a plain-language description and test it before it goes live. Complexity stays manageable, and the workflow fires exactly when intended instead of misbehaving on real data.` },
+      { h: `How Ardovo helps`, body: `Ardovo lets you build workflows with clear triggers, conditions, and actions, and Rook can assemble one from a plain-language description and test it before it goes live. Complexity stays manageable, and the workflow fires exactly when intended instead of misbehaving on real data.` },
     ],
     faqs: [
       { q: `What is the first step in building a workflow?`, a: `Defining the trigger - the exact event or condition that starts it, like a lead being created or a deal changing stage. A precise trigger ensures the workflow fires at the right moment. Everything else follows from getting the starting condition clear.` },
@@ -1771,7 +1771,7 @@ const ROWS = [
     keyPoints: [`The event or condition that starts a workflow.`, `Can be a record change, field value, stage change, or date.`, `Defines exactly when the automation runs.`, `Precision determines whether it fires at the right moments.`],
     sections: [
       { h: `Why it matters`, body: `The trigger is where automation succeeds or annoys. A precise trigger fires exactly when the process should run; a loose one spams tasks and alerts, and a wrong one never fires when needed. Getting the trigger right is most of getting the workflow right.` },
-      { h: `How Rally handles it`, body: `Rally supports triggers on record events, field values, stage changes, and dates, with conditions to scope them tightly. Rook helps pick the right trigger from a described intent, so workflows fire at the intended moments rather than too broadly.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports triggers on record events, field values, stage changes, and dates, with conditions to scope them tightly. Rook helps pick the right trigger from a described intent, so workflows fire at the intended moments rather than too broadly.` },
     ],
     faqs: [
       { q: `What kinds of triggers can start a workflow?`, a: `Record events (created or updated), field conditions (a value reaching a threshold), stage changes (a deal moving forward), and time-based triggers (a date arriving or an interval passing). The trigger type you choose defines exactly what moment sets the automation running.` },
@@ -1791,7 +1791,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Too-broad and overlapping triggers are the traps`, body: `Most trigger problems are one of two kinds: a trigger so broad it fires constantly, flooding reps with tasks and alerts, or multiple triggers overlapping on one event so actions double up. Tight conditions fix the first; checking for overlap fixes the second. Test for both before going live.` },
-      { h: `How Rally helps`, body: `Rally scopes triggers with conditions and flags overlapping workflows that would double-fire, and Rook tests firing before a workflow goes live. Triggers fire at the intended moments only, so automation helps rather than floods reps with misfired actions.` },
+      { h: `How Ardovo helps`, body: `Ardovo scopes triggers with conditions and flags overlapping workflows that would double-fire, and Rook tests firing before a workflow goes live. Triggers fire at the intended moments only, so automation helps rather than floods reps with misfired actions.` },
     ],
     faqs: [
       { q: `How do you stop a workflow from firing too often?`, a: `Narrow the trigger with conditions so it only runs for the right records, not every one that hits the triggering event. A trigger on any deal update fires constantly; the same trigger with a condition limiting it to deals crossing a value threshold fires only when it should.` },
@@ -1806,7 +1806,7 @@ const ROWS = [
     keyPoints: [`The CRM creates and assigns follow-up tasks automatically.`, `Triggered by meetings, stalls, renewals, or intervals.`, `Ensures consistent follow-up without relying on memory.`, `Prevents the dropped balls that cost deals.`],
     sections: [
       { h: `Why it matters`, body: `Deals are lost less to bad selling than to missed follow-up - a next step that never got scheduled. Task automation guarantees the next action exists, turning reliable follow-up from a matter of discipline into a property of the system.` },
-      { h: `How Rally handles it`, body: `Rally auto-creates follow-up tasks on meetings, stalls, and renewals, and Rook assigns and surfaces them at the right time. The next step always exists without a rep setting it, so follow-up stays consistent and nothing valuable is forgotten.` },
+      { h: `How Ardovo handles it`, body: `Ardovo auto-creates follow-up tasks on meetings, stalls, and renewals, and Rook assigns and surfaces them at the right time. The next step always exists without a rep setting it, so follow-up stays consistent and nothing valuable is forgotten.` },
     ],
     faqs: [
       { q: `What triggers automated tasks?`, a: `Common triggers include a completed meeting (create a follow-up), a deal going quiet (create a re-engagement task), an approaching renewal (create a renewal task), and set intervals (periodic check-ins). Any repeatable moment that should prompt a next step can trigger an automated task.` },
@@ -1826,7 +1826,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Creating the task is not enough - surface it`, body: `Automated tasks that pile up unseen in a list do not prevent dropped balls. The automation has to surface tasks in the rep's daily flow with clear due dates, so they are actually done. Creation plus visibility is what turns task automation into reliable follow-up.` },
-      { h: `How Rally helps`, body: `Rally auto-creates follow-up tasks at every key moment, assigns them, sets due dates, and surfaces them in the rep's flow. Rook nudges on overdue tasks, so automation does not just generate next steps but ensures they get done, closing the follow-up gap end to end.` },
+      { h: `How Ardovo helps`, body: `Ardovo auto-creates follow-up tasks at every key moment, assigns them, sets due dates, and surfaces them in the rep's flow. Rook nudges on overdue tasks, so automation does not just generate next steps but ensures they get done, closing the follow-up gap end to end.` },
     ],
     faqs: [
       { q: `What moments should trigger an automated follow-up task?`, a: `The ones that should always prompt a next step: a completed meeting, a deal going quiet, an approaching renewal, and set check-in intervals. Wiring each of these to an automatic task guarantees a next step exists at every point where follow-up matters most.` },
@@ -1846,7 +1846,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Let the CRM fill itself`, body: `The best data entry is none. Activity capture, enrichment, and signal-based updates let the CRM populate itself from what reps already do and what external data already knows. Manual entry shrinks to the handful of judgment fields only a human can supply, which is the only entry reps should face.` },
-      { h: `How Rally helps`, body: `Rally captures activity, enriches records, and updates fields from real signals automatically, so the CRM fills itself. Rook does the entry busywork, leaving reps only the judgment fields, so data stays complete and current without the manual tax that leaves other CRMs full of gaps.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures activity, enriches records, and updates fields from real signals automatically, so the CRM fills itself. Rook does the entry busywork, leaving reps only the judgment fields, so data stays complete and current without the manual tax that leaves other CRMs full of gaps.` },
     ],
     faqs: [
       { q: `Can CRM data entry be fully automated?`, a: `Nearly - activity capture, enrichment, and signal-based updates fill most fields automatically from what reps do and what external data knows. The exception is judgment fields like use case and budget that only a human can supply. Automate everything else, and manual entry shrinks to a minimum.` },
@@ -1866,7 +1866,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Base stages on activity, not optimism`, body: `The reason pipelines become fiction is manual stages set by hope or forgotten entirely. Grounding stage updates in real activity - what actually happened - keeps the pipeline honest without relying on reps to update accurately. An honest pipeline is what makes the forecast trustworthy.` },
-      { h: `How Rally helps`, body: `Rally updates deal stages from real activity and flags stalls automatically, and Rook confirms ambiguous moves with the rep. The pipeline reflects what is actually happening rather than wishful entry, so the forecast built on it is honest and reps trust the numbers.` },
+      { h: `How Ardovo helps`, body: `Ardovo updates deal stages from real activity and flags stalls automatically, and Rook confirms ambiguous moves with the rep. The pipeline reflects what is actually happening rather than wishful entry, so the forecast built on it is honest and reps trust the numbers.` },
     ],
     faqs: [
       { q: `Why automate deal stage updates?`, a: `Because manually updated stages drift into fiction - reps forget to advance deals or park them optimistically, so the pipeline stops matching reality. Automating updates from real activity keeps stages honest without relying on manual entry, which is the foundation of a trustworthy forecast.` },
@@ -1881,7 +1881,7 @@ const ROWS = [
     keyPoints: [`Automation that runs in response to an event or condition.`, `Event-driven rather than schedule-driven.`, `Reacts in real time to record and field changes.`, `The dominant model behind CRM automation.`],
     sections: [
       { h: `Why it matters`, body: `Event-driven automation acts the moment something happens, which is what enables instant lead routing, immediate alerts, and real-time updates. A scheduled batch model would delay all of these; trigger-based workflows make the CRM responsive as events unfold.` },
-      { h: `How Rally handles it`, body: `Rally's workflows are trigger-based, firing on record events, field conditions, and stage changes in real time. Rook builds and runs them from described intent, so automation reacts the instant something happens rather than waiting for a scheduled pass.` },
+      { h: `How Ardovo handles it`, body: `Ardovo's workflows are trigger-based, firing on record events, field conditions, and stage changes in real time. Rook builds and runs them from described intent, so automation reacts the instant something happens rather than waiting for a scheduled pass.` },
     ],
     faqs: [
       { q: `What is the difference between trigger-based and scheduled automation?`, a: `Trigger-based automation runs in response to an event the moment it happens - a record changes, so the workflow fires. Scheduled automation runs at fixed times regardless of events. Trigger-based is real-time and responsive; scheduled is periodic. Most CRM automation is trigger-based for immediacy.` },
@@ -1901,7 +1901,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Detecting readiness is the whole point`, body: `A nurture sequence that runs forever without noticing when a lead heats up wastes the moment that matters. The critical automation is engagement detection that flags readiness and hands the lead to sales at the peak. Nurture keeps leads warm; readiness detection cashes them in.` },
-      { h: `How Rally helps`, body: `Rally runs nurture sequences and watches engagement for readiness signals, and Rook hands hot leads to sales the moment they cross the threshold. Not-yet-ready leads stay warm automatically, and the warming ones reach a rep at the peak moment rather than languishing in a sequence.` },
+      { h: `How Ardovo helps`, body: `Ardovo runs nurture sequences and watches engagement for readiness signals, and Rook hands hot leads to sales the moment they cross the threshold. Not-yet-ready leads stay warm automatically, and the warming ones reach a rep at the peak moment rather than languishing in a sequence.` },
     ],
     faqs: [
       { q: `What is lead nurturing automation?`, a: `Automatically keeping not-yet-ready leads warm through timed sequences of relevant content, while watching for engagement signals that indicate readiness to buy. It lets you maintain many leads without manual follow-up and, crucially, hands each to sales automatically once it heats up.` },
@@ -1921,7 +1921,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Encode the processes you repeat`, body: `Any process your team runs the same way every time - a handoff, an alert, a task at a milestone - is a candidate for a workflow. Encoding it means it happens consistently and automatically, removing both the manual effort and the risk that someone forgets a step under pressure.` },
-      { h: `How Rally helps`, body: `Rally ships these workflows ready to run, and Rook builds new ones from a described process and executes the steps. Repeatable processes run consistently without anyone remembering to trigger them, so handoffs, alerts, and milestone tasks just happen.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships these workflows ready to run, and Rook builds new ones from a described process and executes the steps. Repeatable processes run consistently without anyone remembering to trigger them, so handoffs, alerts, and milestone tasks just happen.` },
     ],
     faqs: [
       { q: `What sales processes are worth automating as workflows?`, a: `The repeatable ones your team runs identically every time: lead routing, closing-to-onboarding handoffs, threshold and stall alerts, and renewal task creation. Encoding these as workflows makes them consistent and automatic, removing manual effort and the risk of a forgotten step.` },
@@ -1936,7 +1936,7 @@ const ROWS = [
     keyPoints: [`An event signaling a timely moment to reach out.`, `Includes buying signals, job changes, and renewals.`, `Cues relevant, well-timed outreach.`, `Valuable only if detected as it happens.`],
     sections: [
       { h: `Why it matters`, body: `Outreach timed to a trigger - right after a buying signal or a relevant change - lands far better than the same message on a random day. Triggers turn timing from guesswork into signal, but only if the system catches them in real time for the rep to act on.` },
-      { h: `How Rally handles it`, body: `Rally watches for sales triggers across activity and account signals, and Rook surfaces them to reps as they happen, sometimes with drafted outreach. Reps act at the moment of highest intent rather than on a fixed cadence, so their timing is driven by signal.` },
+      { h: `How Ardovo handles it`, body: `Ardovo watches for sales triggers across activity and account signals, and Rook surfaces them to reps as they happen, sometimes with drafted outreach. Reps act at the moment of highest intent rather than on a fixed cadence, so their timing is driven by signal.` },
     ],
     faqs: [
       { q: `What are examples of sales triggers?`, a: `Behavioral signals like a pricing-page visit or repeat website visits, and real-world events like a company hiring for a relevant role, an approaching renewal, a funding round, or a champion changing jobs. Each marks a moment when timely, relevant outreach is far more likely to land.` },
@@ -1956,7 +1956,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Alert fatigue is the real risk`, body: `The failure mode of notifications is volume: alert on everything, and people learn to ignore everything, including the alerts that matter. Restraint is the discipline - notify only on action-worthy events. A few meaningful alerts beat a constant stream that trains everyone to tune out.` },
-      { h: `How Rally helps`, body: `Rally sends notifications only on action-worthy events, to the right person, on their channel, with context to act. Rook tunes alert volume to prevent fatigue, so notifications stay meaningful and prompt action rather than becoming background noise reps ignore.` },
+      { h: `How Ardovo helps`, body: `Ardovo sends notifications only on action-worthy events, to the right person, on their channel, with context to act. Rook tunes alert volume to prevent fatigue, so notifications stay meaningful and prompt action rather than becoming background noise reps ignore.` },
     ],
     faqs: [
       { q: `What events should trigger a CRM notification?`, a: `Only action-worthy ones: a high-value lead arriving, a deal stalling, a discount exceeding policy, an account showing buying signals. Alerting on routine changes floods people with noise. Reserve notifications for events where a human genuinely needs to do something in response.` },
@@ -1974,7 +1974,7 @@ const ROWS = [
     keyPoints: [`Automatically records emails, calls, and meetings into the CRM.`, `Builds complete interaction history without manual logging.`, `Solves the chronic problem of unlogged activity.`, `Feeds engagement scoring, forecasting, and deal context.`],
     sections: [
       { h: `Why it matters`, body: `Manually logged CRMs capture maybe a fraction of real activity, so the interaction history is full of holes that break engagement scoring and hide what happened on deals. Automatic capture fills those holes from what reps already do, making the history complete and trustworthy.` },
-      { h: `How Rally handles it`, body: `Rally captures emails, calls, and meetings automatically and attaches them to the right contact and deal. Rook keeps the timeline complete without reps logging anything, so engagement scores, forecasts, and deal context all run on a full picture of what actually happened.` },
+      { h: `How Ardovo handles it`, body: `Ardovo captures emails, calls, and meetings automatically and attaches them to the right contact and deal. Rook keeps the timeline complete without reps logging anything, so engagement scores, forecasts, and deal context all run on a full picture of what actually happened.` },
     ],
     faqs: [
       { q: `What does activity capture record?`, a: `Emails sent and received, calls made and taken, and meetings held - automatically attached to the relevant contact and deal. It builds a complete interaction timeline from what reps already do, rather than depending on them to type each interaction into the CRM afterward.` },
@@ -1994,7 +1994,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Automatic beats BCC and copy-paste`, body: `Manual email logging methods - copy-paste, a BCC address - all depend on the rep remembering, which means they capture a fraction of real correspondence. Connecting the inbox for automatic capture is the only approach that reliably logs everything, because it removes the human step that gets skipped.` },
-      { h: `How Rally helps`, body: `Rally connects inboxes and logs emails automatically, matching each to the right contact and deal with privacy boundaries respected. Rook keeps the communication history complete without reps copying or BCCing anything, so every deal shows the full email thread.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects inboxes and logs emails automatically, matching each to the right contact and deal with privacy boundaries respected. Rook keeps the communication history complete without reps copying or BCCing anything, so every deal shows the full email thread.` },
     ],
     faqs: [
       { q: `What is the best way to log emails in a CRM?`, a: `Connect reps' inboxes so emails are captured automatically and matched to the right contact and deal. Manual methods like copy-paste or a BCC address depend on the rep remembering, so they capture only a fraction. Automatic inbox capture is the only reliably complete approach.` },
@@ -2009,7 +2009,7 @@ const ROWS = [
     keyPoints: [`Records sales emails into the CRM against contacts and deals.`, `Best done automatically by connecting the inbox.`, `Builds a complete, visible communication history.`, `A core part of activity capture.`],
     sections: [
       { h: `Why it matters`, body: `Email is where most of a deal's conversation lives. Without logging, that history is trapped in individual inboxes, invisible to managers and teammates and lost when a rep leaves. Logging makes the communication a shared, durable part of the record.` },
-      { h: `How Rally handles it`, body: `Rally logs emails automatically by connecting inboxes and matching each message to the right contact and deal. Rook keeps the history complete, so the full conversation is visible to the team and survives rep turnover instead of living in one person's inbox.` },
+      { h: `How Ardovo handles it`, body: `Ardovo logs emails automatically by connecting inboxes and matching each message to the right contact and deal. Rook keeps the history complete, so the full conversation is visible to the team and survives rep turnover instead of living in one person's inbox.` },
     ],
     faqs: [
       { q: `Why log emails in a CRM at all?`, a: `Because email is where most of a deal's conversation happens, and without logging it stays trapped in individual inboxes - invisible to managers and teammates, and lost when a rep leaves. Logging makes the communication a shared, durable part of the deal record everyone can see.` },
@@ -2029,7 +2029,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Log the substance, not just the event`, body: `A call log that only shows "call, 12 minutes" tells you little. Pairing automatic logging with notes or transcription captures what was actually discussed and agreed, which is what makes the log useful for forecasting, coaching, and the next rep who picks up the deal.` },
-      { h: `How Rally helps`, body: `Rally logs calls automatically against the right contact and deal, capturing metadata and, with transcription, the substance. Rook attaches the record to the timeline and can summarize what was discussed, so the call history is complete and actually informative, not just a list of timestamps.` },
+      { h: `How Ardovo helps`, body: `Ardovo logs calls automatically against the right contact and deal, capturing metadata and, with transcription, the substance. Rook attaches the record to the timeline and can summarize what was discussed, so the call history is complete and actually informative, not just a list of timestamps.` },
     ],
     faqs: [
       { q: `How do you log calls automatically in a CRM?`, a: `Connect your calling system or dialer to the CRM so each call is recorded against the right contact and deal, capturing time, duration, and outcome without manual entry. This fills the activity history that reps rarely complete by hand after finishing a call.` },
@@ -2044,7 +2044,7 @@ const ROWS = [
     keyPoints: [`Connects a rep's calendar to the CRM.`, `Logs meetings automatically against contacts and deals.`, `Captures meeting history without manual entry.`, `Completes the meetings side of activity capture.`],
     sections: [
       { h: `Why it matters`, body: `Meetings are where deals advance, so a timeline missing them is missing the most important interactions. Calendar sync captures every meeting automatically, completing the activity history and letting the CRM tie follow-ups and engagement to real meeting activity.` },
-      { h: `How Rally handles it`, body: `Rally syncs calendars so meetings log automatically against the right contact and deal, and Rook can create the follow-up task from the meeting. The meetings side of the timeline stays complete without manual entry, alongside captured emails and calls.` },
+      { h: `How Ardovo handles it`, body: `Ardovo syncs calendars so meetings log automatically against the right contact and deal, and Rook can create the follow-up task from the meeting. The meetings side of the timeline stays complete without manual entry, alongside captured emails and calls.` },
     ],
     faqs: [
       { q: `What does calendar sync do?`, a: `It connects a rep's calendar to the CRM so meetings are automatically logged as activities against the right contacts and deals. This captures meeting history without manual entry and keeps CRM activity aligned with real scheduling, completing the meetings side of activity capture.` },
@@ -2064,7 +2064,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Sync work meetings, keep personal private`, body: `The key configuration decision is scope: capture external meetings with contacts and prospects onto the deal timeline, while personal and internal-private events stay off the record. Clear privacy boundaries make calendar sync complete for sales purposes without exposing a rep's whole calendar.` },
-      { h: `How Rally helps`, body: `Rally connects calendars with one-way or two-way sync and privacy boundaries, logging external meetings against the right contact and deal. Rook creates follow-up tasks from meetings, so the meeting timeline fills itself while personal events stay private.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects calendars with one-way or two-way sync and privacy boundaries, logging external meetings against the right contact and deal. Rook creates follow-up tasks from meetings, so the meeting timeline fills itself while personal events stay private.` },
     ],
     faqs: [
       { q: `What is the difference between one-way and two-way calendar sync?`, a: `One-way sync logs meetings from the calendar into the CRM. Two-way sync also pushes CRM-scheduled meetings onto the calendar, keeping both aligned. Two-way suits reps who schedule from the CRM; one-way is simpler if the calendar is the only place meetings are booked.` },
@@ -2079,7 +2079,7 @@ const ROWS = [
     keyPoints: [`Shows opens, clicks, and views of sent emails.`, `Provides real-time engagement signals.`, `Helps reps time follow-up and gauge resonance.`, `Complements email logging, which records the messages.`],
     sections: [
       { h: `Why it matters`, body: `Knowing a prospect just opened your email several times is a timing signal - a moment to follow up while you are top of mind. Tracking turns silent sends into engagement data reps can act on, and reveals which messaging resonates across many sends.` },
-      { h: `How Rally handles it`, body: `Rally tracks opens and clicks and feeds them into engagement signals, so Rook can flag when a prospect is engaging and prompt timely follow-up. Tracking data joins the logged email history, so reps see both what was sent and how it landed.` },
+      { h: `How Ardovo handles it`, body: `Ardovo tracks opens and clicks and feeds them into engagement signals, so Rook can flag when a prospect is engaging and prompt timely follow-up. Tracking data joins the logged email history, so reps see both what was sent and how it landed.` },
     ],
     faqs: [
       { q: `What does email tracking show?`, a: `Whether a recipient opened your email, when, how many times, and whether they clicked a link or viewed an attachment. These are real-time engagement signals that tell a rep a prospect is paying attention, which is useful for timing follow-up while the message is fresh.` },
@@ -2094,7 +2094,7 @@ const ROWS = [
     keyPoints: [`Chronological record of all interactions with a contact or deal.`, `Includes emails, calls, meetings, notes, and changes.`, `Gives anyone full context to pick up a relationship.`, `Only as useful as it is complete, so it relies on activity capture.`],
     sections: [
       { h: `Why it matters`, body: `When a rep is out, a deal changes hands, or a manager reviews an account, the timeline is what lets them understand the relationship instantly. A complete timeline is institutional memory; a patchy one forces people to guess or ask around.` },
-      { h: `How Rally handles it`, body: `Rally builds a complete timeline from automatically captured emails, calls, meetings, and changes, and Rook can summarize it. Anyone can pick up a deal with full context because the history is complete, not dependent on what a rep happened to log by hand.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds a complete timeline from automatically captured emails, calls, meetings, and changes, and Rook can summarize it. Anyone can pick up a deal with full context because the history is complete, not dependent on what a rep happened to log by hand.` },
     ],
     faqs: [
       { q: `What appears on a CRM activity timeline?`, a: `Every interaction with a contact or deal in chronological order: emails, calls, meetings, notes, task completions, and key field or stage changes. Together they form a complete history of the relationship that anyone can read to understand what has happened and where things stand.` },
@@ -2114,7 +2114,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Connect the systems, do not ask reps to log`, body: `The reason CRMs are empty is that manual logging asks reps to duplicate work they already did. Automatic capture connects email, calendar, and calling systems so the record fills itself. Reps add only the judgment - what was decided - while the system captures the rest.` },
-      { h: `How Rally helps`, body: `Rally captures activity across email, calendar, and calls automatically, matching each to the right record with privacy respected. Rook fills the timeline and can summarize what happened, so reps add only substance and the activity history stays complete without the manual-logging tax.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures activity across email, calendar, and calls automatically, matching each to the right record with privacy respected. Rook fills the timeline and can summarize what happened, so reps add only substance and the activity history stays complete without the manual-logging tax.` },
     ],
     faqs: [
       { q: `How do you capture sales activity without manual logging?`, a: `Connect the systems where activity already happens - email, calendar, and calling - so interactions log themselves against the right contacts and deals. This builds a complete history from what reps already do, ending the manual-logging gap that leaves most CRMs full of holes.` },
@@ -2134,7 +2134,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Remove the need to log, do not demand more logging`, body: `The failing approach is pressuring reps to log more diligently, which never lasts. The winning approach removes the need: capture, enrichment, and signal-based updates fill the data automatically, so manual entry shrinks to judgment fields. Less logging asked of reps yields more complete data, not less.` },
-      { h: `How Rally helps`, body: `Rally captures activity, enriches records, and updates fields automatically through Rook, so reps log almost nothing. The data ends up more complete and consistent than manual logging achieves, because it comes from actual activity and external sources rather than reps remembering to type.` },
+      { h: `How Ardovo helps`, body: `Ardovo captures activity, enriches records, and updates fields automatically through Rook, so reps log almost nothing. The data ends up more complete and consistent than manual logging achieves, because it comes from actual activity and external sources rather than reps remembering to type.` },
     ],
     faqs: [
       { q: `How do you get reps to keep the CRM updated?`, a: `Stop relying on them to. The durable fix is removing the need for manual entry through automatic activity capture, enrichment, and signal-based field updates, so the CRM fills itself. Pressuring reps to log more never lasts; removing the logging burden does.` },
@@ -2149,7 +2149,7 @@ const ROWS = [
     keyPoints: [`Connects a rep's inbox to the CRM.`, `Flows emails automatically into contact and deal records.`, `Keeps communication history complete without manual effort.`, `Underpins automatic email logging.`],
     sections: [
       { h: `Why it matters`, body: `Email sync turns private inbox correspondence into shared CRM history, visible to the team and durable beyond any one rep. It is what makes the communication history complete and current without the manual copy-paste that reps inevitably skip.` },
-      { h: `How Rally handles it`, body: `Rally syncs inboxes so emails flow into the right contact and deal automatically, with privacy respected. Rook keeps the history complete, so the full conversation is shared and searchable rather than trapped in one rep's inbox.` },
+      { h: `How Ardovo handles it`, body: `Ardovo syncs inboxes so emails flow into the right contact and deal automatically, with privacy respected. Rook keeps the history complete, so the full conversation is shared and searchable rather than trapped in one rep's inbox.` },
     ],
     faqs: [
       { q: `What does email sync do?`, a: `It connects a rep's inbox to the CRM so emails flow automatically into the relevant contact and deal records. This keeps the communication history complete and current without copy-paste or BCC, and lets reps work from either the inbox or the CRM while both stay aligned.` },
@@ -2169,7 +2169,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Use engagement as a signal, not a certainty`, body: `Open tracking is imperfect - privacy features and preview panes can inflate or hide opens - so treat a single open cautiously. What is reliable is a pattern: a burst of repeated opens and clicks is a strong timing cue. Use engagement to inform timing and messaging, not to make hard judgments off one open.` },
-      { h: `How Rally helps`, body: `Rally tracks opens and clicks, feeds them into engagement scoring, and Rook flags spikes worth acting on. Reps time follow-up to real interest and learn what resonates across sends, using engagement as the timing signal it is rather than an unreliable certainty.` },
+      { h: `How Ardovo helps`, body: `Ardovo tracks opens and clicks, feeds them into engagement scoring, and Rook flags spikes worth acting on. Reps time follow-up to real interest and learn what resonates across sends, using engagement as the timing signal it is rather than an unreliable certainty.` },
     ],
     faqs: [
       { q: `How do you track email engagement?`, a: `Enable open and click tracking so you see when recipients interact with your emails, then feed those signals into an engagement score and watch for spikes. Comparing engagement across many sends also reveals which subject lines and messages resonate, so you can refine your outreach.` },
@@ -2189,7 +2189,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Accurate availability makes booking trustworthy`, body: `Self-service scheduling only works if the availability shown is real. Connected calendars ensure a prospect never books a time that is actually taken, which is what makes the booking experience smooth. Get availability right, and scheduling automation removes friction; get it wrong, and it creates conflicts.` },
-      { h: `How Rally helps`, body: `Rally connects calendars for accurate availability, offers booking that respects it, and auto-logs the meeting plus a follow-up task on the timeline. Rook handles the capture, so scheduling removes the back-and-forth and records the meeting without any manual entry.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects calendars for accurate availability, offers booking that respects it, and auto-logs the meeting plus a follow-up task on the timeline. Rook handles the capture, so scheduling removes the back-and-forth and records the meeting without any manual entry.` },
     ],
     faqs: [
       { q: `How does automated meeting scheduling work?`, a: `Connected calendars expose real availability, prospects self-schedule from a booking link, and when a meeting is booked the CRM auto-creates the activity and a follow-up task and syncs it to the timeline. It removes the email back-and-forth of finding a time and logs the meeting without manual entry.` },
@@ -2204,7 +2204,7 @@ const ROWS = [
     keyPoints: [`Flows changes between two systems in both directions.`, `An update in either system appears in the other.`, `Prevents drift and duplicate manual entry.`, `Keeps both systems aligned as one current picture.`],
     sections: [
       { h: `Why it matters`, body: `One-way or manual syncing lets two systems drift apart until nobody knows which is right. Two-way sync keeps them aligned automatically, so reps can work from either system trusting both are current, and no one re-enters the same change twice.` },
-      { h: `How Rally handles it`, body: `Rally uses two-way sync for calendars, inboxes, and integrations, so changes flow both directions and both systems stay current. Rook resolves conflicts sensibly, so the CRM and connected tools present one aligned picture rather than diverging copies.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses two-way sync for calendars, inboxes, and integrations, so changes flow both directions and both systems stay current. Rook resolves conflicts sensibly, so the CRM and connected tools present one aligned picture rather than diverging copies.` },
     ],
     faqs: [
       { q: `What is the difference between one-way and two-way sync?`, a: `One-way sync copies changes in a single direction - from system A to system B only. Two-way sync flows changes both ways, so an update in either system appears in the other. Two-way keeps both fully aligned; one-way leaves the source system unaware of changes made downstream.` },
@@ -2227,7 +2227,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Start lean, grow deliberately`, body: `The temptation is to configure every field, workflow, and report on day one. That produces a bloated system reps resist. Start with the lean essentials that match your process, launch, and add customization only as real needs prove out. A simple CRM people use beats a comprehensive one they avoid.` },
-      { h: `How Rally helps`, body: `Rally comes alive with data and sensible defaults, so setup is configuring to your process rather than building from an empty shell. Rook handles data cleanup, routing, and activity capture setup, so the CRM is trustworthy and useful from day one instead of after months of configuration.` },
+      { h: `How Ardovo helps`, body: `Ardovo comes alive with data and sensible defaults, so setup is configuring to your process rather than building from an empty shell. Rook handles data cleanup, routing, and activity capture setup, so the CRM is trustworthy and useful from day one instead of after months of configuration.` },
     ],
     faqs: [
       { q: `What is the first step in setting up a CRM?`, a: `Defining your sales process - the stages, handoffs, and key data of how you actually sell - before configuring anything. The CRM should mirror your real process, so mapping it first ensures the data model, pipeline, and automation reflect reality rather than a generic template.` },
@@ -2247,7 +2247,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Foundations before features`, body: `The checklist front-loads foundations - process, clean data, activity capture - because they are painful to retrofit. Fancy reports and custom workflows can wait; a launched CRM with dirty data or no activity capture never earns trust. Get the foundations right, then layer on the rest.` },
-      { h: `How Rally helps`, body: `Rally automates most of this checklist: it arrives alive with data and defaults, and Rook handles cleanup, routing, capture, and permissions setup. The foundational items are done for you, so launch is fast and the CRM is clean and adopted from the start.` },
+      { h: `How Ardovo helps`, body: `Ardovo automates most of this checklist: it arrives alive with data and defaults, and Rook handles cleanup, routing, capture, and permissions setup. The foundational items are done for you, so launch is fast and the CRM is clean and adopted from the start.` },
     ],
     faqs: [
       { q: `What should be on a CRM setup checklist?`, a: `Defining the sales process, configuring objects and fields, setting pipeline stages, importing clean data, wiring routing and automation, connecting email and calendar, setting permissions, and onboarding the team. Working through these in order - process and data first - launches the CRM alive and adopted.` },
@@ -2267,7 +2267,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Adoption comes from usefulness, not tours`, body: `The reason CRM onboarding fails is treating it as a feature tour and a compliance mandate. Reps adopt tools that make their day easier. Lead with value, teach only the daily workflow, and start them on a CRM alive with real data, and adoption follows because the tool genuinely helps.` },
-      { h: `How Rally helps`, body: `Rally is alive with data on day one and automates the busywork, so reps experience value immediately rather than an empty system. Rook handles the logging and follow-up, so onboarding is about the few actions reps take and the value they get, which is what actually drives adoption.` },
+      { h: `How Ardovo helps`, body: `Ardovo is alive with data on day one and automates the busywork, so reps experience value immediately rather than an empty system. Rook handles the logging and follow-up, so onboarding is about the few actions reps take and the value they get, which is what actually drives adoption.` },
     ],
     faqs: [
       { q: `How do you onboard a team to a new CRM?`, a: `Lead with the value to the rep, train only the core daily workflow rather than every feature, start them on a CRM alive with real data, set clear expectations for what to log, and reinforce with early wins. Adoption comes from the tool visibly helping, not from a feature tour.` },
@@ -2287,7 +2287,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Fight complexity, protect quality`, body: `Every request to add a field or workflow is easy to grant and hard to reverse, so systems bloat over time. The best admins push back, keep the model lean, and guard data quality relentlessly. A lean, clean CRM stays trusted; a bloated, dirty one gets abandoned no matter how many features it has.` },
-      { h: `How Rally helps`, body: `Rally keeps the model lean by enriching and capturing automatically, so fewer custom fields and workflows are needed, and Rook flags unused fields and bloat. Data quality is protected by default, so the admin spends less time fighting complexity and cleanup and more on genuine improvements.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps the model lean by enriching and capturing automatically, so fewer custom fields and workflows are needed, and Rook flags unused fields and bloat. Data quality is protected by default, so the admin spends less time fighting complexity and cleanup and more on genuine improvements.` },
     ],
     faqs: [
       { q: `What are the top CRM admin best practices?`, a: `Keep the data model lean, enforce data quality with validation and dedupe, document configuration and changes, manage permissions on least-privilege lines, test automation before launch, and prune unused fields and workflows. They all serve two goals: fighting complexity and protecting data quality.` },
@@ -2302,7 +2302,7 @@ const ROWS = [
     keyPoints: [`Configures and maintains the CRM's model, workflows, and access.`, `Governs data quality and integrations.`, `Keeps the system aligned with the business and lean.`, `Their judgment shapes whether the CRM stays useful.`],
     sections: [
       { h: `Why it matters`, body: `A CRM drifts toward bloat and mess without active stewardship. The administrator is who keeps it lean, clean, and aligned with how the business actually sells, which is what preserves trust and adoption over years, not just at launch.` },
-      { h: `How Rally handles it`, body: `Rally reduces the admin burden by enriching, capturing, and deduping automatically, so the administrator spends less time on cleanup and configuration. Rook handles routine maintenance, freeing the admin to focus on aligning the system with the business rather than firefighting.` },
+      { h: `How Ardovo handles it`, body: `Ardovo reduces the admin burden by enriching, capturing, and deduping automatically, so the administrator spends less time on cleanup and configuration. Rook handles routine maintenance, freeing the admin to focus on aligning the system with the business rather than firefighting.` },
     ],
     faqs: [
       { q: `What does a CRM administrator do?`, a: `Configures and maintains the CRM - the data model, fields, pipeline, workflows, permissions, and integrations - and governs data quality. They keep the system aligned with how the business sells, lean rather than bloated, and trustworthy, acting as the steward of the CRM's overall health.` },
@@ -2317,7 +2317,7 @@ const ROWS = [
     keyPoints: [`How much a team actually uses the CRM as intended.`, `High adoption: reps log, update, and rely on it.`, `Low adoption: reps work around it in spreadsheets.`, `Determines the CRM's entire value.`],
     sections: [
       { h: `Why it matters`, body: `A CRM's value is entirely contingent on adoption. Low adoption means unreliable data, broken forecasts, and no single source of truth, no matter how good the platform is. Adoption is the metric that gates every other benefit, so it is the one that matters most.` },
-      { h: `How Rally handles it`, body: `Rally drives adoption by being useful, not by mandate: it arrives alive with data and automates the busywork reps hate, so using it makes their day easier. Rook does the logging and follow-up, so reps rely on the system because it genuinely helps rather than because they are told to.` },
+      { h: `How Ardovo handles it`, body: `Ardovo drives adoption by being useful, not by mandate: it arrives alive with data and automates the busywork reps hate, so using it makes their day easier. Rook does the logging and follow-up, so reps rely on the system because it genuinely helps rather than because they are told to.` },
     ],
     faqs: [
       { q: `Why does CRM adoption matter so much?`, a: `Because a CRM's entire value depends on it. Low adoption means reps work around the system, so the data is unreliable, forecasts break, and there is no single source of truth - no matter how capable the platform. Adoption gates every other benefit, making it the most important metric.` },
@@ -2337,7 +2337,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Remove friction, add value`, body: `Adoption is a simple equation: reps use a CRM when its value exceeds its friction. So attack both sides - automate away the manual entry that creates friction, and surface warm leads and next steps that create value. When the CRM clearly helps more than it costs, adoption stops being a fight.` },
-      { h: `How Rally helps`, body: `Rally maximizes value and minimizes friction by design: Rook automates the logging and busywork, and the system surfaces warm leads, next steps, and insights. Reps adopt it because using it makes them more effective, which is the only durable driver of adoption.` },
+      { h: `How Ardovo helps`, body: `Ardovo maximizes value and minimizes friction by design: Rook automates the logging and busywork, and the system surfaces warm leads, next steps, and insights. Reps adopt it because using it makes them more effective, which is the only durable driver of adoption.` },
     ],
     faqs: [
       { q: `How do you increase CRM adoption?`, a: `Make the system genuinely useful: automate the busywork reps hate, keep it alive with real data, cut manual entry to near zero, streamline to the daily workflow, and surface value like warm leads and next steps. Adoption follows usefulness - reduce friction and add value, and reps use it because it helps.` },
@@ -2352,7 +2352,7 @@ const ROWS = [
     keyPoints: [`The full project of getting a CRM live and adopted.`, `Spans planning, configuration, migration, and training.`, `Success is measured by adoption, not configuration.`, `Change management matters as much as technical setup.`],
     sections: [
       { h: `Why it matters`, body: `Many CRM implementations technically succeed - the system is configured - but fail in practice because no one adopts it. Treating implementation as ending at adoption, not configuration, is what separates a CRM that transforms a business from one that becomes shelfware.` },
-      { h: `How Rally handles it`, body: `Rally shortens implementation by arriving alive with data and defaults and automating cleanup, capture, and routing setup. Rook handles much of the configuration and data work, so implementation focuses on aligning the system to your process and driving adoption rather than months of build.` },
+      { h: `How Ardovo handles it`, body: `Ardovo shortens implementation by arriving alive with data and defaults and automating cleanup, capture, and routing setup. Rook handles much of the configuration and data work, so implementation focuses on aligning the system to your process and driving adoption rather than months of build.` },
     ],
     faqs: [
       { q: `What does CRM implementation involve?`, a: `The full project of getting a CRM live and adopted: planning, configuring the system to your sales process, migrating clean data, wiring integrations and automation, training the team, and driving adoption. It is far more than technical setup - it ends when people actually use the system.` },
@@ -2372,7 +2372,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Configure to your process, not the template`, body: `A CRM's defaults reflect a generic process, not yours. Configuring to how you actually sell - your stages, your key data, your handoffs - is what makes the system fit. But fit does not mean maximal: start lean and add only as needs prove out, or you trade a generic mess for a custom one.` },
-      { h: `How Rally helps`, body: `Rally arrives with sensible defaults and alive with data, so configuration is tailoring to your process rather than building from empty. Rook sets up routing, capture, and cleanup, so you configure the parts unique to your business and inherit the rest working.` },
+      { h: `How Ardovo helps`, body: `Ardovo arrives with sensible defaults and alive with data, so configuration is tailoring to your process rather than building from empty. Rook sets up routing, capture, and cleanup, so you configure the parts unique to your business and inherit the rest working.` },
     ],
     faqs: [
       { q: `What do you configure first in a new CRM?`, a: `The data model to match your sales process - objects, relationships, and pipeline stages with clear exit criteria. Everything else builds on this, so getting the model aligned to how you actually sell comes before fields, automation, and permissions.` },
@@ -2387,7 +2387,7 @@ const ROWS = [
     keyPoints: [`The structure of objects and their relationships.`, `Defines what each record represents and how records connect.`, `Underpins reporting, routing, and relationship views.`, `A sound model is the foundation for everything else.`],
     sections: [
       { h: `Why it matters`, body: `Every feature stands on the data model. If contacts are not linked to accounts, or leads are muddled with contacts, then routing, reporting, and the single-customer view all break. A clean model is the quiet foundation that makes the rest of the CRM coherent.` },
-      { h: `How Rally handles it`, body: `Rally ships a sound data model - leads, contacts, accounts, and deals properly linked - so the foundation is right by default. Rook maintains the relationships, keeping contacts tied to accounts and leads matched, so the structure stays clean as data flows in.` },
+      { h: `How Ardovo handles it`, body: `Ardovo ships a sound data model - leads, contacts, accounts, and deals properly linked - so the foundation is right by default. Rook maintains the relationships, keeping contacts tied to accounts and leads matched, so the structure stays clean as data flows in.` },
     ],
     faqs: [
       { q: `What are the core objects in a CRM data model?`, a: `Typically leads, contacts, accounts, and deals (opportunities), plus activities and sometimes products or quotes. Contacts link to accounts, deals attach to accounts, and leads convert into contacts. These objects and their relationships form the structure all CRM data is organized around.` },
@@ -2407,7 +2407,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Teach the workflow, not the feature list`, body: `Reps do not need to know every capability - they need to be fluent in the few actions they take daily. Training that covers the whole feature set overwhelms and buries what matters. Narrow, value-led, hands-on training on the daily workflow builds real competence and adoption.` },
-      { h: `How Rally helps`, body: `Rally minimizes what reps must learn by automating the busywork, so training focuses on a few daily actions and the value. Rook handles logging and follow-up, so there is less to teach and reps experience the payoff immediately, which is what makes training translate into adoption.` },
+      { h: `How Ardovo helps`, body: `Ardovo minimizes what reps must learn by automating the busywork, so training focuses on a few daily actions and the value. Rook handles logging and follow-up, so there is less to teach and reps experience the payoff immediately, which is what makes training translate into adoption.` },
     ],
     faqs: [
       { q: `How should you train a team on a CRM?`, a: `Focus on the daily workflow rather than every feature, teach in the context of reps' real work and pipeline, lead with the value to each rep, keep sessions short and hands-on, and reinforce with quick reference and follow-up. Narrow, value-led training builds competence and adoption.` },
@@ -2427,7 +2427,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Simplicity is a small team's advantage`, body: `Small teams do not need enterprise complexity, and adopting it is a self-inflicted wound - overhead nobody has capacity to manage. A lean, simple CRM that the whole team actually uses delivers far more than a powerful, complex one that becomes a maintenance burden. Stay simple deliberately.` },
-      { h: `How Rally helps`, body: `Rally is powerful but arrives simple and alive with data, so a small team gets value without configuration overhead. Rook handles the busywork automatically, so a small team runs a capable CRM without needing a dedicated admin or elaborate setup.` },
+      { h: `How Ardovo helps`, body: `Ardovo is powerful but arrives simple and alive with data, so a small team gets value without configuration overhead. Rook handles the busywork automatically, so a small team runs a capable CRM without needing a dedicated admin or elaborate setup.` },
     ],
     faqs: [
       { q: `How should a small team set up a CRM?`, a: `Simply and deliberately: a lean data model, a single clear pipeline, minimal fields with enrichment for the rest, and light automation for the biggest busywork. Small teams win with simplicity - a CRM everyone uses beats a powerful one that adds overhead nobody has time to manage.` },
@@ -2447,7 +2447,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Simplicity requires active restraint`, body: `Complexity is the default state a CRM drifts toward, because additions are easy and removals are hard, and every stakeholder wants one more field. Keeping it simple means actively resisting that pressure - saying no, pruning, and automating. Left alone, any CRM bloats into a mess reps avoid.` },
-      { h: `How Rally helps`, body: `Rally keeps things simple by design: enrichment and automatic capture mean fewer fields and manual steps, and Rook flags bloat to prune. The system solves problems by doing the busywork rather than adding complexity, so the CRM stays simple without constant admin vigilance.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps things simple by design: enrichment and automatic capture mean fewer fields and manual steps, and Rook flags bloat to prune. The system solves problems by doing the busywork rather than adding complexity, so the CRM stays simple without constant admin vigilance.` },
     ],
     faqs: [
       { q: `Why do CRMs become complex over time?`, a: `Because additions are easy and removals are hard: every stakeholder requests one more field or workflow, and nothing gets pruned. Complexity accumulates by default. Keeping a CRM simple requires active, ongoing restraint against this constant pressure to add, since left alone any CRM bloats.` },
@@ -2462,7 +2462,7 @@ const ROWS = [
     keyPoints: [`A defined, repeatable sequence from first contact to close.`, `Standardizes qualification, stage advancement, and closing.`, `Makes results consistent and coachable.`, `The blueprint the CRM's pipeline mirrors.`],
     sections: [
       { h: `Why it matters`, body: `Without a defined process, every rep sells differently, results are inconsistent, and coaching is guesswork. A clear sales process makes selling repeatable and improvable, and gives the CRM a real structure to model rather than a generic template.` },
-      { h: `How Rally handles it`, body: `Rally configures its pipeline, stages, and automation to mirror your sales process, and Rook enforces and supports it - flagging deals that skip stages, prompting the right next actions. The process lives in the system rather than in reps' heads.` },
+      { h: `How Ardovo handles it`, body: `Ardovo configures its pipeline, stages, and automation to mirror your sales process, and Rook enforces and supports it - flagging deals that skip stages, prompting the right next actions. The process lives in the system rather than in reps' heads.` },
     ],
     faqs: [
       { q: `What is the difference between a sales process and a pipeline?`, a: `A sales process is the defined sequence of stages and actions a team follows to sell. A pipeline is the CRM's visual representation of deals moving through those stages. The process is the methodology; the pipeline is how it is tracked. The pipeline should mirror the process.` },
@@ -2482,7 +2482,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Document what actually wins, not the ideal`, body: `A process documented as an idealized version nobody follows is useless. Base it on how your best deals actually progress - the real stages, the real criteria - so the documented process reflects reality and is worth following. Then the CRM configured to mirror it captures how you genuinely sell.` },
-      { h: `How Rally helps`, body: `Rally configures the pipeline and stages to your documented process, and Rook enforces the exit criteria and prompts the required actions per stage. The documented process becomes a living part of the system that guides reps, rather than a document that sits unread.` },
+      { h: `How Ardovo helps`, body: `Ardovo configures the pipeline and stages to your documented process, and Rook enforces the exit criteria and prompts the required actions per stage. The documented process becomes a living part of the system that guides reps, rather than a document that sits unread.` },
     ],
     faqs: [
       { q: `How do you document a sales process?`, a: `Map the real stages deals move through, define clear entry and exit criteria for each, specify the actions and data required at every stage, capture the handoffs between teams, and configure the CRM to mirror it. Base it on how you actually sell and win, so it reflects reality.` },
@@ -2500,7 +2500,7 @@ const ROWS = [
     keyPoints: [`Control what each user can see, edit, and do.`, `Protect sensitive data and prevent accidental changes.`, `Usually managed through roles rather than per user.`, `Balance necessary access against data protection.`],
     sections: [
       { h: `Why it matters`, body: `Permissions protect against both accidents and misuse - a rep bulk-editing records they should not touch, sensitive data exposed too widely. Set well, they let everyone work while keeping data safe; set poorly, they either block work or leave data unprotected.` },
-      { h: `How Rally handles it`, body: `Rally manages permissions through roles with least-privilege defaults, so access matches each job. Rook flags overly broad access and unusual actions, so permissions protect data without getting in the way of legitimate work.` },
+      { h: `How Ardovo handles it`, body: `Ardovo manages permissions through roles with least-privilege defaults, so access matches each job. Rook flags overly broad access and unusual actions, so permissions protect data without getting in the way of legitimate work.` },
     ],
     faqs: [
       { q: `What do CRM permissions control?`, a: `What each user can see (which records), edit (which fields), and do (which actions like deleting or exporting). Permissions determine the scope of access, protecting sensitive data and preventing accidental or unauthorized changes while giving each person the access their job requires.` },
@@ -2515,7 +2515,7 @@ const ROWS = [
     keyPoints: [`Grants permissions by role, not per individual user.`, `Users inherit access by being assigned a role.`, `Makes permissions consistent and scalable.`, `Simplifies maintenance as people join and move.`],
     sections: [
       { h: `Why it matters`, body: `Setting permissions per user does not scale and drifts into inconsistency as people join and move. RBAC keeps access consistent - everyone in a role has the same rights - and maintainable, since changing a role updates everyone in it at once.` },
-      { h: `How Rally handles it`, body: `Rally uses role-based access control with sensible least-privilege roles out of the box, so access matches each job consistently. Rook flags when a user's access exceeds their role's norm, keeping the model clean as the team changes.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses role-based access control with sensible least-privilege roles out of the box, so access matches each job consistently. Rook flags when a user's access exceeds their role's norm, keeping the model clean as the team changes.` },
     ],
     faqs: [
       { q: `How does role-based access control work?`, a: `You define permission sets for roles - what a rep, manager, or admin can see and do - then assign each user a role, so they inherit that role's access. Access is managed at the role level, so every person in a role has the same consistent rights rather than individually configured ones.` },
@@ -2535,7 +2535,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Start from least privilege`, body: `The safe default is granting minimal access and opening up as needs prove out, not granting broad access and restricting later. Least privilege limits the blast radius of accidents and misuse, and it is far easier to widen access on request than to claw back access people have grown used to.` },
-      { h: `How Rally helps`, body: `Rally ships least-privilege roles by default and makes access easy to tune, and Rook flags overly broad grants and unusual access. Permissions start safe and stay clean, so you protect sensitive data without a heavy manual configuration project.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships least-privilege roles by default and makes access easy to tune, and Rook flags overly broad grants and unusual access. Permissions start safe and stay clean, so you protect sensitive data without a heavy manual configuration project.` },
     ],
     faqs: [
       { q: `How do you set up CRM permissions?`, a: `Define roles that match your org, grant each the least access it needs, protect sensitive fields and powerful actions like export and delete, test that each role sees the right scope, and review periodically. Start from least privilege and widen as needed rather than granting broadly and restricting later.` },
@@ -2550,7 +2550,7 @@ const ROWS = [
     keyPoints: [`Policies, roles, and processes for managing data.`, `Covers ownership, quality, access, retention, and privacy.`, `Keeps data accurate, secure, and used appropriately.`, `Turns data into a governed, trustworthy asset.`],
     sections: [
       { h: `Why it matters`, body: `Ungoverned data decays, sprawls, and creates compliance risk. Governance assigns ownership and standards so data quality is maintained, access is controlled, and privacy rules are followed, which is what lets an organization trust and safely use its data at scale.` },
-      { h: `How Rally handles it`, body: `Rally supports governance with role-based access, audit logging, retention controls, and automated quality enforcement. Rook maintains data quality and flags governance gaps, so the framework is upheld continuously rather than depending on periodic manual audits.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports governance with role-based access, audit logging, retention controls, and automated quality enforcement. Rook maintains data quality and flags governance gaps, so the framework is upheld continuously rather than depending on periodic manual audits.` },
     ],
     faqs: [
       { q: `What does data governance cover?`, a: `Data ownership (who is responsible for what), quality standards, access controls, retention policies, and privacy compliance. In a CRM it spans keeping records accurate, controlling who can access them, deciding how long to keep data, and following privacy regulations - the full framework for managing data as an asset.` },
@@ -2570,7 +2570,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Automate enforcement or governance stays a document`, body: `Governance that relies on people manually following rules erodes under pressure. The durable approach automates enforcement - validation, dedupe, and access controls running continuously - so standards hold by default. Automated governance is upheld; documented-only governance becomes a policy nobody follows.` },
-      { h: `How Rally helps`, body: `Rally enforces governance automatically: validation and dedupe protect quality, role-based access controls exposure, audit logs track changes, and retention rules apply. Rook maintains the standards continuously and flags gaps, so governance is a working system rather than a document that sits unenforced.` },
+      { h: `How Ardovo helps`, body: `Ardovo enforces governance automatically: validation and dedupe protect quality, role-based access controls exposure, audit logs track changes, and retention rules apply. Rook maintains the standards continuously and flags gaps, so governance is a working system rather than a document that sits unenforced.` },
     ],
     faqs: [
       { q: `How do you set up data governance in a CRM?`, a: `Assign clear ownership for data domains, define quality standards and enforce them with validation and dedupe, control access with roles, set retention and privacy policies, and audit regularly. Automate enforcement where possible so standards hold continuously rather than depending on manual effort.` },
@@ -2585,7 +2585,7 @@ const ROWS = [
     keyPoints: [`A named permission set assigned by job.`, `Defines the records, fields, and actions a user can access.`, `Common roles: rep, manager, admin.`, `The backbone of role-based access control.`],
     sections: [
       { h: `Why it matters`, body: `Roles make access consistent and maintainable. Everyone with the same job has the same access, and updating a role changes all its users at once. This scales cleanly as the team grows, unlike configuring permissions per individual, which drifts into an unmanageable mess.` },
-      { h: `How Rally handles it`, body: `Rally provides sensible roles out of the box with least-privilege defaults, and lets you tune them to your org. Rook flags access that deviates from a role's norm, so roles stay clean and access matches each job as the team changes.` },
+      { h: `How Ardovo handles it`, body: `Ardovo provides sensible roles out of the box with least-privilege defaults, and lets you tune them to your org. Rook flags access that deviates from a role's norm, so roles stay clean and access matches each job as the team changes.` },
     ],
     faqs: [
       { q: `What is the difference between a role and a permission?`, a: `A permission is a single access right - view a record, edit a field, export data. A role is a named bundle of permissions assigned to users by job. Permissions are the building blocks; roles group them so you manage access by job rather than granting individual permissions one by one.` },
@@ -2600,7 +2600,7 @@ const ROWS = [
     keyPoints: [`Controls access to individual fields, not just records.`, `Hides sensitive fields while exposing the rest of a record.`, `Finer-grained than record-level access.`, `Protects data like margin, personal info, and internal notes.`],
     sections: [
       { h: `Why it matters`, body: `Some fields are sensitive even on records people should otherwise see - cost and margin, personal data, internal-only notes. Field-level security protects exactly those fields without hiding the whole record, giving precise control where record-level access is too blunt.` },
-      { h: `How Rally handles it`, body: `Rally supports field-level security so sensitive fields are visible only to authorized roles, even on widely-shared records. Rook flags fields exposed more broadly than their sensitivity warrants, so protection is precise rather than all-or-nothing at the record level.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports field-level security so sensitive fields are visible only to authorized roles, even on widely-shared records. Rook flags fields exposed more broadly than their sensitivity warrants, so protection is precise rather than all-or-nothing at the record level.` },
     ],
     faqs: [
       { q: `What is the difference between field-level and record-level security?`, a: `Record-level security controls which records a user can access at all. Field-level security controls which fields within a record they can see or edit. Field-level is finer-grained, letting you expose most of a record while hiding specific sensitive fields from users who should not see them.` },
@@ -2615,7 +2615,7 @@ const ROWS = [
     keyPoints: [`Records who did what and when in the system.`, `Tracks changes, deletions, exports, and configuration edits.`, `Supports accountability, compliance, and troubleshooting.`, `Essential for security and regulatory requirements.`],
     sections: [
       { h: `Why it matters`, body: `Without an audit log, changes are anonymous and irreversible mysteries - you cannot tell who deleted a record or altered a field, or diagnose how data got corrupted. The log provides accountability and the forensic trail needed for security, compliance, and troubleshooting.` },
-      { h: `How Rally handles it`, body: `Rally maintains an audit log of changes, deletions, exports, and configuration edits, attributed and timestamped. Rook can surface unusual activity from the log, so the trail supports both compliance and quick diagnosis when something goes wrong.` },
+      { h: `How Ardovo handles it`, body: `Ardovo maintains an audit log of changes, deletions, exports, and configuration edits, attributed and timestamped. Rook can surface unusual activity from the log, so the trail supports both compliance and quick diagnosis when something goes wrong.` },
     ],
     faqs: [
       { q: `What does an audit log record?`, a: `Who did what and when: which user changed a field, deleted or merged a record, exported data, or altered configuration, each timestamped and attributed. It builds a history of actions in the system that provides accountability and a forensic trail for security and compliance.` },
@@ -2630,7 +2630,7 @@ const ROWS = [
     keyPoints: [`Policy for how long data is kept before archive or deletion.`, `Balances usefulness against privacy and storage.`, `Defines what to keep, for how long, and when to purge.`, `Makes the data lifecycle deliberate, not infinite.`],
     sections: [
       { h: `Why it matters`, body: `Keeping everything forever creates privacy risk, compliance exposure, and a database cluttered with stale records. A retention policy makes removal deliberate and defensible, keeping what has value and purging what is only liability, which is increasingly required by privacy regulation.` },
-      { h: `How Rally handles it`, body: `Rally supports retention policies that archive or purge data on defined schedules, with the controls to meet privacy obligations. Rook applies the policy consistently, so old data is handled deliberately rather than accumulating indefinitely as unmanaged risk.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports retention policies that archive or purge data on defined schedules, with the controls to meet privacy obligations. Rook applies the policy consistently, so old data is handled deliberately rather than accumulating indefinitely as unmanaged risk.` },
     ],
     faqs: [
       { q: `What is a data retention policy?`, a: `A defined rule for how long each type of data is kept before it is archived or deleted, including what to keep, for how long, and when to purge. It makes the data lifecycle deliberate, balancing the usefulness of history against privacy obligations and the cost of infinite accumulation.` },
@@ -2650,7 +2650,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Personal data is a responsibility, not just a record`, body: `The mindset shift is treating personal data as something you are accountable for, not just data to collect and keep. That means controlling access, honoring the rights of the people it describes, limiting how long you hold it, and being able to prove responsible handling. Privacy is a process, not a checkbox.` },
-      { h: `How Rally helps`, body: `Rally provides the controls for privacy - role-based and field-level access, retention rules, consent tracking, and audit logging - and Rook helps fulfill data-subject requests and flag over-retention. Personal data is handled responsibly by design rather than left as unmanaged risk.` },
+      { h: `How Ardovo helps`, body: `Ardovo provides the controls for privacy - role-based and field-level access, retention rules, consent tracking, and audit logging - and Rook helps fulfill data-subject requests and flag over-retention. Personal data is handled responsibly by design rather than left as unmanaged risk.` },
     ],
     faqs: [
       { q: `How do you manage data privacy in a CRM?`, a: `Know what personal data you hold, control access with roles and field-level security, honor consent and data-subject requests like access and deletion, limit retention so data is not kept longer than needed, and log access for accountability. Treat personal data as a responsibility backed by real processes.` },
@@ -2665,7 +2665,7 @@ const ROWS = [
     keyPoints: [`Grant only the minimum access each job requires.`, `Limits damage from accidents, misuse, and breaches.`, `Access is scoped tightly to role.`, `A foundational security principle for any system.`],
     sections: [
       { h: `Why it matters`, body: `Broad access multiplies risk: every over-granted permission is a larger surface for accidents and misuse. Least privilege keeps that surface small, so a mistake or compromised account can only affect what that user genuinely needed, which is the safest default for sensitive CRM data.` },
-      { h: `How Rally handles it`, body: `Rally defaults to least-privilege roles, granting each job the access it needs and no more, and Rook flags access that exceeds a role's norm. Security is the default posture, so data stays protected without locking down after the fact.` },
+      { h: `How Ardovo handles it`, body: `Ardovo defaults to least-privilege roles, granting each job the access it needs and no more, and Rook flags access that exceeds a role's norm. Security is the default posture, so data stays protected without locking down after the fact.` },
     ],
     faqs: [
       { q: `Why use least-privilege access?`, a: `Because it limits the damage from accidents, misuse, and breaches. Every over-granted permission enlarges the surface for something to go wrong. Granting only the minimum each job needs keeps that surface small, so a mistake or compromised account can only reach what that user genuinely required.` },
@@ -2680,7 +2680,7 @@ const ROWS = [
     keyPoints: [`Record ownership: which rep is responsible for a record.`, `Governance ownership: who is accountable for a data domain.`, `Clear ownership drives accountability and routing.`, `Unowned records and standards get neglected.`],
     sections: [
       { h: `Why it matters`, body: `Accountability requires ownership. A record with no owner is worked by no one; a data standard with no owner is enforced by no one. Clear ownership at both the record and governance levels is what ensures accounts get worked and quality gets maintained.` },
-      { h: `How Rally handles it`, body: `Rally assigns clear record ownership through routing and territory rules, and supports governance ownership of data domains. Rook flags orphaned records and unowned data issues, so nothing valuable falls into the gap of being everyone's and no one's responsibility.` },
+      { h: `How Ardovo handles it`, body: `Ardovo assigns clear record ownership through routing and territory rules, and supports governance ownership of data domains. Rook flags orphaned records and unowned data issues, so nothing valuable falls into the gap of being everyone's and no one's responsibility.` },
     ],
     faqs: [
       { q: `What are the two meanings of data ownership?`, a: `Record ownership - which rep is responsible for a specific lead, account, or deal - and governance ownership - who is accountable for the quality and rules of a data domain. Both matter: record ownership drives accountability and routing, governance ownership ensures standards are enforced.` },
@@ -2703,7 +2703,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Buyer-based stages with exit criteria`, body: `The two things that make a pipeline trustworthy are stages based on buyer commitments (not seller activity) and clear exit criteria for each. Activity-based stages inflate the pipeline and break the forecast; buyer-based stages with objective exit tests keep it honest and consistent across reps.` },
-      { h: `How Rally helps`, body: `Rally ships a deep deal object with configurable buyer-based stages, exit criteria, and forecast rollup, and Rook updates stages from real activity and flags stale deals. The pipeline stays an honest forecast engine rather than a list reps update by hope.` },
+      { h: `How Ardovo helps`, body: `Ardovo ships a deep deal object with configurable buyer-based stages, exit criteria, and forecast rollup, and Rook updates stages from real activity and flags stale deals. The pipeline stays an honest forecast engine rather than a list reps update by hope.` },
     ],
     faqs: [
       { q: `How many stages should a sales pipeline have?`, a: `Five to seven for most B2B teams. Fewer than five hides where deals stall; more than seven creates busywork and forces reps to guess which stage a deal is in. Each stage should map to a distinct buyer commitment with a clear exit criterion.` },
@@ -2718,7 +2718,7 @@ const ROWS = [
     keyPoints: [`A defined step a deal occupies in the pipeline.`, `Maps to a buyer milestone, not a seller activity.`, `Has a clear exit criterion to advance.`, `Consistent stages are the basis of an honest forecast.`],
     sections: [
       { h: `Why it matters`, body: `Stages are the shared language of the pipeline. When they are defined by buyer milestones with clear exit criteria, everyone agrees on where a deal stands and the forecast is trustworthy. When they are vague or activity-based, the pipeline becomes noise reps interpret differently.` },
-      { h: `How Rally handles it`, body: `Rally lets you define stages with exit criteria and probabilities, and Rook updates a deal's stage from real activity and flags deals stuck too long. Stages reflect genuine buyer progress rather than wishful entry, keeping the pipeline honest.` },
+      { h: `How Ardovo handles it`, body: `Ardovo lets you define stages with exit criteria and probabilities, and Rook updates a deal's stage from real activity and flags deals stuck too long. Stages reflect genuine buyer progress rather than wishful entry, keeping the pipeline honest.` },
     ],
     faqs: [
       { q: `What is a stage exit criterion?`, a: `A specific, verifiable condition a deal must meet to advance to the next stage, such as "economic buyer confirmed" or "proposal accepted". Exit criteria keep stage data consistent across reps, so a deal in a given stage means the same thing no matter who owns it.` },
@@ -2738,7 +2738,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Ground stages in real buyer behavior`, body: `Stages invented from how you think selling should go, rather than how buyers actually decide, produce a pipeline that does not match reality. Studying won and lost deals reveals the real commitments buyers make, and stages built on those - with objective exit criteria - keep the pipeline honest and consistent.` },
-      { h: `How Rally helps`, body: `Rally supports stages with exit criteria and data-driven probabilities, and Rook can derive realistic stage definitions and probabilities from your historical deals. Stages reflect how your buyers genuinely progress, so the pipeline and forecast are grounded in reality.` },
+      { h: `How Ardovo helps`, body: `Ardovo supports stages with exit criteria and data-driven probabilities, and Rook can derive realistic stage definitions and probabilities from your historical deals. Stages reflect how your buyers genuinely progress, so the pipeline and forecast are grounded in reality.` },
     ],
     faqs: [
       { q: `How do you define good pipeline stages?`, a: `Study how buyers actually progress in your won and lost deals, name each stage after a buyer commitment rather than a seller activity, write an objective exit criterion for each, keep the count to five to seven, and assign a win probability per stage from historical data.` },
@@ -2758,7 +2758,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Add pipelines only for real process differences`, body: `Every extra pipeline fragments reporting and adds complexity. Add one only when a sales motion genuinely needs different stages - a renewal process is nothing like new-business acquisition. If two motions share stages, one pipeline with a deal-type field is simpler than two pipelines.` },
-      { h: `How Rally helps`, body: `Rally supports multiple pipelines with their own stages and rolls reporting up across them, and Rook routes deals to the right pipeline by type. You get process-fit pipelines where genuinely needed without fragmenting the overall forecast, and guidance against unnecessary ones.` },
+      { h: `How Ardovo helps`, body: `Ardovo supports multiple pipelines with their own stages and rolls reporting up across them, and Rook routes deals to the right pipeline by type. You get process-fit pipelines where genuinely needed without fragmenting the overall forecast, and guidance against unnecessary ones.` },
     ],
     faqs: [
       { q: `When should you use multiple pipelines?`, a: `When you have genuinely distinct sales processes that need different stages - new business versus renewals, or products with different buying journeys. Add pipelines only for real process differences, not preemptively, since unnecessary pipelines fragment reporting and add complexity.` },
@@ -2778,7 +2778,7 @@ const ROWS = [
     ],
     sections: [
       { h: `A cluttered pipeline is a fantasy forecast`, body: `Every dead deal, wrong stage, and fantasy close date distorts the forecast. Cleaning the pipeline once is necessary, but the lasting fix is freshness rules that flag staleness automatically, so the pipeline reflects reality continuously rather than clogging up again between manual cleanups.` },
-      { h: `How Rally helps`, body: `Rally flags stale deals, wrong stages, and unrealistic close dates automatically, and Rook updates stages from real activity and ages out dead deals. The pipeline stays clean and honest continuously, so the forecast reflects reality without recurring manual cleanup projects.` },
+      { h: `How Ardovo helps`, body: `Ardovo flags stale deals, wrong stages, and unrealistic close dates automatically, and Rook updates stages from real activity and ages out dead deals. The pipeline stays clean and honest continuously, so the forecast reflects reality without recurring manual cleanup projects.` },
     ],
     faqs: [
       { q: `How do you clean up a sales pipeline?`, a: `Age out stale deals with no recent activity and no path forward, close deals that are dead, correct deals parked in the wrong stage, update unrealistic close dates, and add freshness rules to keep it clean. A one-time ruthless pass plus ongoing rules keeps the pipeline honest.` },
@@ -2796,7 +2796,7 @@ const ROWS = [
     keyPoints: [`Divides contacts or accounts into attribute- or behavior-based groups.`, `Enables relevant, targeted messaging per group.`, `Common bases: industry, size, role, stage, engagement.`, `Depends on clean, standardized data to match accurately.`],
     sections: [
       { h: `Why it matters`, body: `Generic outreach to an undifferentiated list underperforms targeted outreach to a relevant segment. Segmentation lets you match message to audience, but it only works if the underlying data is standardized - inconsistent values scatter a segment and miss members.` },
-      { h: `How Rally handles it`, body: `Rally segments on standardized, enriched fields and behavioral signals, so segments are accurate and complete. Rook keeps the underlying data clean, so a segment captures everyone it should rather than missing members whose fields were spelled inconsistently.` },
+      { h: `How Ardovo handles it`, body: `Ardovo segments on standardized, enriched fields and behavioral signals, so segments are accurate and complete. Rook keeps the underlying data clean, so a segment captures everyone it should rather than missing members whose fields were spelled inconsistently.` },
     ],
     faqs: [
       { q: `What can you segment a CRM list by?`, a: `Firmographic attributes (industry, size, region), role and seniority, deal or lifecycle stage, lead score, and behavior or engagement. Many segments combine dimensions - for example, mid-market SaaS accounts with high engagement. The bases you use reflect how you want to target different groups.` },
@@ -2816,7 +2816,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Clean data first, then dynamic segments`, body: `Two principles make segmentation work: standardize the fields you segment on, because segments match exact values, and save segments as dynamic lists that auto-update, so they never go stale. A segment on messy data misses members, and a static list is outdated the moment a record changes.` },
-      { h: `How Rally helps`, body: `Rally keeps segment fields clean and enriched through Rook, and supports dynamic lists that update automatically as records change. Segments are accurate and always current, so targeted outreach reaches everyone it should without manual list maintenance.` },
+      { h: `How Ardovo helps`, body: `Ardovo keeps segment fields clean and enriched through Rook, and supports dynamic lists that update automatically as records change. Segments are accurate and always current, so targeted outreach reaches everyone it should without manual list maintenance.` },
     ],
     faqs: [
       { q: `How do you segment contacts in a CRM?`, a: `Ensure the fields you will segment on are clean and standardized first, choose meaningful dimensions like industry, role, stage, and engagement, build filters that combine them, and save the results as dynamic lists that update automatically. Clean data plus dynamic segments keeps targeting accurate and current.` },
@@ -2831,7 +2831,7 @@ const ROWS = [
     keyPoints: [`A segment defined by criteria, not a fixed membership.`, `Updates automatically as records change.`, `Contrasts with a static, manually maintained list.`, `Always reflects who currently qualifies.`],
     sections: [
       { h: `Why it matters`, body: `A static list is outdated the instant a record changes - a contact who newly qualifies is missed, one who no longer fits stays. Dynamic lists keep segments accurate automatically, so targeting always hits the right current audience without manual list rebuilding.` },
-      { h: `How Rally handles it`, body: `Rally supports dynamic lists that re-evaluate membership as records change, and Rook keeps the underlying data clean so membership is accurate. Segments stay current on their own, so outreach always reaches exactly who qualifies now.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports dynamic lists that re-evaluate membership as records change, and Rook keeps the underlying data clean so membership is accurate. Segments stay current on their own, so outreach always reaches exactly who qualifies now.` },
     ],
     faqs: [
       { q: `What is the difference between a dynamic list and a static list?`, a: `A dynamic list is defined by criteria and updates membership automatically as records change. A static list is a fixed snapshot that must be manually maintained. Dynamic lists stay current on their own; static lists go stale the moment a record changes and need manual rebuilding.` },
@@ -2851,7 +2851,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Save what you reuse`, body: `Rebuilding the same filter every day is wasted effort. Saving frequently-used filters as named views - my open deals, stalled deals, this quarter's target segment - makes them one click away and shareable. Views turn ad-hoc filtering into a reusable, consistent way the whole team finds records.` },
-      { h: `How Rally helps`, body: `Rally makes filtering easy on clean, standardized fields and lets you save and share named views. Rook keeps the underlying data consistent so filters match reliably, and surfaces the views you use most, so finding the right records is fast and repeatable.` },
+      { h: `How Ardovo helps`, body: `Ardovo makes filtering easy on clean, standardized fields and lets you save and share named views. Rook keeps the underlying data consistent so filters match reliably, and surfaces the views you use most, so finding the right records is fast and repeatable.` },
     ],
     faqs: [
       { q: `How do you create a filter in a CRM?`, a: `Choose the fields and conditions that define the records you want, combine them with and/or logic to narrow precisely, test that the result returns the intended set, and save reusable filters as named views. Building on standardized fields ensures the filter matches reliably.` },
@@ -2866,7 +2866,7 @@ const ROWS = [
     keyPoints: [`Groups customers by shared characteristics.`, `Bases include industry, size, value, behavior, and lifecycle.`, `Enables tailored selling, marketing, and service.`, `Requires clean, complete data to define groups accurately.`],
     sections: [
       { h: `Why it matters`, body: `Not all customers are equal in value or needs. Segmentation lets teams concentrate effort on high-value and high-potential groups and tailor their approach to each, which is far more effective than treating a diverse customer base uniformly.` },
-      { h: `How Rally handles it`, body: `Rally segments customers on enriched, standardized attributes and behavioral signals, and Rook keeps the data complete so segments are accurate. Teams can target high-value segments and tailor their approach, grounded in reliable data rather than guesswork.` },
+      { h: `How Ardovo handles it`, body: `Ardovo segments customers on enriched, standardized attributes and behavioral signals, and Rook keeps the data complete so segments are accurate. Teams can target high-value segments and tailor their approach, grounded in reliable data rather than guesswork.` },
     ],
     faqs: [
       { q: `How do you segment customers?`, a: `Group them by shared characteristics - industry, company size, account value, behavior, or lifecycle stage - based on how you want to differentiate your approach. Many segmentations combine dimensions, like high-value accounts in a specific industry. Clean, complete data is what makes the groups accurate.` },
@@ -2886,7 +2886,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Enrichment makes the list possible`, body: `A target list filters accounts by ICP attributes - industry, size, stack - so accounts missing those attributes cannot be evaluated and drop out or get missed. Enriching first ensures the whole account base can be assessed against the profile, so the list captures every account genuinely worth pursuing.` },
-      { h: `How Rally helps`, body: `Rally enriches accounts and scores them against your ICP, so a target account list draws on complete data. Rook keeps the list dynamic and current as accounts enrich and change, so the team always works from an accurate, up-to-date set of the accounts worth pursuing.` },
+      { h: `How Ardovo helps`, body: `Ardovo enriches accounts and scores them against your ICP, so a target account list draws on complete data. Rook keeps the list dynamic and current as accounts enrich and change, so the team always works from an accurate, up-to-date set of the accounts worth pursuing.` },
     ],
     faqs: [
       { q: `How do you build a target account list?`, a: `Define your ideal customer profile, enrich accounts so the ICP attributes are present, filter to accounts that match the profile, rank them by fit and potential, and save the result as a dynamic list. Grounding it in your ICP and enriched data captures the accounts genuinely worth pursuing.` },
@@ -2906,7 +2906,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Govern tags or they become noise`, body: `Tags sprawl exactly like picklists: without governance, people create "vip", "VIP", and "v.i.p" as separate tags, fragmenting the grouping. Keep a controlled vocabulary, reuse existing tags, and prune duplicates, so tags stay a useful flexible layer rather than a chaotic mess of near-duplicates.` },
-      { h: `How Rally helps`, body: `Rally supports tags with a governed vocabulary and lets you segment on them, and Rook flags near-duplicate tags and suggests promoting heavily-used tags to fields. Tags stay a clean, flexible grouping layer instead of sprawling into noise.` },
+      { h: `How Ardovo helps`, body: `Ardovo supports tags with a governed vocabulary and lets you segment on them, and Rook flags near-duplicate tags and suggests promoting heavily-used tags to fields. Tags stay a clean, flexible grouping layer instead of sprawling into noise.` },
     ],
     faqs: [
       { q: `When should you use a tag instead of a field?`, a: `Use a tag for informal, cross-cutting attributes that do not warrant a full field - event attendees, a campaign audience, a special interest - where you want flexible ad-hoc grouping. Use a field for structured, consistently-captured data you filter and report on formally. Promote a tag to a field if it becomes structurally important.` },
@@ -2921,7 +2921,7 @@ const ROWS = [
     keyPoints: [`Groups records by behavior, not static attributes.`, `Captures intent and readiness signals.`, `Complements firmographic (attribute-based) segmentation.`, `Depends on captured activity and engagement data.`],
     sections: [
       { h: `Why it matters`, body: `Attribute-based segments say who fits your profile, but behavior says who is actually engaged and ready. Behavioral segmentation lets teams target the prospects showing intent right now - the highest-value moment to reach out - which static attributes alone cannot reveal.` },
-      { h: `How Rally handles it`, body: `Rally builds behavioral segments from captured activity and engagement signals, and Rook flags accounts and contacts whose behavior indicates readiness. Because Rally captures activity automatically, the behavioral data underneath these segments is complete and current.` },
+      { h: `How Ardovo handles it`, body: `Ardovo builds behavioral segments from captured activity and engagement signals, and Rook flags accounts and contacts whose behavior indicates readiness. Because Ardovo captures activity automatically, the behavioral data underneath these segments is complete and current.` },
     ],
     faqs: [
       { q: `What is behavioral segmentation based on?`, a: `What contacts or accounts do: website visits, email opens and clicks, product usage, content consumed, and buying signals. Unlike firmographic segmentation, which groups by static attributes like industry and size, behavioral segmentation groups by action, capturing intent and readiness.` },
@@ -2941,7 +2941,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Combine fit, stage, and behavior`, body: `The most effective lead segments layer three dimensions: fit (is this the right kind of lead), stage (where in the funnel), and behavior (how engaged). A high-fit, highly-engaged lead deserves immediate personal outreach; a low-fit, cold one does not. Combining the dimensions targets the right leads with the right message.` },
-      { h: `How Rally helps`, body: `Rally segments leads on enriched fit data, funnel stage, and captured behavioral signals, and Rook keeps the underlying data clean so segments are accurate. Outreach reaches the right leads with relevant messaging at the right moment, tailored to each segment's fit, stage, and intent.` },
+      { h: `How Ardovo helps`, body: `Ardovo segments leads on enriched fit data, funnel stage, and captured behavioral signals, and Rook keeps the underlying data clean so segments are accurate. Outreach reaches the right leads with relevant messaging at the right moment, tailored to each segment's fit, stage, and intent.` },
     ],
     faqs: [
       { q: `How should you segment leads for outreach?`, a: `Combine three dimensions: fit (how well they match your ICP), stage (where they are in the funnel), and behavior (engagement and intent). Enrich and standardize the data first so segments are accurate, then tailor messaging to each segment so outreach is relevant and well-timed rather than generic.` },
@@ -2956,7 +2956,7 @@ const ROWS = [
     keyPoints: [`A named, reusable filter and layout of records.`, `Includes chosen columns and sorting, not just criteria.`, `Makes finding records one click instead of a rebuild.`, `Can be shared for consistent team workflows.`],
     sections: [
       { h: `Why it matters`, body: `Reps look at the same slices of data constantly - their open deals, stalled accounts, this week's tasks. Saved views make those one click away and consistent across the team, turning repetitive filtering into a fast, shared way of working.` },
-      { h: `How Rally handles it`, body: `Rally lets you save and share named views with filters, columns, and sorting, and Rook surfaces the views you use most. Finding the right records is instant and consistent, so reps and managers work from the same reliable slices of data.` },
+      { h: `How Ardovo handles it`, body: `Ardovo lets you save and share named views with filters, columns, and sorting, and Rook surfaces the views you use most. Finding the right records is instant and consistent, so reps and managers work from the same reliable slices of data.` },
     ],
     faqs: [
       { q: `What does a saved view include?`, a: `The filter criteria that select records, plus the chosen columns, sorting, and layout - so it captures both which records to show and how to display them. That makes a saved view a complete, reusable way of looking at a slice of your data, not just a set of filter conditions.` },
@@ -2976,7 +2976,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Match on domain, standardize the name`, body: `Trying to match companies on name alone is a losing battle because names vary endlessly. The reliable identifier is the web domain, which is unique and stable, so use it for matching and dedupe. Standardize the display name for consistency in reports and segments, but let the domain do the identity work.` },
-      { h: `How Rally helps`, body: `Rally matches and dedupes accounts on domain, the stable identifier, and standardizes display names for consistency. Rook enriches the domain and normalizes name variants, so accounts are reliably matched and cleanly presented without the futile effort of matching on endlessly-varying names.` },
+      { h: `How Ardovo helps`, body: `Ardovo matches and dedupes accounts on domain, the stable identifier, and standardizes display names for consistency. Rook enriches the domain and normalizes name variants, so accounts are reliably matched and cleanly presented without the futile effort of matching on endlessly-varying names.` },
     ],
     faqs: [
       { q: `Why are company names so hard to standardize?`, a: `Because one company appears in endless forms - "Acme", "Acme Inc", "Acme, Incorporated", "ACME LLC" - varying by suffix, punctuation, and capitalization. Matching on name alone is a losing battle. The practical fix is standardizing the display name for consistency while matching on the more stable web domain.` },
@@ -2991,7 +2991,7 @@ const ROWS = [
     keyPoints: [`A flexible, informal label attached to records.`, `Groups by cross-cutting attributes not worth a full field.`, `Enables ad-hoc grouping and segmentation.`, `Needs a governed vocabulary to avoid sprawl.`],
     sections: [
       { h: `Why it matters`, body: `Tags fill the gap between structured fields and no structure at all, letting teams group records flexibly for one-off needs. But their value collapses without governance: near-duplicate tags fragment the grouping, so the same discipline that keeps picklists clean applies to tags.` },
-      { h: `How Rally handles it`, body: `Rally supports tags with a governed vocabulary and segmentation on them, and Rook flags near-duplicate tags and suggests promoting heavily-used ones to fields. Tags stay a clean, flexible layer rather than degrading into noise.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports tags with a governed vocabulary and segmentation on them, and Rook flags near-duplicate tags and suggests promoting heavily-used ones to fields. Tags stay a clean, flexible layer rather than degrading into noise.` },
     ],
     faqs: [
       { q: `What is a CRM tag used for?`, a: `Grouping records by a flexible, cross-cutting attribute that does not warrant a full field - event attendees, a campaign audience, a special interest. Tags enable ad-hoc grouping and segmentation, complementing structured fields with a lightweight way to label records however a team needs.` },
@@ -3009,7 +3009,7 @@ const ROWS = [
     keyPoints: [`One authoritative, trusted place for each piece of data.`, `Everyone works from the same version, not conflicting copies.`, `In a CRM: one record per customer, one agreed set of numbers.`, `Requires dedupe, clean data, and integration to hold.`],
     sections: [
       { h: `Why it matters`, body: `When teams work from different copies of the data, they disagree on basic facts and decisions are made on the wrong numbers. A single source of truth ends the arguments about whose data is right, which is the foundational value a CRM is supposed to deliver.` },
-      { h: `How Rally handles it`, body: `Rally maintains a single source of truth through deduplication, clean data, and integration, so each customer has one golden record and reports tie out. Rook keeps the data unified and aligned, so the whole business works from one version that is genuinely trustworthy.` },
+      { h: `How Ardovo handles it`, body: `Ardovo maintains a single source of truth through deduplication, clean data, and integration, so each customer has one golden record and reports tie out. Rook keeps the data unified and aligned, so the whole business works from one version that is genuinely trustworthy.` },
     ],
     faqs: [
       { q: `What does single source of truth mean?`, a: `One authoritative, trusted place where each piece of data lives, so everyone works from the same accurate version rather than conflicting copies. In a CRM it means one record per customer and one agreed set of numbers - a definitive place that is right, ending disputes over whose data to believe.` },
@@ -3024,7 +3024,7 @@ const ROWS = [
     keyPoints: [`Maintains one authoritative version of core data across systems.`, `Covers customers, accounts, products, and other master data.`, `Uses matching, dedupe, and governance to build golden records.`, `How large organizations achieve a cross-system single source of truth.`],
     sections: [
       { h: `Why it matters`, body: `In an organization with many systems, the same customer exists in each, and they drift out of sync. MDM keeps one authoritative version aligned across all of them, so the whole business shares consistent core data rather than every system telling a different story.` },
-      { h: `How Rally handles it`, body: `Rally applies MDM principles - matching, deduplication, and golden records - within the CRM and across integrations, so core data stays consistent everywhere it connects. Rook maintains the golden records and alignment, giving even complex setups a single authoritative version of customers and accounts.` },
+      { h: `How Ardovo handles it`, body: `Ardovo applies MDM principles - matching, deduplication, and golden records - within the CRM and across integrations, so core data stays consistent everywhere it connects. Rook maintains the golden records and alignment, giving even complex setups a single authoritative version of customers and accounts.` },
     ],
     faqs: [
       { q: `What is master data management?`, a: `The discipline of maintaining one consistent, authoritative version of core data - customers, accounts, products - across all of an organization's systems. It uses matching, deduplication, and governance to create golden records and keep them aligned everywhere, achieving a cross-system single source of truth.` },
@@ -3039,7 +3039,7 @@ const ROWS = [
     keyPoints: [`The accuracy, consistency, and reliability of data over time.`, `Assurance data is correct and only intentionally changed.`, `Protected by validation, access controls, and audit trails.`, `What lets people trust the records reflect reality.`],
     sections: [
       { h: `Why it matters`, body: `Data with poor integrity cannot be trusted, so every decision built on it is suspect. Integrity is what makes data a reliable asset - guarding against corruption, unauthorized change, and inconsistency so the records genuinely reflect reality.` },
-      { h: `How Rally handles it`, body: `Rally protects data integrity with validation, role-based access, audit logging, and consistent structure, so records stay accurate and changes are traceable. Rook maintains consistency and flags anomalies, so the data remains trustworthy across its lifecycle.` },
+      { h: `How Ardovo handles it`, body: `Ardovo protects data integrity with validation, role-based access, audit logging, and consistent structure, so records stay accurate and changes are traceable. Rook maintains consistency and flags anomalies, so the data remains trustworthy across its lifecycle.` },
     ],
     faqs: [
       { q: `What is the difference between data integrity and data quality?`, a: `Data quality is how good the data is at a point in time - accurate, complete, consistent. Data integrity is the assurance that data stays correct and reliable over its lifecycle, protected from corruption and unauthorized change. Quality is the state; integrity is the ongoing trustworthiness.` },
@@ -3054,7 +3054,7 @@ const ROWS = [
     keyPoints: [`Accountable for the quality of a specific data domain.`, `Ensures accuracy, standards, and proper use.`, `A key role in data governance.`, `Gives each data area a clear owner.`],
     sections: [
       { h: `Why it matters`, body: `Data quality erodes when it belongs to no one. A steward gives a data domain a clear owner accountable for its health, so standards are enforced and issues are fixed rather than ignored. Stewardship is the accountability that makes governance actually work.` },
-      { h: `How Rally handles it`, body: `Rally supports stewardship by assigning ownership of data domains and surfacing quality issues to the responsible steward. Rook does much of the maintenance automatically, so a steward oversees and directs rather than manually cleaning, making the role sustainable even for lean teams.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports stewardship by assigning ownership of data domains and surfacing quality issues to the responsible steward. Rook does much of the maintenance automatically, so a steward oversees and directs rather than manually cleaning, making the role sustainable even for lean teams.` },
     ],
     faqs: [
       { q: `What does a data steward do?`, a: `Owns the quality, consistency, and proper use of a specific data domain - ensuring records are accurate, standards are followed, and issues get fixed. The steward is accountable for that data area's health, making them the go-to person for its quality and the enforcer of its governance rules.` },
@@ -3074,7 +3074,7 @@ const ROWS = [
     ],
     sections: [
       { h: `The trend matters more than the number`, body: `A single data-quality reading tells you the state today; the trend tells you whether prevention is working or quality is decaying. Measure continuously and watch the trajectory, so you catch regressions early and can prove that cleanup and prevention efforts are actually moving the number.` },
-      { h: `How Rally helps`, body: `Rally measures data quality live per object and field across the five dimensions, so the score is always current. Rook works to raise it and you watch the trend climb, so quality is a managed, provable metric rather than a number from an audit that is stale the next day.` },
+      { h: `How Ardovo helps`, body: `Ardovo measures data quality live per object and field across the five dimensions, so the score is always current. Rook works to raise it and you watch the trend climb, so quality is a managed, provable metric rather than a number from an audit that is stale the next day.` },
     ],
     faqs: [
       { q: `What dimensions measure data quality?`, a: `Five: completeness (are key fields filled), accuracy (are values correct), consistency (are formats standardized), uniqueness (duplicate rate), and timeliness (is the data current). Scoring these as percentages across your key objects gives a complete, trackable picture of data health.` },
@@ -3089,7 +3089,7 @@ const ROWS = [
     keyPoints: [`Determines whether two records are the same entity.`, `Combines exact keys with fuzzy field comparison.`, `Powers dedupe, lead-to-account matching, and merges.`, `Strong identifiers plus fuzzy logic catch real duplicates.`],
     sections: [
       { h: `Why it matters`, body: `Matching is the foundation under several data-ops capabilities. Get it right and dedupe, lead-to-account matching, and merges all work; get it wrong and you either miss duplicates or wrongly merge distinct records. The quality of matching determines the quality of everything built on it.` },
-      { h: `How Rally handles it`, body: `Rally matches on strong identifiers like email and domain plus fuzzy comparison, scoring each candidate by confidence. Rook auto-acts on high-confidence matches and flags borderline ones, so dedupe, lead-to-account matching, and merges all rest on reliable matching.` },
+      { h: `How Ardovo handles it`, body: `Ardovo matches on strong identifiers like email and domain plus fuzzy comparison, scoring each candidate by confidence. Rook auto-acts on high-confidence matches and flags borderline ones, so dedupe, lead-to-account matching, and merges all rest on reliable matching.` },
     ],
     faqs: [
       { q: `What is record matching used for?`, a: `Determining whether two records are the same entity, which powers deduplication, lead-to-account matching, and record merging. Any capability that needs to know "are these the same person or company" relies on record matching underneath, making it a foundational data-ops function.` },
@@ -3104,7 +3104,7 @@ const ROWS = [
     keyPoints: [`Defines how fields in one system correspond to another.`, `Includes translating value formats between systems.`, `Essential for imports, migrations, and integrations.`, `Errors misplace data silently, without an error.`],
     sections: [
       { h: `Why it matters`, body: `Whenever data moves between systems, mapping decides whether it lands correctly. A wrong mapping does not throw an error - it silently puts values in the wrong field or fails to translate them. Because the failure is invisible, correct mapping and testing are essential to data movement.` },
-      { h: `How Rally handles it`, body: `Rally auto-maps common fields and translates values for imports, migrations, and integrations, previewing the result before committing. Rook flags likely mismaps, so data moving into Rally lands in the right field with the right meaning rather than failing silently.` },
+      { h: `How Ardovo handles it`, body: `Ardovo auto-maps common fields and translates values for imports, migrations, and integrations, previewing the result before committing. Rook flags likely mismaps, so data moving into Ardovo lands in the right field with the right meaning rather than failing silently.` },
     ],
     faqs: [
       { q: `Where is data mapping used?`, a: `In imports (file columns to CRM fields), migrations (one system's model to another's), and integrations (syncing fields between connected tools). Anywhere data moves between systems that structure it differently, mapping defines the correspondence, making it essential to all data movement.` },
@@ -3124,7 +3124,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Less typing means fewer errors`, body: `Every field a rep types by hand is a chance for an error. The highest-leverage prevention is reducing manual entry through capture and enrichment, so there is simply less to get wrong. Validation catches the rest, but the biggest win is eliminating the entry rather than policing it.` },
-      { h: `How Rally helps`, body: `Rally minimizes manual entry through automatic activity capture and enrichment, validates what reps do enter, and blocks duplicates at creation. Rook fills machine-knowable fields so reps type almost nothing, which prevents entry errors by removing most of the entry that causes them.` },
+      { h: `How Ardovo helps`, body: `Ardovo minimizes manual entry through automatic activity capture and enrichment, validates what reps do enter, and blocks duplicates at creation. Rook fills machine-knowable fields so reps type almost nothing, which prevents entry errors by removing most of the entry that causes them.` },
     ],
     faqs: [
       { q: `What is the best way to prevent data entry errors?`, a: `Reduce how much reps type in the first place through automatic activity capture and enrichment, then validate the little they do enter with format rules and picklists, and block duplicates at creation. Less manual entry means fewer opportunities for error, which is more effective than policing entry.` },
@@ -3139,7 +3139,7 @@ const ROWS = [
     keyPoints: [`How fully records have their needed fields filled.`, `A core dimension of data quality.`, `Measured as percent of records with key fields populated.`, `Matters most on fields that drive automation.`],
     sections: [
       { h: `Why it matters`, body: `An incomplete record cannot be fully used - a lead with no company cannot be scored, a contact with no email cannot be reached. Completeness on the critical fields is what lets routing, scoring, and outreach work. Gaps in the fields that matter directly break downstream systems.` },
-      { h: `How Rally handles it`, body: `Rally drives completeness through enrichment that fills machine-knowable fields and well-timed prompts for judgment fields, and measures completeness live. Rook keeps critical fields populated automatically, so records are complete enough to route, score, and reach without a manual filling effort.` },
+      { h: `How Ardovo handles it`, body: `Ardovo drives completeness through enrichment that fills machine-knowable fields and well-timed prompts for judgment fields, and measures completeness live. Rook keeps critical fields populated automatically, so records are complete enough to route, score, and reach without a manual filling effort.` },
     ],
     faqs: [
       { q: `How is data completeness measured?`, a: `As the percentage of records with their key fields populated, usually focused on the fields that drive routing, scoring, and outreach rather than every field. Measuring completeness on critical fields tells you whether records are usable, which matters more than raw fill rate across all fields.` },
@@ -3159,7 +3159,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Consolidate once, prevent forever`, body: `Consolidating duplicates without prevention means the database fragments again and you repeat the work. Pair the one-time merge with duplicate blocking at manual entry, imports, and forms, so once consolidated the data stays unified. Consolidation plus prevention is permanent; consolidation alone is temporary.` },
-      { h: `How Rally helps`, body: `Rally finds duplicates with exact and fuzzy matching, merges them into golden records preserving history, and blocks new duplicates at every entry point. Rook does the consolidation busywork and keeps prevention on, so the database stays unified rather than needing repeated consolidation.` },
+      { h: `How Ardovo helps`, body: `Ardovo finds duplicates with exact and fuzzy matching, merges them into golden records preserving history, and blocks new duplicates at every entry point. Rook does the consolidation busywork and keeps prevention on, so the database stays unified rather than needing repeated consolidation.` },
     ],
     faqs: [
       { q: `How do you consolidate duplicate data?`, a: `Find all duplicate sets with exact and fuzzy matching, review them, merge each into one golden record that keeps the best value per field and all history, and then prevent new duplicates at entry. Merging into golden records rather than deleting preserves everything, and prevention makes it permanent.` },
@@ -3174,7 +3174,7 @@ const ROWS = [
     keyPoints: [`The same information represented the same way everywhere.`, `A core dimension of data quality.`, `Underpins matching, segmentation, and reporting.`, `Inconsistency silently breaks value-matching features.`],
     sections: [
       { h: `Why it matters`, body: `Matching, segmentation, and reporting all compare values, and comparison only works if values are consistent. Inconsistent data - the same industry spelled five ways, one fact stored differently in two systems - silently breaks dedupe, scatters segments, and makes reports disagree. Consistency is foundational.` },
-      { h: `How Rally handles it`, body: `Rally enforces consistency with picklists, validation, and normalization, and keeps facts stored once and referenced rather than copied. Rook standardizes values across records and systems, so matching, segmentation, and reporting all operate on consistent, comparable data.` },
+      { h: `How Ardovo handles it`, body: `Ardovo enforces consistency with picklists, validation, and normalization, and keeps facts stored once and referenced rather than copied. Rook standardizes values across records and systems, so matching, segmentation, and reporting all operate on consistent, comparable data.` },
     ],
     faqs: [
       { q: `Why does data consistency matter?`, a: `Because matching, segmentation, and reporting all compare values, and comparison only works when values are consistent. Inconsistent data - the same value formatted differently across records - silently breaks deduplication, scatters segments, and makes reports disagree. Consistency is the quiet prerequisite for every value-matching feature.` },
@@ -3189,7 +3189,7 @@ const ROWS = [
     keyPoints: [`A value that reliably distinguishes one record from all others.`, `Examples: email, web domain, system ID.`, `The strongest key for matching, dedupe, and integration.`, `Good identifiers are unique and stable over time.`],
     sections: [
       { h: `Why it matters`, body: `Matching, deduplication, and integration all rely on identifying the same entity across records or systems, and unique identifiers are the most reliable way to do it. A good identifier - unique and stable - makes matching trustworthy; matching on weak keys like name alone produces false matches and misses.` },
-      { h: `How Rally handles it`, body: `Rally uses strong unique identifiers - email for contacts, domain for accounts, plus system IDs - as the backbone of matching, dedupe, and integration. Rook relies on these reliable keys, so records match to exactly one entity across the system and connected tools.` },
+      { h: `How Ardovo handles it`, body: `Ardovo uses strong unique identifiers - email for contacts, domain for accounts, plus system IDs - as the backbone of matching, dedupe, and integration. Rook relies on these reliable keys, so records match to exactly one entity across the system and connected tools.` },
     ],
     faqs: [
       { q: `What makes a good unique identifier?`, a: `Uniqueness and stability - a value that maps to exactly one entity and does not change over time. Email for contacts and web domain for companies are strong because they are highly unique and reasonably stable. System-assigned IDs are perfectly unique. Names make poor identifiers because they repeat and vary.` },
@@ -3209,7 +3209,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Back up before risky operations`, body: `The moments you most need a backup are bulk updates, imports, migrations, and mass deletions - exactly the operations that can go wrong at scale. Taking a fresh, verified backup right before any risky operation means a mistake is recoverable rather than catastrophic. Never run a bulk change without a backup you trust.` },
-      { h: `How Rally helps`, body: `Rally protects data with regular backups that preserve relationships and history, and audit logging that traces changes. Combined with duplicate blocking and safe merges, this means risky operations are recoverable and accidental damage is traceable, so your data is safeguarded rather than one bad bulk action from disaster.` },
+      { h: `How Ardovo helps`, body: `Ardovo protects data with regular backups that preserve relationships and history, and audit logging that traces changes. Combined with duplicate blocking and safe merges, this means risky operations are recoverable and accidental damage is traceable, so your data is safeguarded rather than one bad bulk action from disaster.` },
     ],
     faqs: [
       { q: `How often should you back up CRM data?`, a: `On a regular schedule so you always have a recent recovery point, plus a fresh backup right before any risky operation like a bulk update, import, or migration. Regular scheduled backups protect against gradual problems, and pre-operation backups protect against the specific changes most likely to go wrong.` },
@@ -3224,7 +3224,7 @@ const ROWS = [
     keyPoints: [`Whether values are correct and reflect reality.`, `A core dimension of data quality.`, `Distinct from completeness and consistency.`, `Eroded by decay, maintained by verification and enrichment.`],
     sections: [
       { h: `Why it matters`, body: `Inaccurate data is actively misleading - worse than missing data, because people act on it. A wrong email bounces, an outdated company misroutes, a stale amount corrupts the forecast. Accuracy is what makes data trustworthy enough to act on, and it requires ongoing verification because it decays.` },
-      { h: `How Rally handles it`, body: `Rally maintains accuracy through verification and continuous enrichment that re-checks and refreshes values as they decay. Rook flags likely-stale data - a contact who probably changed jobs, an email that stopped resolving - so records stay accurate rather than silently drifting wrong.` },
+      { h: `How Ardovo handles it`, body: `Ardovo maintains accuracy through verification and continuous enrichment that re-checks and refreshes values as they decay. Rook flags likely-stale data - a contact who probably changed jobs, an email that stopped resolving - so records stay accurate rather than silently drifting wrong.` },
     ],
     faqs: [
       { q: `What is the difference between data accuracy and completeness?`, a: `Completeness is whether fields are filled; accuracy is whether the filled values are correct. A record can be complete but inaccurate - every field populated, but with a wrong email or an outdated company. Both are quality dimensions: completeness is about presence, accuracy is about correctness.` },
@@ -3244,7 +3244,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Encode standards as automated rules`, body: `Standards that live in a document and depend on people following them erode. Encoding them as automated rules - validation, required fields, dedupe, scheduled enrichment - makes quality hold by default. Automated rules maintain quality continuously; documented-only standards become guidelines nobody enforces under pressure.` },
-      { h: `How Rally helps`, body: `Rally enforces data quality rules automatically - validation, required fields, dedupe, and scheduled enrichment - and measures quality live. Rook maintains the standards continuously and flags regressions, so quality is upheld by the system rather than depending on manual discipline that fades.` },
+      { h: `How Ardovo helps`, body: `Ardovo enforces data quality rules automatically - validation, required fields, dedupe, and scheduled enrichment - and measures quality live. Rook maintains the standards continuously and flags regressions, so quality is upheld by the system rather than depending on manual discipline that fades.` },
     ],
     faqs: [
       { q: `What are data quality rules?`, a: `Encoded standards the system enforces automatically: validation for formats, required fields for completeness, picklists for consistency, duplicate blocking for uniqueness, and scheduled enrichment for accuracy. They turn your data-quality standards into continuous automated enforcement rather than guidelines people are supposed to follow.` },
@@ -3262,7 +3262,7 @@ const ROWS = [
     keyPoints: [`A connection for exchanging data between the CRM and another system.`, `Flows data automatically instead of manual re-entry.`, `Keeps information consistent across tools.`, `Value depends on clean field mapping and sync.`],
     sections: [
       { h: `Why it matters`, body: `Businesses run on many tools, and without integration the same data is re-entered in each and drifts out of sync. Integrations keep systems aligned and eliminate manual copying, but they must be built on clean mapping and dedupe, or they simply spread dirty data faster across everything connected.` },
-      { h: `How Rally handles it`, body: `Rally integrates with the tools teams run on, with clean field mapping and sync that respects deduplication. Rook keeps data consistent across connections, so integrations propagate a single clean source of truth rather than multiplying inconsistencies across systems.` },
+      { h: `How Ardovo handles it`, body: `Ardovo integrates with the tools teams run on, with clean field mapping and sync that respects deduplication. Rook keeps data consistent across connections, so integrations propagate a single clean source of truth rather than multiplying inconsistencies across systems.` },
     ],
     faqs: [
       { q: `What can a CRM integrate with?`, a: `The tools a business runs on: email and calendar for activity capture, marketing platforms for lead flow, support systems for customer context, billing for revenue data, and many others. Integrations let data flow between the CRM and these systems automatically instead of being manually re-entered in each.` },
@@ -3277,7 +3277,7 @@ const ROWS = [
     keyPoints: [`Data trapped in one system or team, inaccessible to others.`, `Causes conflicting copies, blind spots, and duplicated effort.`, `Fragments the customer picture across the business.`, `Broken down by integration and a shared source of truth.`],
     sections: [
       { h: `Why it matters`, body: `Silos mean no one sees the whole customer - sales cannot see support history, support cannot see the deal. Decisions get made on partial information, effort is duplicated, and copies conflict. Breaking silos through integration is what gives the business one connected view instead of fragments.` },
-      { h: `How Rally handles it`, body: `Rally breaks down silos by integrating the tools around it and unifying customer data into one connected view. Rook keeps data flowing and consistent across systems, so sales, support, and marketing work from the same source of truth rather than isolated, conflicting fragments.` },
+      { h: `How Ardovo handles it`, body: `Ardovo breaks down silos by integrating the tools around it and unifying customer data into one connected view. Rook keeps data flowing and consistent across systems, so sales, support, and marketing work from the same source of truth rather than isolated, conflicting fragments.` },
     ],
     faqs: [
       { q: `What causes data silos?`, a: `Systems and teams that hold data without connecting it - sales data in the CRM, support data in a separate tool, marketing data isolated - each walled off from the others. Silos form when tools are not integrated and no shared source of truth exists, so data stays trapped where it was created.` },
@@ -3297,7 +3297,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Designate a system of record per data type`, body: `The root cause of sync chaos is two systems both claiming to own the same data with no tiebreaker. Designating a system of record for each data type - the definitive owner - resolves conflicts cleanly: when values disagree, the system of record wins. Without it, sync loops and overwrites good data.` },
-      { h: `How Rally helps`, body: `Rally syncs with connected tools using clean mapping, two-way sync, and clear conflict rules, and Rook monitors for sync errors. With a designated system of record per data type, connected tools stay aligned as one consistent picture rather than drifting into conflicting versions.` },
+      { h: `How Ardovo helps`, body: `Ardovo syncs with connected tools using clean mapping, two-way sync, and clear conflict rules, and Rook monitors for sync errors. With a designated system of record per data type, connected tools stay aligned as one consistent picture rather than drifting into conflicting versions.` },
     ],
     faqs: [
       { q: `How do you keep data in sync across systems?`, a: `Choose a system of record for each data type, use two-way sync where both systems change data, map fields cleanly, resolve conflicts with clear rules, and monitor for sync errors. Designating which system owns each fact and syncing on clean mapping keeps connected tools aligned rather than drifting apart.` },
@@ -3312,7 +3312,7 @@ const ROWS = [
     keyPoints: [`The authoritative source for a given data type.`, `Its version wins when copies conflict.`, `Designated per data type across integrated systems.`, `Makes integration and sync conflict resolution reliable.`],
     sections: [
       { h: `Why it matters`, body: `When multiple systems hold the same data, conflicts are inevitable, and without a designated owner they overwrite each other unpredictably. A system of record resolves this: the CRM might own customer data, billing might own invoices. Clear ownership per data type is what keeps sync from becoming chaos.` },
-      { h: `How Rally handles it`, body: `Rally acts as the system of record for customer and revenue data and respects other systems' ownership of their domains, syncing with clear conflict rules. Rook enforces the ownership, so integrations resolve conflicts by the system of record rather than overwriting good data unpredictably.` },
+      { h: `How Ardovo handles it`, body: `Ardovo acts as the system of record for customer and revenue data and respects other systems' ownership of their domains, syncing with clear conflict rules. Rook enforces the ownership, so integrations resolve conflicts by the system of record rather than overwriting good data unpredictably.` },
     ],
     faqs: [
       { q: `What is a system of record used for?`, a: `Resolving conflicts when multiple systems hold the same data. The system of record is the designated authoritative source for a data type, so when copies disagree, its version wins. This makes integration and sync reliable by giving every conflict a clear tiebreaker instead of unpredictable overwrites.` },
@@ -3332,7 +3332,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Ownership is the root fix`, body: `Most sync conflicts trace to unclear ownership - two systems both editing the same data with no tiebreaker. Designating a system of record per data type, and ideally confining edits of each field to one system, removes the ambiguity at the root. Conflict rules handle the rest, but clear ownership prevents most conflicts from arising.` },
-      { h: `How Rally helps`, body: `Rally prevents sync conflicts with a clear system-of-record model, defined conflict rules, and reliable two-way sync, and Rook monitors for conflicts and errors. Connected systems resolve disagreements by ownership rather than overwriting each other, so good data is not lost to sync chaos.` },
+      { h: `How Ardovo helps`, body: `Ardovo prevents sync conflicts with a clear system-of-record model, defined conflict rules, and reliable two-way sync, and Rook monitors for conflicts and errors. Connected systems resolve disagreements by ownership rather than overwriting each other, so good data is not lost to sync chaos.` },
     ],
     faqs: [
       { q: `What causes sync conflicts?`, a: `Two systems changing the same data with no agreed rule for whose change wins. Without a designated owner, conflicting edits overwrite each other unpredictably. Sync conflicts are fundamentally an ownership problem - they arise when multiple systems both claim the same data with no tiebreaker.` },
@@ -3352,7 +3352,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Connect what helps, on clean foundations`, body: `Not every possible integration is worth it - each adds complexity and a sync to maintain. Connect the ones that eliminate real manual work or unify data. And build each on clean field mapping and a clear system of record, so the integration spreads a single clean source of truth rather than propagating mess.` },
-      { h: `How Rally helps`, body: `Rally connects to the tools teams run on with clean mapping and a clear system-of-record model, and Rook tests and monitors the sync. Integrations eliminate manual re-entry and unify data on clean foundations, so connecting tools strengthens the source of truth rather than fragmenting it.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects to the tools teams run on with clean mapping and a clear system-of-record model, and Rook tests and monitors the sync. Integrations eliminate manual re-entry and unify data on clean foundations, so connecting tools strengthens the source of truth rather than fragmenting it.` },
     ],
     faqs: [
       { q: `Which tools should you integrate with your CRM?`, a: `The ones that eliminate real manual work or unify data: email and calendar for activity capture, marketing platforms for lead flow, support for customer context, and billing for revenue data. Prioritize integrations that deliver genuine value over connecting everything possible, since each adds complexity to maintain.` },
@@ -3372,7 +3372,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Clean before you connect`, body: `An integration built on dirty data spreads the mess into every connected system, at scale and speed. Duplicates entangle, inconsistent values fail to map, and errors propagate. Cleaning both systems before syncing means the integration multiplies a clean source of truth instead - and cleaning first is far easier than untangling a synced mess after.` },
-      { h: `How Rally helps`, body: `Rally dedupes and standardizes data and Rook cleans it continuously, so what syncs to connected tools is already clean. Integrations built on Rally's clean source of truth spread good data, and Rook monitors the sync so mess is not reintroduced from the other side.` },
+      { h: `How Ardovo helps`, body: `Ardovo dedupes and standardizes data and Rook cleans it continuously, so what syncs to connected tools is already clean. Integrations built on Ardovo's clean source of truth spread good data, and Rook monitors the sync so mess is not reintroduced from the other side.` },
     ],
     faqs: [
       { q: `Why clean data before syncing systems?`, a: `Because syncing dirty data spreads it - duplicates entangle across both systems, inconsistent values fail to map, and errors propagate everywhere at machine speed. Cleaning both systems before connecting means the integration multiplies a clean source of truth. Cleaning first is far easier than untangling a synced mess.` },
@@ -3387,7 +3387,7 @@ const ROWS = [
     keyPoints: [`Automatically keeps data consistent across systems.`, `Can be one-way or two-way.`, `Relies on field mapping and conflict resolution.`, `Needs clean data and clear ownership to be reliable.`],
     sections: [
       { h: `Why it matters`, body: `Syncing is what keeps integrated tools from drifting apart - a change in one system flows to the others, so everyone works from current data. But sync built on dirty data or unclear ownership spreads conflicts and duplicates, so the foundations of mapping, a system of record, and clean data are what make it reliable.` },
-      { h: `How Rally handles it`, body: `Rally syncs with connected tools using clean mapping, a clear system-of-record model, and conflict rules, and Rook monitors it. Connected systems stay consistently aligned on clean data, so syncing keeps everyone current rather than propagating conflicts across tools.` },
+      { h: `How Ardovo handles it`, body: `Ardovo syncs with connected tools using clean mapping, a clear system-of-record model, and conflict rules, and Rook monitors it. Connected systems stay consistently aligned on clean data, so syncing keeps everyone current rather than propagating conflicts across tools.` },
     ],
     faqs: [
       { q: `What is the difference between one-way and two-way syncing?`, a: `One-way syncing flows data in a single direction, from one system to another. Two-way syncing flows changes in both directions, so an update in either system appears in the other. Two-way keeps both fully aligned; one-way suits cases where only one system should update the other.` },
@@ -3407,7 +3407,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Most issues are mapping, conflicts, or rejected data`, body: `Sync problems cluster into a few causes: a field mapping broke because a field changed, a conflict has no clear resolution, or data valid in one system fails the other's validation. Checking the logs, mappings, and conflict rules systematically finds most issues fast, and a test record isolates the stubborn ones.` },
-      { h: `How Rally helps`, body: `Rally surfaces sync errors clearly, and Rook monitors sync health and flags mapping breaks, conflicts, and rejected data proactively. Many issues are caught before they cause drift, and when troubleshooting is needed, the logs and clear system-of-record model make the cause easy to isolate.` },
+      { h: `How Ardovo helps`, body: `Ardovo surfaces sync errors clearly, and Rook monitors sync health and flags mapping breaks, conflicts, and rejected data proactively. Many issues are caught before they cause drift, and when troubleshooting is needed, the logs and clear system-of-record model make the cause easy to isolate.` },
     ],
     faqs: [
       { q: `What causes CRM sync issues?`, a: `Most commonly a broken field mapping because a field changed on one side, a sync conflict with no clear resolution, or data that is valid in one system but fails the other's validation. Auth and connection problems also occur. These few causes account for the majority of sync issues.` },
@@ -3422,7 +3422,7 @@ const ROWS = [
     keyPoints: [`An automated message sent the instant an event happens.`, `Pushes data to a URL the receiving system listens on.`, `Enables real-time reactions across systems.`, `More immediate than polling for changes.`],
     sections: [
       { h: `Why it matters`, body: `Webhooks make integrations instant. Instead of one system repeatedly asking another "anything new?", the source pushes an event the moment it occurs, so a new lead or closed deal triggers action in another system immediately. This real-time responsiveness is what many modern integrations depend on.` },
-      { h: `How Rally handles it`, body: `Rally supports webhooks so events like new leads and closed deals push to connected systems in real time, and Rook can trigger workflows on incoming webhook events. Integrations react instantly rather than on a delay, keeping connected tools responsive to what happens in the CRM.` },
+      { h: `How Ardovo handles it`, body: `Ardovo supports webhooks so events like new leads and closed deals push to connected systems in real time, and Rook can trigger workflows on incoming webhook events. Integrations react instantly rather than on a delay, keeping connected tools responsive to what happens in the CRM.` },
     ],
     faqs: [
       { q: `How does a webhook work?`, a: `When a defined event happens in the source system - a new lead, a closed deal - it automatically sends a message containing the event data to a URL the receiving system listens on. The receiver acts on it immediately. It is a push model, so the source notifies rather than waiting to be asked.` },
@@ -3442,7 +3442,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Match and update, do not insert`, body: `The cause of cross-system duplication is sync that inserts a new record for every entity instead of matching to existing ones. Matching on shared identifiers and updating matched records means the integration links the same entity across systems rather than copying it. Match-and-update is the whole discipline.` },
-      { h: `How Rally helps`, body: `Rally matches records across integrations on strong identifiers, designates systems of record, and updates rather than duplicates. Rook keeps entities linked across connected tools instead of copied, so an integration unifies each customer into one linked entity rather than scattering duplicates across every system.` },
+      { h: `How Ardovo helps`, body: `Ardovo matches records across integrations on strong identifiers, designates systems of record, and updates rather than duplicates. Rook keeps entities linked across connected tools instead of copied, so an integration unifies each customer into one linked entity rather than scattering duplicates across every system.` },
     ],
     faqs: [
       { q: `How do integrations create duplicate data?`, a: `By syncing without matching - a naive integration inserts a new record in each system for every entity, so the same person or company ends up duplicated across all connected tools. Without matching on shared identifiers and updating existing records, sync multiplies duplicates rather than linking entities.` },
@@ -3462,7 +3462,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Match on email, agree on ownership`, body: `The two failure modes of CRM-marketing sync are duplicate records (fixed by matching on email) and turf conflicts over data (fixed by agreeing ownership - marketing owns engagement, the CRM owns deals). Get those two right and the sync unifies the funnel; get them wrong and it duplicates records and picks fights.` },
-      { h: `How Rally helps`, body: `Rally syncs with marketing tools by matching on email and a clear ownership split, flowing leads and engagement in and status back. Rook keeps the data linked and consistent, so sales and marketing share one connected view of the funnel rather than duplicated, conflicting records.` },
+      { h: `How Ardovo helps`, body: `Ardovo syncs with marketing tools by matching on email and a clear ownership split, flowing leads and engagement in and status back. Rook keeps the data linked and consistent, so sales and marketing share one connected view of the funnel rather than duplicated, conflicting records.` },
     ],
     faqs: [
       { q: `How do you sync CRM and marketing data?`, a: `Match leads and contacts on email so records link instead of duplicate, agree which system owns which data (marketing owns engagement, the CRM owns deals and status), flow leads and engagement into the CRM and status back to marketing, and map fields and lifecycle stages cleanly.` },
@@ -3477,7 +3477,7 @@ const ROWS = [
     keyPoints: [`Connects systems through their APIs.`, `Exchanges data and triggers actions programmatically.`, `The standard, flexible way modern tools integrate.`, `Enables custom, real-time connections.`],
     sections: [
       { h: `Why it matters`, body: `APIs make integration flexible and powerful. Prebuilt integrations cover common cases, but APIs allow custom, real-time connections tailored to a business's specific needs. They are how systems exchange data and trigger actions programmatically, powering the data flows that keep a CRM synced with everything around it.` },
-      { h: `How Rally handles it`, body: `Rally exposes an API for custom integrations and connects to common tools out of the box, so both prebuilt and custom data flows are supported. Rook works with the data these integrations move, keeping it clean and consistent across programmatic connections.` },
+      { h: `How Ardovo handles it`, body: `Ardovo exposes an API for custom integrations and connects to common tools out of the box, so both prebuilt and custom data flows are supported. Rook works with the data these integrations move, keeping it clean and consistent across programmatic connections.` },
     ],
     faqs: [
       { q: `What is an API in the context of integration?`, a: `An application programming interface - a defined way for one system to exchange data and trigger actions in another programmatically. API integration connects systems through these interfaces, so data flows and actions happen automatically between them, rather than through manual export and import.` },
@@ -3497,7 +3497,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Each integration must earn its place`, body: `An integration is not free - it adds complexity, a sync to monitor, and a place data can go wrong. So each should earn its place by eliminating real manual work or unifying important data. Connecting every possible integration creates maintenance burden and risk without proportional value. Choose deliberately.` },
-      { h: `How Rally helps`, body: `Rally connects to the tools teams genuinely run on, with clean mapping, reliable sync, and a clear system-of-record model, and Rook monitors sync health. You get the high-value integrations on solid foundations, without the burden of maintaining connections that do not earn their place.` },
+      { h: `How Ardovo helps`, body: `Ardovo connects to the tools teams genuinely run on, with clean mapping, reliable sync, and a clear system-of-record model, and Rook monitors sync health. You get the high-value integrations on solid foundations, without the burden of maintaining connections that do not earn their place.` },
     ],
     faqs: [
       { q: `Which CRM integrations are worth setting up?`, a: `The ones that eliminate real manual work or unify important data: email and calendar for activity capture, marketing for lead flow, support for customer context, and billing for revenue. Prioritize integrations that deliver genuine value, since each one you connect adds complexity and a sync to maintain.` },
@@ -3517,7 +3517,7 @@ const ROWS = [
     ],
     sections: [
       { h: `Near-match fields are the trap, and errors are silent`, body: `Two things make cross-system mapping risky: near-match fields that map cleanly by name but mean different things (billing versus shipping address), and the fact that mapping errors are silent - no alarm, just data continuously syncing into the wrong place. Read field meanings, not labels, and test before relying on the sync.` },
-      { h: `How Rally helps`, body: `Rally auto-maps common fields, translates values between systems, and previews the mapping, and Rook flags likely near-match mistakes. Because the mapping is tested before it runs, synced data lands in the field you meant rather than silently accumulating in the wrong place.` },
+      { h: `How Ardovo helps`, body: `Ardovo auto-maps common fields, translates values between systems, and previews the mapping, and Rook flags likely near-match mistakes. Because the mapping is tested before it runs, synced data lands in the field you meant rather than silently accumulating in the wrong place.` },
     ],
     faqs: [
       { q: `What is the hardest part of mapping fields between systems?`, a: `Near-match fields that map cleanly by name but mean different things - billing versus shipping address, company versus account name, created versus close date. They pair by label but sync wrong data. Reading what each field actually means, not just its name, is what avoids these silent mismaps.` },
@@ -3533,7 +3533,7 @@ export default ROWS.map((r) => {
     slug: r.slug,
     type: r.type,
     title: r.title,
-    metaTitle: r.metaTitle || `${r.title.replace(/\?$/, '')} (2026) | Rally`,
+    metaTitle: r.metaTitle || `${r.title.replace(/\?$/, '')} (2026) | Ardovo`,
     metaDescription: r.metaDescription || clip(r.shortAnswer),
     eyebrow: r.eyebrow || (isGuide ? 'CRM playbook' : 'CRM glossary'),
     h1: r.h1 || r.title,

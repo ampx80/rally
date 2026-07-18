@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DEAL FILM  (Cinematic Deal Film - scene graph builder)
+// ARDOVO DEAL FILM  (Cinematic Deal Film - scene graph builder)
 // Turns a deal (or the quarter) into a cinematic, auto-playing
 // visual story. This module is the "editor": it treats the deal's
 // REAL history - audit trail, stage journey, buying committee,

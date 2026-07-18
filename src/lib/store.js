@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DATA STORE  (local-first, Supabase-swappable)
+// ARDOVO DATA STORE  (local-first, Supabase-swappable)
 // One module owns every CRM data shape + the read/write API.
 // A deterministic PRNG builds a believable book of business on
 // first run; mutations persist to localStorage so the demo feels
@@ -79,12 +79,12 @@ function buildSeed() {
 
   /* --- users (the revenue team) --- */
   const users = [
-    { id: 'u_1', name: 'Jordan Avery', email: 'jordan@rally.app', role: 'rep', title: 'Senior Account Executive', quota: 900000 },
-    { id: 'u_2', name: 'Simone Diaz', email: 'simone@rally.app', role: 'rep', title: 'Account Executive', quota: 750000 },
-    { id: 'u_3', name: 'Theo Bennett', email: 'theo@rally.app', role: 'rep', title: 'Account Executive', quota: 750000 },
-    { id: 'u_4', name: 'Nina Kapoor', email: 'nina@rally.app', role: 'rep', title: 'Enterprise AE', quota: 1200000 },
-    { id: 'u_5', name: 'Marcus Hale', email: 'marcus@rally.app', role: 'rep', title: 'Account Executive', quota: 700000 },
-    { id: 'u_6', name: 'Elena Ross', email: 'elena@rally.app', role: 'manager', title: 'VP of Revenue', quota: 0 },
+    { id: 'u_1', name: 'Jordan Avery', email: 'jordan@ardovo.com', role: 'rep', title: 'Senior Account Executive', quota: 900000 },
+    { id: 'u_2', name: 'Simone Diaz', email: 'simone@ardovo.com', role: 'rep', title: 'Account Executive', quota: 750000 },
+    { id: 'u_3', name: 'Theo Bennett', email: 'theo@ardovo.com', role: 'rep', title: 'Account Executive', quota: 750000 },
+    { id: 'u_4', name: 'Nina Kapoor', email: 'nina@ardovo.com', role: 'rep', title: 'Enterprise AE', quota: 1200000 },
+    { id: 'u_5', name: 'Marcus Hale', email: 'marcus@ardovo.com', role: 'rep', title: 'Account Executive', quota: 700000 },
+    { id: 'u_6', name: 'Elena Ross', email: 'elena@ardovo.com', role: 'manager', title: 'VP of Revenue', quota: 0 },
   ];
   const repIds = users.filter(u => u.role === 'rep').map(u => u.id);
   const currentUserId = 'u_1';

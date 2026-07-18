@@ -1,12 +1,12 @@
 // api/nightshift-run.js
 //
-// Server-side entry point for Rally's Night Shift (the reversible
+// Server-side entry point for Ardovo's Night Shift (the reversible
 // autonomous operator). Two triggers, both env-gated and fail-safe:
 //
 //   GET  (cron trigger, no body)
 //     The nightly "overnight pass". In the hosted product this reads the
 //     book from Supabase, computes proposals, and stages them into
-//     rally_nightshift_proposals for the morning Diff of Record. Rally's
+//     rally_nightshift_proposals for the morning Diff of Record. Ardovo's
 //     demo store is client-side, so with no Supabase configured there is
 //     nothing durable to compute on the server: it no-ops with a 200 and a
 //     clear reason. The cron NEVER errors.

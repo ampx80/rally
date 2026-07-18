@@ -1,7 +1,7 @@
 // ============================================================
 // PIPELINE WIND TUNNEL  -  backtest a sales policy like a quant.
 //
-// Rally's book of business is a single deterministic object with a
+// Ardovo's book of business is a single deterministic object with a
 // re-computable risk model (intelligence-data.scoreDeal) and a real
 // automations engine. That lets us do what a server-of-record CRM
 // cannot: take the REAL closed history, replay it under a

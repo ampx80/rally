@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY E-SIGN STORE  (the signing + audit layer for Studio docs)
+// ARDOVO E-SIGN STORE  (the signing + audit layer for Studio docs)
 // Turns a generated proposal into a signable, legally-legible
 // document with a DocuSign-style flow: a sender adds signers and
 // places fields (signature / date / text), sends the request, and
@@ -78,7 +78,7 @@ function docSnapshot(doc) {
 function buildSeed() {
   const requests = [];
   const docs = (() => { try { return getDocs(); } catch { return []; } })();
-  const senderName = getCurrentUser()?.name || 'Rally';
+  const senderName = getCurrentUser()?.name || 'Ardovo';
 
   // 1) A completed, fully-executed proposal (both parties signed).
   const d1 = docs.find(d => d.id === 'doc_seed_1') || docs[0];
@@ -97,11 +97,11 @@ function buildSeed() {
     const t2 = new Date(Date.now() - 1000 * 60 * 60 * 20).toISOString();
     const t3 = new Date(Date.now() - 1000 * 60 * 60 * 19).toISOString();
     const s1 = { id: nid('sgr'), name: buyerName, email: buyerEmail, role: 'Customer', order: 1, status: 'signed', signedAt: t3, signatureDataUrl: typedSignatureDataUrl(buyerName) };
-    const s2 = { id: nid('sgr'), name: senderName, email: 'revops@rally.app', role: 'Rally', order: 2, status: 'signed', signedAt: t3, signatureDataUrl: typedSignatureDataUrl(senderName) };
+    const s2 = { id: nid('sgr'), name: senderName, email: 'revops@ardovo.com', role: 'Ardovo', order: 2, status: 'signed', signedAt: t3, signatureDataUrl: typedSignatureDataUrl(senderName) };
     const fields = [
       { id: nid('sgf'), signerId: s1.id, type: 'signature', label: 'Authorized signature', required: true, value: s1.signatureDataUrl },
       { id: nid('sgf'), signerId: s1.id, type: 'date', label: 'Date signed', required: true, value: t3.slice(0, 10) },
-      { id: nid('sgf'), signerId: s2.id, type: 'signature', label: 'Rally signature', required: true, value: s2.signatureDataUrl },
+      { id: nid('sgf'), signerId: s2.id, type: 'signature', label: 'Ardovo signature', required: true, value: s2.signatureDataUrl },
     ];
     requests.push({
       id: 'sig_seed_1', docId: d1.id, docName: snap.name, accent: snap.accent, snapshot: snap,
@@ -366,6 +366,6 @@ export function suggestSigners(docId) {
     }
   }
   const rep = deal ? userName(deal.ownerId) : senderNow();
-  out.push({ name: rep, email: 'revops@rally.app', role: 'Rally' });
+  out.push({ name: rep, email: 'revops@ardovo.com', role: 'Ardovo' });
   return out;
 }

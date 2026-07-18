@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SERVER-SIDE AUTHORIZATION  (authz)
+// ARDOVO SERVER-SIDE AUTHORIZATION  (authz)
 // ============================================================
 // The server-truth companion to the client RBAC in src/lib/rbac.js.
 // Client RBAC decides what the UI *shows*; this module decides what the
@@ -10,9 +10,9 @@
 // Identity resolution accepts EITHER:
 //   1. A Supabase access token (Authorization: Bearer <jwt>) -> getUser,
 //      then a rally_memberships lookup for { orgId, role }.
-//   2. A Rally API key (Authorization: Bearer rk_live_...) -> reuses the
+//   2. A Ardovo API key (Authorization: Bearer rk_live_...) -> reuses the
 //      api/_lib-v1.js key auth. Machine principals get a configurable role
-//      (RALLY_API_KEY_ROLE, default 'admin') since a key is a trusted
+//      (ARDOVO_API_KEY_ROLE, default 'admin') since a key is a trusted
 //      server-issued secret.
 //
 // GUARDED / ADDITIVE: when Supabase is not configured this module NEVER
@@ -137,7 +137,7 @@ async function resolveMembership(admin, userId, hint) {
 
 /* ------------------------------------------------------------
    API-key validation (reuses api/_lib-v1.js so both entry points agree
-   on which keys are valid). Machine principals get RALLY_API_KEY_ROLE.
+   on which keys are valid). Machine principals get ARDOVO_API_KEY_ROLE.
    ------------------------------------------------------------ */
 async function authenticateApiKey(req, token) {
   const { authenticate: keyAuth } = await import('./_lib-v1.js');
@@ -145,7 +145,7 @@ async function authenticateApiKey(req, token) {
   if (!result.ok) {
     return { ok: false, configured: true, status: result.status || 401, code: result.code || 'invalid_api_key', error: result.message };
   }
-  const role = ROLE_IDS.includes(process.env.RALLY_API_KEY_ROLE) ? process.env.RALLY_API_KEY_ROLE : 'admin';
+  const role = ROLE_IDS.includes(process.env.ARDOVO_API_KEY_ROLE) ? process.env.ARDOVO_API_KEY_ROLE : 'admin';
   return {
     ok: true,
     configured: true,

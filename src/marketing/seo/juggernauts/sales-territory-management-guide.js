@@ -8,11 +8,11 @@ const entry = {
   slug: 'sales-territory-management-guide',
   title: 'Sales Territory Management: The Complete Guide',
   h1: 'Sales Territory Management: The Complete Guide',
-  metaTitle: 'Sales Territory Management: The Complete Guide (2026) | Rally',
+  metaTitle: 'Sales Territory Management: The Complete Guide (2026) | Ardovo',
   metaDescription: 'A deep, practical guide to designing and balancing sales territories: potential vs capacity, a coverage and balance calculator, mapping methods, and how to keep territories fair as you grow.',
   eyebrow: 'RevOps Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -235,9 +235,9 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally handles territory management',
+      title: 'How Ardovo handles territory management',
       body: [
-        'Rally is an AI-native CRM that is alive on first load, so your accounts, potential scores, and owners are a working model from the start rather than an empty grid you configure for weeks. Because every account, contact, and deal lives in one source of truth, a balance report and a coverage view are just two ways of reading the same data instead of a separate spreadsheet you have to reconcile.',
+        'Ardovo is an AI-native CRM that is alive on first load, so your accounts, potential scores, and owners are a working model from the start rather than an empty grid you configure for weeks. Because every account, contact, and deal lives in one source of truth, a balance report and a coverage view are just two ways of reading the same data instead of a separate spreadsheet you have to reconcile.',
         'Rook, the built-in operator, can route a new account to the right territory the moment it appears, flag a book that has drifted past your balance threshold, and surface high-value accounts that have gone untouched for too long. You keep the judgment calls; the busywork of scoring, routing, and re-checking runs itself. And it is all one flat price per seat across every module, so growing the team does not mean re-pricing the tool.',
         'None of that replaces the thinking in this guide. The method here works in any CRM, or even a careful spreadsheet. The difference is how much of the ongoing maintenance you have to do by hand versus how much the system does for you between reviews.',
       ],
@@ -245,7 +245,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped guessing whose account was whose. Balance and coverage are one report now, so the quarterly territory fight turned into a fifteen minute check.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of RevOps, growth-stage B2B',
     },
     {

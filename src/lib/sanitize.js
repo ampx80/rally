@@ -1,12 +1,12 @@
 // ============================================================
-// RALLY INPUT SANITIZERS  (isomorphic: browser + serverless)
+// ARDOVO INPUT SANITIZERS  (isomorphic: browser + serverless)
 // Pure ES module, zero dependencies, no Node or DOM globals. Safe to import
 // from React components AND from api/* serverless routes. Every helper is a
 // pure function that never throws on bad input (it coerces instead).
 //
 // Purpose: one shared, audited place for the boring-but-critical work of
 // clamping lengths, stripping control characters, escaping for safe display,
-// and validating the handful of formats Rally accepts (email, http(s) url,
+// and validating the handful of formats Ardovo accepts (email, http(s) url,
 // slug, phone). NO em-dash / en-dash. ASCII only.
 // ============================================================
 

@@ -50,7 +50,7 @@ export default function MailboxManager() {
         <div className="col gap-1">
           <h4 style={{ margin: 0 }}>Email + calendar</h4>
           <span className="muted t-sm" style={{ maxWidth: '56ch' }}>
-            Connect a mailbox so Rally can send from your address and log email + meetings on the timeline.
+            Connect a mailbox so Ardovo can send from your address and log email + meetings on the timeline.
             Use one-click Google or Microsoft, or connect any provider with SMTP.
           </span>
         </div>
@@ -59,7 +59,7 @@ export default function MailboxManager() {
 
       {mailboxes.length === 0 ? (
         <EmptyState icon="📬" title="No mailbox connected yet"
-          body="Connect your email to send from Rally and capture every reply automatically."
+          body="Connect your email to send from Ardovo and capture every reply automatically."
           action={<Button variant="accent" onClick={() => setModal('choose')}>Connect a mailbox</Button>} />
       ) : (
         <div className="col gap-2">
@@ -185,7 +185,7 @@ function SmtpModal({ onClose, onDone }) {
           <Field label="Password / app password"><Input type="password" value={form.password} onChange={set('password')} placeholder="App password recommended" /></Field>
         </div>
         <div className="grid" style={{ gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
-          <Field label="IMAP host" hint="For logging replies into Rally."><Input value={form.imapHost} onChange={set('imapHost')} placeholder="imap.company.com" /></Field>
+          <Field label="IMAP host" hint="For logging replies into Ardovo."><Input value={form.imapHost} onChange={set('imapHost')} placeholder="imap.company.com" /></Field>
           <Field label="IMAP port"><Input value={form.imapPort} onChange={set('imapPort')} inputMode="numeric" /></Field>
         </div>
         <span className="t-xs muted">Passwords are stored for this local workspace only. In production, mailbox secrets move to an encrypted vault and sending runs server-side.</span>

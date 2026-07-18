@@ -1,6 +1,6 @@
 // api/marketing-run.js
 //
-// Rally's cron-able MARKETING SEND runner. Two jobs, both env-gated and
+// Ardovo's cron-able MARKETING SEND runner. Two jobs, both env-gated and
 // fail-safe, and both route EVERY message through the hardened primitive
 // api/_lib-email.js (Resend + retry/backoff + idempotency + suppression,
 // a safe no-op without RESEND_API_KEY).
@@ -34,7 +34,7 @@
 //
 // Env (all optional - absence degrades cleanly, never throws):
 //   RESEND_API_KEY                             required to actually send
-//   RALLY_FROM / NOTIFY_FROM / RESEND_FROM     default sender (see _lib-email)
+//   ARDOVO_FROM / NOTIFY_FROM / RESEND_FROM     default sender (see _lib-email)
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY   durable automations + contacts
 //   MARKETING_ENABLED = "false"                hard kill-switch for the cron
 //   MARKETING_DAILY_CAP                        per-run send ceiling (default 200)
@@ -142,7 +142,7 @@ function render(text, c) {
     .split('{{company}}').join(company)
     .split('{{fullName}}').join(c.full_name || first)
     .split('{{title}}').join(c.title || '')
-    .split('{{senderName}}').join('the Rally team');
+    .split('{{senderName}}').join('the Ardovo team');
 }
 function bodyToHtml(text) {
   return String(text || '')

@@ -1,7 +1,7 @@
-// Scheduler - Rally's NATIVE meetings scheduler (an in-app Calendly).
+// Scheduler - Ardovo's NATIVE meetings scheduler (an in-app Calendly).
 //
 // Where the existing /scheduling page reads meetings booked through the Tango
-// connector, THIS page is Rally's own booking engine: create booking types
+// connector, THIS page is Ardovo's own booking engine: create booking types
 // (duration, buffers, weekly availability, round-robin owners), grab a copyable
 // public link, and watch upcoming meetings roll in. Every public booking writes
 // a real activity (type meeting) onto the record timeline via the store.
@@ -25,7 +25,7 @@ import {
 import { Icon } from '../components/icons.jsx';
 
 const money = (n) => n;
-const originNow = () => (typeof window !== 'undefined' && window.location ? window.location.origin : 'https://rally.app');
+const originNow = () => (typeof window !== 'undefined' && window.location ? window.location.origin : 'https://ardovo.com');
 
 function relDay(iso) {
   const d = new Date(iso); const now = new Date();
@@ -175,7 +175,7 @@ function TypeModal({ open, onClose, editing }) {
         </Field>
         <div className="t-xs muted" style={{ marginTop: -8 }}>Public link: /meet/<strong style={{ color: 'var(--accent-700)' }}>{slugPreview}</strong></div>
         <Field label="Description (shown on the booking page)">
-          <Textarea rows={2} value={form.description} onChange={e => up({ description: e.target.value })} placeholder="A guided 30 minute walkthrough of Rally." />
+          <Textarea rows={2} value={form.description} onChange={e => up({ description: e.target.value })} placeholder="A guided 30 minute walkthrough of Ardovo." />
         </Field>
 
         <div className="row gap-2 wrap">
@@ -369,7 +369,7 @@ export default function Scheduler() {
       <PageTitle
         eyebrow="Scheduler"
         title="Meetings"
-        sub="Rally's native scheduler. Publish a booking link, let prospects self-serve a time, and every meeting lands on the timeline automatically."
+        sub="Ardovo's native scheduler. Publish a booking link, let prospects self-serve a time, and every meeting lands on the timeline automatically."
         action={<Button onClick={openNew}><Icon name="plus" size={16} /> New meeting type</Button>}
       />
 

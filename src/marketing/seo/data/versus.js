@@ -1,14 +1,14 @@
 // versus dataset - neutral, third-party head-to-head comparisons between TWO
-// competitors (not Rally). type: 'versus', slug 'a-vs-b'. Each entry stays
-// even-handed, then includes a short honest "Where Rally fits" section.
+// competitors (not Ardovo). type: 'versus', slug 'a-vs-b'. Each entry stays
+// even-handed, then includes a short honest "Where Ardovo fits" section.
 // NO em-dash / en-dash. ASCII hyphen only.
 
-// Reusable "Where Rally fits" block. context = short phrase naming the two tools
+// Reusable "Where Ardovo fits" block. context = short phrase naming the two tools
 // or the category, e.g. "Salesforce and HubSpot" or "these two pipeline CRMs".
 function rallyFit(context) {
   return {
-    h: 'Where Rally fits',
-    body: 'If you are weighing ' + context + ' because neither feels quite right, it is worth knowing a third path exists. Rally is an AI-native CRM where the operator, Rook, executes multi-step work rather than just storing records, the workspace is alive with data on first load, and every module (pipeline, forecasting, sequences, CPQ, reporting) is one flat price. Teams comparing ' + context + ' often shortlist Rally when they want less manual upkeep, fewer add-on bills, and a forecast that is honest on day one.',
+    h: 'Where Ardovo fits',
+    body: 'If you are weighing ' + context + ' because neither feels quite right, it is worth knowing a third path exists. Ardovo is an AI-native CRM where the operator, Rook, executes multi-step work rather than just storing records, the workspace is alive with data on first load, and every module (pipeline, forecasting, sequences, CPQ, reporting) is one flat price. Teams comparing ' + context + ' often shortlist Ardovo when they want less manual upkeep, fewer add-on bills, and a forecast that is honest on day one.',
   };
 }
 
@@ -17,7 +17,7 @@ function v(s) {
     slug: s.slug,
     type: 'versus',
     title: s.title,
-    metaTitle: s.metaTitle || (s.title + ': features, pricing, and which to choose (2026) | Rally'),
+    metaTitle: s.metaTitle || (s.title + ': features, pricing, and which to choose (2026) | Ardovo'),
     metaDescription: s.md,
     eyebrow: s.a + ' vs ' + s.b,
     h1: s.h1 || (s.a + ' vs ' + s.b + ': the honest comparison'),

@@ -1,4 +1,4 @@
-// DemoPage - the self-guided interactive product tour at /demo. A faux Rally
+// DemoPage - the self-guided interactive product tour at /demo. A faux Ardovo
 // workspace (chrome + sidebar + main) the prospect drives through five scenes:
 // see the pipeline, open a deal, ask Rook and watch it act, watch a forecast
 // update, and generate a proposal that assembles itself. Progress dots,
@@ -427,7 +427,7 @@ function SceneForecast() {
 /* ------------------------------------------------------------------ */
 const PROP_STEPS = ['Pull deal + committee', 'Price 250 seats', 'Add onboarding + support', 'Total, terms, and signature'];
 const PROP_LINES = [
-  ['Rally platform license - 250 seats', '$360,000'],
+  ['Ardovo platform license - 250 seats', '$360,000'],
   ['Onboarding + white-glove migration', '$60,000'],
   ['Premium support - 12 months', '$60,000'],
 ];
@@ -496,7 +496,7 @@ function SceneProposal() {
           {stage === 0 && <div className="dmo-doc-empty">Your proposal will build here.</div>}
           {stage >= 1 && (
             <div className="m-arrive dmo-doc-cover">
-              <div className="dmo-doc-kicker">Rally proposal</div>
+              <div className="dmo-doc-kicker">Ardovo proposal</div>
               <div className="dmo-doc-title">Enterprise Expansion</div>
               <div className="dmo-doc-for">Prepared for Vertex Robotics - Nadia Vance</div>
             </div>
@@ -570,7 +570,7 @@ export default function DemoPage() {
           <Reveal>
             <span className="dmo-hero-tag"><Icon name="sparkles" size={14} /> Interactive demo</span>
             <h1 className="mkt-h1" style={{ margin: '20px auto 0', maxWidth: 880, fontSize: 'clamp(2.3rem, 5.4vw, 3.9rem)' }}>
-              Drive Rally yourself. <span className="mkt-grad m-shine">No signup.</span>
+              Drive Ardovo yourself. <span className="mkt-grad m-shine">No signup.</span>
             </h1>
             <p className="mkt-lead" style={{ margin: '20px auto 0', maxWidth: 620 }}>
               A guided, clickable sandbox. Walk the pipeline, open a deal, ask Rook, watch a forecast
@@ -594,8 +594,8 @@ export default function DemoPage() {
             <div className="dmo-shell">
               <div className="dmo-chrome">
                 <span className="dmo-chrome-dots"><i style={{ background: '#ff5f57' }} /><i style={{ background: '#febc2e' }} /><i style={{ background: '#28c840' }} /></span>
-                <span className="dmo-chrome-brand"><span className="dmo-chrome-mark"><Icon name="zap" size={12} fill="currentColor" stroke={0} /></span> Rally</span>
-                <span className="dmo-chrome-addr"><Icon name="lock" size={11} /> app.rally.so/{meta.key}</span>
+                <span className="dmo-chrome-brand"><span className="dmo-chrome-mark"><Icon name="zap" size={12} fill="currentColor" stroke={0} /></span> Ardovo</span>
+                <span className="dmo-chrome-addr"><Icon name="lock" size={11} /> app.ardovo.com/{meta.key}</span>
                 <span className="dmo-chrome-live"><span className="mkt-dot m-pulse" /> Rook is live</span>
               </div>
               <div className="dmo-body">
@@ -639,7 +639,7 @@ export default function DemoPage() {
 
       {/* Closing CTA */}
       <CtaBand
-        title="You just ran Rally. Now make it yours."
+        title="You just ran Ardovo. Now make it yours."
         sub="Start free and your workspace loads full, live, and ready. Ask Rook and watch it move for real."
       />
     </>

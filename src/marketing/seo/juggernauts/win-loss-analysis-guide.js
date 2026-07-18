@@ -8,11 +8,11 @@ const entry = {
   slug: 'win-loss-analysis-guide',
   title: 'Win-Loss Analysis: The Complete Guide',
   h1: 'Win-Loss Analysis: How to Learn Why You Really Win and Lose',
-  metaTitle: 'Win-Loss Analysis: The Complete Guide for 2026 (Steps, Questions, Calculator) | Rally',
+  metaTitle: 'Win-Loss Analysis: The Complete Guide for 2026 (Steps, Questions, Calculator) | Ardovo',
   metaDescription: 'A deep, practical guide to win-loss analysis: why it matters, how to run it step by step, the exact questions to ask, a win-rate and insight calculator, and a feedback-loop architecture that turns findings into a higher win rate.',
   eyebrow: 'Revenue Intelligence',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -138,7 +138,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We thought we were losing on price. Six honest interviews later it was obvious we were losing on a missing integration and a weak second demo. We stopped discounting, fixed the demo, and our win rate against our main competitor climbed within a quarter.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, B2B software',
     },
     {
@@ -219,7 +219,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Ways to run win-loss, compared',
       rowHeader: 'Attribute',
-      columns: ['Inside your CRM (Rally)', 'CRM dropdown only', 'Outside spreadsheet + third party'],
+      columns: ['Inside your CRM (Ardovo)', 'CRM dropdown only', 'Outside spreadsheet + third party'],
       highlightCol: 0,
       rows: [
         { feature: 'Triggered automatically on close', cells: [true, 'partial', false] },
@@ -264,10 +264,10 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally makes the loop close itself',
+      title: 'How Ardovo makes the loop close itself',
       body: [
         'Most win-loss programs fail on logistics, not insight. The deal closes and nobody remembers to request the interview. The transcript lives in a folder nobody opens. The finding is real but never reaches the person who could ship the fix. The work is sound; the plumbing leaks.',
-        'Rally is an AI-native CRM built so the plumbing does not leak. When a deal closes, Rook, the built-in operator, can flag it for a win-loss interview, draft the neutral outreach, and file the recording and coded themes against the deal record automatically. Because every closed deal, its revenue, its competitor, and its segment already live in one source of truth, the analysis rolls up on first load instead of waiting on a spreadsheet merge.',
+        'Ardovo is an AI-native CRM built so the plumbing does not leak. When a deal closes, Rook, the built-in operator, can flag it for a win-loss interview, draft the neutral outreach, and file the recording and coded themes against the deal record automatically. Because every closed deal, its revenue, its competitor, and its segment already live in one source of truth, the analysis rolls up on first load instead of waiting on a spreadsheet merge.',
         'The payoff is that ranked findings link straight back to the deals that produced them, and you can re-measure the win rate for exactly the cohort a change was meant to help. All of it sits inside one flat price, so a win-loss program is something you run continuously, not a project you fund once and quietly cancel.',
       ],
     },

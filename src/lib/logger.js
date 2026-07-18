@@ -1,4 +1,4 @@
-// Rally structured logger.
+// Ardovo structured logger.
 //
 // A tiny, dependency-free logger for the browser. Four things it does:
 //   1. Levels (debug/info/warn/error) with a numeric floor so noise is cheap.

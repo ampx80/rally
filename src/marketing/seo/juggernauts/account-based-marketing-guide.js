@@ -9,11 +9,11 @@ const entry = {
   slug: 'account-based-marketing-guide',
   title: 'Account-Based Marketing (ABM): The Complete Guide',
   h1: 'Account-Based Marketing: The Complete Guide for 2026',
-  metaTitle: 'Account-Based Marketing (ABM): The Complete 2026 Guide, Funnel, and Calculator | Rally',
+  metaTitle: 'Account-Based Marketing (ABM): The Complete 2026 Guide, Funnel, and Calculator | Ardovo',
   metaDescription: 'A deep, practical guide to account-based marketing in 2026: the flipped ABM funnel, how to tier target accounts, sales and marketing alignment, a TAM and pipeline calculator, and ABM vs demand gen compared.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 76, suffix: '%', label: 'Of ABM programs report higher ROI than other marketing' },
     { value: 3, suffix: 'x', label: 'Typical lift in deal size on named target accounts' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price across every revenue module' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price across every revenue module' },
   ],
   blocks: [
     {
@@ -156,7 +156,7 @@ const entry = {
     {
       type: 'quote',
       text: 'The moment sales and marketing worked one target list off one account view, our win rate on strategic logos roughly doubled. The list stopped being marketing homework and started being pipeline.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Revenue, B2B software',
     },
     {
@@ -248,7 +248,7 @@ const entry = {
       title: 'Where an AI-native platform changes the ABM math',
       body: [
         'The historical barrier to ABM was labor. Personalizing outreach to fifty buying groups, watching intent across hundreds of accounts, and keeping sales and marketing on the same record used to demand a dedicated operations team. That is why ABM stayed the preserve of large enterprises.',
-        'An AI-native revenue platform removes that barrier. Rally keeps every account, its buying group, its signals, and its opportunity in a single live record, so sales and marketing never drift out of sync. Its operator, Rook, enriches accounts, watches for intent spikes, drafts account-specific outreach, and flags which tier-one logos are going cold, all on one flat price rather than a stack of add-ons. That does not replace strategy, but it makes running a disciplined ABM program realistic for a team of two, not just a department of twenty. As always, verify current pricing and packaging before you plan a budget around it.',
+        'An AI-native revenue platform removes that barrier. Ardovo keeps every account, its buying group, its signals, and its opportunity in a single live record, so sales and marketing never drift out of sync. Its operator, Rook, enriches accounts, watches for intent spikes, drafts account-specific outreach, and flags which tier-one logos are going cold, all on one flat price rather than a stack of add-ons. That does not replace strategy, but it makes running a disciplined ABM program realistic for a team of two, not just a department of twenty. As always, verify current pricing and packaging before you plan a budget around it.',
       ],
     },
     {

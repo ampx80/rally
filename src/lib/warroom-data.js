@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY - DEAL WAR ROOM  (warroom-data.js)
+// ARDOVO - DEAL WAR ROOM  (warroom-data.js)
 // A live collaboration cockpit for closing big deals. Enterprise
 // deals are won in war rooms, not CRM fields: buying committee,
 // mutual close plan, risks, competitive landscape, and a live team

@@ -11,11 +11,11 @@ const entry = {
   slug: 'sales-automation-guide',
   title: 'Sales Automation: The Complete 2026 Guide',
   h1: 'Sales Automation: The Complete 2026 Guide',
-  metaTitle: 'Sales Automation: The Complete 2026 Guide (What to Automate, the Stack, and a Time Calculator) | Rally',
+  metaTitle: 'Sales Automation: The Complete 2026 Guide (What to Automate, the Stack, and a Time Calculator) | Ardovo',
   metaDescription: 'A deep, practical guide to sales automation in 2026: what to automate and what to leave to humans, the automation stack, an automated lead-to-close flow, a time-reclaimed calculator, and a step-by-step build order.',
   eyebrow: 'RevOps Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -26,7 +26,7 @@ const entry = {
   heroStats: [
     { value: 28, suffix: '%', label: 'Typical share of a rep week actually spent selling' },
     { value: 13, suffix: ' hrs', label: 'Median weekly hours per rep on automatable admin' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every automation included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every automation included' },
   ],
   blocks: [
     {
@@ -107,7 +107,7 @@ const entry = {
       title: 'One source of truth, or nothing ties out',
       body: [
         'The single biggest mistake teams make is bolting point tools onto a CRM that does not own the data. You end up with a sequencing tool, an enrichment tool, a scheduling tool, and a dialer, each with its own copy of the truth, and none of them agree. Now your automation is firing off stale data and your reports do not reconcile.',
-        'A durable automation stack has one source of truth in the middle. Capture flows into it, the operator acts on it, and every surface reads from it, so a change in one place is a change everywhere. Rally is built this way on purpose: leads, contacts, companies, and deals live in one core, the Rook operator acts on that core, and the pipeline, reports, and quotes all derive from the same records. That is why the numbers reconcile instead of drifting.',
+        'A durable automation stack has one source of truth in the middle. Capture flows into it, the operator acts on it, and every surface reads from it, so a change in one place is a change everywhere. Ardovo is built this way on purpose: leads, contacts, companies, and deals live in one core, the Rook operator acts on that core, and the pipeline, reports, and quotes all derive from the same records. That is why the numbers reconcile instead of drifting.',
       ],
     },
     {
@@ -247,14 +247,14 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped hiring our way out of admin. Automating capture, logging, and first-touch gave every rep most of a day back each week, and it went straight into more conversations.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, growth-stage B2B',
     },
     {
       type: 'richText',
-      title: 'Where Rally fits, and where to stay put',
+      title: 'Where Ardovo fits, and where to stay put',
       body: [
-        'Rally is built for teams that want automation to be native rather than bolted on. Because it is AI-native and alive on first load, capture, logging, routing, cadences, and forecasting work out of the box, and the Rook operator handles the reasoning-heavy steps rather than just firing static rules. One flat price covers every module, so you are not assembling and paying for a stack of point tools that each own a slice of your data. Verify current pricing and packaging before you commit, since plans change.',
+        'Ardovo is built for teams that want automation to be native rather than bolted on. Because it is AI-native and alive on first load, capture, logging, routing, cadences, and forecasting work out of the box, and the Rook operator handles the reasoning-heavy steps rather than just firing static rules. One flat price covers every module, so you are not assembling and paying for a stack of point tools that each own a slice of your data. Verify current pricing and packaging before you commit, since plans change.',
         'Be fair about when to stay put. If your team already runs a mature, well-adopted stack that your people trust and your reports genuinely reconcile, the cost of switching may outweigh the gain, and a heavily customized legacy platform can be the right call for a large enterprise with dedicated admins. Automation is a means, not a trophy. The best system is the one your reps actually keep updated, because a modestly automated CRM everyone uses beats a perfectly wired one nobody touches.',
       ],
     },
@@ -267,7 +267,7 @@ const entry = {
         { q: 'Where should a team start with sales automation?', a: 'Start with capture and auto-logging so your data is clean, then automate routing and speed-to-lead, which is usually the single highest-ROI automation. Add cadences, then automate the forecast, and layer the AI operator on last once the plumbing is solid.' },
         { q: 'How much time does sales automation actually save?', a: 'Reps typically lose double-digit hours a week to automatable admin like data entry, logging, and manual follow-up. Automating the mechanical work commonly gives back the majority of those hours, which flow straight into selling. Use the calculator above to model your own numbers.' },
         { q: 'Does sales automation replace salespeople?', a: 'No. Done well it removes busywork so reps spend more time in front of buyers, not less. The reps who benefit most show up to every conversation fully prepared because the machine did the prep. Automation replaces the copy-pasting, not the relationship.' },
-        { q: 'Do I need separate tools for each automation?', a: 'You can stitch together point tools, but each keeps its own copy of the data, and they drift out of sync so your automations fire on stale records and your reports do not reconcile. A platform with one source of truth, like Rally, keeps capture, the operator, and every surface reading from the same records. Verify current packaging before deciding.' },
+        { q: 'Do I need separate tools for each automation?', a: 'You can stitch together point tools, but each keeps its own copy of the data, and they drift out of sync so your automations fire on stale records and your reports do not reconcile. A platform with one source of truth, like Ardovo, keeps capture, the operator, and every surface reading from the same records. Verify current packaging before deciding.' },
       ],
     },
   ],

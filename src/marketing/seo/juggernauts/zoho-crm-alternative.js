@@ -10,11 +10,11 @@ const entry = {
   slug: 'zoho-crm-alternative',
   title: 'The Best Zoho CRM Alternative in 2026',
   h1: 'The Best Zoho CRM Alternative in 2026: A Buyers Guide',
-  metaTitle: 'The Best Zoho CRM Alternative in 2026: Fair Comparison, Migration Math, and Buyers Guide | Rally',
+  metaTitle: 'The Best Zoho CRM Alternative in 2026: Fair Comparison, Migration Math, and Buyers Guide | Ardovo',
   metaDescription: 'A practical, fair guide to replacing Zoho CRM in 2026: why teams outgrow the suite, what to look for instead, a feature comparison matrix, a switching-cost calculator, and how to migrate without downtime.',
   eyebrow: 'Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   ],
   heroStats: [
     { value: 40, prefix: '', suffix: '+', label: 'Separate products in the Zoho One suite you may end up stitching together' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on an alive-on-load platform like Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on an alive-on-load platform like Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price vs edition-and-add-on math' },
   ],
   blocks: [
@@ -57,7 +57,7 @@ const entry = {
         layers: [
           { label: 'Suite model (stitch)', nodes: ['CRM module', 'Campaigns app', 'Desk app', 'Books app', 'Analytics app'] },
           { label: 'Sync burden', nodes: ['Connectors', 'Field mapping', 'Manual cleanup'] },
-          { label: 'Unified model (Rally)', nodes: ['Leads', 'Contacts', 'Companies', 'Deals'] },
+          { label: 'Unified model (Ardovo)', nodes: ['Leads', 'Contacts', 'Companies', 'Deals'] },
           { label: 'Shared surfaces', nodes: ['Pipeline', 'Reports', 'Automation', 'AI operator'] },
         ],
       },
@@ -87,7 +87,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Zoho CRM alternative comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Zoho CRM', 'Legacy CRM'],
+      columns: ['Ardovo', 'Zoho CRM', 'Legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with structure on first load', cells: [true, 'partial', false] },
@@ -113,7 +113,7 @@ const entry = {
       title: 'Time to first useful pipeline view',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Zoho CRM', value: 480, display: '1-2 days' },
           { label: 'Legacy CRM', value: 1200, display: '2-3 weeks' },
         ],
@@ -183,7 +183,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We were not missing features on Zoho, we were drowning in tabs. Moving to one connected system meant our numbers finally matched and the follow-ups just happened.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'RevOps lead, growth-stage B2B',
     },
     {
@@ -216,10 +216,10 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally fits as the alternative',
+      title: 'How Ardovo fits as the alternative',
       body: [
-        'Rally is an AI-native revenue platform built on the opposite bet from a broad suite: depth on one connected model rather than breadth across many products. The pipeline, contacts, deals, automation, and reporting are all the same system, so there is nothing to stitch and no report that can quietly disagree with the source. It is alive on first load, so you evaluate the real workflow in minutes instead of configuring an empty database for days.',
-        'The operator layer, Rook, does the work a suite leaves to you: it enriches new leads, flags deals going cold, drafts the next follow-up, and keeps the forecast current without a Friday spreadsheet ritual. Pricing is one flat price per seat across every capability, so the bill does not climb every time you need the feature that lives one edition up. None of this makes Zoho a bad tool. It makes Rally a better fit for teams whose problem is depth, usability, and suite overhead rather than raw price.',
+        'Ardovo is an AI-native revenue platform built on the opposite bet from a broad suite: depth on one connected model rather than breadth across many products. The pipeline, contacts, deals, automation, and reporting are all the same system, so there is nothing to stitch and no report that can quietly disagree with the source. It is alive on first load, so you evaluate the real workflow in minutes instead of configuring an empty database for days.',
+        'The operator layer, Rook, does the work a suite leaves to you: it enriches new leads, flags deals going cold, drafts the next follow-up, and keeps the forecast current without a Friday spreadsheet ritual. Pricing is one flat price per seat across every capability, so the bill does not climb every time you need the feature that lives one edition up. None of this makes Zoho a bad tool. It makes Ardovo a better fit for teams whose problem is depth, usability, and suite overhead rather than raw price.',
       ],
     },
     {
@@ -227,7 +227,7 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Is Zoho CRM actually bad?', a: 'No. Zoho CRM is inexpensive, feature-rich, and a reasonable default for a bootstrapped team, especially if you use the wider Zoho suite. Teams leave it not because it lacks features but because of clunky UX, module-hopping, and the overhead of keeping several products in sync. If price is your main constraint, Zoho is hard to beat and you should probably stay.' },
-        { q: 'What is the best alternative to Zoho CRM in 2026?', a: 'For teams that want depth over breadth, the best alternatives are focused, AI-native platforms with a single connected data model. Rally fits that profile: CRM, automation, and reporting share one source of truth, it is usable on first load, an AI operator does the follow-up and forecasting, and pricing is one flat rate per seat. HubSpot and Pipedrive are also common landing spots depending on your budget and how much marketing tooling you need.' },
+        { q: 'What is the best alternative to Zoho CRM in 2026?', a: 'For teams that want depth over breadth, the best alternatives are focused, AI-native platforms with a single connected data model. Ardovo fits that profile: CRM, automation, and reporting share one source of truth, it is usable on first load, an AI operator does the follow-up and forecasting, and pricing is one flat rate per seat. HubSpot and Pipedrive are also common landing spots depending on your budget and how much marketing tooling you need.' },
         { q: 'How hard is it to migrate off Zoho CRM?', a: 'Less than most teams fear. Export leads, contacts, deals, and notes via CSV or the API, map fields and dedupe on import, then run the new system in parallel for a day or two to confirm the totals match before you cut over. Custom Deluge automations are the main thing that needs rebuilding, so inventory those first. A typical mid-size migration is a couple of person-days, not a couple of weeks.' },
         { q: 'Will I lose reporting history when I switch?', a: 'You keep the underlying records. Export your deals and activities with their timestamps and import them into the new platform, and your historical pipeline and closed-won numbers come across. Dashboards themselves are rebuilt on the new tool, but because they are computed from the imported records, last quarter still reports correctly. Always run parallel for a short window and reconcile the totals before switching off Zoho.' },
         { q: 'Is a single platform really better than the Zoho One suite?', a: 'It depends on your problem. A suite gives you enormous breadth under one bill, which is genuinely valuable if you use many of the apps. But breadth means several products each holding a slice of the truth, and you become the integration layer. A single connected platform trades some breadth for a data model where every surface reads the same records, so nothing needs syncing and reports always tie out. Choose the suite for coverage, the unified platform for depth and trust in your numbers.' },

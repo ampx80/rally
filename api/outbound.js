@@ -17,15 +17,15 @@ function safeUrl(raw) {
 // Build the provider-specific request body from a generic message + payload.
 function buildBody(kind, message, payload) {
   if (kind === 'slack') {
-    return { contentType: 'application/json', body: JSON.stringify({ text: message || 'Rally automation fired' }) };
+    return { contentType: 'application/json', body: JSON.stringify({ text: message || 'Ardovo automation fired' }) };
   }
   if (kind === 'teams') {
     return {
       contentType: 'application/json',
       body: JSON.stringify({
         '@type': 'MessageCard', '@context': 'https://schema.org/extensions',
-        summary: 'Rally automation', themeColor: '5b4bf5',
-        title: 'Rally automation', text: message || 'Rally automation fired',
+        summary: 'Ardovo automation', themeColor: '5b4bf5',
+        title: 'Ardovo automation', text: message || 'Ardovo automation fired',
       }),
     };
   }
@@ -47,7 +47,7 @@ export default withErrorHandling(async (req, res) => {
   try {
     const r = await fetch(target, {
       method: 'POST',
-      headers: { 'Content-Type': contentType, 'User-Agent': 'Rally-Automations/1.0' },
+      headers: { 'Content-Type': contentType, 'User-Agent': 'Ardovo-Automations/1.0' },
       body,
       signal: ctrl.signal,
     });

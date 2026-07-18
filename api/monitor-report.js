@@ -1,6 +1,6 @@
 // POST /api/monitor-report
 //
-// A server-side sink for Rally error reports, and an alternative to the browser
+// A server-side sink for Ardovo error reports, and an alternative to the browser
 // posting straight to Sentry. It accepts one or more normalized error records
 // and fans them out in priority order:
 //   1. If SENTRY_DSN (server var) is set, forward each as a Sentry envelope.

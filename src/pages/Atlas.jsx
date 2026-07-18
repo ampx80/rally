@@ -1,4 +1,4 @@
-// Atlas - Rally's semantic map of the book of business. Every deal is a point;
+// Atlas - Ardovo's semantic map of the book of business. Every deal is a point;
 // distance is similarity. Auto-clustered, colorable by cluster/stage/status/
 // value, with look-alike detection (click a deal to see its nearest matches -
 // "deals like your best wins") and drag-to-select segmentation that hands the

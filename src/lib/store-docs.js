@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DOCS STORE  (the generation suite - proposal / document builder)
+// ARDOVO DOCS STORE  (the generation suite - proposal / document builder)
 // A PandaDoc-killer that is native, CRM-truth-bound, and versioned.
 // A doc is an ordered list of blocks; each block carries a small
 // config object. Pricing-table blocks bind LIVE to a deal's line
@@ -65,20 +65,20 @@ export function defaultBlockConfig(type, ctx = {}) {
       return {
         eyebrow: 'Proposal',
         title: deal ? `A partnership with ${coName}` : 'Proposal',
-        subtitle: 'Prepared to move your revenue team forward with Rally.',
+        subtitle: 'Prepared to move your revenue team forward with Ardovo.',
         preparedFor: coName,
-        preparedBy: deal ? userName(deal.ownerId) : (getCurrentUser()?.name || 'Rally'),
+        preparedBy: deal ? userName(deal.ownerId) : (getCurrentUser()?.name || 'Ardovo'),
       };
     case 'heading':
       return { text: 'Section heading', align: 'left' };
     case 'text':
       return { text: 'Write your narrative here. Speak to the outcome the customer wants, the plan to get there, and why now. Keep it tight and specific.' };
     case 'pricingTable':
-      return { title: 'Investment', source: deal ? 'deal' : 'manual', dealId: deal?.id || null, quoteId: null, note: 'Billed annually. Pricing valid for 30 days.', lines: deal ? [] : [{ id: nid('dl'), name: 'Rally CRM', qty: 25, unitPrice: 1080 }] };
+      return { title: 'Investment', source: deal ? 'deal' : 'manual', dealId: deal?.id || null, quoteId: null, note: 'Billed annually. Pricing valid for 30 days.', lines: deal ? [] : [{ id: nid('dl'), name: 'Ardovo CRM', qty: 25, unitPrice: 1080 }] };
     case 'team':
       return { title: 'Your account team', members: teamFromDeal(deal) };
     case 'testimonial':
-      return { quote: 'Rally paid for itself in the first quarter. Our reps finally trust the pipeline number.', author: 'VP of Revenue', role: 'Head of Revenue', company: 'A Rally customer' };
+      return { quote: 'Ardovo paid for itself in the first quarter. Our reps finally trust the pipeline number.', author: 'VP of Revenue', role: 'Head of Revenue', company: 'A Ardovo customer' };
     case 'image':
       return { url: '', caption: '', height: 260 };
     case 'divider':
@@ -152,7 +152,7 @@ function buildSeed() {
   const p2 = templateBlocks('onepager', { deal: null, company: null });
   docs.push({
     id: 'doc_seed_2',
-    name: 'Rally - Executive One-Pager',
+    name: 'Ardovo - Executive One-Pager',
     dealId: null,
     accent: '#0ea5a3',
     blocks: p2,

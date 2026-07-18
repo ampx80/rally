@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY JOURNEYS  (local-first, additive, Supabase-swappable)
+// ARDOVO JOURNEYS  (local-first, additive, Supabase-swappable)
 //
 // Customer journey orchestration - the visual builder behind
 // enterprise marketing (HubSpot / Salesforce Marketing Cloud).
@@ -7,7 +7,7 @@
 //
 //   entry (trigger) -> delay -> branch (if/else) -> actions
 //   actions: email, sms, campaign, task, lifecycle, notify,
-//            list, and Rook AI decision (Rally-only).
+//            list, and Rook AI decision (Ardovo-only).
 //
 // This module owns the graph MODEL, a deterministic enrollment
 // simulator (how many contacts sit at each step + conversion +
@@ -296,7 +296,7 @@ const Y0 = 40;
 function tplWelcome() {
   const nodes = [
     mkNode('n_entry', 'entry', CX, Y0, { trigger: 'signup', label: 'New signup' }),
-    mkNode('n_email1', 'email', CX, Y0 + ROW, { subject: 'Welcome to Rally, {{firstName}}', template: 'Welcome' }),
+    mkNode('n_email1', 'email', CX, Y0 + ROW, { subject: 'Welcome to Ardovo, {{firstName}}', template: 'Welcome' }),
     mkNode('n_wait1', 'delay', CX, Y0 + ROW * 2, { amount: 2, unit: 'days' }),
     mkNode('n_branch', 'branch', CX, Y0 + ROW * 3, { prop: 'opened_email' }),
     mkNode('n_yes', 'email', XR, Y0 + ROW * 4, { subject: 'Your quick-start guide', template: 'Getting started' }),
@@ -391,7 +391,7 @@ function tplRenewal() {
   const nodes = [
     mkNode('n_entry', 'entry', CX, Y0, { trigger: 'renewal', label: '90 days to renewal' }),
     mkNode('n_notify', 'notify', CX, Y0 + ROW, { who: 'owner', note: 'Renewal window opened' }),
-    mkNode('n_email1', 'email', CX, Y0 + ROW * 2, { subject: 'Your year with Rally, {{firstName}}', template: 'Value recap' }),
+    mkNode('n_email1', 'email', CX, Y0 + ROW * 2, { subject: 'Your year with Ardovo, {{firstName}}', template: 'Value recap' }),
     mkNode('n_wait1', 'delay', CX, Y0 + ROW * 3, { amount: 2, unit: 'weeks' }),
     mkNode('n_branch', 'branch', CX, Y0 + ROW * 4, { prop: 'deal_value' }),
     mkNode('n_yes', 'task', XR, Y0 + ROW * 5, { title: 'CSM: exec business review', owner: 'owner' }),

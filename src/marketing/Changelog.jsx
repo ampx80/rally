@@ -62,7 +62,7 @@ const RELEASES = [
     tagLabel: 'Improved',
     title: '1,970 SEO pages',
     items: [
-      { lead: 'Content engine', text: 'a prerendered library of comparison and topic pages so teams can find Rally before they ever sign up.' },
+      { lead: 'Content engine', text: 'a prerendered library of comparison and topic pages so teams can find Ardovo before they ever sign up.' },
       { lead: 'Compare hub', text: 'head-to-head pages against every major incumbent, kept on a single canonical URL.' },
     ],
   },
@@ -82,7 +82,7 @@ const RELEASES = [
     date: 'July 2026',
     tag: 'launch',
     tagLabel: 'Launch',
-    title: 'Rally is live',
+    title: 'Ardovo is live',
     items: [
       { lead: 'The platform', text: 'fourteen modules, one login, one price, with Rook the AI operator on every seat.' },
       { lead: 'Alive on first load', text: 'every workspace opens full of realistic data so you can explore before you import a row.' },
@@ -107,7 +107,7 @@ export default function Changelog() {
               What shipped. <span className="mkt-grad m-shine">In order.</span>
             </h1>
             <p className="mkt-lead" style={{ maxWidth: 620, margin: '24px auto 0' }}>
-              Rally is built AI-native and shipped fast. Every release from launch to now, newest first.
+              Ardovo is built AI-native and shipped fast. Every release from launch to now, newest first.
             </p>
             <div className="co-hero-rail">
               <span>{RELEASES.length} releases</span>

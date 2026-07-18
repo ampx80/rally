@@ -1,6 +1,6 @@
 // ============================================================
 // JUGGERNAUT GUIDE  -> live at /guides/sugarcrm-alternative
-// Competitor-alternative page. Fair to SugarCRM, positions Rally
+// Competitor-alternative page. Fair to SugarCRM, positions Ardovo
 // as the AI-native, lower-maintenance third option.
 // ASCII only. NO em-dash / en-dash. Hyphen "-" only.
 // ============================================================
@@ -9,22 +9,22 @@ const entry = {
   slug: 'sugarcrm-alternative',
   title: 'The Best SugarCRM Alternative in 2026',
   h1: 'The Best SugarCRM Alternative in 2026: A Fair, Detailed Comparison',
-  metaTitle: 'The Best SugarCRM Alternative in 2026: Comparison, Calculator, and Migration Guide | Rally',
-  metaDescription: 'A balanced guide for teams evaluating a SugarCRM alternative in 2026. Where SugarCRM still shines, where it costs you, a total-cost calculator, a feature matrix, and how an AI-native platform like Rally compares.',
+  metaTitle: 'The Best SugarCRM Alternative in 2026: Comparison, Calculator, and Migration Guide | Ardovo',
+  metaDescription: 'A balanced guide for teams evaluating a SugarCRM alternative in 2026. Where SugarCRM still shines, where it costs you, a total-cost calculator, a feature matrix, and how an AI-native platform like Ardovo compares.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'SugarCRM is a capable, flexible platform with a long history, strong customization, and the option to self-host. If your team already runs it well and the total cost of ownership feels fair, there may be no reason to move. Most teams shopping for a SugarCRM alternative are not unhappy with the data model. They are tired of what it takes to keep the thing running.',
-    'This guide is written to be useful whether or not you ever buy anything from us. It credits what SugarCRM genuinely does well, names the specific friction that sends teams looking, walks through the real alternatives, and gives you a calculator to price the switch honestly. Where it makes sense, it explains how an AI-native platform such as Rally fits, and where it does not.',
+    'This guide is written to be useful whether or not you ever buy anything from us. It credits what SugarCRM genuinely does well, names the specific friction that sends teams looking, walks through the real alternatives, and gives you a calculator to price the switch honestly. Where it makes sense, it explains how an AI-native platform such as Ardovo fits, and where it does not.',
   ],
   heroStats: [
     { value: 3, prefix: '~', suffix: ' surfaces', label: 'Where admin overhead usually hides: config, upgrades, integrations' },
     { value: 6, prefix: '<', suffix: ' min', label: 'Typical time to first value on an alive-on-load platform' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module, on Rally' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module, on Ardovo' },
   ],
   blocks: [
     {
@@ -106,7 +106,7 @@ const entry = {
       title: 'The AI-native difference, without the hype',
       body: [
         'The practical difference in 2026 is not a chatbot bolted onto an old CRM. It is whether the platform can act on your data. An AI-native tool treats the assistant as a first-class operator that reads and writes the same records your team does, so it can enrich a new lead, draft the next follow-up, or roll up a forecast without a human copying anything.',
-        'Rally is built this way. Its operator, Rook, works directly on your pipeline. You describe what you want in a sentence and it builds or updates the structure, rather than you clicking through a configuration screen. That is the specific thing that shrinks the admin job that sends most teams away from a heavier platform in the first place.',
+        'Ardovo is built this way. Its operator, Rook, works directly on your pipeline. You describe what you want in a sentence and it builds or updates the structure, rather than you clicking through a configuration screen. That is the specific thing that shrinks the admin job that sends most teams away from a heavier platform in the first place.',
         'This is not a knock on SugarCRM. Its automation is deep and, in expert hands, formidable. The trade is control and configurability on one side against speed and low maintenance on the other. The right answer depends on which of those your team is actually short on.',
       ],
     },
@@ -114,7 +114,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'SugarCRM alternative comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'SugarCRM', 'Lightweight CRM'],
+      columns: ['Ardovo', 'SugarCRM', 'Lightweight CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with structure on first load', cells: [true, false, 'partial'] },
@@ -188,7 +188,7 @@ const entry = {
       caption: 'Directional, not a benchmark. Your mileage depends on data quality and scope.',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 6, display: 'Minutes', highlight: true },
           { label: 'Lightweight CRM', value: 120, display: 'Hours' },
           { label: 'New enterprise instance', value: 1200, display: 'Weeks' },
         ],
@@ -242,10 +242,10 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'Where Rally fits, and where it does not',
+      title: 'Where Ardovo fits, and where it does not',
       body: [
-        'Rally is a strong fit if your reason for leaving is upkeep and speed. It is AI-native, alive on first load, priced as one flat rate across every module, and operated by Rook so the platform does work instead of waiting to be configured. Teams that want to stop maintaining a CRM and start using one tend to feel the difference in the first week.',
-        'Rally is not the right call if you specifically need self-hosting for data-residency reasons, or if your value from SugarCRM comes from deep, low-level customization that a more opinionated platform would constrain. In those cases, staying on SugarCRM and investing in your admin is the more honest recommendation, and we would rather tell you that than sell you a migration you will regret.',
+        'Ardovo is a strong fit if your reason for leaving is upkeep and speed. It is AI-native, alive on first load, priced as one flat rate across every module, and operated by Rook so the platform does work instead of waiting to be configured. Teams that want to stop maintaining a CRM and start using one tend to feel the difference in the first week.',
+        'Ardovo is not the right call if you specifically need self-hosting for data-residency reasons, or if your value from SugarCRM comes from deep, low-level customization that a more opinionated platform would constrain. In those cases, staying on SugarCRM and investing in your admin is the more honest recommendation, and we would rather tell you that than sell you a migration you will regret.',
         'The useful way to decide is the pilot. Put real data in front of a real team for two weeks and watch whether the tool disappears into the workflow or demands attention. The one that gets quietly used is the one to buy.',
       ],
     },
@@ -254,11 +254,11 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Is SugarCRM a bad CRM?', a: 'No. It is a mature, flexible, powerful platform, and for teams that want control and have the technical resources to run it, it is a good choice. Most teams evaluating alternatives are reacting to maintenance overhead and speed to value, not to missing capability.' },
-        { q: 'What is the best SugarCRM alternative in 2026?', a: 'It depends on what is driving the move. If you want AI-native, low-maintenance, and flat pricing, an operator-led platform like Rally is a strong fit. If you want deep customization with self-hosting, you may not find a like-for-like replacement, and staying may be right. Run a two-week pilot with real data to decide.' },
+        { q: 'What is the best SugarCRM alternative in 2026?', a: 'It depends on what is driving the move. If you want AI-native, low-maintenance, and flat pricing, an operator-led platform like Ardovo is a strong fit. If you want deep customization with self-hosting, you may not find a like-for-like replacement, and staying may be right. Run a two-week pilot with real data to decide.' },
         { q: 'How hard is it to migrate off SugarCRM?', a: 'The data model is standard enough that accounts, contacts, deals, and history export cleanly. The risk is in validation, not extraction. Confirm counts and relationships tie out before cutover, migrate one team at a time, and keep a rollback window until the new tool has carried a full sales cycle.' },
         { q: 'Will an alternative really lower our total cost?', a: 'Often, because the biggest hidden cost is admin, upgrades, and integration upkeep rather than license fees. Use the calculator above with your own numbers. If a new tool would still need heavy configuration, keep those hours in the estimate and be skeptical of headline savings.' },
         { q: 'What about our SugarBPM workflows and customizations?', a: 'Inventory them before you move. Many map to simpler automations on a modern platform, and some AI-native tools let you describe the outcome in a sentence rather than rebuild the flow. But if your customizations are deep and load-bearing, weigh the rebuild cost honestly against the maintenance you are trying to escape.' },
-        { q: 'Can we keep self-hosting on an alternative?', a: 'Usually not. Self-hosting is one of SugarCRM signature strengths, and most modern cloud-native alternatives, including Rally, are cloud only. If data residency or on-premise control is a hard requirement, that alone can be a reason to stay on SugarCRM.' },
+        { q: 'Can we keep self-hosting on an alternative?', a: 'Usually not. Self-hosting is one of SugarCRM signature strengths, and most modern cloud-native alternatives, including Ardovo, are cloud only. If data residency or on-premise control is a hard requirement, that alone can be a reason to stay on SugarCRM.' },
       ],
     },
   ],

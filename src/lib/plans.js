@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PRICING CATALOG  (single source of truth)
+// ARDOVO PRICING CATALOG  (single source of truth)
 // The one place that defines tiers, prices, the seat model, and
 // the feature matrix. Both the browser (BillingPlans page, marketing
 // Pricing) and the server (billing-checkout) read from here so the

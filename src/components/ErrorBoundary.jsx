@@ -1,4 +1,4 @@
-// Rally error boundaries.
+// Ardovo error boundaries.
 //
 // <ErrorBoundary> is the app-level net: wrap the whole tree so a render crash
 // shows a calm, on-brand apology instead of a white screen. It logs the crash
@@ -141,7 +141,7 @@ class BaseBoundary extends React.Component {
             <div style={{ ...mark, width: 44, height: 44, fontSize: 22 }} aria-hidden>!</div>
             <h3 style={{ margin: '0 0 .4rem', fontSize: '1.15rem' }}>This screen hit a snag</h3>
             <p style={{ margin: 0, color: 'var(--n-600, #5b6070)', fontSize: '.95rem', lineHeight: 1.5 }}>
-              The rest of Rally is fine. You can retry this view or head back.
+              The rest of Ardovo is fine. You can retry this view or head back.
             </p>
             <div style={btnRow}>
               <button style={btnPrimary} onClick={this.handleReset}>Try again</button>
@@ -158,12 +158,12 @@ class BaseBoundary extends React.Component {
           <div style={mark} aria-hidden>!</div>
           <h2 style={{ margin: '0 0 .5rem', fontSize: '1.4rem', letterSpacing: '-.01em' }}>Something went sideways</h2>
           <p style={{ margin: 0, color: 'var(--n-600, #5b6070)', fontSize: '1rem', lineHeight: 1.55 }}>
-            Rally hit an unexpected error and stopped this view to keep your data safe.
+            Ardovo hit an unexpected error and stopped this view to keep your data safe.
             Reloading usually clears it. If it keeps happening, send us the details and
             we will get on it fast.
           </p>
           <div style={btnRow}>
-            <button style={btnPrimary} onClick={this.handleReload}>Reload Rally</button>
+            <button style={btnPrimary} onClick={this.handleReload}>Reload Ardovo</button>
             <button style={btnGhost} onClick={this.handleReport}>Report the problem</button>
           </div>
           <p style={{ margin: '1.1rem 0 0', fontSize: '.78rem', color: 'var(--n-500, #8a8fa3)' }}>

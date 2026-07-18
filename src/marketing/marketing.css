@@ -1,5 +1,5 @@
 /* ============================================================
-   RALLY MARKETING - cool light canvas, teal product accent,
+   ARDOVO MARKETING - cool light canvas, teal product accent,
    violet reserved for Rook/AI. Instrument Sans + Space Grotesk.
    Scoped under .mkt so it never touches the product app.
    NO em-dash / en-dash. ASCII hyphen only.
@@ -392,7 +392,7 @@
 }
 
 /* ============================================================
-   SWITCH SCENE - old way (thrashing) vs Rally way (assembles).
+   SWITCH SCENE - old way (thrashing) vs Ardovo way (assembles).
    All scoped under .mkt. Motion contrast IS the message.
    ============================================================ */
 .mkt-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; }
@@ -432,7 +432,7 @@
 .mkt-olderror { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 12.5px; font-weight: 700; color: #b23b3b; background: rgba(178,59,59,.07); border: 1px solid rgba(178,59,59,.2); border-radius: 9px; padding: 8px 11px; }
 .mkt-olderror-glyph { width: 16px; height: 16px; border-radius: 50%; background: #b23b3b; color: #fff; display: inline-grid; place-items: center; font-size: 11px; font-weight: 900; flex: none; }
 
-/* --- RALLY WAY --- */
+/* --- ARDOVO WAY --- */
 .mkt-rallyway { border-color: rgba(14,159,143,.35); box-shadow: 0 24px 60px -28px rgba(14,159,143,.45); background: linear-gradient(180deg, #ffffff, #f7fbfa); }
 .mkt-rallyway::before { content: ''; position: absolute; top: -40%; right: -30%; width: 60%; height: 80%; background: radial-gradient(circle, rgba(14,159,143,.12), transparent 70%); pointer-events: none; }
 .mkt-rally-live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--m-teal); }

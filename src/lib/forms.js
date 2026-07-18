@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FORMS ENGINE  (local-first, Supabase-swappable)
+// ARDOVO FORMS ENGINE  (local-first, Supabase-swappable)
 // A HubSpot-class form engine. A form is a named collection of
 // typed fields, each field optionally MAPPED to a contact property.
 // A public hosted page (/f/:formId) renders the form; on submit it
@@ -208,7 +208,7 @@ export const formSubmissionCount = (f) => (f && f.submissions ? f.submissions.le
 function safeOrigin(origin) {
   if (origin) return String(origin).replace(/\/$/, '');
   if (typeof window !== 'undefined' && window.location) return window.location.origin;
-  return 'https://rally.app';
+  return 'https://ardovo.com';
 }
 export function hostedUrl(form, origin) {
   if (!form) return '';
@@ -217,9 +217,9 @@ export function hostedUrl(form, origin) {
 export function embedSnippet(form, origin) {
   if (!form) return '';
   const url = hostedUrl(form, origin);
-  const title = String(form.name || 'Rally form').replace(/"/g, '&quot;');
+  const title = String(form.name || 'Ardovo form').replace(/"/g, '&quot;');
   return [
-    `<!-- Rally form: ${title} -->`,
+    `<!-- Ardovo form: ${title} -->`,
     `<iframe src="${url}"`,
     `        title="${title}"`,
     `        width="100%" height="640" loading="lazy"`,

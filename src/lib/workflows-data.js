@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY WORKFLOW AUTOMATION ENGINE - feature state + evaluator
+// ARDOVO WORKFLOW AUTOMATION ENGINE - feature state + evaluator
 // Self-contained. Owns the workflow rule definitions, their
 // localStorage persistence, a deterministic seed, and a REAL
 // evaluator that runs rules against the live store data

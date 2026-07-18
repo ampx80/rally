@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY TRAINING ENGINE  (local-first, additive)
+// ARDOVO TRAINING ENGINE  (local-first, additive)
 //
 // Replaces the human implementation trainer. A library of guided modules,
 // a "training mode" that turns Rook into a patient teacher, and Zoom-style
@@ -21,7 +21,7 @@ const LS_KEY = 'rally_training_v1';
    ============================================================ */
 export const MODULES = [
   {
-    id: 'orientation', title: 'Get oriented in Rally', icon: 'home', minutes: 4, level: 'Start here',
+    id: 'orientation', title: 'Get oriented in Ardovo', icon: 'home', minutes: 4, level: 'Start here',
     blurb: 'The command spine, the home cockpit, and how to get anywhere fast.',
     steps: [
       { title: 'The command spine', detail: 'The 72px rail on the left carries your primary destinations. Hover any icon for its drawer, or open Apps for the full catalog.', to: '/app' },
@@ -68,7 +68,7 @@ export const MODULES = [
     id: 'data', title: 'Bring your data in', icon: 'swap', minutes: 8, level: 'Setup',
     blurb: 'Import, map, cleanse, and go live without a year-long project.',
     steps: [
-      { title: 'Open the migration wizard', detail: 'Upload your export and Rally analyzes it: unmapped columns, empty fields, jammed data, and duplicates.', to: '/migrate' },
+      { title: 'Open the migration wizard', detail: 'Upload your export and Ardovo analyzes it: unmapped columns, empty fields, jammed data, and duplicates.', to: '/migrate' },
       { title: 'Cleanse in review', detail: 'Fix and remap right in the app before anything touches production. You do not do this alone in a spreadsheet.', to: '/migrate' },
       { title: 'Stage and go live', detail: 'Review, stage, then push to production when it is clean.', to: '/migrate' },
     ],

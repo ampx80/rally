@@ -1,8 +1,8 @@
 // api/_lib-email.js
 //
-// Rally's hardened, never-throws email SEND PRIMITIVE. Ported from Class
-// Reunly's lib/resend.js + lib/send.js and re-skinned for Rally's dark
-// palette. Every Rally route that sends mail should go through sendEmail()
+// Ardovo's hardened, never-throws email SEND PRIMITIVE. Ported from Class
+// Reunly's lib/resend.js + lib/send.js and re-skinned for Ardovo's dark
+// palette. Every Ardovo route that sends mail should go through sendEmail()
 // so a momentary Resend rate limit (HTTP 429, default 2 req/s) or a brief
 // 5xx/network blip self-heals via retry-with-backoff instead of silently
 // dropping the email.
@@ -24,11 +24,11 @@
 //
 // A full-document html (starts with <!doctype or <html) is sent verbatim, so
 // callers that already build their own branded document keep exact behavior;
-// a body-only html (or bodyHtml) is wrapped in the Rally dark shell.
+// a body-only html (or bodyHtml) is wrapped in the Ardovo dark shell.
 //
 // Env:
 //   RESEND_API_KEY   - required to actually send (studio-wide key)
-//   RALLY_FROM / NOTIFY_FROM / RESEND_FROM - default sender
+//   ARDOVO_FROM / NOTIFY_FROM / RESEND_FROM - default sender
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY - optional durable dedupe + suppression
 //
 // ASCII only. NO em-dash / en-dash. ASCII hyphen only.
@@ -87,7 +87,7 @@ export function idempotencyKey(parts) {
   return crypto.createHash('sha1').update(arr.map((p) => String(p == null ? '' : p)).join('|')).digest('hex');
 }
 
-// ── branded shell (Rally dark) ────────────────────────────────────────────────
+// ── branded shell (Ardovo dark) ────────────────────────────────────────────────
 // #0b0d14 page, #12141f card, #262a3d hairline, #5b4bf5 accent. Mirrors the
 // inline styles already used by waitlist.js / report-deliver.js so previews and
 // live mail read as one system. ASCII only.
@@ -113,7 +113,7 @@ export function brandedShell({ subject, bodyHtml, ctaUrl, ctaLabel, preheader, e
   const cta = ctaUrl
     ? `<tr><td style="padding:6px 0 4px;">
          <a href="${escapeHtml(ctaUrl)}" style="display:inline-block;background:${accent};color:#ffffff;padding:14px 26px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;font-family:${sans};">
-           ${escapeHtml(ctaLabel || 'Open Rally')}
+           ${escapeHtml(ctaLabel || 'Open Ardovo')}
          </a>
        </td></tr>`
     : '';
@@ -133,7 +133,7 @@ ${pre}
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;">
       <tr><td style="padding:4px 4px 20px;">
         <span style="display:inline-block;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#6d5cf7,#4a3ce0);vertical-align:middle;"></span>
-        <span style="font-size:19px;font-weight:800;letter-spacing:-.02em;color:#ffffff;vertical-align:middle;padding-left:9px;">Rally</span>
+        <span style="font-size:19px;font-weight:800;letter-spacing:-.02em;color:#ffffff;vertical-align:middle;padding-left:9px;">Ardovo</span>
       </td></tr>
       <tr><td style="background:${card};border:1px solid ${line};border-radius:16px;padding:32px;">
         ${eb}
@@ -142,10 +142,10 @@ ${pre}
         </div>
         ${cta ? `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">${cta}</table>` : ''}
         <hr style="border:none;border-top:1px solid ${line};margin:24px 0 0;"/>
-        <p style="font-size:12px;color:${dim};margin:16px 0 0;font-family:${sans};">Sent by Rally.</p>
+        <p style="font-size:12px;color:${dim};margin:16px 0 0;font-family:${sans};">Sent by Ardovo.</p>
       </td></tr>
       <tr><td align="center" style="padding:16px 8px 0;font-size:12px;color:${dim};font-family:${sans};">
-        Rally &middot; the AI-native revenue platform
+        Ardovo &middot; the AI-native revenue platform
       </td></tr>
     </table>
   </td></tr>
@@ -238,7 +238,7 @@ function isFullDocument(html) {
 //   to,                       string | string[]  (required)
 //   subject,                  string             (required)
 //   html,                     full-doc -> sent verbatim; body-only -> wrapped
-//   bodyHtml,                 body-only html, always wrapped in the Rally shell
+//   bodyHtml,                 body-only html, always wrapped in the Ardovo shell
 //   text,                     plain-text alternative
 //   idempotencyKey,           string  (when Supabase present -> dedupe)
 //   category,                 string  (logged; e.g. 'waitlist', 'report')
@@ -267,7 +267,7 @@ export async function sendEmail(opts = {}) {
     //   wrap === false -> send html / bodyHtml verbatim (no shell). Use this to
     //                     preserve the EXACT output of a caller that already
     //                     builds its own markup.
-    //   wrap === true  -> always apply the Rally shell.
+    //   wrap === true  -> always apply the Ardovo shell.
     //   wrap undefined -> auto: a full document (starts with <!doctype/<html)
     //                     is sent verbatim; a body-only fragment is wrapped.
     const forceWrap = opts.wrap === true;
@@ -316,8 +316,8 @@ export async function sendEmail(opts = {}) {
     }
 
     const fromAddr = from
-      || process.env.RALLY_FROM || process.env.NOTIFY_FROM || process.env.RESEND_FROM
-      || 'Rally <onboarding@resend.dev>';
+      || process.env.ARDOVO_FROM || process.env.NOTIFY_FROM || process.env.RESEND_FROM
+      || 'Ardovo <onboarding@resend.dev>';
 
     const payload = { from: fromAddr, to: recipients, subject: String(subject || ''), html: finalHtml };
     if (text != null && String(text).trim()) payload.text = String(text);

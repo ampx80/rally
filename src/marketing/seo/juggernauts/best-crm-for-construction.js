@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-construction',
   title: 'The Best CRM for Construction and Contractors in 2026',
   h1: 'The Best CRM for Construction and Contractors: A 2026 Buying Guide',
-  metaTitle: 'The Best CRM for Construction and Contractors in 2026: Bid Pipeline, Backlog, and Comparison | Rally',
+  metaTitle: 'The Best CRM for Construction and Contractors in 2026: Bid Pipeline, Backlog, and Comparison | Ardovo',
   metaDescription: 'A practical 2026 guide to choosing a CRM for construction and contracting: bid pipeline, project-based sales, subs and GCs, a bid-win and backlog calculator, and a feature comparison.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 5, prefix: '1 in ', suffix: '', label: 'Bids won is a healthy hit rate for many commercial trades' },
     { value: 40, suffix: '%', label: 'Of estimating time can be spent chasing bids that never had a chance' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every module included' },
   ],
   blocks: [
     {
@@ -139,7 +139,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'How the options compare for contractors',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet + email', 'Generic CRM', 'Construction ERP suite'],
+      columns: ['Ardovo', 'Spreadsheet + email', 'Generic CRM', 'Construction ERP suite'],
       highlightCol: 0,
       rows: [
         { feature: 'Bid board with due dates and status', cells: [true, 'partial', 'partial', true] },
@@ -176,7 +176,7 @@ const entry = {
       title: 'Time to a working bid board',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 10, display: 'Minutes', highlight: true },
           { label: 'Generic CRM', value: 120, display: 'Weeks to configure' },
           { label: 'ERP rollout', value: 360, display: 'Months' },
         ],
@@ -211,17 +211,17 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
-        'Rally is an AI-native CRM that is alive on first load, so a contractor sees a working bid board instead of an empty database asking for three weeks of setup. You model bids and projects as real records, link the owners, architects, GCs, and subs around each job, and let the pipeline and backlog stay in sync automatically.',
+        'Ardovo is an AI-native CRM that is alive on first load, so a contractor sees a working bid board instead of an empty database asking for three weeks of setup. You model bids and projects as real records, link the owners, architects, GCs, and subs around each job, and let the pipeline and backlog stay in sync automatically.',
         'The difference is the operator. Rook, the built-in AI operator, chases estimates that have gone quiet, drafts the follow-up email to the GC who has not decided, scores whether a new invitation is worth pursuing based on your own win history, and keeps the backlog forecast current without a Friday spreadsheet ritual. It is one flat price with every module included, which matters for a business whose headcount swings with the season.',
-        'Rally does not replace your accounting or job-costing system. It is the tool for the part that grows the company: winning the right work and never letting a submitted bid die from silence.',
+        'Ardovo does not replace your accounting or job-costing system. It is the tool for the part that grows the company: winning the right work and never letting a submitted bid die from silence.',
       ],
     },
     {
       type: 'quote',
       text: 'The bid board used to live in one estimator head and a spreadsheet he updated on Fridays. Now every submitted bid gets chased on its own, and we won two jobs last quarter we would have let go cold.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Owner, commercial subcontractor',
     },
     {
@@ -239,7 +239,7 @@ const entry = {
         { q: 'How should I set up my bid pipeline stages?', a: 'Mirror how work is actually won. A common set is invited, bid/no-bid decided, estimating, submitted, shortlisted, awarded, and lost. Each bid should carry a due date, an estimated value, and the GC or owner, so you can weight the backlog and see which relationships pay off.' },
         { q: 'How do I track relationships between owners, architects, GCs, and subs?', a: 'Use linked contacts and companies rather than freeform notes. When you can see that a given owner uses a certain architect who tends to hire particular general contractors, you can decide where to invest your estimating time and which relationships to keep warm.' },
         { q: 'How does a CRM improve my bid hit rate?', a: 'Two ways. First, follow-up: most submitted bids go cold because nobody chased the decision, and disciplined chasing recovers some of those. Second, bid/no-bid discipline: with a year of history you can stop estimating jobs you were never going to win and focus on the ones where you have an edge.' },
-        { q: 'What makes Rally different for construction teams?', a: 'Rally is alive on first load, so you get a working bid board in minutes instead of weeks of configuration. Its AI operator, Rook, chases quiet estimates, drafts GC follow-ups, scores bid/no-bid against your own win history, and keeps the backlog forecast current. It is one flat price with every module included.' },
+        { q: 'What makes Ardovo different for construction teams?', a: 'Ardovo is alive on first load, so you get a working bid board in minutes instead of weeks of configuration. Its AI operator, Rook, chases quiet estimates, drafts GC follow-ups, scores bid/no-bid against your own win history, and keeps the backlog forecast current. It is one flat price with every module included.' },
       ],
     },
   ],

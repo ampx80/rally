@@ -1,4 +1,4 @@
-// AgentTrust - multi-model routing + the AI trust layer. Rally's answer to
+// AgentTrust - multi-model routing + the AI trust layer. Ardovo's answer to
 // Salesforce's multi-model + AI Trust Layer, but agent-native from day one:
 // choose a model per agent, bring your own LLM, and see the trust posture
 // (zero data retention, reversible writes, audit, human-in-the-loop) in one
@@ -67,7 +67,7 @@ export default function AgentTrust() {
   const toggleByo = () => {
     const next = !settings.byoLlm;
     updateSettings({ byoLlm: next });
-    toast(next ? 'Bring your own LLM enabled' : 'Using Rally-managed models');
+    toast(next ? 'Bring your own LLM enabled' : 'Using Ardovo-managed models');
   };
   const toggleRetention = () => {
     const next = !settings.zeroRetention;
@@ -105,7 +105,7 @@ export default function AgentTrust() {
       {/* MODEL LIBRARY */}
       <SectionHeader
         title="Model library"
-        sub="Every model Rally can route to, with published price per 1M tokens. Set the fleet default, then override per agent below."
+        sub="Every model Ardovo can route to, with published price per 1M tokens. Set the fleet default, then override per agent below."
       />
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '1rem', marginBottom: '1.75rem' }}>
         {MODELS.map((m) => {
@@ -214,7 +214,7 @@ export default function AgentTrust() {
             <span className="tr-panel-ico tr-panel-ico--ai"><Icon name="plug" size={17} /></span>
             <div style={{ minWidth: 0, flex: 1 }}>
               <div className="tr-panel-title">Bring your own LLM</div>
-              <div className="tr-panel-sub">Point Rally at your own model endpoint. Your keys, your provider, your rate limits.</div>
+              <div className="tr-panel-sub">Point Ardovo at your own model endpoint. Your keys, your provider, your rate limits.</div>
             </div>
             <Toggle on={settings.byoLlm} onChange={toggleByo} label="Bring your own LLM" />
           </div>

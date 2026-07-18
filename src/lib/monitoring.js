@@ -1,4 +1,4 @@
-// Rally error monitoring - lightweight, privacy-first, env-gated.
+// Ardovo error monitoring - lightweight, privacy-first, env-gated.
 //
 // This is the "did something break" layer that sits above the structured
 // logger. It captures uncaught errors (window.onerror), unhandled promise

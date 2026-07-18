@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY - REVENUE DIGITAL TWIN  (Twin.jsx)
+// ARDOVO - REVENUE DIGITAL TWIN  (Twin.jsx)
 // A Monte Carlo forecast simulator + scenario planner that no CRM
 // ships natively. Instead of one lying forecast number, the twin runs
 // thousands of simulated quarters and returns a probability
@@ -364,7 +364,7 @@ export default function Twin() {
             <div className="eyebrow" style={{ color: 'rgba(255,255,255,.85)' }}>Category-defining</div>
             <h3 style={{ margin: 0, color: '#fff' }}>A forecast is a distribution, not a promise.</h3>
             <div className="t-sm" style={{ color: 'rgba(255,255,255,.9)', maxWidth: 620 }}>
-              Every other platform hands the board one weighted number and hopes. Rally hands them a range, the odds, and the exact lever that moves it. That is revenue intelligence.
+              Every other platform hands the board one weighted number and hopes. Ardovo hands them a range, the odds, and the exact lever that moves it. That is revenue intelligence.
             </div>
           </div>
           <div className="row gap-1" style={{ flex: 'none' }}>

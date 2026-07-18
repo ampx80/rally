@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY PICKLIST LIBRARY  (spec: RALLY_PARITY_MAP.md Section 2)
+// ARDOVO PICKLIST LIBRARY  (spec: ARDOVO_PARITY_MAP.md Section 2)
 // Every canonical picklist with its seed values. All picklists
 // are org-editable (add/rename/reorder/deactivate) EXCEPT the
 // ones marked restricted (system logic depends on them).
@@ -7,7 +7,7 @@
 // entered/exited/elapsed timestamps and support kanban grouping.
 // Deal pipeline stages (Section 2.6) live in store.js STAGES as
 // per-pipeline config, not here.
-// ASCII hyphens only in this file and everywhere in Rally.
+// ASCII hyphens only in this file and everywhere in Ardovo.
 // ============================================================
 
 const slug = (label) => label.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
@@ -190,7 +190,7 @@ export const CONTRACT_STATUS = pl([
 /* 2.34 Payment terms */
 export const PAYMENT_TERMS = pl(['Due on receipt', 'Net 15', 'Net 30', 'Net 45', 'Net 60', 'Net 90']);
 
-/* 2.35 Health (company - Rally-native) */
+/* 2.35 Health (company - Ardovo-native) */
 export const HEALTH = pl(['Green', 'Yellow', 'Red']);
 
 /* 2.36 Visibility (record-level) */
@@ -211,7 +211,7 @@ export const FORECAST_TYPES = pl([
 /* 2.39 Billing frequency */
 export const BILLING_FREQUENCY = pl(['One-time', 'Monthly', 'Quarterly', 'Semi-annual', 'Annual']);
 
-/* 2.40 Project task status (STAGE - Rally projects) */
+/* 2.40 Project task status (STAGE - Ardovo projects) */
 export const PROJECT_TASK_STATUS = pl(['Todo', 'Doing', 'Blocked', 'Review', 'Done']);
 
 /* ------------------------------------------------------------

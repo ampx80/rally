@@ -1,7 +1,7 @@
 // App Manager - the module control panel.
 //
-// Turn any part of Rally on or off from one screen. Salesforce and NetSuite
-// gate packaging behind a sales rep; Rally lets an admin compose their exact
+// Turn any part of Ardovo on or off from one screen. Salesforce and NetSuite
+// gate packaging behind a sales rep; Ardovo lets an admin compose their exact
 // product here - lean team or full enterprise - and the left nav updates live.
 //
 // Reads the module registry from src/lib/modules.js (never edits it) and the
@@ -78,7 +78,7 @@ const ICON_MAP = {
 function iconFor(m) { return ICON_MAP[m.key] || SECTION_META[m.section]?.icon || 'grid'; }
 
 // The always-on CRM spine. Not toggleable modules - shown as locked so the
-// admin sees the full picture of what Rally can never turn off.
+// admin sees the full picture of what Ardovo can never turn off.
 const CORE_SPINE = [
   { label: 'Command center', icon: 'home',     desc: 'Your revenue home base and daily briefing.' },
   { label: 'Deals',          icon: 'target',   desc: 'The pipeline every other module hangs off of.' },
@@ -366,7 +366,7 @@ export default function AppManager() {
   };
 
   const askRookPlan = () => {
-    window.dispatchEvent(new CustomEvent('rally:rook', { detail: { prompt: 'Recommend which Rally modules a 15-person B2B SaaS revenue team should turn on, and which to leave off to stay lean. Group your answer by section.' } }));
+    window.dispatchEvent(new CustomEvent('rally:rook', { detail: { prompt: 'Recommend which Ardovo modules a 15-person B2B SaaS revenue team should turn on, and which to leave off to stay lean. Group your answer by section.' } }));
   };
 
   const jump = (key) => { const m = MODULES.find(x => x.key === key); if (m) setDetail(m); };
@@ -378,7 +378,7 @@ export default function AppManager() {
       <PageTitle
         eyebrow="Admin / Packaging"
         title="App Manager"
-        sub="Compose your exact Rally. Turn any module on or off - the left nav updates live. No sales rep, no re-provisioning."
+        sub="Compose your exact Ardovo. Turn any module on or off - the left nav updates live. No sales rep, no re-provisioning."
         action={
           <>
             <Button variant="ghost" size="sm" onClick={askRookPlan}><Icon name="sparkles" size={16} /> Ask Rook</Button>
@@ -428,7 +428,7 @@ export default function AppManager() {
 
       {/* core spine */}
       <SectionHeader eyebrow="Always on" title="CRM spine"
-        sub="The core Rally can never turn off. Everything else composes around it." />
+        sub="The core Ardovo can never turn off. Everything else composes around it." />
       <div className="grid-auto" style={{ display: 'grid', gap: '.75rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: '1.75rem' }}>
         {CORE_SPINE.map(c => (
           <div key={c.label} className="card card-pad row gap-2" style={{ alignItems: 'center', background: 'var(--n-25)' }}>

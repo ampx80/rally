@@ -61,8 +61,8 @@ export default function HelpCenter() {
 
   const trail = [{ name: 'Home', href: '/' }, { name: 'Help center' }];
   useSeoHead({
-    title: 'Help center - guides and answers | Rally',
-    description: `Browse ${ARTICLES.length}+ practical guides for Rally: getting started, importing data, deals and pipeline, Rook AI, quotes and billing, automations, admin, and integrations.`,
+    title: 'Help center - guides and answers | Ardovo',
+    description: `Browse ${ARTICLES.length}+ practical guides for Ardovo: getting started, importing data, deals and pipeline, Rook AI, quotes and billing, automations, admin, and integrations.`,
     canonical: `${SITE}/help`,
     jsonLd: [orgLd(), breadcrumbLd(trail), faqLd(allFaqs().slice(0, 10))],
   });
@@ -211,7 +211,7 @@ export default function HelpCenter() {
         </section>
       )}
 
-      <CtaBand title="Run your revenue on Rally." sub="Everything alive on first load. Ask Rook and it does the work." />
+      <CtaBand title="Run your revenue on Ardovo." sub="Everything alive on first load. Ask Rook and it does the work." />
     </div>
   );
 }

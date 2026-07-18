@@ -2,7 +2,7 @@
 // GENESIS  (Overview > Genesis)  -  prompt-to-platform studio
 // ------------------------------------------------------------
 // The signature leapfrog: describe your business in a sentence
-// and watch Rally GENERATE your entire revenue OS in front of
+// and watch Ardovo GENERATE your entire revenue OS in front of
 // you - pipelines, custom fields, deal types, automations,
 // comms templates, dashboards, and seed segments - then apply
 // it in one click. GoHighLevel ships static snapshots; Genesis
@@ -357,7 +357,7 @@ export default function Genesis() {
       <PageTitle
         eyebrow="Prompt to Platform"
         title="Genesis"
-        sub="Describe your business in a sentence. Watch Rally generate your entire revenue OS, then apply it in one click."
+        sub="Describe your business in a sentence. Watch Ardovo generate your entire revenue OS, then apply it in one click."
         action={
           <Button variant="ghost" onClick={() => askRook('Help me describe my business so Genesis can build my revenue OS')}>
             <Icon name="sparkles" size={16} /> Ask Rook

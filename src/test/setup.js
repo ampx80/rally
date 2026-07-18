@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY TEST SETUP  (loaded by vitest.config.js setupFiles)
+// ARDOVO TEST SETUP  (loaded by vitest.config.js setupFiles)
 // - Pulls in @testing-library/jest-dom matchers (toBeInTheDocument, etc).
 // - jsdom already provides window.localStorage; we add a defensive polyfill
 //   for any environment that lacks it so the local-first store modules never

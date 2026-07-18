@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DATA LAYER - ENTRY POINT
+// ARDOVO DATA LAYER - ENTRY POINT
 // ------------------------------------------------------------
 // getDataLayer() returns the active adapter, chosen once by a flag:
 //

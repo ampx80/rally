@@ -9,11 +9,11 @@ const entry = {
   slug: 'best-crm-for-healthcare',
   title: 'The Best CRM for Healthcare and Medical Practices in 2026',
   h1: 'The Best CRM for Healthcare and Medical Practices in 2026',
-  metaTitle: 'The Best CRM for Healthcare and Medical Practices in 2026: Referrals, Intake, and Privacy | Rally',
+  metaTitle: 'The Best CRM for Healthcare and Medical Practices in 2026: Referrals, Intake, and Privacy | Ardovo',
   metaDescription: 'A practical 2026 guide to choosing a CRM for healthcare: managing patient and referral relationships, intake pipelines, privacy-conscious handling, a referral-conversion calculator, and a rollout plan.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   ],
   heroStats: [
     { value: 30, suffix: '%', label: 'Typical share of new-patient inquiries that never get a timely callback' },
-    { value: 5, prefix: '<', suffix: ' min', label: 'Time to first value on Rally' },
+    { value: 5, prefix: '<', suffix: ' min', label: 'Time to first value on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean price, every module' },
   ],
   blocks: [
@@ -136,7 +136,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Healthcare CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet or fax pile', 'Generic legacy CRM'],
+      columns: ['Ardovo', 'Spreadsheet or fax pile', 'Generic legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with a working pipeline on first load', cells: [true, false, false] },
@@ -156,7 +156,7 @@ const entry = {
       title: 'Time to first value',
       data: {
         bars: [
-          { label: 'Rally', value: 5, display: '5 min', highlight: true },
+          { label: 'Ardovo', value: 5, display: '5 min', highlight: true },
           { label: 'Spreadsheet setup', value: 45, display: '45 min' },
           { label: 'Legacy CRM implementation', value: 320, display: '4+ weeks' },
         ],
@@ -220,15 +220,15 @@ const entry = {
     {
       type: 'quote',
       text: 'We finally know which referring offices actually send us patients, and nothing sits in the intake queue over the weekend anymore. Two of last month new patients came straight from a stalled-referral nudge.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Practice manager, multi-specialty group',
     },
     {
       type: 'richText',
-      title: 'Why Rally fits a practice that wants growth without the clinical baggage',
+      title: 'Why Ardovo fits a practice that wants growth without the clinical baggage',
       body: [
-        'Rally is an AI-native CRM built to be alive on first load: you see a working intake pipeline and referral board, not an empty database asking for three weeks of configuration. Rook, the built-in operator, captures inquiries, routes them to the right staff, drafts the follow-up on a stalled referral, and rolls up conversion by source without a spreadsheet ritual.',
-        'The pricing is one clean flat price across every module, which matters to multi-location groups where per-seat-plus-add-on plans balloon exactly as you add front-desk staff. Rally is designed as a relationship and acquisition layer that sits deliberately outside the chart, so you keep a clean boundary between growth and clinical care. As always in healthcare, confirm your own compliance obligations and current vendor terms before storing patient identifiers, and keep the CRM data footprint to the minimum necessary.',
+        'Ardovo is an AI-native CRM built to be alive on first load: you see a working intake pipeline and referral board, not an empty database asking for three weeks of configuration. Rook, the built-in operator, captures inquiries, routes them to the right staff, drafts the follow-up on a stalled referral, and rolls up conversion by source without a spreadsheet ritual.',
+        'The pricing is one clean flat price across every module, which matters to multi-location groups where per-seat-plus-add-on plans balloon exactly as you add front-desk staff. Ardovo is designed as a relationship and acquisition layer that sits deliberately outside the chart, so you keep a clean boundary between growth and clinical care. As always in healthcare, confirm your own compliance obligations and current vendor terms before storing patient identifiers, and keep the CRM data footprint to the minimum necessary.',
       ],
     },
     {
@@ -239,8 +239,8 @@ const entry = {
         { q: 'Can a CRM store protected health information safely?', a: 'A privacy-conscious CRM can hold a minimal footprint of patient data with access controls and an audit trail, but storing any protected health information creates legal obligations. Confirm your own duties under HIPAA and state law with qualified counsel, execute a business associate agreement with your vendor, and verify current terms before entering patient identifiers. This guide describes good design patterns, not a compliance certification.' },
         { q: 'What should a healthcare practice track in a CRM?', a: 'Focus on the two revenue pipelines: inbound inquiries and provider referrals. Track speed to first contact, conversion by referral source, unscheduled referrals, and recall outreach for patients due for a return visit. Keep detailed clinical information in the EHR.' },
         { q: 'How much does slow intake actually cost?', a: 'A large share of inquiries in an unmanaged practice never get a timely callback, and speed to first contact strongly predicts whether someone books. Use the calculator above to model your own numbers, since even a modest lift in booking rate on leads you already paid to attract can add meaningful first-year revenue.' },
-        { q: 'How long does it take to get value from a healthcare CRM?', a: 'On a live-on-first-load platform like Rally, minutes. Import your referral sources and open inquiries, set a simple intake pipeline, and turn on follow-up automations in an afternoon. A blank legacy CRM typically needs weeks of configuration before the first useful report.' },
-        { q: 'Do multi-location groups need special features?', a: 'They benefit most from flat pricing that does not balloon per seat, per-location routing so inquiries reach the right front desk, and consolidated reporting across sites. Rally is one flat price across every module, which keeps the bill predictable as you add staff and locations.' },
+        { q: 'How long does it take to get value from a healthcare CRM?', a: 'On a live-on-first-load platform like Ardovo, minutes. Import your referral sources and open inquiries, set a simple intake pipeline, and turn on follow-up automations in an afternoon. A blank legacy CRM typically needs weeks of configuration before the first useful report.' },
+        { q: 'Do multi-location groups need special features?', a: 'They benefit most from flat pricing that does not balloon per seat, per-location routing so inquiries reach the right front desk, and consolidated reporting across sites. Ardovo is one flat price across every module, which keeps the bill predictable as you add staff and locations.' },
       ],
     },
   ],

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY LABELED ASSOCIATIONS  (local-first, Supabase-swappable)
+// ARDOVO LABELED ASSOCIATIONS  (local-first, Supabase-swappable)
 // A general record-linking model, in the spirit of HubSpot
 // associations. One persisted table links ANY two records to each
 // other with a human label, e.g.:

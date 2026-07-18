@@ -1,4 +1,4 @@
-// Dashboards - live analytics off the Rally pipeline. Every number here is
+// Dashboards - live analytics off the Ardovo pipeline. Every number here is
 // derived from the store's selectors, so it stays in sync with the book of
 // business as deals move. Charts are real recharts, driven off live data.
 import React from 'react';

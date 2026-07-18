@@ -8,11 +8,11 @@ const entry = {
   slug: 'monday-crm-alternative',
   title: 'The Best monday.com CRM Alternative in 2026',
   h1: 'The Best monday.com CRM Alternative: When to Switch and What to Switch To',
-  metaTitle: 'The Best monday.com CRM Alternative in 2026: Fair Comparison, TCO Calculator, Migration Plan | Rally',
+  metaTitle: 'The Best monday.com CRM Alternative in 2026: Fair Comparison, TCO Calculator, Migration Plan | Ardovo',
   metaDescription: 'A fair, practical guide to the best monday.com CRM alternative in 2026. When monday sales CRM stops fitting, a feature comparison, a total-cost calculator, and a migration timeline.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -22,7 +22,7 @@ const entry = {
   ],
   heroStats: [
     { value: 3, prefix: '~', suffix: ' tools', label: 'Typical stack monday CRM users bolt on for quoting, dialing, and forecasting' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live, populated pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module included' },
   ],
   blocks: [
@@ -31,7 +31,7 @@ const entry = {
       title: 'The short answer',
       body: [
         'monday.com is a work operating system that happens to ship a sales CRM template. It is excellent at flexible, visual project tracking and light pipeline management, and for a small team that lives in boards it can be genuinely enough. The best monday.com CRM alternative is not "another board tool" but a system built as a CRM first: one where pipeline intelligence, quoting, forecasting, and an AI operator are native rather than assembled from columns and third-party automations.',
-        'That is the case for Rally. It keeps the visual, drag-and-drop pipeline that made you comfortable in monday, then adds the revenue depth a work-OS cannot fake: deal scoring that reads the actual signals, built-in CPQ, forecasting that ties out to a single source of truth, and Rook, an AI operator that enriches, routes, and drafts follow-up on its own. One flat price covers all of it, so you are not adding a line item every time you grow.',
+        'That is the case for Ardovo. It keeps the visual, drag-and-drop pipeline that made you comfortable in monday, then adds the revenue depth a work-OS cannot fake: deal scoring that reads the actual signals, built-in CPQ, forecasting that ties out to a single source of truth, and Rook, an AI operator that enriches, routes, and drafts follow-up on its own. One flat price covers all of it, so you are not adding a line item every time you grow.',
       ],
     },
     {
@@ -99,7 +99,7 @@ const entry = {
       title: 'The hidden cost of the work-OS approach',
       body: [
         'The visible price of monday sales CRM is only part of the story. The real number is the total cost of ownership: the seats, plus the add-ons and connected tools you buy to cover quoting, dialing, enrichment, and analytics, plus the least visible cost of all, the hours your team spends maintaining automations and reconciling data that a purpose-built CRM would keep in sync automatically.',
-        'None of this means monday is overpriced for what it is. It means a general work-OS carries a long tail of assembly cost when you push it to do a specialist job. When you compare alternatives, compare the whole stack you actually run, not the sticker price of one tool. The calculator below is built to help you do exactly that. Pricing and packaging change often, so verify current monday.com and Rally pricing before you commit.',
+        'None of this means monday is overpriced for what it is. It means a general work-OS carries a long tail of assembly cost when you push it to do a specialist job. When you compare alternatives, compare the whole stack you actually run, not the sticker price of one tool. The calculator below is built to help you do exactly that. Pricing and packaging change often, so verify current monday.com and Ardovo pricing before you commit.',
       ],
     },
     {
@@ -125,9 +125,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'monday.com CRM vs Rally: a fair comparison',
+      title: 'monday.com CRM vs Ardovo: a fair comparison',
       rowHeader: 'Capability',
-      columns: ['Rally', 'monday sales CRM'],
+      columns: ['Ardovo', 'monday sales CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Visual, drag-and-drop pipeline', cells: [true, true] },
@@ -141,7 +141,7 @@ const entry = {
         { feature: 'No-code board customization for any team', cells: ['partial', true] },
         { feature: 'Time to first useful forecast', cells: ['Minutes', 'Days plus a spreadsheet'] },
       ],
-      footnote: 'monday sales CRM is a strong choice when the CRM is a small slice of a broader work-OS deployment. Rally is built CRM-first. Verify current features and packaging for both, since they change often.',
+      footnote: 'monday sales CRM is a strong choice when the CRM is a small slice of a broader work-OS deployment. Ardovo is built CRM-first. Verify current features and packaging for both, since they change often.',
     },
     {
       type: 'diagram',
@@ -150,7 +150,7 @@ const entry = {
       caption: 'Fewer moving parts means less glue, less reconciliation, and a lower total cost of ownership.',
       data: {
         bars: [
-          { label: 'Rally (all-in-one)', value: 1, display: '1 tool', highlight: true },
+          { label: 'Ardovo (all-in-one)', value: 1, display: '1 tool', highlight: true },
           { label: 'monday + typical add-ons', value: 3, display: '3 to 4 tools' },
         ],
       },
@@ -235,12 +235,12 @@ const entry = {
       type: 'callout',
       tone: 'info',
       title: 'A fair recommendation',
-      body: 'Stay on monday.com if your sales pipeline is one small board inside a much larger work-OS deployment your whole company depends on. Move to a CRM-first alternative like Rally when deals, quotes, and forecasting have become the main event and the board can no longer carry them without a pile of add-ons.',
+      body: 'Stay on monday.com if your sales pipeline is one small board inside a much larger work-OS deployment your whole company depends on. Move to a CRM-first alternative like Ardovo when deals, quotes, and forecasting have become the main event and the board can no longer carry them without a pile of add-ons.',
     },
     {
       type: 'quote',
       text: 'We loved the monday boards, but our forecast lived in a spreadsheet and our quotes lived in a doc. Moving to one CRM-first system meant the number on the pipeline was finally the real number.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of Sales, growth-stage B2B',
     },
     {
@@ -248,7 +248,7 @@ const entry = {
       title: 'Choosing well the second time',
       body: [
         'The reason a monday.com to CRM migration feels daunting is usually the memory of the last migration into it. The way to avoid a third move is to pick for where you are going, not where you are. That means a system that keeps the visual pipeline you like, includes quoting and forecasting instead of charging for them, and puts an AI operator behind the busywork so growth does not mean hiring an ops person just to keep the tool fed.',
-        'Rally was built for exactly this transition: familiar enough that a board-native team feels at home on day one, deep enough that you never outgrow it into another migration. It is alive on first load, one flat price across every module, and Rook runs the follow-up you would otherwise skip. If you like the boards but need a real CRM underneath them, that is the alternative to try.',
+        'Ardovo was built for exactly this transition: familiar enough that a board-native team feels at home on day one, deep enough that you never outgrow it into another migration. It is alive on first load, one flat price across every module, and Rook runs the follow-up you would otherwise skip. If you like the boards but need a real CRM underneath them, that is the alternative to try.',
       ],
     },
     {
@@ -256,7 +256,7 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Is monday.com a real CRM?', a: 'monday.com is a work operating system with a sales CRM template on top. It handles visual pipeline tracking well, but capabilities like probability-weighted forecasting, quoting, and lead scoring are assembled from columns, automations, and add-ons rather than being native. For a small team it can be enough; for a sales-led motion it usually needs help from other tools.' },
-        { q: 'What is the best monday.com CRM alternative in 2026?', a: 'The best alternative depends on why you are leaving. If you want to keep the visual, drag-and-drop pipeline but gain real CRM depth (deal intelligence, CPQ, forecasting, and an AI operator) under one flat price, Rally is built for that transition. If you mainly need general project management, you may not want a CRM at all.' },
+        { q: 'What is the best monday.com CRM alternative in 2026?', a: 'The best alternative depends on why you are leaving. If you want to keep the visual, drag-and-drop pipeline but gain real CRM depth (deal intelligence, CPQ, forecasting, and an AI operator) under one flat price, Ardovo is built for that transition. If you mainly need general project management, you may not want a CRM at all.' },
         { q: 'Will I lose the visual boards I like about monday?', a: 'No. A good CRM-first alternative keeps the drag-and-drop, at-a-glance pipeline view that makes boards comfortable. What changes is what sits underneath it: a real data model, native quoting and forecasting, and an operator that acts on the pipeline instead of just displaying it.' },
         { q: 'How hard is it to migrate off monday.com?', a: 'For a live pipeline it is usually a days-long job, not a quarter. Export leads, contacts, companies, and open deals to CSV, map board columns to typed CRM fields, import, and run the two systems in parallel for a week to confirm the forecast and quotes match before you cut over.' },
         { q: 'How do I compare the true cost of monday.com versus a CRM?', a: 'Compare the whole stack, not the sticker price. Add monday seats, every add-on you buy for dialing, quoting, enrichment, and analytics, and the admin hours spent keeping automations and data in sync. A flat-price CRM that includes those modules often wins on total cost of ownership. Verify current pricing for both before deciding.' },

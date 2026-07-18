@@ -9,11 +9,11 @@ const entry = {
   slug: 'keap-alternative',
   title: 'The Best Keap (Infusionsoft) Alternative in 2026',
   h1: 'The Best Keap Alternative in 2026: Simpler Automation Without the Learning Curve',
-  metaTitle: 'The Best Keap (Infusionsoft) Alternative in 2026: Comparison, Calculator, and Migration Plan | Rally',
+  metaTitle: 'The Best Keap (Infusionsoft) Alternative in 2026: Comparison, Calculator, and Migration Plan | Ardovo',
   metaDescription: 'A practical guide for small businesses leaving Keap (Infusionsoft): why teams switch, an honest feature comparison, a total-cost calculator, a migration timeline, and how to keep your automations running.',
   eyebrow: 'Comparison Guide',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   ],
   heroStats: [
     { value: 40, prefix: '~', suffix: '%', label: 'Typical share of Keap value most small teams never activate' },
-    { value: 10, prefix: '<', suffix: ' min', label: 'Time to a working pipeline on Rally' },
+    { value: 10, prefix: '<', suffix: ' min', label: 'Time to a working pipeline on Ardovo' },
     { value: 0, prefix: '$', suffix: ' onboarding fee', label: 'No mandatory paid kickstart to get started' },
   ],
   blocks: [
@@ -91,9 +91,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Rally vs Keap: an honest side by side',
+      title: 'Ardovo vs Keap: an honest side by side',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Keap', 'Spreadsheet + email tool'],
+      columns: ['Ardovo', 'Keap', 'Spreadsheet + email tool'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with data on first load', cells: [true, false, false] },
@@ -114,7 +114,7 @@ const entry = {
       title: 'Time to a working automation',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: '~10 min', highlight: true },
+          { label: 'Ardovo', value: 10, display: '~10 min', highlight: true },
           { label: 'Spreadsheet + email tool', value: 120, display: 'a few hours' },
           { label: 'Keap campaign builder', value: 1200, display: 'days to weeks' },
         ],
@@ -143,12 +143,12 @@ const entry = {
       type: 'callout',
       tone: 'info',
       title: 'Read the calculator honestly',
-      body: 'This models list-size cost behavior, not a quote. Exact Keap and Rally pricing depends on current plans and what you include, so confirm live numbers before you decide. The point is directional: contact-priced tools cost more as your list grows, flat pricing does not.',
+      body: 'This models list-size cost behavior, not a quote. Exact Keap and Ardovo pricing depends on current plans and what you include, so confirm live numbers before you decide. The point is directional: contact-priced tools cost more as your list grows, flat pricing does not.',
     },
     {
       type: 'diagram',
       variant: 'architecture',
-      title: 'How Rally replaces the Keap stack',
+      title: 'How Ardovo replaces the Keap stack',
       caption: 'One source of truth feeds every surface, so the AI operator can act and your reports tie out.',
       data: {
         layers: [
@@ -187,7 +187,7 @@ const entry = {
           { date: 'Day 1', label: 'Export everything', body: 'Contacts, tags, notes, and active campaign lists out of Keap' },
           { date: 'Day 2', label: 'Map your tags to fields', body: 'Turn tag soup into clean statuses and pipeline stages' },
           { date: 'Day 4', label: 'Rebuild core sequences', body: 'Describe your top three follow-ups in plain language' },
-          { date: 'Day 7', label: 'Run both in parallel', body: 'New leads flow to Rally while Keap finishes in-flight sends' },
+          { date: 'Day 7', label: 'Run both in parallel', body: 'New leads flow to Ardovo while Keap finishes in-flight sends' },
           { date: 'Day 14', label: 'Cut over and archive', body: 'Confirm nothing is mid-sequence, then switch off Keap' },
         ],
       },
@@ -209,7 +209,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We were paying for Infusionsoft for years and using maybe half of it. Rebuilding our three real sequences somewhere simpler took an afternoon, and now the team actually updates it.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Owner, service business',
     },
     {

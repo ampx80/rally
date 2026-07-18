@@ -1,5 +1,5 @@
 // ============================================================
-// Landing pages - Rally's CMS-lite builder (Marketing hub).
+// Landing pages - Ardovo's CMS-lite builder (Marketing hub).
 // A block-based landing-page builder with a live preview and one-click
 // publish. Authors compose a page from five block types (hero / text /
 // image / form / cta), preview it exactly as it will render, then publish
@@ -133,7 +133,7 @@ function PreviewCanvas({ page }) {
           {['#ff5f57', '#febc2e', '#28c840'].map(c => <span key={c} style={{ width: 11, height: 11, borderRadius: '50%', background: c, display: 'inline-block' }} />)}
         </span>
         <span style={{ flex: 1, textAlign: 'center', fontSize: 12.5, color: '#7c8399', fontFamily: 'var(--font-mono, monospace)' }}>
-          rally.app/l/{page.slug}
+          ardovo.com/l/{page.slug}
         </span>
       </div>
       <div style={{ maxHeight: 620, overflowY: 'auto' }}>

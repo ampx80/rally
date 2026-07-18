@@ -1,4 +1,4 @@
-// Shared utilities for Rally serverless routes.
+// Shared utilities for Ardovo serverless routes.
 // Every route: `export default withErrorHandling(async (req, res) => { ... })`
 
 export function withErrorHandling(fn) {

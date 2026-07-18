@@ -14,7 +14,7 @@
 // ============================================================
 
 export const SITE = 'https://rally-psi-five.vercel.app';
-export const BRAND = 'Rally';
+export const BRAND = 'Ardovo';
 export const GUIDES_BASE = '/guides';
 
 /* ---------- string + html helpers ---------- */
@@ -42,7 +42,7 @@ export function metaForJug(entry) {
   const title = entry.metaTitle || `${entry.title} | ${BRAND}`;
   let description = entry.metaDescription
     || (typeof entry.intro === 'string' ? entry.intro : Array.isArray(entry.intro) ? entry.intro[0] : '')
-    || `${entry.title} - the definitive guide from Rally, the AI-native revenue platform.`;
+    || `${entry.title} - the definitive guide from Ardovo, the AI-native revenue platform.`;
   if (description.length > 158) {
     const cut = description.slice(0, 158);
     description = cut.slice(0, cut.lastIndexOf(' ')) + '...';
@@ -279,7 +279,7 @@ function howToFrom(entry) {
 export function jsonLdForJuggernaut(entry) {
   return [
     { '@context': 'https://schema.org', '@type': 'Organization', name: BRAND, url: SITE,
-      description: 'The AI-native revenue platform and CRM. Run your revenue on Rally.' },
+      description: 'The AI-native revenue platform and CRM. Run your revenue on Ardovo.' },
     jugBreadcrumbLd(entry),
     jugArticleLd(entry),
     jugFaqLd(firstFaqItems(entry)),
@@ -578,7 +578,7 @@ export function renderJuggernautBody(entry) {
       }).join('') + `</ul></section>`;
   }
 
-  h += `<section class="jug-block jug-cta"><h2 class="jug-h">Run your revenue on Rally</h2>`
+  h += `<section class="jug-block jug-cta"><h2 class="jug-h">Run your revenue on Ardovo</h2>`
     + `<p class="jug-p">Everything alive on first load. Ask Rook and it does the work.</p>`
     + `<p><a class="jug-cta-btn" href="/app">Get started free</a> <a class="jug-cta-link" href="${GUIDES_BASE}">Browse all guides</a></p></section>`;
   return h;

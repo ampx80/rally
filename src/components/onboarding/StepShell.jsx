@@ -29,7 +29,7 @@ export default function StepShell({
           <div className="row between" style={{ alignItems: 'center' }}>
             <span className="ob-brand">
               <span className="ob-mark"><Icon name="zap" size={19} fill="#fff" stroke={0} /></span>
-              Rally
+              Ardovo
             </span>
             {onSkip && <button className="ob-skip" onClick={onSkip}>{skipLabel}</button>}
           </div>

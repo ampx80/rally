@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY MARKETING CAMPAIGNS  (local-first, Supabase-swappable)
-// The broadcast + nurture layer of Rally's Marketing hub. A
+// ARDOVO MARKETING CAMPAIGNS  (local-first, Supabase-swappable)
+// The broadcast + nurture layer of Ardovo's Marketing hub. A
 // campaign is an authored email (or nurture) targeted at a live
 // audience resolved from the real CRM stores (contacts + leads),
 // with a status lifecycle and per-send metrics. Same pub/sub,
@@ -139,14 +139,14 @@ function buildSeed() {
   // Two illustrative campaigns so the hub is not empty on first run. The 'sent'
   // one carries modest, freshly-sent metrics (engagement would arrive later via
   // provider webhooks, so opens/clicks start low). Everything here is local demo
-  // content, consistent with the rest of Rally's seeded book of business.
+  // content, consistent with the rest of Ardovo's seeded book of business.
   const campaigns = [
     {
       id: 'mc_launch',
       name: 'Rook GA announcement',
       type: 'email',
       subject: '{firstName}, meet Rook - your AI revenue operator',
-      body: 'Hi {firstName},\n\nRook is now generally available for every team at {company}. It drafts the follow-ups, keeps the pipeline honest, and never lets a deal go dark.\n\nWant a 15-minute look at what it can do for your revenue team?\n\nTalk soon,\nThe Rally team',
+      body: 'Hi {firstName},\n\nRook is now generally available for every team at {company}. It drafts the follow-ups, keeps the pipeline honest, and never lets a deal go dark.\n\nWant a 15-minute look at what it can do for your revenue team?\n\nTalk soon,\nThe Ardovo team',
       audience: 'all-contacts',
       customList: '',
       status: 'sent',
@@ -161,7 +161,7 @@ function buildSeed() {
       name: 'Reengage cold accounts',
       type: 'nurture',
       subject: '{company} - still worth a conversation?',
-      body: 'Hi {firstName},\n\nWe spoke a while back about helping {company} run a tighter revenue motion. The timing may be better now.\n\nIf it is worth a fresh look, just reply and I will send a few times.\n\nBest,\nThe Rally team',
+      body: 'Hi {firstName},\n\nWe spoke a while back about helping {company} run a tighter revenue motion. The timing may be better now.\n\nIf it is worth a fresh look, just reply and I will send a few times.\n\nBest,\nThe Ardovo team',
       audience: 'working-leads',
       customList: '',
       status: 'draft',

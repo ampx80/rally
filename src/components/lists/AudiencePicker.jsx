@@ -1,6 +1,6 @@
 // ============================================================
 // AudiencePicker - the shared audience source for every marketing
-// tool in Rally (broadcasts, sequences enrollment, any future send).
+// tool in Ardovo (broadcasts, sequences enrollment, any future send).
 // A campaign hands it a value + onChange and gets back an "audience
 // descriptor" it can resolve to recipients through src/lib/lists.js:
 //

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DATA LAYER - SUPABASE ADAPTER
+// ARDOVO DATA LAYER - SUPABASE ADAPTER
 // ------------------------------------------------------------
 // Multi-tenant persistence over Supabase. Same interface as the
 // LocalAdapter, so pages that read/write through the data layer do
@@ -32,7 +32,7 @@ let _orgId = readOrgId();
 function readOrgId() {
   try {
     const env = (typeof import.meta !== 'undefined' && import.meta.env) || {};
-    return env.VITE_RALLY_ORG_ID || 'default';
+    return env.VITE_ARDOVO_ORG_ID || 'default';
   } catch {
     return 'default';
   }

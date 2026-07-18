@@ -18,7 +18,7 @@ function lineDiscLabel(l) {
 
 export default function PublicQuote({
   quote, company, accountName, ownerName, lines = [], totals,
-  onAccept, printRoot = false, brandName = 'Rally',
+  onAccept, printRoot = false, brandName = 'Ardovo',
 }) {
   if (!quote) return null;
   const meta = QUOTE_STATUS_META[quote.status] || QUOTE_STATUS_META.draft;
@@ -35,7 +35,7 @@ export default function PublicQuote({
             <span className="pq-mark"><Icon name="zap" size={22} fill="currentColor" stroke={0} /></span>
             <div className="col" style={{ lineHeight: 1.15 }}>
               <strong style={{ fontSize: '1.3rem', letterSpacing: '-.02em' }}>{brandName}</strong>
-              <span className="pq-muted" style={{ fontSize: '.82rem' }}>Revenue platform - rally.app</span>
+              <span className="pq-muted" style={{ fontSize: '.82rem' }}>Revenue platform - ardovo.com</span>
             </div>
           </div>
           <div className="col" style={{ alignItems: 'flex-end', gap: 3, textAlign: 'right' }}>
@@ -144,7 +144,7 @@ export default function PublicQuote({
         </div>
 
         <div className="pq-foot pq-muted">
-          {brandName} - rally.app - This document was generated for {accountName || quote.companyName || 'the customer'} and is confidential.
+          {brandName} - ardovo.com - This document was generated for {accountName || quote.companyName || 'the customer'} and is confidential.
         </div>
       </div>
 

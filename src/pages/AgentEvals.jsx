@@ -1,4 +1,4 @@
-// AgentEvals - the Testing Center. Rally's answer to Agentforce Testing Center:
+// AgentEvals - the Testing Center. Ardovo's answer to Agentforce Testing Center:
 // run scenarios against an agent, score the outputs against a deterministic
 // rubric, and compare versions before you trust autonomy. Local-first: every
 // run is simulated into the real Agent Cloud ledger and scored from explainable

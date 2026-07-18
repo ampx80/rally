@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CONNECTIONS  (local-first, pub/sub - mirrors modules.js)
+// ARDOVO CONNECTIONS  (local-first, pub/sub - mirrors modules.js)
 // The per-workspace on/off + status state for every integration.
 // Same shape as the module registry: a private `state` object,
 // a Set of subscribers, a persisted localStorage key, and a

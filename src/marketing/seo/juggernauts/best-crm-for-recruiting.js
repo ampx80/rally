@@ -9,11 +9,11 @@ const entry = {
   slug: 'best-crm-for-recruiting',
   title: 'The Best CRM (ATS) for Recruiting and Staffing in 2026',
   h1: 'The Best CRM for Recruiting and Staffing: A 2026 Buyers Guide',
-  metaTitle: 'The Best CRM (ATS) for Recruiting and Staffing in 2026: Dual Pipeline, Fill-Rate Calculator, Comparison | Rally',
+  metaTitle: 'The Best CRM (ATS) for Recruiting and Staffing in 2026: Dual Pipeline, Fill-Rate Calculator, Comparison | Ardovo',
   metaDescription: 'A deep, practical guide to choosing a CRM/ATS for recruiting and staffing in 2026: the candidate and client dual pipeline, placement economics, a fill-rate revenue calculator, feature comparison, and a rollout plan.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -157,7 +157,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Recruiting tool comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Pure ATS', 'Generic CRM'],
+      columns: ['Ardovo', 'Pure ATS', 'Generic CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Candidate pipeline (sourcing to offer)', cells: [true, true, false] },
@@ -180,7 +180,7 @@ const entry = {
       caption: 'Illustrative time from signup to a recruiter working real requisitions.',
       data: {
         bars: [
-          { label: 'Rally', value: 8, display: 'Under 10 min', highlight: true },
+          { label: 'Ardovo', value: 8, display: 'Under 10 min', highlight: true },
           { label: 'Spreadsheet stack', value: 60, display: '~1 hr, brittle' },
           { label: 'Legacy ATS/CRM', value: 240, display: '2-4 weeks' },
         ],
@@ -221,14 +221,14 @@ const entry = {
     {
       type: 'quote',
       text: 'Our candidate list and our client list finally live in the same place. We stopped losing submissions between the ATS and the inbox, and we can actually see which desks are covered.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Owner, boutique staffing firm',
     },
     {
       type: 'callout',
       tone: 'success',
-      title: 'Where Rally fits',
-      body: 'Rally is an AI-native platform that runs the candidate and client pipelines on one source of truth, tracks placements with fees and margins, and ships alive on first load. Rook, the built-in operator, parses resumes, drafts client and candidate outreach, and chases the status updates recruiters skip when the desk gets busy. One flat price covers every module, so the bill does not climb as you add recruiters.',
+      title: 'Where Ardovo fits',
+      body: 'Ardovo is an AI-native platform that runs the candidate and client pipelines on one source of truth, tracks placements with fees and margins, and ships alive on first load. Rook, the built-in operator, parses resumes, drafts client and candidate outreach, and chases the status updates recruiters skip when the desk gets busy. One flat price covers every module, so the bill does not climb as you add recruiters.',
     },
     {
       type: 'richText',
@@ -242,11 +242,11 @@ const entry = {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'What is the difference between a recruiting CRM and an ATS?', a: 'An applicant tracking system is built around the candidate and the requisition: posting jobs, parsing resumes, and moving applicants through hiring stages. A recruiting CRM adds the client side that agencies live on: business development, client relationships, job-order pipelines, and placement fees. Agency firms need both, ideally in one system so the candidate and client data reconcile. Rally runs both pipelines on one source of truth.' },
+        { q: 'What is the difference between a recruiting CRM and an ATS?', a: 'An applicant tracking system is built around the candidate and the requisition: posting jobs, parsing resumes, and moving applicants through hiring stages. A recruiting CRM adds the client side that agencies live on: business development, client relationships, job-order pipelines, and placement fees. Agency firms need both, ideally in one system so the candidate and client data reconcile. Ardovo runs both pipelines on one source of truth.' },
         { q: 'Do I need separate tools for candidates and clients?', a: 'No, and running them separately is the most common source of leaked placements. When candidates live in an ATS and clients live in a spreadsheet or inbox, submissions fall between the two and nobody can report fill rate accurately. A dual-pipeline system links a job order to both a client company and the candidates being submitted, so one record updates every view.' },
         { q: 'How does a recruiting CRM improve fill rate?', a: 'Two ways. First, it stops good candidates from going cold between stages by surfacing the next action and drafting the follow-up. Second, it makes sure no open requisition sits without candidate coverage. Both are follow-up problems, and a system of record is what turns follow-up from a memory task into an automatic one. Use the calculator above to size what a fill-rate lift is worth on your desk.' },
         { q: 'Can one system handle both permanent and contract placements?', a: 'It should. Perm places on a one-time fee, while contract runs on ongoing timesheets, bill rates, and gross margin. A capable recruiting CRM models both on the placement record without a separate bolt-on, so contract margin and perm fees roll up into the same revenue reporting. Verify current contract-billing capabilities with any vendor you evaluate.' },
-        { q: 'How much should a staffing firm pay for a recruiting CRM?', a: 'Watch the total cost, not the per-seat sticker. Many recruiting platforms price per seat and then charge extra for modules like business development, contract billing, or advanced reporting, so the bill climbs exactly as you add recruiters. Rally is one flat price across every module, which keeps the cost predictable from a four-person desk to a fifty-recruiter firm. Always verify current pricing and packaging directly with each vendor.' },
+        { q: 'How much should a staffing firm pay for a recruiting CRM?', a: 'Watch the total cost, not the per-seat sticker. Many recruiting platforms price per seat and then charge extra for modules like business development, contract billing, or advanced reporting, so the bill climbs exactly as you add recruiters. Ardovo is one flat price across every module, which keeps the cost predictable from a four-person desk to a fifty-recruiter firm. Always verify current pricing and packaging directly with each vendor.' },
         { q: 'How long does it take to get a desk productive?', a: 'On a platform that is alive on first load, minutes to a working desk and an afternoon to a real rollout: import active candidates and open job orders, set both pipelines, and turn on automations. On a blank legacy ATS or CRM, expect two to four weeks of configuration before the first useful report. Speed to value matters most for small firms that cannot afford to run two systems in parallel during a long migration.' },
       ],
     },

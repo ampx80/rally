@@ -1,5 +1,5 @@
 // api/genui.js - Generative UI. Rook turns a natural-language request into a
-// declarative ui_spec that Rally renders as a live, interactive micro-app bound
+// declarative ui_spec that Ardovo renders as a live, interactive micro-app bound
 // to the user's real book of business. Rook AUTHORS the spec; it never touches
 // data. The client validates the spec again before rendering and resolves every
 // data reference against a whitelist of store selectors (no eval, ever).
@@ -93,7 +93,7 @@ function snapshotToText(s) {
 }
 
 const SYSTEM = (snapText) => [
-  'You are Rook, the AI operator inside Rally, an AI-native revenue platform. Instead of a text answer, you assemble a live, interactive micro-app: you return a ui_spec that Rally renders and binds to the user real, live data.',
+  'You are Rook, the AI operator inside Ardovo, an AI-native revenue platform. Instead of a text answer, you assemble a live, interactive micro-app: you return a ui_spec that Ardovo renders and binds to the user real, live data.',
   '',
   PROMPT_GRAMMAR,
   '',

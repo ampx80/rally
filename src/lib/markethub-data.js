@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY MARKETING HUB  (local-first, additive, Supabase-swappable)
+// ARDOVO MARKETING HUB  (local-first, additive, Supabase-swappable)
 //
-// The glue layer that turns Rally's scattered marketing surfaces
+// The glue layer that turns Ardovo's scattered marketing surfaces
 // (Campaigns, Sequences, Automations, Ads, Social, Funnels, Forms,
 // Landing pages, Reviews) into ONE command center - and fills the
 // last gap HubSpot charges $3,600/mo for: a real, configurable
@@ -11,7 +11,7 @@
 // marketing automation engine (marketing-engine.js). The only thing
 // it PERSISTS is the editable lead-scoring config (rules + bands +
 // decay) in its own localStorage slice. Same deterministic-seed,
-// pub/sub pattern as the rest of Rally, so it is 100% alive with
+// pub/sub pattern as the rest of Ardovo, so it is 100% alive with
 // zero backend and never white-screens on load.
 //
 // TDZ-safe: every helper used anywhere is a hoisted `function`
@@ -348,7 +348,7 @@ const CAL_TITLES = {
   email:    ['Q3 nurture blast', 'Product update newsletter', 'Re-engagement send', 'Webinar invite', 'Customer story feature', 'Feature launch announce'],
   social:   ['LinkedIn thought-leadership', 'Customer quote carousel', 'Product teaser reel', 'Poll: forecasting pain', 'Hiring spotlight'],
   ad:       ['Google Search - ROI keywords', 'Meta retargeting refresh', 'LinkedIn ABM push', 'YouTube demo pre-roll'],
-  webinar:  ['Live demo: Rally in 20 min', 'RevOps roundtable', 'Office hours with Rook'],
+  webinar:  ['Live demo: Ardovo in 20 min', 'RevOps roundtable', 'Office hours with Rook'],
   sequence: ['New MQL fast-follow', 'Trial day-3 nudge', 'Dormant lead revival'],
   blog:     ['Benchmark report drop', 'How-to: lead scoring', 'Case study publish'],
 };

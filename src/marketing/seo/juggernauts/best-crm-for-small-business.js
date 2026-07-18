@@ -10,11 +10,11 @@ const entry = {
   slug: 'best-crm-for-small-business',
   title: 'The Best CRM for Small Business in 2026',
   h1: 'The Best CRM for Small Business: A 2026 Buyer Guide',
-  metaTitle: 'The Best CRM for Small Business in 2026: Buyer Guide, Calculator, and Comparison | Rally',
+  metaTitle: 'The Best CRM for Small Business in 2026: Buyer Guide, Calculator, and Comparison | Ardovo',
   metaDescription: 'A practical 2026 buyer guide to choosing a CRM as a small business: the selection criteria that matter, what SMBs actually need, spreadsheet vs point tool vs all-in-one, an ROI calculator, and a rollout plan.',
   eyebrow: 'Buyer Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   ],
   heroStats: [
     { value: 29, suffix: '%', label: 'Typical revenue lift SMBs report after real CRM adoption' },
-    { value: 10, prefix: '<', suffix: ' min', label: 'Time to first working pipeline on Rally' },
+    { value: 10, prefix: '<', suffix: ' min', label: 'Time to first working pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module included' },
   ],
   blocks: [
@@ -115,14 +115,14 @@ const entry = {
       body: [
         'Small businesses almost always pick from three approaches. A spreadsheet is free and familiar, and it is genuinely the right answer for a solo founder with a handful of deals. It breaks the moment two people need to update it at once, or the moment follow-up depends on remembering to look.',
         'A stack of point tools means one product for email, another for scheduling, another for a lightweight contact list. Each is decent alone, but the data never lives in one place, so nothing rolls up into a real forecast and you spend your week reconciling between tabs.',
-        'An all-in-one CRM keeps every lead, contact, deal, and follow-up in a single system of record. The modern version of this, an AI-native platform like Rally, adds an operator that works the pipeline for you: enriching leads, drafting the next message, and updating the forecast as deals move. For most growing small businesses this is the approach that pays off, because the whole team sees one truth and the busywork gets handled instead of skipped.',
+        'An all-in-one CRM keeps every lead, contact, deal, and follow-up in a single system of record. The modern version of this, an AI-native platform like Ardovo, adds an operator that works the pipeline for you: enriching leads, drafting the next message, and updating the forecast as deals move. For most growing small businesses this is the approach that pays off, because the whole team sees one truth and the busywork gets handled instead of skipped.',
       ],
     },
     {
       type: 'comparisonMatrix',
       title: 'Small-business CRM approach comparison',
       rowHeader: 'Capability',
-      columns: ['All-in-one (Rally)', 'Spreadsheet', 'Stack of point tools'],
+      columns: ['All-in-one (Ardovo)', 'Spreadsheet', 'Stack of point tools'],
       highlightCol: 0,
       rows: [
         { feature: 'One place for every lead and deal', cells: [true, 'partial', false] },
@@ -188,7 +188,7 @@ const entry = {
       title: 'Time to first working pipeline',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: '10 min', highlight: true },
+          { label: 'Ardovo', value: 10, display: '10 min', highlight: true },
           { label: 'Spreadsheet', value: 30, display: '30 min' },
           { label: 'Legacy CRM', value: 336, display: '2-3 weeks' },
         ],
@@ -224,7 +224,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We were running our whole shop out of a spreadsheet and a shared inbox. Moving to one system meant we stopped losing quotes, and I finally trust the forecast.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Owner, home-services company',
     },
     {
@@ -233,17 +233,17 @@ const entry = {
       body: [
         'Do not try to model your entire business on day one. Import your open deals, set your stages, and turn on follow-up drafting. That alone stops the leak and gives you a forecast you can trust by the end of the afternoon.',
         'Add custom fields and automations only when a real workflow demands them. A CRM the team actually updates beats a perfectly configured one nobody opens. The goal is a living system of record, not a museum piece.',
-        'Where Rally is different is that the operator, Rook, does the maintenance for you. Instead of nagging the team to keep records clean, the platform enriches contacts, logs activity, and drafts the next step on its own. That is what makes an all-in-one CRM stick at a small business: the discipline is automatic, so it survives the busy weeks that kill every other tool.',
+        'Where Ardovo is different is that the operator, Rook, does the maintenance for you. Instead of nagging the team to keep records clean, the platform enriches contacts, logs activity, and drafts the next step on its own. That is what makes an all-in-one CRM stick at a small business: the discipline is automatic, so it survives the busy weeks that kill every other tool.',
       ],
     },
     {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'What is the best CRM for a small business in 2026?', a: 'The best CRM for a small business is an all-in-one, AI-native platform that is useful on the first login, captures leads automatically, and prices predictably as you grow. Rally fits that profile: it shows real pipeline immediately, its operator Rook works deals for you, and it is one flat price across every module. A spreadsheet is fine for a solo operator, but most growing teams outgrow it within a quarter.' },
+        { q: 'What is the best CRM for a small business in 2026?', a: 'The best CRM for a small business is an all-in-one, AI-native platform that is useful on the first login, captures leads automatically, and prices predictably as you grow. Ardovo fits that profile: it shows real pipeline immediately, its operator Rook works deals for you, and it is one flat price across every module. A spreadsheet is fine for a solo operator, but most growing teams outgrow it within a quarter.' },
         { q: 'How much should a small business pay for a CRM?', a: 'Budget for predictable pricing, not the lowest sticker. Avoid per-seat-plus-add-on plans that climb as you add people and features, because they punish you exactly when you grow. A single flat price per seat with every module included keeps the bill readable from three people to fifty.' },
         { q: 'Is a spreadsheet good enough instead of a CRM?', a: 'For a solo operator with a handful of deals who never lets a follow-up slip, yes. The moment a second person needs to update the same records, or follow-up starts depending on memory, a spreadsheet begins costing you leads you already paid to acquire. That is the point to switch.' },
-        { q: 'How long does it take to get value from a CRM?', a: 'On a live-on-first-load platform like Rally, minutes to an afternoon: import contacts, set stages, and you have a working forecast. On a blank legacy CRM, expect two to three weeks of configuration before the first useful report, which is a common reason small teams abandon them.' },
+        { q: 'How long does it take to get value from a CRM?', a: 'On a live-on-first-load platform like Ardovo, minutes to an afternoon: import contacts, set stages, and you have a working forecast. On a blank legacy CRM, expect two to three weeks of configuration before the first useful report, which is a common reason small teams abandon them.' },
         { q: 'What features does a small business actually need?', a: 'Three things above all: automatic lead capture so nothing is entered by hand, next-step prompts so follow-ups happen on time, and one-click forecasting so you always know where revenue stands. Everything else, including long integration lists and deep customization, is a nice-to-have you can add later.' },
         { q: 'Will we have to migrate to a different CRM as we grow?', a: 'Not if you choose one that scales. Migrating CRMs is genuine work, so the value of choosing well early is that the tool you adopt at five people still fits at fifty. Favor platforms that grow with you over ones you will outgrow.' },
       ],

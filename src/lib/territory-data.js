@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY TERRITORY + QUOTA DATA
+// ARDOVO TERRITORY + QUOTA DATA
 // Enterprise sales-ops layer on top of the live store: territory
 // design (geo x segment books), rep assignments, quota + capacity
 // planning with ramp, attainment vs quota off REAL closed-won deals,

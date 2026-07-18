@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY KNOWLEDGE BASE  (local-first, Supabase-swappable)
+// ARDOVO KNOWLEDGE BASE  (local-first, Supabase-swappable)
 // The native help-desk knowledge layer behind the Service Hub. A
 // persisted slice of KB articles + categories with full-text search,
 // helpful-vote scoring, and view tracking. Seeded with real, practical
@@ -26,7 +26,7 @@ const nowIso = () => new Date().toISOString();
    ============================================================ */
 export const KB_CATEGORIES = [
   { id: 'getting-started', name: 'Getting started', icon: 'rocket', blurb: 'Set up your workspace and learn the essentials.' },
-  { id: 'data', name: 'Data and imports', icon: 'download', blurb: 'Bring your book of business into Rally cleanly.' },
+  { id: 'data', name: 'Data and imports', icon: 'download', blurb: 'Bring your book of business into Ardovo cleanly.' },
   { id: 'deals', name: 'Deals and pipeline', icon: 'target', blurb: 'Move deals through stages and keep the forecast honest.' },
   { id: 'rook', name: 'Rook AI', icon: 'sparkles', blurb: 'Put the AI operator to work on your revenue data.' },
   { id: 'reports', name: 'Reports and dashboards', icon: 'pie', blurb: 'Build the views your team runs the business on.' },
@@ -63,12 +63,12 @@ const slugify = (s = '') => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').r
    ============================================================ */
 const SEED = [
   {
-    title: 'Getting started with Rally',
+    title: 'Getting started with Ardovo',
     category: 'getting-started',
     summary: 'A five-minute tour of the workspace: the command center, the left rail, and how the demo data works.',
     tags: ['onboarding', 'basics', 'tour'],
     sections: [
-      { heading: 'What you are looking at', body: 'Rally opens on the command center, your daily home base. It rolls up open pipeline, the deals that need attention today, and what Rook has already handled overnight.\n\nEverything in a fresh workspace is seeded with a realistic book of business so you can explore every feature before importing a single row of your own data.' },
+      { heading: 'What you are looking at', body: 'Ardovo opens on the command center, your daily home base. It rolls up open pipeline, the deals that need attention today, and what Rook has already handled overnight.\n\nEverything in a fresh workspace is seeded with a realistic book of business so you can explore every feature before importing a single row of your own data.' },
       { heading: 'Finding your way around', body: 'The left rail groups the product into Overview, Customers, Pipeline, Marketing, Success and Delivery, Revenue, Analytics, Automation, and Admin. Collapse the groups you do not use and they stay collapsed per user.\n\nPress Cmd K (Ctrl K on Windows) anywhere to open the command palette and jump to any record or page by name.' },
       { heading: 'Your next three steps', body: '1. Import your contacts and companies, or keep exploring the demo data.\n2. Open a deal and watch how the timeline, health, and Rook suggestions come together.\n3. Ask Rook a question in plain language from the dock in the bottom right.' },
     ],
@@ -76,12 +76,12 @@ const SEED = [
   {
     title: 'Importing contacts and companies',
     category: 'data',
-    summary: 'Upload a CSV, map your columns, and let Rally dedupe against the records you already have.',
+    summary: 'Upload a CSV, map your columns, and let Ardovo dedupe against the records you already have.',
     tags: ['import', 'csv', 'dedupe', 'data'],
     sections: [
-      { heading: 'Start an import', body: 'Go to Admin then Import. Drop in a CSV of contacts, companies, or deals. Rally reads the header row and shows you a preview of the first records so you can confirm you uploaded the right file.' },
-      { heading: 'Map your columns', body: 'Rally auto-matches common headers like Email, First Name, and Company to the right Rally fields. Anything it is unsure about is left for you to map by hand. Unmapped columns are skipped, never guessed.' },
-      { heading: 'Deduplication', body: 'Before anything is written, Rally matches incoming rows against your existing book. Contacts match on email, companies match on domain. Matches are updated in place instead of creating a duplicate, and you see the exact create versus update counts before you commit.' },
+      { heading: 'Start an import', body: 'Go to Admin then Import. Drop in a CSV of contacts, companies, or deals. Ardovo reads the header row and shows you a preview of the first records so you can confirm you uploaded the right file.' },
+      { heading: 'Map your columns', body: 'Ardovo auto-matches common headers like Email, First Name, and Company to the right Ardovo fields. Anything it is unsure about is left for you to map by hand. Unmapped columns are skipped, never guessed.' },
+      { heading: 'Deduplication', body: 'Before anything is written, Ardovo matches incoming rows against your existing book. Contacts match on email, companies match on domain. Matches are updated in place instead of creating a duplicate, and you see the exact create versus update counts before you commit.' },
       { heading: 'After the import', body: 'Every imported record is tagged with its source and import batch, so you can filter to exactly what came in and undo a bad load by list.' },
     ],
   },
@@ -92,7 +92,7 @@ const SEED = [
     tags: ['deals', 'pipeline', 'basics'],
     sections: [
       { heading: 'Open a new deal', body: 'From the Deals page, use New deal in the top right. Give it a name, amount, close date, and the company it belongs to. The owning rep defaults to you and the stage defaults to the first open stage.' },
-      { heading: 'Connect the people', body: 'Add the contacts involved and mark the roles that matter: champion, economic buyer, and any blocker. Rally uses these roles to score deal health and to warn you when a single-threaded deal has no backup relationship.' },
+      { heading: 'Connect the people', body: 'Add the contacts involved and mark the roles that matter: champion, economic buyer, and any blocker. Ardovo uses these roles to score deal health and to warn you when a single-threaded deal has no backup relationship.' },
       { heading: 'Keep the timeline alive', body: 'Log calls, emails, meetings, and notes right on the deal. The most recent activity drives the deal freshness signal, and a deal that goes quiet is surfaced back to you before it slips.' },
     ],
   },
@@ -135,7 +135,7 @@ const SEED = [
     summary: 'Build a multi-step outbound cadence with email, call, and task steps, then enroll contacts and let it run.',
     tags: ['sequences', 'cadence', 'outbound', 'automation'],
     sections: [
-      { heading: 'What a sequence is', body: 'A sequence is an ordered set of steps spread over days: send an email on day one, a follow-up on day three, a call task on day five. Once a contact is enrolled, Rally schedules each step and reminds you when a manual step is due.' },
+      { heading: 'What a sequence is', body: 'A sequence is an ordered set of steps spread over days: send an email on day one, a follow-up on day three, a call task on day five. Once a contact is enrolled, Ardovo schedules each step and reminds you when a manual step is due.' },
       { heading: 'Enroll the right people', body: 'Enroll individual contacts, everyone on a deal, or a whole list. A contact that replies is automatically removed so you never keep chasing someone who already answered.' },
       { heading: 'Measure and tune', body: 'Each sequence tracks open, reply, and meeting-booked rates by step, so you can see exactly which message is doing the work and cut the steps that are not.' },
     ],
@@ -154,10 +154,10 @@ const SEED = [
   {
     title: 'Creating quotes and sending for signature',
     category: 'billing',
-    summary: 'Build a quote from your product catalog, then send it for legally binding e-signature without leaving Rally.',
+    summary: 'Build a quote from your product catalog, then send it for legally binding e-signature without leaving Ardovo.',
     tags: ['quotes', 'esignature', 'cpq', 'billing'],
     sections: [
-      { heading: 'Build the quote', body: 'From a deal, start a quote and add line items from your product catalog. Rally handles quantity, discounts, and totals, and keeps the quote tied to the deal so the amount stays in sync.' },
+      { heading: 'Build the quote', body: 'From a deal, start a quote and add line items from your product catalog. Ardovo handles quantity, discounts, and totals, and keeps the quote tied to the deal so the amount stays in sync.' },
       { heading: 'Send for signature', body: 'Send the quote for e-signature from the same screen. The recipient signs in their browser, you see the status move from sent to viewed to signed in real time, and the signed document is filed against the deal.' },
       { heading: 'Turn it into revenue', body: 'A signed quote can be converted into an invoice in one step, carrying every line item forward so nothing is re-keyed.' },
     ],
@@ -176,10 +176,10 @@ const SEED = [
   {
     title: 'Connecting your first integration',
     category: 'integrations',
-    summary: 'Link the tools your revenue team already uses so their data lands on the right Rally records automatically.',
+    summary: 'Link the tools your revenue team already uses so their data lands on the right Ardovo records automatically.',
     tags: ['integrations', 'connect', 'sync'],
     sections: [
-      { heading: 'Browse the catalog', body: 'Open Admin then Integrations to see everything you can connect. Each integration explains what it pulls in and where that data shows up inside Rally before you connect it.' },
+      { heading: 'Browse the catalog', body: 'Open Admin then Integrations to see everything you can connect. Each integration explains what it pulls in and where that data shows up inside Ardovo before you connect it.' },
       { heading: 'Connect securely', body: 'Connecting an integration asks only for the keys it needs. Those keys are held server-side and are never stored in your browser. You can disconnect at any time and the pulled data stops refreshing.' },
       { heading: 'Identity matching', body: 'Incoming records are matched onto the right company and contact automatically. Anything that cannot be matched parks in an unlinked tray so nothing is silently dropped, and you can resolve it by hand.' },
     ],
@@ -198,7 +198,7 @@ const SEED = [
   {
     title: 'Customer health scores and save plays',
     category: 'success',
-    summary: 'How Rally scores account health from real signals, and how to run a structured play when an account slips.',
+    summary: 'How Ardovo scores account health from real signals, and how to run a structured play when an account slips.',
     tags: ['success', 'health', 'churn', 'renewals'],
     sections: [
       { heading: 'What drives a health score', body: 'Each post-sale account gets a health score built from real signals: product usage trend, exec engagement recency, open support escalations, sentiment, and adoption. Scores land in three bands: Healthy, Watch, and At risk.' },
@@ -220,7 +220,7 @@ const SEED = [
   {
     title: 'Data security and compliance',
     category: 'admin',
-    summary: 'How Rally protects your data: encryption, access controls, audit logging, and export on demand.',
+    summary: 'How Ardovo protects your data: encryption, access controls, audit logging, and export on demand.',
     tags: ['security', 'compliance', 'audit', 'privacy'],
     sections: [
       { heading: 'Encryption and access', body: 'Data is encrypted in transit and at rest. Access is gated by role-based permissions, and integration keys are held server-side, never exposed to the browser.' },
@@ -231,10 +231,10 @@ const SEED = [
   {
     title: 'Command palette and keyboard shortcuts',
     category: 'getting-started',
-    summary: 'Move through Rally at the speed of thought with the command palette and the shortcuts that matter.',
+    summary: 'Move through Ardovo at the speed of thought with the command palette and the shortcuts that matter.',
     tags: ['shortcuts', 'command palette', 'productivity'],
     sections: [
-      { heading: 'The command palette', body: 'Press Cmd K on Mac or Ctrl K on Windows to open the palette from anywhere. Type a record name to jump straight to it, or a page name to navigate. It is the fastest way to move around Rally.' },
+      { heading: 'The command palette', body: 'Press Cmd K on Mac or Ctrl K on Windows to open the palette from anywhere. Type a record name to jump straight to it, or a page name to navigate. It is the fastest way to move around Ardovo.' },
       { heading: 'Everyday shortcuts', body: 'Use the palette to create a new deal, contact, or task without reaching for the mouse. The primary action button in the top right is always the most useful create action for the page you are on.' },
       { heading: 'Ask Rook from anywhere', body: 'The Rook dock is always one click away in the bottom right. Anything you can do by clicking, you can usually just ask Rook to do instead.' },
     ],
@@ -261,7 +261,7 @@ function buildSeed() {
       tags: a.tags || [],
       sections: a.sections,
       status: 'published',
-      author: 'Rally team',
+      author: 'Ardovo team',
       views: stats.views,
       votes: stats.votes,
       createdAt: created,

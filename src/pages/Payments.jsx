@@ -1,5 +1,5 @@
-// Payments. Rally's commerce layer - the gap that keeps a CRM from being a
-// money platform. Rally already sends invoices; Payments adds fast collection:
+// Payments. Ardovo's commerce layer - the gap that keeps a CRM from being a
+// money platform. Ardovo already sends invoices; Payments adds fast collection:
 // a live volume dashboard, shareable payment links + text-to-pay straight to a
 // contact's phone, a branded checkout preview, and recurring subscriptions with
 // failed-payment dunning. Four surfaces over one local-first store
@@ -165,7 +165,7 @@ function Dashboard({ stats, lstats, onGoLinks, onRefund }) {
                 <div className="row between"><span className="t-sm muted">Next payout</span><span className="fw-7 t-sm">{shortDate(stats.payout.nextPayout)}</span></div>
                 <div className="row between" style={{ marginTop: 6 }}><span className="t-sm muted">Last payout</span><span className="fw-6 t-sm mono">{money(stats.payout.last.amount)} <span className="muted">{relTime(stats.payout.last.date)}</span></span></div>
               </div>
-              <Button variant="ghost" size="sm" as="a" href="#" onClick={(e) => { e.preventDefault(); askRook('Break down my upcoming Rally payout and flag any charges at risk of a chargeback.'); }}>
+              <Button variant="ghost" size="sm" as="a" href="#" onClick={(e) => { e.preventDefault(); askRook('Break down my upcoming Ardovo payout and flag any charges at risk of a chargeback.'); }}>
                 <Icon name="sparkles" size={15} /> Ask Rook about payouts
               </Button>
             </div>
@@ -423,7 +423,7 @@ function Checkout() {
         <Field label="Line item"><Input value={desc} onChange={e => setDesc(e.target.value)} /></Field>
         <Button variant="ghost" size="sm" onClick={() => { updateBusiness({ name, accent }); toast('Saved to your checkout brand'); }}><Icon name="check" size={15} /> Save brand</Button>
         <div className="panel t-xs muted row gap-1" style={{ padding: '.6rem .7rem', alignItems: 'flex-start' }}>
-          <Icon name="shield" size={14} /> <span>PCI note: Rally never touches raw card numbers. Fields tokenize client-side to Stripe. This preview collects nothing.</span>
+          <Icon name="shield" size={14} /> <span>PCI note: Ardovo never touches raw card numbers. Fields tokenize client-side to Stripe. This preview collects nothing.</span>
         </div>
       </Card>
 
@@ -459,7 +459,7 @@ function Checkout() {
               <Icon name="lock" size={15} /> Pay {money(amt)}
             </button>
             <div className="row center gap-1 t-xs muted" style={{ marginTop: 2 }}>
-              <Icon name="lock" size={12} /> Secured by Rally Payments. Powered by Stripe.
+              <Icon name="lock" size={12} /> Secured by Ardovo Payments. Powered by Stripe.
             </div>
           </div>
         </div>
@@ -493,9 +493,9 @@ function Subscriptions({ stats }) {
           <div className="row between wrap" style={{ marginBottom: '.9rem', gap: '.5rem' }}>
             <div className="col gap-1" style={{ minWidth: 0 }}>
               <h3 style={{ margin: 0, color: 'var(--risk)' }}>Failed payments - dunning</h3>
-              <div className="muted t-sm">Recover revenue before it churns. Rally auto-retries on a smart schedule.</div>
+              <div className="muted t-sm">Recover revenue before it churns. Ardovo auto-retries on a smart schedule.</div>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => askRook('Draft a friendly dunning email for my past-due Rally subscriptions and suggest the best retry timing.')}><Icon name="sparkles" size={15} /> Ask Rook to recover</Button>
+            <Button variant="ghost" size="sm" onClick={() => askRook('Draft a friendly dunning email for my past-due Ardovo subscriptions and suggest the best retry timing.')}><Icon name="sparkles" size={15} /> Ask Rook to recover</Button>
           </div>
           <div className="col gap-1">
             {dunning.map(s => (

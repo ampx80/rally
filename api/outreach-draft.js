@@ -1,9 +1,9 @@
 // api/outreach-draft.js
 //
-// Rally's AI OUTREACH DRAFTER. Given a contact and/or deal context, Rook
+// Ardovo's AI OUTREACH DRAFTER. Given a contact and/or deal context, Rook
 // (Claude, via api/_lib-anthropic.js) drafts a personalized email or short
 // message in the rep's own voice, matched to a requested tone. Adapted from
-// Class Reunly's api/outreach-draft.js and re-skinned for Rally's revenue
+// Class Reunly's api/outreach-draft.js and re-skinned for Ardovo's revenue
 // context (deals, pipeline stages, buying committee) instead of reunion
 // outreach.
 //
@@ -60,7 +60,7 @@ function senderSignoff(ctx) {
   const s = ctx.sender || {};
   const name = (s.name || 'Your account team').trim();
   const title = s.title ? `\n${s.title}` : '';
-  return `${name}${title}\nRally`;
+  return `${name}${title}\nArdovo`;
 }
 function longDate(iso) {
   if (!iso) return '';
@@ -94,7 +94,7 @@ function contextToText(ctx) {
   }
   if (ctx.goal) lines.push(`Goal of this message: ${ctx.goal}`);
   if (ctx.notes) lines.push(`Extra context from the rep: ${ctx.notes}`);
-  lines.push(`Sender (write as this person): ${s.name || 'the account owner'}${s.title ? `, ${s.title}` : ''} at Rally.`);
+  lines.push(`Sender (write as this person): ${s.name || 'the account owner'}${s.title ? `, ${s.title}` : ''} at Ardovo.`);
   return lines.length ? lines.join('\n') : 'No structured context was provided; write a brief, friendly professional check-in.';
 }
 
@@ -183,7 +183,7 @@ export default withErrorHandling(async (req, res) => {
   };
 
   const system = [
-    'You are Rook, the AI operator inside Rally, an AI-native revenue platform.',
+    'You are Rook, the AI operator inside Ardovo, an AI-native revenue platform.',
     'You draft outreach that a real revenue rep would be proud to send: personalized, grounded in the specific record, and written in the SENDER voice (first person, as the account owner named in the context).',
     channel === 'email'
       ? 'Draft ONE email: a specific subject line plus a body of roughly 90 to 150 words.'

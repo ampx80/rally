@@ -1,4 +1,4 @@
-// Rally monitoring installer.
+// Ardovo monitoring installer.
 //
 // initMonitoring() attaches the global error handlers exactly once and stamps a
 // release/environment tag from the Vite build env. Call it a single time at

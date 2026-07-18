@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY - REVENUE DIGITAL TWIN  (twin-data.js)
+// ARDOVO - REVENUE DIGITAL TWIN  (twin-data.js)
 // A self-contained Monte Carlo forecast engine + scenario store.
 // Forecasting today is one lying number. The twin runs thousands of
 // simulated quarter outcomes (each deal weighted by stage probability
@@ -71,7 +71,7 @@ function buildDeals() {
   const usedCo = new Set();
   const deals = [];
 
-  // Marquee deal, pinned first, keeps continuity with the rest of Rally.
+  // Marquee deal, pinned first, keeps continuity with the rest of Ardovo.
   deals.push({
     id: 'td_flagship', company: 'Vertex Robotics', kind: 'Enterprise platform rollout',
     stage: 'negotiation', value: 420000, daysToClose: 21, repId: 'r1', flagship: true,

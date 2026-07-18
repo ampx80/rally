@@ -30,7 +30,7 @@ function usePageHead(page) {
   useEffect(() => {
     if (!page) return;
     const prevTitle = document.title;
-    const title = (page.seo && page.seo.title) || page.title || 'Rally';
+    const title = (page.seo && page.seo.title) || page.title || 'Ardovo';
     document.title = title;
     let meta = document.querySelector('meta[name="description"]');
     let created = false;
@@ -269,7 +269,7 @@ export default function HostedLanding() {
         <p className="mkt-lead" style={{ maxWidth: 520, margin: '0 auto 28px' }}>
           The landing page you are looking for is unpublished or does not exist.
         </p>
-        <Link to="/" className="mkt-btn mkt-btn-primary">Back to Rally</Link>
+        <Link to="/" className="mkt-btn mkt-btn-primary">Back to Ardovo</Link>
       </div>
     );
   }

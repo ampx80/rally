@@ -1,7 +1,7 @@
 // Customer Success - the post-sale command surface. Health of the book,
 // renewals, churn-risk queue, expansion pipeline, and NRR/GRR - all derived
 // live from the CRM via src/lib/success-data.js. Rook is framed as the layer
-// watching signals and flagging risk. This is Rally's answer to Gainsight and
+// watching signals and flagging risk. This is Ardovo's answer to Gainsight and
 // ChurnZero: the same book of business the sales side closed, now operated for
 // retention and growth.
 import React, { useState } from 'react';

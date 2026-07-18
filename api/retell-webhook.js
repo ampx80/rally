@@ -51,11 +51,11 @@ async function persist(row) {
 async function notify(row) {
   if (!process.env.RESEND_API_KEY) return { ok: false, skipped: 'no-api-key' };
   const to = (process.env.NOTIFY_EMAIL || 'nate@amptekgrowth.com').trim();
-  const from = process.env.NOTIFY_FROM || 'Rally Sales <onboarding@resend.dev>';
+  const from = process.env.NOTIFY_FROM || 'Ardovo Sales <onboarding@resend.dev>';
   const html = `
 <!doctype html><html><body style="margin:0;background:#0b0d14;font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:#e7e9f0;">
   <div style="max-width:560px;margin:36px auto;padding:32px;background:#12141f;border:1px solid #262a3d;border-radius:16px;">
-    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#0e9f8f;margin-bottom:14px;font-weight:700;">Rally pre-qual call</div>
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#0e9f8f;margin-bottom:14px;font-weight:700;">Ardovo pre-qual call</div>
     <h1 style="font-size:22px;margin:0 0 6px;color:#fff;">AI qualification call complete</h1>
     <p style="font-size:15px;color:#a3a7ba;margin:0 0 18px;">${esc(row.email || 'A lead')} - sentiment ${esc(row.sentiment || 'n/a')}.</p>
     <div style="font-size:13px;color:#c7cbdb;white-space:pre-wrap;line-height:1.5;background:#0e1019;border:1px solid #262a3d;border-radius:10px;padding:14px;">${esc(clean(row.transcript, 3000)) || 'No transcript.'}</div>
@@ -65,7 +65,7 @@ async function notify(row) {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to, subject: `Rally pre-qual call complete: ${row.email || 'lead'}`, html }),
+      body: JSON.stringify({ from, to, subject: `Ardovo pre-qual call complete: ${row.email || 'lead'}`, html }),
     });
     return { ok: true };
   } catch (e) { return { ok: false, error: e?.message }; }

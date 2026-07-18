@@ -2,7 +2,7 @@
 //
 // Given a connected source (the sealed token cookie from
 // /api/migrate-callback) and an object type, fetches records from the
-// provider API, normalizes them to Rally record shapes keyed by Rally
+// provider API, normalizes them to Ardovo record shapes keyed by Ardovo
 // field keys, and returns them for the client to map + import through
 // the EXISTING importer (importer.autoMap + importer.runImport). The
 // fetch is paginated and bounded (best-effort): it stops at a page /
@@ -95,7 +95,7 @@ export default withErrorHandling(async (req, res) => {
       label: objDef.label,
       fields: objDef.fields,          // [{ key, label }] in display order
       headers: objDef.fields.map(f => f.key),
-      records: clean,                 // each row keyed by Rally field key
+      records: clean,                 // each row keyed by Ardovo field key
       count: clean.length,
       hasMore,
     });

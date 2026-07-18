@@ -1,6 +1,6 @@
 // Import / migrate - the Salesforce Data Import Wizard equivalent. A five-step
 // flow: pick the object, choose the source + drop a CSV, map columns onto the
-// Rally field registry (auto-mapped, per-source presets), preview + dedupe,
+// Ardovo field registry (auto-mapped, per-source presets), preview + dedupe,
 // then write real records through the store. Everything maps onto the same
 // field registry that powers the record editors, so imported data is native.
 import React, { useMemo, useRef, useState } from 'react';
@@ -88,7 +88,7 @@ export default function ImportData() {
       <SectionHeader
         eyebrow="Data import + migration"
         title="Import data"
-        sub="Bring your world into Rally. Upload a CSV or migrate straight from Salesforce, HubSpot, or Pipedrive."
+        sub="Bring your world into Ardovo. Upload a CSV or migrate straight from Salesforce, HubSpot, or Pipedrive."
         action={<Button variant="quiet" onClick={() => nav('/settings')}><Icon name="settings" size={16} /> Connections</Button>}
       />
 
@@ -167,7 +167,7 @@ export default function ImportData() {
                 <thead><tr style={{ textAlign: 'left', color: 'var(--n-600)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '.04em' }}>
                   <th style={{ padding: '.6rem .9rem' }}>CSV column</th>
                   <th style={{ padding: '.6rem .9rem' }}>Sample</th>
-                  <th style={{ padding: '.6rem .9rem' }}>Rally field</th>
+                  <th style={{ padding: '.6rem .9rem' }}>Ardovo field</th>
                 </tr></thead>
                 <tbody>
                   {parsed.headers.map(h => (

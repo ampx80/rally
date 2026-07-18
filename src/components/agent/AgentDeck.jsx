@@ -1,4 +1,4 @@
-// AgentDeck - the cinematic command-deck hero shared across Rally's agent
+// AgentDeck - the cinematic command-deck hero shared across Ardovo's agent
 // modules. Deep-space gradient, animated aurora + grid, a live pulse, a
 // gradient title, and glowing count-up stat pods. NO em-dash / en-dash.
 import React from 'react';

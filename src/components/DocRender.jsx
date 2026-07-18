@@ -27,7 +27,7 @@ export function BlockBody({ block, accent = '#5b4bf5', doc }) {
               {c.preparedBy && <div className="dr-cover-party"><span>Prepared by</span><strong>{c.preparedBy}</strong></div>}
             </div>
           </div>
-          <div className="dr-cover-mark"><Icon name="zap" size={20} fill="currentColor" stroke={0} /> Rally</div>
+          <div className="dr-cover-mark"><Icon name="zap" size={20} fill="currentColor" stroke={0} /> Ardovo</div>
         </div>
       );
 

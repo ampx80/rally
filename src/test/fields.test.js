@@ -129,7 +129,7 @@ describe('validateValue', () => {
     expect(validateValue(fd('email'), 'nope').ok).toBe(false);
     expect(validateValue(fd('phone'), '(555) 123-4567').ok).toBe(true);
     expect(validateValue(fd('phone'), '123').ok).toBe(false);
-    expect(validateValue(fd('url'), 'https://rally.app').ok).toBe(true);
+    expect(validateValue(fd('url'), 'https://ardovo.com').ok).toBe(true);
   });
   it('enforces picklist membership when options exist', () => {
     const pick = fd('picklist', { options: ['red', 'blue'] });

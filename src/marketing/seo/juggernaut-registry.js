@@ -202,7 +202,7 @@ function normalize(raw) {
     category: 'Guides',
     updated: raw.updated || raw.published || '2026-07-13',
     published: raw.published || raw.updated || '2026-07-13',
-    author: raw.author || 'Rally',
+    author: raw.author || 'Ardovo',
     toc: raw.toc !== false,
     ...raw,
   };

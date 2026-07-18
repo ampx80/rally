@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY DATA LAYER - ADAPTER CONTRACT + SHARED QUERY HELPERS
+// ARDOVO DATA LAYER - ADAPTER CONTRACT + SHARED QUERY HELPERS
 // ------------------------------------------------------------
 // One narrow interface every backend implements. Pages never
 // talk to a backend directly; they talk to an adapter. Today the

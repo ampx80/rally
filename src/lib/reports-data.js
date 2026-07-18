@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY REPORTS ENGINE
+// ARDOVO REPORTS ENGINE
 // Pure, deterministic computation over the live store, plus a
 // tiny persistence layer for user-saved report definitions.
 // This module owns: (1) the aggregation engine that turns a

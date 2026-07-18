@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY SHEETS  (local-first, Supabase-swappable)
+// ARDOVO SHEETS  (local-first, Supabase-swappable)
 // A real in-app spreadsheet engine: a workbook -> sheets -> cells
 // model, a from-scratch formula parser + evaluator (cell refs,
 // ranges, SUM/AVERAGE/MIN/MAX/COUNT/IF/ROUND/CONCAT, arithmetic,
@@ -8,7 +8,7 @@
 // seed of workbooks whose formulas visibly compute.
 //
 // The companion to Drive. NetSuite makes you export to Excel;
-// Rally IS the spreadsheet.
+// Ardovo IS the spreadsheet.
 //
 // HEED rule 4 (no TDZ): every helper used while the module seeds
 // (buildSeed / load, called at "let state = load()") is a hoisted
@@ -465,7 +465,7 @@ export function workbookStats(wb) {
 export function createWorkbook(name = 'Untitled workbook') {
   const sheetId = nid('sh');
   const wb = {
-    id: nid('wb'), name: (name && name.trim()) || 'Untitled workbook', desc: 'Built in Rally.',
+    id: nid('wb'), name: (name && name.trim()) || 'Untitled workbook', desc: 'Built in Ardovo.',
     icon: 'grid', createdAt: Date.now(), activeSheetId: sheetId, sheets: [blankSheet(sheetId, 'Sheet 1')],
   };
   commit({ ...state, workbooks: [...state.workbooks, wb] });

@@ -17,8 +17,8 @@ export default function LaunchScreen() {
   return (
     <div className="launch" aria-hidden>
       <div className="launch__mark"><Icon name="zap" size={40} fill="#fff" stroke={0} /></div>
-      <div className="launch__word">Rally</div>
-      <div className="launch__tag">Run your revenue on Rally</div>
+      <div className="launch__word">Ardovo</div>
+      <div className="launch__tag">Run your revenue on Ardovo</div>
       <div className="launch__bar"><i /></div>
     </div>
   );

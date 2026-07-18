@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY AFFILIATES + PARTNERS  (local-first, Supabase-swappable)
+// ARDOVO AFFILIATES + PARTNERS  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
 // An affiliate army is distribution. GoHighLevel monetizes referral
-// programs as a paid add-on; Rally bundles a full partner engine so
+// programs as a paid add-on; Ardovo bundles a full partner engine so
 // every customer can turn happy users into a paid sales force.
 //
 // This slice is ADDITIVE. It owns its own state (partners, commission
@@ -42,7 +42,7 @@ function mulberry32(a) {
 // The public base for a partner's referral link. In production this is the
 // customer's own tracked short domain; every click sets a cookie for the
 // plan's window and attributes the resulting deal back to the partner.
-export const REFERRAL_BASE = 'rally.app/r/';
+export const REFERRAL_BASE = 'ardovo.com/r/';
 
 // Commission plans ship seeded so the Plans tab is alive immediately.
 // type: 'percent' pays a share of attributed revenue; 'flat' pays a fixed
@@ -239,7 +239,7 @@ function buildSeed() {
 
   // The program identity shown in the partner portal + copy.
   const program = {
-    name: 'Rally Partner Program',
+    name: 'Ardovo Partner Program',
     tagline: 'Turn your audience into recurring revenue.',
     defaultPlanId: 'pl_starter',
     autoApprove: false,

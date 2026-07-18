@@ -1,4 +1,4 @@
-// Rally Projects - CALENDAR view. A month grid (weeks x 7 days) with prev/next
+// Ardovo Projects - CALENDAR view. A month grid (weeks x 7 days) with prev/next
 // month controls, each task a colored chip on its due date (status color),
 // stacked with "+N more" on overflow, today's cell highlighted, chips animate
 // in, and clicking a chip opens the shared edit modal (onOpen).

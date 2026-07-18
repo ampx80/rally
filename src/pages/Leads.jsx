@@ -307,8 +307,8 @@ function InfoCell({ label, value }) {
 
 /* ---------- Web-to-lead capture tab: form preview + embed snippet ---------- */
 function CaptureTab({ onSimulate }) {
-  const embed = `<!-- Rally web-to-lead capture -->
-<form action="https://api.rally.app/v1/leads/capture" method="POST">
+  const embed = `<!-- Ardovo web-to-lead capture -->
+<form action="https://api.ardovo.com/v1/leads/capture" method="POST">
   <input type="hidden" name="workspace" value="rally-prod" />
   <input name="name" placeholder="Full name" required />
   <input name="email" type="email" placeholder="Work email" required />
@@ -316,7 +316,7 @@ function CaptureTab({ onSimulate }) {
   <input name="title" placeholder="Job title" />
   <button type="submit">Request a demo</button>
 </form>
-<script src="https://cdn.rally.app/embed.js" async></script>`;
+<script src="https://cdn.ardovo.com/embed.js" async></script>`;
 
   return (
     <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '1.15rem' }}>
@@ -335,7 +335,7 @@ function CaptureTab({ onSimulate }) {
             </Select>
           </Field>
           <Button variant="primary" disabled>Request a demo</Button>
-          <div className="t-xs muted">Every capture is auto-scored by Rally AI and lands ranked in your inbox. No manual routing.</div>
+          <div className="t-xs muted">Every capture is auto-scored by Ardovo AI and lands ranked in your inbox. No manual routing.</div>
         </div>
       </Card>
 

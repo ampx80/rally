@@ -1,4 +1,4 @@
-// Agent Exchange - Rally's answer to Salesforce AgentExchange: a marketplace of
+// Agent Exchange - Ardovo's answer to Salesforce AgentExchange: a marketplace of
 // proven, ready-to-run agent templates that install into your fleet in one
 // click. Every template is wired to the shared TOOL CATALOG, so an installed
 // agent lands in Agent Cloud fully specified (role, tools, autonomy, mandate)

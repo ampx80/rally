@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ROLES + DEEP PERMISSIONS  (admin - "Roles")
+// ARDOVO ROLES + DEEP PERMISSIONS  (admin - "Roles")
 // A permission model deeper than the base RBAC matrix: per-module
 // x per-action x record-scope grants, per-field visibility rules,
 // and per-object record-sharing scope - all keyed by role.
@@ -57,7 +57,7 @@ export const scopeMeta = (id) => SCOPES.find(s => s.id === id) || SCOPES[0];
 export const nextScope = (id) => { const i = SCOPES.findIndex(s => s.id === id); return SCOPES[(i + 1) % SCOPES.length].id; };
 
 /* Matrix rows - the modules / objects a role's access is carved across.
-   Each maps to a real Rally surface so the preview reads true. */
+   Each maps to a real Ardovo surface so the preview reads true. */
 export const MODULES = [
   { id: 'deals',      label: 'Deals',          icon: 'target',      objectKey: 'deal',    group: 'Sell' },
   { id: 'contacts',   label: 'Contacts',       icon: 'users',       objectKey: 'contact', group: 'Sell' },
@@ -75,7 +75,7 @@ export const MODULES = [
 export const moduleMeta = (id) => MODULES.find(m => m.id === id) || null;
 
 /* The seven roles every buyer expects out of the box (HubSpot gates most
-   of these behind Enterprise; Rally ships them standard). system:true =
+   of these behind Enterprise; Ardovo ships them standard). system:true =
    cannot be deleted; owner is always all-access and cannot be locked out. */
 export const SEED_ROLES = [
   { id: 'owner',      label: 'Owner',      rank: 6, color: '#5b4bf5', system: true,  locked: true,  desc: 'Founder-level. Full control of every record, field, and setting. Cannot be restricted.' },

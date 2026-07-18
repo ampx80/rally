@@ -3,7 +3,7 @@
 // POST /api/landing-notify
 //
 // Best-effort team notification when a visitor submits a hosted landing-page
-// form (see src/marketing/HostedLanding.jsx). Routes through Rally's hardened
+// form (see src/marketing/HostedLanding.jsx). Routes through Ardovo's hardened
 // send primitive (api/_lib-email.js -> sendEmail) so Resend rate limits,
 // transient blips, idempotency and suppression are handled for free.
 //
@@ -19,7 +19,7 @@
 // Env:
 //   RESEND_API_KEY  - required for mail to actually send (studio-wide key)
 //   NOTIFY_EMAIL    - recipient (defaults to nate@amptekgrowth.com)
-//   NOTIFY_FROM / RALLY_FROM / RESEND_FROM - default sender (via _lib-email)
+//   NOTIFY_FROM / ARDOVO_FROM / RESEND_FROM - default sender (via _lib-email)
 //
 // ASCII only. NO em-dash / en-dash. ASCII hyphen only.
 import { withErrorHandling, methodNotAllowed, readJsonBody } from './_utils.js';

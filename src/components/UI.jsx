@@ -1,4 +1,4 @@
-// Rally shared UI primitives. Every page composes from here so the whole
+// Ardovo shared UI primitives. Every page composes from here so the whole
 // product feels like one surface. Keep prop shapes stable.
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { useFocusTrap, useEscapeKey, announce } from '../lib/a11y.js';

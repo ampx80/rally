@@ -1,4 +1,4 @@
-// Browser-side API key management for the Rally developer console.
+// Browser-side API key management for the Ardovo developer console.
 //
 // This is the LOCAL DEMO store: keys are generated in the browser and kept in
 // localStorage so the Developers page can demonstrate the full create / copy /

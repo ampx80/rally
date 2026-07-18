@@ -1,7 +1,7 @@
 // ============================================================
 // JUGGERNAUT GUIDE
 // Slug: bitrix24-alternative -> live at /guides/bitrix24-alternative
-// Competitor-alternative page. Fair to Bitrix24, positions Rally
+// Competitor-alternative page. Fair to Bitrix24, positions Ardovo
 // as the focused AI-native option. NO em-dash / en-dash. ASCII only.
 // ============================================================
 
@@ -9,22 +9,22 @@ const entry = {
   slug: 'bitrix24-alternative',
   title: 'The Best Bitrix24 Alternative in 2026',
   h1: 'The Best Bitrix24 Alternative in 2026: A Fair, Deep Comparison',
-  metaTitle: 'The Best Bitrix24 Alternative in 2026: Comparison, Calculator, and Migration Guide | Rally',
+  metaTitle: 'The Best Bitrix24 Alternative in 2026: Comparison, Calculator, and Migration Guide | Ardovo',
   metaDescription: 'A balanced, practical guide for teams outgrowing Bitrix24: where its all-in-one breadth helps, where the sprawl hurts, a feature matrix, an ROI calculator, and how a focused AI-native CRM compares.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'Bitrix24 is one of the most complete all-in-one suites on the market: CRM, tasks, chat, telephony, a website builder, and an intranet, with a genuinely generous free tier. For a small team that wants everything under one login and nothing more to buy, that breadth is a real advantage.',
-    'The trouble usually starts later. As teams grow, the same breadth that felt like a bargain starts to feel like sprawl. This guide is a fair look at when Bitrix24 is the right call, when its everything-app design gets in your way, and how a focused, AI-native revenue platform like Rally compares as the third option.',
+    'The trouble usually starts later. As teams grow, the same breadth that felt like a bargain starts to feel like sprawl. This guide is a fair look at when Bitrix24 is the right call, when its everything-app design gets in your way, and how a focused, AI-native revenue platform like Ardovo compares as the third option.',
   ],
   heroStats: [
     { value: 35, suffix: '+', label: 'Modules bundled into the Bitrix24 suite' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first working pipeline on Rally' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every feature included' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first working pipeline on Ardovo' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every feature included' },
   ],
   blocks: [
     {
@@ -39,7 +39,7 @@ const entry = {
       type: 'callout',
       tone: 'info',
       title: 'Who each tool is for',
-      body: 'Bitrix24 is best for small-to-mid teams that want an everything-app and have someone to configure it. Rally is best for revenue teams that want depth in pipeline, forecasting, and automation without running a whole intranet. Pick by how much surface area you want to own.',
+      body: 'Bitrix24 is best for small-to-mid teams that want an everything-app and have someone to configure it. Ardovo is best for revenue teams that want depth in pipeline, forecasting, and automation without running a whole intranet. Pick by how much surface area you want to own.',
     },
     {
       type: 'heading',
@@ -85,7 +85,7 @@ const entry = {
       caption: 'Approximate, typical setup effort before the CRM is genuinely useful. Verify against your own trial.',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Focused CRM', value: 120, display: '1-2 hrs' },
           { label: 'Bitrix24 (tuned)', value: 600, display: 'Days to weeks' },
         ],
@@ -94,14 +94,14 @@ const entry = {
     {
       type: 'heading',
       text: 'The third option: focused and AI-native',
-      eyebrow: 'How Rally is different',
+      eyebrow: 'How Ardovo is different',
     },
     {
       type: 'richText',
       title: 'A revenue platform, not an everything-app',
       body: [
-        'Rally makes a deliberate trade. Instead of bundling an intranet, HR, and a site builder, it goes deep on the thing that actually drives revenue: capturing leads, running pipeline, forecasting, and automating the follow-up. Less surface area means less to learn, less to configure, and less to maintain.',
-        'The bigger difference is that AI is the core, not an add-on. Rook, the built-in operator, enriches new leads, routes them, drafts follow-ups, flags deals going cold, and answers questions about your pipeline in plain language. On an all-in-one suite, AI tends to be a feature you switch on. On Rally, it is how the work gets done by default, and the platform is alive with a working pipeline the moment you log in.',
+        'Ardovo makes a deliberate trade. Instead of bundling an intranet, HR, and a site builder, it goes deep on the thing that actually drives revenue: capturing leads, running pipeline, forecasting, and automating the follow-up. Less surface area means less to learn, less to configure, and less to maintain.',
+        'The bigger difference is that AI is the core, not an add-on. Rook, the built-in operator, enriches new leads, routes them, drafts follow-ups, flags deals going cold, and answers questions about your pipeline in plain language. On an all-in-one suite, AI tends to be a feature you switch on. On Ardovo, it is how the work gets done by default, and the platform is alive with a working pipeline the moment you log in.',
       ],
     },
     {
@@ -122,7 +122,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Bitrix24 vs a focused AI-native CRM',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Bitrix24'],
+      columns: ['Ardovo', 'Bitrix24'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with a working pipeline on first load', cells: [true, false] },
@@ -208,7 +208,7 @@ const entry = {
       steps: [
         { title: 'Export your core objects', body: 'Pull leads, contacts, companies, and deals out of Bitrix24 as CSV. Leave the intranet, tasks, and chat behind unless you truly use them.' },
         { title: 'Map only the fields you use', body: 'Most suites accumulate dozens of custom fields nobody reads. Bring across the ones that drive decisions and drop the rest.' },
-        { title: 'Import and let the pipeline come alive', body: 'On Rally the imported deals render as a working pipeline immediately, so there is no blank-database phase to configure through.' },
+        { title: 'Import and let the pipeline come alive', body: 'On Ardovo the imported deals render as a working pipeline immediately, so there is no blank-database phase to configure through.' },
         { title: 'Turn on the operator', body: 'Enable automated enrichment, routing, and follow-up drafting so the busywork you did by hand in the suite now happens on its own.' },
         { title: 'Run both for one cycle, then cut over', body: 'Keep Bitrix24 read-only for a sales cycle to confirm nothing dropped, then fully switch once the team trusts the new system of record.' },
       ],
@@ -220,7 +220,7 @@ const entry = {
       data: {
         milestones: [
           { date: '0:00', label: 'Export from Bitrix24', body: 'Leads, contacts, deals as CSV' },
-          { date: '0:20', label: 'Import into Rally', body: 'Pipeline renders live' },
+          { date: '0:20', label: 'Import into Ardovo', body: 'Pipeline renders live' },
           { date: '0:45', label: 'Operator switched on', body: 'Follow-ups draft themselves' },
           { date: '1:30', label: 'First clean forecast', body: 'Roll-up by stage, one click' },
         ],
@@ -236,7 +236,7 @@ const entry = {
       type: 'callout',
       tone: 'success',
       title: 'The bottom line',
-      body: 'Bitrix24 is a strong all-in-one for teams that want one vendor for everything and will invest in configuration. If you want revenue depth, near-zero setup, and AI that does the work by default, a focused platform like Rally is the better fit. Neither is wrong; they are built for different jobs.',
+      body: 'Bitrix24 is a strong all-in-one for teams that want one vendor for everything and will invest in configuration. If you want revenue depth, near-zero setup, and AI that does the work by default, a focused platform like Ardovo is the better fit. Neither is wrong; they are built for different jobs.',
     },
     {
       type: 'faq',
@@ -244,7 +244,7 @@ const entry = {
       items: [
         { q: 'Is Bitrix24 a good CRM?', a: 'Yes, for the right team. It is a capable CRM wrapped inside a much larger all-in-one suite, and its free tier for unlimited users is genuinely strong. The friction is complexity: you take on an entire platform to get the CRM, and configuring it well takes time.' },
         { q: 'Why do teams look for a Bitrix24 alternative?', a: 'Most commonly because the breadth becomes sprawl. Teams that only need pipeline, forecasting, and follow-up find themselves onboarding around modules they never use, and they want something more focused and faster to adopt.' },
-        { q: 'What is the best Bitrix24 alternative for a sales team?', a: 'For a revenue team specifically, a focused AI-native CRM like Rally tends to fit better than another all-in-one suite. It is alive with a working pipeline on first load, automates follow-up through a built-in operator, and priced at one flat rate with every feature included.' },
+        { q: 'What is the best Bitrix24 alternative for a sales team?', a: 'For a revenue team specifically, a focused AI-native CRM like Ardovo tends to fit better than another all-in-one suite. It is alive with a working pipeline on first load, automates follow-up through a built-in operator, and priced at one flat rate with every feature included.' },
         { q: 'Does Bitrix24 have a real free plan?', a: 'It does, and it is one of the more generous in the market, historically supporting unlimited users with limits on storage and advanced features. Verify the current limits directly, since plans change, but do not dismiss it for small or bootstrapped teams.' },
         { q: 'How hard is it to migrate off Bitrix24?', a: 'The CRM data itself moves easily: export leads, contacts, companies, and deals as CSV and import them. The real work is deciding what not to bring, since suites accumulate custom fields and modules you can safely leave behind.' },
         { q: 'Should I choose breadth or focus?', a: 'Choose by what your team will actually keep open every day. If multiple departments need the intranet, tasks, and chat, breadth wins. If your revenue team just needs to work deals well, focus wins, because adoption matters more than feature count.' },

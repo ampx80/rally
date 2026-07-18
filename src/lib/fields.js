@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FIELD REGISTRY ENGINE  (spec Section 5.1 - Wave 1)
+// ARDOVO FIELD REGISTRY ENGINE  (spec Section 5.1 - Wave 1)
 // Canonical fields and custom fields are the same mechanism: a
 // field registry per object with type, section, options, and
 // validation. Canonical fields are system-seeded registry rows

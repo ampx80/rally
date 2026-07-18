@@ -1,7 +1,7 @@
-// Ads - Rally's cross-channel ad manager + reporting. HubSpot Marketing Hub
+// Ads - Ardovo's cross-channel ad manager + reporting. HubSpot Marketing Hub
 // parity, GoHighLevel's weakness, bundled in. Owners run paid media in four
 // dashboards (Google, Meta, LinkedIn, TikTok) and none of them know which click
-// became a closed-won deal. Rally unifies spend, results and ROAS in one board
+// became a closed-won deal. Ardovo unifies spend, results and ROAS in one board
 // AND ties every dollar back to the CRM pipeline, closing the loop from click to
 // closed-won. Four surfaces over one local-first store (src/lib/ads-data.js):
 // an overview with a spend-vs-revenue chart, a campaigns table with real
@@ -463,7 +463,7 @@ function Attribution() {
         <div className="col gap-1" style={{ minWidth: 0 }}>
           <div className="eyebrow">Click to closed-won</div>
           <h3 style={{ margin: 0 }}>Paid media, tied to real pipeline revenue</h3>
-          <div className="muted t-sm" style={{ maxWidth: 560 }}>Rally maps every closed-won deal back to the ad channel that sourced it. That is the loop Google, Meta, LinkedIn and TikTok can never close on their own.</div>
+          <div className="muted t-sm" style={{ maxWidth: 560 }}>Ardovo maps every closed-won deal back to the ad channel that sourced it. That is the loop Google, Meta, LinkedIn and TikTok can never close on their own.</div>
         </div>
         <div className="row gap-3" style={{ flex: 'none' }}>
           <div className="col" style={{ gap: 2 }}>
@@ -517,7 +517,7 @@ function Attribution() {
             </table>
           </div>
         ) : (
-          <EmptyState icon="🎯" title="No closed-won deals yet" body="Once deals close in your pipeline, Rally maps each one back to the ad channel that sourced it." />
+          <EmptyState icon="🎯" title="No closed-won deals yet" body="Once deals close in your pipeline, Ardovo maps each one back to the ad channel that sourced it." />
         )}
       </Card>
     </div>
@@ -539,7 +539,7 @@ export default function Ads() {
       <PageTitle
         eyebrow="Marketing"
         title={<>Ads <GradientText>Manager</GradientText></>}
-        sub="Google, Meta, LinkedIn and TikTok in one board, with ROAS and CRM attribution. Owners run ads in four dashboards. Rally closes the loop from click to closed-won."
+        sub="Google, Meta, LinkedIn and TikTok in one board, with ROAS and CRM attribution. Owners run ads in four dashboards. Ardovo closes the loop from click to closed-won."
         action={
           <div className="row gap-1">
             <Button variant="ghost" onClick={() => askRook('Look at my ad channels and tell me where to shift budget for the best ROAS this month.')}><Icon name="sparkles" size={16} /> Ask Rook</Button>

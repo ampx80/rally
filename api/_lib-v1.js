@@ -1,4 +1,4 @@
-// Shared internals for the Rally public REST API (api/v1/*). Owns the pieces
+// Shared internals for the Ardovo public REST API (api/v1/*). Owns the pieces
 // every versioned endpoint needs so the three resource routes stay thin and
 // behave identically: response envelopes, API-key auth, a best-effort rate
 // limiter, pagination + filtering, and a deterministic server-side demo
@@ -6,8 +6,8 @@
 //
 // Auth model (documented boundary): the live API validates the Bearer token
 // against a keys store. Priority is (1) Supabase `rally_api_keys` when the
-// service env is present, then (2) an env-seeded allow-list (RALLY_API_KEYS /
-// RALLY_API_KEY). When NEITHER is configured we are in pure-demo mode and
+// service env is present, then (2) an env-seeded allow-list (ARDOVO_API_KEYS /
+// ARDOVO_API_KEY). When NEITHER is configured we are in pure-demo mode and
 // accept a single well-known demo key so the docs + curl examples work out of
 // the box. A real configured key disables the demo key. Browser-created keys
 // (src/lib/apikeys.js) live in localStorage for the console demo and do not
@@ -75,7 +75,7 @@ function applyRate(res, rate) {
 /* ---------- API key auth ---------- */
 function configuredKeys() {
   const out = new Set();
-  const raw = process.env.RALLY_API_KEYS || process.env.RALLY_API_KEY || '';
+  const raw = process.env.ARDOVO_API_KEYS || process.env.ARDOVO_API_KEY || '';
   for (const k of String(raw).split(',').map(s => s.trim()).filter(Boolean)) out.add(k);
   return out;
 }
@@ -138,7 +138,7 @@ export async function authenticate(req) {
   // 3) Pure demo mode: no keys configured anywhere. Accept the documented demo key.
   if (!supa) {
     if (token === DEMO_KEY) return { ok: true, principal: { id: 'demo', name: 'Demo key' }, source: 'demo' };
-    return { ok: false, status: 401, code: 'invalid_api_key', message: `No keys are configured on this deployment. Use the demo key ${DEMO_KEY} or provision RALLY_API_KEY.` };
+    return { ok: false, status: 401, code: 'invalid_api_key', message: `No keys are configured on this deployment. Use the demo key ${DEMO_KEY} or provision ARDOVO_API_KEY.` };
   }
   // Supabase configured but key not found there and no env seed.
   return { ok: false, status: 401, code: 'invalid_api_key', message: 'Unknown API key.' };

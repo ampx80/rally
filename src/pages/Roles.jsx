@@ -1,12 +1,12 @@
 // ============================================================
-// RALLY - ROLES (deep permissions)
+// ARDOVO - ROLES (deep permissions)
 // Role builder + permission matrix + field-level security + record
 // sharing + a live "what can this role see" preview. Built on
 // src/lib/roles-data.js (which layers over src/lib/rbac.js).
 //
 // Granular per-module + per-field + per-record-scope control is
 // enterprise table-stakes that Pipedrive lacks and HubSpot gates at
-// its top tier. Rally ships it standard - that promise is baked into
+// its top tier. Ardovo ships it standard - that promise is baked into
 // the copy here, tastefully.
 // ============================================================
 import React, { useMemo, useState } from 'react';
@@ -286,7 +286,7 @@ function PreviewTab({ roleId }) {
           <h4 style={{ margin: 0 }}>What {p.role.label} can see</h4>
           <span className="t-sm muted">A live read of every grant, field rule, and sharing scope combined.</span>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => askRook(`Audit the "${p.role.label}" role in Rally for least-privilege. Flag any over-broad grant, exportable sensitive data, or field that should be hidden, and suggest tighter scopes.`)}>
+        <Button variant="ghost" size="sm" onClick={() => askRook(`Audit the "${p.role.label}" role in Ardovo for least-privilege. Flag any over-broad grant, exportable sensitive data, or field that should be hidden, and suggest tighter scopes.`)}>
           <Icon name="sparkles" size={15} />Ask Rook to audit
         </Button>
       </div>
@@ -536,10 +536,10 @@ export default function Roles() {
       <PageTitle
         eyebrow="Admin - Access control"
         title="Roles & permissions"
-        sub="Per-module, per-field, per-record control. The enterprise depth Pipedrive lacks and HubSpot gates at its top tier - Rally ships it standard."
+        sub="Per-module, per-field, per-record control. The enterprise depth Pipedrive lacks and HubSpot gates at its top tier - Ardovo ships it standard."
         action={
           <>
-            <Button variant="ghost" onClick={() => askRook('Draft a least-privilege role in Rally: read-only on the user\'s own records, every sensitive field hidden, no export or delete. Then walk me through what to grant it.')}>
+            <Button variant="ghost" onClick={() => askRook('Draft a least-privilege role in Ardovo: read-only on the user\'s own records, every sensitive field hidden, no export or delete. Then walk me through what to grant it.')}>
               <Icon name="sparkles" size={16} />Ask Rook
             </Button>
             <Button variant="primary" onClick={() => setCreateOpen(true)}><Icon name="plus" size={16} />New role</Button>

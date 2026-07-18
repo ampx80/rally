@@ -1,4 +1,4 @@
-// Marketing Automations. The send-orchestration surface for Rally's marketing
+// Marketing Automations. The send-orchestration surface for Ardovo's marketing
 // engine (src/lib/marketing-engine.js): audience-segment automations that pair
 // a lifecycle segment with an email template and dispatch through the hardened
 // server primitive. KPI row, per-automation cards with a live funnel, an
@@ -159,7 +159,7 @@ export default function MarketingAutomations() {
           <span style={{ color: 'var(--accent-600)', flex: 'none', marginTop: 2 }}><Icon name="sparkles" size={18} /></span>
           <div className="t-sm muted">
             Runs default to a <span className="fw-6" style={{ color: 'var(--ink)' }}>simulated send</span> that records to the events log without emailing anyone.
-            <span className="fw-6" style={{ color: 'var(--ink)' }}> Send live</span> posts the composed batch to <span className="tnum">/api/marketing-run</span>, which routes every message through Rally's hardened email primitive and is a safe no-op until <span className="tnum">RESEND_API_KEY</span> is set. The same endpoint runs on a schedule to mail everyone who becomes due.
+            <span className="fw-6" style={{ color: 'var(--ink)' }}> Send live</span> posts the composed batch to <span className="tnum">/api/marketing-run</span>, which routes every message through Ardovo's hardened email primitive and is a safe no-op until <span className="tnum">RESEND_API_KEY</span> is set. The same endpoint runs on a schedule to mail everyone who becomes due.
           </div>
         </div>
       </Card>
@@ -315,7 +315,7 @@ function Editor({ draft, setDraft, users, allTags, onSave, onClose }) {
         </Field>
         <div className="row gap-3" style={{ flexWrap: 'wrap' }}>
           <Field label="Button label"><Input placeholder="Book 20 minutes" value={draft.template.ctaLabel} onChange={e => patchTpl({ ctaLabel: e.target.value })} /></Field>
-          <Field label="Button URL"><Input placeholder="https://rally.app/demo" value={draft.template.ctaUrl} onChange={e => patchTpl({ ctaUrl: e.target.value })} /></Field>
+          <Field label="Button URL"><Input placeholder="https://ardovo.com/demo" value={draft.template.ctaUrl} onChange={e => patchTpl({ ctaUrl: e.target.value })} /></Field>
         </div>
 
         <Card style={{ background: 'var(--n-50)' }}>

@@ -1,4 +1,4 @@
-// Products - the Rally product catalog + price book. A CPQ-grade surface that
+// Products - the Ardovo product catalog + price book. A CPQ-grade surface that
 // beats Salesforce/NetSuite on feel: catalog KPIs, family filter chips, a
 // card/table toggle, live multi-book pricing, per-SKU revenue sparklines, and
 // a full product editor (add/edit/duplicate/activate). Data + pricing live in
@@ -37,7 +37,7 @@ export default function Products() {
   const [draft, setDraft] = useState(emptyDraft);
 
   // How many open deals could each product attach to. Uses the live pipeline
-  // count so the catalog feels wired into the rest of Rally.
+  // count so the catalog feels wired into the rest of Ardovo.
   const openDealCount = useMemo(() => getDeals().filter(d => d.status === 'open').length, [products]);
   const usedIn = (p) => {
     // deterministic per-SKU slice of the open pipeline (feels connected, no fake DB)
@@ -231,7 +231,7 @@ export default function Products() {
       >
         <div className="col gap-2">
           <Field label="Name">
-            <Input value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Rally Growth Platform" autoFocus />
+            <Input value={draft.name} onChange={e => setDraft({ ...draft, name: e.target.value })} placeholder="Ardovo Growth Platform" autoFocus />
           </Field>
           <div className="row gap-2 wrap">
             <Field label="SKU">

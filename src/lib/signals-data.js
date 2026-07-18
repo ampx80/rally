@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY REVENUE SIGNALS  (local-first, Supabase-swappable)
+// ARDOVO REVENUE SIGNALS  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
 // Predictive revenue intelligence: churn risk, expansion
 // propensity, and buyer intent surfaced as ONE prioritized action
@@ -356,7 +356,7 @@ function buildSeed() {
   const pick = (a) => a[Math.floor(rnd() * a.length)];
   const range = (lo, hi) => lo + Math.floor(rnd() * (hi - lo + 1));
 
-  // Blend in a few real CRM company names so the book feels wired to Rally.
+  // Blend in a few real CRM company names so the book feels wired to Ardovo.
   let liveNames = [];
   try { liveNames = (getCompanies() || []).map(c => c.name).filter(Boolean); } catch {}
 

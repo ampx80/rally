@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY MEETINGS SCHEDULER  (native in-app Calendly)
-// A HubSpot Sales Hub gap Rally closes natively: booking types
+// ARDOVO MEETINGS SCHEDULER  (native in-app Calendly)
+// A HubSpot Sales Hub gap Ardovo closes natively: booking types
 // (duration, buffers, weekly availability windows, round-robin
 // across owners), a public booking page, and deterministic slot
 // generation. Booking a meeting writes a REAL activity of type
@@ -121,9 +121,9 @@ function buildSeed() {
   };
 
   const types = [
-    mkType('Intro call', 'A quick 15 minute intro to see if Rally is a fit for your revenue team.', 15, [primary], { bufferAfterMin: 5, color: '#5b4bf5' }),
-    mkType('Product demo', 'A guided 30 minute walkthrough of Rally with a solutions expert. Bring your questions.', 30, three, { bufferAfterMin: 10, color: '#0ea5a3' }),
-    mkType('Strategy session', 'A 45 minute working session to map Rally to your pipeline and rollout plan.', 45, two, { bufferBeforeMin: 5, bufferAfterMin: 15, color: '#a855f7', minNoticeHours: 24 }),
+    mkType('Intro call', 'A quick 15 minute intro to see if Ardovo is a fit for your revenue team.', 15, [primary], { bufferAfterMin: 5, color: '#5b4bf5' }),
+    mkType('Product demo', 'A guided 30 minute walkthrough of Ardovo with a solutions expert. Bring your questions.', 30, three, { bufferAfterMin: 10, color: '#0ea5a3' }),
+    mkType('Strategy session', 'A 45 minute working session to map Ardovo to your pipeline and rollout plan.', 45, two, { bufferBeforeMin: 5, bufferAfterMin: 15, color: '#a855f7', minNoticeHours: 24 }),
   ];
 
   // A handful of already-booked meetings across the next two weeks so the
@@ -205,7 +205,7 @@ export function typeOwners(type) {
 function safeOrigin(origin) {
   if (origin) return String(origin).replace(/\/$/, '');
   if (typeof window !== 'undefined' && window.location) return window.location.origin;
-  return 'https://rally.app';
+  return 'https://ardovo.com';
 }
 export function schedulerLink(type, origin) {
   if (!type) return '';
@@ -405,7 +405,7 @@ export function bookMeeting({ typeId, slug, startAt, guestName, guestEmail, gues
   const loc = LOCATION_META[type.location]?.label || 'Meeting';
   const subject = `${type.name} with ${name}`;
   const bodyLines = [
-    `${loc}, ${type.durationMin} min, booked via Rally scheduler.`,
+    `${loc}, ${type.durationMin} min, booked via Ardovo scheduler.`,
     `Guest: ${name} <${email}>`,
     phone ? `Phone: ${phone}` : '',
     type.location === 'in-person' && type.locationDetail ? `Where: ${type.locationDetail}` : '',

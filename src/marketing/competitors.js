@@ -5,7 +5,7 @@ export const COMPETITORS = {
   salesforce: {
     name: 'Salesforce',
     tagline: 'The incumbent. Powerful, and a decade of bolt-on complexity.',
-    summary: 'Salesforce can do almost anything after months of consultants, admins, and add-ons. Rally does the core job on day one, with an AI operator that actually runs the work instead of a chatbot pinned in the corner.',
+    summary: 'Salesforce can do almost anything after months of consultants, admins, and add-ons. Ardovo does the core job on day one, with an AI operator that actually runs the work instead of a chatbot pinned in the corner.',
     theyStruggle: [
       'AI (Einstein) bolted on late and priced as a premium add-on',
       'Setup measured in months and specialist admins',
@@ -31,7 +31,7 @@ export const COMPETITORS = {
   hubspot: {
     name: 'HubSpot',
     tagline: 'Friendly and clean, until you need real depth and the price jumps.',
-    summary: 'HubSpot nailed the onboarding experience, but power features live behind steep tier jumps and its AI is assistive, not operational. Rally gives you the depth without the upsell wall, and an operator that does the work.',
+    summary: 'HubSpot nailed the onboarding experience, but power features live behind steep tier jumps and its AI is assistive, not operational. Ardovo gives you the depth without the upsell wall, and an operator that does the work.',
     theyStruggle: [
       'Real power gated behind expensive Professional and Enterprise tiers',
       'AI that suggests, but does not execute end to end',
@@ -57,7 +57,7 @@ export const COMPETITORS = {
   zoho: {
     name: 'Zoho',
     tagline: 'Cheap and broad, but disjointed and dated.',
-    summary: 'Zoho gives you a lot of apps for a little money, but they feel stitched together and the experience shows its age. Rally is one coherent platform with a single operator and a design bar that earns enterprise trust.',
+    summary: 'Zoho gives you a lot of apps for a little money, but they feel stitched together and the experience shows its age. Ardovo is one coherent platform with a single operator and a design bar that earns enterprise trust.',
     theyStruggle: [
       'Dozens of apps that feel bolted together, not designed as one',
       'Dated interface and clunky workflows',
@@ -82,7 +82,7 @@ export const COMPETITORS = {
   netsuite: {
     name: 'NetSuite',
     tagline: 'Heavyweight ERP that treats CRM as an afterthought.',
-    summary: 'NetSuite is a serious ERP, but its CRM and front-office experience are heavy, dated, and slow to change. Rally leads with a world-class revenue platform and grows into the ERP surface, without the six-figure implementation.',
+    summary: 'NetSuite is a serious ERP, but its CRM and front-office experience are heavy, dated, and slow to change. Ardovo leads with a world-class revenue platform and grows into the ERP surface, without the six-figure implementation.',
     theyStruggle: [
       'CRM is secondary to the ERP core',
       'Six-figure implementations and long timelines',
@@ -107,7 +107,7 @@ export const COMPETITORS = {
   pipedrive: {
     name: 'Pipedrive',
     tagline: 'Simple pipeline tracking that stops where real revenue work begins.',
-    summary: 'Pipedrive is a clean pipeline tracker for small teams, but it lacks the depth, automation, and intelligence that serious revenue orgs need. Rally is just as easy to start, with a ceiling that goes all the way up.',
+    summary: 'Pipedrive is a clean pipeline tracker for small teams, but it lacks the depth, automation, and intelligence that serious revenue orgs need. Ardovo is just as easy to start, with a ceiling that goes all the way up.',
     theyStruggle: [
       'Thin beyond basic pipeline tracking',
       'Limited automation and reporting',

@@ -177,7 +177,7 @@ export default function InteractiveDemo() {
     <div className="dmo-embed">
       <div className="dmo-embed-head">
         <span className="dmo-embed-mark"><Icon name="zap" size={13} fill="currentColor" stroke={0} /></span>
-        <span className="dmo-embed-title">Rally</span>
+        <span className="dmo-embed-title">Ardovo</span>
         <span className="dmo-embed-live"><span className="mkt-dot m-pulse" /> Rook is live</span>
       </div>
 

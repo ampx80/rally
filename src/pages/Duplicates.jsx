@@ -1,5 +1,5 @@
-// Duplicates - Rally's duplicate management + merge inbox (route /duplicates,
-// Admin group). Rally only dedupes on IMPORT today; this is the HubSpot /
+// Duplicates - Ardovo's duplicate management + merge inbox (route /duplicates,
+// Admin group). Ardovo only dedupes on IMPORT today; this is the HubSpot /
 // Salesforce "Manage duplicates" tool for the records that already live in the
 // book. It surfaces scored, grouped potential duplicates (contacts + companies)
 // and gives a real merge: pick a master, review a side-by-side compare, and
@@ -202,7 +202,7 @@ function MergeModal({ group, masterId, onClose, onConfirm }) {
           <li className="t-sm">Removes <b>{dupIds.length}</b> duplicate record{dupIds.length === 1 ? '' : 's'}</li>
         </ul>
         <div className="t-xs muted" style={{ padding: '.6rem .75rem', background: 'var(--n-100)', borderRadius: 'var(--r-sm)' }}>
-          Related records are re-pointed to the master through Rally's normal writers, so history, activity timelines and reports stay intact.
+          Related records are re-pointed to the master through Ardovo's normal writers, so history, activity timelines and reports stay intact.
         </div>
       </div>
     </Modal>
@@ -310,7 +310,7 @@ export default function Duplicates() {
           <EmptyState
             icon="✨"
             title={`No ${OBJECT_META[objectType].label.toLowerCase()} duplicates to review`}
-            body="Rally scored your book and found nothing likely-duplicate here. New matches will appear as records are added or imported."
+            body="Ardovo scored your book and found nothing likely-duplicate here. New matches will appear as records are added or imported."
           />
         </Card>
       ) : (

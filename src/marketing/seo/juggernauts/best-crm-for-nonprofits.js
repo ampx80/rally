@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-nonprofits',
   title: 'The Best CRM for Nonprofits in 2026',
   h1: 'The Best CRM for Nonprofits: Donors, Grants, and Constituents in One Place',
-  metaTitle: 'The Best CRM for Nonprofits in 2026: Donor Management, Grants, and a Retention Calculator | Rally',
+  metaTitle: 'The Best CRM for Nonprofits in 2026: Donor Management, Grants, and a Retention Calculator | Ardovo',
   metaDescription: 'A deep, practical guide to choosing a nonprofit CRM in 2026: donor and constituent management, grant pipelines, a donor-retention calculator, a comparison matrix, and a rollout plan.',
   eyebrow: 'Nonprofit Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 45, suffix: '%', label: 'Typical first-year donor retention across the sector' },
     { value: 5, prefix: '~', suffix: 'x', label: 'Cheaper to keep a donor than to acquire a new one' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module, on Rally' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module, on Ardovo' },
   ],
   blocks: [
     {
@@ -157,7 +157,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Nonprofit CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheets', 'Legacy Fundraising CRM'],
+      columns: ['Ardovo', 'Spreadsheets', 'Legacy Fundraising CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'One record per constituent, all roles', cells: [true, false, 'partial'] },
@@ -177,7 +177,7 @@ const entry = {
       title: 'Time to first useful report',
       data: {
         bars: [
-          { label: 'Rally', value: 10, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 10, display: 'Minutes', highlight: true },
           { label: 'Spreadsheets', value: 60, display: 'Hours of formulas' },
           { label: 'Legacy CRM', value: 300, display: 'Weeks of setup' },
         ],
@@ -205,7 +205,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped losing donors between their first and second gift. The automatic thank-you and the lapsed list did in a week what we kept meaning to do for a year.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Development Director, community nonprofit',
     },
     {
@@ -237,8 +237,8 @@ const entry = {
     {
       type: 'callout',
       tone: 'success',
-      title: 'Where Rally fits',
-      body: 'Rally is an AI-native platform that is alive on first load, speaks the language of gifts and grants, and runs on one flat price for every module. Rook, the built-in operator, drafts receipts, segments lapsed donors, and keeps grant deadlines from slipping, so a small team operates like a much larger one.',
+      title: 'Where Ardovo fits',
+      body: 'Ardovo is an AI-native platform that is alive on first load, speaks the language of gifts and grants, and runs on one flat price for every module. Rook, the built-in operator, drafts receipts, segments lapsed donors, and keeps grant deadlines from slipping, so a small team operates like a much larger one.',
     },
     {
       type: 'faq',
@@ -247,8 +247,8 @@ const entry = {
         { q: 'What is the difference between a nonprofit CRM and a sales CRM?', a: 'A sales CRM optimizes for deals that close once. A nonprofit CRM optimizes for relationships that renew for years, and it speaks in gifts, pledges, funds, grants, and campaigns rather than opportunities and quotas. It also has to generate tax receipts and protect restricted funds. Underneath, the engine is the same: capture every contact, never drop a follow-up, and report cleanly.' },
         { q: 'Why is donor retention more important than acquisition?', a: 'Keeping a donor typically costs several times less than acquiring a new one, and retained donors give more over time and refer others. First-year retention across the sector sits around 45 percent, so surviving the first renewal is where most of the money is won or lost. A few points of retention improvement usually beats an expensive new acquisition campaign.' },
         { q: 'Can one CRM handle both individual donors and grants?', a: 'Yes, and it should. Grants are simply a pipeline with a research phase, a hard deadline, an award decision, and a reporting obligation. A good platform tracks them as first-class opportunities alongside individual giving, so your board sees total probability-weighted revenue in one place.' },
-        { q: 'How much should a nonprofit pay for a CRM?', a: 'Avoid pricing that climbs every time you add a module or a seasonal seat, since that punishes you exactly as you grow. Flat, predictable pricing like Rally offers keeps the budget stable from a two-person shop to a full development team. Always verify current pricing with any vendor before you commit.' },
-        { q: 'How long does implementation take?', a: 'Legacy fundraising systems can take weeks or months with a consultant. An AI-native, live-on-first-load platform like Rally can have donors imported, stewardship automated, and a board dashboard running in an afternoon.' },
+        { q: 'How much should a nonprofit pay for a CRM?', a: 'Avoid pricing that climbs every time you add a module or a seasonal seat, since that punishes you exactly as you grow. Flat, predictable pricing like Ardovo offers keeps the budget stable from a two-person shop to a full development team. Always verify current pricing with any vendor before you commit.' },
+        { q: 'How long does implementation take?', a: 'Legacy fundraising systems can take weeks or months with a consultant. An AI-native, live-on-first-load platform like Ardovo can have donors imported, stewardship automated, and a board dashboard running in an afternoon.' },
         { q: 'Will we lose our giving history if we switch?', a: 'Not if you migrate correctly. Clean and de-duplicate your data first, then import the full gift history rather than just current balances so retention and lifetime value calculate accurately from the start. That history is your most valuable asset, so bring all of it.' },
       ],
     },

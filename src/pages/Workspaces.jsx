@@ -1,6 +1,6 @@
 // ============================================================
 // WORKSPACES - Agency sub-accounts + white-label + rebilling.
-// This is Rally's distribution wedge: run Rally as your own product,
+// This is Ardovo's distribution wedge: run Ardovo as your own product,
 // spin up client sub-accounts, resell under your brand, and mark up
 // usage for margin. The reason agencies keep GoHighLevel - and the
 // thing HubSpot cannot answer. Four surfaces, all live over the local
@@ -220,7 +220,7 @@ function WhiteLabel() {
   return (
     <div className="grid gap-3" style={{ gridTemplateColumns: 'minmax(0, 1.05fr) minmax(0, .95fr)' }}>
       <Card className="col gap-3">
-        <SectionHeader title="Brand identity" sub="Resold as your own product. Your clients never see the word Rally." />
+        <SectionHeader title="Brand identity" sub="Resold as your own product. Your clients never see the word Ardovo." />
         <div className="grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
           <Field label="Product name"><Input value={f.productName} onChange={(e) => set('productName')(e.target.value)} /></Field>
           <Field label="Logo monogram" hint="1-2 characters"><Input value={f.logoText} maxLength={2} onChange={(e) => set('logoText')(e.target.value.toUpperCase())} /></Field>
@@ -265,7 +265,7 @@ function WhiteLabel() {
         </Card>
         <div className="panel card-pad row gap-2" style={{ alignItems: 'center' }}>
           <Icon name="shield" size={20} style={{ color: 'var(--accent)', flex: 'none' }} />
-          <span className="t-sm muted">Zero Rally branding reaches your clients. Custom domain, login, colors, emails, support address - the platform is yours.</span>
+          <span className="t-sm muted">Zero Ardovo branding reaches your clients. Custom domain, login, colors, emails, support address - the platform is yours.</span>
         </div>
       </div>
     </div>
@@ -349,12 +349,12 @@ function Rebilling() {
       {/* Per-client margin table */}
       <Card pad={false}>
         <div className="row between card-pad" style={{ paddingBottom: '.9rem' }}>
-          <SectionHeader title="Per-client margin" sub="What each workspace nets you after Rally wholesale cost." />
+          <SectionHeader title="Per-client margin" sub="What each workspace nets you after Ardovo wholesale cost." />
           <Badge tone="ok" style={{ flex: 'none' }}>{money(Math.round(roll.margin))}/mo total</Badge>
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table className="table">
-            <thead><tr><th>Client</th><th>Plan</th><th style={{ textAlign: 'right' }}>Subscription</th><th style={{ textAlign: 'right' }}>Usage billed</th><th style={{ textAlign: 'right' }}>Rally cost</th><th style={{ textAlign: 'right' }}>Margin</th><th style={{ textAlign: 'right' }}>Margin %</th></tr></thead>
+            <thead><tr><th>Client</th><th>Plan</th><th style={{ textAlign: 'right' }}>Subscription</th><th style={{ textAlign: 'right' }}>Usage billed</th><th style={{ textAlign: 'right' }}>Ardovo cost</th><th style={{ textAlign: 'right' }}>Margin</th><th style={{ textAlign: 'right' }}>Margin %</th></tr></thead>
             <tbody>
               {workspaces.map(w => {
                 const e = workspaceEconomics(w, rebill);
@@ -410,7 +410,7 @@ export default function Workspaces() {
       <PageTitle
         eyebrow="Agency mode"
         title={<>Workspaces</>}
-        sub={<>Run Rally as your own product. Spin up client sub-accounts, resell under your brand, and mark up usage for margin. This is how Rally becomes your distribution channel.</>}
+        sub={<>Run Ardovo as your own product. Spin up client sub-accounts, resell under your brand, and mark up usage for margin. This is how Ardovo becomes your distribution channel.</>}
         action={<>
           <Button variant="ghost" onClick={() => askRook('Which of my client workspaces are unhealthy or at churn risk, and what should I do this week?')}><Icon name="sparkles" size={16} /> Ask Rook</Button>
           <Button onClick={() => { setPreselect(''); setCreateOpen(true); }}><Icon name="plus" size={16} /> New workspace</Button>

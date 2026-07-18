@@ -1,11 +1,11 @@
 // ============================================================
-// RALLY MIGRATION ENGINE  (local-first, additive)
+// ARDOVO MIGRATION ENGINE  (local-first, additive)
 //
 // The engine behind the Migration Wizard. Replaces the painful, months-long
 // "conversion project" with a three-stage flow the customer never runs alone:
 //
 //   Development (Upload)  -> paste or upload a CSV export.
-//   Testing (Review)      -> Rally analyzes it: unmapped columns, empty
+//   Testing (Review)      -> Ardovo analyzes it: unmapped columns, empty
 //                            required fields, jammed data, and duplicates.
 //                            The customer remaps and cleanses IN THE APP.
 //   Staging (Ready)       -> a clean, previewed record set.
@@ -175,7 +175,7 @@ export function analyze({ headers, rows, mapping, target = 'contact' }) {
   const firstH = fieldToHeader.firstName;
   if (target === 'contact' && firstH && !fieldToHeader.lastName) {
     const full = rows.filter(r => /\s/.test(String(r[firstH] || '').trim())).length;
-    if (full) jammed.push({ type: 'full-name', field: 'firstName', count: full, label: `${full} rows look like a full name in one field - Rally can split them` });
+    if (full) jammed.push({ type: 'full-name', field: 'firstName', count: full, label: `${full} rows look like a full name in one field - Ardovo can split them` });
   }
   const phoneH = fieldToHeader.phone;
   if (phoneH) {

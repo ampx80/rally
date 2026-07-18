@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY QUOTE STORE  (quote-to-cash depth layer)
+// ARDOVO QUOTE STORE  (quote-to-cash depth layer)
 // Layers rich quote line items + pricing math + a status flow on
 // top of the platform quotes that live in store-ext.js. Same
 // local-first, deterministic-seed, pub/sub pattern as the rest of
@@ -434,11 +434,11 @@ function seedTemplates() {
     productId: p.id, name: p.name, description: `${p.category} - ${p.billing}`,
     qty, unitPrice: p.price, discount, discountType, tax,
   } : null;
-  const platform = byName('Rally CRM') || byCat('Platform');
-  const platformEnt = byName('Rally CRM Enterprise') || platform;
+  const platform = byName('Ardovo CRM') || byCat('Platform');
+  const platformEnt = byName('Ardovo CRM Enterprise') || platform;
   const rook = byName('Rook AI Operator') || byCat('AI');
-  const cpq = byName('Rally CPQ') || byCat('Revenue');
-  const analytics = byName('Rally Analytics Plus') || byCat('Intelligence');
+  const cpq = byName('Ardovo CPQ') || byCat('Revenue');
+  const analytics = byName('Ardovo Analytics Plus') || byCat('Intelligence');
   const implStd = byName('Implementation - Standard') || byCat('Services');
   const implEnt = byName('Implementation - Enterprise');
   const support = byName('Premier Support');

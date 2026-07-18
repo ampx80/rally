@@ -1,7 +1,7 @@
 // ============================================================
 // HELP CENTER CONTENT + SEARCH
-// The single source of truth for Rally's Help Center. Real,
-// Rally-specific articles grouped into categories. Consumed by
+// The single source of truth for Ardovo's Help Center. Real,
+// Ardovo-specific articles grouped into categories. Consumed by
 // HelpCenter.jsx, HelpArticle.jsx, and the in-app HelpWidget.
 //
 // Article shape:
@@ -19,13 +19,13 @@
 
 export const CATEGORIES = [
   { name: 'Getting started', icon: 'rocket',   blurb: 'Set up your workspace and learn the essentials.' },
-  { name: 'Importing data',  icon: 'download',  blurb: 'Bring your contacts, companies, and deals into Rally.' },
+  { name: 'Importing data',  icon: 'download',  blurb: 'Bring your contacts, companies, and deals into Ardovo.' },
   { name: 'Deals + pipeline', icon: 'target',   blurb: 'Track opportunities from first touch to closed won.' },
   { name: 'Rook AI',         icon: 'sparkles',  blurb: 'Put the AI operator to work across your revenue.' },
-  { name: 'Quotes + billing', icon: 'receipt',  blurb: 'Quote, invoice, and get paid without leaving Rally.' },
+  { name: 'Quotes + billing', icon: 'receipt',  blurb: 'Quote, invoice, and get paid without leaving Ardovo.' },
   { name: 'Automations',     icon: 'workflow',  blurb: 'Automate the busywork with workflows and sequences.' },
   { name: 'Admin + security', icon: 'shield',   blurb: 'Manage roles, permissions, and your data.' },
-  { name: 'Integrations',    icon: 'plug',      blurb: 'Connect Rally to email, calendar, and your stack.' },
+  { name: 'Integrations',    icon: 'plug',      blurb: 'Connect Ardovo to email, calendar, and your stack.' },
 ];
 
 export const ARTICLES = [
@@ -33,13 +33,13 @@ export const ARTICLES = [
   {
     slug: 'getting-started-rally',
     category: 'Getting started',
-    title: 'Getting started with Rally',
+    title: 'Getting started with Ardovo',
     summary: 'Create your workspace, load your data, and close your first deal in under an hour.',
     updated: '2026-07-10', read: 4,
     keywords: ['setup', 'onboarding', 'first steps', 'account', 'new', 'begin', 'workspace'],
     sections: [
-      { h: 'What Rally is', blocks: [
-        'Rally is an AI-native revenue platform: CRM, quoting, billing, forecasting, and automation in one place, with an AI operator named Rook that can do the work for you. Everything is alive on first load, so you are never staring at an empty screen.',
+      { h: 'What Ardovo is', blocks: [
+        'Ardovo is an AI-native revenue platform: CRM, quoting, billing, forecasting, and automation in one place, with an AI operator named Rook that can do the work for you. Everything is alive on first load, so you are never staring at an empty screen.',
       ] },
       { h: 'Your first 30 minutes', blocks: [
         { steps: [
@@ -102,7 +102,7 @@ export const ARTICLES = [
         ] },
       ] },
       { h: 'Assign ownership', blocks: [
-        'Records in Rally have an owner. When you invite a rep you can reassign leads, deals, and accounts to them in bulk from any list view: select the rows, then use the owner action in the toolbar.',
+        'Records in Ardovo have an owner. When you invite a rep you can reassign leads, deals, and accounts to them in bulk from any list view: select the rows, then use the owner action in the toolbar.',
         { note: 'Reassigning does not lose history. The audit log records who changed ownership and when.' },
       ] },
     ],
@@ -114,30 +114,30 @@ export const ARTICLES = [
     slug: 'import-csv',
     category: 'Importing data',
     title: 'Import contacts and companies from CSV',
-    summary: 'Map your spreadsheet columns to Rally fields and import cleanly, with duplicates caught automatically.',
+    summary: 'Map your spreadsheet columns to Ardovo fields and import cleanly, with duplicates caught automatically.',
     updated: '2026-07-10', read: 4,
     keywords: ['import', 'csv', 'spreadsheet', 'upload', 'contacts', 'companies', 'excel', 'mapping'],
     sections: [
       { h: 'Prepare your file', blocks: [
-        'Export your data to a CSV with a header row. One row per record. Rally reads common column names automatically, but you can map anything by hand in the next step.',
+        'Export your data to a CSV with a header row. One row per record. Ardovo reads common column names automatically, but you can map anything by hand in the next step.',
         { bullets: [
           'Contacts: name, email, phone, title, company, owner.',
           'Companies: name, domain, industry, size, owner.',
-          'Keep emails and domains clean so Rally can link contacts to the right company and catch duplicates.',
+          'Keep emails and domains clean so Ardovo can link contacts to the right company and catch duplicates.',
         ] },
       ] },
       { h: 'Run the import', blocks: [
         { steps: [
           'Open Import data from the Admin section of the rail.',
           'Choose the record type and drop in your CSV.',
-          'Confirm the column mapping. Rally pre-fills the obvious matches and flags anything it is unsure about.',
+          'Confirm the column mapping. Ardovo pre-fills the obvious matches and flags anything it is unsure about.',
           'Review the preview, including any duplicate warnings, then start the import.',
         ] },
-        { note: 'Large files import in the background. You can keep working and Rally will notify you when it finishes.' },
+        { note: 'Large files import in the background. You can keep working and Ardovo will notify you when it finishes.' },
       ] },
     ],
     faqs: [
-      { q: 'What happens to duplicates?', a: 'Rally matches on email and domain and flags likely duplicates before import so you can merge instead of creating a second record. See Find and merge duplicate records.' },
+      { q: 'What happens to duplicates?', a: 'Ardovo matches on email and domain and flags likely duplicates before import so you can merge instead of creating a second record. See Find and merge duplicate records.' },
       { q: 'Can I undo an import?', a: 'Yes. Each import is tracked as a batch, so an admin can roll back a bad import from Import data.' },
     ],
     related: ['migrate-from-your-crm', 'deduplicate-records', 'getting-started-rally'],
@@ -151,7 +151,7 @@ export const ARTICLES = [
     keywords: ['migrate', 'migration', 'salesforce', 'hubspot', 'pipedrive', 'switch', 'move', 'transfer'],
     sections: [
       { h: 'Plan the move', blocks: [
-        'Migrate in the order records depend on each other so links survive: companies first, then contacts, then deals, then activities and notes. Rally re-links records by email and domain as it goes.',
+        'Migrate in the order records depend on each other so links survive: companies first, then contacts, then deals, then activities and notes. Ardovo re-links records by email and domain as it goes.',
       ] },
       { h: 'Two ways to migrate', blocks: [
         { bullets: [
@@ -179,8 +179,8 @@ export const ARTICLES = [
     updated: '2026-07-10', read: 3,
     keywords: ['duplicate', 'merge', 'dedupe', 'clean', 'data quality', 'combine'],
     sections: [
-      { h: 'How Rally spots duplicates', blocks: [
-        'Rally matches contacts on email and companies on domain, and surfaces likely duplicates during import and as you create records. A duplicate warning appears inline so you can merge before the mess grows.',
+      { h: 'How Ardovo spots duplicates', blocks: [
+        'Ardovo matches contacts on email and companies on domain, and surfaces likely duplicates during import and as you create records. A duplicate warning appears inline so you can merge before the mess grows.',
       ] },
       { h: 'Merge two records', blocks: [
         { steps: [
@@ -222,7 +222,7 @@ export const ARTICLES = [
       ] },
     ],
     faqs: [
-      { q: 'How do I mark a deal won or lost?', a: 'Move it to the Closed won or Closed lost stage. Rally records the close date and, for lost deals, prompts for a reason you can report on later.' },
+      { q: 'How do I mark a deal won or lost?', a: 'Move it to the Closed won or Closed lost stage. Ardovo records the close date and, for lost deals, prompts for a reason you can report on later.' },
     ],
     related: ['customize-pipeline-stages', 'forecasting-basics', 'build-a-quote'],
   },
@@ -238,7 +238,7 @@ export const ARTICLES = [
         { steps: [
           'Go to Settings and open the pipeline configuration.',
           'Rename, reorder, add, or remove stages so they match your real process.',
-          'Set a win probability for each stage. Rally uses it to weight your forecast.',
+          'Set a win probability for each stage. Ardovo uses it to weight your forecast.',
           'Save. The Deals board and forecast update immediately.',
         ] },
       ] },
@@ -256,7 +256,7 @@ export const ARTICLES = [
   {
     slug: 'forecasting-basics',
     category: 'Deals + pipeline',
-    title: 'Forecast revenue with Rally',
+    title: 'Forecast revenue with Ardovo',
     summary: 'Turn your pipeline into a number you can commit to, with weighted and AI-adjusted forecasts.',
     updated: '2026-07-10', read: 4,
     keywords: ['forecast', 'forecasting', 'revenue', 'quota', 'pipeline coverage', 'commit', 'projection'],
@@ -268,7 +268,7 @@ export const ARTICLES = [
         { bullets: [
           'Compare commit, best case, and pipeline against quota for the period.',
           'Watch pipeline coverage: the ratio of open pipeline to your target. Under 3x usually means you need more top of funnel.',
-          'Drill into any number to see the exact deals behind it. No figure in Rally is a black box.',
+          'Drill into any number to see the exact deals behind it. No figure in Ardovo is a black box.',
         ] },
         { note: 'Ask Rook "what is my risk to forecast this quarter" and it will point at the specific deals dragging the number down.' },
       ] },
@@ -284,12 +284,12 @@ export const ARTICLES = [
     slug: 'meet-rook',
     category: 'Rook AI',
     title: 'Meet Rook, your AI operator',
-    summary: 'Rook is the AI built into every corner of Rally. It does the work, not just the chat.',
+    summary: 'Rook is the AI built into every corner of Ardovo. It does the work, not just the chat.',
     updated: '2026-07-10', read: 3,
     keywords: ['rook', 'ai', 'operator', 'assistant', 'agent', 'copilot', 'automation'],
     sections: [
       { h: 'What Rook is', blocks: [
-        'Rook is an AI operator that lives in every module of Rally. Open the Rook dock from anywhere and ask in plain language. Instead of just answering, Rook takes action: it creates records, drafts emails, builds quotes, updates deals, and pulls reports, then shows you exactly what it did.',
+        'Rook is an AI operator that lives in every module of Ardovo. Open the Rook dock from anywhere and ask in plain language. Instead of just answering, Rook takes action: it creates records, drafts emails, builds quotes, updates deals, and pulls reports, then shows you exactly what it did.',
       ] },
       { h: 'Where to find it', blocks: [
         { bullets: [
@@ -339,7 +339,7 @@ export const ARTICLES = [
     keywords: ['rook', 'safety', 'accuracy', 'guardrails', 'grounding', 'trust', 'hallucination', 'permissions'],
     sections: [
       { h: 'Grounded, not guessing', blocks: [
-        'Rook answers from your live Rally data, not from a general memory of the internet. When it does not have enough to go on, it says so and asks, instead of inventing an answer.',
+        'Rook answers from your live Ardovo data, not from a general memory of the internet. When it does not have enough to go on, it says so and asks, instead of inventing an answer.',
       ] },
       { h: 'You stay in control', blocks: [
         { bullets: [
@@ -372,7 +372,7 @@ export const ARTICLES = [
         { note: 'Ask Rook to draft the whole quote in one line: "quote Acme for 25 Pro seats annual with 10 percent off".' },
       ] },
       { h: 'Track and close', blocks: [
-        'Once sent, the quote shows its status on the deal: viewed, accepted, or signed. When a quote is accepted, Rally can create the invoice so nothing falls through the cracks between sales and billing.',
+        'Once sent, the quote shows its status on the deal: viewed, accepted, or signed. When a quote is accepted, Ardovo can create the invoice so nothing falls through the cracks between sales and billing.',
         { bullets: [
           'Version quotes safely: sending a revision keeps the old one for the record.',
           'Signed quotes link back to the deal and forward to billing.',
@@ -398,7 +398,7 @@ export const ARTICLES = [
       ] },
       { h: 'Keep pricing consistent', blocks: [
         'Because quotes and invoices both draw from the same catalog, a price change flows everywhere and your documents stay consistent. Discounts are applied on the quote, so your list price stays intact for reporting.',
-        { note: 'Selling in more than one currency? Set a currency on the product and Rally keeps quotes and invoices in the right one.' },
+        { note: 'Selling in more than one currency? Set a currency on the product and Ardovo keeps quotes and invoices in the right one.' },
       ] },
     ],
     related: ['build-a-quote', 'invoices-and-payments'],
@@ -436,11 +436,11 @@ export const ARTICLES = [
     keywords: ['workflow', 'automation', 'trigger', 'action', 'rules', 'automate', 'no code'],
     sections: [
       { h: 'How workflows work', blocks: [
-        'A workflow is a trigger plus one or more actions. When the trigger fires, Rally runs the actions automatically. No code, no waiting. Build them at /workflows.',
+        'A workflow is a trigger plus one or more actions. When the trigger fires, Ardovo runs the actions automatically. No code, no waiting. Build them at /workflows.',
         { bullets: [
           'Trigger: something happens, for example a deal enters a stage or a lead is created.',
           'Conditions: optional filters, for example only when amount is over 50k.',
-          'Actions: what Rally does, for example assign an owner, create a task, or send an email.',
+          'Actions: what Ardovo does, for example assign an owner, create a task, or send an email.',
         ] },
       ] },
       { h: 'Build your first one', blocks: [
@@ -483,7 +483,7 @@ export const ARTICLES = [
     slug: 'workflow-triggers-actions',
     category: 'Automations',
     title: 'Triggers and actions reference',
-    summary: 'The building blocks you can combine to automate almost anything in Rally.',
+    summary: 'The building blocks you can combine to automate almost anything in Ardovo.',
     updated: '2026-07-10', read: 3,
     keywords: ['triggers', 'actions', 'reference', 'workflow', 'events', 'automation building blocks'],
     sections: [
@@ -539,7 +539,7 @@ export const ARTICLES = [
   {
     slug: 'data-security',
     category: 'Admin + security',
-    title: 'How Rally protects your data',
+    title: 'How Ardovo protects your data',
     summary: 'Encryption, access controls, and a full audit trail keep your revenue data safe.',
     updated: '2026-07-10', read: 3,
     keywords: ['security', 'data', 'encryption', 'privacy', 'compliance', 'protection', 'backup', 'trust'],
@@ -563,7 +563,7 @@ export const ARTICLES = [
     slug: 'audit-log',
     category: 'Admin + security',
     title: 'Track changes with the audit log',
-    summary: 'Every meaningful change in Rally is recorded. Here is how to read and use the audit log.',
+    summary: 'Every meaningful change in Ardovo is recorded. Here is how to read and use the audit log.',
     updated: '2026-07-10', read: 3,
     keywords: ['audit', 'log', 'history', 'changes', 'accountability', 'who changed', 'tracking'],
     sections: [
@@ -587,7 +587,7 @@ export const ARTICLES = [
     slug: 'connect-email-calendar',
     category: 'Integrations',
     title: 'Connect email and calendar',
-    summary: 'Log emails and meetings automatically against the right records, and send from Rally.',
+    summary: 'Log emails and meetings automatically against the right records, and send from Ardovo.',
     updated: '2026-07-10', read: 3,
     keywords: ['email', 'calendar', 'gmail', 'outlook', 'sync', 'connect', 'activity logging'],
     sections: [
@@ -601,10 +601,10 @@ export const ARTICLES = [
       { h: 'What you get', blocks: [
         { bullets: [
           'Emails and meetings log themselves against the matching contact and deal, so the timeline stays complete without manual effort.',
-          'Send emails from inside Rally and have them tracked automatically.',
+          'Send emails from inside Ardovo and have them tracked automatically.',
           'Sequences send through your connected mailbox so replies come back to you.',
         ] },
-        { note: 'Only correspondence with people already in Rally is logged. Personal email stays private.' },
+        { note: 'Only correspondence with people already in Ardovo is logged. Personal email stays private.' },
       ] },
     ],
     related: ['sequences-and-cadences', 'available-integrations'],
@@ -612,7 +612,7 @@ export const ARTICLES = [
   {
     slug: 'api-and-webhooks',
     category: 'Integrations',
-    title: 'Build with the Rally API and webhooks',
+    title: 'Build with the Ardovo API and webhooks',
     summary: 'Read and write your data programmatically, and get notified in real time when things change.',
     updated: '2026-07-10', read: 4,
     keywords: ['api', 'webhooks', 'developers', 'integration', 'rest', 'token', 'automation', 'build'],
@@ -621,15 +621,15 @@ export const ARTICLES = [
         { steps: [
           'Open the Developers area from the Admin section of the rail.',
           'Create an API key and store it somewhere safe. Treat it like a password.',
-          'Use the key to authenticate requests to the Rally API.',
+          'Use the key to authenticate requests to the Ardovo API.',
         ] },
         { note: 'Never paste an API key into client-side code or a public repo. Keys carry the permissions of the account that created them.' },
       ] },
       { h: 'Webhooks for real-time events', blocks: [
-        'Register a webhook to receive a POST whenever something happens in Rally, for example a deal is won or an invoice is paid. Your endpoint gets the event payload so you can react in your own systems without polling.',
+        'Register a webhook to receive a POST whenever something happens in Ardovo, for example a deal is won or an invoice is paid. Your endpoint gets the event payload so you can react in your own systems without polling.',
         { bullets: [
           'Subscribe only to the events you need.',
-          'Verify the signature on incoming webhooks to confirm they came from Rally.',
+          'Verify the signature on incoming webhooks to confirm they came from Ardovo.',
           'Respond quickly and process asynchronously so a slow handler never blocks delivery.',
         ] },
       ] },
@@ -640,19 +640,19 @@ export const ARTICLES = [
     slug: 'available-integrations',
     category: 'Integrations',
     title: 'Available integrations',
-    summary: 'Connect Rally to the tools your team already uses across email, calendar, and the wider stack.',
+    summary: 'Connect Ardovo to the tools your team already uses across email, calendar, and the wider stack.',
     updated: '2026-07-10', read: 2,
     keywords: ['integrations', 'apps', 'connect', 'stack', 'tools', 'marketplace', 'zapier'],
     sections: [
       { h: 'Native connections', blocks: [
         { bullets: [
-          'Email and calendar: log activity automatically and send from Rally.',
+          'Email and calendar: log activity automatically and send from Ardovo.',
           'Meeting and calling tools: capture calls and notes onto the right records.',
           'Data enrichment: keep contacts and companies fresh.',
         ] },
       ] },
       { h: 'Build your own', blocks: [
-        'If a tool you use is not a native connection yet, the API and webhooks let you wire it up. Many teams also bridge Rally to other apps through general automation platforms.',
+        'If a tool you use is not a native connection yet, the API and webhooks let you wire it up. Many teams also bridge Ardovo to other apps through general automation platforms.',
         { note: 'Manage every connection in one place from Integrations, and see exactly what each one can access.' },
       ] },
     ],

@@ -9,11 +9,11 @@ const entry = {
   slug: 'crm-adoption-guide',
   title: 'CRM Adoption: How to Get Your Team to Actually Use It (2026)',
   h1: 'CRM Adoption: How to Get Your Team to Actually Use It',
-  metaTitle: 'CRM Adoption Guide (2026): Why CRMs Fail and How to Fix Them | Rally',
+  metaTitle: 'CRM Adoption Guide (2026): Why CRMs Fail and How to Fix Them | Ardovo',
   metaDescription: 'A practical guide to CRM adoption in 2026: why most rollouts fail, the adoption curve and timeline, a rollout plan, the real cost of low adoption, and a live ROI model.',
   eyebrow: 'RevOps Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -96,7 +96,7 @@ const entry = {
       type: 'callout',
       tone: 'info',
       title: 'Alive on first load beats every training program',
-      body: 'Rally opens with a working pipeline, real stages, and its AI operator Rook already drafting follow-ups from day one. The value exchange is inverted from the first minute: the tool does work for the rep before it asks for anything. That is worth more than any lunch-and-learn.',
+      body: 'Ardovo opens with a working pipeline, real stages, and its AI operator Rook already drafting follow-ups from day one. The value exchange is inverted from the first minute: the tool does work for the rep before it asks for anything. That is worth more than any lunch-and-learn.',
     },
     {
       type: 'diagram',
@@ -128,7 +128,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped treating the CRM as something reps owed us and started treating it as something that owed them. The day it began drafting their follow-ups, adoption stopped being a fight.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP of Sales, mid-market SaaS',
     },
     {
@@ -197,7 +197,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'High-adoption vs low-adoption CRM setups',
       rowHeader: 'Attribute',
-      columns: ['Rally', 'Typical rollout', 'Shelfware'],
+      columns: ['Ardovo', 'Typical rollout', 'Shelfware'],
       highlightCol: 0,
       rows: [
         { feature: 'Populated on first login', cells: [true, 'partial', false] },
@@ -245,9 +245,9 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally is built for adoption on purpose',
+      title: 'How Ardovo is built for adoption on purpose',
       body: [
-        'Most of the adoption failure modes trace back to one design choice: a CRM that starts empty and asks the seller to feed it. Rally inverts that. It is alive on first load, with a working pipeline and an AI operator, Rook, that captures leads, enriches them, drafts follow-ups, and flags deals going cold. The rep opens the tool to read value out, not to type value in, which is the entire game.',
+        'Most of the adoption failure modes trace back to one design choice: a CRM that starts empty and asks the seller to feed it. Ardovo inverts that. It is alive on first load, with a working pipeline and an AI operator, Rook, that captures leads, enriches them, drafts follow-ups, and flags deals going cold. The rep opens the tool to read value out, not to type value in, which is the entire game.',
         'One flat price across every module removes the second quiet adoption killer, where the useful features live behind an add-on nobody bought, so the team learns the tool is deliberately half-crippled and treats it accordingly. When the whole platform is present from day one and it does work for the seller before it asks anything back, adoption stops being a change-management project and starts being the path of least resistance.',
       ],
     },
@@ -260,7 +260,7 @@ const entry = {
         { q: 'How do I get my sales team to actually use the CRM?', a: 'Import real data before you announce it so nobody sees an empty grid, deliver a personal time-saving win in week one, make leaders run meetings directly from the pipeline, keep required fields to the few that drive the forecast, and coach with the tool rather than audit with it. Above all, pick a CRM that does work for the rep from day one.' },
         { q: 'What percentage of CRM seats go unused?', a: 'Industry-typical figures put roughly 40 to 45 percent of purchased CRM seats as effectively unused, meaning the person logs in rarely and does not rely on the tool. The exact number varies by organization, but the gap between seats bought and seats truly used is consistently large and is where most CRM budget is wasted.' },
         { q: 'Does training fix low CRM adoption?', a: 'Rarely on its own. Low adoption is almost always a value-exchange problem, not a knowledge problem. Reps understand the tool; they have decided it is not worth their time. Training helps at the margin, but the durable fix is making the CRM visibly useful to the seller, which no training program can substitute for.' },
-        { q: 'How is Rally different for adoption specifically?', a: 'Rally is alive on first load, with a working pipeline and an AI operator that captures, enriches, and follows up automatically, so the rep reads value out rather than typing it in. One flat price means no useful feature is locked behind an add-on. Both choices attack the exact reasons conventional rollouts stall. Verify current pricing and packaging on the Rally site before you decide.' },
+        { q: 'How is Ardovo different for adoption specifically?', a: 'Ardovo is alive on first load, with a working pipeline and an AI operator that captures, enriches, and follows up automatically, so the rep reads value out rather than typing it in. One flat price means no useful feature is locked behind an add-on. Both choices attack the exact reasons conventional rollouts stall. Verify current pricing and packaging on the Ardovo site before you decide.' },
       ],
     },
   ],

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY GENESIS  (prompt-to-platform generative setup)
+// ARDOVO GENESIS  (prompt-to-platform generative setup)
 // ------------------------------------------------------------
 // Genesis turns one sentence about a business into a whole
 // revenue OS: pipelines + stages, custom fields, deal types,

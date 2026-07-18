@@ -51,7 +51,7 @@ const ERAS = [
     icon: 'zap',
     kicker: 'Now',
     title: 'An operator that runs the work',
-    desc: 'Rally is AI-native from the first commit. Rook reaches your data, workflow, and actions natively. You set direction and approve. It executes.',
+    desc: 'Ardovo is AI-native from the first commit. Rook reaches your data, workflow, and actions natively. You set direction and approve. It executes.',
   },
 ];
 

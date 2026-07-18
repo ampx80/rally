@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-financial-advisors',
   title: 'The Best CRM for Financial Advisors in 2026',
   h1: 'The Best CRM for Financial Advisors: A 2026 Practice-Growth Guide',
-  metaTitle: 'The Best CRM for Financial Advisors in 2026: AUM Pipeline, Compliance, and Referrals | Rally',
+  metaTitle: 'The Best CRM for Financial Advisors in 2026: AUM Pipeline, Compliance, and Referrals | Ardovo',
   metaDescription: 'A deep, practical guide for financial advisors choosing a CRM in 2026: managing client relationships, an AUM pipeline, compliance and audit trails, referral engines, plus an AUM-growth calculator and comparison matrix.',
   eyebrow: 'Advisor Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 3, prefix: '~', suffix: 'x', label: 'Referral volume typical of advisors with a systematic referral process' },
     { value: 80, suffix: '%', label: 'Of an advisor time that admin and data entry can quietly consume' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every module and the AI operator' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every module and the AI operator' },
   ],
   blocks: [
     {
@@ -147,7 +147,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Advisor CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Generic sales CRM', 'Spreadsheet plus inbox'],
+      columns: ['Ardovo', 'Generic sales CRM', 'Spreadsheet plus inbox'],
       highlightCol: 0,
       rows: [
         { feature: 'Household and entity modeling', cells: [true, 'partial', false] },
@@ -171,7 +171,7 @@ const entry = {
         bars: [
           { label: 'Spreadsheet plus inbox', value: 12, display: '~12 hrs' },
           { label: 'Generic sales CRM', value: 7, display: '~7 hrs' },
-          { label: 'Rally with Rook', value: 2, display: '~2 hrs', highlight: true },
+          { label: 'Ardovo with Rook', value: 2, display: '~2 hrs', highlight: true },
         ],
       },
     },
@@ -237,14 +237,14 @@ const entry = {
     {
       type: 'quote',
       text: 'The first time an exam request came in, it was an export instead of a weekend. That alone paid for the switch.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Principal, independent RIA',
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
-        'Rally is an AI-native CRM built to be alive on first load, with one flat price across every module and an operator, Rook, that does the work instead of just storing it. For an advisory practice that means the household is the unit of record, the pipeline forecasts in AUM and fee dollars, and the timeline that keeps you audit-ready builds itself as you work.',
+        'Ardovo is an AI-native CRM built to be alive on first load, with one flat price across every module and an operator, Rook, that does the work instead of just storing it. For an advisory practice that means the household is the unit of record, the pipeline forecasts in AUM and fee dollars, and the timeline that keeps you audit-ready builds itself as you work.',
         'It is not a compliance product and does not replace your compliance officer or counsel. Use it as the system of record and the engine that keeps follow-up, notes, and referrals from slipping, and verify the specific archiving and retention behavior you need against your own regulatory obligations before you go live.',
       ],
     },
@@ -252,7 +252,7 @@ const entry = {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'What is the best CRM for financial advisors in 2026?', a: 'The best CRM is the one that models the whole household, forecasts your pipeline in AUM and fee revenue, keeps a defensible audit trail, and systematizes referrals. Rally does all four while being alive on first load at one flat price, but the right answer for you depends on your firm compliance requirements, which you should verify directly.' },
+        { q: 'What is the best CRM for financial advisors in 2026?', a: 'The best CRM is the one that models the whole household, forecasts your pipeline in AUM and fee revenue, keeps a defensible audit trail, and systematizes referrals. Ardovo does all four while being alive on first load at one flat price, but the right answer for you depends on your firm compliance requirements, which you should verify directly.' },
         { q: 'How is an advisor CRM different from a normal sales CRM?', a: 'A sales CRM is built around a single deal with one contact and one amount. An advisor CRM is built around a household of people, entities, trusts, and accounts, forecasts in assets rather than deal count, and produces a compliance-grade record of advice given.' },
         { q: 'Can a CRM keep me compliant?', a: 'A CRM makes compliance easier by time-stamping notes, archiving communications, and producing an exportable audit trail, but it does not replace your compliance officer or counsel. Always verify current archiving and retention behavior against your specific SEC or FINRA obligations.' },
         { q: 'How should advisors forecast their pipeline?', a: 'Track expected assets and a funding probability for each prospect, then roll up to expected new AUM for the quarter. Because your revenue is a fee on assets, that number converts directly into forecast fee income.' },

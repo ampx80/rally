@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY TESTING CENTER  (agent-evals)
+// ARDOVO TESTING CENTER  (agent-evals)
 //
-// Rally's answer to Agentforce Testing Center: run scenarios against an agent,
+// Ardovo's answer to Agentforce Testing Center: run scenarios against an agent,
 // score the outputs DETERMINISTICALLY against a rubric, and compare versions
 // before you trust autonomy. Local-first + deterministic (no external calls):
 // a scenario run is SIMULATED against the live Agent Cloud run ledger via

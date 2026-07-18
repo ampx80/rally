@@ -1,4 +1,4 @@
-// /pages - a full index of every page in Rally: the marketing site, the
+// /pages - a full index of every page in Ardovo: the marketing site, the
 // programmatic compare pages, and every product screen. Doubles as an HTML
 // sitemap for SEO and a fast jump-to for humans.
 import React from 'react';
@@ -22,7 +22,7 @@ const GROUPS = [
   },
   {
     title: 'Compare',
-    links: COMPETITOR_SLUGS.map(s => [`Rally vs ${COMPETITORS[s].name}`, `/compare/${s}`]),
+    links: COMPETITOR_SLUGS.map(s => [`Ardovo vs ${COMPETITORS[s].name}`, `/compare/${s}`]),
   },
   {
     title: 'Product - Sell',
@@ -73,7 +73,7 @@ export default function SiteMap() {
       <section className="mkt-hero">
         <div className="mkt-wrap">
           <div className="mkt-eyebrow">Site index</div>
-          <h1 className="mkt-h1" style={{ marginTop: 12 }}>Every page in <span className="mkt-grad">Rally.</span></h1>
+          <h1 className="mkt-h1" style={{ marginTop: 12 }}>Every page in <span className="mkt-grad">Ardovo.</span></h1>
           <p className="mkt-lead" style={{ maxWidth: 620, margin: '18px auto 0' }}>{total} pages across the marketing site and the product. Jump anywhere.</p>
         </div>
       </section>

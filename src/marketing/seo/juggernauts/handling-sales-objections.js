@@ -8,11 +8,11 @@ const entry = {
   slug: 'handling-sales-objections',
   title: 'How to Handle Sales Objections: The Complete Guide',
   h1: 'How to Handle Sales Objections: The Complete Guide',
-  metaTitle: 'How to Handle Sales Objections in 2026: Framework, Scripts, and Response Matrix | Rally',
+  metaTitle: 'How to Handle Sales Objections in 2026: Framework, Scripts, and Response Matrix | Ardovo',
   metaDescription: 'A deep, practical guide to handling sales objections: a proven response framework, the common objection types with word-for-word responses, price vs value, and a live objection cost calculator.',
   eyebrow: 'Sales Craft',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 6, label: 'Objection types cover nearly every stall you will hear' },
     { value: 44, suffix: '%', label: 'Of reps quit after one no, before the real objection surfaces' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean Rally price, so pricing pushback gets simpler' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One clean Ardovo price, so pricing pushback gets simpler' },
   ],
   blocks: [
     {
@@ -134,7 +134,7 @@ const entry = {
       body: [
         'Price objections feel personal, but they are almost always a value problem wearing a price costume. Nobody thinks a solution is "too expensive" in the abstract. They think it is too expensive relative to the value they currently see. The lever is never the number. It is the perceived value on the other side of the number.',
         'The strongest move against a price objection is to reframe cost against the cost of inaction. What is the problem costing them today, every month it stays unsolved? A tool that costs a few hundred dollars a month looks very different next to the tens of thousands in pipeline leaking through slow follow-up. Anchor the conversation there and the price shrinks by comparison.',
-        'This is also where a simple, honest pricing model helps the rep, not just the buyer. When your pricing is one flat number with every capability included, you never have to defend a confusing stack of per-seat fees and add-ons. Rally uses one clean price across every module for exactly this reason, so the pricing conversation is about value, not about decoding a quote.',
+        'This is also where a simple, honest pricing model helps the rep, not just the buyer. When your pricing is one flat number with every capability included, you never have to defend a confusing stack of per-seat fees and add-ons. Ardovo uses one clean price across every module for exactly this reason, so the pricing conversation is about value, not about decoding a quote.',
       ],
     },
     {
@@ -217,7 +217,7 @@ const entry = {
       body: [
         'The best sales organizations do not leave objection handling to individual talent. They capture every objection as structured data: which type, which stage, what response was used, and whether the deal advanced. Over a quarter, that data reveals exactly which objections cost you the most deals and which responses actually work.',
         'This is where a modern CRM earns its place. When your system of record logs lost reasons and objection types, a good win-loss review stops being anecdotal and starts being statistical. You learn that "too expensive" is really a timing problem in one segment and a trust problem in another, and you coach accordingly.',
-        'Rally is built for this. Rook, the AI operator, can log objection types from call notes, surface the deals that have gone quiet after an unresolved concern, and draft the follow-up that addresses the specific objection on record. The rep stays in control, but the busywork of tracking and following up on objections handles itself.',
+        'Ardovo is built for this. Rook, the AI operator, can log objection types from call notes, surface the deals that have gone quiet after an unresolved concern, and draft the follow-up that addresses the specific objection on record. The rep stays in control, but the busywork of tracking and following up on objections handles itself.',
       ],
     },
     {
@@ -236,7 +236,7 @@ const entry = {
     {
       type: 'quote',
       text: 'Once we started logging the actual objection on every lost deal, we realized half our losses were the same trust concern. We fixed the pitch and our close rate moved within a quarter.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP of Sales, B2B services',
     },
     {
@@ -254,7 +254,7 @@ const entry = {
         { q: 'What are the most common types of sales objections?', a: 'Nearly every objection reduces to one of six root types: price, timing, authority, need or status quo, trust or risk, and competition. Learning to sort any objection into one of these categories is the highest-leverage skill in sales, because the right response depends entirely on which type you are actually facing.' },
         { q: 'Should I overcome objections or just accept them?', a: 'Neither framing is quite right. You are not trying to overcome the buyer, and you should not simply accept a stall. You are trying to understand the real concern underneath the objection and address it directly. Sometimes that means the buyer genuinely is not a fit, which is a fast, honest no you can respect and move on from.' },
         { q: 'How many follow-ups should I do after an objection?', a: 'Most sales that involve an objection require multiple follow-ups after the first no, yet many reps give up after one. Persistence matters, but only if each follow-up advances the conversation by addressing the specific concern on record. Mindless "just checking in" messages do not count. A CRM that tracks the real objection makes every follow-up land better.' },
-        { q: 'How can a CRM help with handling objections?', a: 'A CRM turns objection handling from a personal talent into a repeatable team system. When you log the objection type and lost reason on every deal, you can see which objections cost you the most and which responses actually work. In Rally, the Rook operator captures objection types from call notes, flags deals gone quiet after an unresolved concern, and drafts the follow-up matched to that specific objection.' },
+        { q: 'How can a CRM help with handling objections?', a: 'A CRM turns objection handling from a personal talent into a repeatable team system. When you log the objection type and lost reason on every deal, you can see which objections cost you the most and which responses actually work. In Ardovo, the Rook operator captures objection types from call notes, flags deals gone quiet after an unresolved concern, and drafts the follow-up matched to that specific objection.' },
       ],
     },
   ],

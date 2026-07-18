@@ -8,11 +8,11 @@ const entry = {
   slug: 'close-crm-alternative',
   title: 'The Best Close CRM Alternative in 2026',
   h1: 'The Best Close CRM Alternative in 2026: A Fair, Detailed Comparison',
-  metaTitle: 'The Best Close CRM Alternative in 2026: Fair Comparison, Calculator, and Migration Guide | Rally',
+  metaTitle: 'The Best Close CRM Alternative in 2026: Fair Comparison, Calculator, and Migration Guide | Ardovo',
   metaDescription: 'A practical guide for inside-sales teams weighing a Close CRM alternative in 2026: where Close wins, where it falls short, a feature comparison matrix, a switching-cost calculator, and how to pick.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -104,7 +104,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Close CRM versus a broader AI-native platform',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Close', 'Legacy suite'],
+      columns: ['Ardovo', 'Close', 'Legacy suite'],
       highlightCol: 0,
       rows: [
         { feature: 'Built-in calling and SMS', cells: [true, true, 'partial'] },
@@ -124,7 +124,7 @@ const entry = {
       type: 'callout',
       tone: 'accent',
       title: 'The fair framing',
-      body: 'This is not calling versus no calling. Rally keeps the built-in phone, SMS, and cadence strength that made Close popular, then adds the platform breadth and an operator that works the pipeline for you. You are meant to gain surface area, not give up the outreach you already rely on.',
+      body: 'This is not calling versus no calling. Ardovo keeps the built-in phone, SMS, and cadence strength that made Close popular, then adds the platform breadth and an operator that works the pipeline for you. You are meant to gain surface area, not give up the outreach you already rely on.',
     },
     {
       type: 'animatedStat',
@@ -161,7 +161,7 @@ const entry = {
       title: 'Time to first useful value',
       data: {
         bars: [
-          { label: 'Rally', value: 2, display: 'Minutes', highlight: true },
+          { label: 'Ardovo', value: 2, display: 'Minutes', highlight: true },
           { label: 'Close', value: 40, display: 'A few hours' },
           { label: 'Legacy suite', value: 240, display: 'Weeks' },
         ],
@@ -188,7 +188,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We loved Close for dialing, but we were paying for four other tools around it and none of them agreed on the numbers. Moving to one platform meant the phone stayed fast and the forecast finally tied out.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, growth-stage B2B',
     },
     {
@@ -248,16 +248,16 @@ const entry = {
       title: 'So which should you choose?',
       body: [
         'If you are a small, focused outbound team and your needs begin and end at calling, texting, and a simple pipeline, Close is an excellent tool and you should stay on it. Do not switch for the sake of switching, and do not let a broader platform talk you out of something that fits your motion perfectly today.',
-        'If you are widening beyond outbound, stitching Close to a growing set of satellite tools, or wishing the AI did the work instead of waiting to be asked, a broader AI-native platform like Rally is the natural next step. It keeps the communication strength you value, unifies the rest of the revenue motion into one record, and prices it as one flat number so growth does not punish you. Model your own figures in the calculator above, verify current pricing on both sides, and let the numbers make the call.',
+        'If you are widening beyond outbound, stitching Close to a growing set of satellite tools, or wishing the AI did the work instead of waiting to be asked, a broader AI-native platform like Ardovo is the natural next step. It keeps the communication strength you value, unifies the rest of the revenue motion into one record, and prices it as one flat number so growth does not punish you. Model your own figures in the calculator above, verify current pricing on both sides, and let the numbers make the call.',
       ],
     },
     {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'Is Rally a good Close CRM alternative for inside-sales teams?', a: 'Yes, because it keeps the parts inside-sales teams love about Close: built-in calling, SMS, and email cadences that make a rep fast. It then adds native quoting, inbound capture, forecasting, and post-sale onboarding in one record, plus an AI operator that works the pipeline on its own. You keep the outreach strength and gain platform breadth.' },
+        { q: 'Is Ardovo a good Close CRM alternative for inside-sales teams?', a: 'Yes, because it keeps the parts inside-sales teams love about Close: built-in calling, SMS, and email cadences that make a rep fast. It then adds native quoting, inbound capture, forecasting, and post-sale onboarding in one record, plus an AI operator that works the pipeline on its own. You keep the outreach strength and gain platform breadth.' },
         { q: 'When should I stay on Close instead of switching?', a: 'Stay if you are a small, mostly outbound team whose day is dialing and follow-up and whose reporting needs stop at calls, sequences, and a simple pipeline. Close is hard to beat for that exact shape. Switch when the motion widens to inbound, quoting, customer success, or deeper revenue reporting and you find yourself stitching Close to several other tools.' },
-        { q: 'Does a Close alternative mean giving up built-in calling?', a: 'It should not. The whole point of a good alternative is to keep the communication strength that made Close valuable while adding the breadth it lacks. Rally keeps the phone, SMS, and cadences and unifies them with the rest of the revenue motion, so switching is a gain in surface area rather than a loss of outreach.' },
+        { q: 'Does a Close alternative mean giving up built-in calling?', a: 'It should not. The whole point of a good alternative is to keep the communication strength that made Close valuable while adding the breadth it lacks. Ardovo keeps the phone, SMS, and cadences and unifies them with the rest of the revenue motion, so switching is a gain in surface area rather than a loss of outreach.' },
         { q: 'How much does switching from Close actually cost?', a: 'The direct cost is a data migration and rebuilding your sequences, which a short one-week overlap keeps low-risk. The bigger number is usually a saving: teams often pay for several satellite tools around Close, and a flat single-platform price plus reclaimed tool-switching time frequently pays back the move within a quarter. Use the calculator above with your own seat count and verify current pricing.' },
         { q: 'How long does a Close migration take?', a: 'For a typical small-to-midsize team, a clean export, import, sequence rebuild, and one-week read-only overlap gets you fully switched inside a week without the phones going quiet. Larger or more customized setups take longer, mostly in mapping custom fields and rebuilding automations.' },
         { q: 'What is the difference between an AI assistant and an AI operator?', a: 'An assistant waits for a prompt and helps with a task you initiate, like drafting an email when you ask. An operator works continuously on its own: enriching new leads, routing them, drafting the next touch, and flagging deals going cold before you notice. The operator model is why an AI-native platform reclaims more rep time than a calling tool with AI features bolted on.' },

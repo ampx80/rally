@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY INBOX DATA  (local-first conversation threads)
+// ARDOVO INBOX DATA  (local-first conversation threads)
 // A deterministic seed builds believable email/chat threads tied to
 // REAL seeded contacts, then read/reply/message state persists to its
 // own localStorage key so replies survive reloads. Kept separate from

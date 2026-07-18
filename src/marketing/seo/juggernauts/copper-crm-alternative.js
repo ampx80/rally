@@ -8,11 +8,11 @@ const entry = {
   slug: 'copper-crm-alternative',
   title: 'The Best Copper CRM Alternative in 2026',
   h1: 'The Best Copper CRM Alternative for Google Workspace Teams',
-  metaTitle: 'The Best Copper CRM Alternative in 2026: Comparison, Calculator, and Migration Guide | Rally',
+  metaTitle: 'The Best Copper CRM Alternative in 2026: Comparison, Calculator, and Migration Guide | Ardovo',
   metaDescription: 'A practical guide for Google Workspace teams outgrowing Copper CRM. When the Gmail sidebar stops being enough, what to look for in a replacement, a feature comparison, a cost calculator, and a low-risk migration plan.',
   eyebrow: 'CRM Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -22,7 +22,7 @@ const entry = {
   ],
   heroStats: [
     { value: 40, prefix: '~', suffix: '%', label: 'Of a growing sales team lives outside the inbox' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to a live pipeline on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module included' },
   ],
   blocks: [
@@ -31,7 +31,7 @@ const entry = {
       title: 'The short answer',
       body: [
         'Stay on Copper if your workflow genuinely lives in Gmail, your pipeline is simple, and your reporting needs stop at a basic dashboard. It is well built for exactly that job, and switching tools you do not need is a waste of a quarter.',
-        'Move to a purpose-built pipeline CRM when the work spills out of the inbox: when you need multiple pipelines, forecasting a CFO can lean on, automation that executes rather than reminds, and an AI operator that drafts follow-ups and flags cold deals without being asked. That is the line where a Gmail sidebar becomes a ceiling, and where Rally is built to pick up.',
+        'Move to a purpose-built pipeline CRM when the work spills out of the inbox: when you need multiple pipelines, forecasting a CFO can lean on, automation that executes rather than reminds, and an AI operator that drafts follow-ups and flags cold deals without being asked. That is the line where a Gmail sidebar becomes a ceiling, and where Ardovo is built to pick up.',
       ],
     },
     {
@@ -96,9 +96,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Rally vs Copper vs a legacy pipeline CRM',
+      title: 'Ardovo vs Copper vs a legacy pipeline CRM',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Copper', 'Legacy pipeline CRM'],
+      columns: ['Ardovo', 'Copper', 'Legacy pipeline CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Native Google Workspace and Gmail capture', cells: [true, true, 'partial'] },
@@ -132,7 +132,7 @@ const entry = {
       type: 'callout',
       tone: 'accent',
       title: 'The operator difference',
-      body: 'Copper can remind a rep that a deal is going cold. Rally has Rook, an AI operator that drafts the follow-up, enriches the contact, and updates the forecast on its own. The difference between a system that reminds and one that acts is the difference between a to-do list and a teammate.',
+      body: 'Copper can remind a rep that a deal is going cold. Ardovo has Rook, an AI operator that drafts the follow-up, enriches the contact, and updates the forecast on its own. The difference between a system that reminds and one that acts is the difference between a to-do list and a teammate.',
     },
     {
       type: 'diagram',
@@ -172,7 +172,7 @@ const entry = {
       title: 'Time to a working, populated pipeline',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Copper', value: 120, display: '~2 hrs' },
           { label: 'Legacy pipeline CRM', value: 480, display: '2+ weeks' },
         ],
@@ -231,7 +231,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We loved Copper in the inbox, but we were still forecasting in a spreadsheet every Friday. Moving to a pipeline-first tool with an operator meant the follow-ups drafted themselves and the forecast was just there.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of Sales, services firm',
     },
     {
@@ -239,7 +239,7 @@ const entry = {
       title: 'The bottom line for Google Workspace teams',
       body: [
         'Copper is a strong choice for relationship-led teams whose work truly lives in Gmail, and if that describes you, there is no reason to switch. The Google-native capture is genuinely good, and a tool you do not need is a distraction.',
-        'The alternative you want is not another Gmail sidebar. It is a pipeline-first CRM that keeps the inbox capture you liked, adds forecasting a CFO can trust, and puts an AI operator to work on the follow-ups and enrichment you were doing by hand. Rally is built to be alive on first load, priced at one flat rate with every module included, and run by Rook so the system acts instead of just reminds. If you have hit the ceiling of the sidebar, that is the shape of the tool waiting on the other side.',
+        'The alternative you want is not another Gmail sidebar. It is a pipeline-first CRM that keeps the inbox capture you liked, adds forecasting a CFO can trust, and puts an AI operator to work on the follow-ups and enrichment you were doing by hand. Ardovo is built to be alive on first load, priced at one flat rate with every module included, and run by Rook so the system acts instead of just reminds. If you have hit the ceiling of the sidebar, that is the shape of the tool waiting on the other side.',
       ],
     },
     {
@@ -249,7 +249,7 @@ const entry = {
         { q: 'Is Copper a good CRM?', a: 'Yes, for the job it is designed for. Copper is one of the best tools for Google Workspace teams that want automatic contact and email capture inside Gmail with minimal friction. It becomes limiting when you need deep multi-pipeline forecasting, advanced reporting, and automation that executes work rather than reminding a human to.' },
         { q: 'Why do teams look for a Copper alternative?', a: 'Almost always because they have outgrown the Gmail sidebar, not because the integration failed them. The common triggers are forecasting that has slipped back into a spreadsheet, reporting that hit a wall, automation that only nags, and per-seat pricing climbing faster than the value it delivers.' },
         { q: 'Will I lose the Gmail integration if I switch?', a: 'You should not have to. A good alternative keeps native Google Workspace capture from Gmail and Calendar, so the low-friction logging you liked about Copper continues. The difference is that the captured data now feeds a real pipeline and an AI operator instead of stopping at a sidebar. Verify Workspace support with any vendor you evaluate.' },
-        { q: 'How is Rally different from Copper?', a: 'Copper centers on the inbox and reminds you what to do. Rally centers on the pipeline and acts. It is alive with a working pipeline on first load, includes forecasting and advanced reporting out of the box, is one flat price with every module included, and ships with Rook, an AI operator that drafts follow-ups, enriches leads, and updates the forecast on its own.' },
+        { q: 'How is Ardovo different from Copper?', a: 'Copper centers on the inbox and reminds you what to do. Ardovo centers on the pipeline and acts. It is alive with a working pipeline on first load, includes forecasting and advanced reporting out of the box, is one flat price with every module included, and ships with Rook, an AI operator that drafts follow-ups, enriches leads, and updates the forecast on its own.' },
         { q: 'How long does it take to migrate off Copper?', a: 'Plan for about a week for a small-to-midsize team. Export your data as CSV, dedupe it, import and stand up your pipeline in minutes, reconnect Google Workspace, run both tools in parallel briefly, then turn on the operator. The data move is fast. The extra days are for the team to build momentum, not for setup.' },
         { q: 'When should I stay on Copper instead of switching?', a: 'Stay if your workflow genuinely lives in Gmail, your pipeline is simple, and a basic dashboard covers your reporting. Copper does that job well, and switching tools you do not need costs time you could spend selling. The moment forecasting, reporting, or automation becomes the bottleneck, revisit the decision.' },
       ],

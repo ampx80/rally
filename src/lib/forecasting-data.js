@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY FORECASTING DATA
+// ARDOVO FORECASTING DATA
 // Quota + forecast-category model layered on top of the live store.
 // Deterministic per-rep quotas (a book quota split into quarterly
 // targets) plus the roll-up logic that maps a deal's stage +

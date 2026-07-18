@@ -64,10 +64,10 @@ export default function Onboarding() {
       {/* STEP 0 - welcome */}
       {step === 0 && (
         <div className="col gap-2" style={{ paddingTop: '.4rem' }}>
-          <div className="eyebrow">Welcome to Rally</div>
+          <div className="eyebrow">Welcome to Ardovo</div>
           <h1 className="ob-title">Let us get your revenue engine <GradientText>running</GradientText></h1>
           <p className="ob-sub">
-            Rally is the AI-native CRM with an operator that actually runs the work. This takes about a minute,
+            Ardovo is the AI-native CRM with an operator that actually runs the work. This takes about a minute,
             and you can skip any step. Let us tailor it to how you sell.
           </p>
           <div className="ob-grid cols-3" style={{ marginTop: '1.5rem' }}>
@@ -92,7 +92,7 @@ export default function Onboarding() {
       {step === 1 && (
         <div className="col gap-1">
           <h2 className="ob-title" style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Tell us about your team</h2>
-          <p className="ob-sub">We will tune Rally around your role and how you work.</p>
+          <p className="ob-sub">We will tune Ardovo around your role and how you work.</p>
 
           <div className="fw-7" style={{ marginTop: '1.3rem', marginBottom: '-.4rem' }}>What is your role?</div>
           <div className="ob-grid cols-2">
@@ -142,13 +142,13 @@ export default function Onboarding() {
       {step === 3 && (
         <div className="col gap-1">
           <h2 className="ob-title" style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Bring in your data</h2>
-          <p className="ob-sub">Start with your real book of business, or explore Rally with a rich sample workspace first.</p>
+          <p className="ob-sub">Start with your real book of business, or explore Ardovo with a rich sample workspace first.</p>
           <div className="ob-grid cols-2" style={{ marginTop: '1.4rem' }}>
             <button type="button" className="ob-choice" onClick={pickImport}>
               <span className="glow" aria-hidden />
               <span className="ob-choice-ico"><Icon name="download" size={22} /></span>
               <span className="fw-7" style={{ fontSize: '1.1rem' }}>Import my data</span>
-              <span className="t-sm muted" style={{ lineHeight: 1.4 }}>Upload a CSV or migrate straight from Salesforce, HubSpot, or Pipedrive. Columns auto-map to Rally fields.</span>
+              <span className="t-sm muted" style={{ lineHeight: 1.4 }}>Upload a CSV or migrate straight from Salesforce, HubSpot, or Pipedrive. Columns auto-map to Ardovo fields.</span>
               <span className="row gap-1" style={{ color: 'var(--accent-600)', fontWeight: 700, marginTop: 4 }}>Open import <Icon name="chevronRight" size={15} /></span>
             </button>
             <button type="button" className="ob-choice" onClick={pickSample}>
@@ -166,7 +166,7 @@ export default function Onboarding() {
       {step === 4 && (
         <div className="col gap-1">
           <h2 className="ob-title" style={{ fontSize: 'clamp(1.4rem,3vw,1.9rem)' }}>Invite your team</h2>
-          <p className="ob-sub">Rally is a team sport. Add the reps, managers, and ops folks who run revenue with you.</p>
+          <p className="ob-sub">Ardovo is a team sport. Add the reps, managers, and ops folks who run revenue with you.</p>
           <InviteTeam emails={onb.invited || []} onChange={(list) => setOnboardingState({ invited: list })} />
         </div>
       )}
@@ -183,7 +183,7 @@ export default function Onboarding() {
           <div className="ob-nba" style={{ textAlign: 'left' }}>
             {[
               { icon: 'target', t: 'See your pipeline', d: 'Every open deal by stage.', go: () => { completeOnboarding(); nav('/deals'); } },
-              { icon: 'download', t: 'Import your data', d: 'Bring your book into Rally.', go: () => { completeOnboarding(); nav('/import'); } },
+              { icon: 'download', t: 'Import your data', d: 'Bring your book into Ardovo.', go: () => { completeOnboarding(); nav('/import'); } },
               { icon: 'sparkles', t: 'Ask Rook', d: 'Let the AI operator build for you.', go: openRook },
               { icon: 'chart', t: 'Open a dashboard', d: 'Live KPIs and trends.', go: () => { completeOnboarding(); nav('/dashboards'); } },
             ].map(a => (

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY VOICE  (local-first, telephony-swappable)
+// ARDOVO VOICE  (local-first, telephony-swappable)
 // The AI receptionist + call intelligence data layer. One module
 // owns every call-log shape, the receptionist config, a
 // deterministic transcript / live-call simulator, and the
@@ -149,8 +149,8 @@ function buildSeed() {
     enabled: true,
     receptionistName: 'Rook Voice',
     voice: 'Ava - warm, professional',
-    greeting: "Thanks for calling Vertex Robotics. This is the Rally AI receptionist. How can I help you today?",
-    booking: { calendarLink: 'rally.app/book/vertex', defaultAe: 'Jordan Avery', durationMin: 30 },
+    greeting: "Thanks for calling Vertex Robotics. This is the Ardovo AI receptionist. How can I help you today?",
+    booking: { calendarLink: 'ardovo.com/book/vertex', defaultAe: 'Jordan Avery', durationMin: 30 },
     hours: DAYS.map((d, i) => ({
       day: d,
       closed: i === 0 || i === 6,

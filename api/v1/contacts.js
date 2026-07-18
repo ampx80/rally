@@ -1,4 +1,4 @@
-// Rally Public REST API - Contacts resource
+// Ardovo Public REST API - Contacts resource
 //   GET  /api/v1/contacts            list (pagination + filters)
 //   GET  /api/v1/contacts?id=c_1     fetch one (or /api/v1/contacts/c_1)
 //   POST /api/v1/contacts            create

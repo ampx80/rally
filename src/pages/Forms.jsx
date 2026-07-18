@@ -1,4 +1,4 @@
-// Forms. Rally's HubSpot-class form engine.
+// Forms. Ardovo's HubSpot-class form engine.
 //   List    - every form with live submission + created-contact counts.
 //   Builder - add/reorder/style typed fields, map each to a contact property,
 //             set publish status, and grab the hosted link + embed snippet.

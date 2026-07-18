@@ -1,5 +1,5 @@
 // HostedForm.jsx
-// PUBLIC hosted page for a Rally form. Mounted at /f/:formId inside the
+// PUBLIC hosted page for a Ardovo form. Mounted at /f/:formId inside the
 // marketing Routes block (see App.jsx). It resolves the form from the
 // local-first forms slice (same origin -> same localStorage as the builder),
 // renders a real, self-contained widget, and on submit CREATES a contact
@@ -42,7 +42,7 @@ export default function HostedForm() {
         <div style={{ fontSize: 40, marginBottom: 10 }}>🔍</div>
         <h1 style={{ color: '#e7e9f0', fontSize: 24, margin: '0 0 8px' }}>Form not found</h1>
         <p style={{ margin: '0 0 20px' }}>This form may have been unpublished or removed.</p>
-        <Link to="/" style={{ color: '#8b8ff5', fontWeight: 700 }}>Back to Rally</Link>
+        <Link to="/" style={{ color: '#8b8ff5', fontWeight: 700 }}>Back to Ardovo</Link>
       </div>
     );
   }
@@ -147,7 +147,7 @@ export default function HostedForm() {
           </div>
         )}
         <div style={{ marginTop: 12, fontSize: 12, color: pal.dim }}>
-          Powered by <Link to="/" style={{ color: pal.muted, fontWeight: 700 }}>Rally</Link>
+          Powered by <Link to="/" style={{ color: pal.muted, fontWeight: 700 }}>Ardovo</Link>
         </div>
       </div>
     </div>

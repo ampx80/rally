@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY AUTOMATION ENGINE  (spec Section 5.6 - Wave 5)
+// ARDOVO AUTOMATION ENGINE  (spec Section 5.6 - Wave 5)
 // A REAL, executable automation runtime. Not a mock: when a
 // trigger fires, matching active automations check their
 // conditions and PERFORM their actions against the live store -
@@ -225,7 +225,7 @@ export const ACTIONS = {
     id: 'send_slack', label: 'Post to Slack', icon: 'bell', tone: 'accent', minutes: 1, integration: true,
     execute: (record, cfg, object) => {
       const p = recToPayload(record, object);
-      const msg = interp(cfg.message || 'Rally: {name} ({owner})', p);
+      const msg = interp(cfg.message || 'Ardovo: {name} ({owner})', p);
       if (!cfg.webhook) return { type: 'send_slack', ok: false, stub: true, label: 'Add a Slack Incoming Webhook URL to post for real' };
       fireOutbound('slack', cfg.webhook, msg, p);
       return { type: 'send_slack', ok: true, label: `Posted to Slack: "${msg.slice(0, 64)}"` };
@@ -235,7 +235,7 @@ export const ACTIONS = {
     id: 'send_teams', label: 'Post to Microsoft Teams', icon: 'activity', tone: 'accent', minutes: 1, integration: true,
     execute: (record, cfg, object) => {
       const p = recToPayload(record, object);
-      const msg = interp(cfg.message || 'Rally: {name} ({owner})', p);
+      const msg = interp(cfg.message || 'Ardovo: {name} ({owner})', p);
       if (!cfg.webhook) return { type: 'send_teams', ok: false, stub: true, label: 'Add a Teams Incoming Webhook URL to post for real' };
       fireOutbound('teams', cfg.webhook, msg, p);
       return { type: 'send_teams', ok: true, label: `Posted to Teams: "${msg.slice(0, 64)}"` };
@@ -274,7 +274,7 @@ export const ACTIONS = {
       // Alerts page. With neither, it degrades to a stub prompt (like Slack
       // with no webhook). Tokens: {name} {value} {stage} {owner} {company}.
       const p = recToPayload(record, object);
-      const msg = interp(cfg.message || 'Rally alert: {name} ({owner})', p);
+      const msg = interp(cfg.message || 'Ardovo alert: {name} ({owner})', p);
       const to = (cfg.to || getAlertPhone() || '').trim();
       if (!to) return { type: 'send_sms', ok: false, stub: true, label: 'Add a mobile number on the SMS Alerts page to text for real' };
       fireSms({ to, body: msg, category: 'automation' });

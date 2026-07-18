@@ -1,5 +1,5 @@
 // ============================================================
-// /blog - the Rally resources index. Featured post + filterable
+// /blog - the Ardovo resources index. Featured post + filterable
 // grid, reveal-on-scroll, sets head via the SEO head manager.
 // Composes from kit.jsx (Reveal, MktButton, CtaBand) + blog.css.
 // Does not edit kit/marketing.css/head.js. NO em-dash / en-dash.
@@ -53,9 +53,9 @@ export default function Blog() {
   const [tag, setTag] = useState('All');
 
   useSeoHead({
-    title: `The Rally Blog - Revenue, RevOps, and AI-native CRM | ${BRAND}`,
+    title: `The Ardovo Blog - Revenue, RevOps, and AI-native CRM | ${BRAND}`,
     description:
-      'Long-form thinking on AI-native CRM, forecasting, RevOps, pipeline reviews, MEDDIC, migrations, and sales email. Insight from the team building Rally.',
+      'Long-form thinking on AI-native CRM, forecasting, RevOps, pipeline reviews, MEDDIC, migrations, and sales email. Insight from the team building Ardovo.',
     canonical: `${SITE}/blog`,
     jsonLd: [
       orgLd(),
@@ -64,7 +64,7 @@ export default function Blog() {
         '@type': 'Blog',
         name: `${BRAND} Blog`,
         url: `${SITE}/blog`,
-        description: 'Revenue operations, forecasting, and AI-native CRM insight from the Rally team.',
+        description: 'Revenue operations, forecasting, and AI-native CRM insight from the Ardovo team.',
         blogPost: POSTS.map((p) => ({
           '@type': 'BlogPosting',
           headline: p.title,
@@ -99,7 +99,7 @@ export default function Blog() {
               Notes on running <span className="mkt-grad m-shine">revenue</span>
             </h1>
             <p className="mkt-lead" style={{ marginTop: 20, maxWidth: 640 }}>
-              How modern teams sell, forecast, and operate. Written by the people building Rally, for
+              How modern teams sell, forecast, and operate. Written by the people building Ardovo, for
               the people who own the number.
             </p>
           </Reveal>

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY WELCOME  (route /welcome)
+// ARDOVO WELCOME  (route /welcome)
 // The post-signup step that turns a fresh account into a working workspace:
 // name the workspace, pick a plan tier, and (optionally) invite teammates.
 // It provisions the org via src/lib/workspace.js, then routes into the
@@ -98,7 +98,7 @@ export default function Welcome() {
       <div className="wc-card">
         <div className="wc-brand">
           <span className="wc-mark"><Icon name="zap" size={20} fill="#fff" stroke={0} /></span>
-          Rally
+          Ardovo
         </div>
 
         <div className="wc-head">

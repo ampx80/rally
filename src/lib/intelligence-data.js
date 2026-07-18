@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY REVENUE INTELLIGENCE DATA
+// ARDOVO REVENUE INTELLIGENCE DATA
 // The derivation layer behind the Intelligence surface. Every
 // function is pure over the live store, so the analytics stay in
 // lockstep with the book of business as deals move. Nothing here

@@ -2,7 +2,7 @@
 // RESOLVE CONNECTOR  (concrete, extends the Connector contract)
 // The first real connector built on the integration backbone. It
 // surfaces SUPPORT TICKETS from Resolve (the sibling support/ticketing
-// app, operator "Reva") against the RIGHT Rally company + contact, so
+// app, operator "Reva") against the RIGHT Ardovo company + contact, so
 // revenue sees the full post-sale story next to the deal.
 //
 // Data strategy (local-first, additive, env-gated):
@@ -12,7 +12,7 @@
 //     Same seed every run - no flicker, stable across reloads.
 //   - LIVE (connection status == connected AND /api/connect/resolve
 //     reports configured): sync() pulls real tickets from the workspace
-//     Resolve API through the server bridge and maps them onto Rally ids.
+//     Resolve API through the server bridge and maps them onto Ardovo ids.
 //   The connector NEVER throws: an unconfigured or failing bridge simply
 //   falls back to the demo set and records a non-fatal degraded reason.
 //
@@ -39,7 +39,7 @@ const DEFAULT_WORKSPACE_URL = 'https://resolve-nine-beryl.vercel.app';
 const LS = 'rally_resolve_tickets_v1';
 
 /* ---------- status + priority vocab (mirrors Resolve) ---------- */
-// Rally-normalized ticket status. Resolve emits a wider set; we fold it
+// Ardovo-normalized ticket status. Resolve emits a wider set; we fold it
 // into these five so the inbox + panels stay legible.
 export const TICKET_STATUS = {
   needs_you:       { label: 'Needs you',      tone: 'risk',    group: 'open' },
@@ -58,7 +58,7 @@ export const ticketStatusMeta = (s) => TICKET_STATUS[s] || { label: s || 'Open',
 export const ticketPriorityMeta = (p) => TICKET_PRIORITY[p] || { label: p || 'Normal', tone: 'default', rank: 2 };
 export const isOpenTicket = (t) => ticketStatusMeta(t.status).group === 'open';
 
-/* Normalize a Resolve status / outcome into the Rally-normalized set. */
+/* Normalize a Resolve status / outcome into the Ardovo-normalized set. */
 function normalizeStatus(status, aiOutcome, resolvedBy) {
   if (status && TICKET_STATUS[status]) return status;
   if (status === 'open' || status === 'triaging') return 'needs_you';
@@ -248,7 +248,7 @@ export class ResolveConnector extends Connector {
   workspaceUrl() { return resolveWorkspaceUrl(); }
   ticketUrl(id) { return ticketUrl(id); }
 
-  // Normalize one external Resolve record into a Rally-shaped ticket with
+  // Normalize one external Resolve record into a Ardovo-shaped ticket with
   // resolved identity + provenance stamp. Pure; safe to call anywhere.
   mapRecord(r = {}) {
     const email = r.email || r.customerEmail || r.customer?.email || '';

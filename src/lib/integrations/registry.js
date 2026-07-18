@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY INTEGRATION REGISTRY  (declarative descriptors)
+// ARDOVO INTEGRATION REGISTRY  (declarative descriptors)
 // The sibling of src/lib/modules.js for the integration layer.
 // One static array of connector DESCRIPTORS - the contract each
 // real connector is built against. No network calls, no secrets,
@@ -16,9 +16,9 @@
 //   logo           brand domain -> logo.clearbit.com/<logo> (monogram fallback)
 //   operator       the app's in-product AI operator, for UI copy
 //   summary        one line describing what connecting does
-//   inboundEvents  events the source app emits INTO Rally
-//                    [{ key, label, maps }]  maps = the Rally shape it becomes
-//   outboundEvents events Rally emits OUT to the source app
+//   inboundEvents  events the source app emits INTO Ardovo
+//                    [{ key, label, maps }]  maps = the Ardovo shape it becomes
+//   outboundEvents events Ardovo emits OUT to the source app
 //                    [{ key, label }]
 //   connectFields  metadata a workspace supplies to connect
 //                    [{ key, label, type, placeholder, required, secret }]
@@ -29,7 +29,7 @@
 // per-workspace connection rows live in rally_connections (connections.js).
 // ============================================================
 
-// A stable, hand-curated seed: the three sibling Rally-network apps.
+// A stable, hand-curated seed: the three sibling Ardovo-network apps.
 // Add a descriptor here to teach the backbone about a new source app.
 export const INTEGRATIONS = [
   {
@@ -101,7 +101,7 @@ export const INTEGRATIONS = [
   },
 
   // ---- generic outbound connectors (additive) ----
-  // Not sibling Rally apps but the universal escape hatches every CRM needs:
+  // Not sibling Ardovo apps but the universal escape hatches every CRM needs:
   // notify a channel, log mail, or fire an event at anything with a URL. They
   // route outbound through the SSRF-guarded /api/outbound proxy. Concrete
   // classes live in ./connectors/generic.js and read these descriptors by id.
@@ -110,7 +110,7 @@ export const INTEGRATIONS = [
     name: 'Slack',
     category: 'Comms',
     logo: 'slack.com',
-    operator: 'Rally',
+    operator: 'Ardovo',
     summary: 'Post deal, contact, and activity alerts into any Slack channel through an incoming webhook.',
     inboundEvents: [],
     outboundEvents: [
@@ -131,14 +131,14 @@ export const INTEGRATIONS = [
     name: 'Gmail',
     category: 'Email & calendar',
     logo: 'gmail.com',
-    operator: 'Rally',
+    operator: 'Ardovo',
     summary: 'Log sent and received email against the matching contact and deal (OAuth exchanged server-side).',
     inboundEvents: [
       { key: 'email.received', label: 'Email received', maps: 'activity:email' },
       { key: 'email.sent',     label: 'Email sent',     maps: 'activity:email' },
     ],
     outboundEvents: [
-      { key: 'email.send', label: 'Send email from Rally' },
+      { key: 'email.send', label: 'Send email from Ardovo' },
     ],
     connectFields: [
       // OAuth tokens are exchanged and held server-side; nothing secret persists
@@ -151,8 +151,8 @@ export const INTEGRATIONS = [
     name: 'Webhook / Zapier',
     category: 'Automation',
     logo: 'zapier.com',
-    operator: 'Rally',
-    summary: 'Fire Rally record events as JSON to any HTTPS endpoint - Zapier, Make, or your own service.',
+    operator: 'Ardovo',
+    summary: 'Fire Ardovo record events as JSON to any HTTPS endpoint - Zapier, Make, or your own service.',
     inboundEvents: [],
     outboundEvents: [
       { key: 'record.event', label: 'Send record events as JSON' },

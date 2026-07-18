@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ATLAS  (semantic cartography of the book of business)
+// ARDOVO ATLAS  (semantic cartography of the book of business)
 //
 // Every deal becomes a point on a map where distance = similarity. We build a
 // real feature vector per deal from the live store, standardize it, project to

@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY PAYMENTS  (local-first, Supabase + Stripe-swappable)
+// ARDOVO PAYMENTS  (local-first, Supabase + Stripe-swappable)
 // ------------------------------------------------------------
-// The commerce layer that turns Rally from a CRM into a money
-// platform. Rally already sends invoices; Payments adds fast
+// The commerce layer that turns Ardovo from a CRM into a money
+// platform. Ardovo already sends invoices; Payments adds fast
 // collection: a live volume dashboard, shareable payment links,
 // text-to-pay straight to a contact's phone, a branded checkout
 // preview, and recurring subscriptions with failed-payment
@@ -103,7 +103,7 @@ export const PLANS = [
   { id: 'enterprise', name: 'Enterprise', amount: 1500, interval: 'monthly' },
 ];
 
-// The Rally customer's OWN brand shown on the checkout preview. Editable.
+// The Ardovo customer's OWN brand shown on the checkout preview. Editable.
 export const DEFAULT_BUSINESS = { name: 'Vertex Robotics', accent: '#5b4bf5', supportEmail: 'billing@vertexrobotics.com' };
 
 const LINE_ITEMS = [
@@ -366,7 +366,7 @@ export const getSubscriptions = () => state.subscriptions;
 export const getBusiness = () => state.business;
 
 /* Public URL a payment link resolves to (visual - not a live route). */
-export const linkUrl = (slug) => `pay.rally.app/${slug}`;
+export const linkUrl = (slug) => `pay.ardovo.com/${slug}`;
 
 /* Normalize any recurring amount to a monthly figure for MRR. */
 export function monthlyValue(amount, interval) {

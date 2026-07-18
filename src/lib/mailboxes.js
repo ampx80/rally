@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY MAILBOXES - connected email accounts (the Salesforce
+// ARDOVO MAILBOXES - connected email accounts (the Salesforce
 // "Einstein Activity Capture" / org-wide email + connected
 // account foundation). A customer connects a mailbox one of three
 // ways: Google OAuth, Microsoft/Outlook OAuth, or manual SMTP+IMAP.

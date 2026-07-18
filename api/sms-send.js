@@ -1,8 +1,8 @@
 // api/sms-send.js
 //
-// Rally's hardened, never-throws SMS SEND PRIMITIVE. Twilio-backed, env-gated.
+// Ardovo's hardened, never-throws SMS SEND PRIMITIVE. Twilio-backed, env-gated.
 // Adapted from Class Reunly's api/sms-triggers.js Twilio call and generalized
-// into a standalone send endpoint that powers Rally alerts + automation SMS
+// into a standalone send endpoint that powers Ardovo alerts + automation SMS
 // steps. The email sibling is api/_lib-email.js; this mirrors its guarantees
 // for the SMS channel.
 //

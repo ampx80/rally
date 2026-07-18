@@ -1,4 +1,4 @@
-﻿// RALLY marketing homepage - creative-director rebuild. Light premium canvas,
+﻿// ARDOVO marketing homepage - creative-director rebuild. Light premium canvas,
 // motion everywhere, the self-playing AgentTheater is the hero centerpiece.
 // Returns page sections in a fragment; the router wraps this in MarketingShell.
 // NO em-dash / en-dash. ASCII hyphen only.
@@ -158,12 +158,12 @@ export default function Home() {
           <div className="mkt-hero-split">
             {/* LEFT - copy */}
             <Reveal className="mkt-hero-copy">
-              <div className="mkt-eyebrow" style={{ marginBottom: 14, fontSize: 15, letterSpacing: '.14em' }}>Rally</div>
+              <div className="mkt-eyebrow" style={{ marginBottom: 14, fontSize: 15, letterSpacing: '.14em' }}>Ardovo</div>
               <h1 className="mkt-h1">
                 Everyone sells you a CRM. <span className="mkt-grad m-shine">We run your revenue.</span>
               </h1>
               <p className="mkt-lead" style={{ marginTop: 22 }}>
-                Rally replaces your CRM, CPQ, billing, and marketing stack with one platform, run by
+                Ardovo replaces your CRM, CPQ, billing, and marketing stack with one platform, run by
                 Rook, the AI operator that does the actual work. You close the deals.
               </p>
               <div className="mkt-hero-cta">
@@ -272,13 +272,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S3. OLD WAY vs RALLY WAY */}
+      {/* S3. OLD WAY vs ARDOVO WAY */}
       <section className="mkt-section">
         <div className="mkt-wrap">
           <Reveal>
             <div className="mkt-center" style={{ maxWidth: 780, margin: '0 auto 48px' }}>
               <span className="mkt-eyebrow">The switch</span>
-              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Their CRM needs a team to run it. Rally runs itself.</h2>
+              <h2 className="mkt-h2" style={{ margin: '16px 0 0' }}>Their CRM needs a team to run it. Ardovo runs itself.</h2>
               <p className="mkt-lead" style={{ marginTop: 18 }}>Same deal. One screen instead of eleven tabs, and the follow-up is already written.</p>
             </div>
           </Reveal>
@@ -295,7 +295,7 @@ export default function Home() {
             <div className="mkt-card mkt-card-glow" style={{ padding: 'clamp(24px, 3vw, 40px)', textAlign: 'center' }}>
               <h2 className="mkt-h2" style={{ margin: 0 }}>Cancel <span className="mkt-grad">6 tools</span>. Fire the <span className="mkt-grad">admin retainer</span>. Keep <span className="mkt-grad">all your data</span>.</h2>
               <p className="mkt-lead" style={{ margin: '16px auto 0', maxWidth: 720 }}>
-                Rally is your CRM, CPQ, billing, marketing, and analytics stack in one login - for less than
+                Ardovo is your CRM, CPQ, billing, marketing, and analytics stack in one login - for less than
                 one seat of Salesforce, with a free migration and a 60-day rollback. There is no version of the
                 math where you lose.
               </p>
@@ -307,7 +307,7 @@ export default function Home() {
               </div>
               <div style={{ marginTop: 26 }}>
                 <span className="m-magnet" style={{ display: 'inline-flex' }}>
-                  <MktButton to="/app" size="lg">Switch to Rally <Icon name="chevronRight" size={18} /></MktButton>
+                  <MktButton to="/app" size="lg">Switch to Ardovo <Icon name="chevronRight" size={18} /></MktButton>
                 </span>
               </div>
             </div>
@@ -493,7 +493,7 @@ export default function Home() {
               <p style={{ fontSize: 'clamp(1.9rem, 4.6vw, 3.4rem)', fontWeight: 800, letterSpacing: '-.03em', lineHeight: 1.14, maxWidth: 900, margin: '0 auto', color: 'var(--m-ink)' }}>
                 CRMs got so big they needed administrators. <span className="mkt-grad">Software that needs a staff is not software.</span> It is a job you bought.
               </p>
-              <div className="mkt-dim" style={{ marginTop: 22, fontSize: 15, fontWeight: 600 }}>The Rally team</div>
+              <div className="mkt-dim" style={{ marginTop: 22, fontSize: 15, fontWeight: 600 }}>The Ardovo team</div>
               <div style={{ marginTop: 18 }}>
                 <Link to="/manifesto" style={{ fontWeight: 700, color: 'var(--m-accent)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                   Read the manifesto <Icon name="chevronRight" size={16} />

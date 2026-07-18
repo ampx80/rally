@@ -1,8 +1,8 @@
 // ============================================================
-// RALLY SANDBOXES  (local-first, Supabase-swappable)
+// ARDOVO SANDBOXES  (local-first, Supabase-swappable)
 // ------------------------------------------------------------
 // Safe change management for serious teams. A HubSpot Enterprise
-// staple that Rally ships in the box: spin up a sandbox (a full
+// staple that Ardovo ships in the box: spin up a sandbox (a full
 // copy of your pipelines, automations, custom objects, fields and
 // templates), make changes without touching live data, review a
 // clean diff versus Production, then promote only the changes you

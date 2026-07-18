@@ -9,17 +9,17 @@ const entry = {
   slug: 'lead-management-guide',
   title: 'Lead Management: The Complete Playbook',
   h1: 'Lead Management: The Complete Playbook From Capture to Close',
-  metaTitle: 'Lead Management: The Complete Playbook (Capture to Close) | Rally',
+  metaTitle: 'Lead Management: The Complete Playbook (Capture to Close) | Ardovo',
   metaDescription: 'A deep, practical guide to lead management in 2026: the lead lifecycle, lead scoring, speed-to-lead math, routing rules, the leak funnel, and a live ROI calculator.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '16 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'Lead management is the discipline of turning a raw signal of interest into a paying customer without dropping it on the way. Done well, it is the single highest-leverage system a revenue team owns, because every lead you lose is one you already paid to acquire.',
-    'This playbook walks the full lifecycle from capture to close: how leads enter, how to score them, why the first five minutes decide the deal, how to route without leaks, and where pipeline quietly bleeds out. It is useful whether you run a spreadsheet, a legacy CRM, or an AI-native platform like Rally.',
+    'This playbook walks the full lifecycle from capture to close: how leads enter, how to score them, why the first five minutes decide the deal, how to route without leaks, and where pipeline quietly bleeds out. It is useful whether you run a spreadsheet, a legacy CRM, or an AI-native platform like Ardovo.',
   ],
   heroStats: [
     { value: 21, suffix: 'x', label: 'More likely to qualify a lead contacted in 5 minutes vs 30' },
@@ -70,7 +70,7 @@ const entry = {
       body: [
         'A lead that never makes it into your system of record cannot be scored, routed, or followed up. Yet capture is the most fragile step, because leads arrive from everywhere: web forms, chat, inbound email, phone calls, event scans, referrals, and ad platforms. Any channel that requires a human to copy a row will eventually drop leads on busy days.',
         'The fix is automated capture on every channel that matters, writing to one place. Forms should post directly to the CRM, inbox and calendar should sync, and calls should log themselves. The test of good capture is simple: a lead that came in at 2am on a Sunday should be sitting in the pipeline, scored and assigned, before anyone reads it on Monday.',
-        'This is where an AI-native platform earns its keep. On Rally, a lead lands, gets enriched with firmographic data, is scored, and is routed to an owner before a person touches it, so the clock that actually matters starts at zero.',
+        'This is where an AI-native platform earns its keep. On Ardovo, a lead lands, gets enriched with firmographic data, is scored, and is routed to an owner before a person touches it, so the clock that actually matters starts at zero.',
       ],
     },
     {
@@ -213,7 +213,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'How teams manage leads: three approaches',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet', 'Legacy CRM'],
+      columns: ['Ardovo', 'Spreadsheet', 'Legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Automatic capture on every channel', cells: [true, false, 'partial'] },
@@ -261,15 +261,15 @@ const entry = {
     {
       type: 'quote',
       text: 'We were sure we called leads within ten minutes. When we measured, the median was almost four hours. Fixing routing alone lifted our close rate more than any campaign we ran that year.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, mid-market SaaS',
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
-        'Everything in this playbook can be built by hand across a stack of tools, and plenty of teams do exactly that. The reason Rally exists is that the seams between those tools are where leads leak, and the operations work to close them is constant.',
-        'Rally is AI-native and alive on first load: leads are captured, enriched, scored, and routed by Rook, the built-in operator, before a person touches them, and follow-up gets drafted automatically so it actually happens. It is one flat price with every module included, so scoring, routing, and enrichment are not paid add-ons you have to assemble. The point is not the tool, it is that no lead you paid for should ever go cold by accident.',
+        'Everything in this playbook can be built by hand across a stack of tools, and plenty of teams do exactly that. The reason Ardovo exists is that the seams between those tools are where leads leak, and the operations work to close them is constant.',
+        'Ardovo is AI-native and alive on first load: leads are captured, enriched, scored, and routed by Rook, the built-in operator, before a person touches them, and follow-up gets drafted automatically so it actually happens. It is one flat price with every module included, so scoring, routing, and enrichment are not paid add-ons you have to assemble. The point is not the tool, it is that no lead you paid for should ever go cold by accident.',
       ],
     },
     {
@@ -280,7 +280,7 @@ const entry = {
         { q: 'How fast should I respond to a new lead?', a: 'As close to five minutes as your operations allow, especially for high-fit, high-intent leads. Widely cited research shows contact within five minutes dramatically improves the odds of qualifying a lead versus waiting even thirty minutes, and roughly half of sales go to whoever responds first.' },
         { q: 'What makes a good lead score?', a: 'Two axes kept simple: fit (how well the lead matches your ideal customer) and intent (how strongly they are signaling readiness now). Score on a handful of signals on each axis, tune it against who actually closed, and revisit it every quarter. Complexity that nobody trusts is worse than a simple model the team uses.' },
         { q: 'Why do we lose so many leads even though we buy plenty?', a: 'Because the leaks are small and invisible: leads that never enter the system, are contacted too late, or get one follow-up and are forgotten. Instrument your funnel from captured to closed, find the steepest single drop, and fix that stage first. Recovering leads you already paid for beats buying more.' },
-        { q: 'Do I need a CRM to do lead management well?', a: 'You need a single source of truth where every lead has an owner, a score, and a next step. A spreadsheet can be that at very small scale, but it breaks the moment capture, routing, and follow-up need to be automatic. An AI-native CRM like Rally does that work for you out of the box.' },
+        { q: 'Do I need a CRM to do lead management well?', a: 'You need a single source of truth where every lead has an owner, a score, and a next step. A spreadsheet can be that at very small scale, but it breaks the moment capture, routing, and follow-up need to be automatic. An AI-native CRM like Ardovo does that work for you out of the box.' },
         { q: 'How is lead routing best structured?', a: 'Define ownership rules before leads arrive (territory, segment, product, or round-robin), route on lead score so your best leads reach your best closers, assign instantly and automatically, and back it with a response SLA that auto-escalates if the owner does not act. Then feed outcomes back so routing keeps improving.' },
       ],
     },

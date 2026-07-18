@@ -1,6 +1,6 @@
 // PricingViz - animated plan cards (spring in, popular plan glows + pulses,
 // checklist ticks on in-view), plus an ROI / savings counter with a legacy-vs-
-// Rally comparison toggle and count-up totals. No em-dash / en-dash.
+// Ardovo comparison toggle and count-up totals. No em-dash / en-dash.
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../../components/icons.jsx';
@@ -64,7 +64,7 @@ export function PlanCards({ tiers, annual }) {
   );
 }
 
-// Illustrative legacy-stack vs Rally cost comparison. Toggling swaps the panel;
+// Illustrative legacy-stack vs Ardovo cost comparison. Toggling swaps the panel;
 // the total animates up on view. Figures are illustrative for this preview.
 const STACKS = {
   legacy: {
@@ -78,7 +78,7 @@ const STACKS = {
     ],
   },
   rally: {
-    label: 'Rally',
+    label: 'Ardovo',
     total: 245,
     rows: [
       ['Seats (5, all-in)', 245, 100],
@@ -110,13 +110,13 @@ export function RoiCompare() {
             className={`v2-roi-tbtn v2-rally${mode === 'rally' ? ' is-on' : ''}`}
             onClick={() => setMode('rally')}
           >
-            Rally
+            Ardovo
           </button>
         </div>
         <h3 className="v2-roi-title">One price replaces the whole stack.</h3>
         <p className="v2-roi-sub">
           The incumbents charge for seats, then again for AI, then again for the consultant who wires it
-          together. Rally is one all-in price with the operator included. Toggle to see the difference.
+          together. Ardovo is one all-in price with the operator included. Toggle to see the difference.
         </p>
         <div ref={saveRef} style={{ marginTop: 24 }}>
           <div className="v2-roi-big mkt-grad">${Math.round(saveVal).toLocaleString()}</div>

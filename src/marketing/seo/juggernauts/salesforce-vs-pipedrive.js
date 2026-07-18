@@ -8,11 +8,11 @@ const entry = {
   slug: 'salesforce-vs-pipedrive',
   title: 'Salesforce vs Pipedrive in 2026',
   h1: 'Salesforce vs Pipedrive in 2026: A Complete Comparison',
-  metaTitle: 'Salesforce vs Pipedrive 2026: Features, Pricing, TCO, and a Fair Verdict | Rally',
+  metaTitle: 'Salesforce vs Pipedrive 2026: Features, Pricing, TCO, and a Fair Verdict | Ardovo',
   metaDescription: 'A balanced, in-depth Salesforce vs Pipedrive comparison for 2026: what each does best, who should buy which, a total-cost-of-ownership calculator, a feature matrix, and where an AI-native option fits.',
   eyebrow: 'Comparisons',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 2, prefix: 'up to ', suffix: 'x', label: 'Spread in per-seat list price between the two, before add-ons' },
     { value: 3, prefix: '~', suffix: ' weeks', label: 'Typical Salesforce time-to-live vs an afternoon for Pipedrive' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Rally: one flat price, every module, alive on first load' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Ardovo: one flat price, every module, alive on first load' },
   ],
   blocks: [
     {
@@ -32,7 +32,7 @@ const entry = {
       body: [
         'Choose Salesforce if you have complex processes, multiple teams that need to share one system of record, a real budget, and access to an admin (in-house or a partner) who can own the configuration. Its ceiling is effectively unlimited, and that is exactly what large or fast-scaling revenue organizations need.',
         'Choose Pipedrive if you are a small or mid-size sales team that wants to be selling today, values a clean visual pipeline over deep customization, and would rather add tools later than configure a platform now. It is one of the easiest CRMs to adopt and among the cheapest to run at small scale.',
-        'If neither answer feels right because you want the depth of a platform without the setup tax and the per-seat-plus-add-on bill, that gap is exactly what AI-native tools like Rally were built to close. More on that below, after a fair look at both incumbents.',
+        'If neither answer feels right because you want the depth of a platform without the setup tax and the per-seat-plus-add-on bill, that gap is exactly what AI-native tools like Ardovo were built to close. More on that below, after a fair look at both incumbents.',
       ],
     },
     {
@@ -91,7 +91,7 @@ const entry = {
         bars: [
           { label: 'Pipedrive', value: 30, display: 'Same day' },
           { label: 'Salesforce', value: 240, display: '2-4+ weeks' },
-          { label: 'Rally', value: 6, display: '~6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '~6 min', highlight: true },
         ],
       },
     },
@@ -106,9 +106,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Salesforce vs Pipedrive vs Rally: capability matrix',
+      title: 'Salesforce vs Pipedrive vs Ardovo: capability matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Salesforce', 'Pipedrive'],
+      columns: ['Ardovo', 'Salesforce', 'Pipedrive'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with working data on first load', cells: [true, false, false] },
@@ -139,7 +139,7 @@ const entry = {
         layers: [
           { label: 'Salesforce', nodes: ['Platform core', 'Custom objects', 'Flows and Apex', 'Clouds and add-ons', 'Admin required'] },
           { label: 'Pipedrive', nodes: ['Pipeline app', 'Deals and activities', 'Built-in automations', 'Marketplace add-ons'] },
-          { label: 'Rally', nodes: ['One data core', 'Rook operator', 'Every module included', 'Live on first load'] },
+          { label: 'Ardovo', nodes: ['One data core', 'Rook operator', 'Every module included', 'Live on first load'] },
         ],
       },
     },
@@ -207,15 +207,15 @@ const entry = {
       type: 'richText',
       title: 'The third option: AI-native, alive on first load',
       body: [
-        'Both incumbents were designed before AI could actually do the work. Salesforce answers complexity with configuration; Pipedrive answers it by staying simple. Rally answers it differently: the platform arrives already populated with a working pipeline, and an AI operator called Rook does the busywork that a CRM normally just stores.',
+        'Both incumbents were designed before AI could actually do the work. Salesforce answers complexity with configuration; Pipedrive answers it by staying simple. Ardovo answers it differently: the platform arrives already populated with a working pipeline, and an AI operator called Rook does the busywork that a CRM normally just stores.',
         'That reframes the classic trade-off. You do not have to choose between a powerful platform that takes weeks to stand up and a simple tool you will outgrow. Rook captures and enriches leads, drafts the next follow-up, flags deals going cold, and rolls up a forecast without a Friday spreadsheet ritual, from the first session.',
-        'The commercial model is deliberately simple too: one flat price with every module included, instead of per-seat tiers plus add-ons that climb exactly when you grow. Rally is not the right pick for every enterprise mandate that requires a specific legacy platform, but for teams weighing Salesforce depth against Pipedrive speed, it is worth a look as the option that refuses the trade-off.',
+        'The commercial model is deliberately simple too: one flat price with every module included, instead of per-seat tiers plus add-ons that climb exactly when you grow. Ardovo is not the right pick for every enterprise mandate that requires a specific legacy platform, but for teams weighing Salesforce depth against Pipedrive speed, it is worth a look as the option that refuses the trade-off.',
       ],
     },
     {
       type: 'quote',
       text: 'We shortlisted Salesforce and Pipedrive, then realized we wanted Salesforce depth without the setup quarter and Pipedrive speed without the ceiling. The AI-native option gave us both.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'RevOps lead, growth-stage B2B',
     },
     {
@@ -239,7 +239,7 @@ const entry = {
         { q: 'Is Pipedrive cheaper than Salesforce?', a: 'Usually yes at small scale, and it is more predictable because there is less to bolt on. Salesforce concentrates cost in higher editions plus add-ons, admin time, and implementation. Compare true total cost of ownership, not just the per-seat sticker, and verify current pricing on both vendor sites.' },
         { q: 'Can Pipedrive replace Salesforce for a growing company?', a: 'Up to a point. Pipedrive scales well for focused sales motions, but organizations that need deep customization, heavy governance, and many connected teams often hit a ceiling and consider a platform. If you expect that complexity, weigh the migration cost of starting on a lighter tool.' },
         { q: 'Do I need an admin to run Salesforce?', a: 'Practically, yes for anything beyond the basics. Most teams either hire or assign a Salesforce admin, or engage an implementation partner. That labor is a real and recurring cost that belongs in your comparison. Pipedrive is designed to run without one.' },
-        { q: 'How is Rally different from both?', a: 'Rally is AI-native. It arrives already alive with a working pipeline, and an operator called Rook actually does the follow-up, enrichment, and forecasting work rather than just storing records. It is one flat price with every module included, aimed at teams that want platform depth without the setup tax or the per-seat-plus-add-on bill.' },
+        { q: 'How is Ardovo different from both?', a: 'Ardovo is AI-native. It arrives already alive with a working pipeline, and an operator called Rook actually does the follow-up, enrichment, and forecasting work rather than just storing records. It is one flat price with every module included, aimed at teams that want platform depth without the setup tax or the per-seat-plus-add-on bill.' },
         { q: 'Which should I choose if I am unsure?', a: 'Trial all three against your real process for a week, run the total-cost-of-ownership numbers, and decide on fit rather than brand. If you specifically want Salesforce-grade depth without weeks of configuration, that is the exact gap an AI-native tool is built to fill.' },
       ],
     },

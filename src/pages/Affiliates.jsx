@@ -1,5 +1,5 @@
-// Affiliates + Partners. Rally's referral engine - a GoHighLevel revenue
-// staple, bundled in. An affiliate army is distribution: every Rally customer
+// Affiliates + Partners. Ardovo's referral engine - a GoHighLevel revenue
+// staple, bundled in. An affiliate army is distribution: every Ardovo customer
 // can turn happy users into a paid sales force. Five surfaces over one
 // local-first store (src/lib/affiliates-data.js): a program dashboard, the
 // partner table with an add-affiliate flow, commission plans, a payout queue
@@ -292,7 +292,7 @@ function Plans({ affiliates }) {
           {[
             { icon: 'share2', t: 'Partner shares their link', b: 'Every partner gets a unique tracked link and a live portal.' },
             { icon: 'clock', t: 'Click sets the cookie', b: 'A referred visitor is attributed for the plan cookie window.' },
-            { icon: 'target', t: 'Deal closes in Rally', b: 'When the referred account converts, the commission is booked.' },
+            { icon: 'target', t: 'Deal closes in Ardovo', b: 'When the referred account converts, the commission is booked.' },
             { icon: 'dollar', t: 'Payout enters the queue', b: 'Commission owed accrues until you approve and settle it.' },
           ].map((s, i) => (
             <div key={i} className="col gap-1">
@@ -439,7 +439,7 @@ function Portal({ affiliates, toast }) {
             </div>
             <div className="row gap-1">
               <Button variant="ghost" size="sm" onClick={() => copyText(link, toast)}><Icon name="copy" size={15} /> Copy</Button>
-              <Button variant="primary" size="sm" onClick={() => askRook(`Draft a short, friendly outreach message ${a.name} can send to promote their Rally referral link ${link}.`)}><Icon name="send" size={15} /> Share kit</Button>
+              <Button variant="primary" size="sm" onClick={() => askRook(`Draft a short, friendly outreach message ${a.name} can send to promote their Ardovo referral link ${link}.`)}><Icon name="send" size={15} /> Share kit</Button>
             </div>
           </div>
 
@@ -597,7 +597,7 @@ function PartnerDetail({ id, onClose, toast }) {
           <span className="muted t-xs">Plan: {plan?.name} - {commissionRateLabel(plan)} {RECURRENCE_META[plan?.recurrence]?.label?.toLowerCase()} - {plan?.cookieDays}d cookie</span>
           <div className="row gap-1">
             <Button variant="ghost" size="sm" onClick={() => copyText(referralLink(p), toast)}><Icon name="copy" size={15} /> Copy link</Button>
-            <Button variant="ghost" size="sm" onClick={() => askRook(`Give me 3 concrete ways to help my affiliate partner ${p.name} (${p.company}) send more converting referrals to Rally.`)}><Icon name="sparkles" size={15} /> Coach with Rook</Button>
+            <Button variant="ghost" size="sm" onClick={() => askRook(`Give me 3 concrete ways to help my affiliate partner ${p.name} (${p.company}) send more converting referrals to Ardovo.`)}><Icon name="sparkles" size={15} /> Coach with Rook</Button>
           </div>
         </div>
       </div>
@@ -640,10 +640,10 @@ export default function Affiliates() {
       <PageTitle
         eyebrow="Revenue"
         title={<>Affiliates <GradientText>&</GradientText> Partners</>}
-        sub="An affiliate army is distribution. Turn happy customers into a paid sales force - the referral engine GoHighLevel charges extra for, built into Rally."
+        sub="An affiliate army is distribution. Turn happy customers into a paid sales force - the referral engine GoHighLevel charges extra for, built into Ardovo."
         action={
           <div className="row gap-2">
-            <Button variant="ghost" onClick={() => askRook('Summarize how my Rally affiliate program is performing this month and tell me the single highest-leverage move to grow partner-sourced revenue.')}><Icon name="sparkles" size={16} /> Ask Rook</Button>
+            <Button variant="ghost" onClick={() => askRook('Summarize how my Ardovo affiliate program is performing this month and tell me the single highest-leverage move to grow partner-sourced revenue.')}><Icon name="sparkles" size={16} /> Ask Rook</Button>
             <Button variant="primary" onClick={() => setAdding(true)}><Icon name="plus" size={16} /> Add partner</Button>
           </div>
         }

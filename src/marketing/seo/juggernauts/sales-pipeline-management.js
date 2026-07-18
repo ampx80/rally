@@ -8,22 +8,22 @@ const entry = {
   slug: 'sales-pipeline-management',
   title: 'Sales Pipeline Management: The Complete Guide',
   h1: 'Sales Pipeline Management: The Complete Guide',
-  metaTitle: 'Sales Pipeline Management: The Complete Guide (Stages, Math, Reviews) | Rally',
+  metaTitle: 'Sales Pipeline Management: The Complete Guide (Stages, Math, Reviews) | Ardovo',
   metaDescription: 'A deep, practical guide to sales pipeline management: the stages, pipeline velocity math, a live calculator, how to run pipeline reviews, and the common leaks that quietly kill your number.',
   eyebrow: 'Revenue Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'Sales pipeline management is the discipline of moving deals through defined stages so predictably that you can forecast revenue, spot risk early, and know exactly where to spend the next hour of selling. It is not a report you run on Friday. It is the operating system your revenue rides on.',
-    'This guide covers the whole system: the stages every pipeline should have, the math that turns a list of deals into a number you can defend, how to run a pipeline review that actually changes outcomes, and the leaks that quietly drain a quarter before anyone notices. Read it whether or not you ever touch Rally. Then, if you want the whole thing to run itself, we will show you where an AI operator fits.',
+    'This guide covers the whole system: the stages every pipeline should have, the math that turns a list of deals into a number you can defend, how to run a pipeline review that actually changes outcomes, and the leaks that quietly drain a quarter before anyone notices. Read it whether or not you ever touch Ardovo. Then, if you want the whole thing to run itself, we will show you where an AI operator fits.',
   ],
   heroStats: [
     { value: 3, prefix: '', suffix: 'x', label: 'Revenue growth gap between disciplined and ad-hoc pipeline management' },
     { value: 18, suffix: '%', label: 'Of forecasted deals slip a quarter on average in unmanaged pipelines' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, forecasting included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, forecasting included' },
   ],
   blocks: [
     {
@@ -188,7 +188,7 @@ const entry = {
     {
       type: 'quote',
       text: 'The best pipeline reviews are boring. Every deal has a next step, every close date is defended, and nobody is surprised at the end of the quarter. Surprise is the symptom of a pipeline nobody managed.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'VP Sales, mid-market SaaS',
     },
     {
@@ -245,7 +245,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Managing pipeline: spreadsheet vs legacy CRM vs an AI-native platform',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet', 'Legacy CRM'],
+      columns: ['Ardovo', 'Spreadsheet', 'Legacy CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Live pipeline board on first load', cells: [true, false, 'partial'] },
@@ -264,8 +264,8 @@ const entry = {
       title: 'Where an AI operator changes the game',
       body: [
         'Every discipline in this guide is doable by hand. The problem is that it is relentless. Someone has to notice the deal that went quiet, draft the nudge, update the close date, and catch the stage that got inflated, across hundreds of deals, every single day. Humans skip the boring parts, and the boring parts are where pipeline leaks.',
-        'This is the case for an AI-native platform. In Rally, the operator we call Rook watches the pipeline continuously: it detects stalls, drafts follow-ups in your voice, flags close dates that no longer look real, and keeps the forecast current without a Friday spreadsheet ritual. It does not replace the seller\'s judgment; it removes the excuse that the follow-up did not happen because someone was busy.',
-        'You do not need Rally to manage a pipeline well. You need stages defined by buyer commitment, a next step on every deal, a weekly review that inspects evidence, and honesty about the zombies. If you want all of that to run itself at one flat price, that is the reason Rally exists.',
+        'This is the case for an AI-native platform. In Ardovo, the operator we call Rook watches the pipeline continuously: it detects stalls, drafts follow-ups in your voice, flags close dates that no longer look real, and keeps the forecast current without a Friday spreadsheet ritual. It does not replace the seller\'s judgment; it removes the excuse that the follow-up did not happen because someone was busy.',
+        'You do not need Ardovo to manage a pipeline well. You need stages defined by buyer commitment, a next step on every deal, a weekly review that inspects evidence, and honesty about the zombies. If you want all of that to run itself at one flat price, that is the reason Ardovo exists.',
       ],
     },
     {
@@ -290,7 +290,7 @@ const entry = {
         { q: 'What is pipeline velocity and how do I calculate it?', a: 'Pipeline velocity is revenue moving through your pipeline per day. Calculate it as: qualified opportunities times average deal value times win rate, divided by average sales cycle length in days. It combines all four levers you can pull into one number, so it points you straight at your constraint.' },
         { q: 'How much pipeline coverage do I need to hit my number?', a: 'A common rule of thumb is three to four times your target in open pipeline, adjusted for your win rate. If you close one in four deals, you need at least four times coverage just to break even on conversion, and more to absorb slippage. The healthier your win rate, the less coverage you need.' },
         { q: 'How often should I run a pipeline review?', a: 'Weekly for the team is standard, with a lighter daily glance at your own most important deals. The weekly review is for inspecting evidence and setting next steps, not reading updates aloud. Done consistently it takes about 30 minutes because the CRM has already surfaced the exceptions.' },
-        { q: 'How does Rally help with pipeline management specifically?', a: 'Rally is alive on first load with a working pipeline board, and its AI operator, Rook, watches deals continuously: it detects stalls, drafts follow-ups, flags slipping close dates, and keeps the forecast current automatically. It is one flat price per seat with forecasting included, so the discipline in this guide runs itself instead of depending on someone remembering to do it.' },
+        { q: 'How does Ardovo help with pipeline management specifically?', a: 'Ardovo is alive on first load with a working pipeline board, and its AI operator, Rook, watches deals continuously: it detects stalls, drafts follow-ups, flags slipping close dates, and keeps the forecast current automatically. It is one flat price per seat with forecasting included, so the discipline in this guide runs itself instead of depending on someone remembering to do it.' },
       ],
     },
   ],

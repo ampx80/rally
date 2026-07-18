@@ -1,7 +1,7 @@
 // ============================================================
-// RALLY PRE-QUALIFICATION ENGINE  (local-first, additive)
+// ARDOVO PRE-QUALIFICATION ENGINE  (local-first, additive)
 //
-// The front door to Rally sales. A prospect fills a short form (name,
+// The front door to Ardovo sales. A prospect fills a short form (name,
 // business email, phone, company headcount, plus admin-configurable
 // questions). The engine scores fit deterministically, decides
 // qualified / review / not-a-fit, and routes: qualified -> book a call
@@ -47,8 +47,8 @@ export function isBusinessEmail(email) {
    ============================================================ */
 export function defaultConfig() {
   return {
-    headline: 'See if Rally is a fit',
-    subhead: 'A 60-second pre-qualification. If it is a match, you book a call with a Rally account executive who tailors the walkthrough to your team.',
+    headline: 'See if Ardovo is a fit',
+    subhead: 'A 60-second pre-qualification. If it is a match, you book a call with a Ardovo account executive who tailors the walkthrough to your team.',
     requireBusinessEmail: true,
     // Fit thresholds against the summed points (max ~100).
     qualifyThreshold: 55,   // >= this -> qualified (book a call)

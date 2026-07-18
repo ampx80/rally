@@ -1,11 +1,11 @@
-// Rally Headless Agent API - drive Rally without the browser.
+// Ardovo Headless Agent API - drive Ardovo without the browser.
 //
 //   GET  /api/agent          -> capabilities + tool catalog + contract
 //   POST /api/agent          -> { input, snapshot? } an external agent posts a
 //        goal plus (optionally) a workspace snapshot; Claude returns a grounded
 //        reply plus structured tool_calls from the catalog. Read tools are
 //        answered from the snapshot; write tools come back as propose-confirm
-//        envelopes for the Rally client (or a Supabase writer) to execute.
+//        envelopes for the Ardovo client (or a Supabase writer) to execute.
 //
 // Env-gated: without ANTHROPIC_API_KEY it returns { ok:false, disabled:true }
 // and still serves the catalog on GET. NO em-dash / en-dash. ASCII only.
@@ -43,8 +43,8 @@ const SCHEMA = {
 export default withErrorHandling(async (req, res) => {
   if (req.method === 'GET') {
     return res.status(200).json({
-      ok: true, name: 'Rally Headless Agent API',
-      description: 'Operate a Rally workspace programmatically. Read tools answer from a posted snapshot; write tools return propose-confirm envelopes.',
+      ok: true, name: 'Ardovo Headless Agent API',
+      description: 'Operate a Ardovo workspace programmatically. Read tools answer from a posted snapshot; write tools return propose-confirm envelopes.',
       tools: TOOLS.map(t => ({ name: t.name, kind: t.kind, description: t.description })),
       contract: CONTRACT,
       mcp: '/api/mcp',
@@ -62,7 +62,7 @@ export default withErrorHandling(async (req, res) => {
   const snapshot = body?.snapshot ? JSON.stringify(body.snapshot).slice(0, 60000) : 'No snapshot provided; answer from general capability and prefer read tools.';
 
   const system = [
-    'You are the Rally headless agent. You operate a Rally revenue workspace through a fixed TOOL CATALOG. Choose tools to satisfy the caller.',
+    'You are the Ardovo headless agent. You operate a Ardovo revenue workspace through a fixed TOOL CATALOG. Choose tools to satisfy the caller.',
     'Rules: use read tools to answer questions from the SNAPSHOT; use write tools to propose changes (they will be confirmed by the client, nothing auto-commits). Never invent tools. Keep reply tight. Never use an em dash or en dash.',
     'TOOL CATALOG:',
     ...TOOLS.map(t => `- ${t.name} [${t.kind}]: ${t.description}`),

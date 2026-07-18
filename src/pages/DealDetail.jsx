@@ -1,4 +1,4 @@
-// Deal detail - the deepest object in Rally. A living deal record:
+// Deal detail - the deepest object in Ardovo. A living deal record:
 // dual headline value + line-item ACV, a grounded AI insight banner, a
 // clickable stage stepper with win/loss capture, and six deep, editable
 // main-column panels (line items, buying committee with roles + influence,
@@ -80,7 +80,7 @@ Is there a good time this week for a quick call? I am happy to work around your 
 
 Best regards,
 ${owner?.name || 'Your account team'}${owner?.title ? `\n${owner.title}` : ''}
-Rally`;
+Ardovo`;
   return { subject, body };
 }
 

@@ -1,6 +1,6 @@
 // POST /api/billing-checkout
 //
-// Creates a Stripe Checkout Session for a paid Rally plan and returns its
+// Creates a Stripe Checkout Session for a paid Ardovo plan and returns its
 // hosted URL. Everything Stripe is lazy + guarded: if STRIPE_SECRET_KEY (or the
 // plan's price id env var) is missing, we return { configured: false } with a
 // 200 so the browser can fall back to a local demo upgrade. Missing env NEVER

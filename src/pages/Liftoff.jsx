@@ -609,7 +609,7 @@ function LiftoffWizard({ onComplete, onExit }) {
           </div>
 
           <div className="row center" style={{ marginTop: '2rem' }}>
-            <Button variant="quiet" size="sm" onClick={() => askRook('Help me answer the Liftoff intake so Rally can build decks for my whole company')}>
+            <Button variant="quiet" size="sm" onClick={() => askRook('Help me answer the Liftoff intake so Ardovo can build decks for my whole company')}>
               <Icon name="sparkles" size={15} /> Ask Rook for help
             </Button>
           </div>

@@ -401,7 +401,7 @@ function buildPosterSVG(film) {
   <path d="${line} L ${(W - padX).toFixed(0)} ${baseY} L ${padX} ${baseY} Z" fill="url(#area)"/>
   <path d="${line}" fill="none" stroke="${tone}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
   ${dots}
-  <text x="90" y="120" fill="${tone}" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="800" letter-spacing="6">RALLY . DEAL FILM</text>
+  <text x="90" y="120" fill="${tone}" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="800" letter-spacing="6">ARDOVO . DEAL FILM</text>
   <text x="90" y="196" fill="#ffffff" font-family="Inter,Arial,sans-serif" font-size="72" font-weight="800" letter-spacing="-2">${esc((p.headline || film.title).slice(0, 34))}</text>
   <text x="90" y="238" fill="#c6cede" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="500">${esc(p.entity || film.subtitle)}${p.meta ? '   .   ' + esc(p.meta) : ''}</text>
   <text x="90" y="560" fill="#ffffff" font-family="Inter,Arial,sans-serif" font-size="88" font-weight="800" letter-spacing="-3">${esc(p.value || '')}</text>
@@ -513,7 +513,7 @@ function PosterCard({ item, onPlay }) {
           {item.status === 'won' ? 'Closed won' : item.status === 'lost' ? 'The autopsy' : item.stage}
         </span>
         <span style={{ display: 'block', fontWeight: 800, fontSize: '1.06rem', color: '#fff', lineHeight: 1.16, marginBottom: '.2rem' }} className="clip">{item.name}</span>
-        <span style={{ display: 'block', fontSize: '.85rem', color: '#aeb8c6' }} className="clip">{item.company || 'Rally'}   .   {item.valueLabel}</span>
+        <span style={{ display: 'block', fontSize: '.85rem', color: '#aeb8c6' }} className="clip">{item.company || 'Ardovo'}   .   {item.valueLabel}</span>
       </span>
     </button>
   );

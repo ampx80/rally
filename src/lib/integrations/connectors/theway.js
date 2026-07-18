@@ -3,7 +3,7 @@
 // The first REAL connector built on the integration backbone. The
 // Way (thewayhq.vercel.app) is the sibling project-management app;
 // this connector surfaces its delivery PROJECTS + their status onto
-// the right Rally deal / company record so post-sale delivery is
+// the right Ardovo deal / company record so post-sale delivery is
 // visible from inside the CRM.
 //
 // Every project it surfaces carries provenance: source:'theway' plus
@@ -100,7 +100,7 @@ export class TheWayConnector extends Connector {
 
   isLive() { return connectionStatus(this.id) === 'connected'; }
 
-  /* ---------- mapRecord seam: raw the_way_projects row -> Rally shape ---------- */
+  /* ---------- mapRecord seam: raw the_way_projects row -> Ardovo shape ---------- */
   mapRecord(row = {}) {
     const status = String(row.status || row.current_status || 'In Progress');
     const ryg = String(row.ryg_status || row.ryg || 'green').toLowerCase();

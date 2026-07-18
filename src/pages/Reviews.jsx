@@ -1,4 +1,4 @@
-// Reviews + Reputation. Rally's reputation engine - a GoHighLevel staple that
+// Reviews + Reputation. Ardovo's reputation engine - a GoHighLevel staple that
 // HubSpot lacks, bundled in. Four surfaces over one local-first store
 // (src/lib/reviews-data.js): a reputation dashboard, ask-after-win request
 // campaigns, an incoming review stream with an AI responder, and a configurable
@@ -203,7 +203,7 @@ function Requests({ toast }) {
           <div className="col gap-1" style={{ minWidth: 0 }}>
             <div className="eyebrow">Ask after a win</div>
             <h3 style={{ margin: 0 }}>Turn a won deal into a five star review</h3>
-            <div className="muted t-sm" style={{ maxWidth: 520 }}>Every completed job is your best moment to ask. Rally fires the request by SMS or email while the win is still warm.</div>
+            <div className="muted t-sm" style={{ maxWidth: 520 }}>Every completed job is your best moment to ask. Ardovo fires the request by SMS or email while the win is still warm.</div>
           </div>
           <div className="row gap-1" style={{ flex: 'none' }}>
             <Button variant="ghost" onClick={() => askRook('Which of my won deals should I ask for a review right now, and should I use SMS or email?')}><Icon name="sparkles" size={15} /> Ask Rook</Button>
@@ -572,7 +572,7 @@ function WidgetTab({ toast }) {
               </div>
             )}
             <div className="row center" style={{ marginTop: '1rem' }}>
-              <span style={{ fontSize: '.72rem', opacity: .5, fontWeight: 600 }}>Powered by Rally</span>
+              <span style={{ fontSize: '.72rem', opacity: .5, fontWeight: 600 }}>Powered by Ardovo</span>
             </div>
           </div>
         </Card>
@@ -584,14 +584,14 @@ function WidgetTab({ toast }) {
 }
 
 function EmbedModal({ widget, onClose, toast }) {
-  const snippet = `<!-- Rally reviews widget -->
+  const snippet = `<!-- Ardovo reviews widget -->
 <div id="rally-reviews"
      data-business="${widget.business}"
      data-layout="${widget.layout}"
      data-theme="${widget.theme}"
      data-min-rating="${widget.minRating}"
      data-sources="${widget.sources.join(',')}"></div>
-<script async src="https://widgets.rally.app/reviews.js"></script>`;
+<script async src="https://widgets.ardovo.com/reviews.js"></script>`;
   const copy = () => {
     try { navigator.clipboard.writeText(snippet); toast('Embed code copied'); }
     catch { toast('Copy failed, select and copy manually', 'warn'); }

@@ -2,7 +2,7 @@
 // service side of the business: the live ticket queue (via the Resolve
 // connector, or seeded demo when not connected), SLA and first-response
 // health, CSAT, and quick links into the native Knowledge Base. This is the
-// delivery-team companion to the deal, giving Rally HubSpot Service Hub parity.
+// delivery-team companion to the deal, giving Ardovo HubSpot Service Hub parity.
 //
 // Built ON the existing integration backbone (Resolve connector cache +
 // stats) and the knowledge-base.js slice. First-response / SLA figures are

@@ -1,6 +1,6 @@
 // api/report-deliver.js
 //
-// Scheduled report delivery for Rally Report Builder v2. Two entry points:
+// Scheduled report delivery for Ardovo Report Builder v2. Two entry points:
 //
 //   POST { action: 'test'|'run', deliveries: [ renderedDelivery, ... ] }
 //     Renders each delivery payload (produced client-side by
@@ -20,7 +20,7 @@
 //
 // Env:
 //   RESEND_API_KEY  - required for mail to actually send (studio-wide key)
-//   NOTIFY_FROM     - sender (defaults to Rally Reports <onboarding@resend.dev>)
+//   NOTIFY_FROM     - sender (defaults to Ardovo Reports <onboarding@resend.dev>)
 //   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY - optional durable schedules
 //
 // ASCII only. NO em-dash / en-dash.
@@ -56,12 +56,12 @@ function renderHtml(d) {
   return `
 <!doctype html><html><body style="margin:0;background:#0b0d14;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;color:#e7e9f0;">
   <div style="max-width:600px;margin:32px auto;padding:32px;background:#12141f;border:1px solid #262a3d;border-radius:16px;">
-    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b8ff5;margin-bottom:12px;font-weight:700;">Rally scheduled report</div>
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b8ff5;margin-bottom:12px;font-weight:700;">Ardovo scheduled report</div>
     <h1 style="font-size:23px;line-height:1.2;margin:0 0 4px;color:#fff;">${esc(d.title || 'Report')}</h1>
     <p style="font-size:14px;color:#a3a7ba;margin:0 0 20px;">${esc(d.measureLabel || 'Count')} by ${esc((d.dimLabel || 'group').toLowerCase())} &middot; total ${esc(fmt(d.total, d.valueFormat))}</p>
     <table style="width:100%;border-collapse:collapse;">${bars}</table>
     <hr style="border:none;border-top:1px solid #262a3d;margin:22px 0;">
-    <p style="font-size:12px;color:#6b7085;margin:0;">Full data is attached as CSV. Generated ${esc(new Date(d.generatedAt || Date.now()).toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' }))} ET by Rally.</p>
+    <p style="font-size:12px;color:#6b7085;margin:0;">Full data is attached as CSV. Generated ${esc(new Date(d.generatedAt || Date.now()).toLocaleString('en-US', { timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short' }))} ET by Ardovo.</p>
   </div>
 </body></html>`.trim();
 }
@@ -70,14 +70,14 @@ async function sendOne(d) {
   const recipients = (d.recipients || []).map(e => String(e).trim().toLowerCase()).filter(e => EMAIL_RE.test(e));
   if (!recipients.length) return { ok: false, skipped: 'no-recipients' };
   if (!process.env.RESEND_API_KEY) return { ok: false, skipped: 'no-api-key', recipients: recipients.length };
-  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Rally Reports <onboarding@resend.dev>';
+  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Ardovo Reports <onboarding@resend.dev>';
   const attachments = d.csv
     ? [{ filename: (d.title || 'report').replace(/[^a-z0-9]+/gi, '-').toLowerCase().replace(/^-|-$/g, '') + '.csv', content: Buffer.from(String(d.csv), 'utf8').toString('base64') }]
     : undefined;
   const body = {
     from, to: recipients,
-    subject: `Rally report: ${d.title || 'Scheduled report'}`,
-    html: d.format === 'csv' ? `<p>Your Rally report "${esc(d.title || 'report')}" is attached as CSV.</p>` : renderHtml(d),
+    subject: `Ardovo report: ${d.title || 'Scheduled report'}`,
+    html: d.format === 'csv' ? `<p>Your Ardovo report "${esc(d.title || 'report')}" is attached as CSV.</p>` : renderHtml(d),
   };
   if (attachments) body.attachments = attachments;
   const r = await fetch('https://api.resend.com/emails', {

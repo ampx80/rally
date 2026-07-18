@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY REPORT BUILDER v2 ENGINE
+// ARDOVO REPORT BUILDER v2 ENGINE
 // A richer, drag-to-build report model layered on top of the live
 // store. Where src/lib/reports-data.js owns the simple one-metric /
 // one-dimension gallery, THIS module owns the v2 builder:

@@ -1,13 +1,13 @@
 // ============================================================
-// RALLY x TANGO CONNECTOR  (native scheduling connector)
+// ARDOVO x TANGO CONNECTOR  (native scheduling connector)
 // The first concrete connector built on the integration backbone
 // (connector.js / registry.js / connections.js / resolve-link.js).
 // Tango is Nate's scheduling app (the Calendly killer). This connector
-// surfaces BOOKED MEETINGS from Tango as Rally activities of type
+// surfaces BOOKED MEETINGS from Tango as Ardovo activities of type
 // `meeting`, stamped with provenance (source:'tango' + a deep link back
 // into Tango) so they land on the right contact / company / deal timeline
 // with a "via Tango" chip. It also exposes upcoming availability so a rep
-// can hand a guest the next open times without leaving Rally.
+// can hand a guest the next open times without leaving Ardovo.
 //
 // LOCAL-FIRST + GRACEFUL:
 //   - connect() records a local connection and hands back a deep link into
@@ -16,8 +16,8 @@
 //     set the bridge returns configured:false and the connector quietly
 //     runs in DEMO mode (deterministic seeded meetings) so it always demos.
 //   - sync() pulls booked meetings (live via the bridge when configured,
-//     else the deterministic demo set derived from real Rally contacts),
-//     resolves each to a Rally record via resolve-link, and writes a
+//     else the deterministic demo set derived from real Ardovo contacts),
+//     resolves each to a Ardovo record via resolve-link, and writes a
 //     de-duplicated activity. Nothing inbound is lost: an unmatched guest
 //     parks in the Unlinked tray.
 //
@@ -100,7 +100,7 @@ function originOf(url) {
 /* ============================================================
    DETERMINISTIC DEMO MEETINGS (shared by the panel + the page)
    Seeded by the guest's email so a record's meetings are stable.
-   Meetings are keyed to REAL Rally contacts so resolve() always
+   Meetings are keyed to REAL Ardovo contacts so resolve() always
    matches in demo mode (guestEmail === contact.email).
    ============================================================ */
 
@@ -194,7 +194,7 @@ export class TangoConnector extends Connector {
   bookingUrl(bookingId) { return `${this.origin()}/m/${encodeURIComponent(bookingId)}`; }
   // Where a rep sends a guest to grab a time.
   bookUrl() { return this.origin() + '/'; }
-  // The screen a workspace admin lands on to authorize Rally from inside Tango.
+  // The screen a workspace admin lands on to authorize Ardovo from inside Tango.
   authorizeUrl() { return `${this.origin()}/app/integrations?connect=rally`; }
 
   /* ---- lifecycle: verify via the (env-gated) bridge, then record locally ---- */
@@ -228,7 +228,7 @@ export class TangoConnector extends Connector {
     return this.demoMeetings();
   }
 
-  // Deterministic demo set: every Rally contact with Tango history, so a
+  // Deterministic demo set: every Ardovo contact with Tango history, so a
   // sync lands meetings on real timelines and always resolves cleanly.
   demoMeetings() {
     const out = [];
@@ -236,7 +236,7 @@ export class TangoConnector extends Connector {
     return out;
   }
 
-  /* ---- normalize one external meeting into a Rally activity draft ---- */
+  /* ---- normalize one external meeting into a Ardovo activity draft ---- */
   mapRecord(m) {
     const cancelled = m.status === 'cancelled' || m.status === 'canceled';
     const noShow = m.status === 'no_show';

@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY GOALS DATA  (company / team / rep goals + pacing + scorecards)
+// ARDOVO GOALS DATA  (company / team / rep goals + pacing + scorecards)
 // Goals.jsx renders the exec + manager cockpit off the live store;
 // this module owns the goal-setting layer (targets per level per
 // metric) that has no home in store.js yet. Deterministic seed on

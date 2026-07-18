@@ -1,4 +1,4 @@
-// Report Builder v2 - a drag-to-build reporting workspace for Rally.
+// Report Builder v2 - a drag-to-build reporting workspace for Ardovo.
 //   BUILDER tab: a 3-pane layout (field palette -> canvas with a live
 //     preview chart + data table -> config), save / run, export CSV.
 //   COHORTS tab: cohort retention / conversion analysis as a heatmap.

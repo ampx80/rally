@@ -1,6 +1,6 @@
 /* ============================================================
    INSTALL PROMPT
-   Tasteful, dismissible "Install Rally" banner. Renders ONLY when the
+   Tasteful, dismissible "Install Ardovo" banner. Renders ONLY when the
    browser has offered installation (beforeinstallprompt), the app is
    not already installed, and the user has not dismissed it. Dismissal
    is remembered (localStorage, via useInstallPrompt).
@@ -21,7 +21,7 @@ export function InstallPrompt() {
   return (
     <div
       role="dialog"
-      aria-label="Install Rally"
+      aria-label="Install Ardovo"
       style={{
         position: 'fixed',
         zIndex: 1200,
@@ -48,9 +48,9 @@ export function InstallPrompt() {
         style={{ borderRadius: 12, flexShrink: 0, display: 'block' }}
       />
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.25 }}>Install Rally</div>
+        <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.25 }}>Install Ardovo</div>
         <div style={{ fontSize: 15, color: 'var(--ink-2, #3a4150)', lineHeight: 1.3 }}>
-          Add Rally to your home screen for a faster, full-screen app.
+          Add Ardovo to your home screen for a faster, full-screen app.
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>

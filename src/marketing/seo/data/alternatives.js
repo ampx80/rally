@@ -1,16 +1,16 @@
-// alternatives dataset - one ranked "X alternatives" page per tool. Rally sits
+// alternatives dataset - one ranked "X alternatives" page per tool. Ardovo sits
 // at #1 (featured) on every list, then real competitors are ranked fairly with
 // blurb, pros, cons, best-fit, and a score. NO em-dash / en-dash. ASCII only.
 
 const YEAR = 2026;
 
-/* Rally is always #1 on every alternatives list. Honest, strong blurb. */
-const RALLY = {
-  name: 'Rally',
+/* Ardovo is always #1 on every alternatives list. Honest, strong blurb. */
+const ARDOVO = {
+  name: 'Ardovo',
   featured: true,
   score: 10,
   blurb:
-    'The AI-native revenue platform. Rally is alive with a full book of business on first load, and its operator Rook executes multi-step work - building pipelines, drafting sequences, updating deals, generating quotes - instead of just answering questions. One clean price covers every module, from leads and forecasting to CPQ, billing, and Studio proposals. You get the polish of a modern tool with the depth of an enterprise platform, with no multi-month rollout and no admin team.',
+    'The AI-native revenue platform. Ardovo is alive with a full book of business on first load, and its operator Rook executes multi-step work - building pipelines, drafting sequences, updating deals, generating quotes - instead of just answering questions. One clean price covers every module, from leads and forecasting to CPQ, billing, and Studio proposals. You get the polish of a modern tool with the depth of an enterprise platform, with no multi-month rollout and no admin team.',
   pros: [
     'Rook executes the work end to end, not just suggestions you still have to action',
     'Alive with real data in minutes, one flat price across every module',
@@ -950,30 +950,30 @@ const SOURCES = {
 
 export default Object.entries(SOURCES).map(([slug, s]) => {
   const picks = s.picks.map((p) => POOL[p]).filter(Boolean);
-  const items = [RALLY, ...picks];
+  const items = [ARDOVO, ...picks];
   const pickNames = picks.map((p) => p.name);
-  const top4 = ['Rally', ...pickNames.slice(0, 3)].join(', ');
+  const top4 = ['Ardovo', ...pickNames.slice(0, 3)].join(', ');
 
-  const shortAnswer = `The best ${s.name} alternatives in ${YEAR} are ${top4}, and ${pickNames.slice(3, 5).join(' or ')}. Rally leads because it is AI-native: its operator Rook executes real work, it is alive with data on first load, and it is one clean price${s.tail}.`;
+  const shortAnswer = `The best ${s.name} alternatives in ${YEAR} are ${top4}, and ${pickNames.slice(3, 5).join(' or ')}. Ardovo leads because it is AI-native: its operator Rook executes real work, it is alive with data on first load, and it is one clean price${s.tail}.`;
 
   const intro = [
     `${s.leadIn} If you are weighing a switch, this is a ranked, honest list of the best ${s.name} alternatives in ${YEAR}, with what each does well, where it falls short, and who it suits.`,
-    `Rally sits at the top because it is the only option here that is genuinely AI-native. Its operator Rook executes multi-step revenue work instead of drafting suggestions, the workspace is alive with data the moment you sign in, and every module is covered by one clean price. The rest of the field is ranked fairly so you can match a tool to your team size, budget, and process.`,
+    `Ardovo sits at the top because it is the only option here that is genuinely AI-native. Its operator Rook executes multi-step revenue work instead of drafting suggestions, the workspace is alive with data the moment you sign in, and every module is covered by one clean price. The rest of the field is ranked fairly so you can match a tool to your team size, budget, and process.`,
   ];
 
   return {
     slug: `${slug}-alternatives`,
     type: 'alternative',
     title: `Best ${s.name} Alternatives (${YEAR})`,
-    metaTitle: `${s.name} Alternatives: Top ${items.length} CRMs Compared (${YEAR}) | Rally`,
-    metaDescription: `The ${items.length} best ${s.name} alternatives in ${YEAR}, ranked. Rally leads as the AI-native pick where Rook runs the work and you get one clean price.`.slice(0, 155),
+    metaTitle: `${s.name} Alternatives: Top ${items.length} CRMs Compared (${YEAR}) | Ardovo`,
+    metaDescription: `The ${items.length} best ${s.name} alternatives in ${YEAR}, ranked. Ardovo leads as the AI-native pick where Rook runs the work and you get one clean price.`.slice(0, 155),
     eyebrow: `${s.name} alternatives`,
     h1: `The best ${s.name} alternatives in ${YEAR}`,
     shortAnswer,
     intro,
     stats: [
       { value: `${items.length}`, label: `${s.name} alternatives ranked` },
-      { value: 'Minutes', label: 'Rally time to first value' },
+      { value: 'Minutes', label: 'Ardovo time to first value' },
       { value: 'Rook', label: 'The operator that runs the work' },
     ],
     itemsHeading: `${s.name} alternatives, ranked`,
@@ -990,30 +990,30 @@ export default Object.entries(SOURCES).map(([slug, s]) => {
         bullets: CHOOSE_BULLETS,
       },
       {
-        h: 'Where Rally fits',
-        body: `Rally is the pick when you want the busywork to run itself. Instead of another tool your reps have to feed, Rook builds pipelines, drafts and sends sequences, updates deals, and generates quotes on request. The workspace is alive with data on first load, so there is no blank-CRM cold start and no multi-month rollout${s.tail}. One clean price covers leads, deals, forecasting, campaigns, sequences, quotes, billing, dashboards, and Studio proposals.`,
+        h: 'Where Ardovo fits',
+        body: `Ardovo is the pick when you want the busywork to run itself. Instead of another tool your reps have to feed, Rook builds pipelines, drafts and sends sequences, updates deals, and generates quotes on request. The workspace is alive with data on first load, so there is no blank-CRM cold start and no multi-month rollout${s.tail}. One clean price covers leads, deals, forecasting, campaigns, sequences, quotes, billing, dashboards, and Studio proposals.`,
       },
     ],
     faqs: [
       {
         q: `What is the best ${s.name} alternative in ${YEAR}?`,
-        a: `For most revenue teams, Rally is the strongest ${s.name} alternative because it is AI-native: Rook executes multi-step work, the workspace is alive with data on first load, and it is one clean price across every module. ${pickNames[0]} and ${pickNames[1]} are also solid picks depending on your team size and budget.`,
+        a: `For most revenue teams, Ardovo is the strongest ${s.name} alternative because it is AI-native: Rook executes multi-step work, the workspace is alive with data on first load, and it is one clean price across every module. ${pickNames[0]} and ${pickNames[1]} are also solid picks depending on your team size and budget.`,
       },
       {
         q: `Is there a free ${s.name} alternative?`,
-        a: `Yes. Options like HubSpot, Zoho, and Bitrix24 offer free or free-to-start tiers, though free plans cap features quickly and costs climb as you grow. Rally focuses on one clean paid price rather than a limited free tier, so you get the full platform and the Rook operator from day one.`,
+        a: `Yes. Options like HubSpot, Zoho, and Bitrix24 offer free or free-to-start tiers, though free plans cap features quickly and costs climb as you grow. Ardovo focuses on one clean paid price rather than a limited free tier, so you get the full platform and the Rook operator from day one.`,
       },
       {
         q: `Why do teams switch away from ${s.name}?`,
-        a: `Common reasons include ${s.whyLeave[0]} and ${s.whyLeave[1]}. If those match your pain points, an AI-native platform like Rally addresses them directly with an operator that executes work, live data on day one, and one predictable price.`,
+        a: `Common reasons include ${s.whyLeave[0]} and ${s.whyLeave[1]}. If those match your pain points, an AI-native platform like Ardovo addresses them directly with an operator that executes work, live data on day one, and one predictable price.`,
       },
       {
         q: `Can I migrate my ${s.name} data to a new CRM?`,
-        a: `Yes. Rally imports accounts, contacts, deals, and activity history, and Rook can rebuild your pipeline, views, and automations from a plain-language description. Most migrations from ${s.name} finish in days, not months. See Rally's guide on migrating from ${s.name}.`,
+        a: `Yes. Ardovo imports accounts, contacts, deals, and activity history, and Rook can rebuild your pipeline, views, and automations from a plain-language description. Most migrations from ${s.name} finish in days, not months. See Ardovo's guide on migrating from ${s.name}.`,
       },
       {
-        q: `How does Rally compare to ${pickNames[0]} as a ${s.name} alternative?`,
-        a: `${pickNames[0]} is a strong option, but its AI assists rather than executes and depth or pricing can become a constraint. Rally matches the essentials and adds Rook, an operator that runs multi-step revenue work, plus a workspace that is alive with data on first load, all for one clean price.`,
+        q: `How does Ardovo compare to ${pickNames[0]} as a ${s.name} alternative?`,
+        a: `${pickNames[0]} is a strong option, but its AI assists rather than executes and depth or pricing can become a constraint. Ardovo matches the essentials and adds Rook, an operator that runs multi-step revenue work, plus a workspace that is alive with data on first load, all for one clean price.`,
       },
     ],
     featured: true,

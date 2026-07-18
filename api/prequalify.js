@@ -25,7 +25,7 @@ const TIER_LABEL = { qualified: 'QUALIFIED', review: 'Review', low: 'Not a fit (
 async function emailTeam(f) {
   if (!process.env.RESEND_API_KEY) return { ok: false, skipped: 'no-api-key' };
   const to = (process.env.NOTIFY_EMAIL || process.env.NOTIFY_DEFAULT_TO || 'nate@amptekgrowth.com').trim();
-  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Rally Sales <onboarding@resend.dev>';
+  const from = process.env.NOTIFY_FROM || process.env.RESEND_FROM || 'Ardovo Sales <onboarding@resend.dev>';
   const answerRows = Object.entries(f.answers || {}).map(([k, v]) => [k, v]);
   const rows = [
     ['Name', f.name], ['Work email', f.email], ['Phone', f.phone], ['Company', f.company],
@@ -36,9 +36,9 @@ async function emailTeam(f) {
   const html = `
 <!doctype html><html><body style="margin:0;background:#0b0d14;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;color:#e7e9f0;">
   <div style="max-width:560px;margin:36px auto;padding:32px;background:#12141f;border:1px solid #262a3d;border-radius:16px;">
-    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:${accent};margin-bottom:14px;font-weight:700;">Rally pre-qualification</div>
+    <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:${accent};margin-bottom:14px;font-weight:700;">Ardovo pre-qualification</div>
     <h1 style="font-size:24px;line-height:1.2;margin:0 0 6px;color:#fff;">New ${esc(TIER_LABEL[f.tier] || f.tier)} lead</h1>
-    <p style="font-size:15px;color:#a3a7ba;margin:0 0 22px;">${esc(f.name || f.email)} just pre-qualified for Rally.</p>
+    <p style="font-size:15px;color:#a3a7ba;margin:0 0 22px;">${esc(f.name || f.email)} just pre-qualified for Ardovo.</p>
     <table style="width:100%;border-collapse:collapse;font-size:15px;">
       ${rows.map(([k, v]) => `<tr><td style="padding:9px 0;color:#8a8fa3;width:140px;vertical-align:top;">${esc(k)}</td><td style="padding:9px 0;color:#fff;font-weight:600;">${esc(v)}</td></tr>`).join('')}
     </table>
@@ -49,7 +49,7 @@ async function emailTeam(f) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from, to, subject: `Rally ${TIER_LABEL[f.tier] || 'lead'}: ${f.name || f.email}`, html, reply_to: f.email }),
+    body: JSON.stringify({ from, to, subject: `Ardovo ${TIER_LABEL[f.tier] || 'lead'}: ${f.name || f.email}`, html, reply_to: f.email }),
   });
   if (!r.ok) { console.warn('[prequalify] resend', r.status); return { ok: false, status: r.status }; }
   return { ok: true };

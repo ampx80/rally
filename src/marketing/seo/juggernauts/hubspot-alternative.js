@@ -7,11 +7,11 @@ const entry = {
   slug: 'hubspot-alternative',
   title: 'The Best HubSpot Alternative in 2026',
   h1: 'The Best HubSpot Alternative in 2026: A Buyer Guide',
-  metaTitle: 'The Best HubSpot Alternative in 2026: Comparison, Pricing Calculator, Migration | Rally',
+  metaTitle: 'The Best HubSpot Alternative in 2026: Comparison, Pricing Calculator, Migration | Ardovo',
   metaDescription: 'A practical, honest guide to replacing HubSpot in 2026: where teams outgrow it, a feature comparison matrix, a total-cost calculator, and a weekend migration plan.',
   eyebrow: 'Competitor Guide',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '12 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -21,7 +21,7 @@ const entry = {
   ],
   heroStats: [
     { value: 3, prefix: '', suffix: 'x', label: 'Typical bill growth from Starter to Pro plus add-ons' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Rally: one flat price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'Ardovo: one flat price, every module included' },
     { value: 1, prefix: '', suffix: ' weekend', label: 'Realistic migration window for most teams' },
   ],
   blocks: [
@@ -41,9 +41,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Rally vs HubSpot: capability and cost',
+      title: 'Ardovo vs HubSpot: capability and cost',
       rowHeader: 'Capability',
-      columns: ['Rally', 'HubSpot'],
+      columns: ['Ardovo', 'HubSpot'],
       highlightCol: 0,
       rows: [
         { feature: 'CRM, marketing, CPQ, and billing in one price', cells: [true, false] },
@@ -64,17 +64,17 @@ const entry = {
     },
     {
       type: 'calculator',
-      title: 'HubSpot vs Rally cost calculator',
+      title: 'HubSpot vs Ardovo cost calculator',
       intro: 'Model your real spend. Adjust the inputs on the live page to match your contract.',
       inputs: [
         { key: 'seats', label: 'Paid seats', type: 'number', default: 12, min: 1, max: 2000, step: 1 },
         { key: 'hsSeat', label: 'HubSpot cost per seat, per month', type: 'number', default: 90, min: 0, max: 5000, step: 5, unit: 'USD' },
         { key: 'addons', label: 'HubSpot add-ons per month (Ops, reporting, etc.)', type: 'number', default: 800, min: 0, max: 100000, step: 50, unit: 'USD' },
-        { key: 'rallySeat', label: 'Rally cost per seat, per month', type: 'range', default: 45, min: 10, max: 200, step: 5, unit: 'USD' },
+        { key: 'rallySeat', label: 'Ardovo cost per seat, per month', type: 'range', default: 45, min: 10, max: 200, step: 5, unit: 'USD' },
       ],
       outputs: [
         { key: 'hsYear', label: 'HubSpot per year', expr: '(seats * hsSeat + addons) * 12', format: 'currency' },
-        { key: 'rallyYear', label: 'Rally per year', expr: 'seats * rallySeat * 12', format: 'currency' },
+        { key: 'rallyYear', label: 'Ardovo per year', expr: 'seats * rallySeat * 12', format: 'currency' },
         { key: 'savings', label: 'Estimated savings per year', expr: '(seats * hsSeat + addons) * 12 - seats * rallySeat * 12', format: 'currency', highlight: true },
       ],
     },
@@ -83,8 +83,8 @@ const entry = {
       title: 'Why the bill grows faster than the team',
       stats: [
         { value: 40, format: 'decimal:0', suffix: '%', label: 'Of a typical HubSpot bill that is add-ons, not seats', trend: 'grows with usage', trendDir: 'up' },
-        { value: 0, format: 'number', prefix: '$', label: 'Rally add-on cost for core CRM, marketing, and CPQ', trend: 'included', trendDir: 'flat' },
-        { value: 2, format: 'decimal:0', suffix: ' days', label: 'Median time-to-live for a Rally migration', trend: 'vs weeks of onboarding', trendDir: 'down' },
+        { value: 0, format: 'number', prefix: '$', label: 'Ardovo add-on cost for core CRM, marketing, and CPQ', trend: 'included', trendDir: 'flat' },
+        { value: 2, format: 'decimal:0', suffix: ' days', label: 'Median time-to-live for a Ardovo migration', trend: 'vs weeks of onboarding', trendDir: 'down' },
       ],
     },
     {
@@ -94,7 +94,7 @@ const entry = {
       data: {
         milestones: [
           { date: 'Fri', label: 'Export from HubSpot', body: 'Contacts, companies, deals, notes' },
-          { date: 'Sat AM', label: 'Import to Rally', body: 'Field mapping, dedupe on the way in' },
+          { date: 'Sat AM', label: 'Import to Ardovo', body: 'Field mapping, dedupe on the way in' },
           { date: 'Sat PM', label: 'Rebuild automations', body: 'Journeys and sequences, guided' },
           { date: 'Sun', label: 'Verify and cut over', body: 'Reports tie out, team trained' },
         ],
@@ -121,11 +121,11 @@ const entry = {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'Is there a HubSpot alternative that includes marketing and CRM in one price?', a: 'Yes. Rally bundles CRM, marketing automation, journeys, CPQ, and billing under one flat per-seat price, with no core-feature add-ons, so the bill stays predictable as you grow.' },
+        { q: 'Is there a HubSpot alternative that includes marketing and CRM in one price?', a: 'Yes. Ardovo bundles CRM, marketing automation, journeys, CPQ, and billing under one flat per-seat price, with no core-feature add-ons, so the bill stays predictable as you grow.' },
         { q: 'How hard is it to migrate off HubSpot?', a: 'For most teams it is a weekend. Export contacts, companies, and deals, import with field mapping and dedupe, rebuild automations with a guided journey builder, then verify reports before cutover.' },
         { q: 'Will I lose my automations?', a: 'No. You rebuild them, and a visual journey builder with AI decision steps usually makes them simpler than the original. Plan a few hours for a complex account.' },
-        { q: 'Does Rally have an AI like HubSpot Breeze?', a: 'Rally goes further. Rook is an AI operator that executes multi-step revenue work end to end, with a trust dial, rather than only drafting suggestions for a human to run.' },
-        { q: 'Is Rally cheaper than HubSpot?', a: 'For most teams, meaningfully. Use the calculator above with your real seat count and add-on spend. The savings come from bundling add-ons and flat per-seat pricing.' },
+        { q: 'Does Ardovo have an AI like HubSpot Breeze?', a: 'Ardovo goes further. Rook is an AI operator that executes multi-step revenue work end to end, with a trust dial, rather than only drafting suggestions for a human to run.' },
+        { q: 'Is Ardovo cheaper than HubSpot?', a: 'For most teams, meaningfully. Use the calculator above with your real seat count and add-on spend. The savings come from bundling add-ons and flat per-seat pricing.' },
       ],
     },
   ],

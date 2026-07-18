@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY WORKSPACE  (org provisioning + membership, local-first)
+// ARDOVO WORKSPACE  (org provisioning + membership, local-first)
 // The self-serve funnel needs a notion of "which org am I in and what
 // can it do". This module owns that: create an org on signup, track the
 // current workspace, invite members, and answer plan-gating questions

@@ -10,17 +10,17 @@ const entry = {
   slug: 'best-crm-for-law-firms',
   title: 'The Best CRM for Law Firms in 2026',
   h1: 'The Best CRM for Law Firms: A 2026 Buyer Guide for Intake, Matters, and Referrals',
-  metaTitle: 'The Best CRM for Law Firms in 2026: Intake, Matters, Referrals, and a Conversion Calculator | Rally',
+  metaTitle: 'The Best CRM for Law Firms in 2026: Intake, Matters, Referrals, and a Conversion Calculator | Ardovo',
   metaDescription: 'A practical 2026 guide to choosing a CRM for a law firm: client intake, the matter pipeline, referral tracking, conflict-aware handling, an intake-conversion calculator, and a comparison matrix.',
   eyebrow: 'Industry Guide',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'For most law firms the CRM question is really an intake question. The firm is not short on legal talent; it is short on a reliable way to answer a new caller within minutes, follow up until they sign, and never let a conflict or a referral thank-you slip through. That is a revenue problem long before it is a software problem.',
-    'This guide covers what a law firm CRM must actually do, how intake and the matter pipeline differ from an ordinary sales pipeline, how to track and reciprocate referrals, why conflict-aware handling matters, and what disciplined intake is worth in real dollars. It is written to be useful whether or not you ever buy Rally.',
+    'This guide covers what a law firm CRM must actually do, how intake and the matter pipeline differ from an ordinary sales pipeline, how to track and reciprocate referrals, why conflict-aware handling matters, and what disciplined intake is worth in real dollars. It is written to be useful whether or not you ever buy Ardovo.',
   ],
   heroStats: [
     { value: 42, suffix: '%', label: 'Of law-firm callers hire the first firm that responds quickly' },
@@ -178,7 +178,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Law firm intake: CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Spreadsheet + inbox', 'Generic sales CRM', 'Practice-mgmt intake add-on'],
+      columns: ['Ardovo', 'Spreadsheet + inbox', 'Generic sales CRM', 'Practice-mgmt intake add-on'],
       highlightCol: 0,
       rows: [
         { feature: 'Live with a working intake pipeline on first load', cells: [true, false, false, 'partial'] },
@@ -191,7 +191,7 @@ const entry = {
         { feature: 'Setup time', cells: ['Minutes', 'None', 'Weeks', 'Days'] },
         { feature: 'Pricing shape', cells: ['One flat price', 'Free-ish', 'Per seat + add-ons', 'Bundled per user'] },
       ],
-      footnote: 'Rally is intake-and-relationship first; a dedicated legal practice-management tool typically owns the formal conflict-of-interest system of record. Many firms run Rally for intake and referrals and hand signed matters to practice management. Verify current features and pricing with each vendor.',
+      footnote: 'Ardovo is intake-and-relationship first; a dedicated legal practice-management tool typically owns the formal conflict-of-interest system of record. Many firms run Ardovo for intake and referrals and hand signed matters to practice management. Verify current features and pricing with each vendor.',
     },
     {
       type: 'prosCons',
@@ -234,11 +234,11 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'Where Rally fits',
+      title: 'Where Ardovo fits',
       body: [
-        'Rally is an AI-native CRM that is alive on the first load: the intake pipeline, follow-up automation, and reporting are working immediately instead of waiting on weeks of configuration. For a firm, that means the intake team sees a real matter pipeline the day it starts, not an empty database asking to be built.',
+        'Ardovo is an AI-native CRM that is alive on the first load: the intake pipeline, follow-up automation, and reporting are working immediately instead of waiting on weeks of configuration. For a firm, that means the intake team sees a real matter pipeline the day it starts, not an empty database asking to be built.',
         'Its operator, Rook, does the work an overloaded intake coordinator drops: drafting the follow-up to a prospective client who has gone quiet, reminding the team about a consult, and prompting a thank-you to the referral source who just sent a case. It runs on one flat price rather than a per-seat plus add-on bill that climbs as the firm grows.',
-        'The honest boundary: Rally owns intake, the matter pipeline, and referral relationships, and it should hand a signed matter to a dedicated legal practice-management system that owns the formal conflict database, trust accounting, and time-tracking. The best setup for most firms is Rally in front for growth and a practice-management tool behind it for the work of the case. Confirm any ethics-sensitive workflow, especially conflict screening, with your own compliance counsel.',
+        'The honest boundary: Ardovo owns intake, the matter pipeline, and referral relationships, and it should hand a signed matter to a dedicated legal practice-management system that owns the formal conflict database, trust accounting, and time-tracking. The best setup for most firms is Ardovo in front for growth and a practice-management tool behind it for the work of the case. Confirm any ethics-sensitive workflow, especially conflict screening, with your own compliance counsel.',
       ],
     },
     {
@@ -250,7 +250,7 @@ const entry = {
         { q: 'How does a CRM help with conflict checks?', a: 'A good intake CRM flags adverse parties and existing clients across the whole firm the moment a new party is entered, before an attorney invests time, and keeps an auditable record of the check. Note that for the defensible, formal conflict-of-interest database many firms rely on their practice-management system. Always confirm your jurisdiction obligations with compliance counsel.' },
         { q: 'Why does intake response speed matter so much?', a: 'Legal consumers frequently retain the first firm that responds. The odds of signing a matter fall sharply after the first hour and continue to drop by the day. A CRM that captures every inquiry instantly and prompts an immediate response is the single highest-leverage intake improvement most firms can make.' },
         { q: 'How should a firm track referrals?', a: 'Track them in both directions. Inbound: who sent each matter, the practice area, the value, and whether the source has been thanked. Outbound: which matters the firm referred away and whether the relationship reciprocates. Making attribution and thank-yous a tracked, promptable step keeps referral sources active instead of letting them quietly go cold.' },
-        { q: 'How long does it take to get a law firm CRM running?', a: 'On a live-on-first-load platform like Rally, intake can be running in an afternoon: connect the form and phone, set the pipeline stages, turn on follow-up drafting, and load referral sources. On a blank generic CRM, expect weeks of configuration before the first useful intake report.' },
+        { q: 'How long does it take to get a law firm CRM running?', a: 'On a live-on-first-load platform like Ardovo, intake can be running in an afternoon: connect the form and phone, set the pipeline stages, turn on follow-up drafting, and load referral sources. On a blank generic CRM, expect weeks of configuration before the first useful intake report.' },
       ],
     },
   ],

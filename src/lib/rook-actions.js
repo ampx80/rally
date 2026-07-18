@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY ROOK ACTION REGISTRY  (client-side, additive)
+// ARDOVO ROOK ACTION REGISTRY  (client-side, additive)
 // ------------------------------------------------------------
 // Rook (api/rook.js) PROPOSES actions; RookDock renders them as
 // buttons; clicking a button is the user's CONFIRM. This module is

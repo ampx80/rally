@@ -2,7 +2,7 @@
 //
 // Every workspace can turn modules on or off. Disabled modules vanish from the
 // left nav (and their routes redirect home), so a small team can run a lean
-// Rally and an enterprise can light up everything. The CRM spine (Command
+// Ardovo and an enterprise can light up everything. The CRM spine (Command
 // center, Deals, Contacts, Companies, My day, Settings) is always on and not
 // listed here. State persists to localStorage; swap to a per-org column later.
 import { useState, useEffect } from 'react';

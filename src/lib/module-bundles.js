@@ -1,6 +1,6 @@
 // Preset packaging bundles for the App Manager.
 //
-// Salesforce and NetSuite hide packaging behind a sales rep and a quote. Rally
+// Salesforce and NetSuite hide packaging behind a sales rep and a quote. Ardovo
 // lets an admin flip a whole product shape in one click: run lean, grow into
 // more, or light up the full enterprise suite. Each bundle names a set of
 // module keys to ENABLE; every other toggleable module is turned OFF. The CRM
@@ -13,7 +13,7 @@
 import { MODULES, setModule, isModuleOn } from './modules.js';
 
 // Lean sales team: capture, close, bill. No delivery, no service desk, no
-// enterprise governance. The Rally you can run on day one.
+// enterprise governance. The Ardovo you can run on day one.
 const STARTER = [
   'leads', 'forecasting', 'campaigns', 'sequences',
   'products', 'quotes', 'invoices',

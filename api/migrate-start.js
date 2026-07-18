@@ -1,6 +1,6 @@
 // GET /api/migrate-start?source=salesforce|hubspot
 //
-// Begins an OAuth connect to a source CRM so Rally can pull records
+// Begins an OAuth connect to a source CRM so Ardovo can pull records
 // straight from its API (the live-migration counterpart to the CSV
 // upload). When the source's OAuth client env is set
 // (SALESFORCE_CLIENT_ID + SALESFORCE_CLIENT_SECRET, or

@@ -1,4 +1,4 @@
-// Intelligence - Rally's Revenue Intelligence surface. The screen a CRO opens
+// Intelligence - Ardovo's Revenue Intelligence surface. The screen a CRO opens
 // every morning: forecast confidence, the ranked "moves that matter", deal
 // risk scored and explained, anomalies the numbers are hiding, an operator
 // leaderboard, win/loss patterns, and whitespace to grow into. Every figure is

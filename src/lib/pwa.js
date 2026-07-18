@@ -1,5 +1,5 @@
 /* ============================================================
-   RALLY PWA HELPERS
+   ARDOVO PWA HELPERS
    - registerSW()        : idempotent, production-only, guarded SW
                            registration + update detection.
    - onSWUpdate(cb)      : subscribe to "a new version is waiting".

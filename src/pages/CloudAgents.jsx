@@ -1,11 +1,11 @@
-// Cloud Agents - Rally's answer to "Headless 360 gives coding agents full
+// Cloud Agents - Ardovo's answer to "Headless 360 gives coding agents full
 // access" plus a native cloud-agent runtime. Two things in one:
 //   1. Launch cloud agents (jobs) that reason over the live book via the
 //      headless /api/agent endpoint and stage grounded actions - with a full
 //      run trace in the Agent Cloud ledger. Works offline via a deterministic
 //      local plan so it never dead-ends.
 //   2. Connect your coding agent (Cursor, Claude Code, ChatGPT) over MCP so it
-//      operates Rally directly - the developer-love story Salesforce tells,
+//      operates Ardovo directly - the developer-love story Salesforce tells,
 //      but open and zero-setup.
 // Teal = product, violet = AI layer. NO em-dash / en-dash. ASCII only.
 import React, { useMemo, useState } from 'react';
@@ -114,7 +114,7 @@ export default function CloudAgents() {
         eyebrow="Cloud Agents"
         title="Dispatch an agent."
         highlight="Go do something else."
-        sub="Spawn a cloud agent to work the book end to end, or plug your own coding agent (Cursor, Claude, ChatGPT) straight into Rally over MCP. No browser required."
+        sub="Spawn a cloud agent to work the book end to end, or plug your own coding agent (Cursor, Claude, ChatGPT) straight into Ardovo over MCP. No browser required."
         actions={<button className="adk-btn" onClick={() => nav('/agent-cloud')}><Icon name="activity" size={15} /> Run ledger</button>}
         pods={[
           { label: 'Cloud jobs', value: jobs.length, icon: 'command' },
@@ -178,7 +178,7 @@ export default function CloudAgents() {
 
         <div className="ca-connect">
           <div className="ca-connect-h"><Icon name="command" size={16} /> Connect your coding agent</div>
-          <p className="ca-connect-p">Rally is headless-first. Point Cursor, Claude Code, or ChatGPT at Rally over MCP and your dev agents get live access to build on and operate the workspace - the thing Salesforce gates behind their enterprise stack, open here.</p>
+          <p className="ca-connect-p">Ardovo is headless-first. Point Cursor, Claude Code, or ChatGPT at Ardovo over MCP and your dev agents get live access to build on and operate the workspace - the thing Salesforce gates behind their enterprise stack, open here.</p>
           <pre className="ca-pre">{MCP_SNIPPET}</pre>
           <button className="ca-copy" onClick={() => { try { navigator.clipboard.writeText(MCP_SNIPPET); toast('MCP config copied'); } catch {} }}><Icon name="copy" size={13} /> Copy MCP config</button>
           <div className="ca-connect-links">

@@ -1,6 +1,6 @@
 // ============================================================
-// RALLY LANDING PAGES  (local-first, Supabase-swappable)
-// The "CMS-lite" layer of Rally's Marketing hub: a block-based
+// ARDOVO LANDING PAGES  (local-first, Supabase-swappable)
+// The "CMS-lite" layer of Ardovo's Marketing hub: a block-based
 // landing-page builder. A page is an ordered list of blocks
 // (hero / text / image / form / cta), a slug, a published flag,
 // and any captured form submissions. Same pub/sub, localStorage-
@@ -162,7 +162,7 @@ function buildSeed() {
         },
         {
           id: 'b_cta_1', type: 'cta',
-          headline: 'Run your revenue on Rally',
+          headline: 'Run your revenue on Ardovo',
           sub: 'Start free. Everything alive on first load.',
           buttonLabel: 'Get started',
           buttonHref: '/app',

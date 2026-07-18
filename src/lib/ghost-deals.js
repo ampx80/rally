@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY GHOST DEALS  -  counterfactual regret over your own graveyard
+// ARDOVO GHOST DEALS  -  counterfactual regret over your own graveyard
 // ------------------------------------------------------------
 // For every deal you LOST, reconstruct the record as it stood the day it
 // died, treat it as still-winnable, then fork that twin and toggle ONE

@@ -1,4 +1,4 @@
-// Features.jsx - the full Rally product tour. Light premium marketing page.
+// Features.jsx - the full Ardovo product tour. Light premium marketing page.
 // Every major section carries a relevant, self-contained animated diagram that
 // illustrates that section's point (built under ./viz). Router wraps this in
 // MarketingShell (nav + footer + aurora); we return the sections in a fragment.

@@ -1,6 +1,6 @@
 // src/lib/outreach.js
 //
-// Browser helper for Rally's AI outreach drafter. The browser posts a
+// Browser helper for Ardovo's AI outreach drafter. The browser posts a
 // contact/deal context to the same-origin /api/outreach-draft endpoint and
 // gets back a personalized email or short message in the rep's voice. If the
 // network call fails, a local deterministic composer produces the same shape
@@ -37,7 +37,7 @@ function longDate(iso) {
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' });
 }
 
-// ── context builders: turn Rally records into the endpoint's context shape ────
+// ── context builders: turn Ardovo records into the endpoint's context shape ────
 // Keep these small so a page can mount <DraftWithAI> with a single record.
 export function contextFromContact(contact = {}, opts = {}) {
   const { company, sender, deal, goal, notes } = opts;
@@ -142,7 +142,7 @@ Is there a good time this week for a quick call? I will work around your schedul
 
 Best regards,
 ${signName}${signTitle}
-Rally`;
+Ardovo`;
 
   return { subject, body };
 }

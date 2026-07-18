@@ -9,11 +9,11 @@ const entry = {
   slug: 'sales-compensation-plans-guide',
   title: 'Sales Compensation Plans: The Complete 2026 Guide',
   h1: 'Sales Compensation Plans: How to Design One That Actually Drives Revenue',
-  metaTitle: 'Sales Compensation Plans: The Complete 2026 Guide (with OTE Calculator) | Rally',
+  metaTitle: 'Sales Compensation Plans: The Complete 2026 Guide (with OTE Calculator) | Ardovo',
   metaDescription: 'A deep, practical guide to designing sales compensation plans in 2026: base vs variable, commission structures, accelerators, OTE math, a live calculator, plan-type comparison, and a step-by-step design process.',
   eyebrow: 'RevOps Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -24,7 +24,7 @@ const entry = {
   heroStats: [
     { value: 50, suffix: '/50', label: 'Typical base-to-variable split for a closing AE role' },
     { value: 5, prefix: '~', suffix: 'x', label: 'Common quota-to-OTE ratio target for a healthy plan' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every module included' },
   ],
   blocks: [
     {
@@ -208,7 +208,7 @@ const entry = {
       title: 'Where the CRM comes in',
       body: [
         'A comp plan is only as trustworthy as the data it pays against. If deal amounts, close dates, and stages live in a spreadsheet that reps and ops reconcile by hand, every payout becomes an argument. The single biggest operational win in sales comp is having deals flow into one system of record that feeds the commission calculation directly, so attainment is never in dispute.',
-        'Rally is built as that source of truth. Because it is AI-native and alive on first load, pipeline data is captured automatically and stays current, and Rook, the built-in operator, can surface attainment, flag deals that put a payout at risk, and keep rep-facing numbers honest without a Friday reconciliation ritual. One flat price includes every module, so there is no add-on tax as your comp needs grow. Whatever CRM you run, the principle holds: pay off clean data from one source, not a spreadsheet nobody trusts.',
+        'Ardovo is built as that source of truth. Because it is AI-native and alive on first load, pipeline data is captured automatically and stays current, and Rook, the built-in operator, can surface attainment, flag deals that put a payout at risk, and keep rep-facing numbers honest without a Friday reconciliation ritual. One flat price includes every module, so there is no add-on tax as your comp needs grow. Whatever CRM you run, the principle holds: pay off clean data from one source, not a spreadsheet nobody trusts.',
       ],
     },
     {

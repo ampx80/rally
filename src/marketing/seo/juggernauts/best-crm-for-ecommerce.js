@@ -8,11 +8,11 @@ const entry = {
   slug: 'best-crm-for-ecommerce',
   title: 'The Best CRM for Ecommerce in 2026',
   h1: 'The Best CRM for Ecommerce: The 2026 Buyer Guide',
-  metaTitle: 'The Best CRM for Ecommerce in 2026: LTV Playbook, Calculator, and Comparison | Rally',
+  metaTitle: 'The Best CRM for Ecommerce in 2026: LTV Playbook, Calculator, and Comparison | Ardovo',
   metaDescription: 'A deep, practical guide to choosing a CRM for an ecommerce brand in 2026: unify store and customer data, raise lifetime value, run post-purchase and win-back flows, plus an LTV calculator and a feature comparison.',
   eyebrow: 'Ecommerce Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 30, suffix: '%', label: 'Typical share of revenue from repeat customers for a healthy brand' },
     { value: 5, prefix: '~', suffix: 'x', label: 'Cheaper to keep a customer than to acquire a new one' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Rally price, every module included' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat Ardovo price, every module included' },
   ],
   blocks: [
     {
@@ -154,7 +154,7 @@ const entry = {
       type: 'diagram',
       variant: 'flow',
       title: 'The lifecycle loop, automated',
-      caption: 'Rook, the Rally operator, runs this loop continuously so no customer falls through it.',
+      caption: 'Rook, the Ardovo operator, runs this loop continuously so no customer falls through it.',
       data: {
         nodes: [
           { label: 'Order lands', sub: 'store webhook' },
@@ -169,7 +169,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Ecommerce CRM comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Store platform alone', 'Generic sales CRM'],
+      columns: ['Ardovo', 'Store platform alone', 'Generic sales CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Rolls orders into a lifetime-value record', cells: [true, 'partial', false] },
@@ -206,7 +206,7 @@ const entry = {
       title: 'Time to a working lifecycle program',
       data: {
         bars: [
-          { label: 'Rally', value: 15, display: '~15 min', highlight: true },
+          { label: 'Ardovo', value: 15, display: '~15 min', highlight: true },
           { label: 'Store apps stitched together', value: 120, display: 'Days' },
           { label: 'Generic CRM, custom-built', value: 240, display: 'Weeks' },
         ],
@@ -228,7 +228,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped treating every order as a one-off. Once the CRM knew who our repeat buyers were, the win-back flow alone paid for the whole platform in a month.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Founder, direct-to-consumer brand',
     },
     {
@@ -248,7 +248,7 @@ const entry = {
         { q: 'How do I calculate customer lifetime value?', a: 'A simple version is average order value times orders per year times gross margin times expected customer lifespan in years. Anchor it on margin rather than revenue, and segment it rather than averaging everyone, or the number will mislead you.' },
         { q: 'What is a good repeat purchase rate?', a: 'It varies widely by category, but many healthy brands see roughly a quarter to a third of customers buy again, with repeat buyers driving an outsized share of revenue. The goal is to move your own rate up, not to hit a universal benchmark.' },
         { q: 'When should a win-back flow fire?', a: 'Not on a blanket ninety-day rule. The right trigger is per-customer, based on that customer normal gap between orders. A weekly buyer who goes quiet for three weeks is lapsing; a quarterly buyer at three weeks is on schedule.' },
-        { q: 'How does Rally fit an ecommerce brand?', a: 'Rally syncs order events from the store into a single customer record, computes lifetime value in real time, and lets Rook run post-purchase, win-back, and VIP flows automatically. It is alive on first load and one flat price across every module, so the bill stays predictable as you scale. Verify current pricing on the Rally site.' },
+        { q: 'How does Ardovo fit an ecommerce brand?', a: 'Ardovo syncs order events from the store into a single customer record, computes lifetime value in real time, and lets Rook run post-purchase, win-back, and VIP flows automatically. It is alive on first load and one flat price across every module, so the bill stays predictable as you scale. Verify current pricing on the Ardovo site.' },
       ],
     },
   ],

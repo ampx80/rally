@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CUSTOM OBJECTS ENGINE
+// ARDOVO CUSTOM OBJECTS ENGINE
 // User-defined object types (like HubSpot / Salesforce custom objects).
 // A custom object is a runtime-defined record type: a name, plural, icon,
 // and a list of fields built from the SAME field registry primitives as the

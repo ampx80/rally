@@ -7,7 +7,7 @@ import { Reveal, Pill, CtaBand } from './kit.jsx';
 import { Icon } from '../components/icons.jsx';
 import './company.css';
 
-const APPLY = 'mailto:careers@rally.com?subject=Rally%20-%20';
+const APPLY = 'mailto:careers@rally.com?subject=Ardovo%20-%20';
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                 */
@@ -136,7 +136,7 @@ export default function Careers() {
                 <span className="mkt-icon" style={{ margin: '0 auto' }}><Icon name="mail" size={22} /></span>
                 <h3 className="mkt-h3" style={{ margin: '16px 0 8px' }}>No backend, no black hole.</h3>
                 <p className="mkt-body" style={{ margin: '0 auto', maxWidth: 440, fontSize: 16 }}>
-                  Applications go straight to a human. Send a note, a link to your work, and why Rally.
+                  Applications go straight to a human. Send a note, a link to your work, and why Ardovo.
                 </p>
                 <div style={{ marginTop: 22 }}>
                   <a href={`${APPLY}General`} className="mkt-btn mkt-btn-primary mkt-btn-lg m-magnet">

@@ -4,7 +4,7 @@
 // A bottom-left dock remembers where you have been and lets you pin the
 // pages you live on. Pure client state, three localStorage keys, pub/sub
 // in the same shape as store.js (subs Set + notify). Ported from The Way
-// HQ's PageDock, adapted to Rally's conventions (tokens, Icon, routes).
+// HQ's PageDock, adapted to Ardovo's conventions (tokens, Icon, routes).
 // NO em-dash / en-dash. ASCII only.
 // ============================================================
 import { useEffect, useState } from 'react';

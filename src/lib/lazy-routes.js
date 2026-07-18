@@ -1,4 +1,4 @@
-// Code-splitting toolkit for Rally's router. Today App.jsx eager-imports all
+// Code-splitting toolkit for Ardovo's router. Today App.jsx eager-imports all
 // ~35 product + marketing pages at the top of the module, so the initial
 // bundle carries every screen (plus recharts, pptxgenjs, the full icon set)
 // before the user sees the first paint. This module converts the heavy screens

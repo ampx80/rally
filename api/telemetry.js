@@ -1,6 +1,6 @@
 // POST /api/telemetry
 //
-// The serverless sink for Rally's browser observability. The client (logger.js
+// The serverless sink for Ardovo's browser observability. The client (logger.js
 // + analytics.js) sends two batch shapes here:
 //   { kind: 'logs',   records: [ { ts, level, msg, ctx, path, session_id } ] }
 //   { kind: 'events', events:  [ { type, name, props, path, ts, session_id } ] }

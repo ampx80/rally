@@ -8,11 +8,11 @@ const entry = {
   slug: 'pipedrive-alternative',
   title: 'The Best Pipedrive Alternative in 2026',
   h1: 'The Best Pipedrive Alternative in 2026: Keep the Simplicity, Lose the Add-On Sprawl',
-  metaTitle: 'The Best Pipedrive Alternative in 2026: Comparison, Calculator, and Buyer Guide | Rally',
+  metaTitle: 'The Best Pipedrive Alternative in 2026: Comparison, Calculator, and Buyer Guide | Ardovo',
   metaDescription: 'Pipedrive is a great starter pipeline, but marketing, CPQ, AI, and reporting depth all live behind paid add-ons. Here is how to compare alternatives, a true-cost calculator, a feature matrix, and how to switch without a rebuild.',
   eyebrow: 'CRM Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '13 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -22,7 +22,7 @@ const entry = {
   ],
   heroStats: [
     { value: 3, prefix: '~', suffix: 'x', label: 'Typical gap between Pipedrive list price and true all-in cost with add-ons' },
-    { value: 8, prefix: '<', suffix: ' min', label: 'Time to a working pipeline on Rally' },
+    { value: 8, prefix: '<', suffix: ' min', label: 'Time to a working pipeline on Ardovo' },
     { value: 1, label: 'One flat price covering every module, no add-on sprawl' },
   ],
   blocks: [
@@ -107,7 +107,7 @@ const entry = {
         layers: [
           { label: 'What you assemble', nodes: ['Pipeline', 'Marketing add-on', 'CPQ add-on', 'AI credits', 'BI tool'] },
           { label: 'The seams', nodes: ['Sync jobs', 'Duplicate records', 'Separate logins', 'Multiple invoices'] },
-          { label: 'What Rally is', nodes: ['One record of truth'] },
+          { label: 'What Ardovo is', nodes: ['One record of truth'] },
           { label: 'Included surfaces', nodes: ['Pipeline', 'Email', 'Quotes', 'Rook AI', 'Reports'] },
         ],
       },
@@ -116,7 +116,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Pipedrive alternative comparison matrix',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Pipedrive', 'HubSpot', 'Zoho CRM'],
+      columns: ['Ardovo', 'Pipedrive', 'HubSpot', 'Zoho CRM'],
       highlightCol: 0,
       rows: [
         { feature: 'Drag-and-drop pipeline', cells: [true, true, true, true] },
@@ -137,7 +137,7 @@ const entry = {
       caption: 'Base plus the add-ons most growing teams end up turning on. Your numbers will vary, so use the calculator above with your real plan.',
       data: {
         bars: [
-          { label: 'Rally (flat)', value: 49, display: '$49 all-in', highlight: true },
+          { label: 'Ardovo (flat)', value: 49, display: '$49 all-in', highlight: true },
           { label: 'Pipedrive + add-ons', value: 86, display: '~$86' },
           { label: 'HubSpot (multi-hub)', value: 120, display: '~$120+' },
         ],
@@ -186,11 +186,11 @@ const entry = {
     },
     {
       type: 'richText',
-      title: 'How Rally fits the brief',
+      title: 'How Ardovo fits the brief',
       body: [
-        'Rally was built for exactly this jump: the team that loved a simple pipeline but needs it to grow up without turning into a stack of invoices. It keeps a drag-and-drop pipeline any rep can run on day one, and it is alive on first load, so you see a working system instead of an empty database asking to be configured.',
+        'Ardovo was built for exactly this jump: the team that loved a simple pipeline but needs it to grow up without turning into a stack of invoices. It keeps a drag-and-drop pipeline any rep can run on day one, and it is alive on first load, so you see a working system instead of an empty database asking to be configured.',
         'The difference is what is already inside. Email sequences, forms, native quoting, forecasting, and reporting are part of the platform at one flat price, not add-ons metered on top. And Rook, the built-in AI operator, does the work rather than just answering questions: it enriches new leads, drafts the next follow-up, keeps the forecast current, and flags deals going cold before they slip.',
-        'The result is the Pipedrive feel with the platform depth, minus the four separate tools and the add-on math. You are still genuinely served by this guide even if you never buy Rally, but if the add-on sprawl is what pushed you to search, that is the exact problem it removes.',
+        'The result is the Pipedrive feel with the platform depth, minus the four separate tools and the add-on math. You are still genuinely served by this guide even if you never buy Ardovo, but if the add-on sprawl is what pushed you to search, that is the exact problem it removes.',
       ],
     },
     {
@@ -210,7 +210,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We were paying for the pipeline, the marketing add-on, and a separate quoting tool. Consolidating cut the bill and, honestly, cut the excuses. Everything lives in one place now.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'RevOps lead, growth-stage B2B',
     },
     {
@@ -218,10 +218,10 @@ const entry = {
       title: 'Frequently asked questions',
       items: [
         { q: 'Is Pipedrive a bad CRM?', a: 'No. Pipedrive is one of the easiest pipelines to adopt and a great fit for a small team that mostly needs to track deals through stages. Teams outgrow it when they need marketing, quoting, deeper reporting, and AI, all of which live behind separate add-ons or higher tiers. The pain is packaging, not quality.' },
-        { q: 'What is the best Pipedrive alternative in 2026?', a: 'It depends on what you need Pipedrive to become. If you want to keep a simple pipeline but stop paying for add-ons, an all-in-one platform like Rally that includes marketing, native quoting, forecasting, and an AI operator at one flat price is the cleanest upgrade. HubSpot and Zoho are common alternatives too, though HubSpot splits capability across paid hubs and Zoho gates advanced analytics and AI by tier.' },
+        { q: 'What is the best Pipedrive alternative in 2026?', a: 'It depends on what you need Pipedrive to become. If you want to keep a simple pipeline but stop paying for add-ons, an all-in-one platform like Ardovo that includes marketing, native quoting, forecasting, and an AI operator at one flat price is the cleanest upgrade. HubSpot and Zoho are common alternatives too, though HubSpot splits capability across paid hubs and Zoho gates advanced analytics and AI by tier.' },
         { q: 'How much does Pipedrive really cost once you add everything?', a: 'The base seat price is only the start. Once a growing team turns on email marketing, extra AI credits, and a premium tier for reporting, the fully loaded per-seat cost commonly lands around two to three times the headline number. Use the calculator above with your own plan and add-ons to see your real figure.' },
         { q: 'Will switching CRMs lose my deal history?', a: 'Not if you migrate properly. Export deals, contacts, and activities from Pipedrive to CSV, then import and map them into the new platform. On a modern tool the field mapping is largely automatic and the whole move can be done in an afternoon. Keep the export file as your backup until you have verified the data.' },
-        { q: 'Do I have to give up Pipedrive simplicity to get more features?', a: 'That is the whole point of choosing well. The wrong upgrade trades a light pipeline for an enterprise tool that needs an admin. The right one keeps the drag-and-drop simplicity and adds depth underneath it. Rally, for example, is alive on first load and still runs as a simple pipeline while including marketing, quoting, forecasting, and AI.' },
+        { q: 'Do I have to give up Pipedrive simplicity to get more features?', a: 'That is the whole point of choosing well. The wrong upgrade trades a light pipeline for an enterprise tool that needs an admin. The right one keeps the drag-and-drop simplicity and adds depth underneath it. Ardovo, for example, is alive on first load and still runs as a simple pipeline while including marketing, quoting, forecasting, and AI.' },
         { q: 'Is an all-in-one platform always cheaper than Pipedrive plus add-ons?', a: 'Usually, once you actually need the add-ons, but not always. If you will only ever use a bare pipeline, a minimal tool can be the cheaper fit. The moment you are paying for marketing, quoting, or AI on top of the base plan, consolidating into one flat price typically wins on both cost and the time you lose keeping separate tools in sync.' },
       ],
     },

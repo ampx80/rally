@@ -2,7 +2,7 @@
 // JUGGERNAUT GUIDE
 // Slug: microsoft-dynamics-alternative -> live at /guides/microsoft-dynamics-alternative
 // Head-to-head: Microsoft Dynamics 365 vs the AI-native alternative.
-// Balanced, fair to Dynamics, positions Rally as the third option.
+// Balanced, fair to Dynamics, positions Ardovo as the third option.
 // NO em-dash / en-dash. ASCII only.
 // ============================================================
 
@@ -10,21 +10,21 @@ const entry = {
   slug: 'microsoft-dynamics-alternative',
   title: 'The Best Microsoft Dynamics 365 Alternative in 2026',
   h1: 'The Best Microsoft Dynamics 365 Alternative in 2026',
-  metaTitle: 'The Best Microsoft Dynamics 365 Alternative in 2026: TCO, Comparison, and Migration | Rally',
+  metaTitle: 'The Best Microsoft Dynamics 365 Alternative in 2026: TCO, Comparison, and Migration | Ardovo',
   metaDescription: 'A fair, detailed guide for teams weighing a Microsoft Dynamics 365 alternative: where Dynamics wins, where it hurts, a total-cost calculator, a feature matrix, and a migration plan to an AI-native CRM.',
   eyebrow: 'Comparison',
   category: 'Comparisons',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
   intro: [
     'Microsoft Dynamics 365 is a genuinely capable platform, and for a specific kind of company it is the right answer: an enterprise already standardized on Microsoft, running Business Central or Finance and Operations, that needs its CRM and ERP to share one data model. If that is you, the tight integration is hard to beat.',
-    'But a lot of teams land on Dynamics for the logo, not the fit, and then spend two quarters and a systems integrator getting to first value. This guide is a fair look at where Dynamics 365 shines, where it becomes heavy, what the real total cost of ownership looks like, and how an AI-native alternative like Rally gets a revenue team live in an afternoon instead of a fiscal year.',
+    'But a lot of teams land on Dynamics for the logo, not the fit, and then spend two quarters and a systems integrator getting to first value. This guide is a fair look at where Dynamics 365 shines, where it becomes heavy, what the real total cost of ownership looks like, and how an AI-native alternative like Ardovo gets a revenue team live in an afternoon instead of a fiscal year.',
   ],
   heroStats: [
     { value: 3, prefix: '~', suffix: ' months', label: 'Typical Dynamics 365 CRM implementation timeline' },
-    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Rally' },
+    { value: 6, prefix: '<', suffix: ' min', label: 'Time to first value on Ardovo' },
     { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price, every module' },
   ],
   blocks: [
@@ -33,7 +33,7 @@ const entry = {
       title: 'The short answer',
       body: [
         'If your company runs on the Microsoft stack end to end, needs CRM and ERP joined at the hip, and has an IT function or partner to own the rollout, Dynamics 365 is a defensible, powerful choice. Do not switch away from a working Dynamics deployment for novelty.',
-        'If you are a sales or revenue team that wants a modern CRM to work leads and pipeline, and you are staring at a multi-month implementation, license-tier math, and a customization backlog just to get started, an AI-native alternative will get you to value faster and cost less to run. Rally is built for exactly that team: alive on first load, one flat price, and an AI operator that does the work instead of asking you to configure it first.',
+        'If you are a sales or revenue team that wants a modern CRM to work leads and pipeline, and you are staring at a multi-month implementation, license-tier math, and a customization backlog just to get started, an AI-native alternative will get you to value faster and cost less to run. Ardovo is built for exactly that team: alive on first load, one flat price, and an AI operator that does the work instead of asking you to configure it first.',
       ],
     },
     {
@@ -63,7 +63,7 @@ const entry = {
       caption: 'Directional, based on typical deployments. Your mileage depends on scope and data.',
       data: {
         bars: [
-          { label: 'Rally', value: 6, display: '6 min', highlight: true },
+          { label: 'Ardovo', value: 6, display: '6 min', highlight: true },
           { label: 'Lean Dynamics rollout', value: 900, display: '4-8 weeks' },
           { label: 'Full Dynamics + ERP', value: 2400, display: '3-6 months' },
         ],
@@ -98,7 +98,7 @@ const entry = {
       type: 'richText',
       title: 'Built to be useful before you configure it',
       body: [
-        'The premise of an AI-native CRM is that the software should do the work, not hand you a blank database and a project plan. Rally loads alive: a working pipeline, contacts, and reports on the first screen, so the team can start selling in the first session instead of the first quarter.',
+        'The premise of an AI-native CRM is that the software should do the work, not hand you a blank database and a project plan. Ardovo loads alive: a working pipeline, contacts, and reports on the first screen, so the team can start selling in the first session instead of the first quarter.',
         'Underneath, one source of truth feeds every surface, so a change in a deal updates the forecast, the reports, and the operator view at once. Rook, the built-in AI operator, enriches new leads, drafts follow-ups, flags deals going cold, and answers plain-language questions about the pipeline. That is the part Dynamics leaves to configuration, a partner, or a human doing busywork.',
         'The pricing is deliberately boring: one flat price per seat, every module included. No base-plus-attach tier math, no per-app upsell, no separate line for the automation layer. You can model the whole bill on a napkin.',
       ],
@@ -119,9 +119,9 @@ const entry = {
     },
     {
       type: 'comparisonMatrix',
-      title: 'Rally vs Microsoft Dynamics 365, side by side',
+      title: 'Ardovo vs Microsoft Dynamics 365, side by side',
       rowHeader: 'Capability',
-      columns: ['Rally', 'Dynamics 365'],
+      columns: ['Ardovo', 'Dynamics 365'],
       highlightCol: 0,
       rows: [
         { feature: 'Alive with data on first load', cells: [true, false] },
@@ -141,7 +141,7 @@ const entry = {
       type: 'callout',
       tone: 'warn',
       title: 'The trade-off to be clear about',
-      body: 'Rally is a revenue platform, not an ERP. If your core requirement is one system that runs both finance-and-operations and CRM on a shared ledger, Dynamics 365 does that natively and Rally does not. Choose Rally to win and manage revenue faster, integrate to your ERP by API, and keep the CRM light.',
+      body: 'Ardovo is a revenue platform, not an ERP. If your core requirement is one system that runs both finance-and-operations and CRM on a shared ledger, Dynamics 365 does that natively and Ardovo does not. Choose Ardovo to win and manage revenue faster, integrate to your ERP by API, and keep the CRM light.',
     },
     {
       type: 'calculator',
@@ -153,12 +153,12 @@ const entry = {
         { key: 'implCost', label: 'One-time implementation / partner cost', type: 'number', default: 40000, min: 0, max: 1000000, step: 1000, unit: 'USD' },
         { key: 'adminPct', label: 'Admin time to run Dynamics', type: 'range', default: 40, min: 0, max: 100, step: 5, unit: '% of one FTE' },
         { key: 'adminSalary', label: 'Loaded admin salary', type: 'number', default: 110000, min: 40000, max: 300000, step: 5000, unit: 'USD' },
-        { key: 'rallyPrice', label: 'Rally price per seat, per month', type: 'number', default: 79, min: 20, max: 300, step: 1, unit: 'USD' },
+        { key: 'rallyPrice', label: 'Ardovo price per seat, per month', type: 'number', default: 79, min: 20, max: 300, step: 1, unit: 'USD' },
       ],
       outputs: [
         { key: 'dynYear1', label: 'Dynamics year-one cost', expr: 'seats * dynLicense * 12 + implCost + adminSalary * (adminPct / 100)', format: 'currency', highlight: true },
         { key: 'dynOngoing', label: 'Dynamics ongoing yearly cost', expr: 'seats * dynLicense * 12 + adminSalary * (adminPct / 100)', format: 'currency' },
-        { key: 'rallyYear1', label: 'Rally year-one cost', expr: 'seats * rallyPrice * 12', format: 'currency', highlight: true },
+        { key: 'rallyYear1', label: 'Ardovo year-one cost', expr: 'seats * rallyPrice * 12', format: 'currency', highlight: true },
         { key: 'year1Diff', label: 'Year-one difference', expr: '(seats * dynLicense * 12 + implCost + adminSalary * (adminPct / 100)) - (seats * rallyPrice * 12)', format: 'currency' },
       ],
     },
@@ -198,7 +198,7 @@ const entry = {
       steps: [
         { title: 'Decide the scope honestly', body: 'If you truly need shared CRM plus ERP on one ledger, keep Dynamics for that and integrate. If you mainly need to work leads and pipeline, a lean AI-native CRM is the better home for the sales team.' },
         { title: 'Export the essentials, not everything', body: 'Pull contacts, companies, open deals, and activity history. Leave dead records and years of noise behind. A clean import beats a perfect migration.' },
-        { title: 'Run in parallel for one cycle', body: 'Keep Dynamics read-only for reference while the team works live in Rally for a sales cycle. No big-bang cutover, no lost history.' },
+        { title: 'Run in parallel for one cycle', body: 'Keep Dynamics read-only for reference while the team works live in Ardovo for a sales cycle. No big-bang cutover, no lost history.' },
         { title: 'Wire the integrations you actually use', body: 'Connect email, calendar, and your ERP or billing system by API so the record of truth stays whole without a nightly sync ritual.' },
         { title: 'Turn on the operator and forecast', body: 'Let Rook enrich, route, and draft follow-ups, and roll up the forecast by stage. This is the moment the new system starts paying you back.' },
         { title: 'Retire what you no longer need', body: 'Once a full cycle has run clean, downgrade or drop the Dynamics seats you migrated. Keep only what the back office genuinely requires.' },
@@ -213,7 +213,7 @@ const entry = {
           { date: 'Day 1', label: 'Import core records', body: 'Contacts, companies, open deals' },
           { date: 'Day 2', label: 'Pipeline live', body: 'Stages set from one sentence to Rook' },
           { date: 'Day 3', label: 'Integrations wired', body: 'Email, calendar, ERP by API' },
-          { date: 'Week 2', label: 'Parallel run complete', body: 'Team fully working in Rally, forecast rolling up' },
+          { date: 'Week 2', label: 'Parallel run complete', body: 'Team fully working in Ardovo, forecast rolling up' },
         ],
       },
     },
@@ -249,12 +249,12 @@ const entry = {
       type: 'faq',
       title: 'Frequently asked questions',
       items: [
-        { q: 'Is Rally a full replacement for Microsoft Dynamics 365?', a: 'For the CRM and revenue side, yes: leads, contacts, companies, deals, pipeline, forecasting, and an AI operator that does the work. For the ERP side (finance and operations on a shared ledger), no. Many teams keep Dynamics for the back office and move the sales team to Rally, connected by API.' },
+        { q: 'Is Ardovo a full replacement for Microsoft Dynamics 365?', a: 'For the CRM and revenue side, yes: leads, contacts, companies, deals, pipeline, forecasting, and an AI operator that does the work. For the ERP side (finance and operations on a shared ledger), no. Many teams keep Dynamics for the back office and move the sales team to Ardovo, connected by API.' },
         { q: 'Why do teams look for a Dynamics 365 alternative?', a: 'The most common reasons are long implementation timelines, complex multi-app licensing that is hard to predict, and the operational overhead of an admin plus a customization backlog. Teams that are not using the ERP integration often find Dynamics heavier than their sales motion needs.' },
-        { q: 'What does Dynamics 365 do better than Rally?', a: 'Native ERP integration, deep fit with the broader Microsoft stack (Teams, Power BI, Azure), enterprise governance and compliance depth, and the Power Platform for building custom apps. If those are your core requirements, Dynamics is the stronger choice.' },
-        { q: 'How much does Microsoft Dynamics 365 cost?', a: 'It varies by which apps and license tiers you buy, plus Power Platform usage, storage, and implementation. The published per-seat figure is only the starting point. Always verify current pricing and packaging directly with Microsoft, because it changes. Rally, by contrast, is one flat price per seat with every module included.' },
+        { q: 'What does Dynamics 365 do better than Ardovo?', a: 'Native ERP integration, deep fit with the broader Microsoft stack (Teams, Power BI, Azure), enterprise governance and compliance depth, and the Power Platform for building custom apps. If those are your core requirements, Dynamics is the stronger choice.' },
+        { q: 'How much does Microsoft Dynamics 365 cost?', a: 'It varies by which apps and license tiers you buy, plus Power Platform usage, storage, and implementation. The published per-seat figure is only the starting point. Always verify current pricing and packaging directly with Microsoft, because it changes. Ardovo, by contrast, is one flat price per seat with every module included.' },
         { q: 'How long does migrating off Dynamics take?', a: 'If you migrate only the essentials (contacts, companies, open deals, and recent activity) and run in parallel for one sales cycle, most teams are fully working in the new system within about two weeks, not the months a fresh Dynamics rollout takes.' },
-        { q: 'Can we keep Dynamics for ERP and use Rally for CRM?', a: 'Yes, and for many companies that is the ideal setup. Keep the finance and operations backbone in Dynamics, run the revenue team in Rally where it is faster and lighter, and connect them by API so the record of truth stays whole.' },
+        { q: 'Can we keep Dynamics for ERP and use Ardovo for CRM?', a: 'Yes, and for many companies that is the ideal setup. Keep the finance and operations backbone in Dynamics, run the revenue team in Ardovo where it is faster and lighter, and connect them by API so the record of truth stays whole.' },
       ],
     },
   ],

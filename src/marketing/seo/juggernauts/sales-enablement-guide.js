@@ -8,11 +8,11 @@ const entry = {
   slug: 'sales-enablement-guide',
   title: 'Sales Enablement: The Complete 2026 Guide',
   h1: 'Sales Enablement: The Complete 2026 Guide',
-  metaTitle: 'Sales Enablement: The Complete 2026 Guide (Stack, Calculator, Build Plan) | Rally',
+  metaTitle: 'Sales Enablement: The Complete 2026 Guide (Stack, Calculator, Build Plan) | Ardovo',
   metaDescription: 'A deep, practical guide to sales enablement in 2026: what it is, the enablement stack architecture, content and training and coaching, a ramp-time calculator, a build plan, and an FAQ.',
   eyebrow: 'RevOps Playbook',
   category: 'Guides',
-  author: 'The Rally Team',
+  author: 'The Ardovo Team',
   readingTime: '15 min read',
   published: '2026-07-13',
   updated: '2026-07-13',
@@ -23,7 +23,7 @@ const entry = {
   heroStats: [
     { value: 3.2, format: 'decimal:1', suffix: 'x', label: 'More content reps can find when it lives in the CRM, not a shared drive' },
     { value: 36, prefix: '-', suffix: '%', label: 'Typical reduction in new-rep ramp time with structured enablement' },
-    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Rally, enablement built in' },
+    { value: 1, prefix: '$', suffix: '/seat', format: 'number', label: 'One flat price on Ardovo, enablement built in' },
   ],
   blocks: [
     {
@@ -121,7 +121,7 @@ const entry = {
     {
       type: 'quote',
       text: 'We stopped measuring how many decks existed and started measuring which decks touched won deals. Half the library was dead weight, and the reps knew it before we did.',
-      cite: 'A Rally customer',
+      cite: 'A Ardovo customer',
       role: 'Head of Enablement, mid-market SaaS',
     },
     {
@@ -221,7 +221,7 @@ const entry = {
       type: 'comparisonMatrix',
       title: 'Comparing the common approaches to enablement',
       rowHeader: 'Capability',
-      columns: ['Enablement in Rally', 'Standalone stack', 'Shared drive'],
+      columns: ['Enablement in Ardovo', 'Standalone stack', 'Shared drive'],
       highlightCol: 0,
       rows: [
         { feature: 'Content lives where the deal lives', cells: [true, 'partial', false] },
@@ -255,8 +255,8 @@ const entry = {
     {
       type: 'callout',
       tone: 'success',
-      title: 'The Rally take',
-      body: 'Rally is an AI-native CRM where enablement is not a bolt-on. Content, coaching signals, and readiness all reference the same live deal data, and Rook, the AI operator, surfaces the next best asset and flags the calls worth coaching. One flat price, alive on first load, no four-tool stack to stitch together.',
+      title: 'The Ardovo take',
+      body: 'Ardovo is an AI-native CRM where enablement is not a bolt-on. Content, coaching signals, and readiness all reference the same live deal data, and Rook, the AI operator, surfaces the next best asset and flags the calls worth coaching. One flat price, alive on first load, no four-tool stack to stitch together.',
     },
     {
       type: 'richText',
@@ -273,7 +273,7 @@ const entry = {
         { q: 'What is the difference between sales enablement and sales operations?', a: 'Enablement builds seller readiness through content, training, and coaching. Sales operations runs the day-to-day machine: territories, quotas, CRM hygiene, and comp. They overlap at the CRM, but enablement is about the person on the call being prepared, while ops is about the system around them working.' },
         { q: 'What does a sales enablement team actually own?', a: 'Rep readiness and the systems that maintain it: the onboarding path, the content library and its findability, the coaching framework, and the tooling that delivers all three in the flow of work. They partner with marketing on content and with managers on coaching, but they own the readiness outcome.' },
         { q: 'How do you measure sales enablement?', a: 'By outcomes, not activity. The core metrics are time-to-first-deal and time-to-full-quota for new reps, win rate on deals that used matched content, and the percentage of content that actually touches closed-won deals. Course completion and library size are vanity metrics if they do not move those numbers.' },
-        { q: 'What tools do you need for sales enablement?', a: 'Traditionally a content portal, an LMS, and a call-recording tool, often bought separately. The problem is that none of them know what deal a rep is working. The modern approach is to wire enablement into the CRM system of record so content, coaching, and outcomes all reference the same live data. Rally does this natively, so there is no four-tool stack to stitch together.' },
+        { q: 'What tools do you need for sales enablement?', a: 'Traditionally a content portal, an LMS, and a call-recording tool, often bought separately. The problem is that none of them know what deal a rep is working. The modern approach is to wire enablement into the CRM system of record so content, coaching, and outcomes all reference the same live data. Ardovo does this natively, so there is no four-tool stack to stitch together.' },
         { q: 'How long does it take to stand up an enablement program?', a: 'You can get the flywheel turning in about 90 days: a scorecard and content audit in weeks one and two, findable in-CRM content by week four, an onboarding path live by week eight, and a coaching ritual with an outcomes loop by week twelve. You do not need a year or a platform migration to start.' },
         { q: 'How is AI changing sales enablement in 2026?', a: 'AI shifts enablement from static libraries and random call sampling to real-time, targeted help. An AI operator can recommend the right asset based on the deal stage and competitor, flag exactly which calls a manager should coach and why, and keep content tied to outcomes automatically. That turns enablement from a content-production job into a readiness system that acts inside the deal.' },
       ],

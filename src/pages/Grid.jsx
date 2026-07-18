@@ -1,11 +1,11 @@
 // ============================================================
-// RALLY GRID  (the Airtable-killer, inside the CRM)
+// ARDOVO GRID  (the Airtable-killer, inside the CRM)
 // Base > Table > Fields > Records, shown in switchable Views:
 // a real spreadsheet-database with inline editing, 21 field types,
 // a live formula/rollup/lookup engine, Kanban / Calendar / Gallery,
 // filters (AND/OR) + multi-sort + group-by + search + CSV import.
 //
-// Pipedrive bolted on a weak table. Rally ships a full Airtable-class
+// Pipedrive bolted on a weak table. Ardovo ships a full Airtable-class
 // database linked to real deals and accounts. No CRM has this depth.
 // NO em-dash or en-dash anywhere. ASCII hyphen only.
 // ============================================================
@@ -865,7 +865,7 @@ export default function Grid() {
   useEffect(() => { if (!table.views.find(v => v.id === viewId)) { setViewId(table.views[0].id); } }, [table.id]);
 
   const askRook = () => {
-    const prompt = `In the Rally Grid, analyze my "${base.name}" base (table "${table.name}", ${table.records.length} records across ${table.fields.length} fields). Suggest 3 views, filters, or automations that would make this database more useful, and one formula field I should add.`;
+    const prompt = `In the Ardovo Grid, analyze my "${base.name}" base (table "${table.name}", ${table.records.length} records across ${table.fields.length} fields). Suggest 3 views, filters, or automations that would make this database more useful, and one formula field I should add.`;
     try { window.dispatchEvent(new CustomEvent('rally:rook', { detail: { prompt } })); } catch {}
     toast('Asked Rook to analyze this base');
   };

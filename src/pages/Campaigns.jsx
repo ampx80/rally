@@ -1,4 +1,4 @@
-// Campaigns. Rally's Marketing hub. Two surfaces behind a tab switch:
+// Campaigns. Ardovo's Marketing hub. Two surfaces behind a tab switch:
 //   Broadcasts  - the real send layer. Author an email (subject + body with
 //                 {firstName}/{company} merge tokens), pick a live audience,
 //                 preview it, then send now or schedule. Every send routes to

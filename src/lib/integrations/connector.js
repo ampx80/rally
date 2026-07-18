@@ -1,5 +1,5 @@
 // ============================================================
-// RALLY CONNECTOR  (abstract base class - the contract)
+// ARDOVO CONNECTOR  (abstract base class - the contract)
 // Every real integration extends this. The base wires the parts
 // that are the SAME for all connectors - status + connect/disconnect
 // go through connections.js, inbound identity goes through
@@ -66,7 +66,7 @@ export class Connector {
   }
 
   /* ---------- identity (shared) ----------
-     Resolve an external actor to Rally ids via resolve-link.js. Subclasses
+     Resolve an external actor to Ardovo ids via resolve-link.js. Subclasses
      use this inside handleWebhook to decide where an event lands. */
   resolveIdentity({ email, domain, name } = {}) {
     return resolveIdentity({ email, domain, name });
@@ -87,7 +87,7 @@ export class Connector {
 
   /* ---------- app-specific seams (must override) ---------- */
 
-  // Pull records from the source app into Rally.
+  // Pull records from the source app into Ardovo.
   // Expected return: { imported, linked, unlinked } counts.
   async sync() { throw new NotImplemented('sync', this.id); }
 
@@ -96,7 +96,7 @@ export class Connector {
   // or park it via resolve-link.addUnlinked when unmatched.
   handleWebhook(/* payload */) { throw new NotImplemented('handleWebhook', this.id); }
 
-  // Normalize one external record into a Rally-shaped object
+  // Normalize one external record into a Ardovo-shaped object
   // (e.g. an activity draft { type, subject, ...this.via(id, url) }).
   mapRecord(/* externalRecord */) { throw new NotImplemented('mapRecord', this.id); }
 }

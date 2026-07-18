@@ -1,4 +1,4 @@
-// Agent Cloud - Rally's agent control plane. The native answer to Agentforce
+// Agent Cloud - Ardovo's agent control plane. The native answer to Agentforce
 // Command Center: the fleet of specialized agents, a live run ledger with step
 // traces and token/cost accounting, governance (per-agent autonomy + mandate),
 // and an approvals stream wired to the real Night Shift engine. Grounded: the

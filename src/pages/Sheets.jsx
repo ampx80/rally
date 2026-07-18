@@ -2,7 +2,7 @@
 // picker, sheet tabs, a scrollable A1 grid with a live formula engine, a
 // formula bar, and a formatting toolbar. Every control writes to the
 // local-first sheets store (src/lib/sheets-data.js). Upload OR build
-// spreadsheets that actually compute, inside Rally.
+// spreadsheets that actually compute, inside Ardovo.
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   useSheets, getWorkbooks, getWorkbook, workbookStats,
@@ -78,7 +78,7 @@ function WorkbookRail({ workbooks, activeWbId, onOpen, onNew, onRename, onDelete
         })}
       </div>
       <Card pad className="col gap-1" style={{ background: 'var(--n-25)' }}>
-        <div className="row gap-1" style={{ color: 'var(--accent-600)' }}><Icon name="sparkles" size={15} /><span className="fw-7 t-sm">Rally is the spreadsheet</span></div>
+        <div className="row gap-1" style={{ color: 'var(--accent-600)' }}><Icon name="sparkles" size={15} /><span className="fw-7 t-sm">Ardovo is the spreadsheet</span></div>
         <div className="t-xs muted">NetSuite makes you export to Excel. Here your models live next to the deal book and compute in place.</div>
       </Card>
     </div>
@@ -229,7 +229,7 @@ export default function Sheets() {
       <PageTitle
         eyebrow="Delivery"
         title="Sheets"
-        sub="Spreadsheets that actually compute, right inside Rally."
+        sub="Spreadsheets that actually compute, right inside Ardovo."
         action={
           <div className="row gap-1">
             <Button variant="ghost" onClick={() => setHelpOpen(true)}><span className="mono fw-7">fx</span> Functions</Button>

@@ -1,4 +1,4 @@
-// Revenue Signals. Rally's predictive revenue intelligence - churn risk,
+// Revenue Signals. Ardovo's predictive revenue intelligence - churn risk,
 // expansion propensity, and buyer intent surfaced as ONE prioritized action
 // feed with a recommended play on every card. This is the leapfrog on
 // HubSpot Breeze Intelligence + GoHighLevel: nobody else blends all three
