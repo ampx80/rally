@@ -8,6 +8,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SectionHeader, Card, StatCard, Button, Badge, Select, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import {
   useAgentCloud, getAgents, updateAgent, getSettings, updateSettings,
   MODELS, modelById, estimateCost, runStats,
@@ -78,16 +79,15 @@ export default function AgentTrust() {
 
   return (
     <div className="fade-up tr">
-      <SectionHeader
-        eyebrow="Agent Cloud"
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="tr-mark"><Icon name="shield" size={18} /></span> Model routing + Trust</span>}
+      <AgentDeck
+        eyebrow="Model Routing + Trust"
+        title="Your models."
+        highlight="Your rules."
         sub="Route each agent to the right model, bring your own LLM, and keep a trust posture you can prove. Multi-model and a trust layer built in from day one, not bolted onto a legacy core."
-        action={
-          <div className="row gap-2">
-            <Button variant="ghost" size="sm" onClick={() => nav('/audit')}><Icon name="history" size={15} /> Audit log</Button>
-            <Button variant="ghost" size="sm" onClick={() => nav('/agent-cloud')}><Icon name="sparkles" size={15} /> Agent Cloud</Button>
-          </div>
-        }
+        actions={<>
+          <button className="adk-btn" onClick={() => nav('/audit')}><Icon name="history" size={15} /> Audit log</button>
+          <button className="adk-btn" onClick={() => nav('/agent-cloud')}><Icon name="sparkles" size={15} /> Agent Cloud</button>
+        </>}
       />
 
       {/* SPEND SNAPSHOT */}

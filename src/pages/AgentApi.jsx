@@ -6,6 +6,7 @@
 import React, { useMemo, useState } from 'react';
 import { SectionHeader, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import { TOOL_CATALOG } from '../lib/agent-cloud.js';
 
 const MCP_SNIPPET = `{
@@ -46,10 +47,12 @@ export default function AgentApi() {
 
   return (
     <div className="fade-up aa">
-      <SectionHeader
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="aa-mark"><Icon name="command" size={17} /></span> Agent API + MCP</span>}
-        sub="Rally with no browser required. Every capability is a tool any agent can call - yours, Cursor, Claude, or ChatGPT. Built headless-first, not retrofitted."
-        action={<button className="btn btn-primary btn-sm" onClick={runProbe} disabled={busy}><Icon name="activity" size={15} /> {busy ? 'Probing...' : 'Probe live API'}</button>}
+      <AgentDeck
+        eyebrow="Headless + MCP"
+        title="Rally, with no"
+        highlight="browser required."
+        sub="Every capability is a tool any agent can call, yours or Cursor, Claude, and ChatGPT. Built headless-first, not retrofitted onto a UI."
+        actions={<button className="adk-btn adk-btn--primary" onClick={runProbe} disabled={busy}><Icon name="activity" size={15} /> {busy ? 'Probing...' : 'Probe live API'}</button>}
       />
 
       {probe && (

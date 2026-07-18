@@ -7,6 +7,7 @@
 import React, { useMemo, useState } from 'react';
 import { SectionHeader, Card, StatCard, Button, Badge, Select, useToast, EmptyState } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import { useAgentCloud, getAgents, getAgent, AUTONOMY } from '../lib/agent-cloud.js';
 import {
   SCENARIOS, PASS_THRESHOLD, useEvals, runScenario, runAll, snapshotVersion,
@@ -104,15 +105,15 @@ export default function AgentEvals() {
 
   return (
     <div className="fade-up ev">
-      <SectionHeader
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="ev-mark"><Icon name="beaker" size={18} /></span> Testing Center</span>}
-        sub="Run scenarios against an agent, score the output against a deterministic rubric, and compare versions before you trust autonomy. Local-first and repeatable - no external calls."
-        action={
-          <div className="row gap-2">
-            <Button variant="ghost" size="sm" onClick={doSnapshot} disabled={running}><Icon name="layers" size={15} /> Snapshot version</Button>
-            <Button variant="ai" size="sm" onClick={doRunAll} disabled={running}><Icon name="play" size={15} /> Run all</Button>
-          </div>
-        }
+      <AgentDeck
+        eyebrow="Testing Center"
+        title="Trust it,"
+        highlight="then deploy it."
+        sub="Run scenarios against an agent, score the output against a deterministic rubric, and compare versions before you trust autonomy. Local-first and repeatable, no external calls."
+        actions={<>
+          <button className="adk-btn" onClick={doSnapshot} disabled={running}><Icon name="layers" size={15} /> Snapshot version</button>
+          <button className="adk-btn adk-btn--primary" onClick={doRunAll} disabled={running}><Icon name="play" size={15} /> Run all</button>
+        </>}
       />
 
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', marginBottom: '1rem' }}>

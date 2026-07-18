@@ -9,6 +9,7 @@ import {
   SectionHeader, Card, StatCard, Button, Badge, Input, Modal, useToast, EmptyState,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import {
   useAgentCloud, getAgents, createAgent,
   TOOL_CATALOG, AUTONOMY, DEFAULT_MANDATE, MODELS,
@@ -286,9 +287,11 @@ export default function AgentExchange() {
 
   return (
     <div className="fade-up ax">
-      <SectionHeader
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="ax-mark"><Icon name="store" size={18} /></span> Agent Exchange</span>}
-        sub="Install proven agents into your fleet in one click. Every template lands fully specified - role, tools, autonomy, and mandate - ready to work the real book."
+      <AgentDeck
+        eyebrow="Agent Exchange"
+        title="Proven agents,"
+        highlight="one click in."
+        sub="Install proven agents into your fleet in one click. Every template lands fully specified with role, tools, autonomy, and mandate, ready to work the real book."
       />
 
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', marginBottom: '1.15rem' }}>

@@ -17,6 +17,7 @@ import {
 } from '../lib/store-ext.js';
 import { SectionHeader, Card, StatCard, Badge, Input, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import {
   useContextGov, isExposed, isMasked, toggleExpose, toggleMask,
   coveragePct, maskEmail, maskName, PII_SOURCES,
@@ -189,10 +190,11 @@ export default function ContextGraph() {
 
   return (
     <div className="fade-up cg">
-      <SectionHeader
-        eyebrow="Context layer"
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="cg-mark"><Icon name="radar" size={18} /></span> Context</span>}
-        sub="The unified, governed view of everything an agent can ground on. Rally is local-first, so the whole book is already indexed. This is the read scope every agent inherits, and the controls that keep it safe."
+      <AgentDeck
+        eyebrow="Context Layer"
+        title="Everything an agent"
+        highlight="can ground on."
+        sub="Rally is local-first, so your whole book is already indexed. This is the read scope every agent inherits, and the controls that keep it safe."
       />
 
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', marginBottom: '1.15rem' }}>

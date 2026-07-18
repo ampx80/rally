@@ -10,6 +10,7 @@ import {
   SectionHeader, Card, Button, Badge, Field, Input, Select, useToast, EmptyState,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import AgentDeck from '../components/agent/AgentDeck.jsx';
 import {
   useAgentCloud, getAgents, getAgent, createAgent, updateAgent, deleteAgent, toggleAgent,
   TOOL_CATALOG, MODELS, modelById, estimateCost, AUTONOMY, DEFAULT_MANDATE,
@@ -83,10 +84,12 @@ export default function AgentStudio() {
 
   return (
     <div className="fade-up as">
-      <SectionHeader
-        title={<span className="row gap-2" style={{ alignItems: 'center' }}><span className="as-mark"><Icon name="beaker" size={18} /></span> Agent Studio</span>}
-        sub="Design a custom agent from the ground up: give it a role, grant it tools, set its autonomy and model, and draw the mandate it operates inside. Agent-native, governed by default."
-        action={<Button size="sm" onClick={handleNew}><Icon name="plus" size={15} /> New agent</Button>}
+      <AgentDeck
+        eyebrow="Agent Studio"
+        title="Design an agent"
+        highlight="from scratch."
+        sub="Give it a role, grant it tools, set its autonomy and model, and draw the mandate it operates inside. Agent-native, governed by default."
+        actions={<button className="adk-btn adk-btn--primary" onClick={handleNew}><Icon name="plus" size={15} /> New agent</button>}
       />
 
       <div className="as-layout">
