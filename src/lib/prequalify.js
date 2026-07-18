@@ -54,7 +54,9 @@ export function defaultConfig() {
     qualifyThreshold: 55,   // >= this -> qualified (book a call)
     reviewThreshold: 30,    // >= this and < qualify -> human review
     aeTitle: 'Senior Account Executive',
-    bookingUrl: '/meet/rally-ae',
+    // Must match a real seeded scheduler slug (see scheduler.js buildSeed:
+    // 'Intro call' -> intro-call). A slug with no booking type 404s the /meet page.
+    bookingUrl: '/meet/intro-call',
     voiceEnabled: true,     // offer the instant AI voice qualifier when qualified
     questions: [
       {
@@ -112,8 +114,12 @@ function freshState() {
 }
 function normalize(s) {
   const base = freshState();
+  const config = { ...base.config, ...(s?.config || {}), questions: Array.isArray(s?.config?.questions) ? s.config.questions : base.config.questions };
+  // Heal a stale booking slug that no scheduler type was ever seeded for
+  // (older builds shipped /meet/rally-ae, which 404s the booking page).
+  if (!config.bookingUrl || config.bookingUrl === '/meet/rally-ae') config.bookingUrl = base.config.bookingUrl;
   return {
-    config: { ...base.config, ...(s?.config || {}), questions: Array.isArray(s?.config?.questions) ? s.config.questions : base.config.questions },
+    config,
     submissions: Array.isArray(s?.submissions) ? s.submissions : [],
   };
 }

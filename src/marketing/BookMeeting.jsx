@@ -155,7 +155,7 @@ export default function BookMeeting() {
           <aside style={{ padding: '32px 28px', borderRight: `1px solid ${c.line}`, background: c.card2, position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${c.accent}, transparent)` }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: c.dim, fontSize: 13, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase' }}>
-              <span style={{ width: 26, height: 26, borderRadius: 7, background: `linear-gradient(135deg, ${c.accent}, #0b8578)`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}><Icon name="zap" size={15} fill="currentColor" stroke={0} /></span>
+              <span style={{ width: 28, height: 28, borderRadius: 7, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}><img src="/brand/ardovo-icon.png" alt="Ardovo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /></span>
               Ardovo
             </div>
             <h1 style={{ color: c.ink, fontSize: 27, margin: '18px 0 10px', letterSpacing: '-.02em', lineHeight: 1.15 }}>{type.name}</h1>

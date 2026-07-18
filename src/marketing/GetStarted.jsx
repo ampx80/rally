@@ -242,7 +242,7 @@ function GetStartedStyles() {
     .gs-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--m-accent);
       background: rgba(14,159,143,.1); border: 1px solid rgba(14,159,143,.24); padding: 6px 13px; border-radius: 999px; }
     .gs-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 28px; align-items: start; max-width: 1000px; }
-    @media (max-width: 820px) { .gs-grid { grid-template-columns: 1fr; } .gs-aside { order: -1; } }
+    @media (max-width: 820px) { .gs-grid { grid-template-columns: 1fr; } .gs-aside { order: -1; position: static; top: auto; } }
 
     .gs-card { background: var(--m-bg); border: 1px solid var(--m-line); border-radius: 20px; padding: 28px; box-shadow: 0 24px 60px -30px rgba(16,20,30,.28); }
     .gs-sec { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--m-ink2); margin-bottom: 14px; }
@@ -286,6 +286,11 @@ function GetStartedStyles() {
     .gs-result-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
     .gs-result-note { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--m-ink2); margin-top: 20px; }
     .gs-result-note svg { color: var(--m-accent); }
+
+    /* Mobile reset MUST come after the base .gs-aside{position:sticky} rule above:
+       media queries add no specificity, so source order decides the winner.
+       Without this the fit-signal panel stays pinned and overlaps the form. */
+    @media (max-width: 820px) { .gs-aside { position: static; top: auto; } }
     `}</style>
   );
 }
