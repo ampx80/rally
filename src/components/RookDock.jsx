@@ -22,6 +22,7 @@ import {
   arOutstanding, arOverdue, arPaid, campaignRevenue, openTickets, qualifiedLeads,
 } from '../lib/store-ext.js';
 import { hasRookAction, runRookAction } from '../lib/rook-actions.js';
+import { startRealtime } from '../lib/rook-realtime.js';
 
 function RookGlyph({ size = 22, color = '#fff' }) {
   return (
@@ -197,6 +198,7 @@ export default function RookDock() {
   const voiceModeRef = useRef(false);
   const speakingRef = useRef(false);
   const sendRef = useRef(null);
+  const realtimeRef = useRef(null); // OpenAI Realtime controller when active
   useEffect(() => { voiceModeRef.current = voiceMode; }, [voiceMode]);
 
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [msgs, busy, open, building]);
@@ -264,7 +266,7 @@ export default function RookDock() {
   }, [speechOK]);
 
   const speak = useCallback((text) => {
-    if (!voiceModeRef.current || !ttsOK) return;
+    if (!voiceModeRef.current || realtimeRef.current || !ttsOK) return;
     try {
       const synth = window.speechSynthesis;
       synth.cancel();
@@ -277,19 +279,63 @@ export default function RookDock() {
     } catch { speakingRef.current = false; setSpeaking(false); }
   }, [ttsOK, startVoiceListen]);
 
-  const toggleVoiceMode = () => {
+  // Voice tool router: the OpenAI Realtime model calls these to drive the app.
+  const VOICE_DEST = {
+    home: '/app', deals: '/deals', leads: '/leads', contacts: '/contacts', companies: '/companies',
+    activities: '/activities', 'my day': '/activities', forecasting: '/forecasting', dashboards: '/dashboards',
+    reports: '/reports', campaigns: '/campaigns', sequences: '/sequences', quotes: '/quotes',
+    invoices: '/invoices', billing: '/invoices', workflows: '/workflows', training: '/training',
+    migrate: '/migrate', migration: '/migrate', qualify: '/qualify', settings: '/settings', intelligence: '/intelligence',
+  };
+  const runVoiceTool = useCallback((name, args = {}) => {
+    if (name === 'navigate') {
+      const to = VOICE_DEST[String(args.destination || '').toLowerCase()] || '/app';
+      navigate(to); return { ok: true, navigatedTo: to };
+    }
+    if (name === 'search_record') {
+      const q = String(args.query || '').toLowerCase().trim();
+      if (!q) return { found: false };
+      const ent = args.entity || 'any';
+      if (ent === 'deal' || ent === 'any') { const d = getDeals().find(x => x.name?.toLowerCase().includes(q)); if (d) { navigate(`/deals/${d.id}`); return { found: true, name: d.name }; } }
+      if (ent === 'contact' || ent === 'any') { const c = getContacts().find(x => contactName(x).toLowerCase().includes(q)); if (c) { navigate(`/contacts/${c.id}`); return { found: true, name: contactName(c) }; } }
+      if (ent === 'company' || ent === 'any') { const co = getCompanies().find(x => x.name?.toLowerCase().includes(q)); if (co) { navigate(`/companies/${co.id}`); return { found: true, name: co.name }; } }
+      return { found: false };
+    }
+    if (name === 'build_report') { navigate('/report-builder'); return { ok: true }; }
+    if (name === 'open_help') { navigate('/training'); return { ok: true }; }
+    return { ok: false, error: 'unknown tool' };
+  }, [navigate]);
+
+  const stopRealtime = () => { try { realtimeRef.current?.stop(); } catch {} realtimeRef.current = null; };
+
+  const toggleVoiceMode = async () => {
     if (!voiceOK) return;
     if (voiceMode) {
       voiceModeRef.current = false; setVoiceMode(false);
+      stopRealtime();
       try { window.speechSynthesis.cancel(); } catch {}
       try { recogRef.current?.stop(); } catch {}
       speakingRef.current = false; setSpeaking(false); setListening(false);
-    } else {
-      voiceModeRef.current = true; setVoiceMode(true);
-      setTimeout(() => startVoiceListen(), 150);
+      return;
+    }
+    voiceModeRef.current = true; setVoiceMode(true);
+    // Prefer OpenAI Realtime (natural, low-latency, barge-in). Fall back to the
+    // Web Speech loop when there is no key / it is unsupported / mic denied.
+    try {
+      const ctrl = await startRealtime({
+        onUserText: (t) => { if (voiceModeRef.current) setMsgs(m => [...m, { role: 'user', content: t }]); },
+        onAssistantText: (t) => { if (voiceModeRef.current) setMsgs(m => [...m, { role: 'assistant', content: t }]); },
+        onSpeaking: (v) => { speakingRef.current = v; setSpeaking(v); },
+        onTool: runVoiceTool,
+      });
+      if (!voiceModeRef.current) { try { ctrl.stop(); } catch {} return; } // toggled off mid-connect
+      realtimeRef.current = ctrl;
+    } catch {
+      realtimeRef.current = null;
+      setTimeout(() => startVoiceListen(), 150); // Web Speech fallback
     }
   };
-  useEffect(() => () => { try { window.speechSynthesis?.cancel(); } catch {} }, []);
+  useEffect(() => () => { try { window.speechSynthesis?.cancel(); } catch {} stopRealtime(); }, []);
 
   const go = (to) => { if (to) { navigate(to); setOpen(false); } };
   const push = (content, extra) => setMsgs(m => [...m, { role: 'assistant', content, ...(extra || {}) }]);
@@ -314,7 +360,7 @@ export default function RookDock() {
       setMsgs(m => [...m, { role: 'assistant', content: data.reply, nav: data.nav, actions: data.actions || [], suggestions: data.suggestions || [] }]);
       // Voice mode: speak the reply, and if Rook pointed somewhere, take them
       // there (once) without making them click. Speaking resumes listening.
-      if (voiceModeRef.current) {
+      if (voiceModeRef.current && !realtimeRef.current) {
         speak(data.reply);
         if (data.nav?.to) setTimeout(() => { navigate(data.nav.to); }, 700);
       }

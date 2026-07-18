@@ -83,30 +83,62 @@ async function forwardToLds(f) {
   } catch (e) { return { ok: false, error: e?.message }; }
 }
 
-// Fire an outbound AI qualification call via Vapi (only when qualified + configured).
+function toE164(phone) {
+  const digits = String(phone || '').replace(/[^\d+]/g, '');
+  if (!digits) return '';
+  return digits.startsWith('+') ? digits : `+1${digits.replace(/\D/g, '')}`;
+}
+
+// Fire an outbound AI qualification call. Prefers Retell (recommended sales
+// telephony vendor), falls back to Vapi. Only runs when qualified + a provider
+// is configured. Both are env-gated and never block the response.
 async function triggerVoiceCall(f) {
+  const number = toE164(f.phone);
+  if (!number) return { ok: false, skipped: 'no-phone' };
+  const vars = { name: f.name || '', company: f.company || '', fitTier: f.tier, fitScore: String(f.score) };
+
+  // 1. Retell (preferred).
+  const { RETELL_API_KEY, RETELL_AGENT_ID, RETELL_FROM_NUMBER } = process.env;
+  if (RETELL_API_KEY && RETELL_AGENT_ID && RETELL_FROM_NUMBER) {
+    try {
+      const r = await fetch('https://api.retellai.com/v2/create-phone-call', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${RETELL_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from_number: RETELL_FROM_NUMBER,
+          to_number: number,
+          override_agent_id: RETELL_AGENT_ID,
+          retell_llm_dynamic_variables: vars,
+          metadata: { source: 'rally-prequal', email: f.email, fitTier: f.tier },
+        }),
+      });
+      if (!r.ok) { console.warn('[prequalify] retell', r.status); return { ok: false, provider: 'retell', status: r.status }; }
+      const j = await r.json().catch(() => ({}));
+      return { ok: true, provider: 'retell', callId: j?.call_id || null };
+    } catch (e) { return { ok: false, provider: 'retell', error: e?.message }; }
+  }
+
+  // 2. Vapi (fallback).
   const { VAPI_API_KEY, VAPI_ASSISTANT_ID, VAPI_PHONE_NUMBER_ID } = process.env;
-  if (!VAPI_API_KEY || !VAPI_ASSISTANT_ID || !VAPI_PHONE_NUMBER_ID) return { ok: false, skipped: 'no-voice' };
-  const digits = String(f.phone || '').replace(/[^\d+]/g, '');
-  if (!digits) return { ok: false, skipped: 'no-phone' };
-  const number = digits.startsWith('+') ? digits : `+1${digits.replace(/\D/g, '')}`;
-  try {
-    const r = await fetch('https://api.vapi.ai/call', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${VAPI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        assistantId: VAPI_ASSISTANT_ID,
-        phoneNumberId: VAPI_PHONE_NUMBER_ID,
-        customer: { number, name: f.name || undefined },
-        assistantOverrides: {
-          variableValues: { name: f.name, company: f.company, fitTier: f.tier, fitScore: f.score },
-        },
-      }),
-    });
-    if (!r.ok) { console.warn('[prequalify] vapi', r.status); return { ok: false, status: r.status }; }
-    const j = await r.json().catch(() => ({}));
-    return { ok: true, callId: j?.id || null };
-  } catch (e) { return { ok: false, error: e?.message }; }
+  if (VAPI_API_KEY && VAPI_ASSISTANT_ID && VAPI_PHONE_NUMBER_ID) {
+    try {
+      const r = await fetch('https://api.vapi.ai/call', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${VAPI_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          assistantId: VAPI_ASSISTANT_ID,
+          phoneNumberId: VAPI_PHONE_NUMBER_ID,
+          customer: { number, name: f.name || undefined },
+          assistantOverrides: { variableValues: vars },
+        }),
+      });
+      if (!r.ok) { console.warn('[prequalify] vapi', r.status); return { ok: false, provider: 'vapi', status: r.status }; }
+      const j = await r.json().catch(() => ({}));
+      return { ok: true, provider: 'vapi', callId: j?.id || null };
+    } catch (e) { return { ok: false, provider: 'vapi', error: e?.message }; }
+  }
+
+  return { ok: false, skipped: 'no-voice' };
 }
 
 export default withErrorHandling(async (req, res) => {
