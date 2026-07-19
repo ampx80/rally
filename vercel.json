@@ -2,6 +2,10 @@
   "buildCommand": "vite build && node scripts/prerender-seo.mjs",
   "outputDirectory": "dist",
   "framework": "vite",
+  "crons": [
+    { "path": "/api/marketing-cron", "schedule": "0 9 * * *" },
+    { "path": "/api/sequence-tick", "schedule": "0 10 * * *" }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
