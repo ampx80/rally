@@ -23,6 +23,7 @@ import {
 } from '../lib/store-ext.js';
 import { hasRookAction, runRookAction } from '../lib/rook-actions.js';
 import { startRealtime } from '../lib/rook-realtime.js';
+import { highlightElement } from './TrainingMode.jsx';
 
 function RookGlyph({ size = 22, color = '#fff' }) {
   return (
@@ -305,6 +306,17 @@ export default function RookDock() {
     }
     if (name === 'build_report') { navigate('/report-builder'); return { ok: true }; }
     if (name === 'open_help') { navigate('/training'); return { ok: true }; }
+    if (name === 'highlight') {
+      const map = {
+        nav: 'nav, .rl-rail', home: '.cc-hero, .rl-hero', deals: '.kanban, [data-page="deals"]', pipeline: '.kanban, [data-page="deals"]',
+        contacts: '[data-page="contacts"], main table', companies: '[data-page="companies"], main table',
+        forecast: '.forecast, main', reports: '.report, main', search: '.topbar-search, [data-cmdk]',
+        rook: '.rook-fab', recents: '.rpd-tab, .rpd-panel', agents: '.afx, .ac-agent', training: '.tn-steps, .tn-progress',
+      };
+      const sel = map[String(args.target || '').toLowerCase()];
+      if (sel) { highlightElement(sel, args.label || ''); return { ok: true, highlighted: args.target }; }
+      return { ok: false, error: 'unknown target' };
+    }
     return { ok: false, error: 'unknown tool' };
   }, [navigate]);
 

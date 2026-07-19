@@ -7,7 +7,7 @@ import React, { useMemo, useState } from 'react';
 import { SectionHeader, Card, Badge, relTime, ProgressBar, Segmented, EmptyState, Avatar } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import AgentDeck from '../components/agent/AgentDeck.jsx';
-import { useTraining, teamRoster, teamStats, memberModuleStatus } from '../lib/training.js';
+import { useTraining, useTeamProgress, teamRoster, teamStats, memberModuleStatus } from '../lib/training.js';
 import { getCurrentUser } from '../lib/store.js';
 
 // Bar + accent color for a completion percentage. atRisk always reads risk.
@@ -25,6 +25,7 @@ function pctLabel(pct) {
 
 export default function TrainingAdmin() {
   useTraining(); // re-render when any completion changes
+  useTeamProgress(); // hydrate live cross-user completions when the backend is configured
   const me = getCurrentUser();
 
   const [query, setQuery] = useState('');

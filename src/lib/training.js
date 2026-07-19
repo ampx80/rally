@@ -496,12 +496,16 @@ export function markStepDone(moduleId, stepIndex) {
   const prev = state.progress[moduleId] || { done: [], completedAt: null };
   const done = prev.done.includes(stepIndex) ? prev.done : [...prev.done, stepIndex];
   const completedAt = done.length >= m.steps.length ? (prev.completedAt || new Date().toISOString()) : prev.completedAt;
+  const newlyComplete = completedAt && !prev.completedAt;
   commit({ ...state, progress: { ...state.progress, [moduleId]: { done, completedAt } } });
+  if (newlyComplete) syncModuleComplete(moduleId);
 }
 export function markModuleComplete(moduleId) {
   const m = getModule(moduleId);
   if (!m) return;
+  const already = isModuleComplete(moduleId);
   commit({ ...state, progress: { ...state.progress, [moduleId]: { done: m.steps.map((_, i) => i), completedAt: new Date().toISOString() } } });
+  if (!already) syncModuleComplete(moduleId);
 }
 export function resetModule(moduleId) {
   const { [moduleId]: _drop, ...rest } = state.progress;
@@ -617,6 +621,37 @@ export function trainingStats() {
 function hashPct(id) { let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0; return 34 + (h % 63); }
 function daysAgoIso(n) { return new Date(Date.now() - n * 86400000).toISOString(); }
 
+// Live cross-user completions, hydrated from /api/training-progress (Supabase)
+// when configured. Null until fetched; teammate numbers fall back to a seed.
+let liveProgress = null; // array of { user_id, module_id, completed_at, ... }
+function liveRowsFor(userId) { return liveProgress ? liveProgress.filter(r => r.user_id === userId) : null; }
+
+// Fire-and-forget: record a completion to the shared backend so managers see
+// real cross-user data. No-ops silently when the backend is not configured.
+export function syncModuleComplete(moduleId) {
+  const m = getModule(moduleId); const u = getCurrentUser();
+  if (!m || !u) return;
+  try {
+    fetch('/api/training-progress', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: u.id, userName: u.name, role: currentRole(), moduleId, moduleTitle: m.title, completedAt: new Date().toISOString() }),
+    }).catch(() => {});
+  } catch {}
+}
+
+// Hook: pull the team's live completions once and re-render when they arrive.
+export function useTeamProgress() {
+  const [, bump] = useState(0);
+  useEffect(() => {
+    let ok = true;
+    fetch('/api/training-progress').then(r => r.json()).then(d => {
+      if (ok && d?.ok && Array.isArray(d.rows) && d.rows.length) { liveProgress = d.rows; bump(x => x + 1); }
+    }).catch(() => {});
+    return () => { ok = false; };
+  }, []);
+  return !!liveProgress;
+}
+
 export function teamRoster() {
   const me = getCurrentUser();
   const users = getUsers();
@@ -624,15 +659,21 @@ export function teamRoster() {
     const role = u.role === 'manager' ? 'manager' : 'rep';
     const req = requiredFor(role);
     const required = req.length;
+    const reqIds = new Set(req.map(m => m.id));
     let doneCount, lastActiveAt;
     if (me && u.id === me.id) {
       doneCount = req.filter(m => isModuleComplete(m.id)).length;
       const last = state.sessions[0];
       lastActiveAt = last ? last.endedAt : (doneCount ? daysAgoIso(0) : null);
     } else {
-      const pct = hashPct(u.id);
-      doneCount = Math.round((pct / 100) * required);
-      lastActiveAt = daysAgoIso((hashPct(u.id + 'x') % 21));
+      const rows = liveRowsFor(u.id);
+      if (rows && rows.length) {
+        doneCount = rows.filter(r => reqIds.has(r.module_id)).length;
+        lastActiveAt = rows.map(r => r.completed_at).sort().slice(-1)[0] || null;
+      } else {
+        doneCount = Math.round((hashPct(u.id) / 100) * required);
+        lastActiveAt = daysAgoIso((hashPct(u.id + 'x') % 21));
+      }
     }
     const pct = required ? Math.round((doneCount / required) * 100) : 0;
     return {
@@ -655,8 +696,8 @@ export function teamStats() {
   };
 }
 
-// Which required modules a given roster member has completed (real for me,
-// seeded/coverage for teammates) - drives the who-trained-on-what matrix.
+// Which required modules a member has completed. Real for me, live for
+// teammates who have synced, seeded otherwise - drives the coverage matrix.
 export function memberModuleStatus(userId) {
   const me = getCurrentUser();
   const users = getUsers();
@@ -665,6 +706,11 @@ export function memberModuleStatus(userId) {
   const role = u.role === 'manager' ? 'manager' : 'rep';
   const req = requiredFor(role);
   if (me && u.id === me.id) return req.map(m => ({ id: m.id, title: m.title, area: m.area, complete: isModuleComplete(m.id) }));
+  const rows = liveRowsFor(u.id);
+  if (rows && rows.length) {
+    const done = new Set(rows.map(r => r.module_id));
+    return req.map(m => ({ id: m.id, title: m.title, area: m.area, complete: done.has(m.id) }));
+  }
   const doneCount = Math.round((hashPct(u.id) / 100) * req.length);
   return req.map((m, i) => ({ id: m.id, title: m.title, area: m.area, complete: i < doneCount }));
 }

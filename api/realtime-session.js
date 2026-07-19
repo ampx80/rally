@@ -46,6 +46,18 @@ const TOOLS = [
     description: 'Open a training topic in the Training area.',
     parameters: { type: 'object', properties: { topic: { type: 'string' } } },
   },
+  {
+    type: 'function', name: 'highlight',
+    description: 'Spotlight a part of the current screen while you explain it, so the user sees exactly where something is. Great during training - highlight the thing you are talking about, then keep talking, unhurried.',
+    parameters: {
+      type: 'object',
+      properties: {
+        target: { type: 'string', description: 'what to point at: one of nav, home, deals, pipeline, contacts, companies, forecast, reports, search, rook, recents, agents, training' },
+        label: { type: 'string', description: 'a short caption to show beside the highlight' },
+      },
+      required: ['target'],
+    },
+  },
 ];
 
 export default withErrorHandling(async (req, res) => {
