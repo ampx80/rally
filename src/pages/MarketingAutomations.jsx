@@ -15,9 +15,13 @@ import {
 import { getUsers, getContacts } from '../lib/store.js';
 import {
   Button, Card, Badge, SectionHeader, Field, Input, Select, Textarea, Modal,
-  StatCard, ProgressBar, EmptyState, useToast,
+  StatCard, ProgressBar, EmptyState, useToast, Tabs, Segmented,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
+import EmailActivityTimeline from '../components/email/EmailActivityTimeline.jsx';
+import DeliverabilityPanel from '../components/email/DeliverabilityPanel.jsx';
+import SuppressionManager from '../components/email/SuppressionManager.jsx';
+import PreferenceCenter from '../components/email/PreferenceCenter.jsx';
 
 const pct = (n) => `${(Number(n) || 0).toFixed(1)}%`;
 
@@ -86,6 +90,8 @@ export default function MarketingAutomations() {
   const toast = useToast();
   const [editing, setEditing] = useState(null); // draft object or null
   const [busy, setBusy] = useState('');
+  const [tab, setTab] = useState('automations');
+  const [delivTab, setDelivTab] = useState('domain');
 
   const automations = getAutomations();
   const fleet = fleetStats();
@@ -141,12 +147,43 @@ export default function MarketingAutomations() {
         title="Marketing automations"
         sub={`${automations.length} automations orchestrating audience-based sends`}
         action={
-          <Button variant="primary" size="sm" onClick={openNew}>
-            <Icon name="plus" size={16} /> New automation
-          </Button>
+          tab === 'automations'
+            ? <Button variant="primary" size="sm" onClick={openNew}><Icon name="plus" size={16} /> New automation</Button>
+            : null
         }
       />
 
+      <Tabs
+        tabs={[
+          { key: 'automations', label: 'Automations', count: automations.length },
+          { key: 'engagement', label: 'Engagement' },
+          { key: 'deliverability', label: 'Deliverability' },
+        ]}
+        active={tab}
+        onChange={setTab}
+      />
+
+      {tab === 'engagement' && <EmailActivityTimeline />}
+
+      {tab === 'deliverability' && (
+        <div className="col gap-3">
+          <Segmented
+            options={[
+              { value: 'domain', label: 'Domain auth' },
+              { value: 'suppression', label: 'Suppression' },
+              { value: 'preferences', label: 'Preference center' },
+            ]}
+            value={delivTab}
+            onChange={setDelivTab}
+          />
+          {delivTab === 'domain' && <DeliverabilityPanel />}
+          {delivTab === 'suppression' && <SuppressionManager />}
+          {delivTab === 'preferences' && <PreferenceCenter />}
+        </div>
+      )}
+
+      {tab === 'automations' && (
+      <>
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', marginBottom: '1.25rem' }}>
         <StatCard label="Emails sent" value={fleet.sent} icon={<Icon name="send" size={18} />} spark={spark(4, 12, 1.1)} />
         <StatCard label="Open rate" value={fleet.openRate} format={pct} icon={<Icon name="mail" size={18} />} accent="#0ea5a3" sparkColor="#0ea5a3" spark={spark(7, 12, 0.7)} />
@@ -216,6 +253,8 @@ export default function MarketingAutomations() {
             );
           })}
         </div>
+      )}
+      </>
       )}
 
       {editing && (

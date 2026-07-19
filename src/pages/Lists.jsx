@@ -16,6 +16,8 @@ import {
   resolveListMembers, resolveListRecipients,
   audienceMemberCount, audienceRecipientCount,
   createList, updateList, deleteList, duplicateList,
+  emptySegment, normSegment, segmentMemberCount, segmentRecipientCount,
+  segmentConditionCount, describeSegment, SEGMENT_MATCH,
 } from '../lib/lists.js';
 import {
   Button, Card, Badge, SectionHeader, Field, Input, Select, Textarea, Modal,
@@ -23,7 +25,9 @@ import {
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 
-const KIND_TONE = { static: 'info', active: 'accent' };
+const KIND_TONE = { static: 'info', active: 'accent', segment: 'warn' };
+const KIND_LABEL = { static: 'Static', active: 'Active', segment: 'Segment' };
+const KIND_LABEL_LONG = { static: 'Static (snapshot)', active: 'Active (filter)', segment: 'Segment (AND/OR)' };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ------------------------------------------------------------
@@ -97,6 +101,122 @@ function FilterEditor({ objectType, filters, onChange }) {
 }
 
 /* ------------------------------------------------------------
+   Segment builder: AND/OR condition GROUPS. Each group has its own
+   all/any match over its conditions; the groups themselves combine
+   with a top-level all/any match. This is the Mailchimp / HubSpot
+   style segment editor. Reads live counts as you build.
+   ------------------------------------------------------------ */
+function MatchToggle({ value, onChange, size = 'sm' }) {
+  return (
+    <div className="row" style={{ background: 'var(--n-100)', borderRadius: 999, padding: 2, gap: 2 }}>
+      {SEGMENT_MATCH.map(o => {
+        const on = o.value === value;
+        return (
+          <button key={o.value} type="button" onClick={() => onChange(o.value)}
+            className="fw-6 t-xs"
+            style={{
+              padding: size === 'sm' ? '.2rem .55rem' : '.3rem .7rem', borderRadius: 999, border: 'none', cursor: 'pointer',
+              background: on ? 'var(--paper)' : 'transparent', color: on ? 'var(--ink)' : 'var(--n-600)',
+              boxShadow: on ? 'var(--shadow-sm)' : 'none',
+            }}>
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function ConditionRow({ objectType, condition, onChange, onRemove }) {
+  const fields = useMemo(
+    () => getFields(objectType).filter(f => !f.computed && f.type !== 'sublist' && f.type !== 'json'),
+    [objectType],
+  );
+  const fd = getField(objectType, condition.fieldKey);
+  const ops = opsForType(fd?.type);
+  return (
+    <div className="row gap-1 wrap" style={{ alignItems: 'center' }}>
+      <select className="select" value={condition.fieldKey}
+        onChange={e => { const nf = getField(objectType, e.target.value); onChange({ fieldKey: e.target.value, op: opsForType(nf?.type)[0], value: '' }); }}
+        style={{ padding: '.4rem .5rem', fontSize: '.9rem', maxWidth: 180 }}>
+        {fields.map(x => <option key={x.key} value={x.key}>{x.label}</option>)}
+      </select>
+      <select className="select" value={condition.op} onChange={e => onChange({ op: e.target.value })}
+        style={{ padding: '.4rem .5rem', fontSize: '.9rem', maxWidth: 150 }}>
+        {ops.map(o => <option key={o} value={o}>{OP_LABEL[o] || o}</option>)}
+      </select>
+      <ValueInput objectType={objectType} filter={condition} onChange={v => onChange({ value: v })} />
+      <button onClick={onRemove} className="btn btn-quiet btn-sm" style={{ padding: '.2rem .35rem' }} title="Remove condition"><Icon name="x" size={14} /></button>
+    </div>
+  );
+}
+
+function SegmentBuilder({ objectType = 'contact', segment, onChange }) {
+  const seg = normSegment(segment);
+  const setTop = (match) => onChange({ ...seg, match });
+  const setGroups = (groups) => onChange({ ...seg, groups });
+  const patchGroup = (gi, patch) => setGroups(seg.groups.map((g, j) => j === gi ? { ...g, ...patch } : g));
+  const addGroup = () => {
+    const fd = getFields(objectType).filter(f => !f.computed && f.type !== 'sublist' && f.type !== 'json')[0] || {};
+    setGroups([...seg.groups, { match: 'all', conditions: [{ fieldKey: fd.key, op: opsForType(fd.type)[0], value: '' }] }]);
+  };
+  const removeGroup = (gi) => setGroups(seg.groups.filter((_, j) => j !== gi));
+  const addCondition = (gi) => {
+    const fd = getFields(objectType).filter(f => !f.computed && f.type !== 'sublist' && f.type !== 'json')[0] || {};
+    patchGroup(gi, { conditions: [...(seg.groups[gi].conditions || []), { fieldKey: fd.key, op: opsForType(fd.type)[0], value: '' }] });
+  };
+  const patchCondition = (gi, ci, patch) => patchGroup(gi, { conditions: seg.groups[gi].conditions.map((c, j) => j === ci ? { ...c, ...patch } : c) });
+  const removeCondition = (gi, ci) => patchGroup(gi, { conditions: seg.groups[gi].conditions.filter((_, j) => j !== ci) });
+
+  const totalConds = segmentConditionCount(seg);
+
+  return (
+    <div className="col gap-2">
+      <div className="row between wrap gap-2" style={{ alignItems: 'center' }}>
+        <span className="t-xs muted">Combine groups with</span>
+        <MatchToggle value={seg.match} onChange={setTop} size="md" />
+      </div>
+
+      {seg.groups.map((g, gi) => (
+        <div key={gi}>
+          {gi > 0 && (
+            <div className="row center" style={{ margin: '.15rem 0' }}>
+              <Badge tone={seg.match === 'any' ? 'warn' : 'accent'}>{seg.match === 'any' ? 'OR' : 'AND'}</Badge>
+            </div>
+          )}
+          <div style={{ border: '1px solid var(--line)', borderRadius: 'var(--r-sm)', padding: '.7rem', background: 'var(--n-50)' }}>
+            <div className="row between wrap gap-2" style={{ alignItems: 'center', marginBottom: '.55rem' }}>
+              <div className="row gap-2" style={{ alignItems: 'center' }}>
+                <span className="t-xs fw-6 muted">Match</span>
+                <MatchToggle value={g.match} onChange={m => patchGroup(gi, { match: m })} />
+                <span className="t-xs muted">of these</span>
+              </div>
+              {seg.groups.length > 1 && (
+                <button onClick={() => removeGroup(gi)} className="btn btn-quiet btn-sm" style={{ padding: '.2rem .4rem' }} title="Remove group"><Icon name="trash" size={14} /></button>
+              )}
+            </div>
+            <div className="col gap-2">
+              {(g.conditions || []).length === 0 && <div className="t-sm muted">Empty group. Add a condition or it matches everyone.</div>}
+              {(g.conditions || []).map((c, ci) => (
+                <ConditionRow key={ci} objectType={objectType} condition={c}
+                  onChange={patch => patchCondition(gi, ci, patch)}
+                  onRemove={() => removeCondition(gi, ci)} />
+              ))}
+              <div><Button variant="ghost" size="sm" onClick={() => addCondition(gi)}><Icon name="plus" size={14} /> Add condition</Button></div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <div className="row between wrap gap-2" style={{ alignItems: 'center' }}>
+        <Button variant="quiet" size="sm" onClick={addGroup}><Icon name="plus" size={14} /> Add group</Button>
+        <span className="t-xs muted">{totalConds} condition{totalConds === 1 ? '' : 's'} - {describeSegment(seg)}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------
    Static-list member picker: search + checklist over contacts.
    ------------------------------------------------------------ */
 function ContactPicker({ selected, onChange }) {
@@ -146,7 +266,7 @@ function ContactPicker({ selected, onChange }) {
 /* ------------------------------------------------------------
    Create / edit modal
    ------------------------------------------------------------ */
-const EMPTY = { id: null, name: '', kind: 'static', description: '', filters: [], contactIds: [] };
+const EMPTY = { id: null, name: '', kind: 'static', description: '', filters: [], contactIds: [], segment: null };
 
 function ListEditor({ open, onClose, initial, onSaved }) {
   const toast = useToast();
@@ -154,30 +274,41 @@ function ListEditor({ open, onClose, initial, onSaved }) {
   const [d, setD] = useState(EMPTY);
 
   React.useEffect(() => {
-    if (open) setD(initial ? { ...EMPTY, ...initial } : EMPTY);
+    if (open) setD(initial ? { ...EMPTY, segment: initial.segment || null, ...initial } : { ...EMPTY, segment: emptySegment() });
   }, [open, initial]);
 
   const set = (k, v) => setD(prev => ({ ...prev, [k]: v }));
   const isEdit = !!d.id;
 
-  const previewCount = d.kind === 'active'
-    ? audienceMemberCount({ type: 'filter', filters: d.filters })
-    : (d.contactIds || []).length;
-  const emailCount = d.kind === 'active'
-    ? audienceRecipientCount({ type: 'filter', filters: d.filters })
-    : (d.contactIds || []).map(id => getContacts().find(c => c.id === id)).filter(c => c && EMAIL_RE.test((c.email || '').trim())).length;
+  // Ensure a segment object exists the moment the segment kind is chosen.
+  const setKind = (kind) => setD(prev => ({ ...prev, kind, segment: kind === 'segment' ? (prev.segment || emptySegment()) : prev.segment }));
+
+  const previewCount = d.kind === 'segment'
+    ? segmentMemberCount(d.segment)
+    : d.kind === 'active'
+      ? audienceMemberCount({ type: 'filter', filters: d.filters })
+      : (d.contactIds || []).length;
+  const emailCount = d.kind === 'segment'
+    ? segmentRecipientCount(d.segment)
+    : d.kind === 'active'
+      ? audienceRecipientCount({ type: 'filter', filters: d.filters })
+      : (d.contactIds || []).map(id => getContacts().find(c => c.id === id)).filter(c => c && EMAIL_RE.test((c.email || '').trim())).length;
 
   const save = () => {
     if (!d.name.trim()) { toast('Name your list', 'risk'); return; }
     if (isEdit) {
-      const patch = d.kind === 'active' ? { name: d.name, description: d.description, filters: d.filters } : { name: d.name, description: d.description, contactIds: d.contactIds };
+      const patch = d.kind === 'segment'
+        ? { name: d.name, description: d.description, segment: d.segment }
+        : d.kind === 'active'
+          ? { name: d.name, description: d.description, filters: d.filters }
+          : { name: d.name, description: d.description, contactIds: d.contactIds };
       const r = updateList(d.id, patch);
       if (r.error) { toast(r.message, 'risk'); return; }
       toast('List updated');
       onSaved?.(r.list); onClose?.();
       return;
     }
-    const r = createList({ name: d.name, kind: d.kind, description: d.description, filters: d.filters, contactIds: d.contactIds });
+    const r = createList({ name: d.name, kind: d.kind, description: d.description, filters: d.filters, contactIds: d.contactIds, segment: d.segment });
     if (r.error) { toast(r.message, 'risk'); return; }
     toast('List created');
     onSaved?.(r.list); onClose?.();
@@ -199,10 +330,10 @@ function ListEditor({ open, onClose, initial, onSaved }) {
           <Field label="List name">
             <Input autoFocus placeholder="Q4 launch VIPs" value={d.name} onChange={e => set('name', e.target.value)} />
           </Field>
-          <Field label="Type" hint={isEdit ? 'Type is fixed after creation' : (d.kind === 'active' ? 'Recomputes from a filter' : 'A fixed, hand-picked snapshot')}>
+          <Field label="Type" hint={isEdit ? 'Type is fixed after creation' : (d.kind === 'segment' ? 'Dynamic AND/OR groups' : d.kind === 'active' ? 'Recomputes from a filter' : 'A fixed, hand-picked snapshot')}>
             {isEdit
-              ? <div style={{ paddingTop: 6 }}><Badge tone={KIND_TONE[d.kind]}>{d.kind === 'active' ? 'Active (filter)' : 'Static (snapshot)'}</Badge></div>
-              : <Segmented options={[{ value: 'static', label: 'Static' }, { value: 'active', label: 'Active' }]} value={d.kind} onChange={v => set('kind', v)} />}
+              ? <div style={{ paddingTop: 6 }}><Badge tone={KIND_TONE[d.kind]}>{KIND_LABEL_LONG[d.kind]}</Badge></div>
+              : <Segmented options={[{ value: 'static', label: 'Static' }, { value: 'active', label: 'Active' }, { value: 'segment', label: 'Segment' }]} value={d.kind} onChange={setKind} />}
           </Field>
         </div>
 
@@ -210,7 +341,11 @@ function ListEditor({ open, onClose, initial, onSaved }) {
           <Textarea rows={2} placeholder="What is this audience for?" value={d.description} onChange={e => set('description', e.target.value)} />
         </Field>
 
-        {d.kind === 'active' ? (
+        {d.kind === 'segment' ? (
+          <Field label="Segment rules" hint="Groups of typed conditions combined with all/any (AND/OR) logic. Recomputes live.">
+            <SegmentBuilder objectType="contact" segment={d.segment} onChange={seg => set('segment', seg)} />
+          </Field>
+        ) : d.kind === 'active' ? (
           <Field label="Membership filter">
             <FilterEditor objectType="contact" filters={d.filters} onChange={f => set('filters', f)} />
           </Field>
@@ -235,9 +370,10 @@ function MembersModal({ list, onClose }) {
     <Modal open={!!list} onClose={onClose} title={`${list.name} - members`} width={620}
       footer={<Button variant="primary" onClick={onClose}>Close</Button>}>
       <div className="row gap-2 wrap" style={{ marginBottom: '.9rem' }}>
-        <Badge tone={KIND_TONE[list.kind]}>{list.kind === 'active' ? 'Active (filter)' : 'Static (snapshot)'}</Badge>
+        <Badge tone={KIND_TONE[list.kind]}>{KIND_LABEL_LONG[list.kind]}</Badge>
         <Badge tone="accent">{members.length.toLocaleString()} contacts</Badge>
         <Badge>{recipients.length.toLocaleString()} emailable</Badge>
+        {list.kind === 'segment' && <Badge tone="warn">{describeSegment(list.segment)}</Badge>}
       </div>
       {members.length === 0 ? (
         <EmptyState icon="👥" title="No members yet" body={list.kind === 'active' ? 'No contacts match this filter right now.' : 'Add contacts to this list from the edit screen.'} />
@@ -285,14 +421,14 @@ export default function Lists() {
     <div className="col gap-3 fade-up">
       <SectionHeader
         title="Lists"
-        sub="Build the audiences your campaigns send to - static snapshots or live filters"
+        sub="Build the audiences your campaigns send to - static snapshots, live filters, or AND/OR segments"
         action={<Button variant="primary" size="sm" onClick={openNew}><Icon name="plus" size={16} /> New list</Button>}
       />
 
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))' }}>
         <StatCard label="Lists" value={stats.total} sub="in this workspace" icon={<Icon name="list" size={18} />} />
+        <StatCard label="Segments" value={stats.segment} sub="AND/OR dynamic" icon={<Icon name="filter" size={18} />} accent="#e0752d" />
         <StatCard label="Active lists" value={stats.active} sub="filter-driven" icon={<Icon name="filter" size={18} />} accent="#0ea5a3" />
-        <StatCard label="Static lists" value={stats.static} sub="hand-picked" icon={<Icon name="users" size={18} />} accent="#e0752d" />
         <StatCard label="Members" value={stats.totalMembers} sub="across all lists" icon={<Icon name="mail" size={18} />} />
       </div>
 
@@ -314,7 +450,7 @@ export default function Lists() {
                   <div className="col gap-1" style={{ minWidth: 0, flex: '1 1 320px' }}>
                     <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap', minWidth: 0 }}>
                       <span className="fw-7" style={{ color: 'var(--ink)', fontSize: '1.02rem' }}>{l.name}</span>
-                      <Badge tone={KIND_TONE[l.kind]}>{l.kind === 'active' ? 'Active' : 'Static'}</Badge>
+                      <Badge tone={KIND_TONE[l.kind]}>{KIND_LABEL[l.kind]}</Badge>
                     </div>
                     {l.description && <div className="t-sm muted clip">{l.description}</div>}
                     <div className="row gap-3 t-xs muted wrap" style={{ marginTop: 2 }}>
