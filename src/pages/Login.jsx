@@ -11,6 +11,7 @@ import { Icon } from '../components/icons.jsx';
 import { login, signUp, completeLogin2fa, loginWithGoogleCredential } from '../lib/auth-local.js';
 import { grantAccessCode } from '../lib/access-mode.js';
 import AuthGuide from '../components/AuthGuide.jsx';
+import AuthBackdrop from '../components/AuthBackdrop.jsx';
 import AuthTrust from '../components/AuthTrust.jsx';
 import { scorePassword, checkPwned } from '../lib/password-strength.js';
 import { hasPhone, HELP_NUMBER, formatPhone, telHref } from '../lib/concierge.js';
@@ -131,7 +132,7 @@ export default function Login() {
   return (
     <div className="lg-wrap">
       <div className="lg-aside">
-        <div className="lg-orbs" aria-hidden><span /><span /><span /></div>
+        <AuthBackdrop tint="teal" />
         <div className="lg-aside-in">
           <div className="lg-brand"><span className="lg-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} /></div>
@@ -264,7 +265,13 @@ function LoginStyles() {
 
     .lg-panel { display: flex; flex-direction: column; padding: 32px 32px 26px; background: var(--m-bg, #fff); }
     .lg-panel-body { flex: 1; display: grid; place-items: center; width: 100%; }
-    .lg-card { width: 100%; max-width: 400px; }
+    .lg-card { width: 100%; max-width: 400px; animation: lgCardIn .55s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes lgCardIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
+    .lg-form > * { animation: lgFieldIn .5s cubic-bezier(.22,1,.36,1) both; }
+    .lg-form > *:nth-child(1) { animation-delay: .05s; } .lg-form > *:nth-child(2) { animation-delay: .11s; }
+    .lg-form > *:nth-child(3) { animation-delay: .17s; } .lg-form > *:nth-child(4) { animation-delay: .23s; }
+    @keyframes lgFieldIn { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .lg-card, .lg-form > * { animation: none; } }
     .lg-logo { display: none; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: #0d1117; margin-bottom: 24px; }
     @media (max-width: 820px) { .lg-logo { display: flex; } .lg-panel { background: #fff; } }
     .lg-h { font-size: 27px; font-weight: 900; letter-spacing: -.02em; color: #0d1117; margin: 0; }
@@ -290,9 +297,12 @@ function LoginStyles() {
     .lg-meter-note.n-risk { color: #c0392b; } .lg-meter-note.n-ok { color: #0b8578; }
     .lg-code { letter-spacing: .4em; font-size: 22px !important; text-align: center; font-weight: 700; }
     .lg-err { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 600; color: #c0392b; background: #fdecea; border: 1px solid #f5c6c0; border-radius: 10px; padding: 10px 12px; }
-    .lg-submit { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #0e9f8f, #14b8a6); border: none; border-radius: 13px; padding: 14px; cursor: pointer; box-shadow: 0 14px 32px -14px rgba(14,159,143,.7); transition: transform .14s; margin-top: 4px; }
-    .lg-submit:hover:not(:disabled) { transform: translateY(-2px); }
+    .lg-submit { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #0e9f8f, #14b8a6); border: none; border-radius: 13px; padding: 14px; cursor: pointer; box-shadow: 0 14px 32px -14px rgba(14,159,143,.7); transition: transform .14s, box-shadow .14s; margin-top: 4px; }
+    .lg-submit::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-18deg); animation: lgSheen 4.5s ease-in-out infinite; }
+    @keyframes lgSheen { 0%, 55% { left: -60%; } 80%, 100% { left: 130%; } }
+    .lg-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 20px 40px -14px rgba(14,159,143,.8); }
     .lg-submit:disabled { opacity: .7; cursor: default; }
+    @media (prefers-reduced-motion: reduce) { .lg-submit::after { animation: none; display: none; } }
     .lg-alt { text-align: center; font-size: 14px; color: #5b6474; margin-top: 20px; }
     .lg-alt button { font-family: inherit; font-size: 14px; font-weight: 700; color: #0e9f8f; background: none; border: none; cursor: pointer; padding: 0; }
     .lg-alt-sep { color: #d3d8e0; margin: 0 10px; }

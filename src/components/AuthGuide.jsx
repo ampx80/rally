@@ -54,6 +54,9 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
   return (
     <div ref={rootRef} className={`ag-root${reduce ? ' ag-reduce' : ''}`} style={{ '--ag-size': `${size}px`, '--ag-glow': glow }}>
       <div className={`ag-char ag-${mood}`}>
+        {!compact && !reduce && (
+          <div className="ag-rings" aria-hidden><span /><span /><i /></div>
+        )}
         <div className="ag-shadow" aria-hidden />
         <svg viewBox="0 0 160 160" className="ag-svg" role="img" aria-label="Ardo, your login guide">
           <defs>
@@ -147,7 +150,16 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
       <style>{`
         .ag-root { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; --px: 0; --py: 0; }
         .ag-char { position: relative; width: var(--ag-size); height: var(--ag-size); }
-        .ag-svg { width: 100%; height: 100%; display: block; overflow: visible; animation: agFloat 5.5s ease-in-out infinite; }
+        .ag-svg { position: relative; z-index: 1; width: 100%; height: 100%; display: block; overflow: visible; animation: agFloat 5.5s ease-in-out infinite; }
+
+        /* orbiting energy rings behind Ardo (desktop presence) */
+        .ag-rings { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .ag-rings span, .ag-rings i { position: absolute; top: 50%; left: 50%; border-radius: 50%; transform: translate(-50%, -50%); }
+        .ag-rings span:nth-child(1) { width: 148%; height: 148%; border: 1.5px dashed rgba(20,184,166,.4); animation: agSpin 16s linear infinite; }
+        .ag-rings span:nth-child(2) { width: 196%; height: 196%; border: 1.5px dashed rgba(124,92,247,.32); animation: agSpin 26s linear infinite reverse; }
+        .ag-rings i { width: 148%; height: 148%; animation: agSpin 16s linear infinite; }
+        .ag-rings i::before { content: ''; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #14b8a6; box-shadow: 0 0 10px 2px rgba(20,184,166,.8); }
+        @keyframes agSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
         .ag-reduce .ag-svg { animation: none; }
         @keyframes agFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
 

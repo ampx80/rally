@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import AuthGuide from '../components/AuthGuide.jsx';
+import AuthBackdrop from '../components/AuthBackdrop.jsx';
 import AuthTrust from '../components/AuthTrust.jsx';
 import { accountFactors, loginWithRecoveryCode, setAccountPassword } from '../lib/auth-local.js';
 import { grantAccessCode } from '../lib/access-mode.js';
@@ -80,7 +81,7 @@ export default function Recover() {
   return (
     <div className="rc-wrap">
       <div className="rc-aside">
-        <div className="rc-orbs" aria-hidden><span /><span /></div>
+        <AuthBackdrop tint="teal" />
         <div className="rc-aside-in">
           <div className="rc-brand"><span className="rc-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="rc-guide"><AuthGuide mood={mood} message={message} size={150} /></div>
@@ -232,7 +233,9 @@ function RecoverStyles() {
 
     .rc-panel { display: flex; flex-direction: column; padding: 32px 32px 26px; background: #fff; }
     .rc-panel-body { flex: 1; display: grid; place-items: center; width: 100%; }
-    .rc-card { width: 100%; max-width: 420px; }
+    .rc-card { width: 100%; max-width: 420px; animation: rcCardIn .55s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes rcCardIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .rc-card { animation: none; } }
     .rc-logo { display: none; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: #0d1117; margin-bottom: 24px; }
     @media (max-width: 820px) { .rc-logo { display: flex; } }
     .rc-h { font-size: 26px; font-weight: 900; letter-spacing: -.02em; color: #0d1117; margin: 0; }
@@ -254,9 +257,12 @@ function RecoverStyles() {
     .rc-meter-fill.t-info { background: #2f8fd6; } .rc-meter-fill.t-ok { background: #0e9f8f; }
     .rc-meter-note { font-size: 12.5px; font-weight: 600; color: #5b6474; }
     .rc-err { display: flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 600; color: #c0392b; background: #fdecea; border: 1px solid #f5c6c0; border-radius: 10px; padding: 10px 12px; }
-    .rc-submit { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #0e9f8f, #14b8a6); border: none; border-radius: 13px; padding: 14px; cursor: pointer; box-shadow: 0 14px 32px -14px rgba(14,159,143,.7); transition: transform .14s; margin-top: 4px; }
-    .rc-submit:hover:not(:disabled) { transform: translateY(-2px); }
+    .rc-submit { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; font-size: 16px; font-weight: 800; color: #fff; background: linear-gradient(100deg, #0e9f8f, #14b8a6); border: none; border-radius: 13px; padding: 14px; cursor: pointer; box-shadow: 0 14px 32px -14px rgba(14,159,143,.7); transition: transform .14s, box-shadow .14s; margin-top: 4px; }
+    .rc-submit::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-18deg); animation: rcSheen 4.5s ease-in-out infinite; }
+    @keyframes rcSheen { 0%, 55% { left: -60%; } 80%, 100% { left: 130%; } }
+    .rc-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 20px 40px -14px rgba(14,159,143,.8); }
     .rc-submit:disabled { opacity: .6; cursor: default; }
+    @media (prefers-reduced-motion: reduce) { .rc-submit::after { animation: none; display: none; } }
     .rc-alt { text-align: center; font-size: 14px; color: #5b6474; margin-top: 18px; }
     .rc-alt button { font-family: inherit; font-size: 14px; font-weight: 700; color: #0e9f8f; background: none; border: none; cursor: pointer; padding: 0; }
     .rc-doors { display: flex; flex-direction: column; gap: 10px; }

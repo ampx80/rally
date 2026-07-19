@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import AuthGuide from '../components/AuthGuide.jsx';
+import AuthBackdrop from '../components/AuthBackdrop.jsx';
 import { hasPhone, HELP_NUMBER, HELP_EMAIL, formatPhone, telHref } from '../lib/concierge.js';
 
 // Copy adapts to what is actually wired: when a live phone line exists we say
@@ -34,7 +35,7 @@ export default function LoginHelp() {
   return (
     <div className="lh-wrap">
       <div className="lh-aside">
-        <div className="lh-orbs" aria-hidden><span /><span /></div>
+        <AuthBackdrop tint="violet" />
         <div className="lh-aside-in">
           <div className="lh-brand"><span className="lh-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="lh-guide"><AuthGuide mood="listening" message={phone ? "You reached login help. Tell me what's happening and we'll get you in - a real person is one call away too." : "You reached login help. Tell me what's happening and we'll get you in - fast, and never from scratch."} size={150} /></div>
@@ -108,7 +109,12 @@ function LoginHelpStyles() {
     .lh-orbs span:nth-child(2) { width: 260px; height: 260px; background: #0e9f8f; bottom: 40px; left: -60px; opacity: .3; }
 
     .lh-panel { display: grid; place-items: center; padding: 32px; background: #fff; }
-    .lh-card { width: 100%; max-width: 440px; }
+    .lh-card { width: 100%; max-width: 440px; animation: lhCardIn .55s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes lhCardIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
+    .lh-chan { animation: lhChanIn .5s cubic-bezier(.22,1,.36,1) both; }
+    .lh-chan:nth-child(1) { animation-delay: .06s; } .lh-chan:nth-child(2) { animation-delay: .13s; } .lh-chan:nth-child(3) { animation-delay: .2s; }
+    @keyframes lhChanIn { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .lh-card, .lh-chan { animation: none; } }
     .lh-logo { display: none; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: #0d1117; margin-bottom: 24px; }
     @media (max-width: 820px) { .lh-logo { display: flex; } }
     .lh-h { font-size: 26px; font-weight: 900; letter-spacing: -.02em; color: #0d1117; margin: 0; }
