@@ -169,6 +169,7 @@ import Compliance from './marketing/Compliance.jsx';
 import Enterprise from './marketing/Enterprise.jsx';
 import Login from './pages/Login.jsx';
 import SecurityCenter from './pages/Security.jsx';
+import DataExport from './pages/DataExport.jsx';
 import VsAgentforce from './marketing/VsAgentforce.jsx';
 import { useDemo, isLockedPath, exitDemo } from './lib/demo-mode.js';
 import { ACCESS_EVENT } from './lib/access-mode.js';
@@ -181,7 +182,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training', 'data-export']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -292,6 +293,7 @@ const ALL_ITEMS = [
   { to: '/marketplace', label: 'Marketplace', icon: 'store', cat: 'Admin' },
   { to: '/integrations', label: 'Integrations', icon: 'plug', cat: 'Admin' },
   { to: '/datasync', label: 'Data sync', icon: 'swap', cat: 'Admin' },
+  { to: '/data-export', label: 'Export data', icon: 'download', cat: 'Admin' },
   { to: '/sandboxes', label: 'Sandboxes', icon: 'beaker', cat: 'Admin' },
   { to: '/app-manager', label: 'App Manager', icon: 'toggles', cat: 'Admin' },
   { to: '/roles', label: 'Roles', icon: 'roleShield', cat: 'Admin' },
@@ -941,6 +943,7 @@ export default function App() {
               <Route path="/team" element={<Team />} />
               <Route path="/audit" element={<AuditLog />} />
               <Route path="/import" element={<ImportData />} />
+              <Route path="/data-export" element={<DataExport />} />
               <Route path="/qualify" element={<QualifyConfig />} />
               <Route path="/migrate" element={<MigrationWizard />} />
               <Route path="/training" element={<Training />} />

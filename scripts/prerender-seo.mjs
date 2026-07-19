@@ -163,7 +163,10 @@ await writeFile(join(DIST, 'pages', 'index.html'), hubHtml(shell), 'utf8');
 // the /guides juggernaut track. The thin-mass /pages (glossary, feature,
 // template, bulk topic-guides) stay out of the sitemap and carry noindex, but
 // remain crawlable so Google still sees the full site architecture.
-const staticUrls = ['/', '/features', '/product/rook', '/pricing', '/security', '/manifesto', '/guides'];
+const staticUrls = [
+  '/', '/features', '/product/rook', '/pricing', '/security', '/manifesto', '/guides',
+  '/enterprise', '/ai-trust', '/security/faq', '/legal', '/customers', '/about', '/demo',
+];
 const urls = [
   ...staticUrls.map(u => ({ loc: SITE + u, pri: u === '/' ? '1.0' : (u === '/guides' ? '0.9' : '0.8'), freq: 'weekly' })),
   ...ENTRIES.filter(isKeep).map(e => ({ loc: canonicalFor(e.slug), pri: '0.7', freq: 'monthly', lastmod: e.updated })),
