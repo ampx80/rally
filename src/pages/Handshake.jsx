@@ -105,6 +105,15 @@ export default function Handshake() {
     // eslint-disable-next-line
   }, [pendingRun, session]);
 
+  // Deep link from a deal: /handshake?deal=<id>&run=1 preselects + auto-runs.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get('deal');
+    if (d && deals.some(x => x.id === d)) setDealId(d);
+    if (params.get('run') === '1') setPendingRun(true);
+    // eslint-disable-next-line
+  }, []);
+
   useEffect(() => {
     if (!running || !session) return;
     if (shown >= session.rounds.length) { setRunning(false); return; }

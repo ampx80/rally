@@ -236,6 +236,7 @@ export default function DealDetail() {
           {extras.nextStep && <span className="t-sm muted clip" style={{ maxWidth: 280 }}>Next: {extras.nextStep}</span>}
         </div>
         <div className="row gap-1" style={{ flex: 'none' }}>
+          {deal.status === 'open' && <Button variant="ghost" size="sm" onClick={() => nav(`/handshake?deal=${deal.id}&run=1`)}><Icon name="merge" size={15} /> Negotiate</Button>}
           <Button variant="ai" size="sm" onClick={askRook}><Icon name="sparkles" size={15} /> Ask Rook</Button>
           <Button variant="ghost" size="sm" onClick={shareDealRoom}><Icon name="share2" size={15} /> Share</Button>
         </div>

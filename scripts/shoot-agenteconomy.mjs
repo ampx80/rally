@@ -80,5 +80,18 @@ await check('command-center', '/app', async () => {
   return `boardroomBrief=${brief} card=${rationale}`;
 });
 
+await check('handshake-deeplink', '/handshake?deal=d_flagship&run=1', async () => {
+  await page.waitForTimeout(8500);
+  const sel = await page.locator('.hs-field select').inputValue().catch(() => '');
+  const msgs = await page.locator('.hs-msg').count();
+  return `selected=${sel} msgs=${msgs}`;
+});
+
+await check('deal-negotiate', '/deals/d_flagship', async () => {
+  await page.waitForTimeout(1200);
+  const btn = await page.getByRole('button', { name: /Negotiate/i }).count();
+  return `negotiateBtn=${btn}`;
+});
+
 console.log(fail === 0 ? 'ALL CLEAN' : 'FAILURES ' + fail);
 await browser.close();
