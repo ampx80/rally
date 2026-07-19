@@ -30,6 +30,38 @@ import { formatValue, AGGREGATIONS } from './report-builder.js';
 const cap = (s) => String(s || '').replace(/^\w/, c => c.toUpperCase());
 const weighted = (d) => (Number(d.value) || 0) * ((d.probability ?? 0) / 100);
 
+/* Deterministic per-deal lead source (same mix the Marketing Hub uses), kept
+   self-contained so this module never hard-depends on markethub-data.js. */
+const LEAD_SOURCE_MIX = [
+  { label: 'Organic Search', w: 18 }, { label: 'Paid Search', w: 14 },
+  { label: 'Email', w: 12 }, { label: 'Social', w: 10 },
+  { label: 'Events', w: 8 }, { label: 'Referral', w: 8 },
+  { label: 'Content', w: 8 }, { label: 'Outbound Sales', w: 22 },
+];
+function strhash(s) {
+  let h = 0; const str = String(s == null ? '' : s);
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+function leadSourceFor(deal) {
+  const total = LEAD_SOURCE_MIX.reduce((s, m) => s + m.w, 0);
+  let r = strhash('src|' + (deal?.id || '')) % total;
+  for (const m of LEAD_SOURCE_MIX) { if (r < m.w) return m.label; r -= m.w; }
+  return 'Outbound Sales';
+}
+// Per-deal email + total activity counts (a real deal -> activities join).
+function engagementByDeal() {
+  const emails = new Map(), touches = new Map();
+  try {
+    for (const a of getActivities()) {
+      if (a.relatedType !== 'deal' || !a.relatedId) continue;
+      touches.set(a.relatedId, (touches.get(a.relatedId) || 0) + 1);
+      if (a.type === 'email') emails.set(a.relatedId, (emails.get(a.relatedId) || 0) + 1);
+    }
+  } catch {}
+  return { emails, touches };
+}
+
 /* ============================================================
    REGISTRY
    A report type flattens a join into rows carrying plain values, so
@@ -145,6 +177,49 @@ export const JOIN_TYPES = [
           relatedType: cap(a.relatedType || 'none'),
           done: a.done ? 'Completed' : 'Open',
           company: co?.name || 'Unassigned',
+        });
+      }
+      return rows;
+    },
+  },
+  {
+    id: 'pipeline-source-engagement',
+    label: 'Pipeline by source + engagement',
+    desc: 'Each deal joined to its lead source and its email engagement. The cross-object view for "which channels drive pipeline, and how engaged are they".',
+    icon: 'radar', noun: 'deal',
+    dims: [
+      { id: 'leadSource', label: 'Lead source' },
+      { id: 'stage', label: 'Deal stage' },
+      { id: 'status', label: 'Deal status' },
+      { id: 'industry', label: 'Industry' },
+      { id: 'owner', label: 'Owner' },
+      { id: 'engagementBand', label: 'Engagement band' },
+    ],
+    measures: [
+      { id: 'value', label: 'Pipeline value', type: 'money' },
+      { id: 'weighted', label: 'Weighted value', type: 'money' },
+      { id: 'emailTouches', label: 'Email touches', type: 'number' },
+      { id: 'totalTouches', label: 'Total activities', type: 'number' },
+    ],
+    build() {
+      const { emails, touches } = engagementByDeal();
+      const rows = [];
+      for (const d of getDeals()) {
+        const co = d.companyId ? getCompany(d.companyId) : null;
+        const et = emails.get(d.id) || 0;
+        const band = et === 0 ? 'No engagement' : et <= 2 ? 'Low (1-2)' : et <= 5 ? 'Medium (3-5)' : 'High (6+)';
+        rows.push({
+          id: d.id,
+          leadSource: leadSourceFor(d),
+          stage: stageById(d.stage)?.name || cap(d.stage),
+          status: cap(d.status || 'open'),
+          industry: co?.industry || 'Unknown',
+          owner: userName(d.ownerId),
+          engagementBand: band,
+          value: Number(d.value) || 0,
+          weighted: weighted(d),
+          emailTouches: et,
+          totalTouches: touches.get(d.id) || 0,
         });
       }
       return rows;

@@ -98,5 +98,26 @@
 .rb-recip { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .5rem; border-radius: 999px; background: var(--n-100); font-size: .78rem; font-weight: 600; }
 .rb-recip button { background: none; border: none; cursor: pointer; color: var(--n-600); line-height: 1; display: flex; }
 
+/* ---- pivot (cross-tab) ---- */
+.rb-pivot-wrap { overflow-x: auto; }
+.rb-pivot { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.rb-pivot th { font-weight: 700; color: var(--n-600); padding: .5rem .6rem; border-bottom: 2px solid var(--line); white-space: nowrap; text-align: right; }
+.rb-pivot th.rb-pivot-rowhead { text-align: left; }
+.rb-pivot td { padding: .5rem .6rem; border-bottom: 1px solid var(--line); }
+.rb-pivot-num { text-align: right; font-variant-numeric: tabular-nums; }
+.rb-pivot-rowhead { text-align: left; font-weight: 600; position: sticky; left: 0; background: var(--paper); z-index: 1; }
+.rb-pivot-cell { font-weight: 700; border-radius: 6px; }
+.rb-pivot-zero { color: var(--n-400); font-weight: 600; }
+.rb-pivot-tot { font-weight: 800; color: var(--ink); border-top: 2px solid var(--line); }
+.rb-pivot tfoot .rb-pivot-rowhead { background: var(--page); }
+.rb-pivot-grand { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-600); border-radius: 6px; }
+
+/* ---- share view / dashboard tiles ---- */
+.rb-share-bar { display: flex; align-items: center; gap: .75rem; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.rb-dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+@media (max-width: 900px) { .rb-dash-grid { grid-template-columns: 1fr; } }
+.rb-dash-tile.rb-tile-full { grid-column: 1 / -1; }
+.rb-tile-drag { cursor: grab; color: var(--n-400); }
+
 /* small helper */
 .rb-muted { color: var(--n-600); font-size: .85rem; }

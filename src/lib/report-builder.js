@@ -45,15 +45,22 @@ export const FIELDS = {
     { id: 'stage', label: 'Stage', role: 'dim', type: 'text' },
     { id: 'owner', label: 'Owner', role: 'dim', type: 'text' },
     { id: 'status', label: 'Status', role: 'dim', type: 'text' },
-    { id: 'industry', label: 'Industry', role: 'dim', type: 'text' },
-    { id: 'companySize', label: 'Company size', role: 'dim', type: 'text' },
-    { id: 'health', label: 'Account health', role: 'dim', type: 'text' },
+    { id: 'leadSource', label: 'Lead source', role: 'dim', type: 'text', join: 'source' },
+    { id: 'industry', label: 'Industry', role: 'dim', type: 'text', join: 'company' },
+    { id: 'companySize', label: 'Company size', role: 'dim', type: 'text', join: 'company' },
+    { id: 'health', label: 'Account health', role: 'dim', type: 'text', join: 'company' },
+    { id: 'contactTitle', label: 'Primary contact title', role: 'dim', type: 'text', join: 'contact' },
+    { id: 'engagementBand', label: 'Email engagement band', role: 'dim', type: 'text', join: 'activity' },
     { id: 'closeMonth', label: 'Close month', role: 'dim', type: 'text', temporal: true },
     { id: 'createdMonth', label: 'Created month', role: 'dim', type: 'text', temporal: true },
     { id: 'valueBand', label: 'Deal size band', role: 'dim', type: 'text' },
     { id: 'value', label: 'Deal value', role: 'measure', type: 'money' },
     { id: 'weighted', label: 'Weighted value', role: 'measure', type: 'money' },
     { id: 'probability', label: 'Probability', role: 'measure', type: 'percent' },
+    { id: 'emailTouches', label: 'Email touches', role: 'measure', type: 'number', join: 'activity' },
+    { id: 'meetingTouches', label: 'Meetings', role: 'measure', type: 'number', join: 'activity' },
+    { id: 'activityCount', label: 'Total activities', role: 'measure', type: 'number', join: 'activity' },
+    { id: 'daysOpen', label: 'Days open', role: 'measure', type: 'number' },
     { id: 'closeDate', label: 'Close date', role: 'date', type: 'date' },
     { id: 'createdAt', label: 'Created date', role: 'date', type: 'date' },
   ],
@@ -100,6 +107,7 @@ export const VIZ_TYPES = [
   { id: 'line', label: 'Line', icon: 'trendUp' },
   { id: 'area', label: 'Area', icon: 'trendUp' },
   { id: 'pie', label: 'Donut', icon: 'pie' },
+  { id: 'pivot', label: 'Pivot', icon: 'grid' },
   { id: 'table', label: 'Table', icon: 'list' },
   { id: 'kpi', label: 'Single value', icon: 'target' },
 ];
@@ -147,14 +155,69 @@ const monthLabel = (iso) => {
 };
 const monthOrder = (iso) => { const d = new Date(iso || 0); return d.getFullYear() * 12 + d.getMonth(); };
 
+/* ------------------------------------------------------------
+   LEAD SOURCE (cross-object, deterministic, read-only)
+   Mirrors the deterministic per-deal source mix used by the
+   Marketing Hub (src/lib/markethub-data.js) so a deal's source is
+   stable across reloads and consistent product-wide, WITHOUT taking
+   a hard dependency on that module (kept self-contained + safe).
+   ------------------------------------------------------------ */
+const LEAD_SOURCE_MIX = [
+  { label: 'Organic Search', w: 18 }, { label: 'Paid Search', w: 14 },
+  { label: 'Email', w: 12 }, { label: 'Social', w: 10 },
+  { label: 'Events', w: 8 }, { label: 'Referral', w: 8 },
+  { label: 'Content', w: 8 }, { label: 'Outbound Sales', w: 22 },
+];
+function strhash(s) {
+  let h = 0; const str = String(s == null ? '' : s);
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+function leadSourceFor(deal) {
+  const total = LEAD_SOURCE_MIX.reduce((s, m) => s + m.w, 0);
+  let r = strhash('src|' + (deal?.id || '')) % total;
+  for (const m of LEAD_SOURCE_MIX) { if (r < m.w) return m.label; r -= m.w; }
+  return 'Outbound Sales';
+}
+
+function engagementBand(touches) {
+  const n = Number(touches) || 0;
+  if (n === 0) return 'No engagement';
+  if (n <= 2) return 'Low (1-2)';
+  if (n <= 5) return 'Medium (3-5)';
+  return 'High (6+)';
+}
+
+// One shared, read-only context per run. Precomputes the joins the deal
+// dataset needs so grouping/aggregation stay O(1) per row: company lookup,
+// primary-contact title, and per-deal activity engagement counts (a real
+// deal -> activities join off the live store).
 function buildCtx() {
   const companyMap = new Map(getCompanies().map(c => [c.id, c]));
-  return { companyMap };
+  const contactMap = new Map();
+  try { for (const c of getContacts()) contactMap.set(c.id, c); } catch {}
+  const emailByDeal = new Map();
+  const meetingByDeal = new Map();
+  const actByDeal = new Map();
+  try {
+    for (const a of getActivities()) {
+      if (a.relatedType !== 'deal' || !a.relatedId) continue;
+      actByDeal.set(a.relatedId, (actByDeal.get(a.relatedId) || 0) + 1);
+      if (a.type === 'email') emailByDeal.set(a.relatedId, (emailByDeal.get(a.relatedId) || 0) + 1);
+      if (a.type === 'meeting') meetingByDeal.set(a.relatedId, (meetingByDeal.get(a.relatedId) || 0) + 1);
+    }
+  } catch {}
+  return { companyMap, contactMap, emailByDeal, meetingByDeal, actByDeal };
 }
 
 function companyOf(row, ctx) {
   if (row.companyId) return ctx.companyMap.get(row.companyId) || null;
   return null;
+}
+function primaryContactTitle(row, ctx) {
+  const ids = row.contactIds || [];
+  for (const id of ids) { const c = ctx.contactMap.get(id); if (c && c.title) return c.title; }
+  return 'Unknown';
 }
 
 function valueBand(v) {
@@ -187,6 +250,9 @@ function dimValue(row, source, dim, ctx) {
     case 'type': return cap(row.type || 'other');
     case 'done': return row.done ? 'Completed' : 'Open';
     case 'relatedType': return cap(row.relatedType || 'none');
+    case 'leadSource': return leadSourceFor(row);
+    case 'contactTitle': return primaryContactTitle(row, ctx);
+    case 'engagementBand': return engagementBand(ctx.emailByDeal.get(row.id) || 0);
     case 'valueBand': return valueBand(row.value);
     case 'closeMonth': return monthLabel(row.closeDate);
     case 'createdMonth': return monthLabel(row.createdAt);
@@ -203,21 +269,133 @@ function dimSort(row, dim) {
   return null;
 }
 
-// Numeric value of a measure field for one record.
-function measureValue(row, source, field) {
-  if (field === 'value') return Number(row.value) || 0;
-  if (field === 'weighted') return (Number(row.value) || 0) * ((row.probability ?? 0) / 100);
-  if (field === 'probability') return Number(row.probability) || 0;
-  return 0;
+const DAY_MS = 86400000;
+
+// Numeric value of a BASE (non-computed) measure field for one record.
+// ctx supplies the precomputed deal -> activity joins so engagement measures
+// resolve without re-scanning activities per row.
+function baseMeasureValue(row, source, field, ctx) {
+  switch (field) {
+    case 'value': return Number(row.value) || 0;
+    case 'weighted': return (Number(row.value) || 0) * ((row.probability ?? 0) / 100);
+    case 'probability': return Number(row.probability) || 0;
+    case 'emailTouches': return ctx?.emailByDeal?.get(row.id) || 0;
+    case 'meetingTouches': return ctx?.meetingByDeal?.get(row.id) || 0;
+    case 'activityCount': return ctx?.actByDeal?.get(row.id) || 0;
+    case 'daysOpen': {
+      if (!row.createdAt) return 0;
+      const end = row.status && row.status !== 'open' && row.closeDate ? new Date(row.closeDate).getTime() : Date.now();
+      return Math.max(0, Math.round((end - new Date(row.createdAt).getTime()) / DAY_MS));
+    }
+    default: return 0;
+  }
+}
+
+// Numeric value of a measure field, resolving computed fields (cf_*) against
+// the definition's formula recipes. `def` is optional (only needed for cf_*).
+function measureValue(row, source, field, ctx, def) {
+  if (typeof field === 'string' && field.startsWith('cf_') && def) {
+    const cf = (def.computed || []).find(c => c.id === field);
+    if (cf) return evalComputed(cf, row, source, ctx, def);
+    return 0;
+  }
+  return baseMeasureValue(row, source, field, ctx);
 }
 
 // The raw value used by filters (string or number).
-function filterValue(row, source, fieldId, ctx) {
-  const f = fieldById(source, fieldId);
+function filterValue(row, source, fieldId, ctx, def) {
+  const f = fieldById(source, fieldId) || (def && (def.computed || []).find(c => c.id === fieldId) && { role: 'measure' });
   if (!f) return '';
-  if (f.role === 'measure') return measureValue(row, source, fieldId);
+  if (f.role === 'measure') return measureValue(row, source, fieldId, ctx, def);
   if (f.role === 'date') return new Date(row[fieldId] || 0).getTime();
   return dimValue(row, source, fieldId, ctx);
+}
+
+/* ============================================================
+   COMPUTED FIELDS
+   User-defined measures expressed as a formula over the source's base
+   numeric fields (e.g. "value * probability / 100", "value / emailTouches").
+   Evaluated per record, then aggregated like any other measure. The formula
+   is parsed with a small, SAFE shunting-yard evaluator (identifiers, numbers,
+   + - * / % and parentheses). NO eval / Function - nothing arbitrary runs.
+   A computed field id is always prefixed 'cf_' so it never collides with a
+   base field. Division by zero yields 0 so the report never shows NaN.
+   ============================================================ */
+
+// Base numeric field ids selectable inside a formula, per source.
+export function formulaVars(source) {
+  return measureFieldsFor(source).filter(f => !String(f.id).startsWith('cf_'));
+}
+
+const TOKEN_RE = /\s*([A-Za-z_][A-Za-z0-9_]*|\d+\.?\d*|[-+*/%()])/g;
+function tokenize(expr) {
+  const out = [];
+  let m;
+  TOKEN_RE.lastIndex = 0;
+  let last = 0;
+  while ((m = TOKEN_RE.exec(expr)) !== null) {
+    if (m.index !== last) return null; // an unrecognized character slipped in
+    out.push(m[1]);
+    last = TOKEN_RE.lastIndex;
+  }
+  if (last !== expr.length) return null;
+  return out;
+}
+const PREC = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2 };
+// Compile a formula string to RPN once (returns null if malformed).
+function compileFormula(expr) {
+  const toks = tokenize(String(expr || ''));
+  if (!toks || !toks.length) return null;
+  const output = [], ops = [];
+  let expectValue = true;
+  for (const t of toks) {
+    if (/^[A-Za-z_]/.test(t) || /^\d/.test(t)) {
+      output.push(t); expectValue = false;
+    } else if (t === '(') { ops.push(t); expectValue = true; }
+    else if (t === ')') {
+      while (ops.length && ops[ops.length - 1] !== '(') output.push(ops.pop());
+      if (!ops.length) return null;
+      ops.pop(); expectValue = false;
+    } else { // operator
+      if (expectValue && t === '-') { output.push('0'); } // unary minus
+      while (ops.length && ops[ops.length - 1] !== '(' && PREC[ops[ops.length - 1]] >= PREC[t]) output.push(ops.pop());
+      ops.push(t); expectValue = true;
+    }
+  }
+  while (ops.length) { const o = ops.pop(); if (o === '(') return null; output.push(o); }
+  return output;
+}
+export function validateFormula(expr, source) {
+  const rpn = compileFormula(expr);
+  if (!rpn) return { ok: false, error: 'Check the syntax of the formula.' };
+  const known = new Set(formulaVars(source).map(v => v.id));
+  for (const t of rpn) {
+    if (/^[A-Za-z_]/.test(t) && !known.has(t)) return { ok: false, error: `Unknown field "${t}".` };
+  }
+  return { ok: true };
+}
+function evalRpn(rpn, vars) {
+  const st = [];
+  for (const t of rpn) {
+    if (t in PREC) {
+      const b = st.pop(), a = st.pop();
+      let v = 0;
+      if (t === '+') v = a + b; else if (t === '-') v = a - b;
+      else if (t === '*') v = a * b; else if (t === '/') v = b === 0 ? 0 : a / b;
+      else if (t === '%') v = b === 0 ? 0 : a % b;
+      st.push(v);
+    } else if (/^\d/.test(t)) st.push(Number(t));
+    else st.push(Number(vars[t]) || 0);
+  }
+  const r = st.pop();
+  return Number.isFinite(r) ? r : 0;
+}
+function evalComputed(cf, row, source, ctx, def) {
+  const rpn = cf._rpn || (cf._rpn = compileFormula(cf.formula));
+  if (!rpn) return 0;
+  const vars = {};
+  for (const v of formulaVars(source)) vars[v.id] = baseMeasureValue(row, source, v.id, ctx);
+  return evalRpn(rpn, vars);
 }
 
 /* ============================================================
@@ -254,17 +432,31 @@ export function emptyDefinition(source = 'deals') {
     source,
     dimensions: [dimsFor(source)[0].id],
     measure,
+    computed: [],
     filters: [],
     viz: 'bar',
     dateRange: { field: dateFieldsFor(source)[0]?.id || null, preset: 'all' },
   };
 }
 
+// All measure fields the builder can pick, base fields plus any computed
+// fields carried on the definition (surfaced in the measure dropdown +
+// aggregation flow so a computed field behaves like a first-class measure).
+export function measuresWithComputed(def) {
+  const base = measureFieldsFor(def.source);
+  const computed = (def.computed || []).map(c => ({ id: c.id, label: c.label, role: 'measure', type: c.type || 'number', computed: true }));
+  return [...base, ...computed];
+}
+
 // Keep a definition internally valid after a source change.
 export function reconcileDefinition(def) {
   const source = def.source || 'deals';
   const dims = dimsFor(source).map(d => d.id);
-  const measures = measureFieldsFor(source).map(m => m.id);
+  // computed fields are validated against the source; malformed ones drop out
+  const computed = (def.computed || [])
+    .filter(c => c && c.id && String(c.id).startsWith('cf_') && compileFormula(c.formula))
+    .map(({ _rpn, ...c }) => c);
+  const measures = [...measureFieldsFor(source).map(m => m.id), ...computed.map(c => c.id)];
   const dates = dateFieldsFor(source).map(d => d.id);
   const nextDims = (def.dimensions || []).filter(d => dims.includes(d));
   if (!nextDims.length) nextDims.push(dims[0]);
@@ -279,8 +471,10 @@ export function reconcileDefinition(def) {
     source,
     dimensions: nextDims.slice(0, 2),
     measure,
+    computed,
+    viz: def.viz || 'bar',
     dateRange: { field: dateField, preset: def.dateRange?.preset || 'all' },
-    filters: (def.filters || []).filter(f => fieldById(source, f.field)),
+    filters: (def.filters || []).filter(f => fieldById(source, f.field) || (f.field && String(f.field).startsWith('cf_') && computed.some(c => c.id === f.field))),
   };
 }
 
@@ -310,11 +504,11 @@ function aggregate(values, agg) {
   return values.length; // count
 }
 
-function passFilters(row, source, filters, ctx) {
+function passFilters(row, source, filters, ctx, def) {
   if (!filters || !filters.length) return true;
   for (const f of filters) {
     if (!f.field || f.value == null || f.value === '') continue;
-    const actual = filterValue(row, source, f.field, ctx);
+    const actual = filterValue(row, source, f.field, ctx, def);
     const wanted = f.value;
     const isNum = typeof actual === 'number';
     if (f.op === 'is') { if (String(actual).toLowerCase() !== String(wanted).toLowerCase()) return false; }
@@ -344,9 +538,9 @@ export function runReport(def) {
   const dateField = d.dateRange?.field;
 
   const records = recordsFor(source).filter(r =>
-    passDate(r, dateField, range) && passFilters(r, source, d.filters, ctx));
+    passDate(r, dateField, range) && passFilters(r, source, d.filters, ctx, d));
 
-  const measureField = measureFieldsFor(source).find(m => m.id === measure.field);
+  const measureField = measuresWithComputed(d).find(m => m.id === measure.field);
   const valueFormat = measure.agg === 'count' ? 'number'
     : (measureField?.type || 'number');
   const measureLabel = measure.agg === 'count'
@@ -362,7 +556,7 @@ export function runReport(def) {
     const pk = dimValue(r, source, primary, ctx);
     if (!buckets.has(pk)) buckets.set(pk, { sortKey: dimSort(r, primary), values: [], series: new Map() });
     const b = buckets.get(pk);
-    const mv = measure.agg === 'count' ? 1 : measureValue(r, source, measure.field);
+    const mv = measure.agg === 'count' ? 1 : measureValue(r, source, measure.field, ctx, d);
     b.values.push(mv);
     if (secondary) {
       const sk = dimValue(r, source, secondary, ctx);
@@ -398,8 +592,10 @@ export function runReport(def) {
     ? (rows.length ? rows.reduce((s, r) => s + r.value, 0) / rows.length : 0)
     : rows.reduce((s, r) => s + r.value, 0);
 
+  const secondaryLabel = secondary ? ((dimsFor(source).find(x => x.id === secondary) || {}).label || 'Column') : null;
   return {
     rows, series, total, valueFormat, measureLabel, dimLabel,
+    agg: measure.agg, secondaryLabel,
     recordCount: records.length,
     kpi: valueFormat === 'percent' ? total : rows.reduce((s, r) => s + r.value, 0),
   };
@@ -701,4 +897,174 @@ export function renderScheduleForDelivery(schedule) {
 // rally_report_schedules where next_run_at <= now().
 export function dueSchedules(now = Date.now()) {
   return loadSchedules().filter(s => s.enabled && (s.nextRunAt || 0) <= now);
+}
+
+/* ============================================================
+   DASHBOARDS  (localStorage + pub/sub)
+   A dashboard is an ordered set of TILES. Each tile references a saved
+   report by id and carries a width hint (half | full) so a dashboard can
+   compose many reports into one at-a-glance canvas (the Zoho / Looker
+   "dashboard of report tiles" model). Pure config; every tile re-runs its
+   report live off the store on render, so numbers never go stale.
+   SUPABASE: from('rally_dashboards'). ASCII only. NO em-dash / en-dash.
+   ============================================================ */
+const DASH_KEY = 'rally_report_dashboards_v1';
+export const DEFAULT_DASHBOARD_ID = 'dash_default';
+
+const dashSubs = new Set();
+export function subscribeDashboards(fn) { dashSubs.add(fn); return () => dashSubs.delete(fn); }
+export function loadDashboards() {
+  try { const raw = localStorage.getItem(DASH_KEY); if (raw) return JSON.parse(raw); } catch {}
+  return [];
+}
+function persistDashboards(list) {
+  try { localStorage.setItem(DASH_KEY, JSON.stringify(list)); } catch {}
+  const snap = loadDashboards();
+  dashSubs.forEach(fn => fn(snap));
+}
+
+// Every workspace has at least one dashboard. If none is stored yet, seed a
+// starter that composes the four starter reports so the canvas is never empty.
+export function allDashboards() {
+  const list = loadDashboards();
+  if (list.length) return list;
+  return [{
+    id: DEFAULT_DASHBOARD_ID,
+    title: 'Revenue overview',
+    desc: 'A starter dashboard composed from the built-in report starters.',
+    tiles: STARTER_REPORTS.map((r, i) => ({ id: `tile_${i}`, reportId: r.id, size: i === 0 ? 'full' : 'half' })),
+    starter: true,
+    createdAt: new Date().toISOString(),
+  }];
+}
+export function getDashboard(id) { return allDashboards().find(d => d.id === id) || null; }
+
+export function saveDashboard(dash) {
+  const list = loadDashboards();
+  const id = dash.id || `dash_${Date.now().toString(36)}`;
+  const clean = {
+    id,
+    title: (dash.title || 'Untitled dashboard').trim(),
+    desc: (dash.desc || '').trim(),
+    tiles: (dash.tiles || []).map((t, i) => ({ id: t.id || `tile_${i}_${Date.now().toString(36)}`, reportId: t.reportId, size: t.size === 'full' ? 'full' : 'half' })),
+    createdAt: dash.createdAt || new Date().toISOString(),
+    savedAt: new Date().toISOString(),
+  };
+  const idx = list.findIndex(d => d.id === id);
+  if (idx >= 0) list[idx] = clean; else list.unshift(clean);
+  persistDashboards(list);
+  return clean;
+}
+export function deleteDashboard(id) { persistDashboards(loadDashboards().filter(d => d.id !== id)); }
+
+// Materialize a stored dashboard for the first time (turns the seeded starter
+// into a real, editable row). Idempotent: returns the existing row if present.
+function ensureDashboard(id) {
+  const stored = loadDashboards();
+  const found = stored.find(d => d.id === id);
+  if (found) return found;
+  const seed = allDashboards().find(d => d.id === id);
+  if (seed) { const saved = saveDashboard(seed); return saved; }
+  return saveDashboard({ id, title: 'My dashboard', tiles: [] });
+}
+
+// Add a report as a new tile on a dashboard (creating the dashboard if the
+// only one is the seeded starter). Returns the updated dashboard.
+export function addReportToDashboard(dashboardId, reportId, size = 'half') {
+  const dash = ensureDashboard(dashboardId || DEFAULT_DASHBOARD_ID);
+  const tiles = [...(dash.tiles || [])];
+  if (!tiles.some(t => t.reportId === reportId)) {
+    tiles.push({ id: `tile_${Date.now().toString(36)}`, reportId, size });
+  }
+  return saveDashboard({ ...dash, tiles });
+}
+export function removeTile(dashboardId, tileId) {
+  const dash = ensureDashboard(dashboardId);
+  return saveDashboard({ ...dash, tiles: (dash.tiles || []).filter(t => t.id !== tileId) });
+}
+export function setTileSize(dashboardId, tileId, size) {
+  const dash = ensureDashboard(dashboardId);
+  return saveDashboard({ ...dash, tiles: (dash.tiles || []).map(t => t.id === tileId ? { ...t, size } : t) });
+}
+
+/* ============================================================
+   SHARE LINK  (read-only, in-app)
+   A saved report is shareable via /reports?share=<id>. Reports.jsx reads
+   the param and renders a chrome-light, read-only view. No new route is
+   introduced (the shell owns routing); the link works for anyone who can
+   reach the app + has the report in their library.
+   ============================================================ */
+export function shareUrlForReport(id) {
+  if (typeof window === 'undefined') return `/reports?share=${id}`;
+  return `${window.location.origin}/reports?share=${encodeURIComponent(id)}`;
+}
+
+/* ============================================================
+   PDF / PRINT EXPORT  (client-side, zero dependencies)
+   Renders the report to a clean, print-optimized HTML document in a new
+   window and calls print(), which the browser turns into a PDF via
+   "Save as PDF". No jsPDF, no server round-trip, no new npm dependency.
+   ASCII only. NO em-dash / en-dash.
+   ============================================================ */
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+export function reportToHtml(def, computed) {
+  const rows = computed.rows || [];
+  const series = computed.series || [];
+  const max = Math.max(1, ...rows.map(r => Number(r.value) || 0));
+  let body;
+  if (series.length) {
+    const head = `<tr><th>${esc(computed.dimLabel)}</th>${series.map(s => `<th class="num">${esc(s)}</th>`).join('')}<th class="num">Total</th></tr>`;
+    const trs = rows.map(r => {
+      const rowTotal = series.reduce((s, k) => s + (Number(r[k]) || 0), 0);
+      return `<tr><td>${esc(r.label)}</td>${series.map(k => `<td class="num">${esc(formatValue(r[k], computed.valueFormat))}</td>`).join('')}<td class="num tot">${esc(formatValue(rowTotal, computed.valueFormat))}</td></tr>`;
+    }).join('');
+    body = `<table><thead>${head}</thead><tbody>${trs}</tbody></table>`;
+  } else {
+    const trs = rows.map(r => {
+      const pct = Math.round(((Number(r.value) || 0) / max) * 100);
+      return `<tr><td>${esc(r.label)}</td><td class="bar"><div class="track"><div class="fill" style="width:${pct}%"></div></div></td><td class="num">${esc(formatValue(r.value, computed.valueFormat))}</td></tr>`;
+    }).join('');
+    body = `<table><thead><tr><th>${esc(computed.dimLabel)}</th><th></th><th class="num">${esc(computed.measureLabel)}</th></tr></thead><tbody>${trs}</tbody>
+      <tfoot><tr><td class="tot">Total</td><td></td><td class="num tot">${esc(formatValue(computed.total, computed.valueFormat))}</td></tr></tfoot></table>`;
+  }
+  const generated = new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(def.title || 'Report')}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; color: #12141f; margin: 40px; }
+  .eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #5b4bf5; font-weight: 700; }
+  h1 { font-size: 26px; margin: 6px 0 2px; }
+  .sub { color: #5b6474; font-size: 14px; margin: 0 0 4px; }
+  .meta { color: #8b93a4; font-size: 12px; margin: 0 0 22px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e7e9ee; }
+  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.tot, .tot { font-weight: 800; }
+  .bar { width: 34%; }
+  .track { background: #eef0f4; border-radius: 999px; height: 9px; overflow: hidden; }
+  .fill { height: 9px; background: #5b4bf5; border-radius: 999px; }
+  .foot { margin-top: 26px; color: #8b93a4; font-size: 11px; border-top: 1px solid #e7e9ee; padding-top: 10px; }
+  @media print { body { margin: 18mm; } .noprint { display: none; } }
+</style></head>
+<body>
+  <div class="eyebrow">Ardovo report</div>
+  <h1>${esc(def.title || 'Report')}</h1>
+  <p class="sub">${esc(def.desc || `${computed.measureLabel} by ${String(computed.dimLabel).toLowerCase()}`)}</p>
+  <p class="meta">${esc(computed.measureLabel)} by ${esc(String(computed.dimLabel).toLowerCase())}${series.length ? ` split by ${esc(String(computed.secondaryLabel || '').toLowerCase())}` : ''} . ${rows.length} rows . ${computed.recordCount} records . Generated ${esc(generated)}</p>
+  ${body}
+  <div class="foot">Generated by Ardovo Reports. This is a point-in-time snapshot of live pipeline data.</div>
+  <script>window.onload = function(){ setTimeout(function(){ window.print(); }, 250); };</script>
+</body></html>`;
+}
+// Open the print-ready report in a new window (user picks "Save as PDF").
+export function printReport(def, computed) {
+  const html = reportToHtml(def, computed);
+  const w = window.open('', '_blank');
+  if (!w) return false; // popup blocked
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  return true;
 }

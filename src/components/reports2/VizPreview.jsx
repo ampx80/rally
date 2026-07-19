@@ -9,6 +9,7 @@ import {
   PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import { formatValue } from '../../lib/report-builder';
+import PivotTable from './PivotTable';
 import './reports2.css';
 
 const ACCENT = '#5b4bf5';
@@ -60,6 +61,11 @@ export default function VizPreview({ def, computed, height = 320 }) {
         <div className="rb-muted">across {rows.length} {computed.dimLabel.toLowerCase()} groups, {computed.recordCount} records</div>
       </div>
     );
+  }
+
+  /* ---- pivot (cross-tab) ---- */
+  if (viz === 'pivot') {
+    return <PivotTable computed={computed} />;
   }
 
   /* ---- table ---- */

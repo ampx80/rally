@@ -5,7 +5,7 @@
 // with a live preview. Everything computes off the real store; custom
 // report definitions persist to localStorage via ../lib/reports-data.
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   ResponsiveContainer, BarChart, Bar, LineChart, Line, AreaChart, Area,
   PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -31,6 +31,11 @@ import {
   computeReport, allReports, saveReport, duplicateReport, deleteReport,
   reportToCsv, downloadCsv,
 } from '../lib/reports-data';
+import VizPreview from '../components/reports2/VizPreview';
+import {
+  runReport, reconcileDefinition, getReport as rbGetReport, allReports as rbAllReports,
+  reportToCsv as rbReportToCsv, downloadCsv as rbDownloadCsv, printReport, shareUrlForReport,
+} from '../lib/report-builder';
 
 const ACCENT = '#5b4bf5';
 const GRID = '#e7e9ee';
@@ -289,6 +294,12 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
           <Button variant="ghost" size="sm" onClick={() => { downloadCsv(def.title, reportToCsv(def, computed)); toast('CSV exported'); }}>
             <Icon name="download" size={16} /> Export CSV
           </Button>
+          <Button variant="ghost" size="sm" onClick={() => { if (printReport(def, toRichComputed(def, computed))) toast('Opening print view - choose Save as PDF'); else toast('Allow popups to export PDF', 'warn'); }}>
+            <Icon name="fileText" size={16} /> Export PDF
+          </Button>
+          <Button variant="ghost" size="sm" onClick={() => copyShareLink(def.id, toast)}>
+            <Icon name="share2" size={16} /> Share
+          </Button>
           <Button variant="ghost" size="sm" onClick={() => { const c = duplicateReport(def); toast('Report duplicated'); onDuplicated?.(c); }}>
             <Icon name="copy" size={16} /> Duplicate
           </Button>
@@ -352,7 +363,113 @@ function GalleryCard({ def, onOpen }) {
   );
 }
 
+/* Adapt a reports-data computed object into the shape printReport expects. */
+function toRichComputed(def, computed) {
+  const dimLabel = (dimensionsFor(def.source).find(d => d.id === def.groupBy) || {}).label || 'Group';
+  const total = computed.valueFormat === 'percent'
+    ? (computed.rows.length ? computed.rows.reduce((s, r) => s + r.value, 0) / computed.rows.length : 0)
+    : computed.rows.reduce((s, r) => s + r.value, 0);
+  return {
+    rows: computed.rows, series: [], valueFormat: computed.valueFormat,
+    measureLabel: computed.metricLabel, dimLabel, total,
+    recordCount: computed.rows.length, secondaryLabel: null, agg: 'sum',
+  };
+}
+
+function copyShareLink(id, toast) {
+  const url = shareUrlForReport(id);
+  try {
+    if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(url); toast('Share link copied'); return; }
+  } catch {}
+  window.prompt('Copy this read-only report link:', url);
+}
+
+/* ============================================================
+   SHARE VIEW - a chrome-light, read-only report, reachable at
+   /reports?share=<id>. Resolves rich (report-builder) reports first,
+   then falls back to the reports-data gallery, so any saved report is
+   shareable. No editing, no builder chrome - just the answer.
+   ============================================================ */
+function ShareView({ id, onClose }) {
+  const toast = useToast();
+  const rich = rbGetReport(id) || rbAllReports().find(r => r.id === id);
+  const simple = !rich ? allReports().find(r => r.id === id) : null;
+
+  if (!rich && !simple) {
+    return (
+      <PageTransition className="col gap-3">
+        <EmptyState icon="search" title="Report not found"
+          body="This shared report is not in your library. It may have been deleted or belongs to another workspace."
+          action={<Button onClick={onClose}><Icon name="chevronRight" size={16} /> Go to Reports</Button>} />
+      </PageTransition>
+    );
+  }
+
+  const def = rich ? reconcileDefinition(rich) : simple;
+  const richComputed = rich ? runReport(def) : null;
+  const simpleComputed = simple ? computeReport(def) : null;
+
+  const onCsv = () => {
+    if (rich) rbDownloadCsv(def.title, rbReportToCsv(def, richComputed));
+    else downloadCsv(def.title, reportToCsv(def, simpleComputed));
+    toast('CSV exported');
+  };
+  const onPdf = () => {
+    const ok = rich ? printReport(def, richComputed) : printReport(def, toRichComputed(def, simpleComputed));
+    toast(ok ? 'Opening print view - choose Save as PDF' : 'Allow popups to export PDF', ok ? 'ok' : 'warn');
+  };
+
+  return (
+    <PageTransition className="col gap-3">
+      <div className="rb-share-bar">
+        <Icon name="share2" size={18} style={{ color: 'var(--accent-600)' }} />
+        <div className="col" style={{ minWidth: 0, flex: 1 }}>
+          <span className="fw-7 clip">Shared report (read-only)</span>
+          <span className="muted t-xs">Anyone with this link who can reach Ardovo sees the same live report.</span>
+        </div>
+        <Button variant="ghost" size="sm" onClick={onCsv}><Icon name="download" size={15} /> CSV</Button>
+        <Button variant="ghost" size="sm" onClick={onPdf}><Icon name="fileText" size={15} /> PDF</Button>
+        <Button variant="ghost" size="sm" onClick={onClose}><Icon name="x" size={15} /> Exit</Button>
+      </div>
+
+      <div className="row gap-2" style={{ alignItems: 'center', minWidth: 0 }}>
+        <span className="row center" style={{ width: 34, height: 34, borderRadius: 9, background: ACCENT + '18', color: ACCENT, flex: 'none' }}>
+          <Icon name={def.icon || 'chart'} size={18} />
+        </span>
+        <div className="col gap-1" style={{ minWidth: 0 }}>
+          <h3 style={{ margin: 0 }}>{def.title}</h3>
+          {def.desc && <span className="muted t-sm">{def.desc}</span>}
+        </div>
+        <Badge tone="accent" style={{ marginLeft: 'auto' }}>Read-only</Badge>
+      </div>
+
+      <Card className="col" style={{ gap: '1rem' }}>
+        {rich
+          ? <VizPreview def={def} computed={richComputed} height={360} />
+          : <ReportChart def={def} computed={simpleComputed} height={360} />}
+      </Card>
+
+      <Card className="col" style={{ gap: '.75rem' }}>
+        <span className="fw-7">Breakdown</span>
+        {rich
+          ? <VizPreview def={{ ...def, viz: 'table' }} computed={richComputed} />
+          : <ReportTable def={def} computed={simpleComputed} />}
+      </Card>
+    </PageTransition>
+  );
+}
+
 export default function Reports() {
+  useStore(); // subscribe for reactivity
+  const [params, setParams] = useSearchParams();
+  const shareId = params.get('share');
+  if (shareId) {
+    return <ShareView id={shareId} onClose={() => { params.delete('share'); setParams(params, { replace: true }); }} />;
+  }
+  return <ReportsHome />;
+}
+
+function ReportsHome() {
   useStore(); // subscribe for reactivity
   const [view, setView] = useState(null);   // active report def or null
   const [builder, setBuilder] = useState(false);

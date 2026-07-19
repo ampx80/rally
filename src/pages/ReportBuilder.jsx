@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   Card, Button, Badge, SectionHeader, Tabs, Field, Input, Select, Textarea,
-  Segmented, useToast,
+  Segmented, Modal, useToast,
 } from '../components/UI';
 import { Icon } from '../components/icons';
 import PageTransition from '../components/motion/PageTransition';
@@ -27,8 +27,98 @@ import {
   saveReport, deleteReport, duplicateReport, getReport, allReports, subscribeReports,
   cohortAnalysis, cohortMetricsFor, formatValue,
   loadSchedules, subscribeSchedules, deleteSchedule, toggleSchedule,
+  measuresWithComputed, formulaVars, validateFormula, printReport,
+  allDashboards, addReportToDashboard, shareUrlForReport,
 } from '../lib/report-builder';
 import '../components/reports2/reports2.css';
+
+/* ---------- computed-field builder ---------- */
+function ComputedModal({ open, onClose, source, onAdd }) {
+  const toast = useToast();
+  const [label, setLabel] = useState('');
+  const [type, setType] = useState('number');
+  const [formula, setFormula] = useState('');
+  const vars = formulaVars(source);
+  React.useEffect(() => { if (open) { setLabel(''); setType('number'); setFormula(''); } }, [open, source]);
+  const check = formula.trim() ? validateFormula(formula, source) : { ok: false, error: 'Enter a formula.' };
+  const doAdd = () => {
+    if (!label.trim()) { toast('Name the field', 'warn'); return; }
+    if (!check.ok) { toast(check.error, 'warn'); return; }
+    onAdd({ id: `cf_${Date.now().toString(36)}`, label: label.trim(), type, formula: formula.trim() });
+    onClose();
+  };
+  return (
+    <Modal open={open} onClose={onClose} title="New computed field" width={560}
+      footer={<>
+        <Button variant="ghost" onClick={onClose}>Cancel</Button>
+        <Button onClick={doAdd} disabled={!check.ok || !label.trim()}><Icon name="plus" size={16} /> Add field</Button>
+      </>}>
+      <div className="col gap-3">
+        <Field label="Field name"><Input value={label} onChange={e => setLabel(e.target.value)} placeholder="e.g. Value per email touch" /></Field>
+        <Field label="Format">
+          <Select value={type} onChange={e => setType(e.target.value)}>
+            <option value="number">Number</option>
+            <option value="money">Money</option>
+            <option value="percent">Percent</option>
+          </Select>
+        </Field>
+        <Field label="Formula" hint="Use + - * / and parentheses. Divide by zero resolves to 0.">
+          <Input value={formula} onChange={e => setFormula(e.target.value)} placeholder="value / emailTouches" style={{ fontFamily: 'var(--font-mono)' }} />
+        </Field>
+        {formula.trim() && (
+          <div className="rb-muted" style={{ color: check.ok ? 'var(--ok)' : 'var(--risk)' }}>
+            {check.ok ? 'Formula looks good.' : check.error}
+          </div>
+        )}
+        <div className="col gap-1">
+          <span className="t-xs fw-7" style={{ color: 'var(--n-600)' }}>AVAILABLE FIELDS</span>
+          <div className="row gap-1 wrap">
+            {vars.map(v => (
+              <button key={v.id} type="button" className="rb-token" style={{ cursor: 'pointer' }}
+                onClick={() => setFormula(f => (f ? f + ' ' : '') + v.id)}>
+                {v.id}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+/* ---------- add-to-dashboard picker ---------- */
+function AddToDashboardModal({ open, onClose, report }) {
+  const toast = useToast();
+  const [dashId, setDashId] = useState('');
+  const [size, setSize] = useState('half');
+  const dashboards = allDashboards();
+  React.useEffect(() => { if (open && dashboards.length) setDashId(dashboards[0].id); }, [open]);
+  if (!report) return null;
+  const doAdd = () => {
+    addReportToDashboard(dashId || dashboards[0]?.id, report.id, size);
+    toast('Added to dashboard');
+    onClose();
+  };
+  return (
+    <Modal open={open} onClose={onClose} title="Add to dashboard" width={520}
+      footer={<>
+        <Button variant="ghost" onClick={onClose}>Cancel</Button>
+        <Button onClick={doAdd}><Icon name="chart" size={16} /> Add tile</Button>
+      </>}>
+      <div className="col gap-3">
+        <div className="rb-muted">Pin "{report.title}" as a live tile. It re-runs off the store every time the dashboard opens.</div>
+        <Field label="Dashboard">
+          <Select value={dashId} onChange={e => setDashId(e.target.value)}>
+            {dashboards.map(d => <option key={d.id} value={d.id}>{d.title}</option>)}
+          </Select>
+        </Field>
+        <Field label="Tile width">
+          <Segmented options={[{ value: 'half', label: 'Half' }, { value: 'full', label: 'Full' }]} value={size} onChange={setSize} />
+        </Field>
+      </div>
+    </Modal>
+  );
+}
 
 /* ---------- canvas dropzone ---------- */
 function DropZone({ label, hint, token, accept, onDrop, onClear, dragRole }) {
@@ -95,6 +185,8 @@ function BuilderTab() {
   const [library, setLibrary] = useState(() => allReports());
   const [schedules, setSchedules] = useState(() => loadSchedules());
   const [schedFor, setSchedFor] = useState(null); // { report, existing }
+  const [computedOpen, setComputedOpen] = useState(false);
+  const [dashFor, setDashFor] = useState(null); // saved report to pin
 
   useEffect(() => subscribeReports(() => setLibrary(allReports())), []);
   useEffect(() => subscribeSchedules(setSchedules), []);
@@ -135,10 +227,20 @@ function BuilderTab() {
     toast('Report saved to your library');
   };
   const onExport = () => { downloadCsv(def.title, reportToCsv(def, computed)); toast('CSV exported'); };
+  const onExportPdf = () => { if (printReport(def, computed)) toast('Opening print view - choose Save as PDF'); else toast('Allow popups to export PDF', 'warn'); };
   const onNew = () => { setDef(emptyDefinition('deals')); setParams({}, { replace: true }); };
   const loadInto = (r) => { setDef(reconcileDefinition(r)); setParams({ load: r.id }, { replace: true }); toast(`Loaded "${r.title}"`); };
+  const addComputed = (cf) => { patch({ computed: [...(def.computed || []), cf] }); toast('Computed field added'); };
+  const removeComputed = (id) => patch({ computed: (def.computed || []).filter(c => c.id !== id), measure: def.measure?.field === id ? { field: null, agg: 'count' } : def.measure });
+  const onAddToDashboard = () => { const saved = saveReport(def); setDef(reconcileDefinition(saved)); setParams({ load: saved.id }, { replace: true }); setDashFor(saved); };
+  const onShare = () => {
+    const saved = saveReport(def); setDef(reconcileDefinition(saved)); setParams({ load: saved.id }, { replace: true });
+    const url = shareUrlForReport(saved.id);
+    try { if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(url); toast('Read-only share link copied'); return; } } catch {}
+    window.prompt('Copy this read-only report link:', url);
+  };
 
-  const measureFields = measureFieldsFor(def.source);
+  const measureFields = measuresWithComputed(def);
   const dateFields = dateFieldsFor(def.source);
   const aggs = AGGREGATIONS.filter(a => a.id === 'count' ? true : measureFields.length);
 
@@ -151,6 +253,9 @@ function BuilderTab() {
         <div className="row gap-1 wrap">
           <Button variant="ghost" size="sm" onClick={onNew}><Icon name="plus" size={15} /> New</Button>
           <Button variant="ghost" size="sm" onClick={onExport}><Icon name="download" size={15} /> Export CSV</Button>
+          <Button variant="ghost" size="sm" onClick={onExportPdf}><Icon name="fileText" size={15} /> Export PDF</Button>
+          <Button variant="ghost" size="sm" onClick={onShare}><Icon name="share2" size={15} /> Share</Button>
+          <Button variant="ghost" size="sm" onClick={onAddToDashboard}><Icon name="chart" size={15} /> Add to dashboard</Button>
           <Button size="sm" onClick={onSave}><Icon name="check" size={16} /> Save report</Button>
         </div>
       </div>
@@ -170,7 +275,7 @@ function BuilderTab() {
                 token={secondaryDim ? { ...fieldById(def.source, secondaryDim) } : null}
                 onDrop={(id) => routeField(id, 'split')} onClear={() => patch({ dimensions: [primaryDim] })} />
               <DropZone label="Measure" hint="Drop a number" accept={['measure']} dragRole={dragField?.role}
-                token={measure.agg !== 'count' && measure.field ? { ...fieldById(def.source, measure.field), role: 'measure' } : null}
+                token={measure.agg !== 'count' && measure.field ? { ...(measuresWithComputed(def).find(m => m.id === measure.field) || { label: measure.field }), role: 'measure' } : null}
                 onDrop={(id) => routeField(id, 'measure')} onClear={() => patch({ measure: { field: null, agg: 'count' } })} />
             </div>
 
@@ -254,6 +359,25 @@ function BuilderTab() {
             </div>
           </div>
 
+          <div className="col gap-1">
+            <div className="row between">
+              <span className="t-xs fw-7" style={{ color: 'var(--n-600)' }}>COMPUTED FIELDS</span>
+              <Button variant="quiet" size="sm" onClick={() => setComputedOpen(true)}><Icon name="plus" size={14} /> Add</Button>
+            </div>
+            {(def.computed || []).length === 0 && <span className="rb-muted">Derive a metric from a formula, e.g. value / emailTouches.</span>}
+            <div className="col gap-1">
+              {(def.computed || []).map(c => (
+                <div key={c.id} className="row between gap-2" style={{ padding: '.4rem .55rem', border: '1px solid var(--line)', borderRadius: 'var(--r-sm)', background: 'var(--page)' }}>
+                  <div className="col" style={{ minWidth: 0 }}>
+                    <span className="fw-7 clip t-sm">{c.label}</span>
+                    <span className="rb-muted" style={{ fontFamily: 'var(--font-mono)' }}>{c.formula}</span>
+                  </div>
+                  <Button variant="quiet" size="sm" onClick={() => removeComputed(c.id)} aria-label={`Remove ${c.label}`}><Icon name="trash" size={14} /></Button>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <Field label="Description">
             <Textarea value={def.desc} onChange={e => setDef(d => ({ ...d, desc: e.target.value }))} rows={2} placeholder="What question does this answer?" />
           </Field>
@@ -324,6 +448,8 @@ function BuilderTab() {
 
       <ScheduleDialog open={!!schedFor} onClose={() => setSchedFor(null)} report={schedFor?.report} existing={schedFor?.existing}
         onSaved={() => setSchedFor(null)} />
+      <ComputedModal open={computedOpen} onClose={() => setComputedOpen(false)} source={def.source} onAdd={addComputed} />
+      <AddToDashboardModal open={!!dashFor} onClose={() => setDashFor(null)} report={dashFor} />
     </div>
   );
 }

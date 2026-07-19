@@ -1,7 +1,7 @@
 // Dashboards - live analytics off the Ardovo pipeline. Every number here is
 // derived from the store's selectors, so it stays in sync with the book of
 // business as deals move. Charts are real recharts, driven off live data.
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell,
@@ -12,7 +12,7 @@ import {
   winRate, repLeaderboard, activityLeaderboard, dealsClosingThisMonth, getDeals,
   getCompany, stageById,
 } from '../lib/store';
-import { Card, Badge, SectionHeader, money, moneyK, relTime } from '../components/UI';
+import { Card, Badge, SectionHeader, Tabs, Button, Select, Field, Input, Modal, useToast, money, moneyK, relTime } from '../components/UI';
 import { STAGE_COLOR, CHART_ACCENT, CHART_ACCENT_SOFT, CHART_NEUTRAL, CHART_GRID } from '../lib/stage-colors';
 import { Icon } from '../components/icons';
 import PageTransition from '../components/motion/PageTransition';
@@ -21,6 +21,12 @@ import AnimatedStat from '../components/motion/AnimatedStat';
 import EmptyState from '../components/motion/EmptyState';
 import { SkeletonChart } from '../components/motion/Skeleton';
 import { useInView } from '../components/motion/useInView';
+import VizPreview from '../components/reports2/VizPreview';
+import {
+  allReports, allDashboards, subscribeDashboards, saveDashboard, deleteDashboard,
+  runReport, reconcileDefinition,
+} from '../lib/report-builder';
+import '../components/reports2/reports2.css';
 
 /* stage -> color + chart accents come from the shared palette
    (src/lib/stage-colors.js) so every surface stays in sync and teal. */
@@ -73,7 +79,7 @@ function tipRow(label, value, color) {
   );
 }
 
-export default function Dashboards() {
+function OverviewTab() {
   useStore(); // subscribe for reactivity
   const navigate = useNavigate();
 
@@ -122,9 +128,9 @@ export default function Dashboards() {
   const openSpark = pipelineByStage.map(d => d.count);
 
   return (
-    <PageTransition className="col gap-3">
+    <div className="col gap-3">
       <SectionHeader
-        title="Dashboards"
+        title="Pipeline overview"
         sub="Live off your pipeline. Every number here traces back to a record."
       />
 
@@ -377,6 +383,173 @@ export default function Dashboards() {
         </ChartCard>
         </Reveal>
       </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   COMPOSER TAB - dashboards composed from saved report tiles
+   Each tile references a saved report by id and re-runs it live off the
+   store, so a dashboard is always current. Add tiles from the report
+   library, resize half/full, remove, and manage multiple dashboards.
+   ============================================================ */
+function resolveReportDef(reportId) {
+  const r = allReports().find(x => x.id === reportId);
+  return r ? reconcileDefinition(r) : null;
+}
+
+function DashboardTile({ tile, onRemove, onResize }) {
+  const def = resolveReportDef(tile.reportId);
+  if (!def) {
+    return (
+      <Card className={'rb-dash-tile col gap-2' + (tile.size === 'full' ? ' rb-tile-full' : '')} style={{ gap: '.6rem' }}>
+        <div className="row between">
+          <span className="fw-7">Missing report</span>
+          <Button variant="quiet" size="sm" onClick={onRemove} aria-label="Remove tile"><Icon name="trash" size={15} /></Button>
+        </div>
+        <div className="muted t-sm">This report was deleted. Remove the tile or add a new one.</div>
+      </Card>
+    );
+  }
+  const computed = runReport(def);
+  return (
+    <Card className={'rb-dash-tile col' + (tile.size === 'full' ? ' rb-tile-full' : '')} style={{ gap: '.75rem' }}>
+      <div className="row between gap-2" style={{ alignItems: 'flex-start' }}>
+        <div className="col gap-1" style={{ minWidth: 0 }}>
+          <span className="fw-7 clip">{def.title}</span>
+          <span className="muted t-xs">{computed.measureLabel} by {String(computed.dimLabel).toLowerCase()}</span>
+        </div>
+        <div className="row gap-1" style={{ flex: 'none' }}>
+          <Button variant="quiet" size="sm" onClick={onResize} title={tile.size === 'full' ? 'Make half width' : 'Make full width'}>
+            <Icon name="grid" size={14} />
+          </Button>
+          <Button as={Link} to={`/report-builder?load=${def.id}`} variant="quiet" size="sm" title="Open in builder"><Icon name="edit" size={14} /></Button>
+          <Button variant="quiet" size="sm" onClick={onRemove} title="Remove"><Icon name="trash" size={14} /></Button>
+        </div>
+      </div>
+      <div style={{ minHeight: 200 }}>
+        <VizPreview def={def} computed={computed} height={tile.size === 'full' ? 300 : 230} />
+      </div>
+    </Card>
+  );
+}
+
+function AddTileModal({ open, onClose, onPick, existingIds }) {
+  const reports = allReports();
+  return (
+    <Modal open={open} onClose={onClose} title="Add a report tile" width={640}>
+      <div className="col gap-2">
+        <div className="muted t-sm">Pick a saved report or starter to pin as a live tile.</div>
+        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '.75rem' }}>
+          {reports.map(r => {
+            const on = existingIds.includes(r.id);
+            return (
+              <Card key={r.id} hover={!on} className="col" style={{ gap: '.5rem', cursor: on ? 'default' : 'pointer', opacity: on ? .55 : 1 }}
+                onClick={() => { if (!on) { onPick(r.id); onClose(); } }}>
+                <div className="row between">
+                  <span className="fw-7 clip">{r.title}</span>
+                  {on ? <Badge>Added</Badge> : (r.starter ? <Badge>Starter</Badge> : <Badge tone="accent">Saved</Badge>)}
+                </div>
+                <span className="muted t-xs" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{r.desc || `${r.source} report`}</span>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+function ComposerTab() {
+  useStore(); // re-run tiles when the book of business changes
+  const toast = useToast();
+  const [dashboards, setDashboards] = useState(() => allDashboards());
+  const [activeId, setActiveId] = useState(() => allDashboards()[0]?.id || null);
+  const [addOpen, setAddOpen] = useState(false);
+  const [renaming, setRenaming] = useState(false);
+  const [draftTitle, setDraftTitle] = useState('');
+
+  useEffect(() => subscribeDashboards((list) => setDashboards(list.length ? list : allDashboards())), []);
+  useEffect(() => { if (!dashboards.some(d => d.id === activeId)) setActiveId(dashboards[0]?.id || null); }, [dashboards, activeId]);
+
+  const active = dashboards.find(d => d.id === activeId) || dashboards[0] || null;
+
+  const createDashboard = () => {
+    const d = saveDashboard({ title: `Dashboard ${dashboards.length + 1}`, tiles: [] });
+    setActiveId(d.id);
+    toast('Dashboard created');
+  };
+  const doRename = () => {
+    if (!active) return;
+    saveDashboard({ ...active, title: draftTitle.trim() || active.title });
+    setRenaming(false);
+    toast('Renamed');
+  };
+  const addTile = (reportId) => {
+    if (!active) return;
+    saveDashboard({ ...active, tiles: [...(active.tiles || []), { id: `tile_${Date.now().toString(36)}`, reportId, size: 'half' }] });
+    toast('Tile added');
+  };
+
+  return (
+    <div className="col gap-3">
+      <div className="row between wrap gap-2">
+        <div className="row gap-2 wrap" style={{ alignItems: 'center' }}>
+          <Select value={activeId || ''} onChange={e => setActiveId(e.target.value)} style={{ maxWidth: 260 }}>
+            {dashboards.map(d => <option key={d.id} value={d.id}>{d.title}</option>)}
+          </Select>
+          <Button variant="ghost" size="sm" onClick={createDashboard}><Icon name="plus" size={15} /> New dashboard</Button>
+          {active && (
+            <>
+              <Button variant="quiet" size="sm" onClick={() => { setDraftTitle(active.title); setRenaming(true); }}><Icon name="edit" size={14} /> Rename</Button>
+              {!active.starter && dashboards.length > 1 && (
+                <Button variant="quiet" size="sm" onClick={() => { if (confirm('Delete this dashboard?')) { deleteDashboard(active.id); toast('Dashboard deleted'); } }}><Icon name="trash" size={14} /> Delete</Button>
+              )}
+            </>
+          )}
+        </div>
+        <div className="row gap-1">
+          <Button variant="ghost" size="sm" onClick={() => window.print()}><Icon name="fileText" size={15} /> Print / PDF</Button>
+          <Button size="sm" onClick={() => setAddOpen(true)} disabled={!active}><Icon name="plus" size={16} /> Add tile</Button>
+        </div>
+      </div>
+
+      {active && active.desc && <div className="muted t-sm">{active.desc}</div>}
+
+      {!active || (active.tiles || []).length === 0 ? (
+        <EmptyState icon="chart" title="An empty canvas"
+          body="Add report tiles to compose a dashboard. Every tile stays live off your pipeline."
+          action={<Button onClick={() => setAddOpen(true)} disabled={!active}><Icon name="plus" size={16} /> Add your first tile</Button>} />
+      ) : (
+        <div className="rb-dash-grid">
+          {(active.tiles || []).map(tile => (
+            <DashboardTile key={tile.id} tile={tile}
+              onRemove={() => saveDashboard({ ...active, tiles: active.tiles.filter(t => t.id !== tile.id) })}
+              onResize={() => saveDashboard({ ...active, tiles: active.tiles.map(t => t.id === tile.id ? { ...t, size: t.size === 'full' ? 'half' : 'full' } : t) })} />
+          ))}
+        </div>
+      )}
+
+      <AddTileModal open={addOpen} onClose={() => setAddOpen(false)} onPick={addTile} existingIds={(active?.tiles || []).map(t => t.reportId)} />
+      <Modal open={renaming} onClose={() => setRenaming(false)} title="Rename dashboard" width={440}
+        footer={<><Button variant="ghost" onClick={() => setRenaming(false)}>Cancel</Button><Button onClick={doRename}><Icon name="check" size={16} /> Save</Button></>}>
+        <Field label="Dashboard name"><Input value={draftTitle} onChange={e => setDraftTitle(e.target.value)} autoFocus /></Field>
+      </Modal>
+    </div>
+  );
+}
+
+export default function Dashboards() {
+  const [tab, setTab] = useState('overview');
+  return (
+    <PageTransition className="col gap-3">
+      <SectionHeader
+        title="Dashboards"
+        sub="A live pipeline overview, plus custom dashboards you compose from saved reports."
+        action={<Button as={Link} to="/report-builder" variant="ghost"><Icon name="pie" size={16} /> Build a report</Button>}
+      />
+      <Tabs tabs={[{ key: 'overview', label: 'Overview' }, { key: 'custom', label: 'My dashboards' }]} active={tab} onChange={setTab} />
+      {tab === 'overview' ? <OverviewTab /> : <ComposerTab />}
     </PageTransition>
   );
 }
