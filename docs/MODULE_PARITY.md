@@ -40,7 +40,7 @@ ASCII only. No em-dash or en-dash anywhere.
 | **Automation** | 3 SHIPPED 2026-07-19 (ONE engine: triggers record/form/email/payment/schedule/webhook; actions email/task/update/wait/branch/goal/webhook/AI; enrollment history + logs; Workflows is the builder, Flow is a live canvas of the SAME engine; server runner) | 3 | 3 | 3 | 2 | Supabase-durable enrollment state + scale | **DONE (pending secrets)** |
 | **Reporting** | 3 SHIPPED 2026-07-19 (cross-object query layer + joins + lead source + email engagement, pivot cross-tabs, computed fields, composable dashboards, CSV/PDF export, shareable read-only reports, server dataset endpoint) | 2 | 1 | 3 | 3 | Supabase-backed datasets for very large books | **DONE (pending secrets)** |
 | **Payments** | 2.5 SHIPPED 2026-07-19 (product catalog, payment links, invoice->Stripe Checkout, subscriptions, Stripe Connect, signature-verified webhook + client reconcile -> CRM activity + rally:payment; env-gated) | 2 | 3 | 2 | 2 | Needs STRIPE_* to charge live; dunning automation polish | **DONE (pending secrets)** |
-| **Marketing Hub** | 1-2 (aggregator + lead scoring; funnels/ads/attribution still synthetic) | 3 | 3 | 2 | 2 | Shared visual designer (email + landing + funnel via ported Konva), real attribution over real events, unify campaigns/journeys/forms | **6 (next)** |
+| **Marketing Hub** | 3 SHIPPED 2026-07-19 (ONE shared block designer across email + landing pages + funnels via renderDoc; landing pages author with the same builder + link real forms; funnels chain real assets with tracked conversion; Journeys run on the one automation engine; unified hub rollup over real stores; attribution folds in real form/landing events; Konva designer ported as scaffolding) | 3 | 3 | 2 | 2 | Wire ads platform APIs; deeper real-event attribution | **DONE (pending secrets)** |
 
 ### Engine detail
 
@@ -119,9 +119,11 @@ depends on the same localStorage foundation, so it does not yet earn a 3 as a "p
 
 ---
 
-## Build order (land each as one atomic deployed push, then update this file)
+## Build order status (all six landed + live on rally-psi-five, verified zero console errors)
 
-1. Email  2. Forms  3. Automation  4. Reporting  5. Payments  6. Marketing Hub unification
+1. Email DONE  2. Forms DONE  3. Automation DONE  4. Reporting DONE  5. Payments DONE (needs STRIPE_* for live charge)  6. Marketing Hub DONE
+
+Remaining cross-cutting foundation: flip `VITE_DATA_BACKEND=supabase` with org tenancy + enforced RLS, and wire live secrets (RESEND_*, STRIPE_*, SUPABASE_*). Every engine already runs local-first and degrades cleanly until those are set.
 
 After each engine ships: re-score the row, note what now exceeds the incumbent, and what
 remains. Reuse (do not rebuild): the Konva visual designer and the Resend send/idempotency
