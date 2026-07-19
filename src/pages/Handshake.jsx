@@ -77,6 +77,7 @@ export default function Handshake() {
   const [running, setRunning] = useState(false);
   const [signed, setSigned] = useState(false);
   const [loadingLive, setLoadingLive] = useState(false);
+  const [pendingRun, setPendingRun] = useState(false);
   const threadRef = useRef(null);
 
   useEffect(() => {
@@ -84,6 +85,25 @@ export default function Handshake() {
     setSession(negotiate(dealId));
     setShown(0); setSigned(false); setRunning(false);
   }, [dealId]);
+
+  // Rook (by voice or chat) can open + auto-run a negotiation via this event.
+  useEffect(() => {
+    function onHs(e) {
+      const q = String(e.detail?.query || '').trim().toLowerCase();
+      if (q) {
+        const m = deals.find(d => (d.name || '').toLowerCase().includes(q)) || deals.find(d => q.includes((d.name || '').split(' - ')[0].toLowerCase()));
+        if (m) setDealId(m.id);
+      }
+      if (e.detail?.run) setPendingRun(true);
+    }
+    window.addEventListener('rally:handshake', onHs);
+    return () => window.removeEventListener('rally:handshake', onHs);
+  }, [deals]);
+
+  useEffect(() => {
+    if (pendingRun && session) { setPendingRun(false); run(); }
+    // eslint-disable-next-line
+  }, [pendingRun, session]);
 
   useEffect(() => {
     if (!running || !session) return;

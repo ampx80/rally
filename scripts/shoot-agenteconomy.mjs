@@ -64,5 +64,21 @@ await check('home', '/', async () => {
   return `band=${band}`;
 });
 
+await check('handshake-voice', '/handshake', async () => {
+  // simulate Rook firing the negotiate event (as the voice tool does)
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('rally:handshake', { detail: { query: '', run: true } })));
+  await page.waitForTimeout(8500);
+  const msgs = await page.locator('.hs-msg').count();
+  const outcome = await page.locator('.hs-outcome').count();
+  return `autoRunMsgs=${msgs} outcome=${outcome}`;
+});
+
+await check('command-center', '/app', async () => {
+  await page.waitForTimeout(1500);
+  const brief = await page.getByText('The Boardroom').count();
+  const rationale = await page.locator('.card').filter({ hasText: 'consensus' }).count();
+  return `boardroomBrief=${brief} card=${rationale}`;
+});
+
 console.log(fail === 0 ? 'ALL CLEAN' : 'FAILURES ' + fail);
 await browser.close();

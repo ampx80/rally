@@ -306,6 +306,11 @@ export default function RookDock() {
     }
     if (name === 'build_report') { navigate('/report-builder'); return { ok: true }; }
     if (name === 'open_help') { navigate('/training'); return { ok: true }; }
+    if (name === 'negotiate') {
+      navigate('/handshake');
+      setTimeout(() => { try { window.dispatchEvent(new CustomEvent('rally:handshake', { detail: { query: String(args.deal || ''), run: true } })); } catch {} }, 350);
+      return { ok: true, opening: 'handshake' };
+    }
     if (name === 'highlight') {
       const map = {
         nav: 'nav, .rl-rail', home: '.cc-hero, .rl-hero', deals: '.kanban, [data-page="deals"]', pipeline: '.kanban, [data-page="deals"]',

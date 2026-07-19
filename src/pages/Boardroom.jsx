@@ -9,7 +9,7 @@ import { useStore } from '../lib/store.js';
 import { SectionHeader, Badge, EmptyState, useToast, relTime } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import AgentDeck from '../components/agent/AgentDeck.jsx';
-import { convene, useBoardroom, getSessions, fileMemo, fmtMoney } from '../lib/boardroom.js';
+import { convene, useBoardroom, getSessions, fileMemo, latestBrief, fmtMoney } from '../lib/boardroom.js';
 import './boardroom.css';
 
 const STANCE = {
@@ -35,6 +35,20 @@ export default function Boardroom() {
   const [accepted, setAccepted] = useState({});
   const [filed, setFiled] = useState(false);
   const threadRef = useRef(null);
+
+  // On entry, surface the standing auto-convened memo (fully revealed), so the
+  // brief you saw on the Command Center is the same one you land on here.
+  useEffect(() => {
+    const b = latestBrief();
+    if (b && b.debate) {
+      setSession(b);
+      setShown(b.debate.length);
+      setPlaying(false);
+      setFiled(!!b.filed);
+      setAccepted(Object.fromEntries(b.decisions.map(d => [d.id, b.filed ? (b.acceptedIds || []).includes(d.id) : true])));
+    }
+    // eslint-disable-next-line
+  }, []);
 
   function run() {
     const s = convene();

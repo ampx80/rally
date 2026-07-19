@@ -47,6 +47,14 @@ const TOOLS = [
     parameters: { type: 'object', properties: { topic: { type: 'string' } } },
   },
   {
+    type: 'function', name: 'negotiate',
+    description: 'Open the Handshake deal room and start an agent-to-agent negotiation on a deal. Use when the user asks to negotiate, close, or run a deal with the buyer. The negotiation is bounded by their mandate and requires a human countersignature.',
+    parameters: {
+      type: 'object',
+      properties: { deal: { type: 'string', description: 'the deal or company name to negotiate (optional; defaults to the top open deal)' } },
+    },
+  },
+  {
     type: 'function', name: 'highlight',
     description: 'Spotlight a part of the current screen while you explain it, so the user sees exactly where something is. Great during training - highlight the thing you are talking about, then keep talking, unhurried.',
     parameters: {

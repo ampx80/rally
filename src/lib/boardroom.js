@@ -167,8 +167,11 @@ function buildDebate(seats, consensus, ctx) {
 
 /* ---------- persistence + pub/sub ---------- */
 function load() {
-  try { const raw = localStorage.getItem(LS_KEY); if (raw) { const s = JSON.parse(raw); if (Array.isArray(s?.sessions)) return s; } } catch {}
-  return { sessions: [] };
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) { const s = JSON.parse(raw); if (s && Array.isArray(s.sessions)) return { sessions: s.sessions, draft: s.draft || null, lastAutoAt: s.lastAutoAt || null }; }
+  } catch {}
+  return { sessions: [], draft: null, lastAutoAt: null };
 }
 let state = load();
 const subs = new Set();
@@ -185,6 +188,21 @@ export function useBoardroom(selector = (s) => s) {
 export const getSessions = () => state.sessions;
 export const lastSession = () => state.sessions[0] || null;
 
+// The freshest memo for at-a-glance surfaces (Command Center): the standing
+// auto-convened draft, else the most recently filed memo.
+export const latestBrief = () => state.draft || state.sessions[0] || null;
+
+// Auto-convene on a nightly-ish cadence so a fresh memo is always waiting. Runs
+// deterministically off the live book, persists an UNFILED draft (no CRM writes
+// until a human files it). Re-convenes only when the draft is older than ~18h.
+export function autoConvene(force = false) {
+  const now = Date.now();
+  if (!force && state.draft && state.lastAutoAt && (now - state.lastAutoAt) < 18 * 3600 * 1000) return state.draft;
+  const s = convene();
+  commit({ ...state, draft: s, lastAutoAt: now });
+  return s;
+}
+
 // File the memo: persist the session and commit each accepted decision as a
 // directed task on the record. This is the human countersignature step.
 export function fileMemo(session, acceptedIds = null) {
@@ -199,7 +217,8 @@ export function fileMemo(session, acceptedIds = null) {
     } catch {}
   }
   const filed = { ...session, filed: true, filedAt: new Date().toISOString(), committed, acceptedIds: accepted.map(a => a.id) };
-  commit({ ...state, sessions: [filed, ...state.sessions].slice(0, 40) });
+  const clearDraft = state.draft && state.draft.id === session.id;
+  commit({ ...state, sessions: [filed, ...state.sessions].slice(0, 40), draft: clearDraft ? null : state.draft });
   return { ok: true, committed };
 }
 

@@ -20,6 +20,7 @@ import { SectionHeader, moneyK } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import RookBrief from '../components/home/RookBrief.jsx';
 import RookLive from '../components/home/RookLive.jsx';
+import BoardroomBrief from '../components/home/BoardroomBrief.jsx';
 import KpiTile from '../components/home/KpiTile.jsx';
 import PipelinePulse from '../components/home/PipelinePulse.jsx';
 import TodayPanel from '../components/home/TodayPanel.jsx';
@@ -108,6 +109,9 @@ export default function CommandCenter() {
 
       {/* Rook Live - the agentic operator fleet, working the real book */}
       <RookLive />
+
+      {/* The Boardroom - the standing memo from the autonomous revenue council */}
+      <BoardroomBrief />
 
       {/* KPI row */}
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))' }}>
