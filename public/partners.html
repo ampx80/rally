@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Keep this page completely out of search engines. Internal use only. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Ardovo // Strategic Briefing</title>
+  <meta name="description" content="Private strategic briefing. Not a public page." />
+
+  <!-- Tailwind via CDN (swap for a real build when dropping into Next.js) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // ---- Tailwind theme: neon-on-black palette. Tune these to rebrand. ----
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#05060a',
+            ink2: '#0a0c14',
+            neon: { blue: '#3b82f6', cyan: '#22d3ee', purple: '#a855f7', violet: '#7c5cf7' },
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       ARDOVO STRATEGIC BRIEFING - self-contained partner demo.
+       Cyberpunk meets high-end enterprise. Dark, neon, glass, motion.
+       All animation respects prefers-reduced-motion.
+       ============================================================ */
+    :root {
+      --blue: #3b82f6; --cyan: #22d3ee; --purple: #a855f7; --violet: #7c5cf7;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body { background: #05060a; color: #e6ebf5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    body.locked { overflow: hidden; height: 100vh; }
+    ::selection { background: rgba(34,211,238,.3); }
+
+    /* Fixed canvas backdrop */
+    #bg { position: fixed; inset: 0; z-index: 0; display: block; }
+    .bg-vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(120% 90% at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%); }
+    .bg-grid { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .5;
+      background-image: linear-gradient(rgba(59,130,246,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(120% 80% at 50% 10%, #000 30%, transparent 78%);
+      -webkit-mask-image: radial-gradient(120% 80% at 50% 10%, #000 30%, transparent 78%); }
+
+    /* Glass surfaces */
+    .glass { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.09); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .glass-strong { background: rgba(10,12,20,.72); border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+    /* Neon text + accents */
+    .grad-text { background: linear-gradient(100deg, #22d3ee, #3b82f6 45%, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .glow-blue { box-shadow: 0 0 0 1px rgba(59,130,246,.4), 0 18px 60px -20px rgba(59,130,246,.6); }
+    .glow-hover { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s, border-color .3s; }
+    .glow-hover:hover { transform: translateY(-6px); border-color: rgba(34,211,238,.5);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.4), 0 30px 70px -30px rgba(34,211,238,.5); }
+
+    .chip { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+
+    /* Animated conic border for hero + key cards */
+    .beam { position: relative; }
+    .beam::before { content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
+      background: conic-gradient(from var(--a, 0deg), transparent 0 60%, #22d3ee 75%, #a855f7 88%, transparent 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; animation: spinBeam 6s linear infinite; opacity: .8; }
+    @keyframes spinBeam { to { --a: 360deg; } }
+
+    /* Scroll-reveal */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Floaty */
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .floaty { animation: floaty 7s ease-in-out infinite; }
+    @keyframes pulseGlow { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+
+    /* Progress bar */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 60;
+      background: linear-gradient(90deg, #22d3ee, #3b82f6, #a855f7); box-shadow: 0 0 14px rgba(34,211,238,.8); }
+
+    /* Gate */
+    #gate { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px;
+      background: radial-gradient(120% 120% at 50% 0%, #0a1024, #05060a 60%); transition: opacity .8s ease, transform .8s ease; }
+    #gate.hide { opacity: 0; transform: scale(1.04); pointer-events: none; }
+    .shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
+    @keyframes shake { 10%,90% { transform: translateX(-2px); } 20%,80% { transform: translateX(4px); } 30%,50%,70% { transform: translateX(-8px); } 40%,60% { transform: translateX(8px); } }
+
+    /* App reveal */
+    #app { position: relative; z-index: 2; opacity: 0; transition: opacity 1s ease .15s; }
+    #app.show { opacity: 1; }
+
+    /* Module dock (floating jump menu) */
+    #dock { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 50; }
+    #dock a { display: flex; align-items: center; gap: 10px; justify-content: flex-end; margin: 8px 0; color: #7d8aa5; text-decoration: none; font-size: 12px; font-weight: 600; }
+    #dock a .dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(125,138,165,.5); transition: all .25s; }
+    #dock a .lbl { opacity: 0; transform: translateX(6px); transition: all .25s; white-space: nowrap; }
+    #dock a:hover .lbl, #dock a.active .lbl { opacity: 1; transform: none; }
+    #dock a:hover .dot, #dock a.active .dot { background: #22d3ee; border-color: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,.9); }
+    #dock a.active { color: #e6ebf5; }
+    @media (max-width: 1100px) { #dock { display: none; } }
+
+    /* Nav */
+    nav a.navlink { color: #aab4c9; transition: color .2s; }
+    nav a.navlink:hover { color: #fff; }
+
+    /* Modal */
+    #modal { position: fixed; inset: 0; z-index: 90; display: none; place-items: center; padding: 22px;
+      background: rgba(3,4,8,.75); backdrop-filter: blur(6px); }
+    #modal.open { display: grid; }
+    .term-line { opacity: 0; transform: translateY(4px); }
+    .term-line.in { opacity: 1; transform: none; transition: all .3s; }
+    .caret::after { content: '_'; animation: blink 1s steps(1) infinite; color: #22d3ee; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* expandable card body */
+    .expand { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .beam::before, .floaty { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body class="locked">
+  <!-- Canvas particle/constellation backdrop -->
+  <canvas id="bg"></canvas>
+  <div class="bg-grid"></div>
+  <div class="bg-vignette"></div>
+  <div id="progress"></div>
+
+  <!-- ============================ PASSWORD GATE ============================ -->
+  <div id="gate">
+    <div class="beam glass-strong rounded-3xl w-full max-w-md p-8 text-center" style="border-radius:26px">
+      <div class="floaty mx-auto mb-6 grid place-items-center rounded-2xl" style="width:70px;height:70px;background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(168,85,247,.2));border:1px solid rgba(255,255,255,.12)">
+        <i data-lucide="fingerprint" style="width:34px;height:34px;color:#22d3ee"></i>
+      </div>
+      <div class="text-xs tracking-[0.3em] uppercase text-neon-cyan mb-2">Restricted Access</div>
+      <h1 class="font-display text-3xl font-bold mb-2">Ardovo <span class="grad-text">Strategic Briefing</span></h1>
+      <p class="text-sm text-slate-400 mb-7">This dossier is private and unindexed. Enter the access key to continue.</p>
+      <form id="gateForm" autocomplete="off">
+        <div class="relative">
+          <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2" style="width:18px;height:18px;color:#64748b"></i>
+          <input id="pw" type="password" placeholder="Access key" autofocus spellcheck="false"
+            class="w-full rounded-xl bg-black/40 border border-white/10 pl-11 pr-4 py-3.5 text-center tracking-widest outline-none focus:border-neon-cyan focus:ring-2 focus:ring-cyan-400/20 transition" />
+        </div>
+        <div id="gateErr" class="h-5 mt-2 text-sm text-rose-400 opacity-0 transition">Access key not recognized.</div>
+        <button type="submit" class="mt-3 w-full rounded-xl py-3.5 font-semibold text-black glow-blue transition hover:scale-[1.02]"
+          style="background:linear-gradient(100deg,#22d3ee,#3b82f6)">
+          Unlock briefing
+        </button>
+      </form>
+      <div class="mt-6 text-[11px] text-slate-500 flex items-center justify-center gap-2">
+        <i data-lucide="shield-check" style="width:13px;height:13px"></i> Confidential - not for distribution
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ APP (revealed) ============================ -->
+  <div id="app">
+    <!-- NAV -->
+    <nav class="fixed top-0 inset-x-0 z-50 glass-strong border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-5 h-[68px] flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-2.5 font-display font-bold text-lg">
+          <span class="grid place-items-center rounded-lg" style="width:34px;height:34px;background:linear-gradient(135deg,#22d3ee,#a855f7)">
+            <i data-lucide="hexagon" style="width:18px;height:18px;color:#05060a"></i>
+          </span>
+          Ardovo
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="#platform" class="navlink">Platform</a>
+          <a href="#modules" class="navlink">Pillars</a>
+          <a href="#suites" class="navlink">Capabilities</a>
+          <a href="#ai" class="navlink">AI Core</a>
+          <a href="#security" class="navlink">Security</a>
+          <a href="#vision" class="navlink">Vision</a>
+        </div>
+        <a href="#vision" class="chip rounded-lg px-4 py-2 text-sm font-semibold hover:border-neon-cyan/60 transition flex items-center gap-2">
+          <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span></span>
+          Live platform
+        </a>
+      </div>
+    </nav>
+
+    <!-- Floating module dock -->
+    <div id="dock"></div>
+
+    <!-- HERO -->
+    <header id="top" class="relative pt-40 pb-28 px-5">
+      <div class="max-w-5xl mx-auto text-center">
+        <div class="reveal inline-flex items-center gap-2 chip rounded-full px-4 py-1.5 text-xs tracking-wide text-slate-300 mb-7">
+          <i data-lucide="sparkles" style="width:14px;height:14px;color:#22d3ee"></i>
+          The operating system for revenue
+        </div>
+        <h1 class="reveal font-display font-bold leading-[1.05] tracking-tight" style="font-size:clamp(2.6rem,7vw,5.2rem)">
+          The CRM is dead.<br /><span class="grad-text">Long live the operator.</span>
+        </h1>
+        <p class="reveal mx-auto mt-7 max-w-2xl text-lg text-slate-300 leading-relaxed">
+          Ardovo is an AI-native revenue platform where the software does not just store your business - it runs it.
+          One system replaces the CRM, the sales stack, the service desk, the billing engine, and the analyst.
+          An autonomous operator works the pipeline while you sleep.
+        </p>
+        <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="#modules" class="rounded-xl px-7 py-3.5 font-semibold text-black glow-blue transition hover:scale-[1.03]" style="background:linear-gradient(100deg,#22d3ee,#3b82f6)">
+            Explore the platform
+          </a>
+          <button data-demo="rook" class="rounded-xl px-7 py-3.5 font-semibold glass glow-hover flex items-center gap-2">
+            <i data-lucide="play" style="width:16px;height:16px;color:#22d3ee"></i> Watch the operator work
+          </button>
+        </div>
+        <!-- Stat band -->
+        <div class="reveal mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="glass rounded-2xl p-5"><div class="font-display text-3xl font-bold grad-text">70+</div><div class="text-xs text-slate-400 mt-1">Integrated modules</div></div>
+          <div class="glass rounded-2xl p-5"><div class="font-display text-3xl font-bold grad-text">10</div><div class="text-xs text-slate-400 mt-1">Product suites</div></div>
+          <div class="glass rounded-2xl p-5"><div class="font-display text-3xl font-bold grad-text">1</div><div class="text-xs text-slate-400 mt-1">Unified data core</div></div>
+          <div class="glass rounded-2xl p-5"><div class="font-display text-3xl font-bold grad-text">24/7</div><div class="text-xs text-slate-400 mt-1">Autonomous execution</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PLATFORM INTRO -->
+    <section id="platform" class="relative py-24 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center max-w-3xl mx-auto mb-16">
+          <div class="text-xs tracking-[0.3em] uppercase text-neon-cyan mb-3">The thesis</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold">One core. <span class="grad-text">Every workflow.</span></h2>
+          <p class="mt-5 text-slate-300 text-lg">Legacy CRMs are filing cabinets with a search bar. Ardovo is a living graph of your business with an agent on top that can read, reason, and act. Everything below shares one data model, one permission system, and one AI brain.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="reveal glass glow-hover rounded-2xl p-7">
+            <i data-lucide="database" style="width:28px;height:28px;color:#22d3ee"></i>
+            <h3 class="font-display text-xl font-semibold mt-4">Unified data graph</h3>
+            <p class="text-slate-400 mt-2 text-sm leading-relaxed">Companies, contacts, deals, tickets, invoices, and documents live as one connected graph - no silos, no sync jobs, no duplicate truth.</p>
+          </div>
+          <div class="reveal glass glow-hover rounded-2xl p-7">
+            <i data-lucide="brain-circuit" style="width:28px;height:28px;color:#a855f7"></i>
+            <h3 class="font-display text-xl font-semibold mt-4">Agentic by default</h3>
+            <p class="text-slate-400 mt-2 text-sm leading-relaxed">Rook, the operator, does not suggest - it executes inside risk tiers, budgets, and human-in-the-loop guardrails you control.</p>
+          </div>
+          <div class="reveal glass glow-hover rounded-2xl p-7">
+            <i data-lucide="infinity" style="width:28px;height:28px;color:#3b82f6"></i>
+            <h3 class="font-display text-xl font-semibold mt-4">Scales both ways</h3>
+            <p class="text-slate-400 mt-2 text-sm leading-relaxed">Built for the solo operator and the 10,000-seat enterprise on the same rails. Multi-tenant, RBAC, SSO, audited.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section id="modules" class="relative py-20 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center max-w-3xl mx-auto mb-14">
+          <div class="text-xs tracking-[0.3em] uppercase text-neon-cyan mb-3">The platform, dissected</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold">Nine modules. <span class="grad-text">One organism.</span></h2>
+          <p class="mt-5 text-slate-300 text-lg">Every capability below ships in the product today. Expand any module to go deep, or trigger a live demo of the operator running it.</p>
+        </div>
+        <div id="moduleGrid" class="grid md:grid-cols-2 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- FULL CAPABILITY INDEX (every module, dissected) -->
+    <section id="suites" class="relative py-20 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center max-w-3xl mx-auto mb-14">
+          <div class="text-xs tracking-[0.3em] uppercase text-neon-cyan mb-3">Every surface, mapped</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold">The full <span class="grad-text">capability index</span>.</h2>
+          <p class="mt-5 text-slate-300 text-lg">Seventy-plus modules across ten suites - the entire operating system, laid bare. Every one shares the same graph, the same permission model, and the same AI brain. Nothing here is a slide; it all ships.</p>
+        </div>
+        <div id="suiteGrid" class="grid md:grid-cols-2 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- AI CORE SPOTLIGHT -->
+    <section id="ai" class="relative py-28 px-5">
+      <div class="max-w-6xl mx-auto beam glass-strong rounded-[30px] p-10 md:p-16 overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal">
+            <div class="text-xs tracking-[0.3em] uppercase text-neon-purple mb-3">The AI Command Center</div>
+            <h2 class="font-display text-4xl md:text-5xl font-bold leading-tight">Meet <span class="grad-text">Rook</span>.<br />Your autonomous operator.</h2>
+            <p class="mt-5 text-slate-300 leading-relaxed">Talk to it. Type to it. Rook reads the full graph, drafts the offer, updates the pipeline, books the meeting, files the ticket, and sends the invoice - then reports back. It works inside spend budgets, risk tiers, and approval gates, so autonomy never means chaos.</p>
+            <ul class="mt-6 space-y-3 text-sm text-slate-300">
+              <li class="flex items-center gap-3"><i data-lucide="mic" style="width:18px;height:18px;color:#22d3ee"></i> Voice + text control of the entire platform</li>
+              <li class="flex items-center gap-3"><i data-lucide="git-branch" style="width:18px;height:18px;color:#22d3ee"></i> Multi-step agentic workflows with rollback</li>
+              <li class="flex items-center gap-3"><i data-lucide="shield-half" style="width:18px;height:18px;color:#22d3ee"></i> Risk-tiered execution and human-in-the-loop</li>
+            </ul>
+            <button data-demo="rook" class="mt-8 rounded-xl px-6 py-3.5 font-semibold text-black glow-blue transition hover:scale-[1.03] inline-flex items-center gap-2" style="background:linear-gradient(100deg,#22d3ee,#a855f7)">
+              <i data-lucide="terminal" style="width:16px;height:16px"></i> Run a live command
+            </button>
+          </div>
+          <div class="reveal">
+            <!-- faux command console -->
+            <div class="glass-strong rounded-2xl p-5 font-mono text-[13px]">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span><span class="w-3 h-3 rounded-full bg-amber-400/80"></span><span class="w-3 h-3 rounded-full bg-emerald-400/80"></span>
+                <span class="ml-2 text-slate-500 text-xs">rook://operator</span>
+              </div>
+              <div class="text-slate-300"><span class="text-neon-cyan">you</span> &gt; renew Northwind at 12% and send for approval</div>
+              <div class="mt-2 text-slate-400">↳ resolving account <span class="text-emerald-400">Northwind Traders</span></div>
+              <div class="text-slate-400">↳ drafting renewal quote <span class="text-emerald-400">$142,800 / yr</span></div>
+              <div class="text-slate-400">↳ routing to <span class="text-neon-purple">VP Sales</span> for approval</div>
+              <div class="text-emerald-400 mt-2">✓ done in 2.3s <span class="caret"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section id="security" class="relative py-24 px-5">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center max-w-3xl mx-auto mb-14">
+          <div class="text-xs tracking-[0.3em] uppercase text-neon-cyan mb-3">Security and scale</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold">Enterprise-grade. <span class="grad-text">Never-locked-out.</span></h2>
+          <p class="mt-5 text-slate-300 text-lg">The controls a 10,000-seat security team demands, wrapped in an experience a first-day user actually enjoys.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="reveal glass glow-hover rounded-2xl p-6"><i data-lucide="key-round" style="width:24px;height:24px;color:#22d3ee"></i><h3 class="font-semibold mt-3">RBAC + overrides</h3><p class="text-slate-400 text-sm mt-1.5">Roles, per-module access levels, and per-user overrides - all explainable.</p></div>
+          <div class="reveal glass glow-hover rounded-2xl p-6"><i data-lucide="smartphone" style="width:24px;height:24px;color:#a855f7"></i><h3 class="font-semibold mt-3">TOTP 2FA + SSO</h3><p class="text-slate-400 text-sm mt-1.5">Authenticator 2FA, recovery codes, and Google SSO (OIDC) out of the box.</p></div>
+          <div class="reveal glass glow-hover rounded-2xl p-6"><i data-lucide="scroll-text" style="width:24px;height:24px;color:#3b82f6"></i><h3 class="font-semibold mt-3">Audit trail</h3><p class="text-slate-400 text-sm mt-1.5">Every sign-in, 2FA change, and recovery event is visible and exportable.</p></div>
+          <div class="reveal glass glow-hover rounded-2xl p-6"><i data-lucide="life-buoy" style="width:24px;height:24px;color:#22d3ee"></i><h3 class="font-semibold mt-3">No lockouts</h3><p class="text-slate-400 text-sm mt-1.5">Humane recovery and a concierge line mean nobody is ever stuck at the door.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION / CLOSING -->
+    <section id="vision" class="relative py-32 px-5">
+      <div class="max-w-4xl mx-auto text-center reveal">
+        <div class="text-xs tracking-[0.3em] uppercase text-neon-purple mb-4">The opportunity</div>
+        <h2 class="font-display text-4xl md:text-6xl font-bold leading-tight">The category is being <span class="grad-text">rebuilt from zero</span>.</h2>
+        <p class="mt-7 text-lg text-slate-300 leading-relaxed">Every business on earth runs on a CRM built before AI could act. Ardovo is the first platform designed the other way around - agentic from the first commit, unified by default, and priced for everyone from the solo founder to the enterprise floor. This is the ground floor of the software layer that operates the economy.</p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="mailto:partners@ardovo.com?subject=Ardovo%20briefing" class="rounded-xl px-8 py-4 font-semibold text-black glow-blue transition hover:scale-[1.03]" style="background:linear-gradient(100deg,#22d3ee,#3b82f6)">Start the conversation</a>
+          <a href="#top" class="rounded-xl px-8 py-4 font-semibold glass glow-hover">Back to top</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="relative py-10 px-5 border-t border-white/10">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        <div class="flex items-center gap-2"><i data-lucide="hexagon" style="width:16px;height:16px;color:#22d3ee"></i> Ardovo - confidential strategic briefing</div>
+        <div>Not for distribution. Unindexed. &copy; <span id="yr"></span></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL (live demos) -->
+  <div id="modal">
+    <div class="beam glass-strong rounded-3xl w-full max-w-lg p-7" style="border-radius:24px">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2 text-sm text-slate-400"><i data-lucide="terminal-square" style="width:16px;height:16px;color:#22d3ee"></i> <span id="modalTitle">Live demo</span></div>
+        <button id="modalClose" class="text-slate-400 hover:text-white transition"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+      </div>
+      <div id="modalBody" class="font-mono text-[13.5px] leading-relaxed min-h-[220px]"></div>
+    </div>
+  </div>
+
+  <script>
+  /* ============================================================
+     1) CONFIG - the full module dataset. Edit freely to customize.
+     Each module: icon (lucide), color, title, tagline, why, bullets,
+     and an optional demo key that opens a scripted console modal.
+     ============================================================ */
+  const MODULES = [
+    { id: 'crm', icon: 'contact', color: '#22d3ee', title: 'Intelligent CRM',
+      tagline: 'A living graph of every relationship.',
+      why: 'Not a database of records - a connected model of accounts, people, and history that the AI can reason over instantly.',
+      bullets: ['360-degree company + contact profiles', 'Auto-enrichment and dedupe on ingest', 'Relationship graph across deals, tickets, invoices', 'Smart segments that update themselves'] },
+    { id: 'sales', icon: 'trending-up', color: '#3b82f6', title: 'Sales Acceleration',
+      tagline: 'Pipeline that closes itself.',
+      why: 'Pre-qualification, forecasting, and AI negotiation compress the deal cycle from months to days.',
+      bullets: ['Pre-qualification funnel with lead scoring', 'Kanban pipeline + deal rooms', 'Handshake AI negotiation assistant', 'Predictive forecasting and win-likelihood'], demo: 'forecast' },
+    { id: 'aicore', icon: 'brain-circuit', color: '#a855f7', title: 'AI Command Center',
+      tagline: 'Rook, the autonomous operator.',
+      why: 'The first CRM where the software takes action - inside budgets, risk tiers, and approval gates you define.',
+      bullets: ['Voice + text control of the whole platform', 'Multi-step agentic workflows', 'Risk-tiered execution + human-in-the-loop', 'Every action logged and reversible'], demo: 'rook' },
+    { id: 'ops', icon: 'life-buoy', color: '#22d3ee', title: 'Operations & Service',
+      tagline: 'Support and delivery on one graph.',
+      why: 'Tickets, SLAs, and journeys share the same customer record as sales - no context lost at the handoff.',
+      bullets: ['Ticketing with SLA timers', 'Visual journeys and automations', 'Task orchestration across teams', 'Unified timeline per customer'] },
+    { id: 'fin', icon: 'banknote', color: '#3b82f6', title: 'Financial Core',
+      tagline: 'Quote to cash, natively.',
+      why: 'Revenue lives where the relationship lives - quotes, invoices, and subscriptions without a separate billing tool.',
+      bullets: ['Quotes and proposals', 'Invoicing and payment tracking', 'Subscription + renewal management', 'Revenue analytics in real time'] },
+    { id: 'migrate', icon: 'wand-2', color: '#a855f7', title: 'Migration & Onboarding',
+      tagline: 'Talk your data into the platform.',
+      why: 'The migration nightmare is over - a conversational wizard cleanses, maps, and stages your data before a single record lands.',
+      bullets: ['Conversational migration wizard', 'Automatic cleansing + dedupe + mapping', 'Review-before-apply staging sandbox', 'AI-guided training for every new user'], demo: 'migrate' },
+    { id: 'analytics', icon: 'radar', color: '#22d3ee', title: 'Analytics & Atlas',
+      tagline: 'Intelligence you can steer.',
+      why: 'A predictive map of your book of business, powered by real ML - not a static dashboard.',
+      bullets: ['Atlas predictive map (PCA + clustering)', 'Win-likelihood via k-NN modeling', 'Drag-and-drop report builder', 'Explainable metric breakdowns'] },
+    { id: 'eco', icon: 'plug-zap', color: '#3b82f6', title: 'Integrations & Ecosystem',
+      tagline: 'Open by design.',
+      why: 'A real API, webhooks, and connectors mean Ardovo becomes the hub - not another silo.',
+      bullets: ['REST API + webhooks', 'Native connectors and imports', 'Embeddable surfaces', 'Extensible module framework'] },
+    { id: 'security', icon: 'shield-check', color: '#a855f7', title: 'Security & Scale',
+      tagline: 'Enterprise controls, human experience.',
+      why: 'RBAC, 2FA, SSO, and full auditability on multi-tenant rails - with a login nobody ever gets locked out of.',
+      bullets: ['Role-based access + per-user overrides', 'TOTP 2FA, recovery codes, Google SSO', 'Security activity log + export', 'Multi-tenant, SOC 2 track'] },
+  ];
+
+  /* Scripted console demos. Each is an array of {t: text, c: color?, d: delayMs?} */
+  const DEMOS = {
+    rook: { title: 'Rook // autonomous operator', lines: [
+      { t: 'you > close the loop on my stale enterprise deals', c: '#22d3ee' },
+      { t: '↳ scanning pipeline ... 6 deals idle > 14 days' },
+      { t: '↳ drafting personalized nudges for each owner' },
+      { t: '↳ scheduling 3 follow-up calls via calendar' },
+      { t: '↳ flagging 1 deal as at-risk to VP Sales', c: '#a855f7' },
+      { t: '✓ 6 actions executed, 0 errors - 3.1s', c: '#34d399' },
+    ]},
+    forecast: { title: 'Sales Acceleration // forecast', lines: [
+      { t: 'you > what will we close this quarter?', c: '#22d3ee' },
+      { t: '↳ modeling 84 open deals with k-NN' },
+      { t: '↳ weighting by stage, velocity, engagement' },
+      { t: 'commit: $1.24M  |  best case: $1.71M', c: '#34d399' },
+      { t: 'top risk: Contoso renewal (stalled 21d)', c: '#fbbf24' },
+      { t: '✓ forecast refreshed live', c: '#34d399' },
+    ]},
+    migrate: { title: 'Migration Wizard // cleanse + stage', lines: [
+      { t: 'you > import salesforce_export.csv', c: '#22d3ee' },
+      { t: '↳ parsed 18,442 rows across 12 objects' },
+      { t: '↳ found 1,203 duplicates > merged' },
+      { t: '↳ 340 unmapped columns > auto-mapped 318' },
+      { t: '↳ staged for review - nothing applied yet', c: '#a855f7' },
+      { t: '✓ ready to promote to production', c: '#34d399' },
+    ]},
+  };
+
+  /* ============================================================
+     2) RENDER MODULES + DOCK
+     ============================================================ */
+  const grid = document.getElementById('moduleGrid');
+  MODULES.forEach((m, i) => {
+    const el = document.createElement('div');
+    el.className = 'reveal beam glass glow-hover rounded-2xl p-7 cursor-pointer';
+    el.style.borderRadius = '20px';
+    el.innerHTML = `
+      <div class="flex items-start justify-between">
+        <div class="grid place-items-center rounded-xl" style="width:52px;height:52px;background:${m.color}1a;border:1px solid ${m.color}44">
+          <i data-lucide="${m.icon}" style="width:26px;height:26px;color:${m.color}"></i>
+        </div>
+        <span class="text-xs text-slate-500 font-mono">0${i + 1}</span>
+      </div>
+      <h3 class="font-display text-2xl font-semibold mt-5">${m.title}</h3>
+      <p class="text-sm mt-1" style="color:${m.color}">${m.tagline}</p>
+      <p class="text-slate-400 text-sm mt-3 leading-relaxed">${m.why}</p>
+      <div class="expand" data-expand>
+        <ul class="mt-4 space-y-2 text-sm text-slate-300">
+          ${m.bullets.map(b => `<li class="flex items-start gap-2"><i data-lucide="check" style="width:16px;height:16px;color:${m.color};flex:none;margin-top:2px"></i><span>${b}</span></li>`).join('')}
+        </ul>
+      </div>
+      <div class="flex items-center gap-4 mt-5">
+        <button data-toggle class="text-sm font-semibold flex items-center gap-1.5" style="color:${m.color}">
+          <span data-toggle-label>Show capabilities</span><i data-lucide="chevron-down" data-caret style="width:16px;height:16px;transition:transform .3s"></i>
+        </button>
+        ${m.demo ? `<button data-demo="${m.demo}" class="text-sm font-semibold text-slate-300 flex items-center gap-1.5 hover:text-white transition"><i data-lucide="play" style="width:15px;height:15px"></i> Live demo</button>` : ''}
+      </div>`;
+    grid.appendChild(el);
+
+    // expand/collapse
+    const body = el.querySelector('[data-expand]');
+    const toggle = el.querySelector('[data-toggle]');
+    const caret = el.querySelector('[data-caret]');
+    const label = el.querySelector('[data-toggle-label]');
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = body.style.maxHeight && body.style.maxHeight !== '0px';
+      body.style.maxHeight = open ? '0px' : body.scrollHeight + 'px';
+      caret.style.transform = open ? 'none' : 'rotate(180deg)';
+      label.textContent = open ? 'Show capabilities' : 'Hide capabilities';
+    });
+  });
+
+  /* ---- Full capability index: every suite + module (from the live product). ---- */
+  const SUITES = [
+    { name: 'Core CRM', icon: 'layout-dashboard', color: '#22d3ee', note: 'Always on', items: [
+      ['Command Center', 'Live cockpit for the whole business'],
+      ['My Day', 'AI-prioritized daily action list'],
+      ['Companies', '360-degree account records + graph'],
+      ['Contacts', 'People, roles, and relationships'],
+      ['Deals', 'Pipeline, stages, and deal rooms'],
+      ['Notifications', 'Real-time signal feed'],
+    ]},
+    { name: 'Sell', icon: 'trending-up', color: '#3b82f6', items: [
+      ['Leads', 'Inbound inbox with AI scoring + one-click convert'],
+      ['Forecasting', 'Weighted forecast, quota, category roll-up'],
+      ['Goals', 'Quota and goal tracking with pacing'],
+      ['Territories', 'Territory design + book-of-business rollup'],
+      ['Scheduler', 'Meeting links and availability'],
+      ['Playbooks', 'Guided selling and sales playbooks'],
+      ['War Room', 'Live deal room with buying committee + close plan'],
+    ]},
+    { name: 'Marketing', icon: 'megaphone', color: '#a855f7', items: [
+      ['Campaigns', 'Campaigns and audiences'],
+      ['Sequences', 'Multi-step email + task cadences'],
+      ['Automations', 'Marketing automation recipes'],
+      ['Forms', 'Lead-capture forms'],
+      ['Landing Pages', 'Hosted landing pages'],
+      ['Lists', 'Segments and audience lists'],
+      ['Reviews', 'Reputation + review engine'],
+      ['Social', 'Multi-channel social planner'],
+      ['Funnels', 'Funnel and website builder'],
+      ['Ads', 'Cross-channel ad manager + ROAS'],
+      ['Journeys', 'Customer journey orchestration'],
+      ['Marketing Hub', 'Unified command center + lead scoring'],
+    ]},
+    { name: 'Deliver', icon: 'package-check', color: '#22d3ee', items: [
+      ['Projects', 'Post-sale delivery + onboarding'],
+      ['Customer Success', 'Health scores and renewals'],
+      ['Scheduling', 'Delivery + onboarding scheduling'],
+      ['Academy', 'Courses, memberships, client portal'],
+    ]},
+    { name: 'Service', icon: 'headset', color: '#3b82f6', items: [
+      ['Inbox', 'Unified conversations across channels'],
+      ['Conversations', 'Omni-channel messaging'],
+      ['Voice AI', 'AI receptionist + call intelligence'],
+      ['Support Tickets', 'Ticketing and help desk'],
+      ['Service Hub', 'Service operations hub'],
+      ['Knowledge Base', 'Self-serve knowledge base'],
+      ['Surveys', 'NPS, CSAT, and CES'],
+    ]},
+    { name: 'Revenue', icon: 'banknote', color: '#a855f7', items: [
+      ['Products', 'Catalog and price books'],
+      ['Quotes (CPQ)', 'Line items, approvals, configure-price-quote'],
+      ['Billing', 'Invoices, AR aging, MRR + ARR'],
+      ['Signatures', 'Native e-signature'],
+      ['Payments', 'Payment links, text-to-pay, subscriptions'],
+      ['Affiliates', 'Affiliate and partner manager'],
+    ]},
+    { name: 'Intelligence', icon: 'radar', color: '#22d3ee', items: [
+      ['Dashboards', 'Live KPI dashboards'],
+      ['Reports', 'Drag-and-drop report builder'],
+      ['Intelligence', 'Revenue intelligence workspace'],
+      ['Pipeline Fork', 'Scenario-fork the pipeline'],
+      ['Wind Tunnel', 'Stress-test deals under pressure'],
+      ['Ghost Deals', 'Recover and replay lost deals'],
+      ['Attribution', 'Multi-touch revenue attribution'],
+      ['Revenue Twin', 'Monte Carlo revenue digital twin'],
+      ['Signals', 'Predictive churn, expansion, intent'],
+      ['Deal Film', 'Replayable deal timeline'],
+      ['Genesis', 'Generative platform setup'],
+      ['Ask Canvas', 'Generative analytics canvas'],
+    ]},
+    { name: 'Automate', icon: 'workflow', color: '#3b82f6', items: [
+      ['Workflows', 'No-code automation rules engine'],
+      ['Flow Builder', 'Visual workflow canvas'],
+      ['Autopilot', 'Autonomous SDR with a trust dial'],
+      ['Night Shift', 'Overnight autonomous operations'],
+      ['SMS Alerts', 'SMS alerting and routing'],
+      ['Task Queues', 'Work queues for the team'],
+    ]},
+    { name: 'Data & Files', icon: 'database', color: '#a855f7', items: [
+      ['Grid', 'Airtable-class linked database in the CRM'],
+      ['Data Sync', 'Two-way sync + data health'],
+      ['Import', 'Bulk import and column mapping'],
+      ['Custom Objects', 'Custom objects and records'],
+      ['Duplicates', 'Detection and merge'],
+      ['Studio', 'Document studio and builder'],
+      ['Drive', 'Native file storage + sharing'],
+      ['Sheets', 'In-app spreadsheet with formulas'],
+    ]},
+    { name: 'Admin & Scale', icon: 'shield-check', color: '#22d3ee', items: [
+      ['Integrations', 'SAP, Jira, Gmail + hundreds more'],
+      ['Team', 'Users, roles, permissions, territories'],
+      ['Workspaces', 'Agency sub-accounts + white-label'],
+      ['Marketplace', 'Installable app marketplace'],
+      ['Sandboxes', 'Test envs + promote-to-prod'],
+      ['Roles', 'Deep per-module + per-field permissions'],
+      ['Permissions', 'Access control + sharing rules'],
+      ['Developers', 'API keys, webhooks, SDKs'],
+      ['Plans', 'Subscription plans + billing'],
+      ['Audit', 'Audit log of every change'],
+    ]},
+  ];
+  const suiteGrid = document.getElementById('suiteGrid');
+  SUITES.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'reveal glass glow-hover rounded-2xl p-6';
+    el.style.borderRadius = '20px';
+    el.innerHTML = `
+      <div class="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
+        <div class="grid place-items-center rounded-xl" style="width:44px;height:44px;background:${s.color}1a;border:1px solid ${s.color}44">
+          <i data-lucide="${s.icon}" style="width:22px;height:22px;color:${s.color}"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-display text-lg font-semibold leading-tight">${s.name}</h3>
+          <div class="text-xs text-slate-500">${s.note ? s.note + ' - ' : ''}${s.items.length} modules</div>
+        </div>
+      </div>
+      <ul class="space-y-2.5">
+        ${s.items.map(([name, desc]) => `
+          <li class="flex items-start gap-2.5">
+            <i data-lucide="check-circle-2" style="width:15px;height:15px;color:${s.color};flex:none;margin-top:3px"></i>
+            <span class="text-sm"><span class="font-semibold text-slate-100">${name}</span><span class="text-slate-500"> - ${desc}</span></span>
+          </li>`).join('')}
+      </ul>`;
+    suiteGrid.appendChild(el);
+  });
+
+  // Dock: one node per major section
+  const SECTIONS = [
+    { id: 'top', label: 'Overview' }, { id: 'platform', label: 'Thesis' },
+    { id: 'modules', label: 'Pillars' }, { id: 'suites', label: 'Capabilities' },
+    { id: 'ai', label: 'AI Core' }, { id: 'security', label: 'Security' },
+    { id: 'vision', label: 'Vision' },
+  ];
+  const dock = document.getElementById('dock');
+  SECTIONS.forEach(s => {
+    const a = document.createElement('a');
+    a.href = '#' + s.id; a.dataset.sec = s.id;
+    a.innerHTML = `<span class="lbl">${s.label}</span><span class="dot"></span>`;
+    dock.appendChild(a);
+  });
+
+  /* ============================================================
+     3) PASSWORD GATE  (client-side gate only, not real security)
+     Change ACCESS_KEY to rotate the password.
+     ============================================================ */
+  const ACCESS_KEY = 'john2026';
+  const gate = document.getElementById('gate');
+  const app = document.getElementById('app');
+  const pw = document.getElementById('pw');
+  const gateErr = document.getElementById('gateErr');
+  const card = gate.querySelector('.beam');
+
+  function unlock() {
+    gate.classList.add('hide');
+    document.body.classList.remove('locked');
+    app.classList.add('show');
+    setTimeout(() => { gate.style.display = 'none'; }, 850);
+    try { sessionStorage.setItem('ardovo_briefing', '1'); } catch (e) {}
+    initReveal();
+  }
+  document.getElementById('gateForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (pw.value.trim().toLowerCase() === ACCESS_KEY) {
+      unlock();
+    } else {
+      gateErr.style.opacity = '1';
+      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+      pw.value = ''; pw.focus();
+    }
+  });
+  // Stay unlocked within the session (survives in-page nav / soft refresh).
+  try { if (sessionStorage.getItem('ardovo_briefing') === '1') { gate.style.display = 'none'; gate.classList.add('hide'); document.body.classList.remove('locked'); app.classList.add('show'); } } catch (e) {}
+
+  /* ============================================================
+     4) SCROLL REVEAL + PROGRESS + ACTIVE DOCK
+     ============================================================ */
+  function initReveal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+  // progress bar
+  const progress = document.getElementById('progress');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    progress.style.width = (p * 100) + '%';
+  }, { passive: true });
+  // active section in dock
+  const secIO = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        document.querySelectorAll('#dock a').forEach(a => a.classList.toggle('active', a.dataset.sec === en.target.id));
+      }
+    });
+  }, { threshold: 0.5 });
+  ['top', 'platform', 'modules', 'suites', 'ai', 'security', 'vision'].forEach(id => { const el = document.getElementById(id); if (el) secIO.observe(el); });
+
+  /* ============================================================
+     5) DEMO MODALS - scripted console typewriter
+     ============================================================ */
+  const modal = document.getElementById('modal');
+  const modalBody = document.getElementById('modalBody');
+  const modalTitle = document.getElementById('modalTitle');
+  let demoTimer = null;
+  function openDemo(key) {
+    const demo = DEMOS[key]; if (!demo) return;
+    modalTitle.textContent = demo.title;
+    modalBody.innerHTML = '';
+    modal.classList.add('open');
+    demo.lines.forEach((ln, i) => {
+      const div = document.createElement('div');
+      div.className = 'term-line'; div.style.color = ln.c || '#cbd5e1';
+      div.style.marginTop = i === 0 ? '0' : '6px';
+      div.textContent = ln.t;
+      modalBody.appendChild(div);
+    });
+    const lines = [...modalBody.children];
+    let i = 0;
+    clearInterval(demoTimer);
+    demoTimer = setInterval(() => { if (i >= lines.length) { clearInterval(demoTimer); return; } lines[i].classList.add('in'); i++; }, 520);
+  }
+  function closeDemo() { modal.classList.remove('open'); clearInterval(demoTimer); }
+  document.getElementById('modalClose').addEventListener('click', closeDemo);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeDemo(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDemo(); });
+  // delegate all demo buttons
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-demo]'); if (btn) { e.preventDefault(); openDemo(btn.dataset.demo); }
+  });
+
+  /* ============================================================
+     6) CANVAS BACKDROP - neon constellation + drifting nodes.
+     DPR-aware, capped, cursor-reactive, reduced-motion safe.
+     ============================================================ */
+  (function () {
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COLORS = [[34, 211, 238], [59, 130, 246], [168, 85, 247]];
+    let w, h, dpr, nodes = [], raf, running = true;
+    const pointer = { x: -9999, y: -9999, active: false };
+    const LINK = 140, REACH = 200;
+    function resize() {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      w = innerWidth; h = innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.min(110, Math.max(40, Math.floor((w * h) / 15000)));
+      nodes = [];
+      for (let i = 0; i < target; i++) nodes.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
+        r: .7 + Math.random() * 1.8, c: COLORS[(Math.random() * COLORS.length) | 0],
+      });
+    }
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+        if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+        if (pointer.active) { const dx = pointer.x - n.x, dy = pointer.y - n.y, d = Math.hypot(dx, dy); if (d < 160 && d > .5) { n.x += dx / d * .25; n.y += dy / d * .25; } }
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+          if (d < LINK) { const t = 1 - d / LINK, c = a.c; ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${t * .16})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        }
+        if (pointer.active) { const dx = a.x - pointer.x, dy = a.y - pointer.y, d = Math.hypot(dx, dy); if (d < REACH) { const t = 1 - d / REACH; ctx.strokeStyle = `rgba(34,211,238,${t * .4})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke(); } }
+      }
+      for (const n of nodes) { ctx.beginPath(); ctx.fillStyle = `rgba(${n.c[0]},${n.c[1]},${n.c[2]},.9)`; ctx.shadowColor = `rgba(${n.c[0]},${n.c[1]},${n.c[2]},.9)`; ctx.shadowBlur = 8; ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill(); }
+      ctx.shadowBlur = 0;
+      if (running && !reduce) raf = requestAnimationFrame(frame);
+    }
+    resize();
+    addEventListener('resize', resize);
+    addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; });
+    document.addEventListener('mouseleave', () => { pointer.active = false; });
+    frame();
+    if (!reduce) raf = requestAnimationFrame(frame);
+  })();
+
+  /* ============================================================
+     7) BOOT - icons, year, reveal (if already unlocked)
+     ============================================================ */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  lucide.createIcons();
+  if (app.classList.contains('show')) initReveal();
+  </script>
+</body>
+</html>
