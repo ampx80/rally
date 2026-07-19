@@ -82,26 +82,28 @@ export default function HeroStage() {
       const type = () => {
         if (cancelled) return;
         i += 1; setTyped(i);
-        if (i < SENTENCE.length) T(type, 22 + Math.random() * 26);
-        else { T(() => setThinking(true), 195); T(afterThink, 885); }
+        if (i < SENTENCE.length) T(type, 13 + Math.random() * 15);
+        else { T(() => setThinking(true), 120); T(afterThink, 540); }
       };
-      T(type, 390);
+      T(type, 220);
 
+      // Snappier cadence + tighter step gaps so the whole build reads as one
+      // fast burst. Each artifact hops in (see mSpringIn) right on the beat.
       function afterThink() {
         if (cancelled) return;
         setThinking(false);
-        T(() => setStep(G_COMPANY), 60);
-        T(() => setStep(G_CONTACTS), 480);
-        T(() => setStep(G_DEAL), 945);
-        T(() => setStep(G_ADVANCE), 1485);
-        T(() => setStep(G_SPARK), 2010);
-        T(() => setStep(G_TASK0), 2535);
-        T(() => setStep(G_TASK0 + 1), 2790);
-        T(() => setStep(G_TASK0 + 2), 3045);
-        T(() => setStep(G_TASK0 + 3), 3300);
-        T(() => setStep(G_TASK0 + 4), 3555);
-        T(() => setStamp(true), 3900);
-        T(() => run(), 6600); // ~25% faster loop
+        T(() => setStep(G_COMPANY), 40);
+        T(() => setStep(G_CONTACTS), 300);
+        T(() => setStep(G_DEAL), 620);
+        T(() => setStep(G_ADVANCE), 980);
+        T(() => setStep(G_SPARK), 1300);
+        T(() => setStep(G_TASK0), 1620);
+        T(() => setStep(G_TASK0 + 1), 1800);
+        T(() => setStep(G_TASK0 + 2), 1980);
+        T(() => setStep(G_TASK0 + 3), 2160);
+        T(() => setStep(G_TASK0 + 4), 2340);
+        T(() => setStamp(true), 2600);
+        T(() => run(), 5000); // faster full loop
       }
     }
     run();
@@ -243,7 +245,7 @@ export default function HeroStage() {
           <Icon name="check" size={16} stroke={3} />
         </span>
         <div>
-          <div className="mkt-stage-stamptitle">Built in 2.4s</div>
+          <div className="mkt-stage-stamptitle">Built in 1.8s</div>
           <div className="mkt-stage-sub">Company, committee, deal, and tasks - live.</div>
         </div>
       </div>

@@ -10,6 +10,9 @@ import CommandK from './components/CommandK.jsx';
 import RookDock from './components/RookDock.jsx';
 import RecentPagesDock from './components/RecentPagesDock.jsx';
 import TrainingMode from './components/TrainingMode.jsx';
+import CoachTour from './components/training/CoachTour.jsx';
+import TrainingAdmin from './pages/TrainingAdmin.jsx';
+import GroupTraining from './pages/GroupTraining.jsx';
 import LaunchScreen from './components/LaunchScreen.jsx';
 import CommandCenter from './pages/CommandCenter.jsx';
 import Deals from './pages/Deals.jsx';
@@ -174,7 +177,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -279,6 +282,8 @@ const ALL_ITEMS = [
   { to: '/qualify', label: 'Pre-qualification', icon: 'funnel', cat: 'Admin' },
   { to: '/migrate', label: 'Migration wizard', icon: 'swap', cat: 'Admin' },
   { to: '/training', label: 'Training', icon: 'rocket', cat: 'Customers' },
+  { to: '/training-admin', label: 'Training analytics', icon: 'gauge', cat: 'Customers' },
+  { to: '/group-training', label: 'Group training', icon: 'users', cat: 'Customers' },
   { to: '/workspaces', label: 'Workspaces', icon: 'building2', cat: 'Admin' },
   { to: '/marketplace', label: 'Marketplace', icon: 'store', cat: 'Admin' },
   { to: '/integrations', label: 'Integrations', icon: 'plug', cat: 'Admin' },
@@ -930,6 +935,8 @@ export default function App() {
               <Route path="/qualify" element={<QualifyConfig />} />
               <Route path="/migrate" element={<MigrationWizard />} />
               <Route path="/training" element={<Training />} />
+              <Route path="/training-admin" element={<TrainingAdmin />} />
+              <Route path="/group-training" element={<GroupTraining />} />
               <Route path="/atlas" element={<Atlas />} />
               <Route path="/agent-cloud" element={<AgentCloud />} />
               <Route path="/agent-studio" element={<AgentStudio />} />
@@ -1016,6 +1023,7 @@ export default function App() {
       <RookDock />
       <RecentPagesDock />
       <TrainingMode />
+      <CoachTour />
     </div>
   );
 }

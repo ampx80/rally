@@ -159,13 +159,14 @@ export default function Home() {
           <div className="mkt-hero-split">
             {/* LEFT - copy */}
             <Reveal className="mkt-hero-copy">
-              <div className="mkt-eyebrow" style={{ marginBottom: 14, fontSize: 15, letterSpacing: '.14em' }}>Ardovo</div>
+              <div className="mkt-eyebrow" style={{ marginBottom: 14, fontSize: 15, letterSpacing: '.14em' }}>The AI-native revenue platform</div>
               <h1 className="mkt-h1">
                 Everyone sells you a CRM. <span className="mkt-grad m-shine">We run your revenue.</span>
               </h1>
               <p className="mkt-lead" style={{ marginTop: 22 }}>
                 Ardovo replaces your CRM, CPQ, billing, and marketing stack with one platform, run by
-                Rook, the AI operator that does the actual work. You close the deals.
+                Rook, the AI operator that does the actual work. From your first five reps to five
+                thousand seats, you close the deals and Rook handles the rest.
               </p>
               <div className="mkt-hero-cta">
                 <span className="m-magnet" style={{ display: 'inline-flex' }}>
@@ -176,8 +177,8 @@ export default function Home() {
                 </a>
               </div>
               <div className="mkt-hero-trust">
-                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="bolt" size={16} /></span> Live account in one sentence</span>
-                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="layers" size={16} /></span> 14 modules, one login</span>
+                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="users" size={16} /></span> From 5 reps to 5,000 seats</span>
+                <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="layers" size={16} /></span> CRM, CPQ, billing, marketing - one login</span>
                 <span className="mkt-trust-item"><span className="mkt-trust-ic"><Icon name="shield" size={16} /></span> Free migration, 60-day rollback</span>
               </div>
             </Reveal>

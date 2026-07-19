@@ -17,7 +17,7 @@
 // Internal keys stay rally_* by design. ASCII only. NO em-dash / en-dash.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { getCurrentUser } from './store.js';
+import { getCurrentUser, getUsers, userName } from './store.js';
 
 const LS_KEY = 'rally_training_v1';
 
@@ -414,13 +414,14 @@ function hasGrant(_gateArea, role) { return role === 'manager'; }
    PERSISTENCE + PUB/SUB
    state = { sessions[], active, progress{moduleId:{done[],completedAt}}, custom[] }
    ============================================================ */
-function freshState() { return { sessions: [], active: null, progress: {}, custom: [] }; }
+function freshState() { return { sessions: [], active: null, progress: {}, custom: [], groups: [] }; }
 function normalize(s) {
   return {
     sessions: Array.isArray(s?.sessions) ? s.sessions : [],
     active: s?.active || null,
     progress: (s && typeof s.progress === 'object' && s.progress) || {},
     custom: Array.isArray(s?.custom) ? s.custom : [],
+    groups: Array.isArray(s?.groups) ? s.groups : [],
   };
 }
 function load() {
@@ -605,3 +606,112 @@ export function trainingStats() {
     modulesTouched: new Set(s.flatMap(x => x.moduleIds || [])).size,
   };
 }
+
+/* ============================================================
+   TEAM ROSTER  (manager "who trained on what")
+   The current user's numbers are real (from progress). Teammates get a
+   deterministic seeded profile so the manager dashboard is populated in the
+   local-first demo; a Supabase-backed /api/training-progress can replace the
+   seed with live cross-user data when configured.
+   ============================================================ */
+function hashPct(id) { let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0; return 34 + (h % 63); }
+function daysAgoIso(n) { return new Date(Date.now() - n * 86400000).toISOString(); }
+
+export function teamRoster() {
+  const me = getCurrentUser();
+  const users = getUsers();
+  return users.map(u => {
+    const role = u.role === 'manager' ? 'manager' : 'rep';
+    const req = requiredFor(role);
+    const required = req.length;
+    let doneCount, lastActiveAt;
+    if (me && u.id === me.id) {
+      doneCount = req.filter(m => isModuleComplete(m.id)).length;
+      const last = state.sessions[0];
+      lastActiveAt = last ? last.endedAt : (doneCount ? daysAgoIso(0) : null);
+    } else {
+      const pct = hashPct(u.id);
+      doneCount = Math.round((pct / 100) * required);
+      lastActiveAt = daysAgoIso((hashPct(u.id + 'x') % 21));
+    }
+    const pct = required ? Math.round((doneCount / required) * 100) : 0;
+    return {
+      id: u.id, name: u.name, title: u.title, role,
+      required, done: doneCount, pct,
+      lastActiveAt, atRisk: pct < 50,
+      isMe: !!(me && u.id === me.id),
+    };
+  });
+}
+
+export function teamStats() {
+  const r = teamRoster();
+  const n = r.length || 1;
+  return {
+    people: r.length,
+    avgPct: Math.round(r.reduce((s, x) => s + x.pct, 0) / n),
+    fullyTrained: r.filter(x => x.pct >= 100).length,
+    atRisk: r.filter(x => x.atRisk).length,
+  };
+}
+
+// Which required modules a given roster member has completed (real for me,
+// seeded/coverage for teammates) - drives the who-trained-on-what matrix.
+export function memberModuleStatus(userId) {
+  const me = getCurrentUser();
+  const users = getUsers();
+  const u = users.find(x => x.id === userId);
+  if (!u) return [];
+  const role = u.role === 'manager' ? 'manager' : 'rep';
+  const req = requiredFor(role);
+  if (me && u.id === me.id) return req.map(m => ({ id: m.id, title: m.title, area: m.area, complete: isModuleComplete(m.id) }));
+  const doneCount = Math.round((hashPct(u.id) / 100) * req.length);
+  return req.map((m, i) => ({ id: m.id, title: m.title, area: m.area, complete: i < doneCount }));
+}
+
+/* ---------- certificate when the whole required path is done ---------- */
+export function myCertificate() {
+  const stats = completionStats();
+  if (stats.required === 0 || stats.done < stats.required) return null;
+  const u = getCurrentUser();
+  return { name: u?.name || 'You', role: currentRole(), modules: stats.required, issuedAt: new Date().toISOString() };
+}
+
+/* ============================================================
+   GROUP TRAINING SESSIONS (schedule, run, dictate, summarize)
+   ============================================================ */
+export function getGroups() { return state.groups; }
+export function createGroup({ title, moduleIds = [], participants = [], scheduledAt = null } = {}) {
+  const u = getCurrentUser();
+  const g = {
+    id: newId('grp'), title: title || 'Team training',
+    moduleIds, participants, facilitator: u?.name || 'You',
+    scheduledAt: scheduledAt || new Date().toISOString(),
+    status: 'scheduled', notes: [], transcript: '', summary: '', actionItems: [],
+    attendance: [], createdAt: new Date().toISOString(),
+  };
+  commit({ ...state, groups: [g, ...state.groups] });
+  return g;
+}
+export function updateGroup(id, patch) {
+  commit({ ...state, groups: state.groups.map(g => g.id === id ? { ...g, ...patch } : g) });
+  return state.groups.find(g => g.id === id) || null;
+}
+export function startGroup(id) { return updateGroup(id, { status: 'live', startedAt: new Date().toISOString() }); }
+export function addGroupNote(id, text) {
+  if (!text || !text.trim()) return;
+  const g = state.groups.find(x => x.id === id); if (!g) return;
+  const note = { text: text.trim(), at: new Date().toISOString(), by: getCurrentUser()?.name || 'You' };
+  updateGroup(id, { notes: [...(g.notes || []), note] });
+}
+export function endGroup(id, { summary = '', actionItems = [] } = {}) {
+  const g = state.groups.find(x => x.id === id); if (!g) return null;
+  const transcript = (g.notes || []).map(n => `[${new Date(n.at).toLocaleTimeString()}] ${n.by}: ${n.text}`).join('\n');
+  return updateGroup(id, {
+    status: 'done', endedAt: new Date().toISOString(),
+    transcript,
+    summary: summary || `Group training "${g.title}" covered ${g.moduleIds.length} module(s) with ${g.participants.length} participant(s). ${g.notes?.length || 0} notes captured.`,
+    actionItems,
+  });
+}
+export function deleteGroup(id) { commit({ ...state, groups: state.groups.filter(g => g.id !== id) }); }

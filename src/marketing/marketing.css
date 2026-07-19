@@ -245,9 +245,16 @@
 @keyframes mPulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
 .m-pulse { animation: mPulse 2s ease-in-out infinite; }
 
-/* spring-in: a punchier entrance for artifacts Rook materializes */
-@keyframes mSpringIn { 0% { opacity: 0; transform: translateY(22px) scale(.9); } 55% { opacity: 1; transform: translateY(-4px) scale(1.02); } 100% { opacity: 1; transform: none; } }
-.m-spring { animation: mSpringIn .44s var(--spring) both; }
+/* spring-in: a punchy HOP entrance for artifacts Rook materializes - overshoot
+   up, settle with a tiny secondary bounce so each card feels like it lands. */
+@keyframes mSpringIn {
+  0% { opacity: 0; transform: translateY(26px) scale(.84); }
+  45% { opacity: 1; transform: translateY(-9px) scale(1.06); }
+  68% { transform: translateY(3px) scale(.985); }
+  84% { transform: translateY(-2px) scale(1.004); }
+  100% { opacity: 1; transform: none; }
+}
+.m-spring { animation: mSpringIn .52s cubic-bezier(.22,1.4,.36,1) both; }
 
 /* sparkline self-draw */
 @keyframes mDraw { from { stroke-dashoffset: 360; } to { stroke-dashoffset: 0; } }

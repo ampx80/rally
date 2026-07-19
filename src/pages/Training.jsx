@@ -38,6 +38,9 @@ export default function Training() {
   const [openNotes, setOpenNotes] = useState(null);
   const [adding, setAdding] = useState(false);
 
+  const launchCoach = (moduleId) => { window.dispatchEvent(new CustomEvent('rally:coach', { detail: { moduleId } })); };
+  const firstIncomplete = modules.find(m => !moduleProgress(m.id).complete);
+
   const doStep = (mod, i, step) => {
     logStep(mod.id, step.title);
     markStepDone(mod.id, i);
@@ -77,9 +80,10 @@ export default function Training() {
         title="Your training,"
         highlight="run by AI."
         sub="A patient AI trainer walks you through everything you have access to - by voice or chat, taking you to the right screens and highlighting what matters. Required modules are based on your permissions. No scheduling, no burned hours."
-        actions={<button className={`adk-btn${active ? '' : ' adk-btn--primary'}`} onClick={toggleSession}>
-          <Icon name={active ? 'check' : 'rocket'} size={15} /> {active ? 'End + summarize' : 'Start training session'}
-        </button>}
+        actions={<>
+          {firstIncomplete && <button className="adk-btn adk-btn--primary" onClick={() => launchCoach(firstIncomplete.id)}><Icon name="sparkles" size={15} /> Start guided training</button>}
+          <button className="adk-btn" onClick={toggleSession}><Icon name={active ? 'check' : 'rocket'} size={15} /> {active ? 'End + summarize' : 'Free session'}</button>
+        </>}
         pods={[
           { label: 'Required for you', value: stats.required, icon: 'book' },
           { label: 'Completed', value: stats.done, icon: 'check' },
@@ -142,7 +146,8 @@ export default function Training() {
                   );
                 })}
               </div>
-              <div className="row gap-2" style={{ marginTop: '.2rem' }}>
+              <div className="row gap-2" style={{ marginTop: '.2rem', flexWrap: 'wrap' }}>
+                <Button size="sm" variant="primary" onClick={() => launchCoach(m.id)}><Icon name="sparkles" size={14} /> Guided walkthrough</Button>
                 {!prog.complete
                   ? <Button size="sm" variant="ghost" onClick={() => { markModuleComplete(m.id); toast('Marked complete'); }}><Icon name="check" size={14} /> Mark complete</Button>
                   : <Button size="sm" variant="ghost" onClick={() => { resetModule(m.id); toast('Reset'); }}><Icon name="rotateCcw" size={14} /> Redo</Button>}

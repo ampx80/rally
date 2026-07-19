@@ -26,19 +26,36 @@ const paras = (v) => (Array.isArray(v) ? v : [v]).filter(Boolean).map(p => `<p>$
 const cellHtml = (v) => v === true ? 'Yes' : v === false ? 'No' : esc(v);
 
 // ============================================================
-// INDEX TIERING - keep the catalog lean so Google rewards quality
-// DENSITY, not volume. On a young domain, thousands of thin templated
-// pages drag the whole site down. So the legacy /pages track is set to
-// robots="noindex,follow" by default: still crawled, link equity still
-// flows internally, but it does NOT compete for the index. Only the
-// best-in-class surfaces stay indexable + in the sitemap: core marketing,
-// the /guides juggernaut track, and any legacy slug explicitly promoted
-// into KEEP_SLUGS below. Promote a page by adding its slug here.
+// INDEX TIERING - release at scale WITHOUT triggering Google's scaled-content
+// penalty. Every /pages URL is prerendered and crawlable, so Googlebot walks
+// the full ~2,000-page architecture + internal link graph (it sees a company
+// the size of one that rebuilt Salesforce). But only the genuinely unique,
+// high-intent page TYPES enter the sitemap + index. The thin mass (glossary,
+// feature, template, bulk topic-guides) stays robots="noindex,follow": still
+// crawled, link equity still flows, but it does NOT dilute index quality on a
+// young domain. Tune by editing INDEX_TYPES / KEEP_SLUGS / HOLD_SLUGS.
 // ============================================================
-const KEEP_SLUGS = new Set([
-  // e.g. 'salesforce-vs-hubspot'  // promote a proven legacy page back into the index
+const INDEX_TYPES = new Set([
+  'alternative', 'migration', 'comparison', 'ranking',
+  'versus', 'howto', 'integration', 'industry', 'role', 'usecase',
 ]);
-const isKeep = (e) => KEEP_SLUGS.has(e.slug);
+const KEEP_SLUGS = new Set([
+  // Force-index a specific slug regardless of type.
+]);
+const HOLD_SLUGS = new Set([
+  // Force-noindex a specific slug regardless of type.
+]);
+
+// Slugs already covered by a best-in-class /guides juggernaut. Never index the
+// /pages twin - it would cannibalize the stronger pillar page.
+let JUG_SLUGS = new Set();
+try {
+  const jr = await import('../src/marketing/seo/juggernaut-registry.js');
+  (jr.JUGGERNAUTS || []).forEach(j => j && j.slug && JUG_SLUGS.add(j.slug));
+} catch { /* juggernaut track optional */ }
+
+const isKeep = (e) => !HOLD_SLUGS.has(e.slug) && !JUG_SLUGS.has(e.slug)
+  && (KEEP_SLUGS.has(e.slug) || INDEX_TYPES.has(e.type));
 
 function renderTable(t) {
   if (!t || !t.rows) return '';
@@ -142,10 +159,10 @@ for (const e of ENTRIES) {
 }
 await writeFile(join(DIST, 'pages', 'index.html'), hubHtml(shell), 'utf8');
 
-// sitemap.xml - ONLY indexable, best-in-class URLs (core marketing + the
-// /guides juggernaut hub + any promoted legacy page). The noindexed legacy
-// /pages track is deliberately excluded so the sitemap Google reads is a
-// lean, high-quality catalog, not 1900+ thin templated URLs.
+// sitemap.xml - core marketing + every indexable /pages type (INDEX_TYPES) +
+// the /guides juggernaut track. The thin-mass /pages (glossary, feature,
+// template, bulk topic-guides) stay out of the sitemap and carry noindex, but
+// remain crawlable so Google still sees the full site architecture.
 const staticUrls = ['/', '/features', '/product/rook', '/pricing', '/security', '/manifesto', '/guides'];
 const urls = [
   ...staticUrls.map(u => ({ loc: SITE + u, pri: u === '/' ? '1.0' : (u === '/guides' ? '0.9' : '0.8'), freq: 'weekly' })),
