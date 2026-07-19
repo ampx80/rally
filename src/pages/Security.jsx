@@ -13,12 +13,23 @@ import {
   useAuth, getPolicy, setEnforce2faForAdmins, beginEnroll2fa, confirmEnroll2fa, disable2fa,
   regenerateRecoveryCodes,
 } from '../lib/auth-local.js';
+import { useAuthLog, authEventMeta, methodLabel, clearAuthLog } from '../lib/auth-log.js';
+
+const timeAgo = (iso) => {
+  const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  if (s < 604800) return `${Math.floor(s / 86400)}d ago`;
+  return new Date(iso).toLocaleDateString();
+};
 
 // Group a base32 secret into readable quads for manual entry.
 const groupSecret = (s) => String(s || '').replace(/(.{4})/g, '$1 ').trim();
 
 export default function Security() {
   const { accounts, policy } = useAuth(s => ({ accounts: s.accounts, policy: s.policy }));
+  const log = useAuthLog();
   const toast = useToast();
   const manage = can('users.manage');
   const [enroll, setEnroll] = useState(null); // { accountId, secret, uri }
@@ -181,6 +192,36 @@ export default function Security() {
         </div>
       </Card>
 
+      {/* Security activity log */}
+      <Card style={{ marginTop: '1.25rem' }}>
+        <div className="row between" style={{ alignItems: 'center', marginBottom: '.7rem' }}>
+          <div className="col gap-1" style={{ minWidth: 0 }}>
+            <div className="fw-6" style={{ color: 'var(--ink)' }}>Recent security activity</div>
+            <div className="t-sm muted">Sign-ins, 2FA changes, and recovery-code use. Your audit trail, always visible.</div>
+          </div>
+          {log.length > 0 && manage && (
+            <Button size="sm" variant="ghost" onClick={() => { if (window.confirm('Clear the security activity log?')) { clearAuthLog(); toast('Activity log cleared'); } }}>Clear</Button>
+          )}
+        </div>
+        {log.length === 0 ? (
+          <div className="sec-empty"><Icon name="shield" size={22} /><span>No activity yet. Sign-ins and security changes will appear here.</span></div>
+        ) : (
+          <div className="col gap-1">
+            {log.slice(0, 12).map(e => {
+              const m = authEventMeta(e.type);
+              return (
+                <div key={e.id} className="sec-logrow">
+                  <span className={`sec-log-ic tone-${m.tone}`}><Icon name={m.icon} size={15} /></span>
+                  <span className="sec-log-label">{m.label}{e.type === 'signin' && e.method ? ` with ${methodLabel(e.method)}` : ''}</span>
+                  {e.email && <span className="sec-log-email">{e.email}</span>}
+                  <span className="sec-log-time">{timeAgo(e.at)}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </Card>
+
       <SecurityStyles />
     </div>
   );
@@ -216,6 +257,16 @@ function SecurityStyles() {
     .sec-recovery { display: flex; flex-wrap: wrap; gap: 8px; }
     .sec-recovery-code { font-family: ui-monospace, Menlo, monospace; font-size: 13.5px; font-weight: 700; color: var(--ink); background: var(--n-25); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 7px 11px; }
     .sec-acct { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    .sec-empty { display: flex; align-items: center; gap: 10px; color: var(--n-500); font-size: 13.5px; padding: 14px; border: 1px dashed var(--line); border-radius: 12px; }
+    .sec-empty svg { color: var(--n-400); }
+    .sec-logrow { display: flex; align-items: center; gap: 10px; padding: 9px 4px; border-bottom: 1px solid var(--line); }
+    .sec-logrow:last-child { border-bottom: none; }
+    .sec-log-ic { width: 28px; height: 28px; flex: none; border-radius: 8px; display: grid; place-items: center; background: var(--n-25); color: var(--n-600); }
+    .sec-log-ic.tone-ok { background: rgba(14,159,143,.12); color: var(--ok, #0e9f8f); }
+    .sec-log-ic.tone-warn { background: rgba(232,151,58,.14); color: var(--warn, #e8973a); }
+    .sec-log-label { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+    .sec-log-email { font-size: 12.5px; color: var(--n-600); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sec-log-time { margin-left: auto; flex: none; font-size: 12px; color: var(--n-500); }
     `}</style>
   );
 }

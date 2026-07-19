@@ -20,6 +20,7 @@
 import { useEffect, useState } from 'react';
 import { getUsers, getCurrentUser } from './store.js';
 import { isSuperAdminEmail } from './access.js';
+import { logAuthEvent } from './auth-log.js';
 
 const LS_KEY = 'rally_auth_v1';
 const SESSION_KEY = 'rally_auth_session_v1';
@@ -182,6 +183,7 @@ export async function signUp({ email, name, password }) {
   const acc = { id: `acc_${randHex(6)}`, storeUserId: null, email, name: name || email.split('@')[0], salt, passHash, twofa: { enabled: false, secret: '', recoveryCodes: [] }, createdAt: new Date().toISOString() };
   commit({ ...state, accounts: [...state.accounts, acc] });
   writeSession({ accountId: acc.id, at: Date.now() });
+  logAuthEvent('signup', { email });
   return { ok: true, account: acc };
 }
 
@@ -203,6 +205,7 @@ export async function login({ email, password }) {
   }
   if (acc.twofa?.enabled) return { ok: true, needs2fa: true, pendingId: acc.id };
   writeSession({ accountId: acc.id, at: Date.now() });
+  logAuthEvent('signin', { email: acc.email, method: 'password' });
   return { ok: true, account: acc };
 }
 
@@ -232,6 +235,7 @@ export async function loginWithGoogleCredential(credential) {
   }
   if (acc.twofa?.enabled) return { ok: true, needs2fa: true, pendingId: acc.id };
   writeSession({ accountId: acc.id, at: Date.now() });
+  logAuthEvent('signin', { email: acc.email, method: 'google' });
   return { ok: true, account: acc };
 }
 
@@ -243,8 +247,10 @@ export async function completeLogin2fa(pendingId, code) {
   if (!okCode && !okRecovery) return { ok: false, error: 'That code did not match. Try again.' };
   if (okRecovery) { // burn the used recovery code
     commit({ ...state, accounts: state.accounts.map(a => a.id === acc.id ? { ...a, twofa: { ...a.twofa, recoveryCodes: a.twofa.recoveryCodes.filter(c => c !== String(code).trim()) } } : a) });
+    logAuthEvent('twofa_recovery_used', { email: acc.email });
   }
   writeSession({ accountId: acc.id, at: Date.now() });
+  logAuthEvent('signin', { email: acc.email, method: okRecovery ? 'recovery_code' : 'totp' });
   return { ok: true, account: acc };
 }
 
@@ -285,6 +291,8 @@ export async function loginWithRecoveryCode({ email, code }) {
     ? { ...a, twofa: { ...a.twofa, recoveryCodes: (a.twofa.recoveryCodes || []).filter(x => String(x).toLowerCase() !== c) } }
     : a) });
   writeSession({ accountId: acc.id, at: Date.now() });
+  logAuthEvent('twofa_recovery_used', { email: acc.email });
+  logAuthEvent('signin', { email: acc.email, method: 'recovery_code' });
   return { ok: true, account: acc, remaining: (acc.twofa?.recoveryCodes || []).length - 1 };
 }
 
@@ -295,6 +303,7 @@ export async function setAccountPassword(accountId, newPassword) {
   if (!acc) return { ok: false, error: 'Account not found.' };
   const salt = randHex(16); const passHash = await hashPassword(newPassword, salt);
   commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, salt, passHash } : a) });
+  logAuthEvent('password_changed', { email: acc.email });
   return { ok: true };
 }
 
@@ -304,6 +313,7 @@ export function regenerateRecoveryCodes(accountId) {
   if (!acc || !acc.twofa?.enabled) return { ok: false, error: '2FA is not enabled on this account.' };
   const recoveryCodes = genRecoveryCodes();
   commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, twofa: { ...a.twofa, recoveryCodes } } : a) });
+  logAuthEvent('recovery_codes_regenerated', { email: acc.email });
   return { ok: true, recoveryCodes };
 }
 
@@ -320,11 +330,15 @@ export async function confirmEnroll2fa(accountId, secret, code) {
   const ok = await verifyTotp(secret, code);
   if (!ok) return { ok: false, error: 'Code did not verify. Check your authenticator app and try again.' };
   const recoveryCodes = genRecoveryCodes();
+  const acc = state.accounts.find(a => a.id === accountId);
   commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, twofa: { enabled: true, secret, recoveryCodes } } : a) });
+  logAuthEvent('twofa_enabled', { email: acc?.email });
   return { ok: true, recoveryCodes };
 }
 export function disable2fa(accountId) {
+  const acc = state.accounts.find(a => a.id === accountId);
   commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, twofa: { enabled: false, secret: '', recoveryCodes: [] } } : a) });
+  logAuthEvent('twofa_disabled', { email: acc?.email });
 }
 export function setEnforce2faForAdmins(on) {
   commit({ ...state, policy: { ...state.policy, enforce2faForAdmins: !!on } });
