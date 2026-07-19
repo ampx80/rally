@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
 import AuthGuide from '../components/AuthGuide.jsx';
+import AuthTrust from '../components/AuthTrust.jsx';
 import { accountFactors, loginWithRecoveryCode, setAccountPassword } from '../lib/auth-local.js';
 import { grantAccessCode } from '../lib/access-mode.js';
 import { scorePassword } from '../lib/password-strength.js';
@@ -88,6 +89,7 @@ export default function Recover() {
       </div>
 
       <div className="rc-panel">
+        <div className="rc-panel-body">
         <div className="rc-card">
           <div className="rc-logo"><span className="rc-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="rc-guide-m"><AuthGuide mood={mood} message={message} size={92} compact /></div>
@@ -190,6 +192,8 @@ export default function Recover() {
             </>
           )}
         </div>
+        </div>
+        <AuthTrust />
       </div>
       <RecoverStyles />
     </div>
@@ -226,7 +230,8 @@ function RecoverStyles() {
     .rc-orbs span:nth-child(1) { width: 340px; height: 340px; background: #0e9f8f; top: -60px; right: -80px; }
     .rc-orbs span:nth-child(2) { width: 260px; height: 260px; background: #7c5cf7; bottom: 40px; left: -60px; opacity: .35; }
 
-    .rc-panel { display: grid; place-items: center; padding: 32px; background: #fff; }
+    .rc-panel { display: flex; flex-direction: column; padding: 32px 32px 26px; background: #fff; }
+    .rc-panel-body { flex: 1; display: grid; place-items: center; width: 100%; }
     .rc-card { width: 100%; max-width: 420px; }
     .rc-logo { display: none; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: #0d1117; margin-bottom: 24px; }
     @media (max-width: 820px) { .rc-logo { display: flex; } }

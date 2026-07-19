@@ -11,16 +11,20 @@ import { Icon } from '../components/icons.jsx';
 import AuthGuide from '../components/AuthGuide.jsx';
 import { hasPhone, HELP_NUMBER, HELP_EMAIL, formatPhone, telHref } from '../lib/concierge.js';
 
-const FIXES = [
+// Copy adapts to what is actually wired: when a live phone line exists we say
+// "call"; when it does not, we point at the concierge without promising a call.
+const buildFixes = (phone) => [
   { icon: 'lock', q: 'I forgot my password', a: 'No problem, and no lockout. Head to account recovery - if you saved recovery codes or use Google, you are back in seconds, and you can set a brand new password on the spot.', to: '/recover' },
-  { icon: 'phone', q: 'I got a new phone / lost my authenticator', a: 'Your codes moved to a new phone and stopped working? Use one recovery code to sign in, then re-enroll your authenticator in Security. If you have no codes left, call us and we will verify you and get you in.', to: '/recover' },
-  { icon: 'mail', q: 'I cannot find the reset email', a: 'Check spam and search for "Ardovo". Still nothing? You do not have to wait on email at all - use a recovery code or Google to get in now, or call the concierge below.', to: '/recover' },
+  { icon: 'phone', q: 'I got a new phone / lost my authenticator', a: `Your codes moved to a new phone and stopped working? Use one recovery code to sign in, then re-enroll your authenticator in Security. If you have no codes left, ${phone ? 'call us' : 'reach the concierge below'} and we will verify you and get you in.`, to: '/recover' },
+  { icon: 'mail', q: 'I cannot find the reset email', a: `Check spam and search for "Ardovo". Still nothing? You do not have to wait on email at all - use a recovery code or Google to get in now, or ${phone ? 'call the concierge below' : 'reach the concierge below'}.`, to: '/recover' },
   { icon: 'shield', q: 'What are the password rules?', a: 'Kind ones. At least 12 characters (a short phrase is perfect), no forced symbols or numbers, no monthly resets. We only block passwords that showed up in a public breach. Length beats complexity.' },
-  { icon: 'key', q: 'Too many attempts - am I locked out?', a: 'You are never hard-locked here. We slow things down briefly if something looks off, then let you right back in. If you are in a hurry, call the concierge and skip the wait.' },
+  { icon: 'key', q: 'Too many attempts - am I locked out?', a: `You are never hard-locked here. We slow things down briefly if something looks off, then let you right back in. If you are in a hurry, ${phone ? 'call the concierge' : 'reach the concierge below'} and skip the wait.` },
 ];
 
 export default function LoginHelp() {
   const nav = useNavigate();
+  const phone = hasPhone();
+  const FIXES = buildFixes(phone);
   useEffect(() => {
     const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow';
     document.head.appendChild(m); const t = document.title; document.title = 'Login help - Ardovo';
@@ -33,15 +37,15 @@ export default function LoginHelp() {
         <div className="lh-orbs" aria-hidden><span /><span /></div>
         <div className="lh-aside-in">
           <div className="lh-brand"><span className="lh-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lh-guide"><AuthGuide mood="listening" message="You reached login help. Tell me what's happening and we'll get you in - a real person is one call away too." size={150} /></div>
-          <p className="lh-sub">A help line for logging in. Weird, right? We think being stuck at the front door should never ruin your day. Call, email, or use a quick fix below.</p>
+          <div className="lh-guide"><AuthGuide mood="listening" message={phone ? "You reached login help. Tell me what's happening and we'll get you in - a real person is one call away too." : "You reached login help. Tell me what's happening and we'll get you in - fast, and never from scratch."} size={150} /></div>
+          <p className="lh-sub">{phone ? 'A help line for logging in. Weird, right? We think being stuck at the front door should never ruin your day. Call, email, or use a quick fix below.' : 'A help desk just for logging in. Weird, right? We think being stuck at the front door should never ruin your day. Email us or use a quick fix below - no ticket queue.'}</p>
         </div>
       </div>
 
       <div className="lh-panel">
         <div className="lh-card">
           <div className="lh-logo"><span className="lh-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lh-guide-m"><AuthGuide mood="listening" message="Let's get you in. A real person is one tap away." size={92} compact /></div>
+          <div className="lh-guide-m"><AuthGuide mood="listening" message={phone ? "Let's get you in. A real person is one tap away." : "Let's get you in. No lockout, ever."} size={92} compact /></div>
 
           <h2 className="lh-h">Talk to login help</h2>
           <p className="lh-p">Real help getting into your account - no ticket queue, no runaround.</p>

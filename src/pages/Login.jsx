@@ -11,6 +11,7 @@ import { Icon } from '../components/icons.jsx';
 import { login, signUp, completeLogin2fa, loginWithGoogleCredential } from '../lib/auth-local.js';
 import { grantAccessCode } from '../lib/access-mode.js';
 import AuthGuide from '../components/AuthGuide.jsx';
+import AuthTrust from '../components/AuthTrust.jsx';
 import { scorePassword, checkPwned } from '../lib/password-strength.js';
 import { hasPhone, HELP_NUMBER, formatPhone, telHref } from '../lib/concierge.js';
 
@@ -139,6 +140,7 @@ export default function Login() {
       </div>
 
       <div className="lg-panel">
+        <div className="lg-panel-body">
         <div className="lg-card">
           <div className="lg-logo"><span className="lg-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="lg-guide-m"><AuthGuide mood={mood} message={message} size={96} compact /></div>
@@ -218,6 +220,8 @@ export default function Login() {
             </>
           )}
         </div>
+        </div>
+        <AuthTrust />
       </div>
 
       <LoginStyles />
@@ -258,7 +262,8 @@ function LoginStyles() {
     .lg-orbs span:nth-child(2) { width: 260px; height: 260px; background: #7c5cf7; bottom: 40px; left: -60px; opacity: .35; }
     .lg-orbs span:nth-child(3) { width: 200px; height: 200px; background: #2563a8; bottom: -60px; right: 30%; opacity: .3; }
 
-    .lg-panel { display: grid; place-items: center; padding: 32px; background: var(--m-bg, #fff); }
+    .lg-panel { display: flex; flex-direction: column; padding: 32px 32px 26px; background: var(--m-bg, #fff); }
+    .lg-panel-body { flex: 1; display: grid; place-items: center; width: 100%; }
     .lg-card { width: 100%; max-width: 400px; }
     .lg-logo { display: none; align-items: center; gap: 10px; font-size: 22px; font-weight: 900; color: #0d1117; margin-bottom: 24px; }
     @media (max-width: 820px) { .lg-logo { display: flex; } .lg-panel { background: #fff; } }
