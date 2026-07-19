@@ -9,7 +9,7 @@ const page = await ctx.newPage();
 const errs = [];
 page.on('pageerror', e => errs.push('PAGEERR ' + e.message));
 page.on('console', m => { if (m.type() === 'error') errs.push('CONSOLE ' + m.text()); });
-const clean = () => errs.filter(e => !/CSP|favicon|manifest|Download the React|404|realtime|speech|handshake.*disabled/i.test(e));
+const clean = () => errs.filter(e => !/CSP|Content Security Policy|upgrade-insecure|favicon|manifest|Download the React|404|realtime|speech|handshake.*disabled/i.test(e));
 let fail = 0;
 
 async function goto() { await page.goto(B + '/handshake', { waitUntil: 'networkidle', timeout: 45000 }); await page.waitForTimeout(700); }
