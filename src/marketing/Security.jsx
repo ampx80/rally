@@ -31,7 +31,8 @@ const DOCS = [
   { icon: 'box', title: 'Subprocessors', line: 'The full list of providers we use, what they do, and where they operate. Updated before we add a new one.', to: '/legal/subprocessors', cta: 'View list' },
   { icon: 'fileText', title: 'Security package and DPA', line: 'Security overview, our SOC 2 status and (once issued) report, and a signable Data Processing Addendum. Available to teams in evaluation.', mailto: 'security@ardovo.com', cta: 'Request access' },
   { icon: 'activity', title: 'Uptime and status', line: 'Live service status and incident history, published openly rather than buried.', to: '/status', cta: 'View status' },
-  { icon: 'settings', title: 'Security questionnaires', line: 'We answer SIG Lite, CAIQ, and custom vendor questionnaires with honest, dated roadmap responses.', mailto: 'security@ardovo.com', cta: 'Send yours' },
+  { icon: 'settings', title: 'Security questionnaires', line: 'The canonical SIG Lite and CAIQ answers, published and honest. Send us your custom questionnaire and we answer it.', to: '/security/faq', cta: 'Read the answers' },
+  { icon: 'sparkles', title: 'AI trust and governance', line: 'How Rook is governed: grounded on your data, never trained on it, human approval on high-risk actions, fully audited and reversible.', to: '/ai-trust', cta: 'See AI governance' },
   { icon: 'users', title: 'Single sign-on', line: 'Google SSO and app-level two-factor authentication ship today. SAML/SCIM for Okta, Azure AD, and others is on the roadmap.', to: '/login', cta: 'See sign-in' },
 ];
 

@@ -42,9 +42,9 @@ export function Pill({ children }) {
 const NAV = [
   { label: 'Product', to: '/features' },
   { label: 'Rook AI', to: '/product/rook' },
+  { label: 'Enterprise', to: '/enterprise' },
   { label: 'Compare', to: '/pages/rally-vs-salesforce' },
   { label: 'Library', to: '/pages' },
-  { label: 'Blog', to: '/blog' },
   { label: 'Demo', to: '/demo' },
   { label: 'Pricing', to: '/pricing' },
 ];
@@ -77,7 +77,7 @@ function MktNav() {
 
 function MktFooter() {
   const cols = [
-    { h: 'Product', links: [['Features', '/features'], ['Rook AI operator', '/product/rook'], ['Pricing', '/pricing'], ['Security', '/security'], ['Launch app', '/app']] },
+    { h: 'Product', links: [['Features', '/features'], ['Rook AI operator', '/product/rook'], ['Enterprise', '/enterprise'], ['Pricing', '/pricing'], ['Security', '/security'], ['Launch app', '/app']] },
     { h: 'Compare', links: [['vs Salesforce', '/pages/rally-vs-salesforce'], ['vs HubSpot', '/pages/rally-vs-hubspot'], ['vs Zoho', '/pages/rally-vs-zoho'], ['vs NetSuite', '/pages/rally-vs-netsuite'], ['vs Pipedrive', '/pages/rally-vs-pipedrive'], ['All comparisons', '/pages']] },
     { h: 'Company', links: [['About', '/about'], ['Manifesto', '/manifesto'], ['Customers', '/customers'], ['Careers', '/careers'], ['Changelog', '/changelog']] },
     { h: 'Resources', links: [['Blog', '/blog'], ['Interactive demo', '/demo'], ['Early access', '/early-access'], ['Product tour', '/features'], ['Rook', '/product/rook'], ['All pages', '/pages']] },
@@ -99,7 +99,7 @@ function MktFooter() {
         </div>
         <hr className="mkt-rule" style={{ margin: '36px 0 20px' }} />
         <div style={{ display: 'flex', gap: '10px 20px', flexWrap: 'wrap', marginBottom: 16 }}>
-          {[['Privacy', '/legal/privacy'], ['Terms', '/legal/terms'], ['DPA', '/legal/dpa'], ['Subprocessors', '/legal/subprocessors'], ['Cookies', '/legal/cookies'], ['Trust & security', '/security'], ['Status', '/status']].map(([label, to]) => (
+          {[['Privacy', '/legal/privacy'], ['Terms', '/legal/terms'], ['DPA', '/legal/dpa'], ['Subprocessors', '/legal/subprocessors'], ['Cookies', '/legal/cookies'], ['Trust & security', '/security'], ['Compliance FAQ', '/security/faq'], ['AI governance', '/ai-trust'], ['Status', '/status']].map(([label, to]) => (
             <Link key={to} to={to} className="mkt-dim" style={{ fontSize: 13.5 }}>{label}</Link>
           ))}
         </div>

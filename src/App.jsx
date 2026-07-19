@@ -164,6 +164,9 @@ import DemoPage from './marketing/DemoPage.jsx';
 import GetStarted from './marketing/GetStarted.jsx';
 import EarlyAccess from './marketing/EarlyAccess.jsx';
 import Legal from './marketing/Legal.jsx';
+import AiTrust from './marketing/AiTrust.jsx';
+import Compliance from './marketing/Compliance.jsx';
+import Enterprise from './marketing/Enterprise.jsx';
 import Login from './pages/Login.jsx';
 import SecurityCenter from './pages/Security.jsx';
 import VsAgentforce from './marketing/VsAgentforce.jsx';
@@ -865,6 +868,9 @@ export default function App() {
             <Route path="/early-access" element={<EarlyAccess />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="/legal/:doc" element={<Legal />} />
+            <Route path="/ai-trust" element={<AiTrust />} />
+            <Route path="/security/faq" element={<Compliance />} />
+            <Route path="/enterprise" element={<Enterprise />} />
             <Route path="/vs-agentforce" element={<VsAgentforce />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
