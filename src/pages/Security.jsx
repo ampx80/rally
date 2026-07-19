@@ -4,12 +4,14 @@
 // paste the setup key into Google Authenticator / Authy / 1Password, confirm a
 // code, save recovery codes. Admin surfaces are gated by the workspace RBAC
 // engine (can('users.manage')). NO em-dash / en-dash. ASCII hyphen only.
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import QRCode from 'qrcode';
 import { SectionHeader, Card, Button, Badge, StatCard, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import { can } from '../lib/rbac.js';
 import {
   useAuth, getPolicy, setEnforce2faForAdmins, beginEnroll2fa, confirmEnroll2fa, disable2fa,
+  regenerateRecoveryCodes,
 } from '../lib/auth-local.js';
 
 // Group a base32 secret into readable quads for manual entry.
@@ -22,10 +24,37 @@ export default function Security() {
   const [enroll, setEnroll] = useState(null); // { accountId, secret, uri }
   const [code, setCode] = useState('');
   const [recovery, setRecovery] = useState(null); // { accountId, codes }
+  const [qr, setQr] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
 
   const enrolled = accounts.filter(a => a.twofa?.enabled).length;
+
+  // Render the otpauth URI to a scannable QR (fully offline, no network).
+  useEffect(() => {
+    if (!enroll?.uri) { setQr(''); return; }
+    let live = true;
+    QRCode.toDataURL(enroll.uri, { margin: 1, width: 200, color: { dark: '#0d1117', light: '#ffffff' } })
+      .then(url => { if (live) setQr(url); }).catch(() => { if (live) setQr(''); });
+    return () => { live = false; };
+  }, [enroll?.uri]);
+
+  const downloadCodes = (codes) => {
+    const text = `Ardovo recovery codes\nSaved ${new Date().toLocaleString()}\n\n${codes.join('\n')}\n\nEach code works once if you lose your authenticator. Keep them somewhere safe.`;
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob); const a = document.createElement('a');
+    a.href = url; a.download = 'ardovo-recovery-codes.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    toast('Recovery codes downloaded');
+  };
+  const regen = (a) => {
+    if (!window.confirm(`Generate new recovery codes for ${a.email}? The old codes stop working right away.`)) return;
+    const r = regenerateRecoveryCodes(a.id);
+    if (!r.ok) { toast(r.error); return; }
+    setRecovery({ accountId: a.id, codes: r.recoveryCodes });
+    toast('New recovery codes generated. Save them.');
+  };
 
   const startEnroll = (a) => {
     const r = beginEnroll2fa(a.id);
@@ -77,16 +106,24 @@ export default function Security() {
       {enroll && (
         <Card style={{ marginBottom: '1.25rem', borderColor: 'var(--ai)' }}>
           <div className="fw-6" style={{ color: 'var(--ink)', marginBottom: '.3rem' }}>Set up authenticator for {enroll.email}</div>
-          <div className="t-sm muted" style={{ marginBottom: '1rem' }}>Add this key in Google Authenticator, Authy, or 1Password, then enter the 6-digit code it shows.</div>
-          <div className="sec-key">
-            <div className="sec-key-label">Setup key</div>
-            <div className="sec-key-val">{groupSecret(enroll.secret)}</div>
-            <button className="btn btn-ghost btn-sm" onClick={() => copy(enroll.secret)}><Icon name="copy" size={14} /> Copy key</button>
-          </div>
-          <div className="sec-uri">
-            <span className="t-xs muted">Or paste this setup URI:</span>
-            <code className="sec-uri-code">{enroll.uri}</code>
-            <button className="btn btn-ghost btn-sm" onClick={() => copy(enroll.uri)}><Icon name="copy" size={14} /> Copy URI</button>
+          <div className="t-sm muted" style={{ marginBottom: '1rem' }}>Scan the QR with Google Authenticator, Authy, or 1Password, then enter the 6-digit code it shows. Tip: 1Password stores the key in your vault, so a new phone never locks you out.</div>
+          <div className="sec-enroll">
+            <div className="sec-qr">
+              {qr ? <img src={qr} alt="Scan this QR code with your authenticator app" width={168} height={168} /> : <div className="sec-qr-ph"><Icon name="shield" size={26} /></div>}
+              <span className="t-xs muted">Scan to add</span>
+            </div>
+            <div className="sec-enroll-manual">
+              <div className="sec-key">
+                <div className="sec-key-label">Can't scan? Enter this key</div>
+                <div className="sec-key-val">{groupSecret(enroll.secret)}</div>
+                <button className="btn btn-ghost btn-sm" onClick={() => copy(enroll.secret)}><Icon name="copy" size={14} /> Copy key</button>
+              </div>
+              <div className="sec-uri">
+                <span className="t-xs muted">Or paste this setup URI:</span>
+                <code className="sec-uri-code">{enroll.uri}</code>
+                <button className="btn btn-ghost btn-sm" onClick={() => copy(enroll.uri)}><Icon name="copy" size={14} /> Copy URI</button>
+              </div>
+            </div>
           </div>
           <div className="row gap-2" style={{ marginTop: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <label className="col gap-1">
@@ -106,9 +143,10 @@ export default function Security() {
           <div className="fw-6" style={{ color: 'var(--ink)' }}>Recovery codes</div>
           <div className="t-sm muted" style={{ margin: '.3rem 0 .8rem' }}>Save these somewhere safe. Each works once if you lose your device. They will not be shown again.</div>
           <div className="sec-recovery">{recovery.codes.map(c => <span key={c} className="sec-recovery-code">{c}</span>)}</div>
-          <div className="row gap-2" style={{ marginTop: '.8rem' }}>
+          <div className="row gap-2" style={{ marginTop: '.8rem', flexWrap: 'wrap' }}>
+            <Button variant="primary" size="sm" onClick={() => downloadCodes(recovery.codes)}><Icon name="download" size={14} /> Download</Button>
             <Button variant="ghost" size="sm" onClick={() => copy(recovery.codes.join('\n'))}><Icon name="copy" size={14} /> Copy all</Button>
-            <Button variant="primary" size="sm" onClick={() => setRecovery(null)}>Done, saved</Button>
+            <Button variant="ghost" size="sm" onClick={() => setRecovery(null)}>Done, saved</Button>
           </div>
         </Card>
       )}
@@ -122,11 +160,18 @@ export default function Security() {
               <div className="col gap-1" style={{ minWidth: 0 }}>
                 <span className="fw-6" style={{ color: 'var(--ink)' }}>{a.name || a.email}</span>
                 <span className="t-sm muted">{a.email}</span>
+                {a.twofa?.enabled && (
+                  <span className={`t-xs ${(a.twofa.recoveryCodes || []).length <= 2 ? 'sec-low' : 'muted'}`}>
+                    {(a.twofa.recoveryCodes || []).length} recovery code{(a.twofa.recoveryCodes || []).length === 1 ? '' : 's'} left
+                    {(a.twofa.recoveryCodes || []).length <= 2 && ' - regenerate to stay safe'}
+                  </span>
+                )}
               </div>
-              <div className="row gap-2" style={{ alignItems: 'center', flex: 'none' }}>
+              <div className="row gap-2" style={{ alignItems: 'center', flex: 'none', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                 {a.twofa?.enabled
                   ? <Badge tone="ok">2FA on</Badge>
                   : <Badge tone="warn">2FA off</Badge>}
+                {a.twofa?.enabled && <Button size="sm" variant="ghost" disabled={!manage} onClick={() => regen(a)}><Icon name="key" size={14} /> Recovery codes</Button>}
                 {a.twofa?.enabled
                   ? <Button size="sm" variant="ghost" disabled={!manage} onClick={() => turnOff(a)}><Icon name="lock" size={14} /> Disable</Button>
                   : <Button size="sm" variant="primary" disabled={!manage} onClick={() => startEnroll(a)}><Icon name="shield" size={14} /> Set up</Button>}
@@ -154,6 +199,12 @@ function Toggle({ on, onChange, disabled }) {
 function SecurityStyles() {
   return (
     <style>{`
+    .sec-enroll { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+    .sec-enroll-manual { flex: 1; min-width: 240px; }
+    .sec-qr { flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .sec-qr img { border-radius: 12px; border: 1px solid var(--line); padding: 8px; background: #fff; }
+    .sec-qr-ph { width: 168px; height: 168px; border-radius: 12px; border: 1px dashed var(--line-strong); display: grid; place-items: center; color: var(--n-500); background: var(--n-25); }
+    .sec-low { color: var(--warn, #e8973a); font-weight: 700; }
     .sec-key { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: var(--n-25); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
     .sec-key-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--n-600); }
     .sec-key-val { font-family: ui-monospace, Menlo, monospace; font-size: 18px; font-weight: 700; letter-spacing: .1em; color: var(--ink); flex: 1; min-width: 180px; }
