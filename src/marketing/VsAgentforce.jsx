@@ -35,9 +35,14 @@ const FOUNDATION = [
 // Comparison rows. sf = Agentforce 360 today; rally = Ardovo equivalent.
 const ROWS = [
   {
+    cap: 'Counter-agent commerce',
+    sf: 'A2A connects Salesforce agents to other vendor agents; an AP2 partner, but the buyer is still assumed to be human',
+    rally: 'Handshake - your Deal Agent negotiates directly with the BUYER agent over A2A and settles a signed AP2 mandate chain you countersign',
+  },
+  {
     cap: 'Autonomous multi-agent',
     sf: 'Agentforce agents and Agent Builder, orchestrated across channels',
-    rally: 'Agent Cloud - autonomous agents native to the record, no orchestration bus to license',
+    rally: 'Agent Cloud plus the Boardroom - autonomous agents native to the record that debate your book, no orchestration bus to license',
   },
   {
     cap: 'Guided determinism and reliability',

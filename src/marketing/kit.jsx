@@ -41,10 +41,10 @@ export function Pill({ children }) {
 
 const NAV = [
   { label: 'Product', to: '/features' },
+  { label: 'Agent Economy', to: '/agent-economy' },
   { label: 'Rook AI', to: '/product/rook' },
   { label: 'Enterprise', to: '/enterprise' },
   { label: 'Compare', to: '/pages/rally-vs-salesforce' },
-  { label: 'Library', to: '/pages' },
   { label: 'Demo', to: '/demo' },
   { label: 'Pricing', to: '/pricing' },
 ];

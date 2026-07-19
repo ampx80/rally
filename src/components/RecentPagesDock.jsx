@@ -22,6 +22,7 @@ const ROUTE_LABELS = {
   '/wind-tunnel': 'Wind Tunnel', '/canvas': 'Ask Canvas', '/qualify': 'Pre-qualification',
   '/migrate': 'Migration Wizard', '/training': 'Training', '/import': 'Import', '/scheduler': 'Scheduler',
   '/liftoff': 'Liftoff', '/genesis': 'Genesis', '/attribution': 'Attribution',
+  '/handshake': 'Handshake', '/boardroom': 'The Boardroom', '/agent-cloud': 'Agent Cloud',
 };
 
 function prettify(seg) { return seg.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }

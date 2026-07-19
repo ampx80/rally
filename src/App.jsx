@@ -145,6 +145,11 @@ import MarketingHub from './pages/MarketingHub.jsx';
 // /liftoff = the wizard (in-app), /liftoff/deck/:role = in-app decks,
 // /deck/:role = chrome-free embeddable deck (for the marketing site + iframes).
 import Liftoff from './pages/Liftoff.jsx';
+// Agent economy flagships: Handshake (agent-to-agent A2A/AP2 deal room where the
+// buyer's agent negotiates with ours) + Boardroom (autonomous revenue council
+// that debates the real book and files a decision memo).
+import Handshake from './pages/Handshake.jsx';
+import Boardroom from './pages/Boardroom.jsx';
 import LiftoffDeck from './pages/LiftoffDeck.jsx';
 // Back-office admin: signup tracking, growth metrics, filters, launch-into.
 import Admin from './pages/Admin.jsx';
@@ -168,9 +173,12 @@ import AiTrust from './marketing/AiTrust.jsx';
 import Compliance from './marketing/Compliance.jsx';
 import Enterprise from './marketing/Enterprise.jsx';
 import Login from './pages/Login.jsx';
+import Recover from './pages/Recover.jsx';
+import LoginHelp from './pages/LoginHelp.jsx';
 import SecurityCenter from './pages/Security.jsx';
 import DataExport from './pages/DataExport.jsx';
 import VsAgentforce from './marketing/VsAgentforce.jsx';
+import AgentEconomy from './marketing/AgentEconomy.jsx';
 import { useDemo, isLockedPath, exitDemo } from './lib/demo-mode.js';
 import { ACCESS_EVENT } from './lib/access-mode.js';
 import HostedForm from './marketing/HostedForm.jsx';
@@ -182,7 +190,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training', 'data-export']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training', 'data-export', 'handshake', 'boardroom']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -264,6 +272,8 @@ const ALL_ITEMS = [
   { to: '/grid', label: 'Grid', icon: 'grid', cat: 'Analytics' },
   { to: '/sheets', label: 'Sheets', icon: 'sheet', cat: 'Analytics' },
   // Automation
+  { to: '/handshake', label: 'Handshake', icon: 'merge', cat: 'Automation' },
+  { to: '/boardroom', label: 'The Boardroom', icon: 'messages', cat: 'Automation' },
   { to: '/agent-cloud', label: 'Agent Cloud', icon: 'sparkles', cat: 'Automation' },
   { to: '/cloud-agents', label: 'Cloud Agents', icon: 'command', cat: 'Automation' },
   { to: '/experience', label: 'Experience Layer', icon: 'share2', cat: 'Automation' },
@@ -323,13 +333,13 @@ const SPINE = [
   { key: 'home', label: 'Home', icon: 'home', to: '/app', end: true,
     peek: ['/agent-cloud', '/activities', '/notifications', '/canvas', '/queue', '/liftoff', '/genesis'] },
   { key: 'pipeline', label: 'Pipeline', icon: 'target', to: '/deals',
-    peek: ['/leads', '/goals', '/territories', '/scheduler', '/playbooks', '/warroom', '/fork', '/ghost-deals'] },
+    peek: ['/leads', '/handshake', '/goals', '/territories', '/scheduler', '/playbooks', '/warroom', '/fork', '/ghost-deals'] },
   { key: 'people', label: 'People', icon: 'users', to: '/contacts',
     peek: ['/companies', '/conversations', '/voice', '/success', '/tickets', '/service', '/kb', '/projects'] },
   { key: 'inbox', label: 'Inbox', icon: 'inbox', to: '/inbox',
     peek: ['/conversations', '/voice', '/notifications', '/tickets', '/sms'] },
   { key: 'forecast', label: 'Forecast', icon: 'trendUp', to: '/forecasting',
-    peek: ['/goals', '/dashboards', '/reports', '/intelligence', '/atlas', '/signals', '/twin', '/attribution'] },
+    peek: ['/boardroom', '/goals', '/dashboards', '/reports', '/intelligence', '/atlas', '/signals', '/twin', '/attribution'] },
   { key: 'rook', label: 'Rook', icon: 'rook', ai: true },
   { key: 'apps', label: 'Apps', icon: 'grid', apps: true },
 ];
@@ -841,6 +851,8 @@ export default function App() {
 
   // Real sign-in, standalone + noindex, reachable but never linked/crawled.
   if (seg === 'login') return <Login />;
+  if (seg === 'recover') return <Recover />;
+  if (seg === 'login-help') return <LoginHelp />;
 
   if (!isApp) {
     return (
@@ -874,6 +886,7 @@ export default function App() {
             <Route path="/security/faq" element={<Compliance />} />
             <Route path="/enterprise" element={<Enterprise />} />
             <Route path="/vs-agentforce" element={<VsAgentforce />} />
+            <Route path="/agent-economy" element={<AgentEconomy />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot" element={<ForgotPassword />} />
@@ -958,6 +971,8 @@ export default function App() {
               <Route path="/agent-trust" element={<AgentTrust />} />
               <Route path="/agent-exchange" element={<AgentExchange />} />
               <Route path="/cloud-agents" element={<CloudAgents />} />
+              <Route path="/handshake" element={<Handshake />} />
+              <Route path="/boardroom" element={<Boardroom />} />
               <Route path="/experience" element={<ExperienceLayer />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/security-center" element={<SecurityCenter />} />

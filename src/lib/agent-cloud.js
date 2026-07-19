@@ -43,6 +43,7 @@ export const TOOL_CATALOG = [
   { name: 'generate_deck', kind: 'write', group: 'Revenue', description: 'Generate a QBR deck for an account.', params: { company_id: 'string' } },
   { name: 'fork_whatif', kind: 'write', group: 'Analysis', description: 'Model a pipeline change in a non-destructive branch.', params: { move: 'string', days: 'number?', pct: 'number?' } },
   { name: 'build_account', kind: 'write', group: 'Build', description: 'Stand up a whole account (company + committee + deal + tasks) from one sentence.', params: { goal: 'string' } },
+  { name: 'negotiate', kind: 'write', group: 'Revenue', description: 'Open a Handshake: negotiate a deal agent-to-agent with the buyer agent, bounded by mandate, settling with a signed AP2 mandate chain for human countersignature.', params: { deal_id: 'string', maxDiscountPct: 'number?', walkAwayPct: 'number?' } },
 ];
 export const toolByName = (n) => TOOL_CATALOG.find(t => t.name === n) || null;
 

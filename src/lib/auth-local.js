@@ -250,6 +250,63 @@ export async function completeLogin2fa(pendingId, code) {
 
 export function logout() { writeSession(null); }
 
+/* ============================================================
+   HUMANE RECOVERY  (never lock a real user out)
+   These power the /recover flow: get back in with a recovery code, set a
+   fresh password, regenerate codes, and discover which doors an account has.
+   ============================================================ */
+
+// What ways-in does this account have? Drives the recovery UI so we only offer
+// paths that will actually work (Google, recovery code, password).
+export function accountFactors(email) {
+  const acc = findAccount(email);
+  if (!acc) return { exists: false };
+  return {
+    exists: true, id: acc.id, name: acc.name, email: acc.email,
+    hasPassword: !!acc.passHash,
+    sso: acc.sso || null,
+    twofa: !!acc.twofa?.enabled,
+    recoveryCodes: (acc.twofa?.recoveryCodes || []).length,
+  };
+}
+
+// Sign in using a one-time recovery code (no password / no authenticator
+// needed). This is the "lost my phone" and "forgot my password" backstop.
+// The used code is burned. Returns remaining count so the UI can nudge a
+// regenerate when they're running low.
+export async function loginWithRecoveryCode({ email, code }) {
+  email = String(email || '').toLowerCase().trim();
+  const acc = findAccount(email);
+  if (!acc) return { ok: false, error: 'No account with that email.' };
+  const c = String(code || '').trim().toLowerCase();
+  const codes = (acc.twofa?.recoveryCodes || []).map(x => String(x).toLowerCase());
+  if (!c || !codes.includes(c)) return { ok: false, error: 'That recovery code did not match. Each code works once.' };
+  commit({ ...state, accounts: state.accounts.map(a => a.id === acc.id
+    ? { ...a, twofa: { ...a.twofa, recoveryCodes: (a.twofa.recoveryCodes || []).filter(x => String(x).toLowerCase() !== c) } }
+    : a) });
+  writeSession({ accountId: acc.id, at: Date.now() });
+  return { ok: true, account: acc, remaining: (acc.twofa?.recoveryCodes || []).length - 1 };
+}
+
+// Set a fresh password (used after recovery-code sign-in, or from settings).
+export async function setAccountPassword(accountId, newPassword) {
+  if (!newPassword || newPassword.length < 8) return { ok: false, error: 'Use at least 8 characters.' };
+  const acc = state.accounts.find(a => a.id === accountId);
+  if (!acc) return { ok: false, error: 'Account not found.' };
+  const salt = randHex(16); const passHash = await hashPassword(newPassword, salt);
+  commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, salt, passHash } : a) });
+  return { ok: true };
+}
+
+// Fresh batch of recovery codes (old ones stop working).
+export function regenerateRecoveryCodes(accountId) {
+  const acc = state.accounts.find(a => a.id === accountId);
+  if (!acc || !acc.twofa?.enabled) return { ok: false, error: '2FA is not enabled on this account.' };
+  const recoveryCodes = genRecoveryCodes();
+  commit({ ...state, accounts: state.accounts.map(a => a.id === accountId ? { ...a, twofa: { ...a.twofa, recoveryCodes } } : a) });
+  return { ok: true, recoveryCodes };
+}
+
 /* ---------- 2FA enrollment ---------- */
 // Start: returns a fresh secret + otpauth URI to show as a QR (not yet enabled).
 export function beginEnroll2fa(accountId) {

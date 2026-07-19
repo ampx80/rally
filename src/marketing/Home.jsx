@@ -245,6 +245,67 @@ export default function Home() {
         </div>
       </section>
 
+      {/* S1c. THE AGENT ECONOMY - counter-agent commerce (the leapfrog) */}
+      <section className="mkt-section-sm" style={{ paddingTop: 44 }}>
+        <div className="mkt-wrap">
+          <Reveal>
+            <div style={{
+              position: 'relative', overflow: 'hidden', borderRadius: 24, padding: 'clamp(28px,5vw,54px)', color: '#fff',
+              background: 'radial-gradient(120% 130% at 8% -10%, rgba(124,92,247,.5), transparent 46%), radial-gradient(120% 130% at 100% 0%, rgba(14,159,143,.34), transparent 44%), linear-gradient(160deg,#14122a,#0b0d14 62%)',
+              border: '1px solid rgba(124,92,247,.3)', boxShadow: '0 30px 70px -34px rgba(88,60,220,.7)',
+            }}>
+              <div className="mkt-grid mkt-grid-2" style={{ gap: 'clamp(24px,4vw,48px)', alignItems: 'center' }}>
+                <div>
+                  <span className="mkt-eyebrow" style={{ color: '#c9bcff', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#34e3c2', boxShadow: '0 0 10px #34e3c2' }} /> New - The Agent Economy
+                  </span>
+                  <h2 className="mkt-h2" style={{ color: '#fff', margin: '14px 0 0' }}>
+                    The buyer will bring their own AI. <span style={{ background: 'linear-gradient(100deg,#fff,#c9bcff 55%,#6ee7d6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Yours will be ready.</span>
+                  </h2>
+                  <p className="mkt-lead" style={{ color: '#a7abc4', marginTop: 16, maxWidth: '52ch' }}>
+                    Ardovo is the first CRM where your Deal Agent negotiates directly with the buyer's Buying Agent over the open agent stack (A2A + AP2), inside your governance mandate, and settles with a signed Intent to Cart to Payment mandate chain that you countersign. Salesforce orchestrates its own agents. We built the deal room for theirs.
+                  </p>
+                  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 24 }}>
+                    <MktButton to="/agent-economy" size="lg">Explore the agent economy</MktButton>
+                    <Link to="/handshake" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontWeight: 800, fontSize: 15, color: '#fff', textDecoration: 'none', padding: '13px 20px', borderRadius: 12, border: '1px solid rgba(255,255,255,.22)', background: 'rgba(255,255,255,.06)' }}>See the deal room</Link>
+                  </div>
+                </div>
+                {/* agent-to-agent mini deal room */}
+                <div style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 18, padding: 20, backdropFilter: 'blur(6px)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 11, fontWeight: 800, letterSpacing: '.14em', textTransform: 'uppercase', color: '#9aa0bd' }}>
+                    <span style={{ color: '#7bf3dc' }}>Live deal room</span><span>A2A + AP2</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 10, margin: '18px 0' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ width: 42, height: 42, margin: '0 auto 8px', borderRadius: 12, display: 'grid', placeItems: 'center', background: 'rgba(124,92,247,.2)', color: '#c9bcff' }}><Icon name="sparkles" size={20} /></div>
+                      <div style={{ fontWeight: 800, fontSize: 13 }}>Ardovo Agent</div>
+                      <div style={{ fontSize: 11, color: '#9aa0bd' }}>Your side</div>
+                    </div>
+                    <div style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: 'linear-gradient(100deg,#7c5cf7,#14b8a6)', padding: '5px 9px', borderRadius: 999 }}>VS</div>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ width: 42, height: 42, margin: '0 auto 8px', borderRadius: 12, display: 'grid', placeItems: 'center', background: 'rgba(14,159,143,.2)', color: '#6ee7d6' }}><Icon name="user" size={20} /></div>
+                      <div style={{ fontWeight: 800, fontSize: 13 }}>Buying Agent</div>
+                      <div style={{ fontSize: 11, color: '#9aa0bd' }}>Buyer side</div>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 12, fontWeight: 700 }}>
+                    {['Intent', 'Cart', 'Payment'].map((s, i) => (
+                      <React.Fragment key={s}>
+                        <span style={{ padding: '4px 10px', borderRadius: 8, background: i < 2 ? 'rgba(124,92,247,.22)' : 'rgba(255,255,255,.06)', color: i < 2 ? '#c9bcff' : '#9aa0bd', border: '1px solid rgba(255,255,255,.1)' }}>{s}</span>
+                        {i < 2 && <span style={{ color: '#7c5cf7' }}>&gt;</span>}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div style={{ marginTop: 16, fontSize: 12, color: '#a7abc4', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,.08)', paddingTop: 12 }}>
+                    Mandate chain signed. Awaiting your countersignature.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* S2. STATS STRIP */}
       <section className="mkt-section-sm">
         <div className="mkt-wrap">

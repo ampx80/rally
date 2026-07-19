@@ -35,6 +35,8 @@ const NAV_COMMANDS = [
   { kind: 'nav', label: 'Reports', to: '/reports', icon: 'pie', kw: 'analytics' },
   { kind: 'nav', label: 'Report builder', to: '/report-builder', icon: 'pie', kw: 'custom report analytics' },
   { kind: 'nav', label: 'Intelligence', to: '/intelligence', icon: 'sparkles', kw: 'ai insights' },
+  { kind: 'nav', label: 'Handshake (deal room)', to: '/handshake', icon: 'merge', kw: 'agent negotiate a2a ap2 buyer commerce mandate' },
+  { kind: 'nav', label: 'The Boardroom', to: '/boardroom', icon: 'messages', kw: 'council agents debate memo consensus revenue' },
   { kind: 'nav', label: 'Workflows', to: '/workflows', icon: 'workflow', kw: 'automation rules' },
   { kind: 'nav', label: 'Templates', to: '/workflows/library', icon: 'copy', kw: 'automation library' },
   { kind: 'nav', label: 'Integrations', to: '/integrations', icon: 'plug', kw: 'connect apps' },

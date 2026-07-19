@@ -19,6 +19,8 @@ export const TOOLS = [
   { name: 'quote_from_deal', kind: 'write', description: 'Build a draft quote from a deal.', input: { type: 'object', properties: { deal_id: { type: 'string' } }, required: ['deal_id'] } },
   { name: 'generate_deck', kind: 'write', description: 'Generate a QBR deck for an account.', input: { type: 'object', properties: { company_id: { type: 'string' } }, required: ['company_id'] } },
   { name: 'build_account', kind: 'write', description: 'Stand up a whole account from one sentence.', input: { type: 'object', properties: { goal: { type: 'string' } }, required: ['goal'] } },
+  { name: 'fork_whatif', kind: 'write', description: 'Model a pipeline change in a non-destructive branch.', input: { type: 'object', properties: { move: { type: 'string' }, days: { type: 'number' }, pct: { type: 'number' } }, required: ['move'] } },
+  { name: 'negotiate', kind: 'write', description: 'Open a Handshake: negotiate a deal agent-to-agent (A2A) with the buyer agent, bounded by mandate, settling with a signed AP2 Intent/Cart/Payment mandate chain for human countersignature.', input: { type: 'object', properties: { deal_id: { type: 'string' }, maxDiscountPct: { type: 'number' }, walkAwayPct: { type: 'number' } }, required: ['deal_id'] } },
 ];
 
 export const toolNames = () => TOOLS.map(t => t.name);

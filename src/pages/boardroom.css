@@ -1,0 +1,77 @@
+/* ============================================================
+   BOARDROOM - Autonomous Revenue Council styles.
+   A room of agents, a grounded debate, a consensus, a filed memo.
+   Violet (--ai) is the AI layer; teal (--accent) is product truth.
+   NO em-dash / en-dash. ASCII only.
+   ============================================================ */
+.br .muted { color: var(--ink-2); font-size: 12.5px; }
+
+/* ---------- the council ring ---------- */
+.br-council { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin: 1.1rem 0; }
+.br-seat { position: relative; background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--tone); border-radius: 14px; padding: 14px; transition: box-shadow .18s, transform .18s; }
+.br-seat:hover { box-shadow: 0 14px 34px -24px rgba(0,0,0,.4); transform: translateY(-2px); }
+.br-seat-top { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+.br-seat-ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; background: color-mix(in srgb, var(--tone) 14%, var(--paper)); color: var(--tone); }
+.br-seat-title { font-weight: 800; font-size: 13.5px; color: var(--ink); }
+.br-seat-domain { font-size: 11px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.br-seat-stance { margin-left: auto; font-size: 10.5px; font-weight: 900; letter-spacing: .04em; color: var(--tone); background: color-mix(in srgb, var(--tone) 12%, var(--paper)); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+.br-seat-arg { font-size: 13px; line-height: 1.5; color: var(--ink); }
+.br-seat-rec { display: flex; align-items: center; gap: 5px; margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--line); font-size: 12.5px; font-weight: 700; color: var(--tone); }
+
+/* ---------- layout ---------- */
+.br-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.1rem; align-items: start; }
+@media (max-width: 1080px) { .br-grid { grid-template-columns: 1fr; } }
+.br-panel { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+
+/* ---------- debate transcript ---------- */
+.br-thread { display: flex; flex-direction: column; gap: 10px; min-height: 300px; max-height: 540px; overflow-y: auto; margin-top: 10px; scroll-behavior: smooth; }
+.br-line { border: 1px solid var(--line); border-left: 3px solid var(--tone); border-radius: 12px; padding: 10px 13px; background: var(--page);
+  animation: brIn .3s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes brIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+.br-line.chair { background: linear-gradient(180deg, rgba(124,92,247,.08), rgba(124,92,247,.02)); border-left-color: var(--ai); }
+.br-line-head { margin-bottom: 4px; }
+.br-line-speaker { font-size: 10.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--tone); }
+.br-line-body { font-size: 13.5px; line-height: 1.5; color: var(--ink); }
+.br-typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 10px 13px; border-radius: 12px; background: var(--page); border: 1px solid var(--line); }
+.br-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--ai); opacity: .5; animation: brDot 1s infinite; }
+.br-typing span:nth-child(2) { animation-delay: .18s; }
+.br-typing span:nth-child(3) { animation-delay: .36s; }
+@keyframes brDot { 0%,100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+/* ---------- consensus + memo ---------- */
+.br-side { display: flex; flex-direction: column; gap: 14px; }
+.br-consensus { border: 1px solid var(--tone); border-radius: 16px; padding: 16px; background: color-mix(in srgb, var(--tone) 8%, var(--paper)); }
+.br-consensus-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--tone); }
+.br-consensus-head { font-size: 20px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); margin: 8px 0 6px; }
+.br-consensus-body { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.br-tally { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.br-tally-chip { font-size: 11px; font-weight: 700; color: var(--ink-2); background: var(--page); border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; }
+
+.br-memo { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.br-decision { display: flex; gap: 10px; align-items: flex-start; padding: 11px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 9px; cursor: pointer; transition: border-color .15s, background .15s; }
+.br-decision.on { border-color: rgba(124,92,247,.4); background: rgba(124,92,247,.04); }
+.br-decision input { margin-top: 3px; accent-color: var(--ai); width: 15px; height: 15px; flex-shrink: 0; }
+.br-decision-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.br-decision-title { font-weight: 800; font-size: 13.5px; color: var(--ink); }
+.br-decision-detail { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
+.br-decision-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; margin-top: 2px; }
+.br-decision-meta b { color: var(--accent); font-weight: 800; }
+.br-open { display: inline-flex; align-items: center; gap: 3px; font-family: inherit; font-size: 11.5px; font-weight: 700; color: var(--ai); background: none; border: none; cursor: pointer; padding: 0; }
+.br-open:hover { text-decoration: underline; }
+.br-file { margin-top: 6px; width: 100%; justify-content: center; }
+.br-filed { display: inline-flex; align-items: center; gap: 7px; margin-top: 6px; font-weight: 800; font-size: 13px; color: var(--accent); }
+
+.br-waiting { text-align: center; color: var(--ink-2); padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; border: 1px dashed var(--line); border-radius: 16px; }
+.br-waiting p { font-size: 13px; max-width: 260px; }
+
+/* ---------- archive ---------- */
+.br-archive { margin-top: 1.4rem; }
+.br-archive-list { display: flex; flex-direction: column; gap: 8px; }
+.br-archive-row { display: flex; align-items: center; gap: 11px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; }
+.br-archive-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--tone); flex-shrink: 0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--tone) 18%, transparent); }
+.br-archive-head { font-weight: 800; font-size: 13.5px; color: var(--ink); }
+.br-archive-sub { font-size: 11.5px; color: var(--ink-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .br-line, .br-typing span { animation: none !important; }
+}
