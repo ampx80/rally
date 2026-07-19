@@ -183,12 +183,12 @@ export default function Features() {
           <FeatureRow
             eyebrow="Enterprise-ready"
             title="Serious from the first login."
-            para="Security, roles, and a single design system are not add-ons. They ship on day one, and every surface looks and behaves the same."
+            para="Security, roles, and a single design system are core, not add-ons. What ships today ships on day one, and what is still on the roadmap we label honestly."
             bullets={[
               'Granular roles and permissions',
-              'SSO, SAML, and SOC 2 Type II',
+              'Google SSO and two-factor authentication',
               'Full audit log across every object',
-              'One consistent design system everywhere',
+              'SAML/SCIM and SOC 2 Type II on the roadmap',
             ]}
             mock={<EnterpriseShield />}
           />

@@ -21,8 +21,18 @@ const CAPS = [
 
 const ROOK_POINTS = [
   { icon: 'target', title: 'Grounded on your data only', line: 'Rook reasons over the records in your workspace and nothing else. It never invents pipeline, contacts, or numbers.' },
-  { icon: 'sparkles', title: 'No training on your data', line: 'Your revenue data is never used to train shared models. What is yours stays yours, full stop.' },
-  { icon: 'check', title: 'Actions require your confirmation', line: 'Rook proposes, you approve. Every write, send, or update surfaces for a human confirm before it commits.' },
+  { icon: 'sparkles', title: 'No training on your data', line: 'Rook runs on Anthropic Claude (and OpenAI for optional voice), under agreements that prohibit training their models on your data. What is yours stays yours, full stop.' },
+  { icon: 'check', title: 'Actions require your confirmation', line: 'Rook proposes, you approve. Every high-risk write, send, or update surfaces for a human confirm before it commits, and every action is written to your audit log.' },
+];
+
+// InfoSec-ready process + documentation (what a CISO actually asks for).
+const DOCS = [
+  { icon: 'shield', title: 'Incident response', line: 'A documented process with breach notification to affected customers without undue delay, and in any event within 72 hours of awareness.' },
+  { icon: 'box', title: 'Subprocessors', line: 'The full list of providers we use, what they do, and where they operate. Updated before we add a new one.', to: '/legal/subprocessors', cta: 'View list' },
+  { icon: 'fileText', title: 'Security package and DPA', line: 'Security overview, our SOC 2 status and (once issued) report, and a signable Data Processing Addendum. Available to teams in evaluation.', mailto: 'security@ardovo.com', cta: 'Request access' },
+  { icon: 'activity', title: 'Uptime and status', line: 'Live service status and incident history, published openly rather than buried.', to: '/status', cta: 'View status' },
+  { icon: 'settings', title: 'Security questionnaires', line: 'We answer SIG Lite, CAIQ, and custom vendor questionnaires with honest, dated roadmap responses.', mailto: 'security@ardovo.com', cta: 'Send yours' },
+  { icon: 'users', title: 'Single sign-on', line: 'Google SSO and app-level two-factor authentication ship today. SAML/SCIM for Okta, Azure AD, and others is on the roadmap.', to: '/login', cta: 'See sign-in' },
 ];
 
 const COMPLIANCE = [
@@ -186,11 +196,41 @@ export default function Security() {
           </Reveal>
           <ComplianceBadges items={COMPLIANCE} />
           <Reveal delay={120}>
-            <p className="mkt-dim mkt-center" style={{ fontSize: 14, marginTop: 28, maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
-              Have a security question or need our latest documentation? <Link to="/app" className="mkt-grad" style={{ fontWeight: 700 }}>Get in touch</Link> and we will
-              walk your team through the details.
+            <p className="mkt-dim mkt-center" style={{ fontSize: 14, marginTop: 28, maxWidth: 640, marginLeft: 'auto', marginRight: 'auto' }}>
+              Have a security question or need our documentation? Email <a href="mailto:security@ardovo.com" className="mkt-grad" style={{ fontWeight: 700 }}>security@ardovo.com</a> or
+              read our <Link to="/legal" className="mkt-grad" style={{ fontWeight: 700 }}>legal documents</Link>.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      <div className="mkt-wrap"><hr className="co-gradrule" /></div>
+
+      <section className="mkt-section">
+        <div className="mkt-wrap">
+          <Reveal>
+            <div className="mkt-center" style={{ maxWidth: 660, margin: '0 auto 44px' }}>
+              <p className="mkt-eyebrow">For your security review</p>
+              <h2 className="mkt-h2" style={{ marginTop: 12 }}>Everything your CISO will ask for.</h2>
+              <p className="mkt-body" style={{ marginTop: 14 }}>
+                The documents and processes procurement and InfoSec need to move fast. Ask and we send them.
+              </p>
+            </div>
+          </Reveal>
+          <div className="mkt-grid mkt-grid-3 m-cascade">
+            {DOCS.map((d, i) => (
+              <Reveal key={d.title} delay={(i % 3) * 80}>
+                <div className="mkt-card co-cap" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="mkt-icon"><Icon name={d.icon} size={22} /></div>
+                  <h3 className="mkt-h3" style={{ fontSize: '1.15rem', margin: '16px 0 8px' }}>{d.title}</h3>
+                  <p className="mkt-body" style={{ fontSize: '.96rem', margin: '0 0 16px', flex: 1 }}>{d.line}</p>
+                  {d.to
+                    ? <Link to={d.to} className="mkt-grad" style={{ fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}>{d.cta} <Icon name="chevronRight" size={15} /></Link>
+                    : <a href={`mailto:${d.mailto}`} className="mkt-grad" style={{ fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}>{d.cta} <Icon name="chevronRight" size={15} /></a>}
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

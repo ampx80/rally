@@ -98,6 +98,11 @@ function MktFooter() {
           ))}
         </div>
         <hr className="mkt-rule" style={{ margin: '36px 0 20px' }} />
+        <div style={{ display: 'flex', gap: '10px 20px', flexWrap: 'wrap', marginBottom: 16 }}>
+          {[['Privacy', '/legal/privacy'], ['Terms', '/legal/terms'], ['DPA', '/legal/dpa'], ['Subprocessors', '/legal/subprocessors'], ['Cookies', '/legal/cookies'], ['Trust & security', '/security'], ['Status', '/status']].map(([label, to]) => (
+            <Link key={to} to={to} className="mkt-dim" style={{ fontSize: 13.5 }}>{label}</Link>
+          ))}
+        </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div className="mkt-dim" style={{ fontSize: 14 }}>Copyright Ardovo. Built AI-native from the first commit.</div>
           <span className="mkt-footer-status"><span className="mkt-dot m-pulse" /> All systems live</span>

@@ -163,6 +163,7 @@ import BlogPost from './marketing/BlogPost.jsx';
 import DemoPage from './marketing/DemoPage.jsx';
 import GetStarted from './marketing/GetStarted.jsx';
 import EarlyAccess from './marketing/EarlyAccess.jsx';
+import Legal from './marketing/Legal.jsx';
 import Login from './pages/Login.jsx';
 import SecurityCenter from './pages/Security.jsx';
 import VsAgentforce from './marketing/VsAgentforce.jsx';
@@ -862,6 +863,8 @@ export default function App() {
             <Route path="/demo" element={<DemoPage />} />
             <Route path="/get-started" element={<GetStarted />} />
             <Route path="/early-access" element={<EarlyAccess />} />
+            <Route path="/legal" element={<Legal />} />
+            <Route path="/legal/:doc" element={<Legal />} />
             <Route path="/vs-agentforce" element={<VsAgentforce />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />

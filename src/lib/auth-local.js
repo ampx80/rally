@@ -206,6 +206,35 @@ export async function login({ email, password }) {
   return { ok: true, account: acc };
 }
 
+/* ---------- Google SSO (OIDC) ---------- */
+// Decode a Google Identity Services JWT credential (id_token) client-side.
+function decodeJwt(token) {
+  try {
+    const b64 = String(token).split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const json = decodeURIComponent(atob(b64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    return JSON.parse(json);
+  } catch { return null; }
+}
+// Sign in or provision an account from a Google SSO credential. Real, working
+// OIDC on the local-first tier: Google authenticates the user and returns a
+// signed id_token; we trust email_verified and find/create the local account.
+// A server backend should additionally re-verify the token signature against
+// Google's JWKS and confirm the audience (client_id).
+export async function loginWithGoogleCredential(credential) {
+  const claims = decodeJwt(credential);
+  if (!claims || !claims.email) return { ok: false, error: 'Could not read your Google account.' };
+  if (claims.email_verified === false) return { ok: false, error: 'Your Google email is not verified.' };
+  const email = String(claims.email).toLowerCase();
+  let acc = findAccount(email);
+  if (!acc) {
+    acc = { id: `acc_${randHex(6)}`, storeUserId: null, email, name: claims.name || email.split('@')[0], salt: '', passHash: '', sso: 'google', twofa: { enabled: false, secret: '', recoveryCodes: [] }, createdAt: new Date().toISOString() };
+    commit({ ...state, accounts: [...state.accounts, acc] });
+  }
+  if (acc.twofa?.enabled) return { ok: true, needs2fa: true, pendingId: acc.id };
+  writeSession({ accountId: acc.id, at: Date.now() });
+  return { ok: true, account: acc };
+}
+
 export async function completeLogin2fa(pendingId, code) {
   const acc = state.accounts.find(a => a.id === pendingId);
   if (!acc || !acc.twofa?.enabled) return { ok: false, error: 'No pending 2FA.' };

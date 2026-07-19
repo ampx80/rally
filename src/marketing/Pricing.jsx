@@ -47,7 +47,7 @@ const TIERS = [
     features: [
       'Everything in Growth',
       'RBAC and granular permissions',
-      'SSO and SCIM provisioning',
+      'Google SSO today; SAML/SCIM on the roadmap',
       'Full audit log',
       'Priority support',
       'Dedicated success manager',
@@ -70,7 +70,7 @@ const FAQ = [
   },
   {
     q: 'Is my data secure?',
-    a: 'Encryption in transit and at rest, granular RBAC, SSO, and a full audit log on Enterprise. Read the full details on our security page.',
+    a: 'Encryption in transit, granular RBAC, Google SSO, two-factor authentication, and a full audit log across every object. SAML/SCIM and SOC 2 Type II are on the roadmap, and we label what ships today versus what is coming. Read the full, honest details on our security page.',
     link: { to: '/security', label: 'See security' },
   },
   {

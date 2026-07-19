@@ -4,11 +4,13 @@
 // opens the product gate and drops you into the app. Powered by the local-first
 // auth layer (src/lib/auth-local.js), Supabase-swappable later.
 // NO em-dash / en-dash. ASCII hyphen only.
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../components/icons.jsx';
-import { login, signUp, completeLogin2fa } from '../lib/auth-local.js';
+import { login, signUp, completeLogin2fa, loginWithGoogleCredential } from '../lib/auth-local.js';
 import { grantAccessCode } from '../lib/access-mode.js';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 export default function Login() {
   const nav = useNavigate();
@@ -19,6 +21,7 @@ export default function Login() {
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const gbtnRef = useRef(null);
 
   // Keep this page out of the index without touching the server.
   useEffect(() => {
@@ -31,6 +34,35 @@ export default function Login() {
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const enter = () => { grantAccessCode(); nav('/app'); };
+
+  // Google SSO (OIDC) - only mounts when VITE_GOOGLE_CLIENT_ID is configured.
+  useEffect(() => {
+    if (!GOOGLE_CLIENT_ID || step !== 'creds') return;
+    let cancelled = false;
+    const onCred = async (resp) => {
+      setErr(''); setBusy(true);
+      try {
+        const r = await loginWithGoogleCredential(resp.credential);
+        if (!r.ok) { setErr(r.error); return; }
+        if (r.needs2fa) { setPendingId(r.pendingId); setStep('twofa'); return; }
+        enter();
+      } finally { setBusy(false); }
+    };
+    const render = () => {
+      if (cancelled || !window.google?.accounts?.id || !gbtnRef.current) return;
+      window.google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: onCred });
+      gbtnRef.current.innerHTML = '';
+      window.google.accounts.id.renderButton(gbtnRef.current, {
+        theme: 'outline', size: 'large', width: 360, shape: 'pill',
+        text: mode === 'signup' ? 'signup_with' : 'signin_with',
+      });
+    };
+    if (window.google?.accounts?.id) { render(); return () => { cancelled = true; }; }
+    let s = document.getElementById('gsi-script');
+    if (!s) { s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true; s.id = 'gsi-script'; document.head.appendChild(s); }
+    s.addEventListener('load', render);
+    return () => { cancelled = true; s && s.removeEventListener('load', render); };
+  }, [mode, step]); // eslint-disable-line
 
   const submit = async (e) => {
     e.preventDefault();
@@ -92,7 +124,16 @@ export default function Login() {
                 </label>
                 {err && <div className="lg-err"><Icon name="activity" size={14} /> {err}</div>}
                 <button className="lg-submit" type="submit" disabled={busy}>{busy ? 'One moment...' : mode === 'signup' ? 'Create account' : 'Sign in'} <Icon name="chevronRight" size={17} /></button>
+                {mode === 'signup' && (
+                  <p className="lg-consent">By creating an account you agree to our <a href="/legal/terms">Terms</a> and <a href="/legal/privacy">Privacy Policy</a>.</p>
+                )}
               </form>
+              {GOOGLE_CLIENT_ID && (
+                <>
+                  <div className="lg-or"><span>or</span></div>
+                  <div ref={gbtnRef} className="lg-gbtn" />
+                </>
+              )}
               <div className="lg-alt">
                 {mode === 'signup'
                   ? <>Already have an account? <button onClick={() => { setMode('login'); setErr(''); }}>Sign in</button></>
@@ -159,6 +200,12 @@ function LoginStyles() {
     .lg-alt { text-align: center; font-size: 14px; color: #5b6474; margin-top: 20px; }
     .lg-alt button { font-family: inherit; font-size: 14px; font-weight: 700; color: #0e9f8f; background: none; border: none; cursor: pointer; padding: 0; }
     .lg-fine { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12.5px; color: #8a92a3; margin-top: 18px; }
+    .lg-consent { font-size: 12.5px; color: #8a92a3; text-align: center; margin: 12px 2px 0; line-height: 1.5; }
+    .lg-consent a { color: #0e9f8f; font-weight: 700; text-decoration: none; }
+    .lg-consent a:hover { text-decoration: underline; }
+    .lg-or { display: flex; align-items: center; gap: 12px; margin: 20px 0 16px; color: #8a92a3; font-size: 12.5px; font-weight: 600; }
+    .lg-or::before, .lg-or::after { content: ''; height: 1px; background: #e3e7ee; flex: 1; }
+    .lg-gbtn { display: flex; justify-content: center; min-height: 40px; }
     `}</style>
   );
 }
