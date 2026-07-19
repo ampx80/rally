@@ -3,7 +3,7 @@
 // revenue-by-month + AR-aging charts, a full invoice detail modal (line
 // items, tax, status timeline, mark-paid / remind / download), and a
 // "create invoice from deal" flow. All state persists to localStorage.
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   BarChart, Bar, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts';
@@ -11,6 +11,7 @@ import {
   getInvoices, arOutstanding, arOverdue, totalBilled, paidThisMonth,
   collectedToDate, mrrEstimate, arrEstimate, revenueByMonth, agingBuckets,
   markPaid, logReminder, createInvoiceFromDeal, useInvoices,
+  createInvoiceCheckout, reconcileInvoicePaid, readInvoiceCheckoutReturn,
 } from '../lib/invoices-data.js';
 import { getDeals, getCompany } from '../lib/store.js';
 import {
@@ -32,6 +33,20 @@ export default function Invoices() {
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState(null);
   const [createOpen, setCreateOpen] = useState(false);
+
+  // Reconcile on return from Stripe Checkout (?paid=<invoiceId>&session_id=...):
+  // mark the invoice paid, log a CRM activity, and fire 'rally:payment'.
+  useEffect(() => {
+    const ret = readInvoiceCheckoutReturn();
+    if (!ret || !ret.paid) return;
+    const r = reconcileInvoicePaid(ret.paid, { sessionId: ret.sessionId });
+    if (r && r.ok && !r.already) toast('Payment received and reconciled', 'ok');
+    try {
+      const url = new URL(window.location.href);
+      ['paid', 'session_id', 'checkout'].forEach(k => url.searchParams.delete(k));
+      window.history.replaceState({}, '', url.pathname + (url.search || '') + url.hash);
+    } catch {}
+  }, []);
 
   /* ---- KPIs ---- */
   const kpis = useMemo(() => ({
@@ -244,6 +259,27 @@ const td = { padding: '.8rem 1.15rem', fontSize: '1rem' };
    ============================================================ */
 function InvoiceDetail({ inv, onClose, onMarkPaid, onRemind, toast }) {
   const co = getCompany(inv.companyId);
+  const [charging, setCharging] = useState(false);
+  const [payUrl, setPayUrl] = useState(null);
+
+  // Turn this invoice into a payable Stripe Checkout URL. Env-gated: when
+  // STRIPE_SECRET_KEY is absent the server returns { configured:false } and we
+  // show a clean connect-Stripe prompt instead of faking a charge.
+  const charge = async () => {
+    setCharging(true);
+    const res = await createInvoiceCheckout(inv.id);
+    setCharging(false);
+    if (res && res.configured && res.url) {
+      setPayUrl(res.url);
+      try { window.open(res.url, '_blank', 'noopener'); } catch {}
+      try { navigator.clipboard?.writeText(res.url); } catch {}
+      toast('Stripe checkout link ready and copied.', 'ok');
+    } else if (res && res.configured === false) {
+      toast('Connect Stripe (set STRIPE_SECRET_KEY) to charge this invoice online.', 'warn');
+    } else {
+      toast(res && res.error ? res.error : 'Could not create checkout.', 'risk');
+    }
+  };
 
   const downloadCsv = () => {
     const lines = [
@@ -279,6 +315,9 @@ function InvoiceDetail({ inv, onClose, onMarkPaid, onRemind, toast }) {
         {inv.status !== 'paid' && (
           <Button variant="ghost" size="sm" onClick={() => onRemind(inv)}><Icon name="send" size={15} /> Send reminder</Button>
         )}
+        {inv.status !== 'paid' && (
+          <Button variant="ghost" size="sm" onClick={charge} disabled={charging}><Icon name="creditCard" size={15} /> {charging ? 'Creating...' : 'Pay online'}</Button>
+        )}
         {inv.status !== 'paid'
           ? <Button variant="accent" onClick={() => { onMarkPaid(inv); onClose(); }}><Icon name="check" size={16} /> Mark as paid</Button>
           : <Button variant="primary" onClick={onClose}>Close</Button>}
@@ -289,6 +328,15 @@ function InvoiceDetail({ inv, onClose, onMarkPaid, onRemind, toast }) {
   return (
     <Modal open onClose={onClose} title={`Invoice ${inv.number}`} footer={footer} width={640}>
       <div className="col gap-3">
+        {payUrl && (
+          <div className="panel row between" style={{ padding: '.6rem .8rem', gap: '.5rem', alignItems: 'center' }}>
+            <span className="mono t-sm" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{payUrl}</span>
+            <span className="row gap-1" style={{ flex: 'none' }}>
+              <Button variant="quiet" size="sm" onClick={() => { try { navigator.clipboard?.writeText(payUrl); toast('Link copied.', 'ok'); } catch {} }}><Icon name="copy" size={14} /> Copy</Button>
+              <a className="btn btn-quiet btn-sm" href={payUrl} target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={14} /> Open</a>
+            </span>
+          </div>
+        )}
         {/* account header */}
         <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
           <div className="col gap-1">

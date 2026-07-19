@@ -13,7 +13,7 @@ import { getDeals } from '../lib/store.js';
 import {
   getProducts, subscribeProducts, priceFor, createProduct, updateProduct,
   toggleProduct, duplicateProduct, FAMILIES, BILLING, BILLING_LABEL,
-  PRICE_BOOKS, priceBookById,
+  PRICE_BOOKS, priceBookById, createProductPaymentLink,
 } from '../lib/products-data.js';
 
 /* reactive hook over the products store */
@@ -35,6 +35,17 @@ export default function Products() {
   const [query, setQuery] = useState('');
   const [editing, setEditing] = useState(null);   // null | 'new' | product
   const [draft, setDraft] = useState(emptyDraft);
+  const [linkModal, setLinkModal] = useState(null); // { product, loading, result }
+
+  // Turn a catalog SKU into a shareable Stripe Checkout link at its price-book
+  // price. Env-gated: without STRIPE_SECRET_KEY the server returns
+  // { configured:false } and we show a connect-Stripe state + copyable message.
+  const genLink = async (p) => {
+    setLinkModal({ product: p, loading: true, result: null });
+    const res = await createProductPaymentLink(p, { bookId });
+    setLinkModal({ product: p, loading: false, result: res });
+  };
+  const copy = (text, label = 'Copied.') => { try { navigator.clipboard?.writeText(text); toast(label, 'ok'); } catch { toast('Copy failed', 'risk'); } };
 
   // How many open deals could each product attach to. Uses the live pipeline
   // count so the catalog feels wired into the rest of Ardovo.
@@ -172,7 +183,8 @@ export default function Products() {
                 <Badge tone={p.active ? 'ok' : 'default'}>{p.active ? 'Active' : 'Inactive'}</Badge>
                 <div className="row gap-1">
                   <Button variant="quiet" size="sm" onClick={() => onDup(p)} title="Duplicate"><Icon name="copy" size={15} /></Button>
-                  <Button variant="quiet" size="sm" onClick={() => onToggle(p)}>{p.active ? 'Deactivate' : 'Activate'}</Button>
+                  <Button variant="quiet" size="sm" onClick={() => genLink(p)} title="Payment link"><Icon name="link" size={15} /></Button>
+                  <Button variant="quiet" size="sm" onClick={() => onToggle(p)}>{p.active ? 'Off' : 'On'}</Button>
                   <Button variant="ghost" size="sm" onClick={() => openEdit(p)}><Icon name="edit" size={15} /> Edit</Button>
                 </div>
               </div>
@@ -204,6 +216,7 @@ export default function Products() {
                   <td style={{ padding: '.7rem .9rem' }}><Badge tone={p.active ? 'ok' : 'default'}>{p.active ? 'Active' : 'Inactive'}</Badge></td>
                   <td style={{ padding: '.7rem .9rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <Button variant="quiet" size="sm" onClick={() => onDup(p)} title="Duplicate"><Icon name="copy" size={15} /></Button>
+                    <Button variant="quiet" size="sm" onClick={() => genLink(p)} title="Payment link"><Icon name="link" size={15} /></Button>
                     <Button variant="quiet" size="sm" onClick={() => onToggle(p)}>{p.active ? 'Off' : 'On'}</Button>
                     <Button variant="ghost" size="sm" onClick={() => openEdit(p)}><Icon name="edit" size={15} /></Button>
                   </td>
@@ -265,6 +278,55 @@ export default function Products() {
             </div>
           )}
         </div>
+      </Modal>
+
+      {/* ---- payment link generator ---- */}
+      <Modal
+        open={!!linkModal}
+        onClose={() => setLinkModal(null)}
+        title="Payment link"
+        footer={<Button variant="quiet" onClick={() => setLinkModal(null)}>Done</Button>}
+      >
+        {linkModal && (() => {
+          const { product, loading, result } = linkModal;
+          const live = !!(result && result.configured && result.url);
+          const amount = result ? result.amount : priceFor(product, bookId);
+          const recurring = result && result.type === 'recurring';
+          return (
+            <div className="col gap-2">
+              <div className="row between" style={{ alignItems: 'flex-start' }}>
+                <div className="col gap-1" style={{ minWidth: 0 }}>
+                  <div className="fw-7" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{product.name}</div>
+                  <div className="mono t-xs muted">{product.sku}</div>
+                </div>
+                <div className="fw-7" style={{ flex: 'none' }}>{money(amount)}{recurring && <span className="t-xs muted"> / {result.interval}</span>}</div>
+              </div>
+              {loading ? (
+                <div className="panel t-sm muted" style={{ padding: '.7rem .8rem' }}>Creating secure checkout...</div>
+              ) : live ? (
+                <>
+                  <div className="panel row between" style={{ padding: '.6rem .8rem', gap: '.5rem', alignItems: 'center' }}>
+                    <span className="mono t-sm" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{result.url}</span>
+                    <span className="row gap-1" style={{ flex: 'none' }}>
+                      <Button variant="quiet" size="sm" onClick={() => copy(result.url, 'Link copied.')}><Icon name="copy" size={14} /> Copy</Button>
+                      <a className="btn btn-quiet btn-sm" href={result.url} target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={14} /> Open</a>
+                    </span>
+                  </div>
+                  {result.message && <Button variant="ghost" size="sm" onClick={() => copy(result.message, 'Pay message copied.')}><Icon name="copy" size={14} /> Copy pay message</Button>}
+                  <div className="t-xs muted row gap-1"><Icon name="check" size={13} /> Live Stripe checkout at the {book.name} price.</div>
+                </>
+              ) : (
+                <>
+                  <div className="t-sm muted row gap-1" style={{ alignItems: 'flex-start' }}>
+                    <Icon name="lock" size={14} />
+                    <span>Connect Stripe to collect real payments. Set STRIPE_SECRET_KEY in the environment and this creates a live checkout link. You can still copy the message below for the demo.</span>
+                  </div>
+                  {result && result.message && <Button variant="ghost" size="sm" onClick={() => copy(result.message, 'Pay message copied.')}><Icon name="copy" size={14} /> Copy pay message</Button>}
+                </>
+              )}
+            </div>
+          );
+        })()}
       </Modal>
     </div>
   );

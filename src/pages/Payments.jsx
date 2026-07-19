@@ -6,7 +6,7 @@
 // (src/lib/payments-data.js). 100% functional with seeded data + zero backend;
 // real charges + real text-to-pay are Stripe-env-gated and degrade to a local
 // queue. NO em-dash anywhere; ASCII hyphen only.
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   usePayments, paymentStats, linkStats, recentTransactions, upcomingRenewals,
   dunningQueue, getLinks, getSubscriptions, getBusiness,
@@ -14,6 +14,8 @@ import {
   cancelSubscription, updateBusiness, hasStripeEnv, linkUrl, intervalMonths,
   TXN_STATUS_META, CARD_BRANDS, brandById, LINK_CHANNELS, LINK_STATUS_META,
   SUB_STATUS_META, INTERVALS, PLANS,
+  createLinkCheckout, reconcilePayment, readCheckoutReturn, payMessageFor,
+  fetchServerPaymentEvents,
 } from '../lib/payments-data.js';
 import {
   Button, Card, Badge, PageTitle, SectionHeader, Field, Input, Select, Textarea,
@@ -216,15 +218,22 @@ function LinkModal({ open, onClose, presetChannel }) {
   React.useEffect(() => { if (open) setForm({ title: '', amount: '', description: '', type: 'one_time', interval: 'monthly', channel: presetChannel || 'link', customer: '', company: '', phone: '' }); }, [open, presetChannel]);
   const set = (k, v) => setForm({ ...f, [k]: v });
   const [created, setCreated] = useState(null);
+  const [checkout, setCheckout] = useState(null);
+  const [busy, setBusy] = useState(false);
 
-  const submit = () => {
+  const submit = async () => {
     const res = createLink(f);
     if (res.error) { toast(res.message, 'risk'); return; }
     setCreated(res.link);
-    toast(f.channel === 'sms' ? 'Text to pay sent' : 'Payment link created');
+    setBusy(true);
+    const ck = await createLinkCheckout(res.link);
+    setCheckout(ck);
+    setBusy(false);
+    if (ck && ck.configured && ck.url) toast(f.channel === 'sms' ? 'Text to pay ready (Stripe)' : 'Stripe checkout link created');
+    else toast(f.channel === 'sms' ? 'Link ready (test mode)' : 'Payment link created (test mode)');
   };
 
-  const close = () => { setCreated(null); onClose(); };
+  const close = () => { setCreated(null); setCheckout(null); setBusy(false); onClose(); };
 
   return (
     <Modal open={open} onClose={close} width={created ? 460 : 600}
@@ -232,7 +241,11 @@ function LinkModal({ open, onClose, presetChannel }) {
       footer={created
         ? <Button onClick={close}>Done</Button>
         : <><Button variant="ghost" onClick={close}>Cancel</Button><Button variant="accent" onClick={submit}><Icon name={f.channel === 'sms' ? 'send' : 'link'} size={15} /> {f.channel === 'sms' ? 'Send to pay' : 'Create link'}</Button></>}>
-      {created ? (
+      {created ? (() => {
+        const live = !!(checkout && checkout.configured && checkout.url);
+        const payUrl = live ? checkout.url : `https://${linkUrl(created.slug)}`;
+        const payMsg = (checkout && checkout.message) || payMessageFor(created, payUrl);
+        return (
         <div className="col center gap-3" style={{ textAlign: 'center' }}>
           <FauxQR text={created.slug} size={150} />
           <div className="col gap-1">
@@ -240,12 +253,20 @@ function LinkModal({ open, onClose, presetChannel }) {
             <div className="stat-value" style={{ fontSize: '2rem' }}>{money(created.amount)}{created.type === 'recurring' && <span className="t-sm muted" style={{ fontSize: '1rem' }}> / {INTERVALS.find(i => i.id === created.interval)?.label.toLowerCase()}</span>}</div>
           </div>
           <div className="panel row between" style={{ padding: '.6rem .8rem', width: '100%', gap: '.5rem' }}>
-            <span className="mono t-sm clip">{linkUrl(created.slug)}</span>
-            <button className="btn btn-quiet btn-sm" onClick={() => copyText(linkUrl(created.slug), toast)}><Icon name="copy" size={14} /> Copy</button>
+            <span className="mono t-sm clip">{busy ? 'Creating secure checkout...' : payUrl}</span>
+            <button className="btn btn-quiet btn-sm" disabled={busy} onClick={() => copyText(payUrl, toast)}><Icon name="copy" size={14} /> Copy link</button>
           </div>
-          {created.channel === 'sms' && <div className="t-sm muted">Sent by text to {created.phone || 'the customer'}. {hasStripeEnv() ? '' : 'Test mode - no real message left your account.'}</div>}
+          <div className="row gap-1 wrap center" style={{ width: '100%' }}>
+            <button className="btn btn-quiet btn-sm" disabled={busy} onClick={() => copyText(payMsg, toast)}><Icon name="copy" size={14} /> Copy pay message</button>
+            {live && <a className="btn btn-quiet btn-sm" href={payUrl} target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={14} /> Open checkout</a>}
+          </div>
+          {created.channel === 'sms' && <div className="t-sm muted">Ready to text to {created.phone || 'the customer'}. Copy the pay message above and send it from your SMS tool.</div>}
+          {live
+            ? <div className="t-xs muted row gap-1 center"><Icon name="check" size={13} /> Live Stripe checkout. Share this link to collect a real payment.</div>
+            : <div className="t-xs muted row gap-1 center" style={{ textAlign: 'center' }}><Icon name="lock" size={13} /> Test mode. Set STRIPE_SECRET_KEY to collect real cards; this link works locally for the demo.</div>}
         </div>
-      ) : (
+        );
+      })() : (
         <div className="col gap-2">
           <div className="row gap-1 wrap">
             {LINK_CHANNELS.map(ch => (
@@ -298,7 +319,7 @@ function LinkDetail({ link, onClose }) {
     <Modal open={!!link} onClose={onClose} width={480} title={link.title}
       footer={<>
         {link.status !== 'paid' && link.status !== 'expired' && <Button variant="ghost" onClick={() => { expireLink(link.id); toast('Link expired'); onClose(); }}>Expire</Button>}
-        {link.status !== 'paid' && <Button variant="accent" onClick={() => { markLinkPaid(link.id); toast('Marked as paid'); onClose(); }}><Icon name="check" size={15} /> Mark paid</Button>}
+        {link.status !== 'paid' && <Button variant="accent" onClick={() => { reconcilePayment({ idOrSlug: link.id }); toast('Marked as paid'); onClose(); }}><Icon name="check" size={15} /> Mark paid</Button>}
         {link.status === 'paid' && <Button onClick={onClose}>Close</Button>}
       </>}>
       <div className="col center gap-3" style={{ textAlign: 'center' }}>
@@ -390,6 +411,7 @@ function Checkout() {
   const [desc, setDesc] = useState('Platform rollout - milestone 1');
   const [name, setName] = useState(biz.name);
   const [accent, setAccent] = useState(biz.accent);
+  const [acct, setAcct] = useState(biz.connectedAccountId || '');
   const amt = Number(amount) || 0;
 
   const applyLink = (id) => {
@@ -421,7 +443,10 @@ function Checkout() {
           </Field>
         </div>
         <Field label="Line item"><Input value={desc} onChange={e => setDesc(e.target.value)} /></Field>
-        <Button variant="ghost" size="sm" onClick={() => { updateBusiness({ name, accent }); toast('Saved to your checkout brand'); }}><Icon name="check" size={15} /> Save brand</Button>
+        <Field label="Stripe Connect account (agencies)" hint="Optional acct_... - charges route to this connected account.">
+          <Input value={acct} onChange={e => setAcct(e.target.value)} placeholder="acct_..." />
+        </Field>
+        <Button variant="ghost" size="sm" onClick={() => { updateBusiness({ name, accent, connectedAccountId: acct.trim() }); toast('Saved to your checkout brand'); }}><Icon name="check" size={15} /> Save brand</Button>
         <div className="panel t-xs muted row gap-1" style={{ padding: '.6rem .7rem', alignItems: 'flex-start' }}>
           <Icon name="shield" size={14} /> <span>PCI note: Ardovo never touches raw card numbers. Fields tokenize client-side to Stripe. This preview collects nothing.</span>
         </div>
@@ -568,6 +593,36 @@ export default function Payments() {
   usePayments();
   const stats = paymentStats();
   const lstats = linkStats();
+
+  // Reconcile on load. When a customer returns from Stripe Checkout the URL
+  // carries ?paid=<slug>&session_id=...; we mark the link paid, log a CRM
+  // activity, and fire 'rally:payment'. We also pull the durable webhook log
+  // so payments completed while the tab was closed reconcile on next open.
+  useEffect(() => {
+    const ret = readCheckoutReturn();
+    if (ret && ret.paid) {
+      const r = reconcilePayment({ idOrSlug: ret.paid, sessionId: ret.sessionId });
+      if (r && r.ok && !r.already) toast('Payment received and reconciled', 'ok');
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('paid');
+        url.searchParams.delete('session_id');
+        url.searchParams.delete('checkout');
+        window.history.replaceState({}, '', url.pathname + (url.search || '') + url.hash);
+      } catch {}
+    }
+    let cancelled = false;
+    (async () => {
+      const { configured, events } = await fetchServerPaymentEvents();
+      if (cancelled || !configured) return;
+      for (const ev of events) {
+        if (ev && ev.kind === 'payment_link' && ev.status === 'paid') {
+          reconcilePayment({ idOrSlug: ev.slug || ev.link_id, sessionId: ev.session_id || ev.event_id, amount: ev.amount });
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   const doRefund = () => {
     if (!refundTx) return;

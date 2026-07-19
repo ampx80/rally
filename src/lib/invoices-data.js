@@ -7,7 +7,7 @@
 // SUPABASE: rally_invoices + rally_invoice_lines tables.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { getCompanies, getDeals, getCompany, getDeal } from './store.js';
+import { getCompanies, getDeals, getCompany, getDeal, createActivity } from './store.js';
 
 const LS_KEY = 'rally_invoices_v1';
 
@@ -347,6 +347,118 @@ export function createInvoiceFromDeal(dealId) {
 }
 
 function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; }
+
+/* Build a draft invoice from an arbitrary set of line items (used by the
+   quote -> invoice flow). Line inputs accept either invoice-shape
+   { label, qty, unit, price } or quote-shape { name, qty, unitPrice }. */
+export function createInvoiceFromLines({ companyId, dealId = null, lines = [], termDays = 30, poNumber } = {}) {
+  const norm = (lines || []).map(l => {
+    const price = Math.round(Number(l.price != null ? l.price : l.unitPrice) || 0);
+    const qty = Math.max(1, Number(l.qty) || 1);
+    return { label: l.label || l.name || 'Item', qty, unit: l.unit || 'unit', price, amount: qty * price };
+  }).filter(l => l.amount > 0);
+  if (!norm.length) return { error: 'lines', message: 'No billable line items to invoice.' };
+  const now = Date.now();
+  const number = `INV-${bill.nextSeq}`;
+  const inv = makeInvoice({
+    number, companyId: companyId || null, dealId,
+    lines: norm, total: invoiceTotal(norm),
+    issuedAt: new Date(now).toISOString(),
+    dueAt: new Date(now + termDays * DAY).toISOString(),
+    termDays, status: 'draft', paidAt: null, rnd: mulberry32((now % 100000) + norm.length),
+  });
+  if (poNumber) inv.poNumber = poNumber;
+  commit({ ...bill, nextSeq: bill.nextSeq + 1, invoices: [inv, ...bill.invoices] });
+  return { invoice: inv };
+}
+
+/* ============================================================
+   STRIPE CHECKOUT + RECONCILE   (customer payments)
+   ------------------------------------------------------------
+   createInvoiceCheckout turns an invoice's line items into a payable
+   Stripe Checkout Session via api/payments-charge and returns its URL.
+   With no STRIPE_SECRET_KEY the server returns { configured:false }
+   and the UI shows a clean "connect Stripe" state (never a fake win).
+
+   reconcileInvoicePaid is what the client calls on the Checkout return
+   (or when polling the webhook durable log): it marks the invoice paid,
+   logs a CRM activity, and fires window 'rally:payment' for automations.
+   ============================================================ */
+function fmtUsd(n) {
+  try { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number(n) || 0); }
+  catch { return `$${Math.round(Number(n) || 0).toLocaleString('en-US')}`; }
+}
+
+// SUPABASE/STRIPE: POST /api/payments-charge. Returns the endpoint JSON
+// verbatim: { ok, configured, url?, id?, mode? } or { configured:false }.
+export async function createInvoiceCheckout(invoiceId, { connectedAccountId } = {}) {
+  const inv = getInvoice(invoiceId);
+  if (!inv) return { ok: false, configured: null, error: 'Invoice not found.' };
+  const lineItems = (inv.lines || []).map(l => ({
+    name: l.label, description: l.unit ? `per ${l.unit}` : undefined, amount: l.price, quantity: l.qty,
+  }));
+  if (inv.tax) lineItems.push({ name: 'Sales tax (8.25%)', amount: inv.tax, quantity: 1 });
+  const co = getCompany(inv.companyId);
+  const body = {
+    invoiceId: inv.id,
+    invoiceNumber: inv.number,
+    currency: 'usd',
+    lineItems,
+    customerEmail: co && co.domain ? `ap@${co.domain}` : undefined,
+    connectedAccountId: connectedAccountId || undefined,
+  };
+  try {
+    const resp = await fetch('/api/payments-charge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = await resp.json().catch(() => ({}));
+    if (json && typeof json === 'object') return json;
+  } catch {}
+  return { ok: false, configured: false, reason: 'unreachable' };
+}
+
+// Client-side reconcile: mark paid + log activity + dispatch 'rally:payment'.
+// Idempotent by session id (or invoice id).
+export function reconcileInvoicePaid(invoiceId, { sessionId, amount } = {}) {
+  const inv = getInvoice(invoiceId);
+  if (!inv) return { ok: false, error: 'missing' };
+  const key = sessionId || `inv:${invoiceId}`;
+  const seen = bill.reconciled || [];
+  if (seen.includes(key)) return { ok: true, already: true, invoice: inv };
+  if (inv.status !== 'paid') markPaid(invoiceId);
+  commit({ ...bill, reconciled: [...seen, key].slice(-300) });
+
+  const paid = getInvoice(invoiceId);
+  let activity = null;
+  try {
+    const r = createActivity({
+      type: 'note',
+      subject: `Invoice ${paid.number} paid: ${fmtUsd(amount != null ? amount : paid.total)}`,
+      body: `${paid.companyName} paid invoice ${paid.number} via Ardovo Payments.`,
+      relatedType: paid.dealId ? 'deal' : (paid.companyId ? 'company' : null),
+      relatedId: paid.dealId || paid.companyId || null,
+      companyId: paid.companyId || null,
+      done: true,
+    });
+    if (r && !r.error) activity = r.activity;
+  } catch {}
+
+  const detail = { source: 'invoice', id: invoiceId, number: paid.number, amount: amount != null ? amount : paid.total, sessionId: sessionId || null, at: new Date().toISOString() };
+  try { window.dispatchEvent(new CustomEvent('rally:payment', { detail })); } catch {}
+  return { ok: true, invoice: paid, activity, detail };
+}
+
+// Read Checkout return params (?paid=<invoiceId>&session_id=...).
+export function readInvoiceCheckoutReturn() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    const paid = p.get('paid');
+    if (!paid) return null;
+    return { paid, sessionId: p.get('session_id') || null };
+  } catch { return null; }
+}
 
 export function resetInvoices() {
   try { localStorage.removeItem(LS_KEY); } catch {}

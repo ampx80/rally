@@ -184,3 +184,52 @@ export function duplicateProduct(id) {
   commit({ ...state, products: [copy, ...state.products] });
   return { product: copy };
 }
+
+/* ============================================================
+   PAYMENT LINKS FROM THE CATALOG   (customer payments)
+   ------------------------------------------------------------
+   Turn a catalog SKU into a shareable Stripe Checkout link at its
+   price-book price. Monthly/annual SKUs become recurring; one-time
+   SKUs charge once. When STRIPE_SECRET_KEY is absent the server
+   (api/payment-link-send) returns { configured:false } and we hand
+   back a copyable message + the derived amount so the UI degrades
+   cleanly instead of faking a charge.
+   ============================================================ */
+// Map a product's billing cadence onto the payment-link type/interval.
+export function billingToLinkType(billing) {
+  if (billing === 'monthly') return { type: 'recurring', interval: 'monthly' };
+  if (billing === 'annual') return { type: 'recurring', interval: 'annual' };
+  return { type: 'one_time', interval: null };
+}
+
+// SUPABASE/STRIPE: POST /api/payment-link-send. Returns the endpoint JSON plus
+// the derived { amount, type, interval } so the caller can render either state.
+export async function createProductPaymentLink(product, { bookId = 'standard', quantity = 1, customer = '', phone = '', connectedAccountId } = {}) {
+  if (!product) return { ok: false, configured: null, error: 'Product not found.' };
+  const amount = priceFor(product, bookId);
+  const { type, interval } = billingToLinkType(product.billing);
+  const body = {
+    title: product.name,
+    description: product.description,
+    amount,
+    currency: 'usd',
+    type,
+    interval,
+    quantity: Math.max(1, Number(quantity) || 1),
+    customer,
+    phone,
+    slug: product.sku ? product.sku.toLowerCase().replace(/[^a-z0-9]+/g, '-') : undefined,
+    linkId: product.id,
+    connectedAccountId: connectedAccountId || undefined,
+  };
+  try {
+    const resp = await fetch('/api/payment-link-send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = await resp.json().catch(() => ({}));
+    if (json && typeof json === 'object') return { ...json, amount, type, interval };
+  } catch {}
+  return { ok: false, configured: false, reason: 'unreachable', amount, type, interval };
+}

@@ -28,7 +28,7 @@
 // `let state = load()` line). Never a const arrow defined lower.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { getContacts, getCompanies, contactName } from './store.js';
+import { getContacts, getCompanies, contactName, createActivity } from './store.js';
 
 const LS_KEY = 'rally_payments_v1';   // bump to force a clean reseed
 
@@ -104,7 +104,10 @@ export const PLANS = [
 ];
 
 // The Ardovo customer's OWN brand shown on the checkout preview. Editable.
-export const DEFAULT_BUSINESS = { name: 'Vertex Robotics', accent: '#5b4bf5', supportEmail: 'billing@vertexrobotics.com' };
+export const DEFAULT_BUSINESS = { name: 'Vertex Robotics', accent: '#5b4bf5', supportEmail: 'billing@vertexrobotics.com', connectedAccountId: '' };
+
+// Currency for customer payments. USD default; swap per workspace when needed.
+export const CURRENCY = 'usd';
 
 const LINE_ITEMS = [
   'Platform rollout - milestone 1', 'Annual license renewal', 'Onboarding package',
@@ -553,10 +556,149 @@ export function cancelSubscription(id) {
   return { subscription: s };
 }
 
-/* Update the checkout business identity (name/accent/support email). */
+/* Update the checkout business identity (name/accent/support email/connected acct). */
 export function updateBusiness(patch) {
   commit({ ...state, business: { ...state.business, ...patch } });
   return { business: state.business };
+}
+
+/* ============================================================
+   STRIPE CHECKOUT + RECONCILE   (the real customer charge path)
+   ------------------------------------------------------------
+   createLinkCheckout asks the server (api/payment-link-send) for a
+   hosted Stripe Checkout URL. When STRIPE_SECRET_KEY is absent the
+   server returns { configured:false } and we keep the local link so
+   the UI degrades to a clean "connect Stripe" state and never fakes
+   a real charge.
+
+   The server webhook (api/payments-webhook) records paid outcomes to
+   a durable log. The browser store is client-only, so the client
+   RECONCILES: on returning from Checkout (or by polling the durable
+   log) reconcilePayment() marks the link paid, writes a matching
+   transaction, logs a CRM activity, and dispatches a window
+   'rally:payment' event that automations can subscribe to.
+   ============================================================ */
+
+// Local currency format so this module has no UI dependency.
+export function fmtUsd(n) {
+  try {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: CURRENCY.toUpperCase(), maximumFractionDigits: 0 }).format(Number(n) || 0);
+  } catch { return `$${Math.round(Number(n) || 0).toLocaleString('en-US')}`; }
+}
+
+// Copyable text-to-pay message built entirely client-side (used as the offline
+// fallback; the server returns an identical shape when Stripe is configured).
+export function payMessageFor(link, url) {
+  const who = link.customer ? `Hi ${link.customer}, ` : 'Hi, ';
+  const cadence = link.type === 'recurring' ? ` per ${(INTERVALS.find(i => i.id === link.interval) || INTERVALS[0]).label.toLowerCase()}` : '';
+  return `${who}here is your secure payment link for ${link.title || 'your invoice'} (${fmtUsd(link.amount)}${cadence}): ${url || `https://${linkUrl(link.slug)}`}`;
+}
+
+// SUPABASE/STRIPE: POST /api/payment-link-send. Returns the raw JSON from the
+// endpoint: { ok, configured, url?, message, phone } on success, or
+// { ok:false, configured:false, message } when Stripe is not wired.
+export async function createLinkCheckout(link, { connectedAccountId } = {}) {
+  const body = {
+    title: link.title,
+    amount: link.amount,
+    description: link.description,
+    currency: CURRENCY,
+    type: link.type,
+    interval: link.interval || 'monthly',
+    customer: link.customer,
+    phone: link.phone,
+    linkId: link.id,
+    slug: link.slug,
+    fallbackUrl: `https://${linkUrl(link.slug)}`,
+    connectedAccountId: connectedAccountId || (state.business && state.business.connectedAccountId) || undefined,
+  };
+  try {
+    const resp = await fetch('/api/payment-link-send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = await resp.json().catch(() => ({}));
+    if (json && typeof json === 'object') return json;
+  } catch {}
+  // Network/endpoint unreachable: degrade to the local link + message.
+  return { ok: false, configured: false, reason: 'unreachable', message: payMessageFor(link) };
+}
+
+// Fire the automation hook. Kept in a try so a missing window never throws.
+export function dispatchPaymentEvent(detail) {
+  try { window.dispatchEvent(new CustomEvent('rally:payment', { detail })); } catch {}
+}
+
+// Idempotency guard so a re-load / duplicate webhook does not double-post.
+function markReconciled(key) {
+  if (!key) return true;
+  const seen = state.reconciled || [];
+  if (seen.includes(key)) return false;
+  commit({ ...state, reconciled: [...seen, key].slice(-300) });
+  return true;
+}
+export function isReconciled(key) { return (state.reconciled || []).includes(key); }
+
+// Reconcile one paid link. Marks it paid (recording a transaction), logs a CRM
+// activity, and dispatches 'rally:payment'. Idempotent by session id (or id).
+export function reconcilePayment({ idOrSlug, sessionId, amount } = {}) {
+  let link = null;
+  if (idOrSlug) link = state.links.find(l => l.id === idOrSlug || l.slug === idOrSlug) || null;
+  const key = sessionId || (link ? `link:${link.id}` : idOrSlug ? `link:${idOrSlug}` : null);
+  if (!markReconciled(key)) return { ok: true, already: true, link };
+
+  let transaction = null;
+  if (link && link.status !== 'paid') {
+    const res = markLinkPaid(link.id);
+    if (!res.error) { link = res.link; transaction = res.transaction; }
+  }
+  const amt = amount != null ? amount : (link ? link.amount : 0);
+
+  let activity = null;
+  try {
+    const r = createActivity({
+      type: 'note',
+      subject: `Payment received: ${fmtUsd(amt)}${link ? ` - ${link.title}` : ''}`,
+      body: link ? `Customer paid via Ardovo Payments link ${link.slug}.` : 'Customer payment received via Ardovo Payments.',
+      done: true,
+    });
+    if (r && !r.error) activity = r.activity;
+  } catch {}
+
+  const detail = {
+    source: 'payment_link',
+    id: link ? link.id : (idOrSlug || null),
+    slug: link ? link.slug : null,
+    amount: amt,
+    sessionId: sessionId || null,
+    transactionId: transaction ? transaction.id : null,
+    at: new Date().toISOString(),
+  };
+  dispatchPaymentEvent(detail);
+  return { ok: true, link, transaction, activity, detail };
+}
+
+// Read the Checkout return params (?paid=<slug|id>&session_id=...). The page
+// calls this on load, reconciles, then clears the query string.
+export function readCheckoutReturn() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    const paid = p.get('paid');
+    if (!paid) return null;
+    return { paid, sessionId: p.get('session_id') || null };
+  } catch { return null; }
+}
+
+// Pull recent durable payment events from the webhook log so the client can
+// reconcile against server truth. Returns { configured, events }.
+export async function fetchServerPaymentEvents(since) {
+  try {
+    const q = since ? `?since=${encodeURIComponent(since)}` : '';
+    const resp = await fetch(`/api/payments-webhook${q}`);
+    const json = await resp.json().catch(() => ({}));
+    return { configured: Boolean(json.configured), events: Array.isArray(json.events) ? json.events : [] };
+  } catch { return { configured: false, events: [] }; }
 }
 
 /* ---------- small runtime helpers (post-seed; safe as const) ---------- */

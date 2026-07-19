@@ -7,6 +7,7 @@
 // SUPABASE: rally_products, rally_quotes, rally_quote_lines.
 // ============================================================
 import { getDeals, getCompanies } from './store.js';
+import { createInvoiceFromLines } from './invoices-data.js';
 
 const LS_KEY = 'rally_quotes_v1'; // bump to force a clean reseed
 
@@ -260,3 +261,25 @@ export function removeLine(id, lineId) {
   return { quote: q };
 }
 export function subscribeQuotes(fn) { subs.add(fn); return () => subs.delete(fn); }
+
+/* Quote -> invoice -> payment flow. Accepts the quote and creates a draft
+   invoice whose line items mirror the quote (unit price net of each line's
+   discount). The resulting invoice can then be charged via
+   invoices-data.createInvoiceCheckout / api/payments-charge. */
+export function quoteToInvoice(id, { termDays = 30 } = {}) {
+  const q = getQuote(id);
+  if (!q) return { error: 'missing', message: 'Quote not found.' };
+  const lines = (q.lines || []).map(l => {
+    const net = Math.round((Number(l.unitPrice) || 0) * (1 - (Number(l.discountPct) || 0) / 100));
+    return {
+      label: `${l.name}${l.discountPct ? ` (${l.discountPct}% off)` : ''}`,
+      name: l.name, unit: 'unit',
+      qty: Math.max(1, Number(l.qty) || 1),
+      price: net, unitPrice: net,
+    };
+  });
+  const res = createInvoiceFromLines({ companyId: q.companyId, dealId: q.dealId || null, lines, termDays, poNumber: q.number });
+  if (res.error) return res;
+  if (q.status !== 'accepted') setQuoteStatus(id, 'accepted');
+  return { invoice: res.invoice, quote: getQuote(id) };
+}
