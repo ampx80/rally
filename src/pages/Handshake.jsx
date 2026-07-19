@@ -1,17 +1,17 @@
-// Handshake - Ardovo's Agent-to-Agent Deal Room. The counter-agent commerce
-// surface: your Ardovo Deal Agent negotiates live with the BUYER'S Buying Agent
-// over the open agentic-commerce stack (A2A + AP2), bounded by your governance
-// mandate, and settles with a signed Intent -> Cart -> Payment mandate chain
-// that a human countersigns. Nothing commits to the CRM without that click.
-// Teal is product truth, violet is the AI layer. NO em-dash / en-dash. ASCII only.
+// Handshake - Ardovo's Agent-to-Agent Deal Room. A live, playable negotiation:
+// your Deal Agent versus the buyer's Buying Agent over A2A + AP2, bounded by a
+// mandate you tune in real time. Pick a strategy, watch it play, or take over
+// turn by turn (hold, concede, trade a term, split, walk). Settlement produces a
+// signed Intent -> Cart -> Payment mandate chain you countersign. NO em-dash. ASCII.
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../lib/store.js';
-import { SectionHeader, Badge, EmptyState, useToast } from '../components/UI.jsx';
+import { SectionHeader, Badge, EmptyState, useToast, Segmented } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import AgentDeck from '../components/agent/AgentDeck.jsx';
 import {
-  negotiate, negotiateSmart, applyOutcome, negotiableDeals, defaultDealId, fmtMoney, AP2, DEFAULT_POLICY,
+  openNegotiation, playMove, finalize, liveGauge, applyOutcome,
+  negotiableDeals, defaultDealId, ARCHETYPES, STRATEGIES, DEFAULT_POLICY, AP2, fmtMoney,
 } from '../lib/handshake.js';
 import './handshake.css';
 
@@ -20,6 +20,13 @@ const STATUS_META = {
   needs_human: { label: 'Terms reached, needs your countersignature', tone: '#7c5cf7', icon: 'roleShield' },
   impasse: { label: 'Impasse, mandate protected, escalated', tone: '#c0392b', icon: 'shield' },
 };
+const MOVES = [
+  { id: 'hold', label: 'Hold firm', icon: 'shield' },
+  { id: 'concede', label: 'Small concession', icon: 'arrowDown' },
+  { id: 'trade_term', label: 'Trade a term', icon: 'swap' },
+  { id: 'split', label: 'Split the difference', icon: 'merge' },
+  { id: 'walk', label: 'Walk away', icon: 'logout' },
+];
 
 function Mandate({ kind, m, live }) {
   if (!m) return null;
@@ -41,9 +48,7 @@ function Mandate({ kind, m, live }) {
       )}
       {kind === 'cart' && (
         <div className="hs-mandate-body">
-          {m.items.map((it, i) => (
-            <div key={i} className="row between"><span className="ellip">{it.name}</span><b>{fmtMoney(it.total)}</b></div>
-          ))}
+          {m.items.map((it, i) => (<div key={i} className="row between"><span className="ellip">{it.name}</span><b>{fmtMoney(it.total)}</b></div>))}
           <div className="row between hs-cart-total"><span>List {fmtMoney(m.listTotal)}</span><b>{m.discountPct}% off</b></div>
         </div>
       )}
@@ -55,12 +60,50 @@ function Mandate({ kind, m, live }) {
         </div>
       )}
       <div className="hs-sigs">
-        {sigs.map((s, i) => (
-          <span key={i} className="hs-sig" title={`${s.role} - ${s.alg}`}>
-            <Icon name="lock" size={11} /> {s.signer.split(' ')[0]} <code>{s.sig.slice(0, 12)}...</code>
-          </span>
-        ))}
+        {sigs.map((s, i) => (<span key={i} className="hs-sig" title={`${s.role} - ${s.alg}`}><Icon name="lock" size={11} /> {s.signer.split(' ')[0]} <code>{s.sig.slice(0, 12)}...</code></span>))}
       </div>
+    </div>
+  );
+}
+
+// The deal envelope: a price axis from the walk-away floor to list, with the
+// in-mandate zone, the buyer ceiling, and both agents' live offers.
+function Envelope({ s }) {
+  const min = Math.min(s.walk, s.buyerCap) - s.list * 0.015;
+  const max = s.list;
+  const pos = (x) => Math.max(0, Math.min(100, ((x - min) / (max - min)) * 100));
+  const floorPos = pos(s.floor), walkPos = pos(s.walk);
+  const marker = (x, cls, label, val) => (
+    <div className={`hs-env-mark ${cls}`} style={{ left: `${pos(x)}%` }} title={`${label} ${fmtMoney(val)}`}>
+      <span className="hs-env-dot" /><span className="hs-env-lab">{label}<b>{fmtMoney(val)}</b></span>
+    </div>
+  );
+  return (
+    <div className="hs-env">
+      <div className="hs-env-track">
+        <span className="hs-env-zone danger" style={{ left: 0, width: `${walkPos}%` }} />
+        <span className="hs-env-zone human" style={{ left: `${walkPos}%`, width: `${floorPos - walkPos}%` }} />
+        <span className="hs-env-zone mandate" style={{ left: `${floorPos}%`, width: `${100 - floorPos}%` }} />
+        <span className="hs-env-cap" style={{ left: `${pos(s.buyerCap)}%` }} title={`Buyer ceiling ${fmtMoney(s.buyerCap)}`} />
+        {marker(s.theirOffer, 'theirs', 'Buyer', s.theirOffer)}
+        {marker(s.ourOffer, 'ours', 'You', s.ourOffer)}
+        {s.settle != null && marker(s.settle, 'settle', 'Settle', s.settle)}
+      </div>
+      <div className="hs-env-legend">
+        <span><i className="z danger" /> Below walk</span>
+        <span><i className="z human" /> Needs human</span>
+        <span><i className="z mandate" /> In mandate</span>
+        <span><i className="z capline" /> Buyer ceiling</span>
+      </div>
+    </div>
+  );
+}
+
+function Gauge({ label, value, tone }) {
+  return (
+    <div className="hs-gauge">
+      <div className="row between"><span className="hs-gauge-lab">{label}</span><b style={{ color: tone }}>{value}%</b></div>
+      <div className="hs-gauge-track"><span style={{ width: `${value}%`, background: tone }} /></div>
     </div>
   );
 }
@@ -71,99 +114,81 @@ export default function Handshake() {
   const nav = useNavigate();
   const deals = negotiableDeals();
   const [dealId, setDealId] = useState(() => defaultDealId());
-  const [live, setLive] = useState(false);
-  const [session, setSession] = useState(null);
-  const [shown, setShown] = useState(0);
-  const [running, setRunning] = useState(false);
+  const [strategy, setStrategy] = useState('balanced');
+  const [maxDisc, setMaxDisc] = useState(DEFAULT_POLICY.maxDiscountPct);
+  const [walkAway, setWalkAway] = useState(DEFAULT_POLICY.walkAwayPct);
+  const [salt, setSalt] = useState(1);
+  const [state, setState] = useState(null);
+  const [autoplay, setAutoplay] = useState(false);
   const [signed, setSigned] = useState(false);
-  const [loadingLive, setLoadingLive] = useState(false);
   const [pendingRun, setPendingRun] = useState(false);
   const threadRef = useRef(null);
 
-  useEffect(() => {
-    if (!dealId) { setSession(null); return; }
-    setSession(negotiate(dealId));
-    setShown(0); setSigned(false); setRunning(false);
-  }, [dealId]);
+  const policy = useMemo(() => ({ ...DEFAULT_POLICY, maxDiscountPct: maxDisc, walkAwayPct: Math.max(walkAway, maxDisc + 2) }), [maxDisc, walkAway]);
 
-  // Rook (by voice or chat) can open + auto-run a negotiation via this event.
+  // (Re)open a fresh session whenever the deal or the levers change.
+  useEffect(() => {
+    if (!dealId) { setState(null); return; }
+    const s = openNegotiation(dealId, { policy, strategy, salt });
+    setState(s.empty ? null : s);
+    setSigned(false); setAutoplay(false);
+    // eslint-disable-next-line
+  }, [dealId, strategy, maxDisc, walkAway, salt]);
+
+  // Auto-play the negotiation forward.
+  useEffect(() => {
+    if (!autoplay || !state || state.status !== 'live') return;
+    const t = setTimeout(() => setState(s => playMove(s, 'auto')), 780);
+    return () => clearTimeout(t);
+  }, [autoplay, state]);
+
+  useEffect(() => { if (threadRef.current) threadRef.current.scrollTop = threadRef.current.scrollHeight; }, [state?.turns.length]);
+
+  // Rook (voice / deep link) can open + auto-run a negotiation.
   useEffect(() => {
     function onHs(e) {
       const q = String(e.detail?.query || '').trim().toLowerCase();
-      if (q) {
-        const m = deals.find(d => (d.name || '').toLowerCase().includes(q)) || deals.find(d => q.includes((d.name || '').split(' - ')[0].toLowerCase()));
-        if (m) setDealId(m.id);
-      }
+      if (q) { const m = deals.find(d => (d.name || '').toLowerCase().includes(q)); if (m) setDealId(m.id); }
       if (e.detail?.run) setPendingRun(true);
     }
     window.addEventListener('rally:handshake', onHs);
     return () => window.removeEventListener('rally:handshake', onHs);
   }, [deals]);
-
   useEffect(() => {
-    if (pendingRun && session) { setPendingRun(false); run(); }
-    // eslint-disable-next-line
-  }, [pendingRun, session]);
-
-  // Deep link from a deal: /handshake?deal=<id>&run=1 preselects + auto-runs.
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const d = params.get('deal');
-    if (d && deals.some(x => x.id === d)) setDealId(d);
-    if (params.get('run') === '1') setPendingRun(true);
+    const p = new URLSearchParams(window.location.search);
+    const d = p.get('deal'); if (d && deals.some(x => x.id === d)) setDealId(d);
+    if (p.get('run') === '1') setPendingRun(true);
     // eslint-disable-next-line
   }, []);
+  useEffect(() => { if (pendingRun && state && state.status === 'live') { setPendingRun(false); setAutoplay(true); } }, [pendingRun, state]);
 
-  useEffect(() => {
-    if (!running || !session) return;
-    if (shown >= session.rounds.length) { setRunning(false); return; }
-    const t = setTimeout(() => setShown(n => n + 1), 850);
-    return () => clearTimeout(t);
-  }, [running, shown, session]);
+  const done = state && state.status !== 'live';
+  const fin = useMemo(() => (done ? finalize(state) : null), [done, state]);
+  const gauge = state ? (fin?.gauge || liveGauge(state)) : { winProb: 0, marginPct: 100 };
+  const statusMeta = fin ? (STATUS_META[fin.outcome.status] || STATUS_META.needs_human) : null;
 
-  useEffect(() => {
-    if (threadRef.current) threadRef.current.scrollTop = threadRef.current.scrollHeight;
-  }, [shown]);
-
-  const done = session && shown >= session.rounds.length && !running;
-  const outcome = session?.outcome;
-  const statusMeta = outcome ? (STATUS_META[outcome.status] || STATUS_META.needs_human) : null;
-
-  async function run() {
-    if (!dealId) return;
-    setSigned(false); setShown(0); setRunning(false);
-    if (live) {
-      setLoadingLive(true);
-      const s = await negotiateSmart(dealId, { salt: Math.floor(Math.random() * 9999) });
-      setLoadingLive(false);
-      setSession(s); setShown(0); setRunning(true);
-      if (!s.live) toast('Live counterparty not configured - running the deterministic engine.');
-    } else {
-      setSession(negotiate(dealId, { salt: Math.floor(Math.random() * 9999) }));
-      setShown(0); setRunning(true);
-    }
-  }
-  function skip() { if (session) { setShown(session.rounds.length); setRunning(false); } }
+  function step(move) { if (state && state.status === 'live') { setAutoplay(false); setState(playMove(state, move)); } }
   function countersign() {
-    if (!session) return;
-    const r = applyOutcome(session);
-    if (r.ok) { setSigned(true); toast(`Countersigned. ${session.proposal.actions.length} action(s) committed to ${session.deal.name}.`); }
+    if (!fin) return;
+    const r = applyOutcome(fin);
+    if (r.ok) { setSigned(true); toast(`Countersigned. ${fin.proposal.actions.length} action(s) committed to ${fin.deal.name}.`); }
   }
 
   const pods = useMemo(() => {
-    if (!outcome) return [];
+    if (!state) return [];
+    const g = gauge;
     return [
-      { label: 'List price', value: outcome.list, format: (n) => fmtMoney(n), icon: 'dollar' },
-      { label: 'Agent settled', value: outcome.settle, format: (n) => fmtMoney(n), icon: 'gitBranch' },
-      { label: 'Discount', value: outcome.discountPct, format: (n) => `${n}%`, icon: 'trendUp' },
-      { label: 'Buyer leverage', value: outcome.buyerPower, format: (n) => `${n}%`, icon: 'gauge' },
+      { label: 'List price', value: state.list, format: fmtMoney, icon: 'dollar' },
+      { label: done ? 'Settled' : 'On the table', value: state.settle || state.ourOffer, format: fmtMoney, icon: 'gitBranch' },
+      { label: 'Win likelihood', value: g.winProb, format: (n) => `${n}%`, icon: 'gauge' },
+      { label: 'Buyer leverage', value: state.buyer.power, format: (n) => `${n}%`, icon: 'trendUp' },
     ];
-  }, [outcome]);
+  }, [state, gauge, done]);
 
   if (!deals.length) {
     return (
       <div className="fade-up">
-        <AgentDeck eyebrow="Handshake" title="The buyer brought their own AI." highlight="Let yours negotiate." sub="No open deals to negotiate yet. Open a deal and your Deal Agent can meet the buyer's agent at the table." />
+        <AgentDeck eyebrow="Handshake" title="Their AI is at the table." highlight="So is yours." sub="No open deals to negotiate yet. Open a deal and your Deal Agent can meet the buyer's agent at the table." />
         <div style={{ marginTop: '1.25rem' }}><EmptyState icon="deals" title="No open deals" body="Handshake negotiates live open pipeline. Create or reopen a deal to run the deal room." action={<button className="btn btn-primary" onClick={() => nav('/deals')}>Go to pipeline</button>} /></div>
       </div>
     );
@@ -175,10 +200,10 @@ export default function Handshake() {
         eyebrow="Handshake - Agent-to-Agent Deal Room"
         title="Their AI is at the table."
         highlight="So is yours."
-        sub="Your Ardovo Deal Agent negotiates directly with the buyer's Buying Agent over the open agent stack (A2A + AP2), inside your governance mandate. It settles with a signed Intent to Cart to Payment mandate chain that you countersign. Salesforce is an AP2 partner. Ardovo makes counter-agent commerce a product."
+        sub="Your Deal Agent negotiates live with the buyer's Buying Agent over A2A + AP2, inside a mandate you set. Watch it play, or take the wheel turn by turn. It settles with a signed mandate chain you countersign."
         actions={<>
           <button className="adk-btn" onClick={() => nav('/agent-api')}><Icon name="command" size={15} /> A2A agent card</button>
-          <button className="adk-btn adk-btn--primary" onClick={run} disabled={loadingLive}><Icon name="play" size={15} /> {loadingLive ? 'Connecting...' : 'Run negotiation'}</button>
+          <button className="adk-btn adk-btn--primary" onClick={() => { setAutoplay(true); }}><Icon name="play" size={15} /> Auto-play</button>
         </>}
         pods={pods}
       />
@@ -191,85 +216,117 @@ export default function Handshake() {
             {deals.map(d => <option key={d.id} value={d.id}>{d.name} - {fmtMoney(d.value)}</option>)}
           </select>
         </label>
-        <div className="hs-policy">
-          <span className="hs-policy-chip"><Icon name="shield" size={12} /> Max discount {session?.policy?.maxDiscountPct ?? DEFAULT_POLICY.maxDiscountPct}%</span>
-          <span className="hs-policy-chip"><Icon name="arrowDown" size={12} /> Walk away {session?.policy?.walkAwayPct ?? DEFAULT_POLICY.walkAwayPct}%</span>
-          <span className="hs-policy-chip"><Icon name="roleShield" size={12} /> Human above {session?.policy?.humanAbovePct ?? DEFAULT_POLICY.humanAbovePct}%</span>
-        </div>
-        <label className="hs-toggle" title="Use a Claude-driven counterparty when configured">
-          <input type="checkbox" checked={live} onChange={e => setLive(e.target.checked)} />
-          <span>Live counterparty {session?.live ? '(on)' : ''}</span>
+        <label className="hs-field" style={{ minWidth: 300, flex: '0 0 auto' }}>
+          <span>Your strategy</span>
+          <Segmented value={strategy} onChange={setStrategy} options={STRATEGIES.map(s => ({ value: s.id, label: s.name }))} />
         </label>
-        {session && !running && shown === 0 && <button className="btn btn-primary btn-sm" onClick={run} disabled={loadingLive}><Icon name="play" size={13} /> Run</button>}
-        {running && <button className="btn btn-ghost btn-sm" onClick={skip}>Skip to result</button>}
+        <button className="btn btn-ghost btn-sm" onClick={() => setSalt(x => x + 1)} title="Draw a different buyer"><Icon name="rotateCcw" size={13} /> New buyer</button>
       </div>
 
-      {session && (
-        <div className="hs-grid">
-          {/* the negotiation table */}
-          <div className="hs-panel">
-            <div className="hs-table">
-              <div className="hs-agent ours">
-                <span className="hs-agent-ic"><Icon name="sparkles" size={16} /></span>
-                <div><div className="hs-agent-name">{session.seller.name}</div><div className="hs-agent-sub">Seller - {session.seller.principal}</div></div>
+      {state && (
+        <>
+          {/* mandate levers + envelope */}
+          <div className="hs-lever-panel">
+            <div className="hs-levers">
+              <div className="hs-lever">
+                <div className="row between"><span>Max discount</span><b>{policy.maxDiscountPct}%</b></div>
+                <input type="range" min="5" max="25" value={maxDisc} onChange={e => setMaxDisc(+e.target.value)} />
               </div>
-              <div className="hs-vs"><span>A2A</span></div>
-              <div className="hs-agent theirs">
-                <span className="hs-agent-ic"><Icon name="user" size={16} /></span>
-                <div><div className="hs-agent-name">{session.buyer.name}</div><div className="hs-agent-sub">Buyer - {session.buyer.principal} ({session.buyer.style})</div></div>
+              <div className="hs-lever">
+                <div className="row between"><span>Walk away below</span><b>{policy.walkAwayPct}%</b></div>
+                <input type="range" min="12" max="35" value={walkAway} onChange={e => setWalkAway(+e.target.value)} />
               </div>
+              <div className="hs-strat-note">{STRATEGIES.find(s => s.id === strategy)?.blurb}</div>
             </div>
-
-            <div className="hs-thread" ref={threadRef}>
-              {session.rounds.slice(0, shown).map(r => (
-                <div key={r.n} className={`hs-msg ${r.actor === 'ours' ? 'ours' : 'theirs'} ${r.kind}`}>
-                  <div className="hs-msg-head">
-                    <span className="hs-msg-agent">{r.agent}</span>
-                    {typeof r.offer === 'number' && r.offer > 0 && <span className="hs-msg-offer">{fmtMoney(r.offer)}</span>}
-                  </div>
-                  <div className="hs-msg-body">{r.message}</div>
-                  {r.note && <div className="hs-msg-note">{r.note}</div>}
-                </div>
-              ))}
-              {shown === 0 && (
-                <div className="hs-idle">
-                  <Icon name="messages" size={26} />
-                  <p>Press <b>Run negotiation</b>. Watch your agent and the buyer's agent exchange signed offers and converge inside your mandate.</p>
-                </div>
-              )}
-              {running && shown > 0 && shown < session.rounds.length && (
-                <div className={`hs-typing ${session.rounds[shown]?.actor === 'ours' ? 'ours' : 'theirs'}`}><span /><span /><span /></div>
-              )}
-            </div>
+            <Envelope s={state} />
           </div>
 
-          {/* the AP2 mandate chain + governance */}
-          <aside className="hs-side">
-            <SectionHeader title="AP2 mandate chain" sub="Every settlement is a chain of signed verifiable credentials." />
-            <Mandate kind="intent" m={session.mandates.intent} live={shown >= 1} />
-            <div className="hs-chain-link" data-on={done && outcome.status !== 'impasse'}><Icon name="arrowDown" size={14} /></div>
-            <Mandate kind="cart" m={session.mandates.cart} live={done && outcome.status !== 'impasse'} />
-            <div className="hs-chain-link" data-on={done && outcome.status !== 'impasse'}><Icon name="arrowDown" size={14} /></div>
-            <Mandate kind="payment" m={session.mandates.payment} live={done && outcome.status !== 'impasse'} />
-
-            {done && statusMeta && (
-              <div className="hs-outcome" style={{ '--tone': statusMeta.tone }}>
-                <div className="hs-outcome-head"><Icon name={statusMeta.icon} size={16} /> {statusMeta.label}</div>
-                <div className="hs-outcome-body">{session.outcome.status === 'impasse'
-                  ? `Buyer wanted below the ${fmtMoney(session.outcome.walk)} walk-away. Your agent held the line and escalated with the full transcript.`
-                  : `Settled ${fmtMoney(session.outcome.settle)} of ${fmtMoney(session.outcome.list)} list (${session.outcome.discountPct}% off), saving ${fmtMoney(session.outcome.savedVsList)} versus the buyer's opening ask.`}</div>
-                {session.outcome.status !== 'impasse' && (
-                  signed
-                    ? <div className="hs-signed"><Icon name="check" size={14} /> Countersigned. Committed to the CRM.</div>
-                    : <button className="btn btn-ai" onClick={countersign}><Icon name="lock" size={14} /> Countersign + commit</button>
-                )}
-                {session.proposal?.actions?.length > 0 && (
-                  <ul className="hs-actions">{session.proposal.actions.map((a, i) => <li key={i}><Icon name="chevronRight" size={12} /> {a.label}</li>)}</ul>
-                )}
+          <div className="hs-grid">
+            {/* the negotiation table */}
+            <div className="hs-panel">
+              <div className="hs-table">
+                <div className="hs-agent ours">
+                  <span className="hs-agent-ic"><Icon name="sparkles" size={16} /></span>
+                  <div><div className="hs-agent-name">{state.seller.agentName}</div><div className="hs-agent-sub">Seller - {state.seller.principal} - {STRATEGIES.find(s => s.id === strategy)?.name}</div></div>
+                </div>
+                <div className="hs-vs"><span>A2A</span></div>
+                <div className="hs-agent theirs">
+                  <span className="hs-agent-ic"><Icon name="user" size={16} /></span>
+                  <div><div className="hs-agent-name">{state.buyer.agentName}</div><div className="hs-agent-sub">Buyer - {state.buyer.principal}</div></div>
+                </div>
               </div>
-            )}
-          </aside>
-        </div>
+
+              <div className="hs-thread" ref={threadRef}>
+                {state.turns.map(r => (
+                  <div key={r.n} className={`hs-msg ${r.actor === 'ours' ? 'ours' : 'theirs'} ${r.kind}`}>
+                    <div className="hs-msg-head">
+                      <span className="hs-msg-agent">{r.agent}</span>
+                      {typeof r.offer === 'number' && r.offer > 0 && <span className="hs-msg-offer">{fmtMoney(r.offer)}</span>}
+                    </div>
+                    <div className="hs-msg-body">{r.message}</div>
+                    {r.note && <div className="hs-msg-note">{r.note}</div>}
+                  </div>
+                ))}
+                {autoplay && state.status === 'live' && <div className="hs-typing theirs"><span /><span /><span /></div>}
+              </div>
+
+              {/* turn controls */}
+              {state.status === 'live' ? (
+                <div className="hs-moves">
+                  <div className="hs-moves-lead">Your move, or <button className="hs-auto" onClick={() => setAutoplay(a => !a)}>{autoplay ? 'pause' : 'auto-play'}</button>:</div>
+                  <div className="hs-move-btns">
+                    {MOVES.map(mv => (
+                      <button key={mv.id} className={`hs-move ${mv.id === 'walk' ? 'danger' : ''}`} onClick={() => step(mv.id)}>
+                        <Icon name={mv.icon} size={13} /> {mv.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="hs-moves done">
+                  <button className="btn btn-ghost btn-sm" onClick={() => setSalt(x => x + 1)}><Icon name="rotateCcw" size={13} /> Run it again with a new buyer</button>
+                </div>
+              )}
+            </div>
+
+            {/* right rail: buyer, gauge, mandate chain, outcome */}
+            <aside className="hs-side">
+              <div className="hs-arche">
+                <div className="hs-arche-top"><Icon name="user" size={14} /> <b>{state.buyer.archeName}</b><span className="hs-arche-pow">leverage {state.buyer.power}%</span></div>
+                <div className="hs-arche-tac">{state.buyer.tactic}</div>
+              </div>
+
+              <div className="hs-gauges">
+                <Gauge label="Margin retained" value={gauge.marginPct} tone="#0e9f8f" />
+                <Gauge label="Win likelihood" value={gauge.winProb} tone="#7c5cf7" />
+              </div>
+
+              <SectionHeader title="AP2 mandate chain" sub="Every settlement is a chain of signed verifiable credentials." />
+              <Mandate kind="intent" m={fin?.mandates.intent || finalize(state).mandates.intent} live={state.turns.length >= 1} />
+              <div className="hs-chain-link" data-on={done && fin.outcome.status !== 'impasse'}><Icon name="arrowDown" size={14} /></div>
+              <Mandate kind="cart" m={fin?.mandates.cart} live={done && fin.outcome.status !== 'impasse'} />
+              <div className="hs-chain-link" data-on={done && fin.outcome.status !== 'impasse'}><Icon name="arrowDown" size={14} /></div>
+              <Mandate kind="payment" m={fin?.mandates.payment} live={done && fin.outcome.status !== 'impasse'} />
+
+              {fin && statusMeta && (
+                <div className="hs-outcome" style={{ '--tone': statusMeta.tone }}>
+                  <div className="hs-outcome-head"><Icon name={statusMeta.icon} size={16} /> {statusMeta.label}</div>
+                  <div className="hs-outcome-body">{fin.outcome.status === 'impasse'
+                    ? `Buyer's ceiling of ${fmtMoney(fin.outcome.buyerCap)} sits below the ${fmtMoney(fin.outcome.walk)} walk-away. Your agent held the line and escalated with the full transcript.`
+                    : `Settled ${fmtMoney(fin.outcome.settle)} of ${fmtMoney(fin.outcome.list)} list (${fin.outcome.discountPct}% off) in ${fin.outcome.rounds} turns${fin.outcome.termsTraded ? `, ${fin.outcome.termsTraded} term(s) traded` : ''}.`}</div>
+                  {fin.outcome.status !== 'impasse' && (
+                    signed
+                      ? <div className="hs-signed"><Icon name="check" size={14} /> Countersigned. Committed to the CRM.</div>
+                      : <button className="btn btn-ai" onClick={countersign}><Icon name="lock" size={14} /> Countersign + commit</button>
+                  )}
+                  {fin.proposal?.actions?.length > 0 && (
+                    <ul className="hs-actions">{fin.proposal.actions.map((a, i) => <li key={i}><Icon name="chevronRight" size={12} /> {a.label}</li>)}</ul>
+                  )}
+                </div>
+              )}
+            </aside>
+          </div>
+        </>
       )}
 
       <div className="hs-foot">
