@@ -19,11 +19,13 @@ import {
   scheduleCampaign, recordSend,
 } from '../lib/marketing-campaigns.js';
 import {
-  Button, Card, Badge, SectionHeader, Field, Input, Select, Textarea, Modal,
+  Button, Card, Badge, SectionHeader, Field, Input, Select, Textarea, Modal, Segmented,
   StatCard, ProgressBar, Tabs, EmptyState, moneyK, relTime, shortDate, useToast,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import DataTable from '../components/DataTable.jsx';
+import VisualEmailBuilder from '../components/email/VisualEmailBuilder.jsx';
+import { renderEmailHtml, emailToText, blankEmailDoc } from '../lib/email-blocks.js';
 
 const CHANNELS = ['ABM', 'Email', 'Paid ads', 'Webinar', 'Event', 'Partner'];
 
@@ -50,7 +52,7 @@ function spark(seed, len = 12, rise = 1) {
 /* ============================================================
    EMAIL BUILDER  (create / edit a broadcast)
    ============================================================ */
-const EMPTY_DRAFT = { id: null, name: '', type: 'email', subject: '', body: '', audience: 'all-contacts', customList: '' };
+const EMPTY_DRAFT = { id: null, name: '', type: 'email', subject: '', body: '', audience: 'all-contacts', customList: '', designMode: 'text', design: null };
 
 function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
   const toast = useToast();
@@ -101,20 +103,27 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
     onClose?.();
   };
 
+  const visual = d.designMode === 'visual';
   const doSend = async () => {
     if (!d.subject.trim()) { toast('Add a subject line', 'risk'); return; }
-    if (!d.body.trim()) { toast('Write a message', 'risk'); return; }
+    if (visual) {
+      if (!d.design || !(d.design.blocks || []).length) { toast('Add a block to your design', 'risk'); return; }
+    } else if (!d.body.trim()) { toast('Write a message', 'risk'); return; }
     if (!recipients.length) { toast('This audience is empty', 'risk'); return; }
     const rec = persist();
     if (!rec) return;
     setBusy(true);
+    const payloadCampaign = { id: rec.id, name: rec.name, subject: d.subject, type: d.type };
+    if (visual) {
+      payloadCampaign.designHtml = renderEmailHtml(d.design, { subject: d.subject });
+      payloadCampaign.designText = emailToText(d.design);
+    } else {
+      payloadCampaign.body = d.body;
+    }
     try {
       const resp = await fetch('/api/broadcast', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          campaign: { id: rec.id, name: rec.name, subject: d.subject, body: d.body, type: d.type },
-          recipients,
-        }),
+        body: JSON.stringify({ campaign: payloadCampaign, recipients }),
       });
       const j = await resp.json().catch(() => ({}));
       if (j.configured === false) {
@@ -140,7 +149,7 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
       open={open}
       onClose={onClose}
       title={d.id ? 'Edit broadcast' : 'New broadcast'}
-      width={760}
+      width={d.designMode === 'visual' ? 1040 : 760}
       footer={
         <div className="row between" style={{ width: '100%', gap: '.75rem' }}>
           <span className="t-sm muted">{recipients.length.toLocaleString()} recipient{recipients.length === 1 ? '' : 's'}</span>
@@ -186,38 +195,60 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
             onChange={e => set('subject', e.target.value)} />
         </Field>
 
-        <Field label="Message">
-          <Textarea rows={8} placeholder={'Hi {firstName},\n\n...'} value={d.body}
-            onChange={e => set('body', e.target.value)} />
-        </Field>
-
-        <div className="row gap-2" style={{ flexWrap: 'wrap', alignItems: 'center' }}>
-          <span className="t-xs muted">Merge tokens:</span>
-          {MERGE_TOKENS.map(t => (
-            <button key={t.token} type="button" className="badge" title={`Insert ${t.label}`}
-              style={{ cursor: 'pointer' }}
-              onClick={() => set('body', `${d.body}${t.token}`)}>
-              {t.token}
-            </button>
-          ))}
+        <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
+          <span className="t-xs muted">Editor</span>
+          <Segmented
+            value={d.designMode}
+            onChange={(v) => {
+              const mode = v === 'visual' ? 'visual' : 'text';
+              setD(prev => ({ ...prev, designMode: mode, design: mode === 'visual' && !prev.design ? blankEmailDoc() : prev.design }));
+            }}
+            options={[{ value: 'text', label: 'Plain text' }, { value: 'visual', label: 'Visual design' }]}
+          />
           <span className="spacer" style={{ flex: 1 }} />
-          <Button variant="quiet" size="sm" onClick={() => setShowPreview(s => !s)}>
-            <Icon name="eye" size={15} /> {showPreview ? 'Hide preview' : 'Preview'}
-          </Button>
+          {d.designMode === 'text' && (
+            <Button variant="quiet" size="sm" onClick={() => setShowPreview(s => !s)}>
+              <Icon name="eye" size={15} /> {showPreview ? 'Hide preview' : 'Preview'}
+            </Button>
+          )}
         </div>
 
-        {showPreview && (
-          <Card style={{ background: 'var(--n-50)' }}>
-            <div className="t-xs muted" style={{ marginBottom: 6 }}>
-              Preview for {sample.firstName || 'a recipient'}{sample.company ? ` at ${sample.company}` : ''}
+        {d.designMode === 'visual' ? (
+          <VisualEmailBuilder
+            doc={d.design || blankEmailDoc()}
+            onChange={(doc) => set('design', doc)}
+            sampleVars={previewVars}
+          />
+        ) : (
+          <>
+            <Field label="Message">
+              <Textarea rows={8} placeholder={'Hi {firstName},\n\n...'} value={d.body}
+                onChange={e => set('body', e.target.value)} />
+            </Field>
+            <div className="row gap-2" style={{ flexWrap: 'wrap', alignItems: 'center' }}>
+              <span className="t-xs muted">Merge tokens:</span>
+              {MERGE_TOKENS.map(t => (
+                <button key={t.token} type="button" className="badge" title={`Insert ${t.label}`}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => set('body', `${d.body}${t.token}`)}>
+                  {t.token}
+                </button>
+              ))}
             </div>
-            <div className="fw-7" style={{ color: 'var(--ink)', marginBottom: 10 }}>
-              {applyTokens(d.subject, previewVars) || <span className="muted">No subject</span>}
-            </div>
-            <div style={{ whiteSpace: 'pre-wrap', color: 'var(--n-700)', fontSize: '.94rem', lineHeight: 1.6 }}>
-              {applyTokens(d.body, previewVars) || <span className="muted">No message yet</span>}
-            </div>
-          </Card>
+            {showPreview && (
+              <Card style={{ background: 'var(--n-50)' }}>
+                <div className="t-xs muted" style={{ marginBottom: 6 }}>
+                  Preview for {sample.firstName || 'a recipient'}{sample.company ? ` at ${sample.company}` : ''}
+                </div>
+                <div className="fw-7" style={{ color: 'var(--ink)', marginBottom: 10 }}>
+                  {applyTokens(d.subject, previewVars) || <span className="muted">No subject</span>}
+                </div>
+                <div style={{ whiteSpace: 'pre-wrap', color: 'var(--n-700)', fontSize: '.94rem', lineHeight: 1.6 }}>
+                  {applyTokens(d.body, previewVars) || <span className="muted">No message yet</span>}
+                </div>
+              </Card>
+            )}
+          </>
         )}
       </div>
     </Modal>

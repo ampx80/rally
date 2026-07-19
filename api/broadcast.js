@@ -70,6 +70,15 @@ function unsubscribeFooter(unsubUrl) {
   </div>`;
 }
 
+// Inject a compliant unsubscribe footer into a full HTML document (visual
+// builder output) just before </body>, so every design also honors one-click
+// unsubscribe without the author having to add it.
+function injectUnsub(html, unsubUrl) {
+  const footer = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td align="center" style="padding:12px 12px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;color:#8a90a2;line-height:1.5;">You are receiving this because you are a contact of ours. <a href="${escapeHtml(unsubUrl)}" style="color:#8b8ff5;text-decoration:underline;">Unsubscribe</a>.</td></tr></table>`;
+  if (/<\/body>/i.test(html)) return html.replace(/<\/body>/i, `${footer}</body>`);
+  return html + footer;
+}
+
 // Normalize + validate + dedupe the recipient list.
 function cleanRecipients(list) {
   const seen = new Set();
@@ -96,11 +105,14 @@ export default withErrorHandling(async (req, res) => {
   const campaign = b.campaign || {};
   const subject = String(campaign.subject == null ? '' : campaign.subject).trim();
   const body = String(campaign.body == null ? '' : campaign.body);
+  const designHtml = String(campaign.designHtml == null ? '' : campaign.designHtml);
+  const designText = String(campaign.designText == null ? '' : campaign.designText);
+  const isDesign = designHtml.trim().length > 0;
   const isTest = b.test === true;
   const replyTo = b.replyTo && EMAIL_RE.test(String(b.replyTo).trim()) ? String(b.replyTo).trim() : undefined;
 
   if (!subject) return res.status(400).json({ ok: false, error: 'A subject is required.' });
-  if (!body.trim()) return res.status(400).json({ ok: false, error: 'A message body is required.' });
+  if (!isDesign && !body.trim()) return res.status(400).json({ ok: false, error: 'A message body is required.' });
 
   // Build the recipient list. A test send targets exactly one address with
   // sample-ish vars; a real send uses the supplied audience list.
@@ -137,28 +149,33 @@ export default withErrorHandling(async (req, res) => {
     const vars = { firstName: r.firstName, company: r.company };
     const renderedSubject = applyTokens(subject, vars);
     const unsubUrl = `mailto:${unsubMail}?subject=${encodeURIComponent(`Unsubscribe ${r.email}`)}`;
-    const bodyHtml = bodyToHtml(applyTokens(body, vars)) + unsubscribeFooter(unsubUrl);
-    const text = `${applyTokens(body, vars)}\n\nUnsubscribe: ${unsubUrl}`;
 
     // idempotencyKey scoped to (campaign, recipient, subject) so a retry or a
     // double-click never double-sends the same broadcast to the same person.
     const idem = isTest ? undefined : idempotencyKey([campaignId, r.email.toLowerCase(), renderedSubject]);
 
-    const out = await sendEmail({
-      to: r.email,
-      subject: renderedSubject,
-      bodyHtml,
-      text,
-      replyTo,
-      idempotencyKey: idem,
+    // Visual-builder designs ship as a full HTML document sent verbatim (wrap
+    // off); plain-text bodies are wrapped in the Ardovo shell as before.
+    const common = {
+      to: r.email, subject: renderedSubject, replyTo, idempotencyKey: idem,
       category: 'marketing-broadcast',
-      preheader: renderedSubject,
       headers: { 'List-Unsubscribe': `<${unsubUrl}>` },
       tags: [
         { name: 'kind', value: 'rally-broadcast' },
         { name: 'campaign', value: campaignId },
       ],
-    });
+    };
+
+    let out;
+    if (isDesign) {
+      const html = injectUnsub(applyTokens(designHtml, vars), unsubUrl);
+      const text = `${(designText ? applyTokens(designText, vars) : renderedSubject)}\n\nUnsubscribe: ${unsubUrl}`;
+      out = await sendEmail({ ...common, html, text, wrap: false });
+    } else {
+      const bodyHtml = bodyToHtml(applyTokens(body, vars)) + unsubscribeFooter(unsubUrl);
+      const text = `${applyTokens(body, vars)}\n\nUnsubscribe: ${unsubUrl}`;
+      out = await sendEmail({ ...common, bodyHtml, text, preheader: renderedSubject });
+    }
 
     if (out.ok && (out.suppressed || out.idempotent_skip)) {
       skipped++;

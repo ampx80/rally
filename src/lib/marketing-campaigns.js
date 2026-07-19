@@ -264,7 +264,7 @@ export function marketingStats() {
 function normType(t) { return t === 'nurture' ? 'nurture' : 'email'; }
 
 // SUPABASE: from('rally_marketing_campaigns').insert(row).select().single()
-export function createCampaign({ name, type = 'email', subject = '', body = '', audience = 'all-contacts', customList = '' } = {}) {
+export function createCampaign({ name, type = 'email', subject = '', body = '', audience = 'all-contacts', customList = '', designMode = 'text', design = null } = {}) {
   if (!name || !name.trim()) return { error: 'name', message: 'Name your campaign.' };
   const nowIso = new Date().toISOString();
   const c = {
@@ -273,6 +273,8 @@ export function createCampaign({ name, type = 'email', subject = '', body = '', 
     type: normType(type),
     subject: String(subject || ''),
     body: String(body || ''),
+    designMode: designMode === 'visual' ? 'visual' : 'text',
+    design: design || null,
     audience: audienceById(audience).id,
     customList: String(customList || ''),
     status: 'draft',
