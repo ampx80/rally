@@ -1,93 +1,31 @@
 // ============================================================
 // ARDOVO LANDING PAGES  (local-first, Supabase-swappable)
-// The "CMS-lite" layer of Ardovo's Marketing hub: a block-based
-// landing-page builder. A page is an ordered list of blocks
-// (hero / text / image / form / cta), a slug, a published flag,
-// and any captured form submissions. Same pub/sub, localStorage-
-// backed pattern as store.js / marketing-campaigns.js so nothing
-// here needs a backend to feel alive.
 //
-// This slice is ADDITIVE. It does not touch any existing store; a
-// form submission optionally creates a CRM lead via store-ext's
-// createLead(), which is the only outward write and is itself
-// additive. Live equivalent would be a rally_landing_pages table.
+// Engine 6 (Marketing Hub unification): a landing page is now designed
+// with the SAME block-model designer that powers email. Each page holds
+// a `design` document (the email-blocks doc shape: settings + blocks of
+// heading / text / button / image / columns / divider / spacer / social)
+// edited through src/components/email/VisualEmailBuilder with target
+// "landing", and rendered to a full-width responsive page via
+// email-blocks.renderDoc(design, { target: 'landing' }).
+//
+// A page can LINK a real Ardovo form (by formId) so the hosted page
+// captures leads through the same forms engine that Forms + funnels use.
+// Views are tracked per hosted load (recordView); submissions are logged
+// locally (recordSubmission) in addition to the form engine's own contact
+// creation. Nothing here needs a backend to feel alive.
+//
+// This slice is ADDITIVE. It reads no protected store directly; the only
+// outward write happens on the hosted page (createLead / submitForm),
+// which are themselves additive. Live equivalent: a rally_landing_pages
+// table with a JSON `design` column.
 //
 // ASCII only. NO em-dash / en-dash. ASCII hyphen only.
 // ============================================================
 import { useEffect, useState } from 'react';
+import { blankLandingDoc, makeBlock } from './email-blocks.js';
 
-const LS_KEY = 'rally_landing_pages_v1';   // bump to force a clean reseed
-
-/* ============================================================
-   BLOCK TYPES  (the CMS-lite palette)
-   Each block is { id, type, ...fields }. `type` is one of these.
-   The builder advertises exactly this palette; the renderer maps
-   1:1. Keep field shapes stable.
-   ============================================================ */
-export const BLOCK_TYPES = [
-  { type: 'hero', label: 'Hero', icon: 'zap', hint: 'Headline, sub, and a primary call to action' },
-  { type: 'text', label: 'Text', icon: 'fileText', hint: 'A heading and a paragraph of copy' },
-  { type: 'image', label: 'Image', icon: 'eye', hint: 'A hosted image with a caption' },
-  { type: 'form', label: 'Lead form', icon: 'inbox', hint: 'Capture a visitor as a CRM lead' },
-  { type: 'cta', label: 'Call to action', icon: 'megaphone', hint: 'A conversion band with a button' },
-];
-
-export function blockLabel(type) {
-  return (BLOCK_TYPES.find(b => b.type === type) || {}).label || type;
-}
-
-// Default field set for a freshly-added block of each type. Copy is intentional
-// placeholder starter content the author replaces; nothing here fabricates a
-// real number or metric.
-export function newBlock(type) {
-  const id = newBlockId();
-  switch (type) {
-    case 'hero':
-      return {
-        id, type: 'hero',
-        eyebrow: 'New launch',
-        headline: 'A headline that earns the click',
-        sub: 'One clear sentence on the promise. Say what changes for the visitor when they act.',
-        ctaLabel: 'Get started',
-        ctaHref: '/app',
-        align: 'center',
-      };
-    case 'text':
-      return {
-        id, type: 'text',
-        heading: 'Why it matters',
-        body: 'Two or three sentences of supporting copy. Keep it concrete and specific to the offer on this page.',
-        align: 'left',
-      };
-    case 'image':
-      return { id, type: 'image', url: '', alt: '', caption: '' };
-    case 'form':
-      return {
-        id, type: 'form',
-        heading: 'Get the details',
-        sub: 'Tell us where to send it and we will be in touch.',
-        submitLabel: 'Send it to me',
-        successMessage: 'Thanks. Check your inbox shortly.',
-        source: 'Landing page',
-        fields: [
-          { key: 'firstName', label: 'First name', type: 'text', required: true },
-          { key: 'email', label: 'Work email', type: 'email', required: true },
-          { key: 'company', label: 'Company', type: 'text', required: false },
-        ],
-      };
-    case 'cta':
-      return {
-        id, type: 'cta',
-        headline: 'Ready when you are',
-        sub: 'Start free. No card required.',
-        buttonLabel: 'Get started',
-        buttonHref: '/app',
-        style: 'band',
-      };
-    default:
-      return { id, type: 'text', heading: '', body: '', align: 'left' };
-  }
-}
+const LS_KEY = 'rally_landing_pages_v2';   // v2: design-doc model (was blocks[])
 
 /* ============================================================
    SLUG helpers
@@ -115,8 +53,34 @@ export function uniqueSlug(base, exceptId = null) {
 /* ============================================================
    SEED
    Two illustrative pages so the hub is not empty on first run.
-   One published (so /l/:slug demos immediately), one draft.
+   One published (so /l/:slug demos immediately), one draft. Both
+   carry a real design doc built from the shared block vocabulary.
    ============================================================ */
+function seedDesignRook() {
+  const d = blankLandingDoc();
+  d.settings = { ...d.settings, bg: '#0d1117', contentBg: '#ffffff', accent: '#5b4bf5', contentWidth: 960 };
+  d.blocks = [
+    { ...makeBlock('heading'), text: 'Meet Rook. Your revenue runs itself.', align: 'center' },
+    { ...makeBlock('text'), text: 'Rook drafts the follow-ups, keeps the pipeline honest, and never lets a deal go dark. See it work on your data in fifteen minutes.', align: 'center', size: 19 },
+    { ...makeBlock('button'), text: 'Book a live look', href: '#form', align: 'center' },
+    makeBlock('divider'),
+    { ...makeBlock('heading'), text: 'Built AI-native from the first commit', level: 'h2', align: 'left', size: 26 },
+    { ...makeBlock('text'), text: 'Every record is alive on first load. Ask Rook and it does the work: enriches the account, writes the next touch, and forecasts the quarter. No plugins, no bolt-ons.', align: 'left', size: 17 },
+  ];
+  return d;
+}
+
+function seedDesignWebinar() {
+  const d = blankLandingDoc();
+  d.settings = { ...d.settings, bg: '#f4f6fb', contentBg: '#ffffff', accent: '#0ea5a3', contentWidth: 960 };
+  d.blocks = [
+    { ...makeBlock('heading'), text: 'Close Q4 strong', align: 'center' },
+    { ...makeBlock('text'), text: 'A thirty-minute working session on the moves that actually move a number in the last stretch of the quarter.', align: 'center', size: 19 },
+    { ...makeBlock('button'), text: 'Save my seat', href: '#form', align: 'center' },
+  ];
+  return d;
+}
+
 function buildSeed() {
   const now = Date.now();
   const DAY = 86400000;
@@ -129,46 +93,11 @@ function buildSeed() {
       published: true,
       publishedAt: iso(-4),
       seo: { title: 'Meet Rook, your AI revenue operator', description: 'See how Rook runs your pipeline end to end. Book a live look.' },
-      accent: '#5b4bf5',
+      design: seedDesignRook(),
+      formId: null,           // linkable in the editor
+      ctaLabel: '',
+      ctaHref: '',
       views: 0,
-      blocks: [
-        {
-          id: 'b_hero_1', type: 'hero',
-          eyebrow: 'AI revenue operator',
-          headline: 'Meet Rook. Your revenue runs itself.',
-          sub: 'Rook drafts the follow-ups, keeps the pipeline honest, and never lets a deal go dark. See it work on your data in fifteen minutes.',
-          ctaLabel: 'Book a live look',
-          ctaHref: '#form',
-          align: 'center',
-        },
-        {
-          id: 'b_text_1', type: 'text',
-          heading: 'Built AI-native from the first commit',
-          body: 'Every record is alive on first load. Ask Rook and it does the work: enriches the account, writes the next touch, and forecasts the quarter. No plugins, no bolt-ons.',
-          align: 'left',
-        },
-        {
-          id: 'b_form_1', type: 'form',
-          heading: 'See Rook on your pipeline',
-          sub: 'Tell us where to send the invite and we will set up a live walkthrough.',
-          submitLabel: 'Request my walkthrough',
-          successMessage: 'Thanks. A member of the team will reach out to schedule your walkthrough.',
-          source: 'Landing: Meet Rook',
-          fields: [
-            { key: 'firstName', label: 'First name', type: 'text', required: true },
-            { key: 'email', label: 'Work email', type: 'email', required: true },
-            { key: 'company', label: 'Company', type: 'text', required: false },
-          ],
-        },
-        {
-          id: 'b_cta_1', type: 'cta',
-          headline: 'Run your revenue on Ardovo',
-          sub: 'Start free. Everything alive on first load.',
-          buttonLabel: 'Get started',
-          buttonHref: '/app',
-          style: 'band',
-        },
-      ],
       submissions: [],
       createdAt: iso(-6),
       updatedAt: iso(-4),
@@ -180,31 +109,11 @@ function buildSeed() {
       published: false,
       publishedAt: null,
       seo: { title: 'Close Q4 strong: the pipeline webinar', description: 'A 30-minute working session on finishing the quarter.' },
-      accent: '#5b4bf5',
+      design: seedDesignWebinar(),
+      formId: null,
+      ctaLabel: '',
+      ctaHref: '',
       views: 0,
-      blocks: [
-        {
-          id: 'b_hero_2', type: 'hero',
-          eyebrow: 'Live webinar',
-          headline: 'Close Q4 strong',
-          sub: 'A thirty-minute working session on the moves that actually move a number in the last stretch of the quarter.',
-          ctaLabel: 'Save my seat',
-          ctaHref: '#form',
-          align: 'center',
-        },
-        {
-          id: 'b_form_2', type: 'form',
-          heading: 'Save your seat',
-          sub: 'We will send the calendar invite and the replay link.',
-          submitLabel: 'Save my seat',
-          successMessage: 'You are on the list. Watch your inbox for the invite.',
-          source: 'Landing: Q4 webinar',
-          fields: [
-            { key: 'firstName', label: 'First name', type: 'text', required: true },
-            { key: 'email', label: 'Work email', type: 'email', required: true },
-          ],
-        },
-      ],
       submissions: [],
       createdAt: iso(-2),
       updatedAt: iso(-2),
@@ -220,6 +129,7 @@ let state = load();
 const subs = new Set();
 
 function load() {
+  // SUPABASE: from('rally_landing_pages').select('*')
   try { const raw = localStorage.getItem(LS_KEY); if (raw) return normalize(JSON.parse(raw)); } catch {}
   const seed = buildSeed();
   try { localStorage.setItem(LS_KEY, JSON.stringify(seed)); } catch {}
@@ -232,14 +142,28 @@ function normalize(s) {
   return {
     seededAt: s?.seededAt || new Date().toISOString(),
     pages: pages.map(p => ({
-      ...p,
-      blocks: Array.isArray(p.blocks) ? p.blocks : [],
-      submissions: Array.isArray(p.submissions) ? p.submissions : [],
-      views: Number.isFinite(p.views) ? p.views : 0,
-      seo: p.seo && typeof p.seo === 'object' ? p.seo : { title: '', description: '' },
+      id: p.id,
+      slug: p.slug,
+      title: p.title || 'Untitled page',
       published: !!p.published,
+      publishedAt: p.publishedAt || null,
+      // A design doc is required; fall back to a blank landing doc.
+      design: normalizeDesign(p.design),
+      formId: p.formId || null,
+      ctaLabel: p.ctaLabel || '',
+      ctaHref: p.ctaHref || '',
+      seo: p.seo && typeof p.seo === 'object' ? p.seo : { title: '', description: '' },
+      views: Number.isFinite(p.views) ? p.views : 0,
+      submissions: Array.isArray(p.submissions) ? p.submissions : [],
+      createdAt: p.createdAt || new Date().toISOString(),
+      updatedAt: p.updatedAt || new Date().toISOString(),
     })),
   };
+}
+
+function normalizeDesign(design) {
+  if (design && Array.isArray(design.blocks)) return design;
+  return blankLandingDoc();
 }
 
 function commit(next) {
@@ -259,8 +183,6 @@ export function useLanding(selector = (s) => s) {
 
 let idc = Date.now();
 const newId = () => `lp_${(idc++).toString(36)}`;
-let bidc = Date.now() + 1;
-function newBlockId() { return `b_${(bidc++).toString(36)}`; }
 
 /* ============================================================
    READ API
@@ -273,12 +195,16 @@ export const getPublishedPageBySlug = (slug) => state.pages.find(p => p.slug ===
 
 export function landingStats() {
   const ps = state.pages;
+  const views = ps.reduce((s, p) => s + (p.views || 0), 0);
+  const submissions = ps.reduce((s, p) => s + (p.submissions?.length || 0), 0);
   return {
     total: ps.length,
     published: ps.filter(p => p.published).length,
     drafts: ps.filter(p => !p.published).length,
-    views: ps.reduce((s, p) => s + (p.views || 0), 0),
-    submissions: ps.reduce((s, p) => s + (p.submissions?.length || 0), 0),
+    linked: ps.filter(p => !!p.formId).length,
+    views,
+    submissions,
+    convRate: views ? Math.round((submissions / views) * 1000) / 10 : 0,
   };
 }
 
@@ -287,7 +213,7 @@ export function landingStats() {
    ============================================================ */
 
 // SUPABASE: from('rally_landing_pages').insert(row).select().single()
-export function createPage({ title, slug } = {}) {
+export function createPage({ title, slug, design } = {}) {
   const name = String(title || '').trim();
   if (!name) return { error: 'title', message: 'Name your page.' };
   const nowIso = new Date().toISOString();
@@ -298,9 +224,11 @@ export function createPage({ title, slug } = {}) {
     published: false,
     publishedAt: null,
     seo: { title: name, description: '' },
-    accent: '#5b4bf5',
+    design: normalizeDesign(design) || blankLandingDoc(),
+    formId: null,
+    ctaLabel: '',
+    ctaHref: '',
     views: 0,
-    blocks: [newBlock('hero'), newBlock('form')],
     submissions: [],
     createdAt: nowIso,
     updatedAt: nowIso,
@@ -319,6 +247,16 @@ export function updatePage(id, patch = {}) {
   next.updatedAt = new Date().toISOString();
   commit({ ...state, pages: state.pages.map(x => x.id === id ? next : x) });
   return { page: next };
+}
+
+// Convenience: replace the page's shared-designer document.
+export function setDesign(id, design) {
+  return updatePage(id, { design: normalizeDesign(design) });
+}
+
+// Convenience: link / unlink a real Ardovo form (forms.js id) to the page.
+export function linkForm(id, formId) {
+  return updatePage(id, { formId: formId || null });
 }
 
 export function deletePage(id) {
@@ -340,8 +278,8 @@ export function duplicatePage(id) {
     published: false,
     publishedAt: null,
     views: 0,
-    // Fresh block ids so edits to the copy never touch the original.
-    blocks: (p.blocks || []).map(b => ({ ...b, id: newBlockId() })),
+    // Deep-copy the design so edits to the copy never touch the original.
+    design: JSON.parse(JSON.stringify(p.design || blankLandingDoc())),
     submissions: [],
     createdAt: nowIso,
     updatedAt: nowIso,
@@ -366,47 +304,9 @@ export function togglePublished(id) {
   return setPublished(id, !p.published);
 }
 
-/* ---------- block writers ---------- */
-export function addBlock(pageId, type, atIndex = null) {
-  const p = getLandingPage(pageId);
-  if (!p) return { error: 'missing', message: 'Page not found.' };
-  const block = newBlock(type);
-  const blocks = [...(p.blocks || [])];
-  if (atIndex == null || atIndex < 0 || atIndex > blocks.length) blocks.push(block);
-  else blocks.splice(atIndex, 0, block);
-  return updatePage(pageId, { blocks });
-}
-
-export function updateBlock(pageId, blockId, patch = {}) {
-  const p = getLandingPage(pageId);
-  if (!p) return { error: 'missing', message: 'Page not found.' };
-  const blocks = (p.blocks || []).map(b => b.id === blockId ? { ...b, ...patch } : b);
-  return updatePage(pageId, { blocks });
-}
-
-export function removeBlock(pageId, blockId) {
-  const p = getLandingPage(pageId);
-  if (!p) return { error: 'missing', message: 'Page not found.' };
-  const blocks = (p.blocks || []).filter(b => b.id !== blockId);
-  return updatePage(pageId, { blocks });
-}
-
-// Move a block up (-1) or down (+1) in the stack.
-export function moveBlock(pageId, blockId, dir) {
-  const p = getLandingPage(pageId);
-  if (!p) return { error: 'missing', message: 'Page not found.' };
-  const blocks = [...(p.blocks || [])];
-  const i = blocks.findIndex(b => b.id === blockId);
-  if (i < 0) return { error: 'missing', message: 'Block not found.' };
-  const j = i + (dir < 0 ? -1 : 1);
-  if (j < 0 || j >= blocks.length) return { page: p };
-  [blocks[i], blocks[j]] = [blocks[j], blocks[i]];
-  return updatePage(pageId, { blocks });
-}
-
-/* ---------- form submission ---------- */
-// Record a submission captured by a hosted form. Additive: appends to the
-// page's submissions log. The hosted page also creates a CRM lead separately.
+/* ---------- form submission + view tracking ---------- */
+// Record a submission captured by a hosted page. Additive: appends to the
+// page's submissions log. Hosted page also creates a real lead/contact.
 export function recordSubmission(pageId, data = {}) {
   const p = getLandingPage(pageId);
   if (!p) return { error: 'missing', message: 'Page not found.' };

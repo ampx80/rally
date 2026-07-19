@@ -7,7 +7,7 @@ import { Icon } from '../icons.jsx';
 import { Button, Input, Select, Textarea } from '../UI.jsx';
 import { applyTokens } from '../../lib/marketing-campaigns.js';
 import {
-  BLOCK_TYPES, makeBlock, renderEmailHtml, EMAIL_TEMPLATES, DEFAULT_SETTINGS,
+  BLOCK_TYPES, makeBlock, renderEmailHtml, renderDoc, EMAIL_TEMPLATES, DEFAULT_SETTINGS,
 } from '../../lib/email-blocks.js';
 import './email-builder.css';
 
@@ -122,7 +122,13 @@ function ColumnCell({ side, el, onPatch }) {
   );
 }
 
-export default function VisualEmailBuilder({ doc, onChange, sampleVars }) {
+// `target` defaults to 'email' so every existing caller (Campaigns) is
+// byte-for-byte unchanged. When target='landing', the live preview renders
+// through the shared landing renderer (renderDoc) instead of the email one,
+// and a couple of setting labels adapt to the channel. Everything else - the
+// block palette, editor, drag/reorder, templates - is identical.
+export default function VisualEmailBuilder({ doc, onChange, sampleVars, target = 'email' }) {
+  const isLanding = target === 'landing';
   const [selected, setSelected] = useState(null);
   const [device, setDevice] = useState('desktop');
   const [showAdd, setShowAdd] = useState(false);
@@ -142,9 +148,11 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars }) {
   const onDrop = (i) => { const from = dragIdx.current; dragIdx.current = null; if (from == null || from === i) return; const next = [...blocks]; const [x] = next.splice(from, 1); next.splice(i, 0, x); setBlocks(next); };
 
   const previewHtml = useMemo(() => {
-    const raw = renderEmailHtml(doc, { subject: 'Preview' });
+    const raw = isLanding
+      ? renderDoc(doc, { target: 'landing', subject: 'Preview' })
+      : renderEmailHtml(doc, { subject: 'Preview' });
     return applyTokens(raw, sampleVars || {});
-  }, [doc, sampleVars]);
+  }, [doc, sampleVars, isLanding]);
 
   return (
     <div className="eb">
@@ -183,10 +191,12 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars }) {
         {/* editor column */}
         <div className="eb-editor">
           <div className="eb-settings">
-            <LField label="Background"><input type="color" value={settings.bg} onChange={e => setSettings({ bg: e.target.value })} /></LField>
-            <LField label="Email card"><input type="color" value={settings.contentBg} onChange={e => setSettings({ contentBg: e.target.value })} /></LField>
+            <LField label={isLanding ? 'Page background' : 'Background'}><input type="color" value={settings.bg} onChange={e => setSettings({ bg: e.target.value })} /></LField>
+            <LField label={isLanding ? 'Content card' : 'Email card'}><input type="color" value={settings.contentBg} onChange={e => setSettings({ contentBg: e.target.value })} /></LField>
             <LField label="Accent"><input type="color" value={settings.accent} onChange={e => setSettings({ accent: e.target.value })} /></LField>
-            <LField label="Preheader" wide><Input value={settings.preheader} placeholder="Inbox preview text" onChange={e => setSettings({ preheader: e.target.value })} /></LField>
+            {isLanding
+              ? <LField label="SEO description" wide><Input value={settings.seoDescription || ''} placeholder="Shown in search + social previews" onChange={e => setSettings({ seoDescription: e.target.value })} /></LField>
+              : <LField label="Preheader" wide><Input value={settings.preheader} placeholder="Inbox preview text" onChange={e => setSettings({ preheader: e.target.value })} /></LField>}
           </div>
 
           {blocks.length === 0 && <div className="eb-empty">No blocks yet. Use <b>Add block</b> or pick a template.</div>}
@@ -228,7 +238,7 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars }) {
         <div className="eb-preview">
           <div className="eb-preview-lab">Live preview</div>
           <div className={`eb-frame-wrap ${device}`}>
-            <iframe title="Email preview" className="eb-frame" srcDoc={previewHtml} />
+            <iframe title={isLanding ? 'Landing page preview' : 'Email preview'} className="eb-frame" srcDoc={previewHtml} />
           </div>
         </div>
       </div>

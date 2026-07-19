@@ -256,3 +256,134 @@ export function templateById(id) {
   const t = EMAIL_TEMPLATES.find(x => x.id === id);
   return t ? t.build() : blankEmailDoc();
 }
+
+// ============================================================
+// SHARED DESIGNER  (Engine 6: Marketing Hub unification)
+// ------------------------------------------------------------
+// renderDoc is the single render entry point for the block-model
+// designer across every channel. It keeps email output byte-for-byte
+// identical (delegates straight to renderEmailHtml) while adding a
+// full-width, browser-native LANDING renderer that speaks the exact
+// same block vocabulary (heading, text, button, image, columns,
+// divider, spacer, social). One document, one editor, two channels.
+//
+// Contract:
+//   renderDoc(doc, opts?) -> string
+//     opts.target = 'email'   (default) -> renderEmailHtml(doc, opts)
+//                                           UNCHANGED email-safe HTML.
+//     opts.target = 'landing' -> a responsive landing-page render.
+//       opts.fragment = true  -> returns ONLY the inner content HTML
+//                                 (no <!doctype>/<html>/<body>), for
+//                                 inline injection into a React host
+//                                 (see marketing/HostedLanding.jsx).
+//       opts.fragment = false -> returns a full standalone HTML
+//                                 document (used by the builder's
+//                                 live-preview iframe).
+// The same `doc.settings` drive both channels; landing widens the
+// container (default 960px), floors the page background, and treats
+// the first heading as a hero. ASCII only. NO em-dash / en-dash.
+// ============================================================
+
+// Landing pages are wider than email. A doc authored for landing may
+// carry its own settings.contentWidth; otherwise we floor it wide.
+const LANDING_DEFAULT_WIDTH = 960;
+
+function landingSettings(doc) {
+  const s = { ...DEFAULT_SETTINGS, ...(doc?.settings || {}) };
+  // Only widen when the author has not deliberately set a wide width.
+  const cw = Number(s.contentWidth) || 0;
+  s.contentWidth = cw >= 700 ? cw : LANDING_DEFAULT_WIDTH;
+  return s;
+}
+
+// Render one full-width landing row. Reuses renderElement so the block
+// vocabulary and per-element styling are shared 1:1 with email. Spacers
+// and dividers get tighter padding; a leading heading reads as a hero.
+function renderLandingRow(b, s, index) {
+  const padX = 'clamp(20px, 5vw, 56px)';
+  if (b.type === 'columns') {
+    const left = renderElement({ ...b.left, align: b.left?.align || 'left' }, s);
+    const right = renderElement({ ...b.right, align: b.right?.align || 'left' }, s);
+    return `<div style="padding:18px ${padX};">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+        <td valign="top" width="50%" style="padding-right:16px;">${left}</td>
+        <td valign="top" width="50%" style="padding-left:16px;">${right}</td>
+      </tr></table>
+    </div>`;
+  }
+  if (b.type === 'spacer' || b.type === 'divider') {
+    return `<div style="padding:8px ${padX};">${renderElement(b, s)}</div>`;
+  }
+  // A first-position heading renders larger (hero treatment) unless the
+  // author fixed an explicit size.
+  if (b.type === 'heading' && index === 0 && !b.size) {
+    const hero = { ...b, size: b.level === 'h2' ? 34 : 48 };
+    return `<div style="padding:clamp(28px, 6vw, 56px) ${padX} 12px;">${renderElement(hero, s)}</div>`;
+  }
+  return `<div style="padding:16px ${padX};">${renderElement(b, s)}</div>`;
+}
+
+// Full-width, responsive landing page from a block document.
+export function renderLandingHtml(doc, opts = {}) {
+  const s = landingSettings(doc);
+  const blocks = Array.isArray(doc?.blocks) ? doc.blocks : [];
+  const cw = Math.max(600, Math.min(1200, Number(s.contentWidth) || LANDING_DEFAULT_WIDTH));
+
+  const rows = blocks.map((b, i) => renderLandingRow(b, s, i)).join('');
+  const empty = blocks.length
+    ? ''
+    : `<div style="padding:64px 24px;text-align:center;color:#9aa0b4;font-family:${s.fontFamily};">This page has no content yet.</div>`;
+
+  const inner = `<div class="ardovo-landing" style="max-width:${cw}px;margin:0 auto;background:${s.contentBg};border-radius:18px;overflow:hidden;box-shadow:0 30px 80px -40px rgba(13,17,23,.35);">
+      ${rows || empty}
+    </div>`;
+
+  // Fragment: just the content, for inline injection into a React host.
+  if (opts.fragment) {
+    return `<div class="ardovo-landing-wrap" style="background:${s.bg};font-family:${s.fontFamily};color:${s.textColor};padding:clamp(20px, 5vw, 56px) 16px;box-sizing:border-box;">
+      ${inner}
+    </div>`;
+  }
+
+  // Standalone document, used by the builder's preview iframe.
+  return `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="color-scheme" content="light"/>
+<title>${esc(opts.subject || doc?.settings?.seoTitle || 'Landing page')}</title>
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;padding:0;}
+  img{max-width:100%;height:auto;}
+  @media (max-width:640px){ .ardovo-landing table td{display:block !important;width:100% !important;padding:8px 0 !important;} }
+</style>
+</head>
+<body style="margin:0;padding:0;background:${s.bg};font-family:${s.fontFamily};color:${s.textColor};">
+<div style="padding:clamp(20px, 5vw, 56px) 16px;">
+  ${inner}
+</div>
+</body></html>`;
+}
+
+// Single render entry point across channels. Email output is UNCHANGED.
+export function renderDoc(doc, opts = {}) {
+  const { target = 'email', ...rest } = opts || {};
+  if (target === 'landing') return renderLandingHtml(doc, rest);
+  return renderEmailHtml(doc, rest);
+}
+
+// A landing-friendly starter document (block vocabulary shared with email).
+export function blankLandingDoc() {
+  return {
+    version: 1,
+    settings: { ...DEFAULT_SETTINGS, bg: '#f4f6fb', contentBg: '#ffffff', contentWidth: LANDING_DEFAULT_WIDTH },
+    blocks: [
+      { ...makeBlock('heading'), text: 'A headline that earns the click', align: 'center' },
+      { ...makeBlock('text'), text: 'One clear sentence on the promise. Say what changes for the visitor when they act. Personalize with {firstName} where it helps.', align: 'center', size: 18 },
+      { ...makeBlock('button'), text: 'Get started', align: 'center' },
+      makeBlock('divider'),
+      { ...makeBlock('columns') },
+    ],
+  };
+}

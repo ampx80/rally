@@ -30,8 +30,10 @@ import AnimatedStat from '../components/motion/AnimatedStat.jsx';
 import VizPreview from '../components/reports2/VizPreview.jsx';
 import { useStore } from '../lib/store.js';
 import { useMarketing } from '../lib/marketing-campaigns.js';
+import { useForms } from '../lib/forms.js';
+import { useLanding } from '../lib/landing-pages.js';
 import {
-  ATTR_MODELS, ATTR_SCOPES, computeAttribution, compareModels, campaignInfluence,
+  ATTR_MODELS, ATTR_SCOPES, computeAttribution, compareModels, campaignInfluence, measuredSummary,
 } from '../lib/attribution.js';
 import {
   JOIN_TYPES, joinTypeById, dimsForJoin, measuresForJoin, aggsForJoin,
@@ -78,13 +80,16 @@ function ChannelTip({ active, payload }) {
 function AttributionTab() {
   const snap = useStore();     // whole-state snapshot: new ref on every commit
   const mkt = useMarketing();  // marketing snapshot: new ref on every campaign commit
+  const formsSnap = useForms();    // real form submissions feed the measured events
+  const landSnap = useLanding();   // real landing views + leads feed measured events
   const reduced = usePrefersReducedMotion();
   const [scope, setScope] = useState('won');
   const [model, setModel] = useState('linear');
 
-  const attr = useMemo(() => computeAttribution({ model, scope }), [model, scope, snap, mkt]);
-  const comparison = useMemo(() => compareModels({ scope }), [scope, snap, mkt]);
+  const attr = useMemo(() => computeAttribution({ model, scope }), [model, scope, snap, mkt, formsSnap, landSnap]);
+  const comparison = useMemo(() => compareModels({ scope }), [scope, snap, mkt, formsSnap, landSnap]);
   const campaigns = useMemo(() => campaignInfluence(), [snap, mkt]);
+  const measured = useMemo(() => measuredSummary(), [mkt, formsSnap, landSnap]);
   const scopeMeta = ATTR_SCOPES.find(s => s.id === scope) || ATTR_SCOPES[0];
   const modelMeta = ATTR_MODELS.find(m => m.id === model) || ATTR_MODELS[2];
   const top = attr.channels[0];
@@ -111,6 +116,26 @@ function AttributionTab() {
         <AnimatedStat label="Avg touches / deal" value={Number(attr.avgTouches.toFixed(1))} icon={<Icon name="activity" size={18} />} accent="#e0752d" sub="acquisition + campaigns + sales" />
         <AnimatedStat label="Multi-touch deals" value={Math.round(attr.multiTouchShare * 100)} format={(n) => `${Math.round(n)}%`} icon={<Icon name="layers" size={18} />} accent="#8b3fd4" sub="reached by 2+ channels" />
       </div>
+
+      {/* MEASURED EVENTS - real tracked marketing events the models sit on */}
+      <Card className="col gap-2">
+        <SectionHeader
+          title="Measured events"
+          sub="Real tracked marketing events - the honest denominator under the attribution models."
+          action={<Badge tone="ok"><Icon name="check" size={13} /> Measured</Badge>}
+        />
+        {measured.hasEvents ? (
+          <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.85rem' }}>
+            <MeasuredTile icon="list" label="Form submissions" value={measured.formSubmissions} />
+            <MeasuredTile icon="grid" label="Landing views" value={measured.landingViews} />
+            <MeasuredTile icon="inbox" label="Landing leads" value={measured.landingLeads} />
+            <MeasuredTile icon="megaphone" label="Campaign sends" value={measured.campaignSends} sub={`${measured.campaignsSent} sent`} />
+            <MeasuredTile icon="key" label="Measured share of credit" value={`${Math.round(attr.measuredShare * 100)}%`} raw />
+          </div>
+        ) : (
+          <span className="muted t-sm">No tracked marketing events yet. Publish a landing page, capture a form, or send a campaign and the measured base fills in here. Until then, channel credit below is modeled from contact origins.</span>
+        )}
+      </Card>
 
       {/* channel breakdown + sourced mix */}
       <div className="grid" style={{ gridTemplateColumns: 'minmax(0, 1.7fr) minmax(0, 1fr)', gap: '1rem', alignItems: 'stretch' }}>
@@ -147,9 +172,10 @@ function AttributionTab() {
                       {attr.channels.map(c => (
                         <tr key={c.id} style={{ borderBottom: '1px solid var(--line)' }}>
                           <td style={{ padding: '.45rem .5rem' }}>
-                            <span className="row gap-2" style={{ alignItems: 'center' }}>
+                            <span className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
                               <span className="dot" style={{ background: c.color }} />{c.label}
                               <Badge tone={c.kind === 'marketing' ? 'accent' : 'default'} className="t-xs">{c.kind}</Badge>
+                              <Badge tone={c.measured ? 'ok' : 'default'} className="t-xs">{c.measured ? 'measured' : 'modeled'}</Badge>
                             </span>
                           </td>
                           <td style={{ padding: '.45rem .5rem', textAlign: 'right', fontWeight: 700 }} className="tnum">{money(c.credit)}</td>
@@ -287,10 +313,26 @@ function AttributionTab() {
       </Reveal>
 
       <span className="t-xs muted" style={{ lineHeight: 1.5 }}>
-        Touches are built per deal from three real signals: an acquisition source derived from the deal's contacts
-        (referral / inbound / event tags, stable hash fallback), marketing campaigns that reached a deal contact inside
-        the deal's live window, and sales calls / emails / meetings logged on the deal. Deterministic over the current book.
+        Touches are built per deal from real events where available: a MEASURED origin when the deal's contact came in
+        through a form or landing page, marketing campaigns that reached a deal contact inside the deal's live window,
+        form submissions, and sales calls / emails / meetings logged on the deal. When no real event exists, the origin
+        is MODELED from contact tags (with a stable hash fallback) and clearly labeled as such above. Deterministic over
+        the current book.
       </span>
+    </div>
+  );
+}
+
+function MeasuredTile({ icon, label, value, sub, raw }) {
+  return (
+    <div className="card" style={{ padding: '.85rem 1rem' }}>
+      <div className="row gap-2" style={{ alignItems: 'center' }}>
+        <span style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--accent-50)', color: 'var(--accent-600)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}><Icon name={icon} size={15} /></span>
+        <div className="col" style={{ minWidth: 0 }}>
+          <span className="fw-8" style={{ fontSize: '1.25rem', letterSpacing: '-.02em' }}>{raw ? value : Math.round(value || 0).toLocaleString()}</span>
+          <span className="t-xs muted clip">{label}{sub ? `  |  ${sub}` : ''}</span>
+        </div>
+      </div>
     </div>
   );
 }

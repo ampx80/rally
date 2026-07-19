@@ -27,6 +27,15 @@ import {
   getContacts, getDeals, getCompany, getContact, contactName,
 } from './store.js';
 import { getEvents } from './marketing-engine.js';
+// Engine 6: the hub rolls up the REAL marketing stores. These are all
+// leaf stores (none import markethub-data) so there is no import cycle.
+import { getMarketingCampaigns, marketingStats } from './marketing-campaigns.js';
+import { getSequences, fleetStats as sequenceFleet } from './sequences-data.js';
+import { getForms, formStats } from './forms.js';
+import { getLandingPages, landingStats } from './landing-pages.js';
+import { getFunnels, funnelMetrics as funnelMetricsOf } from './funnels-data.js';
+import { getAutomations, engineStats } from './automation-engine.js';
+import { getLists, listStats } from './lists.js';
 
 const LS_KEY = 'rally_markethub_v1';
 const DAY = 86400000;
@@ -422,6 +431,86 @@ export const QUICK_LAUNCH = [
   { label: 'Reviews',       desc: 'Reputation + social proof',   to: '/reviews',       icon: 'star' },
   { label: 'Lists',         desc: 'Saved audiences',             to: '/lists',         icon: 'filter' },
 ];
+
+/* ============================================================
+   UNIFIED HUB ROLLUP  (Engine 6: real counts from real stores)
+   Reads every marketing surface live. Nothing here is fabricated;
+   counts come straight from each store's own getters/stats. Guarded
+   so a not-yet-seeded store never white-screens the hub.
+   ============================================================ */
+function safe(fn, fallback) { try { const v = fn(); return v == null ? fallback : v; } catch { return fallback; } }
+
+// Per-surface summary: the counts + the deep link for the hub cards.
+export function surfaceRollup() {
+  const camp = safe(() => marketingStats(), { total: 0, sent: 0, active: 0, openRate: 0 });
+  const seq = safe(() => sequenceFleet(), { activeEnroll: 0, meetings: 0, emailsSent: 0, replyRate: 0 });
+  const seqCount = safe(() => getSequences().length, 0);
+  const eng = safe(() => engineStats(), { total: 0, active: 0, enrolled: 0, activeEnrollments: 0, completed: 0 });
+  const forms = safe(() => formStats(), { total: 0, published: 0, submissions: 0, contacts: 0, views: 0 });
+  const land = safe(() => landingStats(), { total: 0, published: 0, views: 0, submissions: 0, linked: 0 });
+  const funnels = safe(() => getFunnels(), []);
+  const funnelLive = funnels.filter(f => f.status === 'live').length;
+  const funnelLeads = funnels.reduce((s, f) => s + safe(() => funnelMetricsOf(f).totalLeads, 0), 0);
+  const lists = safe(() => listStats(), { total: 0, totalMembers: 0 });
+
+  return [
+    { key: 'campaigns', label: 'Campaigns', icon: 'megaphone', to: '/campaigns',
+      metric: camp.total, metricLabel: `${camp.total} total`, sub: `${camp.sent} sent  |  ${pctStr(camp.openRate)} open` },
+    { key: 'sequences', label: 'Sequences', icon: 'layers', to: '/sequences',
+      metric: seqCount, metricLabel: `${seqCount} total`, sub: `${num(seq.activeEnroll)} active  |  ${num(seq.emailsSent)} sent` },
+    { key: 'journeys', label: 'Journeys', icon: 'journeys', to: '/journeys',
+      metric: eng.total, metricLabel: `${eng.total} total`, sub: `${eng.active} live  |  ${num(eng.activeEnrollments)} active` },
+    { key: 'forms', label: 'Forms', icon: 'list', to: '/forms',
+      metric: forms.total, metricLabel: `${forms.total} total`, sub: `${num(forms.submissions)} submissions  |  ${num(forms.contacts)} contacts` },
+    { key: 'landing', label: 'Landing pages', icon: 'grid', to: '/landing-pages',
+      metric: land.total, metricLabel: `${land.total} total`, sub: `${land.published} live  |  ${num(land.views)} views  |  ${num(land.submissions)} leads` },
+    { key: 'funnels', label: 'Funnels', icon: 'funnel', to: '/funnels',
+      metric: funnels.length, metricLabel: `${funnels.length} total`, sub: `${funnelLive} live  |  ${num(funnelLeads)} leads` },
+    { key: 'lists', label: 'Lists', icon: 'filter', to: '/lists',
+      metric: lists.total, metricLabel: `${lists.total} total`, sub: `${num(lists.totalMembers)} members` },
+  ];
+}
+function pctStr(n) { return `${Math.round((n || 0) * 10) / 10}%`; }
+function num(n) { return Math.round(n || 0).toLocaleString(); }
+
+// Top-line hub KPIs derived from the surfaces above (all real).
+export function hubRollup() {
+  const camp = safe(() => marketingStats(), { sent: 0 });
+  const land = safe(() => landingStats(), { views: 0, submissions: 0 });
+  const forms = safe(() => formStats(), { submissions: 0, contacts: 0 });
+  const eng = safe(() => engineStats(), { total: 0, active: 0, activeEnrollments: 0 });
+  const seq = safe(() => sequenceFleet(), { activeEnroll: 0, emailsSent: 0 });
+  const surfaces = surfaceRollup();
+  return {
+    surfaces,
+    emailsSent: (camp.sent || 0) + (seq.emailsSent || 0),
+    pageViews: land.views || 0,
+    leadsCaptured: (forms.submissions || 0) + (land.submissions || 0),
+    activeAutomations: eng.active || 0,
+    activeEnrollments: (eng.activeEnrollments || 0) + (seq.activeEnroll || 0),
+    liveSurfaces: surfaces.filter(s => s.metric > 0).length,
+  };
+}
+
+// A real cross-surface activity feed, newest first. Only events that
+// carry a real timestamp are included; falls back to an empty list.
+export function recentActivity(limit = 12) {
+  const out = [];
+  const push = (at, icon, label, sub, to) => { const t = at ? new Date(at).getTime() : 0; if (t) out.push({ at: t, icon, label, sub, to }); };
+
+  safe(() => getMarketingCampaigns(), []).forEach(c => {
+    if (c.sentAt) push(c.sentAt, 'megaphone', `Campaign sent: ${c.name}`, `${num(c.metrics?.sent || 0)} recipients`, '/campaigns');
+  });
+  safe(() => getLandingPages(), []).forEach(p => {
+    if (p.publishedAt) push(p.publishedAt, 'grid', `Page published: ${p.title}`, `/l/${p.slug}`, '/landing-pages');
+    (p.submissions || []).slice(0, 3).forEach(s => push(s.at, 'inbox', `Lead on ${p.title}`, s.data?.email || 'New submission', '/landing-pages'));
+  });
+  safe(() => getForms(), []).forEach(f => {
+    (f.submissions || []).slice(0, 3).forEach(s => push(s.at, 'list', `Form submission: ${f.name}`, 'New contact captured', '/forms'));
+  });
+
+  return out.sort((a, b) => b.at - a.at).slice(0, limit);
+}
 
 /* ============================================================
    PERSISTENCE + PUB/SUB  (only the scoring config is persisted)

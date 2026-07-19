@@ -15,6 +15,7 @@ const ROUTES = [
   ['payments', '/payments'], ['invoices', '/invoices'], ['products', '/products'],
   ['lists', '/lists'], ['automations', '/automations'], ['sequences', '/sequences'],
   ['markethub', '/markethub'], ['campaigns', '/campaigns'],
+  ['landing-pages', '/landing-pages'], ['funnels', '/funnels'], ['journeys', '/journeys'], ['attribution', '/attribution'],
 ];
 
 for (const [name, path] of ROUTES) {

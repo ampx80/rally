@@ -22,29 +22,38 @@
 // ============================================================
 import { getDeals, getContacts, getActivities } from './store.js';
 import { getMarketingCampaigns, resolveAudience } from './marketing-campaigns.js';
+import { getForms, formSubmissionCount } from './forms.js';
+import { getLandingPages } from './landing-pages.js';
 
 /* ============================================================
    CHANNEL CATALOG
    kind drives the "marketing vs sales vs other sourced" rollup.
    color is a stable brand hue so every chart reads the same way.
+   `measured` marks channels backed by a REAL tracked event (a form
+   submission, a campaign send, a logged sales activity). Channels
+   without it are MODELED - inferred from contact tags or, as a last
+   resort, a stable hash so every deal still carries an origin. The
+   page labels the two clearly so nobody mistakes a model for a fact.
    ============================================================ */
 export const CHANNELS = [
-  { id: 'inbound',     label: 'Inbound',        kind: 'marketing', color: '#5b4bf5' },
-  { id: 'campaign',    label: 'Marketing email', kind: 'marketing', color: '#8b3fd4' },
-  { id: 'paid',        label: 'Paid search',    kind: 'marketing', color: '#e0752d' },
-  { id: 'organic',     label: 'Organic search', kind: 'marketing', color: '#0ea5a3' },
-  { id: 'events',      label: 'Events',         kind: 'marketing', color: '#d4a017' },
-  { id: 'referral',    label: 'Referral',       kind: 'other',     color: '#1a7f52' },
-  { id: 'partner',     label: 'Partner',        kind: 'other',     color: '#2563a8' },
-  { id: 'outbound',    label: 'Outbound',       kind: 'sales',     color: '#c0392b' },
-  { id: 'sales_call',  label: 'Sales call',     kind: 'sales',     color: '#db2777' },
-  { id: 'sales_email', label: 'Sales email',    kind: 'sales',     color: '#0891b2' },
-  { id: 'meeting',     label: 'Meeting',        kind: 'sales',     color: '#7c6f1e' },
+  { id: 'form',        label: 'Form / landing', kind: 'marketing', color: '#5b4bf5', measured: true },
+  { id: 'campaign',    label: 'Marketing email', kind: 'marketing', color: '#8b3fd4', measured: true },
+  { id: 'inbound',     label: 'Inbound',        kind: 'marketing', color: '#6d5efc', measured: false },
+  { id: 'paid',        label: 'Paid search',    kind: 'marketing', color: '#e0752d', measured: false },
+  { id: 'organic',     label: 'Organic search', kind: 'marketing', color: '#0ea5a3', measured: false },
+  { id: 'events',      label: 'Events',         kind: 'marketing', color: '#d4a017', measured: false },
+  { id: 'referral',    label: 'Referral',       kind: 'other',     color: '#1a7f52', measured: false },
+  { id: 'partner',     label: 'Partner',        kind: 'other',     color: '#2563a8', measured: false },
+  { id: 'outbound',    label: 'Outbound',       kind: 'sales',     color: '#c0392b', measured: false },
+  { id: 'sales_call',  label: 'Sales call',     kind: 'sales',     color: '#db2777', measured: true },
+  { id: 'sales_email', label: 'Sales email',    kind: 'sales',     color: '#0891b2', measured: true },
+  { id: 'meeting',     label: 'Meeting',        kind: 'sales',     color: '#7c6f1e', measured: true },
 ];
 const CH_BY_ID = new Map(CHANNELS.map(c => [c.id, c]));
 export function channelMeta(id) {
-  return CH_BY_ID.get(id) || { id, label: id, kind: 'other', color: '#64748b' };
+  return CH_BY_ID.get(id) || { id, label: id, kind: 'other', color: '#64748b', measured: false };
 }
+function isMeasuredChannel(id) { return !!(CH_BY_ID.get(id) || {}).measured; }
 
 export const KIND_META = {
   marketing: { label: 'Marketing sourced', color: '#5b4bf5' },
@@ -105,12 +114,25 @@ function buildCtx() {
       dealActivities.get(a.relatedId).push(a);
     }
   }
-  return { contactById, sentCampaigns, dealActivities };
+
+  // MEASURED origin: contacts created through a form or a landing page carry a
+  // leadSource like "Form: ..." / "Landing: ...". Those are real captured
+  // events, so a deal whose contact came in that way has a measured origin.
+  const formContacts = new Set();
+  for (const c of contacts) {
+    const src = String(c.leadSource || '').toLowerCase();
+    if (src.startsWith('form') || src.startsWith('landing')) formContacts.add(c.id);
+  }
+  return { contactById, sentCampaigns, dealActivities, formContacts };
 }
 
-// Derive the acquisition (first-touch) channel from the deal's contacts. Real
-// signal first (contact tags), stable hash fallback so the mix is varied.
+// Derive the acquisition (first-touch) channel from the deal's contacts.
+// Priority: MEASURED form/landing origin -> real tag signal -> stable hash
+// (MODELED) fallback so the mix is varied but every deal still has an origin.
 function acquisitionChannel(deal, ctx) {
+  for (const id of deal.contactIds || []) {
+    if (ctx.formContacts.has(id)) return 'form';
+  }
   const tags = new Set();
   for (const id of deal.contactIds || []) {
     const c = ctx.contactById.get(id);
@@ -131,22 +153,24 @@ export function touchesForDeal(deal, ctx) {
   const cutoff = deal.status === 'open' ? Date.now() : new Date(deal.closeDate || deal.createdAt).getTime();
   const touches = [];
 
-  // 1. acquisition (always the earliest touch, at deal creation)
-  touches.push({ channel: acquisitionChannel(deal, ctx), ts: created, kind: 'acq', order: 0 });
+  // 1. acquisition (always the earliest touch, at deal creation). Its
+  // `measured` flag reflects whether the origin is a real captured event.
+  const acq = acquisitionChannel(deal, ctx);
+  touches.push({ channel: acq, ts: created, kind: 'acq', order: 0, measured: isMeasuredChannel(acq) });
 
-  // 2. marketing campaigns that reached a deal contact inside the window
+  // 2. marketing campaigns that reached a deal contact inside the window (MEASURED)
   for (const camp of ctx.sentCampaigns) {
     if (camp.ts < created || camp.ts > cutoff) continue;
     if ((deal.contactIds || []).some(id => camp.reached.has(id))) {
-      touches.push({ channel: 'campaign', ts: camp.ts, kind: 'campaign', campaignId: camp.id, order: 1 });
+      touches.push({ channel: 'campaign', ts: camp.ts, kind: 'campaign', campaignId: camp.id, order: 1, measured: true });
     }
   }
 
-  // 3. sales engagement activities logged on the deal, inside the window
+  // 3. sales engagement activities logged on the deal, inside the window (MEASURED)
   for (const a of ctx.dealActivities.get(deal.id) || []) {
     const ts = new Date(a.dueAt || a.createdAt).getTime();
     if (!ts || ts < created || ts > cutoff) continue;
-    touches.push({ channel: ENGAGE_CHANNEL[a.type], ts, kind: 'engage', order: 2 });
+    touches.push({ channel: ENGAGE_CHANNEL[a.type], ts, kind: 'engage', order: 2, measured: true });
   }
 
   touches.sort((x, y) => (x.ts - y.ts) || (x.order - y.order));
@@ -221,11 +245,13 @@ export function computeAttribution({ model = 'linear', scope = 'won' } = {}) {
   const channels = [...totals.entries()].map(([id, credit]) => {
     const meta = channelMeta(id);
     return {
-      id, label: meta.label, color: meta.color, kind: meta.kind,
+      id, label: meta.label, color: meta.color, kind: meta.kind, measured: !!meta.measured,
       credit, deals: dealSets.get(id)?.size || 0,
       share: total ? credit / total : 0,
     };
   }).sort((a, b) => b.credit - a.credit);
+
+  const measuredCredit = channels.reduce((s, c) => s + (c.measured ? c.credit : 0), 0);
 
   const sourcedMix = ['marketing', 'sales', 'other'].map(k => ({
     kind: k, label: KIND_META[k].label, color: KIND_META[k].color,
@@ -239,6 +265,36 @@ export function computeAttribution({ model = 'linear', scope = 'won' } = {}) {
     multiTouchShare: deals.length ? multi / deals.length : 0,
     sourcedMix,
     marketingSourced: total ? (kindFirst.get('marketing') || 0) / total : 0,
+    measuredCredit,
+    measuredShare: total ? measuredCredit / total : 0,
+  };
+}
+
+/* ============================================================
+   MEASURED EVENTS  (pure counts of REAL tracked marketing events)
+   This is the honest denominator the models sit on top of: how many
+   real form submissions, landing views + leads, and campaign sends
+   actually happened. Zero when nothing has been captured yet.
+   ============================================================ */
+export function measuredSummary() {
+  const forms = (() => { try { return getForms(); } catch { return []; } })();
+  const pages = (() => { try { return getLandingPages(); } catch { return []; } })();
+  const campaigns = (() => { try { return getMarketingCampaigns(); } catch { return []; } })();
+
+  const formSubmissions = forms.reduce((s, f) => s + formSubmissionCount(f), 0);
+  const landingViews = pages.reduce((s, p) => s + (p.views || 0), 0);
+  const landingLeads = pages.reduce((s, p) => s + ((p.submissions || []).length), 0);
+  const sent = campaigns.filter(c => c.status === 'sent');
+  const campaignSends = sent.reduce((s, c) => s + ((c.metrics && c.metrics.sent) || 0), 0);
+
+  return {
+    formSubmissions,
+    landingViews,
+    landingLeads,
+    campaignsSent: sent.length,
+    campaignSends,
+    totalCaptured: formSubmissions + landingLeads,
+    hasEvents: (formSubmissions + landingViews + landingLeads + campaignSends) > 0,
   };
 }
 
