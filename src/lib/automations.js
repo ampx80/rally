@@ -1,5 +1,18 @@
 // ============================================================
-// ARDOVO AUTOMATION ENGINE  (spec Section 5.6 - Wave 5)
+// ARDOVO AUTOMATIONS  (legacy rule layer - template marketplace)
+// ------------------------------------------------------------
+// CONSOLIDATION NOTE: the single execution engine now lives in
+// src/lib/automation-engine.js (trigger + steps + enrollments). The
+// Workflows builder and the Flow canvas both run on that engine.
+//
+// This module stays as the backing layer for the one-click template
+// marketplace (src/pages/AutomationLibrary.jsx via
+// automation-templates.js) and the Wind Tunnel simulator
+// (src/pages/WindTunnel.jsx), which read this file's rule shape and
+// its triggerSummary / conditionSummaries / actionSummary helpers.
+// Its public API is intentionally frozen so those surfaces keep
+// working. Do NOT add a new execution path here - extend the engine.
+// ------------------------------------------------------------
 // A REAL, executable automation runtime. Not a mock: when a
 // trigger fires, matching active automations check their
 // conditions and PERFORM their actions against the live store -
