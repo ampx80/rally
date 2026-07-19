@@ -1,0 +1,36 @@
+/* Forms builder polish. Scoped class names so nothing leaks into the rest of
+   the app. ASCII only. NO em-dash / en-dash. */
+
+.forms-build-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.15rem; align-items: start; }
+@media (max-width: 960px) { .forms-build-grid { grid-template-columns: 1fr; } }
+
+.forms-step { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+.forms-step-head {
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  padding: .55rem .75rem; background: var(--n-100); border-bottom: 1px solid var(--line);
+}
+.forms-step-title { font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--n-600); }
+
+.forms-field-row {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .6rem .7rem; border-bottom: 1px solid var(--line); background: var(--paper);
+  transition: background .12s var(--ease);
+}
+.forms-field-row:last-child { border-bottom: none; }
+.forms-field-row.is-drag { opacity: .5; }
+.forms-field-row .grip { cursor: grab; color: var(--n-400); flex: none; display: inline-flex; }
+
+.forms-palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: .5rem; }
+.forms-palette button {
+  display: flex; align-items: center; gap: .5rem; text-align: left;
+  padding: .6rem .7rem; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--paper); color: var(--ink); cursor: pointer; font-size: .85rem; font-weight: 600;
+  transition: border-color .12s var(--ease), background .12s var(--ease);
+}
+.forms-palette button:hover { border-color: var(--accent); background: var(--n-50, var(--n-100)); }
+
+.forms-cond-chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .68rem; font-weight: 700; padding: .1rem .4rem; border-radius: 999px;
+  background: var(--accent-50, rgba(91,75,245,.12)); color: var(--accent-600, var(--accent));
+}

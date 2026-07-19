@@ -1,38 +1,27 @@
 // HostedForm.jsx
-// PUBLIC hosted page for a Ardovo form. Mounted at /f/:formId inside the
+// PUBLIC hosted page for an Ardovo form. Mounted at /f/:formId inside the
 // marketing Routes block (see App.jsx). It resolves the form from the
-// local-first forms slice (same origin -> same localStorage as the builder),
-// renders a real, self-contained widget, and on submit CREATES a contact
-// through the store + LOGS the submission (submitForm), then fires the
-// optional owner notification (env-gated, never blocks).
+// local-first forms slice (same origin -> same localStorage as the builder)
+// and renders the shared, self-contained widget (FormRenderer) in "live"
+// mode. On submit the renderer CREATES or UPDATES a contact through the store,
+// LOGS the submission, tracks analytics, and fires window events; it also
+// handles multi-step navigation, conditional logic, spam protection, and the
+// payment hand-off.
 //
-// The widget is self-styled (its own accent + theme) so it reads as one piece
-// whether opened directly or dropped into an <iframe> embed. A collapsible
-// footer exposes the copyable embed snippet + hosted link.
+// This page adds the public chrome around the widget: a draft banner, a
+// collapsible embed/share footer, and the "Powered by Ardovo" mark. It reads
+// as one piece whether opened directly or dropped into an <iframe> embed.
 //
 // ASCII only. NO em-dash / en-dash. ASCII hyphen only.
 import React, { useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import {
-  resolveForm, submitForm, notifyOwner, validateSubmission,
-  embedSnippet, hostedUrl,
-} from '../lib/forms.js';
-
-function palette(theme, accent) {
-  if (theme === 'light') {
-    return { card: '#ffffff', line: '#e6e8f0', ink: '#0f1222', muted: '#5b6079', dim: '#8a8fa3', inputBg: '#f6f7fb', inputLine: '#d7dae8', accent };
-  }
-  return { card: '#12141f', line: '#262a3d', ink: '#e7e9f0', muted: '#a3a7ba', dim: '#6b7085', inputBg: '#0b0d14', inputLine: '#2a2f42', accent };
-}
+import { resolveForm, embedSnippet, hostedUrl } from '../lib/forms.js';
+import FormRenderer, { palette } from '../components/forms/FormRenderer.jsx';
 
 export default function HostedForm() {
   const { formId } = useParams();
   const form = useMemo(() => resolveForm(formId), [formId]);
 
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [done, setDone] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [showEmbed, setShowEmbed] = useState(false);
   const [copied, setCopied] = useState('');
 
@@ -51,26 +40,7 @@ export default function HostedForm() {
   const accent = style.accent || '#0e9f8f';
   const pal = palette(style.theme, accent);
   const isDraft = form.status !== 'published';
-
-  const set = (id, v) => { setValues(p => ({ ...p, [id]: v })); if (errors[id]) setErrors(e => ({ ...e, [id]: undefined })); };
-
-  function onSubmit(e) {
-    e.preventDefault();
-    if (busy) return;
-    const check = validateSubmission(form, values);
-    if (!check.ok) { setErrors(check.errors); return; }
-    setBusy(true);
-    const out = submitForm(form.id, values);
-    if (out && out.error) {
-      setErrors(out.errors || {});
-      setBusy(false);
-      return;
-    }
-    // Fire-and-forget owner notification (env-gated, never throws).
-    notifyOwner(form, values);
-    setBusy(false);
-    setDone(true);
-  }
+  const maxWidth = Math.max(320, Math.min(900, Number(style.width) || 560));
 
   async function copy(text, key) {
     try { await navigator.clipboard.writeText(text); setCopied(key); setTimeout(() => setCopied(''), 1600); } catch { /* clipboard blocked */ }
@@ -79,53 +49,15 @@ export default function HostedForm() {
   const url = hostedUrl(form);
   const snippet = embedSnippet(form);
 
-  const inputStyle = {
-    width: '100%', boxSizing: 'border-box', padding: '11px 13px', fontSize: 15,
-    border: `1.5px solid ${pal.inputLine}`, borderRadius: 10, background: pal.inputBg,
-    color: pal.ink, fontFamily: 'inherit', outline: 'none',
-  };
-  const labelStyle = { display: 'block', fontSize: 13.5, fontWeight: 700, color: pal.ink, marginBottom: 6 };
-
   return (
-    <div style={{ maxWidth: 560, margin: '48px auto 64px', padding: '0 18px' }}>
-      <div style={{ background: pal.card, border: `1px solid ${pal.line}`, borderRadius: 18, padding: 'clamp(22px, 5vw, 34px)', boxShadow: '0 20px 60px -30px rgba(0,0,0,.6)' }}>
-        <div style={{ height: 4, width: 46, borderRadius: 999, background: accent, marginBottom: 20 }} />
+    <div style={{ maxWidth, margin: '48px auto 64px', padding: '0 18px' }}>
+      {isDraft && (
+        <div style={{ marginBottom: 14, padding: '8px 12px', borderRadius: 8, background: 'rgba(224,117,45,.14)', border: '1px solid rgba(224,117,45,.35)', color: '#e0752d', fontSize: 12.5, fontWeight: 700 }}>
+          Draft preview. This form is not published yet.
+        </div>
+      )}
 
-        {isDraft && (
-          <div style={{ marginBottom: 16, padding: '8px 12px', borderRadius: 8, background: 'rgba(224,117,45,.14)', border: '1px solid rgba(224,117,45,.35)', color: '#e0752d', fontSize: 12.5, fontWeight: 700 }}>
-            Draft preview. This form is not published yet.
-          </div>
-        )}
-
-        {done ? (
-          <div style={{ textAlign: 'center', padding: '18px 0 6px' }}>
-            <div style={{ width: 56, height: 56, borderRadius: '50%', background: accent, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-            </div>
-            <h1 style={{ color: pal.ink, fontSize: 23, margin: '0 0 8px', lineHeight: 1.25 }}>{style.successTitle || 'Thanks for reaching out.'}</h1>
-            <p style={{ color: pal.muted, fontSize: 15, margin: 0, lineHeight: 1.6 }}>{style.successBody || 'We will be in touch shortly.'}</p>
-          </div>
-        ) : (
-          <form onSubmit={onSubmit} noValidate>
-            <h1 style={{ color: pal.ink, fontSize: 25, margin: '0 0 6px', lineHeight: 1.2, letterSpacing: '-.01em' }}>{form.name}</h1>
-            {form.description && <p style={{ color: pal.muted, fontSize: 15, margin: '0 0 22px', lineHeight: 1.6 }}>{form.description}</p>}
-
-            <div style={{ display: 'grid', gap: 16 }}>
-              {(form.fields || []).map(fd => (
-                <Field key={fd.id} fd={fd} value={values[fd.id]} error={errors[fd.id]} onChange={set} pal={pal} inputStyle={inputStyle} labelStyle={labelStyle} />
-              ))}
-            </div>
-
-            <button type="submit" disabled={busy} style={{
-              marginTop: 22, width: '100%', padding: '13px 18px', border: 'none', borderRadius: 11,
-              background: accent, color: '#fff', fontWeight: 800, fontSize: 15.5, cursor: busy ? 'default' : 'pointer',
-              opacity: busy ? 0.7 : 1, boxShadow: `0 10px 26px -12px ${accent}`,
-            }}>
-              {busy ? 'Sending...' : (style.buttonLabel || 'Submit')}
-            </button>
-          </form>
-        )}
-      </div>
+      <FormRenderer form={form} mode="live" />
 
       {/* Share + embed. Present on the hosted page so an owner can grab the snippet. */}
       <div style={{ marginTop: 14, textAlign: 'center' }}>
@@ -152,45 +84,4 @@ export default function HostedForm() {
       </div>
     </div>
   );
-}
-
-function Field({ fd, value, error, onChange, pal, inputStyle, labelStyle }) {
-  const help = fd.help ? <div style={{ fontSize: 12, color: pal.dim, marginTop: 5 }}>{fd.help}</div> : null;
-  const errNode = error ? <div style={{ fontSize: 12, color: '#e0752d', marginTop: 5, fontWeight: 600 }}>{error}</div> : null;
-  const req = fd.required ? <span style={{ color: pal.accent }}> *</span> : null;
-  const borderErr = error ? { borderColor: '#e0752d' } : null;
-
-  if (fd.type === 'checkbox') {
-    return (
-      <div>
-        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 14.5, fontWeight: 600, color: pal.ink, cursor: 'pointer' }}>
-          <input type="checkbox" checked={!!value} onChange={e => onChange(fd.id, e.target.checked)} style={{ width: 17, height: 17, accentColor: pal.accent }} />
-          <span>{fd.label}{req}</span>
-        </label>
-        {help}{errNode}
-      </div>
-    );
-  }
-
-  const label = <label style={labelStyle}>{fd.label}{req}</label>;
-  const common = { style: { ...inputStyle, ...borderErr }, value: value == null ? '' : value, onChange: e => onChange(fd.id, e.target.value), placeholder: fd.placeholder || '' };
-
-  let control;
-  switch (fd.type) {
-    case 'textarea': control = <textarea rows={4} {...common} />; break;
-    case 'select':
-      control = (
-        <select {...common} style={{ ...inputStyle, ...borderErr }}>
-          <option value="">{fd.placeholder || 'Choose...'}</option>
-          {(fd.options || []).map(o => <option key={o} value={o}>{o}</option>)}
-        </select>
-      );
-      break;
-    case 'email': control = <input type="email" {...common} />; break;
-    case 'phone': control = <input type="tel" {...common} placeholder={fd.placeholder || '(555) 555-1234'} />; break;
-    case 'number': control = <input type="number" {...common} />; break;
-    case 'date': control = <input type="date" {...common} />; break;
-    default: control = <input type="text" {...common} />;
-  }
-  return <div>{label}{control}{help}{errNode}</div>;
 }
