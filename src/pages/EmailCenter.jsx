@@ -3,8 +3,8 @@
 // executive digests (batched, never a firehose), and route which domains email.
 // Local-first; when Resend is live, sends flow through /api/notify. This is the
 // Ardovo internal system - distinct from Mailchimp (outreach). NO em-dash.
-import React, { useState, useMemo } from 'react';
-import { SectionHeader, Card, StatCard, Badge, Button, Input, Select, Modal, EmptyState, useToast, relTime } from '../components/UI.jsx';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { SectionHeader, Card, StatCard, Badge, Button, Input, Select, Modal, EmptyState, useToast, relTime, AnimatedNumber } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import {
   EVENTS, DOMAINS, DIGESTS, domainById, eventsByDomain, renderEmailHtml, renderDigestHtml,
@@ -22,38 +22,108 @@ const STATUS = {
 };
 const statusMeta = (s) => STATUS[s] || { tone: 'default', label: s };
 
+// A live "mail fabric" - glowing packets streaming across the console header,
+// evoking email routing through the system. Bounded to the hero, DPR-aware,
+// capped, reduced-motion safe. NO em-dash.
+function MailFlow() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current; if (!canvas) return;
+    const ctx = canvas.getContext('2d'); if (!ctx) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COLORS = [[34, 211, 238], [124, 92, 247], [14, 159, 143], [59, 130, 246]];
+    let w = 0, h = 0, dpr = 1, parts = [], raf = 0, running = true;
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = canvas.getBoundingClientRect(); w = r.width; h = r.height;
+      if (w === 0 || h === 0) return;
+      canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.min(64, Math.max(22, Math.floor(w / 18)));
+      parts = [];
+      for (let i = 0; i < n; i++) parts.push({
+        x: Math.random() * w, y: Math.random() * h, s: 0.5 + Math.random() * 1.6,
+        r: 0.7 + Math.random() * 1.7, len: 14 + Math.random() * 46, c: COLORS[(Math.random() * COLORS.length) | 0],
+      });
+    }
+    function frame() {
+      if (w === 0 || h === 0) { raf = 0; return; }
+      ctx.clearRect(0, 0, w, h);
+      for (const p of parts) {
+        p.x += p.s * (1 + p.r * 0.3);
+        if (p.x > w + 50) { p.x = -50; p.y = Math.random() * h; }
+        const c = p.c;
+        const g = ctx.createLinearGradient(p.x - p.len, p.y, p.x, p.y);
+        g.addColorStop(0, `rgba(${c[0]},${c[1]},${c[2]},0)`);
+        g.addColorStop(1, `rgba(${c[0]},${c[1]},${c[2]},.55)`);
+        ctx.strokeStyle = g; ctx.lineWidth = p.r; ctx.beginPath();
+        ctx.moveTo(p.x - p.len, p.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+        ctx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},.95)`;
+        ctx.shadowColor = `rgba(${c[0]},${c[1]},${c[2]},.9)`; ctx.shadowBlur = 9;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+      }
+      if (running && !reduce) raf = requestAnimationFrame(frame);
+    }
+    resize();
+    const onResize = () => { resize(); if (running && !reduce && !raf && w > 0) raf = requestAnimationFrame(frame); };
+    window.addEventListener('resize', onResize);
+    frame(); if (!reduce) raf = requestAnimationFrame(frame);
+    return () => { running = false; cancelAnimationFrame(raf); window.removeEventListener('resize', onResize); };
+  }, []);
+  return <canvas ref={ref} className="ec-flow" aria-hidden />;
+}
+
 export default function EmailCenter() {
   const [tab, setTab] = useState('activity');
   const s = stats();
   useEmailCenter(); // subscribe to re-render on changes
 
+  const tiles = [
+    { label: 'Templates ready', value: s.templates, icon: 'mail', c: '#22d3ee' },
+    { label: 'Emails sent', value: s.total, icon: 'send', c: '#7c5cf7' },
+    { label: 'Open rate', value: s.openRate, suffix: '%', icon: 'activity', c: '#0e9f8f' },
+    { label: 'Reply rate', value: s.replyRate, suffix: '%', icon: 'inbox', c: '#34d399' },
+    { label: 'Held / suppressed', value: s.problems, icon: 'shield', c: '#fbbf24' },
+  ];
+
   return (
-    <div className="fade-up">
-      <SectionHeader
-        title="Email Center"
-        sub="Every email Ardovo sends, in one place. Browse every pre-built template, watch what was opened and replied to, tune the executive digests, and route what emails whom. Transactional and system mail runs through Resend here; Mailchimp stays for outreach."
-      />
+    <div className="fade-up ec-fx">
+      <div className="ec-amb" aria-hidden />
+      <div className="ec-content">
+        <div className="ec-hero">
+          <MailFlow />
+          <div className="ec-scan" aria-hidden />
+          <div className="ec-hero-in">
+            <div className="ec-eyebrow"><span className="ec-live" /> Ardovo mail fabric</div>
+            <h1 className="ec-title">Email <span className="ec-grad">Center</span></h1>
+            <p className="ec-sub">Every email Ardovo sends, in one console. Browse all {s.templates} pre-built templates, watch what was opened and replied to, tune the executive digests, and route what emails whom. Transactional mail flows through Resend here - Mailchimp stays for outreach.</p>
+            <div className="ec-stats">
+              {tiles.map((t, i) => (
+                <div className="ec-stat" key={t.label} style={{ '--c': t.c, animationDelay: `${i * 70}ms` }}>
+                  <span className="ec-stat-ic"><Icon name={t.icon} size={16} /></span>
+                  <div className="ec-stat-v"><AnimatedNumber value={t.value} />{t.suffix || ''}</div>
+                  <div className="ec-stat-l">{t.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-      <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', marginBottom: '1.25rem' }}>
-        <StatCard label="Templates ready" value={s.templates} icon={<Icon name="mail" size={18} />} accent="var(--accent)" />
-        <StatCard label="Emails sent" value={s.total} icon={<Icon name="send" size={18} />} />
-        <StatCard label="Open rate" value={s.openRate} format={(n) => `${n}%`} icon={<Icon name="activity" size={18} />} />
-        <StatCard label="Reply rate" value={s.replyRate} format={(n) => `${n}%`} icon={<Icon name="inbox" size={18} />} accent="var(--ok)" />
-        <StatCard label="Held / suppressed" value={s.problems} icon={<Icon name="shield" size={18} />} accent="var(--warn)" />
+        <div className="ec-tabs">
+          {[['activity', 'Activity', 'activity'], ['catalog', 'Catalog', 'mail'], ['digests', 'Digests', 'calendar'], ['routing', 'Routing', 'filter']].map(([k, label, icon]) => (
+            <button key={k} className={`ec-tab ${tab === k ? 'on' : ''}`} onClick={() => setTab(k)}>
+              <Icon name={icon} size={15} /> {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="ec-panel">
+          {tab === 'activity' && <ActivityTab />}
+          {tab === 'catalog' && <CatalogTab />}
+          {tab === 'digests' && <DigestsTab />}
+          {tab === 'routing' && <RoutingTab />}
+        </div>
       </div>
-
-      <div className="row gap-2 wrap" style={{ marginBottom: '1rem' }}>
-        {[['activity', 'Activity', 'activity'], ['catalog', 'Catalog', 'mail'], ['digests', 'Digests', 'calendar'], ['routing', 'Routing', 'filter']].map(([k, label, icon]) => (
-          <button key={k} className={`btn btn-sm ${tab === k ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setTab(k)}>
-            <Icon name={icon} size={15} /> {label}
-          </button>
-        ))}
-      </div>
-
-      {tab === 'activity' && <ActivityTab />}
-      {tab === 'catalog' && <CatalogTab />}
-      {tab === 'digests' && <DigestsTab />}
-      {tab === 'routing' && <RoutingTab />}
 
       <EmailCenterStyles />
     </div>
@@ -340,22 +410,112 @@ function Toggle({ on, onChange, label }) {
 function EmailCenterStyles() {
   return (
     <style>{`
-    .ec-row { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-    .ec-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+    /* ===== Futuristic console skin: scope a dark neon theme to the page ===== */
+    .ec-fx {
+      position: relative; overflow: hidden; border-radius: 22px; isolation: isolate;
+      --paper: rgba(20,26,44,.62); --page: #0a0e1c; --ink: #eaf0ff; --ink-2: #b3bfe0; --muted: #808eb4;
+      --line: rgba(255,255,255,.09); --line-strong: rgba(255,255,255,.18);
+      --accent: #22d3ee; --accent-600: #0891b2; --accent-700: #0e7490; --accent-300: #67e8f9; --accent-50: rgba(34,211,238,.13);
+      --ok: #34d399; --warn: #fbbf24; --risk: #fb7185; --info: #60a5fa; --ai: #7c5cf7;
+      color: var(--ink); background: #0a0e1c;
+      box-shadow: 0 40px 120px -50px rgba(34,211,238,.25);
+    }
+    .ec-amb { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(1000px 640px at 78% -12%, rgba(34,211,238,.16), transparent 60%),
+        radial-gradient(820px 620px at -8% 20%, rgba(124,92,247,.18), transparent 55%),
+        radial-gradient(700px 700px at 50% 120%, rgba(14,159,143,.12), transparent 60%),
+        #0a0e1c;
+    }
+    .ec-amb::after { content: ''; position: absolute; inset: 0; opacity: .5;
+      background-image: linear-gradient(rgba(120,160,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(120,160,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 78%);
+      mask-image: radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 78%); }
+    .ec-content { position: relative; z-index: 1; padding: 6px; }
+
+    /* ===== Hero ===== */
+    .ec-hero { position: relative; overflow: hidden; border-radius: 18px; padding: 30px 30px 26px;
+      background: linear-gradient(180deg, rgba(14,20,38,.72), rgba(10,14,28,.55));
+      border: 1px solid var(--line); }
+    .ec-flow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .9; }
+    .ec-scan { position: absolute; left: 0; right: 0; top: 0; height: 34%; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(34,211,238,.10), transparent); animation: ecScan 6s ease-in-out infinite; }
+    @keyframes ecScan { 0%,100% { transform: translateY(-10%); opacity: .5; } 50% { transform: translateY(260%); opacity: 1; } }
+    .ec-hero-in { position: relative; z-index: 2; }
+    .ec-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #8fe6f2; }
+    .ec-live { width: 8px; height: 8px; border-radius: 50%; background: #22d3ee; box-shadow: 0 0 0 0 rgba(34,211,238,.6); animation: ecPulse 1.8s ease-out infinite; }
+    @keyframes ecPulse { 0% { box-shadow: 0 0 0 0 rgba(34,211,238,.6); } 70% { box-shadow: 0 0 0 9px rgba(34,211,238,0); } 100% { box-shadow: 0 0 0 0 rgba(34,211,238,0); } }
+    .ec-title { margin: 12px 0 6px; font-size: clamp(30px, 5vw, 46px); font-weight: 900; letter-spacing: -.02em; font-family: var(--font-display, 'Space Grotesk', sans-serif); line-height: 1.02; }
+    .ec-grad { background: linear-gradient(100deg, #22d3ee, #7c5cf7 60%, #0e9f8f); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% auto; animation: ecShift 6s linear infinite; }
+    @keyframes ecShift { to { background-position: 200% center; } }
+    .ec-sub { max-width: 720px; font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+    /* ===== Stat tiles ===== */
+    .ec-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 22px; }
+    .ec-stat { position: relative; overflow: hidden; border-radius: 14px; padding: 15px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      animation: ecTileIn .55s cubic-bezier(.22,1,.36,1) both; transition: transform .25s, box-shadow .25s, border-color .25s; }
+    @keyframes ecTileIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
+    .ec-stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c); box-shadow: 0 0 14px var(--c); opacity: .9; }
+    .ec-stat::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.12), transparent); transform: skewX(-18deg); animation: ecSheen 5s ease-in-out infinite; }
+    @keyframes ecSheen { 0%, 60% { left: -60%; } 85%, 100% { left: 150%; } }
+    .ec-stat:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--c) 60%, transparent); box-shadow: 0 24px 60px -30px var(--c); }
+    .ec-stat-ic { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: var(--c); background: color-mix(in srgb, var(--c) 16%, transparent); border: 1px solid color-mix(in srgb, var(--c) 34%, transparent); }
+    .ec-stat-v { font-size: 30px; font-weight: 900; margin-top: 10px; letter-spacing: -.02em; font-family: var(--font-display, 'Space Grotesk', sans-serif); color: #fff; }
+    .ec-stat-l { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+
+    /* ===== Tabs ===== */
+    .ec-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 2px 14px; padding: 5px; border-radius: 13px;
+      background: rgba(255,255,255,.03); border: 1px solid var(--line); width: fit-content; }
+    .ec-tab { display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-size: 13.5px; font-weight: 700;
+      color: var(--muted); background: transparent; border: none; border-radius: 9px; padding: 9px 15px; cursor: pointer; transition: all .2s; }
+    .ec-tab:hover { color: var(--ink); }
+    .ec-tab.on { color: #04121a; background: linear-gradient(100deg, #22d3ee, #38bdf8); box-shadow: 0 10px 26px -12px rgba(34,211,238,.8); }
+
+    .ec-panel { animation: ecFade .4s ease both; }
+    @keyframes ecFade { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+
+    /* ===== Glass cards + inputs within the console ===== */
+    .ec-fx .card { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)) !important;
+      border: 1px solid var(--line) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: transform .22s, box-shadow .22s, border-color .22s; }
+    .ec-fx .input, .ec-fx .select, .ec-fx .textarea { background: rgba(255,255,255,.04); color: var(--ink); border-color: var(--line); }
+    .ec-fx .input::placeholder { color: var(--muted); }
+    .ec-fx .select option { background: #0f1626; color: var(--ink); }
+    .ec-fx .btn-ghost { color: var(--ink); border-color: var(--line); background: rgba(255,255,255,.03); }
+    .ec-fx .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: var(--accent); }
+    .ec-fx .btn-quiet { color: var(--muted); }
+    .ec-fx .btn-quiet:hover { color: var(--accent); }
+
+    /* ===== Rows + bits ===== */
+    .ec-row { display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative; overflow: hidden;
+      animation: ecRowIn .45s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes ecRowIn { 0% { opacity: 0; transform: translateX(-10px); } 100% { opacity: 1; transform: none; } }
+    .ec-row:hover { transform: translateY(-2px); border-color: var(--accent) !important; box-shadow: 0 20px 50px -30px rgba(34,211,238,.6) !important; }
+    .ec-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; box-shadow: 0 0 10px currentColor; animation: ecDot 2.4s ease-in-out infinite; }
+    @keyframes ecDot { 0%,100% { opacity: .6; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
     .ec-subj { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
     .ec-chev { color: var(--muted); flex: none; }
-    .ec-code { font-family: var(--font-mono, monospace); font-size: 11.5px; background: var(--page); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--ink-2); }
+    .ec-code { font-family: var(--font-mono, monospace); font-size: 11.5px; background: rgba(255,255,255,.05); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: #9fe9f2; }
     .ec-iframe { width: 100%; height: 460px; border: 1px solid var(--line); border-radius: 12px; background: #eef1f6; }
-    .ec-reply { border-left: 3px solid var(--ok); background: var(--page); border-radius: 8px; padding: 10px 12px; }
+    .ec-reply { border-left: 3px solid var(--ok); background: rgba(52,211,153,.08); border-radius: 8px; padding: 10px 12px; }
     .ec-dchip { width: 30px; height: 30px; flex: none; border-radius: 8px; display: grid; place-items: center; }
     .ec-dchip.sm { width: 26px; height: 26px; border-radius: 7px; }
-    .ec-cat-row { display: flex; align-items: center; gap: 10px; padding: 9px 2px; border-bottom: 1px solid var(--line); }
+    .ec-cat-row { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--line); transition: background .15s; }
     .ec-cat-row:last-child { border-bottom: none; }
-    .ec-note { display: flex; align-items: flex-start; gap: 12px; background: var(--accent-50, #e6f7f5); border-color: var(--accent-300, #5ecfc3); }
+    .ec-cat-row:hover { background: rgba(34,211,238,.05); }
+    .ec-note { display: flex; align-items: flex-start; gap: 12px; background: rgba(34,211,238,.08) !important; border-color: color-mix(in srgb, var(--accent) 40%, transparent) !important; }
     .ec-note > svg { color: var(--accent); flex: none; margin-top: 2px; }
-    .ec-domrow { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; }
-    .ec-prov { display: flex; align-items: center; gap: 11px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; }
+    .ec-domrow { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.02); transition: border-color .2s, background .2s; }
+    .ec-domrow:hover { border-color: var(--accent); background: rgba(34,211,238,.05); }
+    .ec-prov { display: flex; align-items: center; gap: 11px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.02); }
     .ec-prov > div { flex: 1; min-width: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ec-scan, .ec-live, .ec-grad, .ec-stat, .ec-stat::after, .ec-row, .ec-dot, .ec-panel { animation: none !important; }
+    }
     `}</style>
   );
 }
