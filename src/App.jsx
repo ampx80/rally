@@ -150,6 +150,13 @@ import Liftoff from './pages/Liftoff.jsx';
 // that debates the real book and files a decision memo).
 import Handshake from './pages/Handshake.jsx';
 import Boardroom from './pages/Boardroom.jsx';
+// Ardova Academy 2.0 - the learn-the-system-in-a-morning suite
+import Arena from './pages/Arena.jsx';
+import Momentum from './pages/Momentum.jsx';
+import Replay from './pages/Replay.jsx';
+import SkillMap from './pages/SkillMap.jsx';
+import TrainingCompanion from './components/companion/TrainingCompanion.jsx';
+import OsmosisCoach from './components/osmosis/OsmosisCoach.jsx';
 import LiftoffDeck from './pages/LiftoffDeck.jsx';
 // Back-office admin: signup tracking, growth metrics, filters, launch-into.
 import Admin from './pages/Admin.jsx';
@@ -190,7 +197,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // First path segment maps to the product app (everything else = marketing site).
 const PRODUCT_SEGS = new Set(['app', 'leads', 'deals', 'contacts', 'companies', 'activities', 'forecasting', 'campaigns', 'sequences', 'projects', 'inbox', 'products', 'quotes', 'invoices', 'studio', 'dashboards', 'reports', 'workflows', 'integrations', 'team', 'settings', 'audit', 'import', 'intelligence', 'success', 'territories', 'goals', 'notifications', 'developers', 'billing-plans', 'onboarding', 'signatures', 'report-builder', 'welcome', 'fork', 'night-shift', 'film', 'wind-tunnel', 'automations', 'ghost-deals', 'canvas', 'forms', 'landing-pages', 'lists', 'sms', 'scheduling', 'tickets', 'permissions', 'objects', 'scheduler', 'kb', 'service', 'duplicates', 'queue', 'playbooks', 'attribution', 'genesis', 'twin', 'autopilot', 'workspaces', 'conversations', 'voice', 'reviews', 'social', 'academy', 'flow', 'funnels', 'payments', 'surveys', 'ads', 'affiliates', 'marketplace', 'datasync', 'sandboxes', 'signals', 'warroom', 'grid', 'drive', 'sheets', 'app-manager', 'roles', 'journeys', 'markethub', 'liftoff', 'admin', 'qualify', 'migrate', 'training', 'atlas',
-  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training', 'data-export', 'handshake', 'boardroom']);
+  'agent-cloud', 'agent-studio', 'agent-api', 'context', 'agent-evals', 'agent-trust', 'agent-exchange', 'cloud-agents', 'experience', 'security-center', 'training-admin', 'group-training', 'data-export', 'handshake', 'boardroom', 'arena', 'momentum', 'replay', 'skills']);
 
 // ============================================================
 // COMMAND SPINE navigation model
@@ -297,6 +304,10 @@ const ALL_ITEMS = [
   { to: '/qualify', label: 'Pre-qualification', icon: 'funnel', cat: 'Admin' },
   { to: '/migrate', label: 'Migration wizard', icon: 'swap', cat: 'Admin' },
   { to: '/training', label: 'Training', icon: 'rocket', cat: 'Customers' },
+  { to: '/skills', label: 'Skill Map', icon: 'radar', cat: 'Customers' },
+  { to: '/momentum', label: 'Momentum', icon: 'zap', cat: 'Customers' },
+  { to: '/arena', label: 'Practice Arena', icon: 'target', cat: 'Customers' },
+  { to: '/replay', label: 'Replay + Coach', icon: 'history', cat: 'Customers' },
   { to: '/training-admin', label: 'Training analytics', icon: 'gauge', cat: 'Customers' },
   { to: '/group-training', label: 'Group training', icon: 'users', cat: 'Customers' },
   { to: '/workspaces', label: 'Workspaces', icon: 'building2', cat: 'Admin' },
@@ -973,6 +984,10 @@ export default function App() {
               <Route path="/cloud-agents" element={<CloudAgents />} />
               <Route path="/handshake" element={<Handshake />} />
               <Route path="/boardroom" element={<Boardroom />} />
+              <Route path="/arena" element={<Arena />} />
+              <Route path="/momentum" element={<Momentum />} />
+              <Route path="/replay" element={<Replay />} />
+              <Route path="/skills" element={<SkillMap />} />
               <Route path="/experience" element={<ExperienceLayer />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/security-center" element={<SecurityCenter />} />
@@ -1051,6 +1066,8 @@ export default function App() {
       <RecentPagesDock />
       <TrainingMode />
       <CoachTour />
+      <TrainingCompanion />
+      <OsmosisCoach />
     </div>
   );
 }
