@@ -1,0 +1,139 @@
+/* ============================================================
+   MOMENTUM  (self-contained styles for the competence ramp)
+   Reuses the Ardovo design tokens only. No new colors invented.
+   Every animation is disabled under prefers-reduced-motion.
+   ASCII hyphen only. No em-dash or en-dash.
+   ============================================================ */
+
+.mo-page { position: relative; }
+
+/* ---------- hero ---------- */
+.mo-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(520px 260px at 82% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    linear-gradient(125deg, var(--accent-700), var(--accent) 52%, var(--accent-purple));
+  color: #fff;
+  border: none;
+}
+.mo-hero__glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(240px 240px at 20% 120%, rgba(255,255,255,.16), transparent 70%);
+}
+.mo-hero .stat-label { color: rgba(255,255,255,.78); }
+
+/* ---------- big progress ring ---------- */
+.mo-ring { position: relative; display: grid; place-items: center; flex: none; }
+.mo-ring svg { display: block; transform: rotate(-90deg); }
+.mo-ring__track { stroke: rgba(255,255,255,.20); }
+.mo-ring__fill { transition: stroke-dashoffset 1s var(--ease); }
+.mo-ring__center {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; line-height: 1;
+}
+.mo-ring__pct { font-weight: 800; letter-spacing: -.02em; }
+.mo-ring__cap { font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; opacity: .8; margin-top: 3px; }
+
+/* ---------- level badge ---------- */
+.mo-badge {
+  display: inline-grid; place-items: center; flex: none;
+  border-radius: 14px; font-weight: 800; color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.35), var(--shadow-sm);
+}
+.mo-badge--lg { width: 56px; height: 56px; font-size: 1.2rem; border-radius: 16px; }
+.mo-badge--sm { width: 30px; height: 30px; font-size: .8rem; border-radius: 9px; }
+
+/* ---------- xp bar ---------- */
+.mo-xp { width: 100%; }
+.mo-xp__track {
+  position: relative; height: 12px; border-radius: 999px; overflow: hidden;
+  background: rgba(255,255,255,.20);
+}
+.mo-xp__track--light { background: var(--n-100); }
+.mo-xp__fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #fff, rgba(255,255,255,.75));
+  transition: width .9s var(--ease);
+}
+.mo-xp__fill--accent { background: linear-gradient(90deg, var(--accent), var(--accent-teal)); }
+
+/* ---------- streak flame ---------- */
+.mo-flame { display: inline-flex; align-items: center; gap: 8px; }
+.mo-flame__icon {
+  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none;
+  background: linear-gradient(180deg, var(--warn), var(--risk));
+  color: #fff; box-shadow: var(--shadow-sm);
+  animation: moFlicker 2.4s ease-in-out infinite;
+}
+.mo-flame__icon--cold { background: var(--n-100); color: var(--n-600); animation: none; box-shadow: none; }
+@keyframes moFlicker {
+  0%, 100% { transform: scale(1) rotate(-1deg); }
+  50% { transform: scale(1.06) rotate(1deg); }
+}
+
+/* ---------- quest card ---------- */
+.mo-quest {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--paper); transition: border-color .18s var(--ease), transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.mo-quest:hover { border-color: var(--accent-300); box-shadow: var(--shadow-sm); }
+.mo-quest--done { background: var(--n-25); border-color: var(--line); }
+.mo-quest__icon {
+  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex: none;
+  background: var(--accent-50); color: var(--accent-600);
+}
+.mo-quest--done .mo-quest__icon { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.mo-quest__check {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  border: 2px solid var(--line-strong); color: transparent; background: var(--paper);
+  transition: all .2s var(--ease);
+}
+.mo-quest__check--done { border-color: var(--ok); background: var(--ok); color: #fff; }
+.mo-quest__title--done { text-decoration: line-through; color: var(--n-600); }
+
+/* ---------- next best quest ---------- */
+.mo-next {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--accent-300);
+  background: linear-gradient(120deg, var(--accent-50), var(--paper) 70%);
+}
+.mo-next__spark {
+  position: absolute; top: -24px; right: -24px; width: 120px; height: 120px; border-radius: 50%;
+  background: var(--accent); opacity: .10; filter: blur(6px); pointer-events: none;
+}
+
+/* ---------- tier group ---------- */
+.mo-tier__rail { width: 3px; border-radius: 3px; background: var(--line); align-self: stretch; flex: none; }
+.mo-tier__rail--done { background: var(--ok); }
+
+/* ---------- team ramp bar ---------- */
+.mo-team__bar { height: 10px; border-radius: 999px; background: var(--n-100); overflow: hidden; }
+.mo-team__fill { height: 100%; border-radius: 999px; transition: width .8s var(--ease); }
+.mo-team__row--me { background: var(--accent-50); }
+
+/* ---------- confetti ---------- */
+.mo-confetti { position: fixed; inset: 0; z-index: 90; pointer-events: none; overflow: hidden; }
+.mo-confetti i {
+  position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px;
+  will-change: transform, opacity;
+  animation: moFall var(--dur, 2.6s) var(--ease) forwards;
+}
+@keyframes moFall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ---------- level up modal flourish ---------- */
+.mo-levelup__ring { animation: moPop .5s var(--ease) both; }
+@keyframes moPop { from { transform: scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .mo-ring__fill, .mo-xp__fill, .mo-team__fill { transition: none; }
+  .mo-flame__icon { animation: none; }
+  .mo-confetti { display: none; }
+  .mo-levelup__ring { animation: none; }
+  .mo-quest { transition: none; }
+}
