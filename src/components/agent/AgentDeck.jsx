@@ -8,10 +8,11 @@ import './agent-surface.css';
 
 export default function AgentDeck({ eyebrow = 'Agent Cloud', live = true, title, highlight, sub, actions, pods = [] }) {
   return (
-    <section className="adk">
+    <section className="adk fx-scan">
       <span className="adk-grid" aria-hidden />
       <span className="adk-aurora a1" aria-hidden />
       <span className="adk-aurora a2" aria-hidden />
+      <span className="adk-aurora a3" aria-hidden />
       <div className="adk-top">
         <div style={{ minWidth: 0 }}>
           <div className="adk-eyebrow">

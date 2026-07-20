@@ -63,7 +63,7 @@ export default function Arena() {
       </div>
     );
     return (
-      <div className="arena-page">
+      <div className="arena-page fx-scene">
         {backBar}
         {view === 'roleplay' && <RolePlay roleId={roleId} onExit={backToHub} />}
         {view === 'drill' && <SpeedDrill roleId={roleId} onExit={backToHub} />}
@@ -76,7 +76,7 @@ export default function Arena() {
   const certPct = Math.round((cert.modes.filter(m => m.passed).length / 3) * 100);
 
   return (
-    <div className="arena-page">
+    <div className="arena-page fx-scene">
       <PageTitle
         eyebrow="Learn by doing, scored instantly"
         title="Practice Arena"
@@ -126,12 +126,14 @@ export default function Arena() {
       </div>
 
       {/* certification progress for the selected role */}
-      <Card pad style={{ marginBottom: '1.75rem' }}>
+      <Card pad className={cert.certified ? 'ar-cert-card fx-neon' : undefined} style={{ marginBottom: '1.75rem' }}>
         <div className="row between wrap gap-3" style={{ alignItems: 'center' }}>
           <div className="row gap-3" style={{ alignItems: 'center' }}>
-            <Ring value={certPct} size={72} stroke={8} color={cert.certified ? 'var(--ok)' : 'var(--accent)'} label={`${cert.modes.filter(m => m.passed).length}/3`} />
+            <span className={cert.certified ? 'ar-cert-ring fx-glow' : undefined} style={{ borderRadius: '50%', display: 'inline-flex' }}>
+              <Ring value={certPct} size={72} stroke={8} color={cert.certified ? 'var(--ok)' : 'var(--accent)'} label={`${cert.modes.filter(m => m.passed).length}/3`} />
+            </span>
             <div>
-              <div className="fw-7" style={{ fontSize: '1.1rem' }}>
+              <div className={`fw-7${cert.certified ? ' fx-holo' : ''}`} style={{ fontSize: '1.1rem' }}>
                 {cert.certified ? `Ardovo Certified ${role.full}` : `${role.full} certification`}
               </div>
               <div className="t-sm muted">

@@ -394,7 +394,7 @@ function Broadcasts() {
             const m = c.metrics || {};
             const openRate = pct(m.opened, m.sent);
             return (
-              <Card key={c.id} hover>
+              <Card key={c.id} hover className="fx-lift">
                 <div className="row between wrap gap-3" style={{ alignItems: 'flex-start' }}>
                   <div className="col gap-1" style={{ minWidth: 0, flex: '1 1 320px' }}>
                     <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap', minWidth: 0 }}>
@@ -563,10 +563,10 @@ function Performance() {
         />
       </div>
 
-      <Card className="fade-up" style={{ marginBottom: '1.25rem' }}>
+      <Card className="fade-up fx-glass fx-lift" style={{ marginBottom: '1.25rem' }}>
         <div className="row between" style={{ marginBottom: '1rem' }}>
           <div className="col gap-1" style={{ minWidth: 0 }}>
-            <h4 style={{ margin: 0 }}>Channel mix</h4>
+            <h4 className="fx-holo" style={{ margin: 0 }}>Channel mix</h4>
             <div className="muted t-sm">Revenue influenced by channel</div>
           </div>
           <span style={{ color: 'var(--accent-600)' }}><Icon name="layers" size={20} /></span>
@@ -615,7 +615,8 @@ export default function Campaigns() {
   ];
 
   return (
-    <div className="fade-up">
+    <div className="fade-up fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <SectionHeader
         title="Marketing"
         sub="Broadcasts, nurtures, and program performance in one hub"

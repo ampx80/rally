@@ -103,7 +103,8 @@ export default function Products() {
   );
 
   return (
-    <div className="col gap-3">
+    <div className="col gap-3 fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <SectionHeader
         eyebrow="Revenue operations"
         title="Products and price book"
@@ -160,7 +161,7 @@ export default function Products() {
       ) : view === 'grid' ? (
         <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 16 }}>
           {rows.map(p => (
-            <div key={p.id} className="card card-pad col gap-2" style={{ opacity: p.active ? 1 : .62 }}>
+            <div key={p.id} className="card card-pad col gap-2 fx-lift" style={{ opacity: p.active ? 1 : .62 }}>
               <div className="row between" style={{ gap: 8, alignItems: 'flex-start' }}>
                 <div className="col gap-1" style={{ minWidth: 0 }}>
                   <div className="fw-7" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</div>

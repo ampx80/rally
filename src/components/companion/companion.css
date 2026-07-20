@@ -268,9 +268,68 @@
 .tc-input button { width: 42px; border: none; border-radius: 11px; background: var(--ai); color: #fff; cursor: pointer; display: grid; place-items: center; flex: none; }
 .tc-input button:disabled { opacity: .45; cursor: default; }
 
+/* ============================================================
+   ADDITIVE FUTURISTIC FX  (living aura + orbit + dock ambiance)
+   State-driven, GPU-cheap (transform/opacity), reduced-motion safe.
+   ASCII only. No em-dash / no en-dash.
+   ============================================================ */
+
+/* living holographic aura around Ardo, shown while active (scales with size) */
+.ardo__aura {
+  position: absolute; inset: -14%; z-index: -1; border-radius: 50%;
+  opacity: 0; pointer-events: none; transition: opacity .35s var(--ease);
+}
+.ardo__aura::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--ai, #7c5cf7), #22d3ee, #0e9f8f, var(--ai, #7c5cf7));
+  -webkit-mask: radial-gradient(closest-side, transparent 60%, #000 66%, #000 80%, transparent 86%);
+  mask: radial-gradient(closest-side, transparent 60%, #000 66%, #000 80%, transparent 86%);
+  animation: ardoAuraSpin 5.5s linear infinite;
+}
+.ardo__aura::after {
+  content: ""; position: absolute; inset: 6%; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(124, 92, 247, .40), transparent 68%);
+  animation: ardoAuraPulse 2.6s ease-in-out infinite;
+}
+@keyframes ardoAuraSpin { to { transform: rotate(1turn); } }
+@keyframes ardoAuraPulse { 0%, 100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.09); opacity: 1; } }
+.ardo--talking .ardo__aura, .ardo--listening .ardo__aura, .ardo--celebrate .ardo__aura { opacity: 1; }
+.ardo--thinking .ardo__aura { opacity: .5; }
+.ardo--listening .ardo__aura::before { animation-duration: 3.4s; }
+
+/* orbiting energy particles, shown while talking / celebrating (radius scales) */
+.ardo__orbit { position: absolute; inset: 0; z-index: 1; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease); }
+.ardo__orbit i { position: absolute; inset: 0; }
+.ardo__orbit i::before {
+  content: ""; position: absolute; top: -2%; left: 50%; width: 8%; height: 8%; margin-left: -4%;
+  border-radius: 50%; background: #22d3ee; box-shadow: 0 0 8px rgba(34, 211, 238, .9);
+}
+.ardo__orbit i:nth-child(1) { animation: ardoOrbit 2.6s linear infinite; }
+.ardo__orbit i:nth-child(2) { animation: ardoOrbit 2.6s linear -0.87s infinite; }
+.ardo__orbit i:nth-child(2)::before { background: var(--ai, #7c5cf7); box-shadow: 0 0 8px rgba(124, 92, 247, .9); }
+.ardo__orbit i:nth-child(3) { animation: ardoOrbit 2.6s linear -1.74s infinite; }
+.ardo__orbit i:nth-child(3)::before { background: #0e9f8f; box-shadow: 0 0 8px rgba(14, 159, 143, .9); }
+@keyframes ardoOrbit { to { transform: rotate(1turn); } }
+.ardo--talking .ardo__orbit, .ardo--celebrate .ardo__orbit { opacity: 1; }
+
+/* dock header holographic sheen (rides over the purple header) */
+.tc-head__holo {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
+  background: linear-gradient(100deg, transparent 8%, rgba(34, 211, 238, .55) 30%, rgba(143, 121, 255, .55) 55%, transparent 82%);
+  background-size: 220% 100%; mix-blend-mode: screen;
+  animation: tcHeadHolo 7s linear infinite;
+}
+@keyframes tcHeadHolo { to { background-position: 220% 0; } }
+
+/* dock stage ambiance (aurora + scan behind Ardo) */
+.tc-stage { position: relative; overflow: hidden; }
+.tc-fx-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.tc-stage__ardo { position: relative; z-index: 1; }
+
 /* reduced motion: kill all companion animation */
 @media (prefers-reduced-motion: reduce) {
-  .ardo, .ardo *, .tc-launcher, .tc-dock, .tc-icon-btn.is-live, .tc-spotlight {
+  .ardo, .ardo *, .tc-launcher, .tc-dock, .tc-icon-btn.is-live, .tc-spotlight,
+  .ardo__aura, .ardo__aura::before, .ardo__aura::after, .ardo__orbit i, .tc-head__holo {
     animation: none !important; transition: none !important;
   }
 }

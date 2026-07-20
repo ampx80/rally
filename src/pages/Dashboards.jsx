@@ -37,9 +37,9 @@ const AXIS_TICK = { fontSize: 12, fill: '#5b6474' };
 /* ---------- shared chart-card scaffold ---------- */
 function ChartCard({ title, explainer, note, children }) {
   return (
-    <Card className="col" style={{ gap: '1rem' }}>
+    <Card className="col fx-glass fx-lift" style={{ gap: '1rem' }}>
       <div className="col gap-1" style={{ minWidth: 0 }}>
-        <h4 style={{ margin: 0 }}>{title}</h4>
+        <h4 className="fx-holo" style={{ margin: 0 }}>{title}</h4>
         {explainer && <div className="muted t-sm">{explainer}</div>}
       </div>
       <div>{children}</div>
@@ -250,7 +250,7 @@ function OverviewTab() {
             </ResponsiveContainer>
             <div className="col gap-2" style={{ flex: '0 0 auto', minWidth: 140 }}>
               <div>
-                <div className="stat-value" style={{ color: ACCENT }}>{rate}%</div>
+                <div className="stat-value fx-holo" style={{ color: ACCENT }}>{rate}%</div>
                 <div className="stat-label">win rate</div>
               </div>
               <div className="col gap-1">
@@ -413,7 +413,7 @@ function DashboardTile({ tile, onRemove, onResize }) {
   }
   const computed = runReport(def);
   return (
-    <Card className={'rb-dash-tile col' + (tile.size === 'full' ? ' rb-tile-full' : '')} style={{ gap: '.75rem' }}>
+    <Card className={'rb-dash-tile col fx-glass fx-lift' + (tile.size === 'full' ? ' rb-tile-full' : '')} style={{ gap: '.75rem' }}>
       <div className="row between gap-2" style={{ alignItems: 'flex-start' }}>
         <div className="col gap-1" style={{ minWidth: 0 }}>
           <span className="fw-7 clip">{def.title}</span>

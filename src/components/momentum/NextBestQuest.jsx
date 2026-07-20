@@ -23,7 +23,7 @@ export default function NextBestQuest({ quest, tierName, onMark, allDone }) {
   }
   const manual = !quest.metric;
   return (
-    <Card className="card-pad mo-next col gap-2">
+    <Card className="card-pad mo-next col gap-2 fx-lift fx-shimmer">
       <div className="mo-next__spark" />
       <div className="row between" style={{ position: 'relative' }}>
         <span className="eyebrow" style={{ color: 'var(--accent-600)' }}>Next best quest</span>

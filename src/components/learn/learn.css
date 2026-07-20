@@ -166,8 +166,6 @@
   display: flex; flex-direction: column; gap: .55rem;
   padding: 1.15rem 1.2rem 1.1rem;
   border-radius: var(--lh-radius);
-  background: var(--paper); border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
   transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
 }
 .lh-tile::before {
@@ -262,9 +260,51 @@
 }
 .lh-track__foot svg { color: var(--accent-600); flex: none; margin-top: 2px; }
 
+/* ============================================================
+   ADDITIVE FUTURISTIC FX  (my own feature classes)
+   GPU-cheap (transform/opacity), all collapse under reduced motion.
+   ASCII only. No em-dash / no en-dash.
+   ============================================================ */
+
+/* hero background fx layers (space base, aurora, grid) */
+.lh-hero__fx { position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; overflow: hidden; }
+.lh-hero__fx--space { z-index: -2; }
+
+/* glow halo behind the hero Ardo */
+.lh-hero__ardoGlow {
+  position: absolute; inset: -20% -14% -24% -14%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, rgba(124, 92, 247, .55), rgba(34, 211, 238, .18) 45%, transparent 66%);
+}
+
+/* journey tile hover neon ring (per-tile accent) */
+.lh-tile__ring {
+  position: absolute; inset: 0; border-radius: inherit; padding: 1.6px; pointer-events: none; z-index: 0;
+  background: conic-gradient(from 0deg, var(--lh-accent), #22d3ee, #0e9f8f, var(--lh-accent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .2s var(--ease);
+}
+.lh-tile:hover .lh-tile__ring { opacity: .95; animation: lhRingSpin 6s linear infinite; }
+@keyframes lhRingSpin { to { transform: rotate(1turn); } }
+
+/* completed morning steps glow as they complete */
+.lh-step.is-done .lh-step__mark { animation: lhStepGlow 2.8s ease-in-out infinite; }
+@keyframes lhStepGlow {
+  0%, 100% { box-shadow: 0 0 12px -4px color-mix(in srgb, var(--ok) 55%, transparent); }
+  50%      { box-shadow: 0 0 20px 0 color-mix(in srgb, var(--ok) 78%, transparent); }
+}
+
+/* active lesson subtle energy */
+.lh-lesson.is-active {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent),
+              0 10px 24px -14px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
 /* ---------------- REDUCED MOTION ---------------- */
 @media (prefers-reduced-motion: reduce) {
   .lh-hero__bg, .lh-hero__ardo, .lh-step.is-current .lh-step__mark,
+  .lh-step.is-done .lh-step__mark, .lh-tile:hover .lh-tile__ring,
   .lh-tile, .lh-tile__go, .lh-lesson, .lh-hero__cta, .lh-hero__ghost,
   .lh-step__action {
     animation: none !important; transition: none !important;

@@ -34,3 +34,10 @@
   font-size: .68rem; font-weight: 700; padding: .1rem .4rem; border-radius: 999px;
   background: var(--accent-50, rgba(91,75,245,.12)); color: var(--accent-600, var(--accent));
 }
+
+/* ============================================================
+   Futuristic chrome (additive). Mirrors the email builder: entrance rise
+   on field rows and a neon ring on the row being dragged/selected.
+   ASCII only. NO em-dash / en-dash.
+   ============================================================ */
+.forms-field-row.fx-neon { border-radius: var(--r-sm); z-index: 1; }

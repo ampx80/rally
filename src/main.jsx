@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { ErrorBoundary } from './components/ErrorBoundary.jsx';
 import { initMonitoring } from './lib/monitoring-init.js';
 import './index.css';
+import './styles/fx.css';
 
 initMonitoring();
 

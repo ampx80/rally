@@ -61,3 +61,8 @@
 .rp-chip__dot { width: 7px; height: 7px; border-radius: 999px; flex: none; }
 .rp-chip--touched .rp-chip__dot { background: var(--ok); }
 .rp-chip--untouched .rp-chip__dot { background: var(--n-400); }
+
+/* ---------- cinematic HUD accents (additive) ---------- */
+.rp-tl.fx-scan { border-radius: var(--r-md, 12px); }
+.rp-tl__fill { box-shadow: 0 0 9px -2px color-mix(in srgb, var(--accent) 60%, transparent); }
+.rp-tl__now { text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent); }

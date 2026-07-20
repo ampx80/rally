@@ -19,7 +19,7 @@ function LevelBadge({ level }) {
 export default function SkillDetail({ skill, st, state, nextItems, onSelect, onNavigate, onLesson, onPractice }) {
   if (!skill) {
     return (
-      <div className="card card-pad sm-detail">
+      <div className="card card-pad sm-detail fx-glass fx-rise">
         <div className="eyebrow">Skill detail</div>
         <h3 style={{ margin: '.35rem 0 .4rem' }}>Pick a star</h3>
         <p className="muted t-sm" style={{ marginTop: 0 }}>
@@ -49,9 +49,9 @@ export default function SkillDetail({ skill, st, state, nextItems, onSelect, onN
   const locked = st.level === 'locked';
 
   return (
-    <div className="card card-pad sm-detail">
+    <div className="card card-pad sm-detail fx-glass fx-rise">
       <div className="row gap-2" style={{ alignItems: 'flex-start' }}>
-        <span className="sm-detail__glyph" style={{ background: color }}>
+        <span className="sm-detail__glyph fx-glow" style={{ background: color }}>
           <Icon name={locked ? 'lock' : area.icon} size={22} />
         </span>
         <div className="col gap-1" style={{ minWidth: 0, flex: 1 }}>

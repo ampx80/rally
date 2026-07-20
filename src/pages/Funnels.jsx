@@ -62,7 +62,8 @@ function FunnelsGrid({ funnels, onOpen }) {
   const shown = filter === 'all' ? funnels : funnels.filter(f => f.status === filter);
 
   return (
-    <div className="page-in col gap-3">
+    <div className="page-in col gap-3 fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <PageTitle
         eyebrow="Marketing"
         title="Funnels"
@@ -106,13 +107,13 @@ function FunnelsGrid({ funnels, onOpen }) {
 
 function KpiTile({ label, value, sub, icon, accent }) {
   return (
-    <div className="card card-pad" style={{ position: 'relative', overflow: 'hidden' }}>
+    <div className="card card-pad fx-glass fx-lift" style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: -30, right: -30, width: 110, height: 110, borderRadius: '50%', background: accent, opacity: .08, filter: 'blur(8px)' }} />
       <div className="row between" style={{ position: 'relative' }}>
         <div className="stat-label">{label}</div>
         <span style={{ color: accent }}><Icon name={icon} size={18} /></span>
       </div>
-      <div className="stat-value" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.5rem)', marginTop: 6 }}>{value}</div>
+      <div className="stat-value fx-holo" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.5rem)', marginTop: 6 }}>{value}</div>
       <div className="t-xs muted" style={{ marginTop: 2 }}>{sub}</div>
     </div>
   );
@@ -122,7 +123,7 @@ function FunnelCard({ funnel, onOpen }) {
   const toast = useToast();
   const m = useMemo(() => funnelMetrics(funnel), [funnel, getLandingPages(), getForms()]);
   return (
-    <div className="card card-hover row-host" style={{ padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '1rem', cursor: 'pointer' }} onClick={onOpen}>
+    <div className="card card-hover row-host fx-lift" style={{ padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', gap: '1rem', cursor: 'pointer' }} onClick={onOpen}>
       <div className="row between" style={{ gap: '.75rem' }}>
         <div className="row gap-2" style={{ minWidth: 0 }}>
           <span style={{ width: 40, height: 40, borderRadius: 11, background: funnel.accent, color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
@@ -217,7 +218,7 @@ function FunnelEditor({ funnel, onBack }) {
           </span>
           <div className="col" style={{ minWidth: 0 }}>
             <div className="row gap-1" style={{ minWidth: 0 }}>
-              <h3 className="clip" style={{ margin: 0 }}>{funnel.name}</h3>
+              <h3 className="clip fx-holo" style={{ margin: 0 }}>{funnel.name}</h3>
               <button className="btn btn-quiet btn-sm" aria-label="Rename" onClick={() => setRename(true)}><Icon name="edit" size={14} /></button>
             </div>
             <div className="t-xs muted">{funnel.steps.length} steps  |  {m.hasTraffic ? pct(m.endToEnd) : '0%'} end-to-end  |  {num(m.totalLeads)} leads</div>
@@ -260,7 +261,7 @@ function FunnelEditor({ funnel, onBack }) {
 
         {/* summary rail */}
         <div className="col gap-2" style={{ position: 'sticky', top: 12 }}>
-          <Card className="col gap-2">
+          <Card className="col gap-2 fx-glass fx-lift">
             <SectionHeader title="Funnel math" sub="From each asset's tracked counters" />
             <SummaryRow label="Visitors (step 1)" value={num(m.topEntered)} />
             <SummaryRow label="Conversions (all steps)" value={num(m.stepConversions)} />
@@ -269,7 +270,7 @@ function FunnelEditor({ funnel, onBack }) {
             {!m.hasTraffic && <div className="t-xs muted">No tracked traffic yet. Publish the linked pages and drive visitors, and these fill in live.</div>}
             {m.missing > 0 && <div className="t-xs" style={{ color: 'var(--warn)' }}><Icon name="bell" size={12} /> {m.missing} step{m.missing === 1 ? '' : 's'} not linked to an asset.</div>}
           </Card>
-          <Card className="col gap-1" style={{ background: 'var(--accent-50)', borderColor: 'var(--accent-300)' }}>
+          <Card className="col gap-1 fx-neon" style={{ background: 'var(--accent-50)', borderColor: 'var(--accent-300)' }}>
             <div className="row gap-1"><Icon name="sparkles" size={16} style={{ color: 'var(--accent-600)' }} /><span className="fw-7">Rook suggestion</span></div>
             <div className="t-sm" style={{ color: 'var(--ink-2)' }}>{rookHint(m, funnel)}</div>
             <Button variant="accent" size="sm" style={{ marginTop: 6, alignSelf: 'flex-start' }} onClick={() => askRook(`For the "${funnel.name}" funnel, draft the copy changes for the step with the worst conversion.`)}>Draft the fix</Button>
@@ -308,7 +309,7 @@ function StepCard({ row, funnel, isLast, isFirst }) {
   const dropPct = row.entered ? (dropoff / row.entered) * 100 : 0;
 
   return (
-    <div className="card" style={{ padding: '1rem 1.1rem', display: 'flex', gap: '1rem', alignItems: 'center', border: row.exists ? '1px solid var(--line)' : '1.5px solid var(--warn)' }}>
+    <div className="card fx-rise fx-lift" style={{ padding: '1rem 1.1rem', display: 'flex', gap: '1rem', alignItems: 'center', border: row.exists ? '1px solid var(--line)' : '1.5px solid var(--warn)' }}>
       <span style={{ width: 40, height: 40, borderRadius: 10, background: meta.color, color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
         <Icon name={meta.icon} size={19} />
       </span>

@@ -546,10 +546,11 @@ export default function TrainingCompanion() {
 
       {showFull && (
         <>
-          <div className="tc-head">
+          <div className="tc-head fx-scan">
+            <span className="tc-head__holo" aria-hidden />
             <span className="tc-head__ardo"><Character state={ardoState} size={40} className={ardoFx} /></span>
             <div className="tc-head__title">
-              <div className="tc-head__name">
+              <div className="tc-head__name fx-holo">
                 Ardo
                 {provider && <span className="tc-head__prov">{provider === 'vapi' ? 'Vapi' : provider === 'realtime' ? 'Realtime' : 'Voice'}</span>}
               </div>
@@ -559,7 +560,9 @@ export default function TrainingCompanion() {
             <button className="tc-x" onClick={() => { stopEverything(); setOpen(false); }} aria-label="Close Ardo" title="Close"><Icon name="x" size={18} /></button>
           </div>
 
-          <div className="tc-stage">
+          <div className="tc-stage fx-scene">
+            <span className="tc-fx-layer fx-aurora" aria-hidden />
+            <span className="tc-fx-layer fx-scan" aria-hidden />
             <div className="tc-stage__ardo"><Character state={ardoState} size={104} className={ardoFx} /></div>
             <div className="tc-stage__status">{stageStatus}</div>
 

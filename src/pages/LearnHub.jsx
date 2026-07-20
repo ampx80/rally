@@ -142,7 +142,7 @@ export default function LearnHub() {
   ];
 
   return (
-    <div className="fade-up lh">
+    <div className="fade-up lh fx-scene">
       <PageTitle
         eyebrow="Ardova Academy"
         title={<>Learn <GradientText>Hub</GradientText></>}
@@ -150,14 +150,18 @@ export default function LearnHub() {
       />
 
       {/* ---------------- HERO ---------------- */}
-      <section className="lh-hero">
+      <section className="lh-hero fx-scene fx-rise fx-scan">
         <span className="lh-hero__bg" aria-hidden />
+        <span className="lh-hero__fx lh-hero__fx--space fx-space" aria-hidden />
+        <span className="lh-hero__fx fx-aurora" aria-hidden />
+        <span className="lh-hero__fx fx-grid" aria-hidden />
         <div className="lh-hero__ardo" aria-hidden>
+          <span className="lh-hero__ardoGlow fx-pulse" aria-hidden />
           <Character state="idle" size={148} />
         </div>
         <div className="lh-hero__content">
           <div className="lh-hero__eyebrow">Your morning with Ardo</div>
-          <h2 className="lh-hero__title">
+          <h2 className="lh-hero__title fx-holo">
             Morning, {firstName}. Let us learn Ardova <GradientText>in one sitting.</GradientText>
           </h2>
           <p className="lh-hero__sub">
@@ -165,7 +169,7 @@ export default function LearnHub() {
             your mastery climb. Everything you need to go from day one to dangerous is right here.
           </p>
           <div className="lh-hero__actions">
-            <button type="button" className="lh-hero__cta" onClick={() => launchArdo({ open: true, autoStart: true })}>
+            <button type="button" className="lh-hero__cta fx-shimmer" onClick={() => launchArdo({ open: true, autoStart: true })}>
               <Icon name="play" size={18} />
               Start with Ardo
             </button>
@@ -184,11 +188,11 @@ export default function LearnHub() {
               </Link>
             )}
           </div>
-          <div className="lh-hero__stats">
+          <div className="lh-hero__stats fx-stagger">
             {heroStats.map((s, i) => (
-              <div key={i} className="lh-hero__stat">
+              <div key={i} className="lh-hero__stat fx-lift">
                 <span className="lh-hero__statIcon"><Icon name={s.icon} size={15} /></span>
-                <span className="lh-hero__statVal">{s.value}</span>
+                <span className="lh-hero__statVal fx-holo">{s.value}</span>
                 <span className="lh-hero__statLabel">{s.label}</span>
               </div>
             ))}
@@ -228,7 +232,7 @@ export default function LearnHub() {
           ))}
         </div>
         {morningDone === steps.length && (
-          <div className="lh-morning__win">
+          <div className="lh-morning__win fx-shimmer">
             <Icon name="star" size={16} /> You finished the morning path. You are officially ramped. Keep the streak alive.
           </div>
         )}
@@ -241,7 +245,7 @@ export default function LearnHub() {
           <h3 style={{ margin: 0 }}>Every part of your ramp, live</h3>
         </div>
       </div>
-      <div className="lh-tiles">
+      <div className="lh-tiles fx-stagger">
         <JourneyTile
           icon="radar"
           accent="var(--accent)"

@@ -52,6 +52,28 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
     <div className="sm-board">
       <svg className="sm-svg" viewBox={`0 0 ${W} ${H}`} role="group"
         aria-label="Ardovo skill constellation. Use Tab to move between skills and Enter to open one.">
+        {/* decorative gradients + soft glow filter for the galaxy look */}
+        <defs aria-hidden="true">
+          <radialGradient id="sm-nebula" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(124,92,247,.30)" />
+            <stop offset="45%" stopColor="rgba(34,211,238,.12)" />
+            <stop offset="100%" stopColor="rgba(124,92,247,0)" />
+          </radialGradient>
+          <filter id="sm-soft" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="3.4" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* nebula core + slow orbital ring: pure decoration behind the tree */}
+        <g aria-hidden="true">
+          <circle className="sm-nebula" cx={cx} cy={cy} r={outerR + 46} fill="url(#sm-nebula)" />
+          <circle className="sm-orbit" cx={cx} cy={cy} r={(innerR + outerR) / 2 + 24} fill="none" />
+        </g>
+
         {/* backdrop starfield */}
         <g aria-hidden="true">
           {stars.map(st => (
@@ -103,10 +125,17 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
             const dim = isDim(lk.area) && (isDim(SKILL_BY_ID.get(lk.from)?.area));
             const cls = ['sm-link', locked ? 'sm-link--locked' : '', hot ? 'sm-link--hot' : ''].filter(Boolean).join(' ');
             return (
-              <path key={i} className={cls} d={d}
-                stroke={locked ? undefined : areaColor(lk.area)}
-                strokeWidth={locked ? 1.4 : 2}
-                strokeOpacity={hot ? 0.95 : dim ? 0.08 : locked ? 0.7 : levelOpacity(toState.level)} />
+              <g key={i}>
+                <path className={cls} d={d}
+                  stroke={locked ? undefined : areaColor(lk.area)}
+                  strokeWidth={locked ? 1.4 : 2}
+                  strokeOpacity={hot ? 0.95 : dim ? 0.08 : locked ? 0.7 : levelOpacity(toState.level)} />
+                {/* animated energy dots streaming along unlocked prereq paths */}
+                {!locked && !dim && (
+                  <path className={`sm-flow${hot ? ' sm-flow--hot' : ''}`} d={d}
+                    stroke={areaColor(lk.area)} fill="none" />
+                )}
+              </g>
             );
           })}
         </g>
@@ -126,7 +155,7 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
             const filled = level === 'proficient' || level === 'mastered';
             const iconColor = level === 'locked' ? '#9aa3b2' : filled ? '#ffffff' : color;
             const dim = isDim(s.area) && !focused;
-            const cls = ['sm-node', level === 'locked' ? 'sm-node--locked' : '', st.isNext ? 'sm-node--next' : ''].filter(Boolean).join(' ');
+            const cls = ['sm-node', level === 'locked' ? 'sm-node--locked' : '', level === 'mastered' ? 'sm-node--mastered' : '', st.isNext ? 'sm-node--next' : ''].filter(Boolean).join(' ');
             const label = s.label.length > 16 ? s.label.slice(0, 15) + '.' : s.label;
             const showLabel = focused || selected || level === 'mastered' || level === 'proficient' || st.isNext;
             return (
@@ -143,7 +172,10 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
                 {/* generous invisible hit target */}
                 <circle className="sm-node__hit" cx={p.x} cy={p.y} r={baseR + 12} />
 
-                {/* pulse ring for "next to unlock" */}
+                {/* bright frontier halo + pulse ring for "next to unlock" */}
+                {st.isNext && (
+                  <circle className="sm-halo" cx={p.x} cy={p.y} r={baseR + 11} fill={color} aria-hidden="true" />
+                )}
                 {st.isNext && (
                   <circle className="sm-pulse" cx={p.x} cy={p.y} r={baseR + 2} fill="none" stroke={color} strokeWidth={2} />
                 )}

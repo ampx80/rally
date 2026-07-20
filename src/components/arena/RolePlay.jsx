@@ -18,8 +18,8 @@ function MoodMeter({ mood }) {
   return (
     <div className="col gap-1" style={{ minWidth: 150 }}>
       <div className="row between t-xs muted"><span>Buyer mood</span><span>{label}</span></div>
-      <div style={{ background: 'var(--n-100)', borderRadius: 999, height: 8, overflow: 'hidden' }}>
-        <div className="ar-mood-fill" style={{ width: `${mood}%`, height: '100%', background: color, borderRadius: 999 }} />
+      <div className="ar-mood-track" style={{ background: 'var(--n-100)', borderRadius: 999, height: 8, overflow: 'hidden' }}>
+        <div className="ar-mood-fill ar-mood-neon" style={{ width: `${mood}%`, height: '100%', background: color, borderRadius: 999 }} />
       </div>
     </div>
   );

@@ -248,8 +248,91 @@
   .ae-vs-mid { padding: 4px 0; }
 }
 
+/* ============================================================
+   JAW-DROP ENHANCEMENT LAYER (additive only).
+   A more premium agent-economy story: a richer hero light field
+   with a holographic headline, a deep-space living deal-room
+   stage, neon glass pillar cards, and an animated A2A link + AP2
+   mandate chain. Transform/opacity only; base rules above stand;
+   reduced motion honored at the very bottom.
+   ============================================================ */
+
+/* ---- richer hero light field --------------------------------------- */
+.ae-orb.o4 {
+  width: 300px; height: 300px; top: 28%; right: 26%;
+  background: radial-gradient(circle, rgba(34,211,238,.22), transparent 70%);
+  animation: aeDrift2 24s ease-in-out infinite;
+}
+.ae-hero-mesh {
+  position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(rgba(124,92,247,.07) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(124,92,247,.07) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 20%, transparent 72%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 20%, transparent 72%);
+}
+
+/* ---- holographic headline ------------------------------------------ */
+.ae-grad-dual {
+  background: linear-gradient(100deg, #0e9f8f 0%, #14b8a6 24%, #22d3ee 46%, #7c5cf7 72%, #a855f7 100%);
+  background-size: 240% auto;
+}
+
+/* ---- deep-space living deal-room stage ----------------------------- */
+.ae-stage {
+  background:
+    radial-gradient(120% 130% at 8% -10%, rgba(124,92,247,.5), transparent 46%),
+    radial-gradient(120% 130% at 100% 0%, rgba(34,211,238,.26), transparent 48%),
+    radial-gradient(120% 130% at 50% 120%, rgba(14,159,143,.3), transparent 50%),
+    linear-gradient(160deg, #131228 0%, #0a0c14 62%);
+  border-color: rgba(124,92,247,.35);
+  box-shadow: 0 30px 70px -34px rgba(88,60,220,.7), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.ae-stage-grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 30%, transparent 80%);
+}
+.ae-stage.fx-scan::before { z-index: 3; }
+.ae-stage-head { color: rgba(255,255,255,.72); }
+.ae-stage-head .ae-tag { color: #c9bcff; background: rgba(124,92,247,.2); }
+.ae-chain-arrow { color: rgba(255,255,255,.5); animation: aeArrow 2.4s ease-in-out infinite; }
+@keyframes aeArrow { 0%,100% { opacity: .5; transform: translateX(0); } 50% { opacity: 1; transform: translateX(2px); } }
+.ae-stage-foot { background: rgba(14,159,143,.16); border-color: rgba(14,159,143,.4); color: rgba(255,255,255,.85); }
+.ae-agent.theirs .ae-agent-badge.fx-float { animation-delay: 3s; }
+
+/* animated A2A link */
+.ae-link-line { opacity: .7; box-shadow: 0 0 8px rgba(124,92,247,.5); }
+.ae-link-pulse.p2 { background: #fff; border-color: #6ee7d6; box-shadow: 0 0 10px 2px rgba(110,231,214,.55);
+  animation: aeTravel 2.6s cubic-bezier(.5,0,.5,1) infinite; animation-delay: 1.3s; }
+.ae-link-badge { box-shadow: 0 0 16px -2px rgba(124,92,247,.6), var(--m-shadow-sm); }
+
+/* AP2 mandate chain lights in sequence */
+.ae-chain .ae-chain-step.on { animation: aeChainGlow 2.8s ease-in-out infinite; }
+.ae-chain .ae-chain-step.on ~ .ae-chain-step.on { animation-delay: 1.4s; }
+@keyframes aeChainGlow {
+  0%,100% { box-shadow: 0 10px 24px -12px rgba(124,92,247,.6); }
+  50% { box-shadow: 0 12px 30px -8px rgba(167,139,255,.9), 0 0 18px -2px rgba(34,211,238,.55); }
+}
+
+/* ---- neon glass pillar cards --------------------------------------- */
+.ae-neon {
+  position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 0; pointer-events: none;
+  background: conic-gradient(from 0deg, rgba(124,92,247,.9), rgba(34,211,238,.9), rgba(14,159,143,.9), rgba(124,92,247,.9));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .3s; animation: aeSpin 6s linear infinite;
+}
+.ae-pillar:hover .ae-neon { opacity: .9; }
+@keyframes aeSpin { to { transform: rotate(1turn); } }
+
 /* ---- reduced motion ------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   .ae-grad-dual, .ae-orb, .ae-link-pulse, .ae-kicker-pill .ae-live { animation: none !important; }
+  .ae-chain-arrow, .ae-chain .ae-chain-step.on, .ae-neon { animation: none !important; }
   .ae-pillar:hover { transform: none; }
 }

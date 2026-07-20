@@ -1,0 +1,153 @@
+/* ============================================================
+   ARDOVA FX - the shared futuristic visual system.
+   A reusable class vocabulary for a cohesive "mind-boggling" look across
+   every surface: drifting auroras, holographic gradients, glass, neon borders,
+   entrance + hover motion, shimmer, scanlines, starfields. Transform/opacity
+   only (GPU-cheap). Brand: teal (--accent) is product truth, violet (--ai) is
+   the AI layer. Everything collapses under prefers-reduced-motion.
+   NO em-dash / en-dash. ASCII only.
+   ============================================================ */
+
+:root {
+  --fx-teal: var(--accent, #0e9f8f);
+  --fx-violet: var(--ai, #7c5cf7);
+  --fx-cyan: #22d3ee;
+  --fx-glass-bg: rgba(255, 255, 255, .55);
+  --fx-glass-brd: rgba(255, 255, 255, .5);
+}
+[data-theme="dark"] {
+  --fx-glass-bg: rgba(22, 26, 38, .55);
+  --fx-glass-brd: rgba(124, 92, 247, .25);
+}
+
+/* ---------- scene + drifting aurora ---------- */
+.fx-scene { position: relative; isolation: isolate; }
+.fx-aurora { position: relative; isolation: isolate; }
+.fx-aurora::before, .fx-aurora::after {
+  content: ""; position: absolute; z-index: -1; border-radius: 50%;
+  filter: blur(60px); opacity: .38; pointer-events: none; will-change: transform;
+}
+.fx-aurora::before { width: 44vw; height: 44vw; max-width: 620px; max-height: 620px;
+  top: -18%; left: -12%; background: radial-gradient(circle at 30% 30%, var(--fx-violet), transparent 60%);
+  animation: fxDrift1 22s ease-in-out infinite; }
+.fx-aurora::after { width: 40vw; height: 40vw; max-width: 560px; max-height: 560px;
+  bottom: -22%; right: -14%; background: radial-gradient(circle at 60% 60%, var(--fx-teal), transparent 62%);
+  animation: fxDrift2 27s ease-in-out infinite; }
+@keyframes fxDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(6vw,4vw) scale(1.18); } }
+@keyframes fxDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-5vw,-3vw) scale(1.12); } }
+
+/* ---------- grid + dot fields ---------- */
+.fx-grid::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(rgba(124,92,247,.10) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(124,92,247,.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+}
+.fx-dots::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .4;
+  background-image: radial-gradient(rgba(14,159,143,.22) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(100% 100% at 50% 40%, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(100% 100% at 50% 40%, #000 40%, transparent 85%);
+}
+
+/* ---------- glass ---------- */
+.fx-glass {
+  background: var(--fx-glass-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--fx-glass-brd);
+  box-shadow: 0 18px 50px -30px rgba(30,20,80,.55), inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+/* ---------- holographic gradient text ---------- */
+.fx-holo {
+  background: linear-gradient(100deg, var(--fx-violet), var(--fx-cyan) 40%, var(--fx-teal) 70%, var(--fx-violet));
+  background-size: 240% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: fxHolo 7s linear infinite;
+}
+@keyframes fxHolo { to { background-position: 240% 0; } }
+
+/* ---------- neon animated border ---------- */
+.fx-neon { position: relative; }
+.fx-neon::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 0;
+  background: conic-gradient(from 0deg, var(--fx-violet), var(--fx-cyan), var(--fx-teal), var(--fx-violet));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: fxSpin 6s linear infinite; opacity: .9; pointer-events: none;
+}
+@keyframes fxSpin { to { transform: rotate(1turn); } }
+.fx-neon > * { position: relative; z-index: 1; }
+
+/* ---------- entrance ---------- */
+.fx-rise { animation: fxRise .6s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes fxRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.fx-stagger > * { animation: fxRise .6s cubic-bezier(.2,.7,.3,1) both; }
+.fx-stagger > *:nth-child(1){animation-delay:.04s}.fx-stagger > *:nth-child(2){animation-delay:.10s}
+.fx-stagger > *:nth-child(3){animation-delay:.16s}.fx-stagger > *:nth-child(4){animation-delay:.22s}
+.fx-stagger > *:nth-child(5){animation-delay:.28s}.fx-stagger > *:nth-child(6){animation-delay:.34s}
+.fx-stagger > *:nth-child(7){animation-delay:.40s}.fx-stagger > *:nth-child(8){animation-delay:.46s}
+
+/* ---------- hover lift + glow ---------- */
+.fx-lift { transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s; will-change: transform; }
+.fx-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 46px -24px rgba(124,92,247,.55); }
+.fx-glow { box-shadow: 0 0 0 0 rgba(124,92,247,.5); animation: fxGlow 3s ease-in-out infinite; }
+@keyframes fxGlow { 0%,100% { box-shadow: 0 0 22px -6px rgba(124,92,247,.5); } 50% { box-shadow: 0 0 34px 0 rgba(34,211,238,.55); } }
+
+/* ---------- shimmer sweep (on any surface) ---------- */
+.fx-shimmer { position: relative; overflow: hidden; }
+.fx-shimmer::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-18deg); animation: fxSweep 5.5s ease-in-out infinite;
+}
+@keyframes fxSweep { 0% { left: -60%; } 55%,100% { left: 130%; } }
+
+/* ---------- float + pulse ring ---------- */
+.fx-float { animation: fxFloat 6s ease-in-out infinite; }
+@keyframes fxFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.fx-pulse { position: relative; }
+.fx-pulse::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(14,159,143,.5); animation: fxPulse 2.4s ease-out infinite;
+}
+@keyframes fxPulse { 0% { box-shadow: 0 0 0 0 rgba(14,159,143,.5); } 70% { box-shadow: 0 0 0 14px rgba(14,159,143,0); } 100% { box-shadow: 0 0 0 0 rgba(14,159,143,0); } }
+
+/* ---------- scanline overlay (cinematic HUD) ---------- */
+.fx-scan { position: relative; overflow: hidden; }
+.fx-scan::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 2px; top: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.55), transparent);
+  animation: fxScan 4.5s linear infinite;
+}
+@keyframes fxScan { 0% { top: -2%; } 100% { top: 102%; } }
+
+/* ---------- gradient conic ring (loaders / accents) ---------- */
+.fx-ring { background: conic-gradient(from 0deg, var(--fx-violet), var(--fx-cyan), var(--fx-teal), var(--fx-violet)); animation: fxSpin 3.2s linear infinite; border-radius: 50%; }
+
+/* ---------- deep-space hero panel ---------- */
+.fx-space {
+  position: relative; overflow: hidden; color: #fff; isolation: isolate;
+  background:
+    radial-gradient(120% 130% at 8% -10%, rgba(124,92,247,.5), transparent 46%),
+    radial-gradient(120% 130% at 100% 0%, rgba(34,211,238,.28), transparent 48%),
+    radial-gradient(120% 130% at 50% 120%, rgba(14,159,143,.32), transparent 50%),
+    linear-gradient(160deg, #131228 0%, #0a0c14 62%);
+}
+
+/* ---------- reduced motion: calm everything ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .fx-aurora::before, .fx-aurora::after, .fx-holo, .fx-neon::before, .fx-rise,
+  .fx-stagger > *, .fx-glow, .fx-shimmer::after, .fx-float, .fx-pulse::after,
+  .fx-scan::before, .fx-ring {
+    animation: none !important;
+  }
+  .fx-rise, .fx-stagger > * { opacity: 1 !important; transform: none !important; }
+  .fx-lift { transition: none; }
+  .fx-holo { background-position: 0 0; }
+}

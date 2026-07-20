@@ -10,15 +10,16 @@ export default function JourneyTile({
   icon, accent = 'var(--accent)', eyebrow, value, valueSub, headline, rows = [], to, cta,
 }) {
   return (
-    <Link to={to} className="lh-tile" style={{ '--lh-accent': accent }} aria-label={`${eyebrow}: open`}>
+    <Link to={to} className="lh-tile fx-lift fx-shimmer" style={{ '--lh-accent': accent }} aria-label={`${eyebrow}: open`}>
       <span className="lh-tile__glow" aria-hidden />
+      <span className="lh-tile__ring" aria-hidden />
       <span className="lh-tile__head">
         <span className="lh-tile__icon"><Icon name={icon} size={18} /></span>
         <span className="lh-tile__eyebrow">{eyebrow}</span>
         <span className="lh-tile__go" aria-hidden><Icon name="arrowUpRight" size={16} /></span>
       </span>
 
-      <span className="lh-tile__value">
+      <span className="lh-tile__value fx-holo">
         {value}
         {valueSub != null && <span className="lh-tile__valueSub">{valueSub}</span>}
       </span>

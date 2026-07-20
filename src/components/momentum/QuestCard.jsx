@@ -11,7 +11,7 @@ export default function QuestCard({ quest, done, progress = 0, onMark, onUnmark 
   const manual = !quest.metric;
   const pct = Math.round(progress * 100);
   return (
-    <div className={`mo-quest${done ? ' mo-quest--done' : ''}`}>
+    <div className={`mo-quest fx-lift${done ? ' mo-quest--done mo-quest--glow' : ''}`}>
       <span className="mo-quest__icon"><Icon name={quest.icon} size={20} /></span>
 
       <div className="col gap-1" style={{ flex: 1, minWidth: 0 }}>

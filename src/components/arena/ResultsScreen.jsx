@@ -14,11 +14,11 @@ export default function ResultsScreen({ result, awarded = [], certifiedNow = fal
   return (
     <div className="col gap-3 ar-rise" style={{ maxWidth: 720, margin: '0 auto' }}>
       {certifiedNow && (
-        <Card className="ar-celebrate" style={{ borderColor: 'var(--ok)', background: 'color-mix(in srgb, var(--ok) 8%, var(--paper))' }}>
-          <div className="row gap-2" style={{ alignItems: 'center' }}>
-            <span style={{ fontSize: '1.8rem' }}>{'\u2605'}</span>
+        <Card className="ar-celebrate ar-cert fx-neon fx-glow fx-shimmer" style={{ borderColor: 'var(--ok)', background: 'color-mix(in srgb, var(--ok) 8%, var(--paper))' }}>
+          <div className="row gap-2" style={{ alignItems: 'center', position: 'relative' }}>
+            <span className="ar-cert__star fx-float" style={{ fontSize: '1.8rem' }}>{'\u2605'}</span>
             <div>
-              <div className="fw-7">Certification unlocked</div>
+              <div className="fw-7 fx-holo">Certification unlocked</div>
               <div className="t-sm muted">You passed all three modes for this role. The badge is now on your wall.</div>
             </div>
           </div>
@@ -30,8 +30,11 @@ export default function ResultsScreen({ result, awarded = [], certifiedNow = fal
           {MODE_LABEL[result.mode] || 'Result'}
         </div>
         <div className="row center gap-3" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
-          <div className="ar-grade" style={{ fontSize: '5.5rem', fontWeight: 800, lineHeight: 1, color: toneVar }}>
-            {result.grade}
+          <div className="ar-grade-wrap">
+            <span className="ar-grade-burst fx-ring" aria-hidden="true" style={{ '--ar-burst': toneVar }} />
+            <div className="ar-grade" style={{ fontSize: '5.5rem', fontWeight: 800, lineHeight: 1, color: toneVar, position: 'relative' }}>
+              {result.grade}
+            </div>
           </div>
           <Ring value={result.score} size={104} stroke={9} color={toneVar} label={`${result.score}`} />
         </div>

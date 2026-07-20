@@ -155,6 +155,82 @@
 .hs-move.danger { color: var(--risk); }
 .hs-move.danger:hover { border-color: var(--risk); background: rgba(192,57,43,.06); }
 
+/* ============================================================
+   JAW-DROP ENHANCEMENT LAYER (additive only).
+   A live holographic negotiation table: a glowing A2A link beam
+   between the agents, mandate chain cards that light up in
+   sequence with a signed-glow, a neon deal envelope with an
+   animated settle marker, and glowing tension gauges. Transform/
+   opacity only; base classes above untouched; reduced motion
+   honored at the bottom.
+   ============================================================ */
+
+/* ---------- holographic table + A2A link beam ---------- */
+.hs-table { position: relative; }
+.hs-link-beam {
+  position: absolute; left: 20%; right: 20%; top: 50%; height: 2px; transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(14,159,143,0), rgba(14,159,143,.65), rgba(124,92,247,.65), rgba(124,92,247,0));
+  border-radius: 2px; opacity: .75; pointer-events: none; z-index: 0;
+}
+.hs-link-beam::after {
+  content: ''; position: absolute; top: 50%; left: 0; width: 10px; height: 10px; border-radius: 50%;
+  transform: translate(-50%, -50%); background: #6ee7d6;
+  box-shadow: 0 0 12px 2px rgba(110,231,214,.85); animation: hsBeam 2.6s cubic-bezier(.5,0,.5,1) infinite;
+}
+@keyframes hsBeam { 0% { left: 2%; background: #6ee7d6; } 50% { left: 98%; background: #a78bff; box-shadow: 0 0 12px 2px rgba(167,139,255,.85); } 100% { left: 2%; background: #6ee7d6; } }
+.hs-table .hs-agent, .hs-table .hs-vs { position: relative; z-index: 1; }
+.hs-vs span { box-shadow: 0 6px 16px -6px rgba(124,92,247,.9); animation: hsVs 2.8s ease-in-out infinite; }
+@keyframes hsVs { 0%,100% { box-shadow: 0 6px 16px -8px rgba(124,92,247,.7); } 50% { box-shadow: 0 8px 26px -6px rgba(110,231,214,.85); } }
+
+/* ---------- offer chips pop as they land ---------- */
+.hs-msg-offer { animation: hsChip .42s cubic-bezier(.2,.9,.3,1.3) both; box-shadow: 0 0 0 0 rgba(124,92,247,.4); }
+.hs-msg.ours .hs-msg-offer { box-shadow: 0 4px 16px -8px rgba(124,92,247,.7); }
+.hs-msg.theirs .hs-msg-offer { box-shadow: 0 4px 16px -8px rgba(14,159,143,.7); }
+@keyframes hsChip { 0% { opacity: 0; transform: scale(.6); } 60% { transform: scale(1.12); } 100% { opacity: 1; transform: scale(1); } }
+
+/* ---------- mandate chain: signed-glow as each card lights ---------- */
+.hs-mandate { position: relative; }
+.hs-mandate.on { animation: hsSigned 3s ease-out infinite; }
+@keyframes hsSigned {
+  0% { box-shadow: 0 12px 30px -22px rgba(124,92,247,.7), 0 0 0 0 rgba(124,92,247,.45); }
+  70% { box-shadow: 0 12px 30px -22px rgba(124,92,247,.7), 0 0 22px 2px rgba(110,231,214,0); }
+  100% { box-shadow: 0 12px 30px -22px rgba(124,92,247,.7), 0 0 0 0 rgba(124,92,247,0); }
+}
+.hs-mandate.on .hs-sig { box-shadow: 0 0 12px -4px rgba(14,159,143,.8); }
+/* fx-shimmer only sweeps once a mandate is lit */
+.hs-mandate:not(.on).fx-shimmer::after { display: none; }
+
+/* ---------- chain link: energy flows down when settled ---------- */
+.hs-chain-link[data-on="true"] { animation: hsLink 1.6s ease-in-out infinite; }
+@keyframes hsLink { 0%,100% { opacity: .5; transform: translateY(-1px); } 50% { opacity: 1; transform: translateY(2px); } }
+
+/* ---------- deal envelope: neon zones + animated markers ---------- */
+.hs-env-zone.danger, .hs-env-zone.human, .hs-env-zone.mandate { box-shadow: inset 0 0 10px -2px rgba(0,0,0,.15); }
+.hs-env-zone.mandate { position: relative; overflow: hidden; }
+.hs-env-zone.mandate::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(110,231,214,.55), transparent);
+  transform: translateX(-100%); animation: hsZone 3.6s ease-in-out infinite;
+}
+@keyframes hsZone { 0% { transform: translateX(-100%); } 60%,100% { transform: translateX(220%); } }
+.hs-env-mark.ours .hs-env-dot { box-shadow: 0 0 10px 1px rgba(124,92,247,.7), 0 2px 6px rgba(0,0,0,.3); }
+.hs-env-mark.theirs .hs-env-dot { box-shadow: 0 0 10px 1px rgba(14,159,143,.7), 0 2px 6px rgba(0,0,0,.3); }
+.hs-env-mark.settle .hs-env-dot { box-shadow: 0 0 0 0 rgba(20,184,166,.6); animation: hsSettle 2s ease-out infinite; }
+@keyframes hsSettle { 0% { box-shadow: 0 0 0 0 rgba(20,184,166,.6); } 70% { box-shadow: 0 0 0 12px rgba(20,184,166,0); } 100% { box-shadow: 0 0 0 0 rgba(20,184,166,0); } }
+
+/* ---------- tension gauges glow ---------- */
+.hs-gauge-track { position: relative; overflow: hidden; }
+.hs-gauge-track span { filter: saturate(1.15) brightness(1.05); }
+.hs-gauge-track::after {
+  content: ''; position: absolute; top: 0; left: -40%; width: 30%; height: 100%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: hsGauge 3.4s ease-in-out infinite;
+}
+@keyframes hsGauge { 0% { left: -40%; } 60%,100% { left: 130%; } }
+
 @media (prefers-reduced-motion: reduce) {
   .hs-msg, .hs-typing span { animation: none !important; }
+  .hs-link-beam::after, .hs-vs span, .hs-msg-offer, .hs-mandate.on, .hs-mandate.on::after,
+  .hs-chain-link[data-on="true"], .hs-env-zone.mandate::after, .hs-env-mark.settle .hs-env-dot,
+  .hs-gauge-track::after { animation: none !important; }
 }

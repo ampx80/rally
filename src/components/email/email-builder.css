@@ -56,3 +56,12 @@
 .eb-frame-wrap.mobile .eb-frame { width: 375px; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) { .eb-frame { transition: none; } }
+
+/* ============================================================
+   Futuristic chrome (additive). Styles the BUILDER UI only, never the
+   rendered email preview HTML. ASCII only. NO em-dash / en-dash.
+   ============================================================ */
+.eb-toolbar.fx-glass { padding: 10px 12px; border-radius: 14px; }
+.eb-block.fx-neon.open { box-shadow: 0 14px 34px -22px rgba(124,92,247,.7); }
+.eb-frame-wrap.fx-shimmer { border-radius: 14px; }
+.eb-preview-lab.fx-holo { display: inline-block; }

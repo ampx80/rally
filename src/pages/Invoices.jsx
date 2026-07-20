@@ -92,12 +92,13 @@ export default function Invoices() {
   const onRemind = (inv) => { logReminder(inv.id); toast(`Reminder sent to ${inv.companyName}.`, 'ok'); };
 
   return (
-    <div className="col gap-3">
+    <div className="col gap-3 fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       {/* ---- header ---- */}
       <div className="row between wrap gap-2" style={{ alignItems: 'flex-end' }}>
         <div className="col gap-1">
           <div className="eyebrow">Billing</div>
-          <h2 style={{ margin: 0 }}>Invoices and accounts receivable</h2>
+          <h2 className="fx-holo" style={{ margin: 0 }}>Invoices and accounts receivable</h2>
           <div className="muted t-sm">Real-time AR across every account. Cash you have earned, cash you are owed.</div>
         </div>
         <Button variant="accent" onClick={() => setCreateOpen(true)}>
@@ -116,7 +117,7 @@ export default function Invoices() {
 
       {/* ---- charts ---- */}
       <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))' }}>
-        <Card>
+        <Card className="fx-glass fx-lift">
           <div className="row between" style={{ marginBottom: 10 }}>
             <div className="col gap-1">
               <div className="stat-label">Revenue billed</div>
@@ -142,7 +143,7 @@ export default function Invoices() {
           </div>
         </Card>
 
-        <Card>
+        <Card className="fx-glass fx-lift">
           <div className="row between" style={{ marginBottom: 10 }}>
             <div className="col gap-1">
               <div className="stat-label">AR aging</div>
@@ -386,7 +387,7 @@ function InvoiceDetail({ inv, onClose, onMarkPaid, onRemind, toast }) {
             <div className="row between t-sm"><span className="muted">Tax (8.25%)</span><span>{money(inv.tax)}</span></div>
             <div className="row between" style={{ borderTop: '1px solid var(--line)', paddingTop: 8, marginTop: 4 }}>
               <span className="fw-7">Total due</span>
-              <span className="fw-7" style={{ fontSize: '1.2rem' }}><AnimatedNumber value={inv.total} format={money} /></span>
+              <span className="fw-7 fx-holo" style={{ fontSize: '1.2rem' }}><AnimatedNumber value={inv.total} format={money} /></span>
             </div>
           </div>
         </div>

@@ -139,7 +139,7 @@ export default function Momentum() {
       />
 
       {/* ---------- HERO ---------- */}
-      <Card className="card-pad mo-hero" style={{ marginBottom: '1.4rem' }}>
+      <Card className="card-pad mo-hero fx-shimmer" style={{ marginBottom: '1.4rem' }}>
         <div className="mo-hero__glow" />
         <div className="row between wrap" style={{ gap: '1.6rem', position: 'relative', alignItems: 'center' }}>
           <div className="row gap-3" style={{ alignItems: 'center', minWidth: 0 }}>

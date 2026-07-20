@@ -121,3 +121,13 @@
 
 /* small helper */
 .rb-muted { color: var(--n-600); font-size: .85rem; }
+
+/* ============================================================
+   Futuristic (additive). Faint grid behind the builder, glassy panes,
+   holographic KPI value. Readability of tables/pivots is untouched.
+   ASCII only. NO em-dash / en-dash.
+   ============================================================ */
+.rb-shell { position: relative; }
+.rb-shell.fx-grid { border-radius: var(--r-lg); }
+.rb-pane.fx-glass { border-color: var(--fx-glass-brd); }
+.rb-kpi-value.fx-holo { line-height: 1.05; }

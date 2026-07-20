@@ -33,7 +33,7 @@ function Mandate({ kind, m, live }) {
   const titles = { intent: 'Intent Mandate', cart: 'Cart Mandate', payment: 'Payment Mandate' };
   const sigs = m.signatures || (m.signature ? [m.signature] : []);
   return (
-    <div className={`hs-mandate ${live ? 'on' : ''}`}>
+    <div className={`hs-mandate fx-shimmer ${live ? 'on' : ''}`}>
       <div className="hs-mandate-top">
         <span className="hs-mandate-badge">{AP2.credentials.split(' ')[0]} VDC</span>
         <span className="hs-mandate-title">{titles[kind]}</span>
@@ -180,8 +180,8 @@ export default function Handshake() {
     return [
       { label: 'List price', value: state.list, format: fmtMoney, icon: 'dollar' },
       { label: done ? 'Settled' : 'On the table', value: state.settle || state.ourOffer, format: fmtMoney, icon: 'gitBranch' },
-      { label: 'Win likelihood', value: g.winProb, format: (n) => `${n}%`, icon: 'gauge' },
-      { label: 'Buyer leverage', value: state.buyer.power, format: (n) => `${n}%`, icon: 'trendUp' },
+      { label: 'Win likelihood', value: g.winProb, format: (n) => `${Math.round(n)}%`, icon: 'gauge' },
+      { label: 'Buyer leverage', value: state.buyer.power, format: (n) => `${Math.round(n)}%`, icon: 'trendUp' },
     ];
   }, [state, gauge, done]);
 
@@ -244,14 +244,15 @@ export default function Handshake() {
           <div className="hs-grid">
             {/* the negotiation table */}
             <div className="hs-panel">
-              <div className="hs-table">
+              <div className="hs-table fx-scan">
+                <span className="hs-link-beam" aria-hidden />
                 <div className="hs-agent ours">
-                  <span className="hs-agent-ic"><Icon name="sparkles" size={16} /></span>
+                  <span className="hs-agent-ic fx-pulse"><Icon name="sparkles" size={16} /></span>
                   <div><div className="hs-agent-name">{state.seller.agentName}</div><div className="hs-agent-sub">Seller - {state.seller.principal} - {STRATEGIES.find(s => s.id === strategy)?.name}</div></div>
                 </div>
                 <div className="hs-vs"><span>A2A</span></div>
                 <div className="hs-agent theirs">
-                  <span className="hs-agent-ic"><Icon name="user" size={16} /></span>
+                  <span className="hs-agent-ic fx-pulse"><Icon name="user" size={16} /></span>
                   <div><div className="hs-agent-name">{state.buyer.agentName}</div><div className="hs-agent-sub">Buyer - {state.buyer.principal}</div></div>
                 </div>
               </div>

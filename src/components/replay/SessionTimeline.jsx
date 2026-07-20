@@ -19,7 +19,7 @@ export default function SessionTimeline({ stops = [], onGo }) {
   // Newest first reads like a session recap.
   const ordered = [...stops].reverse();
   return (
-    <div className="rp-tl">
+    <div className="rp-tl fx-scan">
       {ordered.map((s, i) => {
         const pct = Math.max(4, Math.round((s.dwellMs / maxDwell) * 100));
         return (

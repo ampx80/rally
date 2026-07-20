@@ -124,7 +124,7 @@ export default function SkillMap() {
   };
 
   return (
-    <div className="page">
+    <div className="page fx-scene">
       <PageTitle
         eyebrow="Mastery cartography"
         title="Skill Map"
@@ -140,7 +140,7 @@ export default function SkillMap() {
 
       {/* summary strip */}
       <div className="sm-summary" style={{ marginBottom: '1rem' }}>
-        <Card className="sm-hero" pad>
+        <Card className="sm-hero fx-shimmer fx-neon" pad>
           <div className="row gap-3" style={{ alignItems: 'center' }}>
             <Ring value={overall} size={92} stroke={9} color="var(--accent)" label={`${overall}%`} />
             <div className="col gap-1" style={{ minWidth: 0 }}>

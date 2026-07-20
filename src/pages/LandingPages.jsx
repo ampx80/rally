@@ -92,7 +92,7 @@ function Editor({ pageId, onBack }) {
       </div>
 
       <div className="row gap-2 wrap" style={{ marginBottom: '.75rem', alignItems: 'center' }}>
-        <span className="t-xs muted fw-6" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>Designed with the shared visual builder</span>
+        <span className="t-xs fw-6 fx-holo" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>Designed with the shared visual builder</span>
         <span className="t-xs muted">Same designer as email. Preview renders the real page.</span>
       </div>
 
@@ -202,7 +202,8 @@ function PageList({ onEdit }) {
   const onPub = (p) => { const r = togglePublished(p.id); toast(r.page?.published ? 'Published' : 'Unpublished'); };
 
   return (
-    <div className="fade-up">
+    <div className="fade-up fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', marginBottom: '1.25rem' }}>
         <StatCard label="Pages" value={stats.total} sub={`${stats.drafts} draft${stats.drafts === 1 ? '' : 's'}`} icon={<Icon name="fileText" size={18} />} spark={spark(4, 12, 0.4)} />
         <StatCard label="Published" value={stats.published} sub="live now" icon={<Icon name="rocket" size={18} />} spark={spark(7, 12, 0.8)} accent="#0ea5a3" sparkColor="#0ea5a3" />
@@ -228,7 +229,7 @@ function PageList({ onEdit }) {
             const linked = p.formId ? forms.find(f => f.id === p.formId) : null;
             const blockCount = (p.design?.blocks || []).length;
             return (
-              <Card key={p.id} hover>
+              <Card key={p.id} hover className="fx-lift">
                 <div className="row between wrap gap-3" style={{ alignItems: 'flex-start' }}>
                   <button type="button" onClick={() => onEdit(p.id)} className="col gap-1" style={{ minWidth: 0, flex: '1 1 320px', background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', padding: 0 }}>
                     <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap', minWidth: 0 }}>

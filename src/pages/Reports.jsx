@@ -313,7 +313,7 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
       </div>
 
       <Reveal>
-      <Card className="col" style={{ gap: '1rem' }}>
+      <Card className="col fx-glass fx-lift" style={{ gap: '1rem' }}>
         <InViewChart height={340}>
           <ReportChart def={def} computed={computed} height={340} />
         </InViewChart>
@@ -342,7 +342,7 @@ function GalleryCard({ def, onOpen }) {
     ? fmt(Math.round(computed.rows.reduce((s, r) => s + r.value, 0) / (computed.rows.length || 1)), 'percent')
     : fmt(computed.rows.reduce((s, r) => s + r.value, 0), computed.valueFormat);
   return (
-    <Card hover className="col" style={{ gap: '.85rem', justifyContent: 'space-between', cursor: 'pointer' }} onClick={() => onOpen(def)}>
+    <Card hover className="col fx-lift" style={{ gap: '.85rem', justifyContent: 'space-between', cursor: 'pointer' }} onClick={() => onOpen(def)}>
       <div className="col gap-2">
         <div className="row between" style={{ alignItems: 'flex-start' }}>
           <span className="row center" style={{ width: 34, height: 34, borderRadius: 9, background: ACCENT + '14', color: ACCENT, flex: 'none' }}>
@@ -445,7 +445,7 @@ function ShareView({ id, onClose }) {
         <Badge tone="accent" style={{ marginLeft: 'auto' }}>Read-only</Badge>
       </div>
 
-      <Card className="col" style={{ gap: '1rem' }}>
+      <Card className="col fx-glass fx-lift" style={{ gap: '1rem' }}>
         {rich
           ? <VizPreview def={def} computed={richComputed} height={360} />
           : <ReportChart def={def} computed={simpleComputed} height={360} />}
@@ -531,9 +531,9 @@ function ReportsHome() {
       {/* ---------- DASHBOARD: charts ---------- */}
       <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1rem' }}>
         <Reveal>
-        <Card className="col" style={{ gap: '.75rem' }}>
+        <Card className="col fx-glass fx-lift" style={{ gap: '.75rem' }}>
           <div className="row between">
-            <span className="fw-7">Forecast by rep</span>
+            <span className="fw-7 fx-holo">Forecast by rep</span>
             <span className="muted t-sm">open pipeline each rep carries</span>
           </div>
           <InViewChart height={240}>
@@ -542,9 +542,9 @@ function ReportsHome() {
         </Card>
         </Reveal>
         <Reveal delay={60}>
-        <Card className="col" style={{ gap: '.75rem' }}>
+        <Card className="col fx-glass fx-lift" style={{ gap: '.75rem' }}>
           <div className="row between">
-            <span className="fw-7">Deals by industry</span>
+            <span className="fw-7 fx-holo">Deals by industry</span>
             <span className="muted t-sm">where pipeline concentrates</span>
           </div>
           <InViewChart height={240}>
@@ -553,9 +553,9 @@ function ReportsHome() {
         </Card>
         </Reveal>
         <Reveal delay={120}>
-        <Card className="col" style={{ gap: '.75rem' }}>
+        <Card className="col fx-glass fx-lift" style={{ gap: '.75rem' }}>
           <div className="row between">
-            <span className="fw-7">Win rate by rep</span>
+            <span className="fw-7 fx-holo">Win rate by rep</span>
             <span className="muted t-sm">closed-won conversion</span>
           </div>
           <InViewChart height={240}>
@@ -570,7 +570,7 @@ function ReportsHome() {
       <div className="col gap-2">
         <div className="row between" style={{ alignItems: 'flex-end' }}>
           <div className="col gap-1">
-            <h4 style={{ margin: 0 }}>Report library</h4>
+            <h4 className="fx-holo" style={{ margin: 0 }}>Report library</h4>
             <div className="muted t-sm">Saved reports, ready to run. Open one, or build your own.</div>
           </div>
           <Badge tone="default">{reports.length} reports</Badge>

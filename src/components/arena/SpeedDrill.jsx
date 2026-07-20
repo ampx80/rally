@@ -150,8 +150,8 @@ export default function SpeedDrill({ roleId, onExit }) {
             </div>
             <div className="t-sm muted" style={{ marginTop: '.25rem' }}>{drill.scenario}</div>
           </div>
-          <div className="col" style={{ alignItems: 'flex-end' }}>
-            <div className={`ar-timer-live`} style={{ fontFamily: 'var(--font-mono)', fontSize: '2rem', fontWeight: 800, color: overTarget ? 'var(--risk)' : 'var(--ink)' }}>
+          <div className="col ar-hud" style={{ alignItems: 'flex-end' }}>
+            <div className={`ar-timer-live ar-hud-timer${overTarget ? ' ar-hud-timer--over' : ''}`} style={{ fontFamily: 'var(--font-mono)', fontSize: '2rem', fontWeight: 800, color: overTarget ? 'var(--risk)' : 'var(--ink)' }}>
               {fmtTime(elapsed)}
             </div>
             <div className="t-xs muted">target {Math.round(drill.targetMs / 1000)}s</div>

@@ -115,7 +115,7 @@ export default function Replay() {
     : <Badge tone="warn">Paused</Badge>;
 
   return (
-    <div className="col gap-3">
+    <div className="col gap-3 fx-scene fx-grid">
       <PageTitle
         eyebrow="Replay and Coach"
         title="Your session, coached"
@@ -175,7 +175,7 @@ export default function Replay() {
             {cards.length === 0 ? (
               <Card><span className="muted t-sm">Keep working and your coach will surface tips as patterns emerge.</span></Card>
             ) : (
-              <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
+              <div className="grid fx-stagger" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
                 {cards.map(c => <CoachCard key={c.id || c.title} card={c} onGo={goTo} />)}
               </div>
             )}

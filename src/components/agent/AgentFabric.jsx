@@ -16,7 +16,7 @@ export default function AgentFabric({ agents = [], selectedId, onSelect }) {
   });
 
   return (
-    <div className="afx">
+    <div className="afx fx-scan">
       <div className="afx-cap"><span style={{ width: 7, height: 7, borderRadius: 99, background: '#8b6bff', display: 'inline-block' }} /> Agent Fabric</div>
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Agent fleet map">
         <defs>
@@ -39,14 +39,21 @@ export default function AgentFabric({ agents = [], selectedId, onSelect }) {
             <g key={'l' + i}>
               <path className="afx-line" d={d} />
               {nd.active && <path className="afx-flow" d={d} style={{ animationDelay: `${(i % 5) * 0.22}s` }} />}
+              {nd.active && <path className="afx-flow2" d={d} style={{ animationDelay: `${(i % 4) * 0.3}s` }} />}
             </g>
           );
         })}
 
+        {/* orbiting glow (decorative) */}
+        <g className="afx-orbit" aria-hidden><circle cx={CX} cy={CY - 118} r="3.6" /></g>
+        <g className="afx-orbit rev" aria-hidden><circle cx={CX + 150} cy={CY} r="2.8" /></g>
+
         {/* core */}
         <g className="afx-core">
+          <circle className="afx-core-halo" cx={CX} cy={CY} r="48" aria-hidden />
           <circle className="afx-core-ring" cx={CX} cy={CY} />
-          <circle className="afx-core-ring" cx={CX} cy={CY} style={{ animationDelay: '1.5s' }} />
+          <circle className="afx-core-ring" cx={CX} cy={CY} style={{ animationDelay: '1s' }} />
+          <circle className="afx-core-ring" cx={CX} cy={CY} style={{ animationDelay: '2s' }} />
           <circle cx={CX} cy={CY} r="30" fill="url(#afxCoreFill)" stroke="rgba(255,255,255,.25)" strokeWidth="1.5" />
           <text x={CX} y={CY - 1} textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#fff" letterSpacing="1">ROOK</text>
           <text x={CX} y={CY + 12} textAnchor="middle" fontSize="8" fill="rgba(255,255,255,.7)" letterSpacing="1.5">CORE</text>

@@ -261,13 +261,13 @@ function BuilderTab() {
         </div>
       </div>
 
-      <div className="rb-shell">
+      <div className="rb-shell fx-grid">
         {/* LEFT: field palette */}
         <FieldPalette source={def.source} onAddField={(f) => routeField(f.id)} dragField={dragField} setDragField={setDragField} />
 
         {/* CENTER: canvas */}
         <div className="col gap-2" style={{ minWidth: 0 }}>
-          <Card className="col" style={{ gap: '.85rem' }}>
+          <Card className="col fx-glass fx-lift" style={{ gap: '.85rem' }}>
             <div className="row gap-2 wrap">
               <DropZone label="Group by" hint="Drop a dimension" accept={['dim']} dragRole={dragField?.role}
                 token={primaryDim ? { ...fieldById(def.source, primaryDim) } : null}
@@ -309,8 +309,8 @@ function BuilderTab() {
         </div>
 
         {/* RIGHT: config */}
-        <div className="rb-pane">
-          <div className="rb-pane-title">Configure</div>
+        <div className="rb-pane fx-glass">
+          <div className="rb-pane-title fx-holo">Configure</div>
           <Field label="Data source">
             <Select value={def.source} onChange={e => setDef(reconcileDefinition({ ...emptyDefinition(e.target.value), title: def.title, desc: def.desc, viz: def.viz }))}>
               {SOURCES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
@@ -394,14 +394,14 @@ function BuilderTab() {
         <div className="col gap-2">
           <div className="row between" style={{ alignItems: 'flex-end' }}>
             <div className="col gap-1">
-              <h4 style={{ margin: 0 }}>Your report library</h4>
+              <h4 className="fx-holo" style={{ margin: 0 }}>Your report library</h4>
               <span className="muted t-sm">Saved reports and starters. Load one to keep building.</span>
             </div>
             <Badge>{library.length} reports</Badge>
           </div>
           <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '.85rem' }}>
             {library.map(r => (
-              <Card key={r.id} hover className="col" style={{ gap: '.6rem', cursor: 'pointer' }} onClick={() => loadInto(r)}>
+              <Card key={r.id} hover className="col fx-lift" style={{ gap: '.6rem', cursor: 'pointer' }} onClick={() => loadInto(r)}>
                 <div className="row between" style={{ alignItems: 'flex-start' }}>
                   <span className="row center" style={{ width: 30, height: 30, borderRadius: 8, background: 'color-mix(in srgb, var(--accent) 14%, transparent)', color: 'var(--accent-600)', flex: 'none' }}>
                     <Icon name={sourceMeta(r.source).icon} size={16} />
@@ -427,7 +427,7 @@ function BuilderTab() {
         <Reveal>
           <div className="col gap-2">
             <div className="col gap-1">
-              <h4 style={{ margin: 0 }}>Scheduled deliveries</h4>
+              <h4 className="fx-holo" style={{ margin: 0 }}>Scheduled deliveries</h4>
               <span className="rb-muted">Saved in this browser. Use "Send test now" to preview delivery; recurring delivery starts once the delivery backend is connected.</span>
             </div>
             <div className="col gap-1">
@@ -473,10 +473,10 @@ function CohortsTab() {
 
   return (
     <div className="col gap-3">
-      <Card className="col" style={{ gap: '1rem' }}>
+      <Card className="col fx-glass fx-lift" style={{ gap: '1rem' }}>
         <div className="row between wrap gap-2">
           <div className="col gap-1">
-            <span className="fw-7">Cohort analysis</span>
+            <span className="fw-7 fx-holo">Cohort analysis</span>
             <span className="rb-muted">Records grouped by creation month, tracked across the months that follow.</span>
           </div>
           <div className="row gap-1 wrap" style={{ alignItems: 'flex-end' }}>

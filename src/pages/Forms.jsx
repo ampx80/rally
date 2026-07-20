@@ -65,7 +65,8 @@ function FormsList({ onOpen }) {
   }
 
   return (
-    <div className="col gap-4" style={{ padding: 'var(--page-pad, 1.5rem)' }}>
+    <div className="col gap-4 fx-scene" style={{ padding: 'var(--page-pad, 1.5rem)' }}>
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <PageTitle
         eyebrow="Marketing"
         title="Forms"
@@ -97,7 +98,7 @@ function FormCard({ form, onOpen }) {
   const steps = stepCount(form);
   const accent = form.style?.accent || 'var(--accent)';
   return (
-    <Card hover className="col gap-3" onClick={() => onOpen(form.id)} style={{ cursor: 'pointer' }}>
+    <Card hover className="col gap-3 fx-lift" onClick={() => onOpen(form.id)} style={{ cursor: 'pointer' }}>
       <div className="row between" style={{ alignItems: 'flex-start' }}>
         <div className="row gap-2" style={{ minWidth: 0, alignItems: 'center' }}>
           <span style={{ width: 36, height: 36, borderRadius: 10, background: accent, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
@@ -185,14 +186,15 @@ function FormBuilder({ form, onBack }) {
   function onDelete() { deleteForm(form.id); toast('Form deleted'); onBack(); }
 
   return (
-    <div className="col gap-4" style={{ padding: 'var(--page-pad, 1.5rem)' }}>
+    <div className="col gap-4 fx-scene" style={{ padding: 'var(--page-pad, 1.5rem)' }}>
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
         <div className="col gap-1" style={{ minWidth: 0 }}>
           <button onClick={onBack} className="btn btn-quiet btn-sm" style={{ alignSelf: 'flex-start', paddingLeft: 0 }}>
             <Icon name="arrowLeft" size={16} /> All forms
           </button>
           <div className="row gap-2" style={{ alignItems: 'center' }}>
-            <h1 className="page-h1" style={{ margin: 0 }}>{form.name}</h1>
+            <h1 className="page-h1 fx-holo" style={{ margin: 0 }}>{form.name}</h1>
             <Badge tone={form.status === 'published' ? 'ok' : 'warn'}>{form.status === 'published' ? 'Live' : 'Draft'}</Badge>
           </div>
         </div>
@@ -219,7 +221,7 @@ function FormBuilder({ form, onBack }) {
 
       {tab === 'build' && (
         <div className="forms-build-grid">
-          <Card className="col gap-3">
+          <Card className="col gap-3 fx-glass">
             <SectionHeader title="Fields" sub={`${fields.length} field${fields.length === 1 ? '' : 's'} across ${steps} step${steps === 1 ? '' : 's'}`} />
             {fields.length === 0 && <div className="t-sm muted" style={{ padding: '.5rem 0' }}>No fields yet. Add one to start.</div>}
 
@@ -240,7 +242,7 @@ function FormBuilder({ form, onBack }) {
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={() => onDropField(fd.id)}
                       onDragEnd={() => setDragId(null)}
-                      className={`forms-field-row${dragId === fd.id ? ' is-drag' : ''}`}
+                      className={`forms-field-row fx-rise${dragId === fd.id ? ' is-drag fx-neon' : ''}`}
                     >
                       <span className="grip" title="Drag to reorder"><Icon name="grid" size={15} /></span>
                       <span style={{ color: 'var(--n-500)', flex: 'none' }}><Icon name={fieldTypeIcon(fd.type)} size={15} /></span>
@@ -274,7 +276,7 @@ function FormBuilder({ form, onBack }) {
             </div>
           </Card>
 
-          <Card className="col gap-2">
+          <Card className="col gap-2 fx-glass fx-lift">
             <SectionHeader title="Live preview" sub="Interactive. Try the steps and logic." />
             <div style={{ maxWidth: form.style?.width || 560, width: '100%', margin: '0 auto' }}>
               <FormRenderer form={form} mode="preview" />

@@ -72,6 +72,56 @@
 .br-archive-head { font-weight: 800; font-size: 13.5px; color: var(--ink); }
 .br-archive-sub { font-size: 11.5px; color: var(--ink-2); }
 
+/* ============================================================
+   JAW-DROP ENHANCEMENT LAYER (additive only).
+   A holographic war room: glass council seats that assemble in a
+   stagger, a dot-field debate panel, and a consensus verdict that
+   lands with a burst behind a holographic headline. Transform/
+   opacity only; base classes above untouched; reduced motion
+   honored at the bottom.
+   ============================================================ */
+
+/* ---------- glass council seats ---------- */
+.br-seat { position: relative; overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tone) 6%, var(--paper)), var(--paper)); }
+.br-seat::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .8;
+  background: radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, var(--tone) 12%, transparent), transparent 55%);
+}
+.br-seat > * { position: relative; z-index: 1; }
+.br-seat:hover { box-shadow: 0 18px 42px -24px color-mix(in srgb, var(--tone) 60%, transparent),
+  0 0 0 1px color-mix(in srgb, var(--tone) 26%, transparent); }
+.br-seat-ic { box-shadow: 0 0 16px -4px var(--tone); }
+.br-seat-stance { box-shadow: 0 0 12px -4px color-mix(in srgb, var(--tone) 70%, transparent); }
+
+/* ---------- dot-field war-room debate panel ---------- */
+.br-panel { position: relative; overflow: hidden; }
+.br-panel::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .45;
+  background-image: radial-gradient(rgba(124,92,247,.12) 1px, transparent 1.4px); background-size: 20px 20px;
+  mask-image: radial-gradient(100% 78% at 50% 0%, #000 28%, transparent 82%);
+  -webkit-mask-image: radial-gradient(100% 78% at 50% 0%, #000 28%, transparent 82%);
+}
+.br-panel > * { position: relative; z-index: 1; }
+.br-line { box-shadow: 0 6px 18px -16px color-mix(in srgb, var(--tone) 60%, transparent); }
+.br-line.chair { box-shadow: 0 10px 26px -16px rgba(124,92,247,.6); }
+
+/* ---------- consensus verdict lands with a burst ---------- */
+.br-consensus { position: relative; overflow: hidden;
+  box-shadow: 0 22px 54px -32px color-mix(in srgb, var(--tone) 62%, transparent); }
+.br-burst {
+  position: absolute; top: 20px; left: 22px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--tone); pointer-events: none; z-index: 0;
+  animation: brBurst 1s cubic-bezier(.2,.7,.3,1) 1 both;
+}
+@keyframes brBurst {
+  0% { transform: scale(.35); opacity: .85; box-shadow: 0 0 0 0 color-mix(in srgb, var(--tone) 55%, transparent); }
+  100% { transform: scale(1); opacity: 0; box-shadow: 0 0 0 70px color-mix(in srgb, var(--tone) 0%, transparent); }
+}
+.br-consensus > * { position: relative; z-index: 1; }
+.br-consensus-head.fx-holo { letter-spacing: -.02em; }
+
 @media (prefers-reduced-motion: reduce) {
   .br-line, .br-typing span { animation: none !important; }
+  .br-burst { animation: none !important; opacity: 0; }
 }

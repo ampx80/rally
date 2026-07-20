@@ -8,11 +8,11 @@
 .mo-page { position: relative; }
 
 /* ---------- hero ---------- */
-.mo-hero {
+.mo-hero.card, .mo-hero {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(520px 260px at 82% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(520px 260px at 82% -10%, rgba(14,159,143,.30), transparent 70%),
     linear-gradient(125deg, var(--accent-700), var(--accent) 52%, var(--accent-purple));
   color: #fff;
   border: none;
@@ -129,6 +129,41 @@
 .mo-levelup__ring { animation: moPop .5s var(--ease) both; }
 @keyframes moPop { from { transform: scale(.7); opacity: 0; } to { transform: none; opacity: 1; } }
 
+/* ---------- futuristic upgrades (additive) ---------- */
+/* neon competence ring glow */
+.mo-ring__fill { filter: drop-shadow(0 0 7px rgba(255, 255, 255, .65)); }
+
+/* level badge pulses like a fresh unlock (hero + modal, on colored bg) */
+.mo-badge--lg { animation: mo-badge-glow 3s ease-in-out infinite; }
+@keyframes mo-badge-glow {
+  0%, 100% { box-shadow: inset 0 0 0 2px rgba(255,255,255,.35), 0 0 18px -8px rgba(255,255,255,.5); }
+  50% { box-shadow: inset 0 0 0 2px rgba(255,255,255,.55), 0 0 30px -4px rgba(255,255,255,.8); }
+}
+
+/* glowing streak flame when lit */
+.mo-flame__icon:not(.mo-flame__icon--cold) {
+  box-shadow: 0 0 18px -3px color-mix(in srgb, var(--warn) 70%, transparent), var(--shadow-sm);
+}
+
+/* level-up modal conic burst behind the badge */
+.mo-levelup__burst { position: relative; display: inline-grid; place-items: center; }
+.mo-levelup__ray {
+  position: absolute; left: 50%; top: 50%; width: 152px; height: 152px;
+  border-radius: 50%; transform: translate(-50%, -50%); z-index: 0;
+  opacity: .5; filter: blur(3px) saturate(150%);
+  -webkit-mask: radial-gradient(closest-side, #000 44%, rgba(0,0,0,.4) 64%, transparent 74%);
+  mask: radial-gradient(closest-side, #000 44%, rgba(0,0,0,.4) 64%, transparent 74%);
+  pointer-events: none;
+}
+.mo-levelup__burst > :not(.mo-levelup__ray) { position: relative; z-index: 1; }
+
+/* completed quests glow */
+.mo-quest--glow {
+  border-color: color-mix(in srgb, var(--ok) 42%, transparent) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ok) 30%, transparent),
+              0 0 20px -6px color-mix(in srgb, var(--ok) 55%, transparent);
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .mo-ring__fill, .mo-xp__fill, .mo-team__fill { transition: none; }
@@ -136,4 +171,5 @@
   .mo-confetti { display: none; }
   .mo-levelup__ring { animation: none; }
   .mo-quest { transition: none; }
+  .mo-badge--lg { animation: none; }
 }

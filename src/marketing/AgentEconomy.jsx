@@ -111,6 +111,8 @@ export default function AgentEconomy() {
           <span className="ae-orb o1" />
           <span className="ae-orb o2" />
           <span className="ae-orb o3" />
+          <span className="ae-orb o4" />
+          <span className="ae-hero-mesh" />
         </div>
         <div className="mkt-wrap">
           <div className="ae-hero-grid">
@@ -138,7 +140,8 @@ export default function AgentEconomy() {
 
             {/* RIGHT - agent-to-agent deal room visual */}
             <Reveal delay={140}>
-              <div className="ae-stage">
+              <div className="ae-stage fx-scan">
+                <span className="ae-stage-grid" aria-hidden />
                 <div className="ae-stage-head">
                   <span className="ae-live" /> Live deal room
                   <span className="ae-tag">A2A + AP2</span>
@@ -146,7 +149,7 @@ export default function AgentEconomy() {
 
                 <div className="ae-agents">
                   <div className="ae-agent mine">
-                    <span className="ae-agent-badge"><IcoBolt size={20} /></span>
+                    <span className="ae-agent-badge fx-float"><IcoBolt size={20} /></span>
                     <div className="ae-agent-role">Your side</div>
                     <div className="ae-agent-name">Ardovo Deal Agent</div>
                     <div className="ae-agent-sub">Negotiating within your price floor and terms mandate.</div>
@@ -155,11 +158,12 @@ export default function AgentEconomy() {
                   <div className="ae-link" aria-hidden>
                     <span className="ae-link-line" />
                     <span className="ae-link-pulse" />
+                    <span className="ae-link-pulse p2" />
                     <span className="ae-link-badge"><IcoLink size={15} /></span>
                   </div>
 
                   <div className="ae-agent theirs">
-                    <span className="ae-agent-badge"><IcoSearch size={20} /></span>
+                    <span className="ae-agent-badge fx-float"><IcoSearch size={20} /></span>
                     <div className="ae-agent-role">Buyer side</div>
                     <div className="ae-agent-name">Buying Agent</div>
                     <div className="ae-agent-sub">Sourcing, comparing, and pressure-testing your quote.</div>
@@ -229,7 +233,8 @@ export default function AgentEconomy() {
           <Reveal delay={80}>
             <div className="mkt-grid mkt-grid-3 m-cascade">
               {PILLARS.map((p) => (
-                <div key={p.tag} className="mkt-card ae-pillar">
+                <div key={p.tag} className="mkt-card ae-pillar fx-lift">
+                  <span className="ae-neon" aria-hidden />
                   <span className="mkt-icon mkt-icon-violet" style={{ marginBottom: 16 }}>{p.icon}</span>
                   <span className="ae-pillar-tag">{p.tag}</span>
                   <h3 className="mkt-h3">{p.title}</h3>
@@ -295,7 +300,7 @@ export default function AgentEconomy() {
       <section className="mkt-section" style={{ paddingTop: 40 }}>
         <div className="mkt-wrap">
           <Reveal>
-            <div className="ae-std">
+            <div className="ae-std fx-scan">
               <div className="ae-std-inner">
                 <span className="mkt-eyebrow" style={{ color: '#c4b5fd' }}>Built on open standards</span>
                 <h2 className="mkt-h2" style={{ margin: '14px 0 0', maxWidth: 720 }}>

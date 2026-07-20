@@ -179,7 +179,7 @@ export default function OsmosisCoach() {
     <>
       {/* ---------- Smart tip bubble ---------- */}
       {enabled && bubble && !spot && !popOpen && (
-        <div className="osm-bubble" role="status" aria-live="polite">
+        <div className="osm-bubble fx-glass fx-neon" role="status" aria-live="polite">
           <div className="osm-bubble__top">
             <span className="osm-bubble__mark"><Icon name="sparkles" size={16} /></span>
             <div className="col" style={{ minWidth: 0, lineHeight: 1.15 }}>

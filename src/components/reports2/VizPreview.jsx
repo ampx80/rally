@@ -59,7 +59,7 @@ export default function VizPreview({ def, computed, height = 320 }) {
     return (
       <div className="rb-kpi">
         <div className="rb-muted">{measureLabel}</div>
-        <div className="rb-kpi-value">{formatValue(computed.kpi, valueFormat)}</div>
+        <div className="rb-kpi-value fx-holo">{formatValue(computed.kpi, valueFormat)}</div>
         <div className="rb-muted">across {rows.length} {computed.dimLabel.toLowerCase()} groups, {computed.recordCount} records</div>
       </div>
     );

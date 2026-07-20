@@ -47,8 +47,8 @@ export default function TeamCoverage({ version, currentUserId }) {
   }, [cell, rows]);
 
   return (
-    <div className="col gap-3">
-      <div className="card card-pad">
+    <div className="col gap-3 fx-scene">
+      <div className="card card-pad fx-glass fx-rise">
         <div className="row between wrap" style={{ gap: '.75rem', marginBottom: '.9rem' }}>
           <div className="col gap-1" style={{ minWidth: 0 }}>
             <div className="eyebrow">Manager lens</div>
@@ -129,7 +129,7 @@ export default function TeamCoverage({ version, currentUserId }) {
       </div>
 
       {drill && (
-        <div className="card card-pad">
+        <div className="card card-pad fx-glass fx-rise">
           <div className="row gap-2" style={{ alignItems: 'center', marginBottom: '.75rem' }}>
             <span className="sm-lvl-dot" style={{ width: 12, height: 12, background: areaColor(drill.area.id) }} />
             <h4 style={{ margin: 0 }}>{drill.row.user.name} on {drill.area.label}</h4>

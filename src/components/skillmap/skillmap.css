@@ -114,6 +114,43 @@
 .sm-meter { display: flex; height: 8px; border-radius: 999px; overflow: hidden; background: var(--n-100); }
 .sm-meter > span { display: block; height: 100%; }
 
+/* ---------- galaxy decoration ---------- */
+.sm-nebula {
+  pointer-events: none; transform-box: fill-box; transform-origin: center;
+  animation: sm-breathe 9s ease-in-out infinite;
+}
+@keyframes sm-breathe { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .8; transform: scale(1.05); } }
+
+.sm-orbit {
+  stroke: var(--sm-ring); stroke-width: 1.2; stroke-dasharray: 2 13; opacity: .7;
+  transform-box: fill-box; transform-origin: center;
+  animation: sm-spin 64s linear infinite;
+}
+@keyframes sm-spin { to { transform: rotate(360deg); } }
+
+/* streaming energy dots along unlocked prereq links */
+.sm-flow {
+  stroke-linecap: round; stroke-width: 2.4; stroke-dasharray: 0.5 15;
+  stroke-opacity: .85; pointer-events: none;
+  animation: sm-flow 2.4s linear infinite;
+}
+.sm-flow--hot { stroke-width: 3; stroke-dasharray: 0.5 11; animation-duration: 1.5s; }
+@keyframes sm-flow { to { stroke-dashoffset: -31; } }
+
+/* mastered node halo breathes */
+.sm-node--mastered .sm-node__glow {
+  transform-box: fill-box; transform-origin: center;
+  animation: sm-glow-pulse 3s ease-in-out infinite;
+}
+@keyframes sm-glow-pulse { 0%, 100% { opacity: .16; transform: scale(1); } 50% { opacity: .34; transform: scale(1.2); } }
+
+/* bright frontier halo */
+.sm-halo {
+  pointer-events: none; transform-box: fill-box; transform-origin: center;
+  animation: sm-frontier 2.6s ease-in-out infinite;
+}
+@keyframes sm-frontier { 0%, 100% { opacity: .12; transform: scale(1); } 50% { opacity: .32; transform: scale(1.3); } }
+
 /* ---------- animations ---------- */
 @keyframes sm-twinkle { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
 @keyframes sm-pulse {
@@ -124,7 +161,9 @@
 @keyframes sm-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .sm-star, .sm-node--next .sm-pulse, .sm-node--next .sm-node__disc { animation: none !important; }
+  .sm-star, .sm-node--next .sm-pulse, .sm-node--next .sm-node__disc,
+  .sm-nebula, .sm-orbit, .sm-node--mastered .sm-node__glow, .sm-halo { animation: none !important; }
   .sm-node--next .sm-pulse { opacity: .4; }
   .sm-node__disc { transition: none; }
+  .sm-flow { display: none; }
 }

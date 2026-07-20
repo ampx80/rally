@@ -49,6 +49,10 @@ export default function Character({ state = 'idle', size = 120, className = '' }
       <span className="ardo__ear ardo__ear--1" aria-hidden />
       <span className="ardo__ear ardo__ear--2" aria-hidden />
 
+      {/* living holographic aura + orbiting energy (decorative, state-driven) */}
+      <span className="ardo__aura" aria-hidden />
+      <span className="ardo__orbit" aria-hidden><i /><i /><i /></span>
+
       <svg className="ardo__svg" viewBox="0 0 120 120" width="100%" height="100%" aria-hidden>
         <defs>
           <radialGradient id={bodyId} cx="35%" cy="28%" r="80%">

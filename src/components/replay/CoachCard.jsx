@@ -23,7 +23,7 @@ export default function CoachCard({ card, onGo }) {
   const color = TONE_COLOR[card.tone] || TONE_COLOR.accent;
   const badgeTone = TONE_BADGE[card.tone] || 'accent';
   return (
-    <Card className="rp-card col gap-2" style={{ '--rp-accent': color }}>
+    <Card className="rp-card col gap-2 fx-glass fx-lift" style={{ '--rp-accent': color }}>
       <div className="rp-card__head">
         <span className="rp-card__icon"><Icon name={card.icon || 'sparkles'} size={19} /></span>
         <div className="col gap-1" style={{ minWidth: 0, flex: 1 }}>

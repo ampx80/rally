@@ -153,13 +153,13 @@ function Dashboard({ stats, lstats, onGoLinks, onRefund }) {
 
         {/* right column: payout + status split + rook */}
         <div className="col gap-3">
-          <Card>
+          <Card className="fx-glass fx-lift">
             <SectionHeader title="Payout schedule" sub="Funds settle on a 2 day rolling basis" />
             <div className="col gap-2">
               <div className="row between" style={{ alignItems: 'flex-end' }}>
                 <div className="col gap-1">
                   <div className="stat-label">In transit</div>
-                  <div className="stat-value" style={{ fontSize: 'clamp(1.8rem,2.6vw,2.3rem)' }}>{money(stats.payout.inTransit)}</div>
+                  <div className="stat-value fx-holo" style={{ fontSize: 'clamp(1.8rem,2.6vw,2.3rem)' }}>{money(stats.payout.inTransit)}</div>
                 </div>
                 <div style={{ color: 'var(--accent-600)' }}><Icon name="dollar" size={30} /></div>
               </div>
@@ -173,7 +173,7 @@ function Dashboard({ stats, lstats, onGoLinks, onRefund }) {
             </div>
           </Card>
 
-          <Card>
+          <Card className="fx-glass fx-lift">
             <SectionHeader title="Charge health" sub="Where this period's attempts land" />
             <div className="col gap-2">
               <div className="row" style={{ height: 12, borderRadius: 999, overflow: 'hidden', background: 'var(--n-100)' }}>
@@ -196,7 +196,7 @@ function Dashboard({ stats, lstats, onGoLinks, onRefund }) {
       </div>
 
       {/* collection summary strip */}
-      <Card className="row between wrap" style={{ gap: '1rem' }}>
+      <Card className="row between wrap fx-glass fx-lift" style={{ gap: '1rem' }}>
         <div className="row gap-3 wrap" style={{ alignItems: 'center' }}>
           <div className="col gap-1"><div className="stat-label">Collected via links</div><div className="fw-8 t-lg mono">{money(lstats.collected)}</div></div>
           <div className="col gap-1"><div className="stat-label">Outstanding</div><div className="fw-8 t-lg mono" style={{ color: 'var(--warn)' }}>{money(lstats.outstanding)}</div></div>
@@ -514,7 +514,7 @@ function Subscriptions({ stats }) {
       </div>
 
       {dunning.length > 0 && (
-        <Card style={{ borderColor: 'var(--risk)' }}>
+        <Card className="fx-lift" style={{ borderColor: 'var(--risk)' }}>
           <div className="row between wrap" style={{ marginBottom: '.9rem', gap: '.5rem' }}>
             <div className="col gap-1" style={{ minWidth: 0 }}>
               <h3 style={{ margin: 0, color: 'var(--risk)' }}>Failed payments - dunning</h3>
@@ -559,7 +559,7 @@ function Subscriptions({ stats }) {
           </div>
         </Card>
 
-        <Card>
+        <Card className="fx-glass fx-lift">
           <SectionHeader title="Upcoming renewals" sub="Next 45 days" />
           <div className="col gap-1">
             {renewals.length === 0 && <EmptyState icon="🗓️" title="No renewals due" body="Nothing renews in the next 45 days." />}
@@ -632,7 +632,8 @@ export default function Payments() {
   };
 
   return (
-    <div className="page-in col gap-3">
+    <div className="page-in col gap-3 fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <PageTitle
         eyebrow="Commerce"
         title={<>Payments</>}

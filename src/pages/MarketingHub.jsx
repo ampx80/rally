@@ -69,7 +69,8 @@ export default function MarketingHub() {
   const segments = useMemo(() => segmentOverview(rules), [rules, store, hub]);
 
   return (
-    <div className="page-in col gap-3">
+    <div className="page-in col gap-3 fx-scene">
+      <div className="fx-aurora" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: -1, pointerEvents: 'none' }} />
       <PageTitle
         eyebrow="Marketing"
         title="Marketing Hub"
@@ -97,12 +98,12 @@ export default function MarketingHub() {
         <SectionHeader title="Every surface, one view" sub="Live counts from each store. Click to open and launch." />
         <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))' }}>
           {surfaces.map(s => (
-            <Link key={s.key} to={s.to} className="card card-hover" style={{ padding: '1.1rem 1.15rem', display: 'flex', flexDirection: 'column', gap: '.5rem', textDecoration: 'none', color: 'inherit' }}>
+            <Link key={s.key} to={s.to} className="card card-hover fx-lift" style={{ padding: '1.1rem 1.15rem', display: 'flex', flexDirection: 'column', gap: '.5rem', textDecoration: 'none', color: 'inherit' }}>
               <div className="row between">
                 <span style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--accent-50)', color: 'var(--accent-600)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Icon name={s.icon} size={19} /></span>
                 <span className="t-xs muted"><Icon name="arrowUpRight" size={14} /></span>
               </div>
-              <div className="fw-8" style={{ fontSize: '1.8rem', letterSpacing: '-.02em' }}>{num(s.metric)}</div>
+              <div className="fw-8 fx-holo" style={{ fontSize: '1.8rem', letterSpacing: '-.02em' }}>{num(s.metric)}</div>
               <div className="fw-7">{s.label}</div>
               <div className="t-xs muted clip">{s.sub}</div>
             </Link>
@@ -112,7 +113,7 @@ export default function MarketingHub() {
 
       <div className="grid" style={{ gridTemplateColumns: '1.3fr 1fr', gap: '1.15rem', alignItems: 'start' }}>
         {/* recent activity feed (real events) */}
-        <Card className="col gap-2">
+        <Card className="col gap-2 fx-glass fx-lift">
           <SectionHeader title="Recent activity" sub="Real events across every marketing surface." />
           {activity.length === 0 ? (
             <EmptyState icon="🗞️" title="No activity yet" body="Send a campaign, publish a page, or capture a form lead and it shows up here." />
@@ -133,7 +134,7 @@ export default function MarketingHub() {
         </Card>
 
         {/* hot leads (real scored contacts) */}
-        <Card className="col gap-2">
+        <Card className="col gap-2 fx-glass fx-lift">
           <SectionHeader title="Hottest leads" sub="Scored live from your contacts." action={<Link className="btn btn-quiet btn-sm" to="/leads">All leads</Link>} />
           {hot.length === 0 ? (
             <EmptyState title="No contacts yet" body="Scored leads appear as your book fills in." />
@@ -160,7 +161,7 @@ export default function MarketingHub() {
         <SectionHeader title="Live segments" sub="Audience sizes computed from real contacts." />
         <div className="grid stagger" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))' }}>
           {segments.map(seg => (
-            <Link key={seg.id} to={seg.to} className="card card-hover" style={{ padding: '1rem 1.1rem', display: 'flex', flexDirection: 'column', gap: '.35rem', textDecoration: 'none', color: 'inherit' }}>
+            <Link key={seg.id} to={seg.to} className="card card-hover fx-lift" style={{ padding: '1rem 1.1rem', display: 'flex', flexDirection: 'column', gap: '.35rem', textDecoration: 'none', color: 'inherit' }}>
               <div className="row between">
                 <span className="fw-7 clip">{seg.label}</span>
                 <Badge tone={seg.tone}>{num(seg.count)}</Badge>
@@ -172,7 +173,7 @@ export default function MarketingHub() {
       </div>
 
       {/* quick launch (deep links to every surface) */}
-      <Card className="col gap-2">
+      <Card className="col gap-2 fx-glass fx-lift">
         <SectionHeader title="Launch anything" sub="Jump straight into any marketing surface." />
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '.6rem' }}>
           {QUICK_LAUNCH.map(q => (
@@ -192,13 +193,13 @@ export default function MarketingHub() {
 
 function KpiTile({ label, value, sub, icon, accent }) {
   return (
-    <div className="card card-pad" style={{ position: 'relative', overflow: 'hidden' }}>
+    <div className="card card-pad fx-glass fx-lift" style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: -30, right: -30, width: 110, height: 110, borderRadius: '50%', background: accent, opacity: .08, filter: 'blur(8px)' }} />
       <div className="row between" style={{ position: 'relative' }}>
         <div className="stat-label">{label}</div>
         <span style={{ color: accent }}><Icon name={icon} size={18} /></span>
       </div>
-      <div className="stat-value" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.5rem)', marginTop: 6 }}>{value}</div>
+      <div className="stat-value fx-holo" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.5rem)', marginTop: 6 }}>{value}</div>
       <div className="t-xs muted" style={{ marginTop: 2 }}>{sub}</div>
     </div>
   );

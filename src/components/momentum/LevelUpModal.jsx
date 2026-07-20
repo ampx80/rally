@@ -10,7 +10,8 @@ export default function LevelUpModal({ open, level, onClose }) {
   return (
     <Modal open={open} onClose={onClose} width={420}>
       <div className="col center gap-3" style={{ textAlign: 'center', padding: '.5rem 0 .25rem' }}>
-        <div className="mo-levelup__ring">
+        <div className="mo-levelup__ring mo-levelup__burst">
+          <span className="mo-levelup__ray fx-ring" aria-hidden="true" />
           <LevelBadge level={level.level} badge={level.badge} color={level.color} size="lg" style={{ width: 88, height: 88, fontSize: '1.9rem', borderRadius: 24 }} />
         </div>
         <div className="eyebrow" style={{ color: level.color }}>Level {level.level} unlocked</div>

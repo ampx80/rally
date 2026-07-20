@@ -13,20 +13,20 @@ function BadgeTile({ badge }) {
   const when = badge.earnedAt ? new Date(badge.earnedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   return (
     <div
-      className="ar-badge col gap-2 center"
+      className={`ar-badge col gap-2 center ar-badge-tile fx-shimmer${isCert ? ' ar-badge-cert fx-neon fx-glow' : ''}`}
       style={{
         textAlign: 'center', padding: '1.1rem .9rem', borderRadius: 'var(--r-lg)',
         border: `1px solid ${isCert ? toneVar : 'var(--line)'}`,
         background: isCert ? 'color-mix(in srgb, var(--ok) 8%, var(--paper))' : 'var(--paper)',
       }}
     >
-      <span style={{
+      <span className={isCert ? 'ar-badge__medal fx-float' : 'ar-badge__medal'} style={{
         width: 52, height: 52, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: `color-mix(in srgb, ${toneVar} 16%, transparent)`, color: toneVar,
       }}>
         <Icon name={badge.icon} size={26} />
       </span>
-      <div className="fw-7" style={{ lineHeight: 1.3 }}>{badge.label}</div>
+      <div className={`fw-7${isCert ? ' fx-holo' : ''}`} style={{ lineHeight: 1.3 }}>{badge.label}</div>
       <div className="row gap-1 center wrap">
         {isCert
           ? <Badge tone="ok">Certified</Badge>

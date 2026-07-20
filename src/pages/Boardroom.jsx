@@ -119,7 +119,7 @@ export default function Boardroom() {
       {session && (
         <>
           {/* the council */}
-          <div className="br-council">
+          <div className="br-council fx-stagger">
             {session.seats.map(s => {
               const st = STANCE[s.stance] || STANCE.neutral;
               return (
@@ -161,9 +161,10 @@ export default function Boardroom() {
             {/* consensus + memo */}
             <aside className="br-side">
               {done && voteMeta && (
-                <div className="br-consensus" style={{ '--tone': voteMeta.tone }}>
+                <div className="br-consensus fx-rise" style={{ '--tone': voteMeta.tone }}>
+                  <span className="br-burst" aria-hidden />
                   <div className="br-consensus-eyebrow"><Icon name={voteMeta.icon} size={14} /> Consensus</div>
-                  <div className="br-consensus-head">{session.headline}</div>
+                  <div className="br-consensus-head fx-holo">{session.headline}</div>
                   <div className="br-consensus-body">{session.rationale}</div>
                   <div className="br-tally">
                     {Object.entries(session.tally).map(([v, n]) => (

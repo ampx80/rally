@@ -134,7 +134,7 @@ function ColumnCell({ side, el, onPatch }) {
   return (
     <div className="eb-col-cell">
       <div className="eb-col-head">
-        <span>{side}</span>
+        <span className="fx-holo">{side}</span>
         <Select value={el.type} onChange={e => onPatch({ ...makeBlock(e.target.value), align: el.align })}>
           <option value="text">Text</option>
           <option value="image">Image</option>
@@ -191,9 +191,9 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars, target =
   }, [doc, sampleVars, isLanding]);
 
   return (
-    <div className="eb">
+    <div className="eb fx-scene">
       {/* toolbar */}
-      <div className="eb-toolbar">
+      <div className="eb-toolbar fx-glass">
         <div className="eb-menu-wrap">
           <Button variant="primary" size="sm" onClick={() => { setShowAdd(s => !s); setShowTpl(false); }}><Icon name="plus" size={15} /> Add block</Button>
           {showAdd && (
@@ -241,7 +241,7 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars, target =
             const meta = BLOCK_TYPES.find(t => t.type === b.type);
             const open = selected === b.id;
             return (
-              <div key={b.id} className={`eb-block ${open ? 'open' : ''}`} draggable
+              <div key={b.id} className={`eb-block fx-rise ${open ? 'open fx-neon' : ''}`} draggable
                 onDragStart={() => { dragIdx.current = i; }} onDragOver={e => e.preventDefault()} onDrop={() => onDrop(i)}>
                 <div className="eb-block-head" onClick={() => setSelected(open ? null : b.id)}>
                   <span className="eb-drag" title="Drag to reorder"><Icon name="move" size={13} /></span>
@@ -272,8 +272,8 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars, target =
 
         {/* live preview */}
         <div className="eb-preview">
-          <div className="eb-preview-lab">Live preview</div>
-          <div className={`eb-frame-wrap ${device}`}>
+          <div className="eb-preview-lab fx-holo">Live preview</div>
+          <div className={`eb-frame-wrap ${device} fx-shimmer`}>
             <iframe title={isLanding ? 'Landing page preview' : 'Email preview'} className="eb-frame" srcDoc={previewHtml} />
           </div>
         </div>
