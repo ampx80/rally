@@ -35,7 +35,12 @@ export default function Login() {
   const [capsOn, setCapsOn] = useState(false);
   const [warp, setWarp] = useState(false); // hyperspace success transition
   const [quip, setQuip] = useState(0);
+  const [returning, setReturning] = useState(null); // { name, email } remembered locally
+  const [party, setParty] = useState(false); // easter-egg celebration
   const gbtnRef = useRef(null);
+  const pokeBurst = useRef({ n: 0, t: 0 });
+  const partyTimer = useRef(0);
+  const reduceMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const pwInfo = mode === 'signup' ? scorePassword(form.password) : null;
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
@@ -70,8 +75,49 @@ export default function Login() {
     return () => { live = false; clearTimeout(t); };
   }, [form.password, mode]);
 
+  const REMEMBER = 'ardovo_last_user';
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const enter = () => { grantAccessCode(); setFlash(true); setWarp(true); setTimeout(() => nav('/app'), 1150); };
+  const enter = () => {
+    grantAccessCode();
+    // Remember this browser's user so Ardo can greet them by name next time.
+    try {
+      const first = (form.name || (form.email || '').split('@')[0] || '').split(/[.\s_-]/)[0];
+      const name = first ? first.charAt(0).toUpperCase() + first.slice(1) : '';
+      if (form.email) localStorage.setItem(REMEMBER, JSON.stringify({ email: form.email, name }));
+    } catch {}
+    setFlash(true); setWarp(true); setTimeout(() => nav('/app'), 1150);
+  };
+
+  // On load, welcome a returning user by name and prefill their email.
+  useEffect(() => {
+    try {
+      const r = JSON.parse(localStorage.getItem(REMEMBER) || 'null');
+      if (r && r.email) { setReturning(r); setForm(f => ({ ...f, email: r.email })); }
+    } catch {}
+  }, []);
+
+  // Party mode: Konami code, or poke Ardo 5x fast. Pure delight, no side effects.
+  const triggerParty = () => {
+    if (reduceMotion) return;
+    setParty(true); clearTimeout(partyTimer.current);
+    partyTimer.current = setTimeout(() => setParty(false), 4200);
+  };
+  const onArdoPoke = () => {
+    const now = Date.now(); const s = pokeBurst.current;
+    s.n = now - s.t < 1500 ? s.n + 1 : 1; s.t = now;
+    if (s.n >= 5) { s.n = 0; triggerParty(); }
+  };
+  useEffect(() => {
+    const seq = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
+    let i = 0;
+    const h = (e) => {
+      const k = (e.key || '').toLowerCase();
+      if (k === seq[i]) { i++; if (i === seq.length) { i = 0; triggerParty(); } }
+      else { i = k === seq[0] ? 1 : 0; }
+    };
+    window.addEventListener('keydown', h);
+    return () => { window.removeEventListener('keydown', h); clearTimeout(partyTimer.current); };
+  }, []); // eslint-disable-line
 
   // Rotate idle quips every 7s (only while genuinely idle, not mid-task).
   useEffect(() => {
@@ -141,24 +187,31 @@ export default function Login() {
 
   // Character mood + what Ardo is saying, driven by the live UI state.
   const pwStrong = mode === 'signup' && form.password && pwInfo && pwInfo.score >= 3 && !pwned?.breached;
+  // A returning user (remembered locally) gets greeted by name until they start
+  // on the password - takes priority over the generic domain welcome.
+  const welcomeBack = returning && mode === 'login' && step === 'creds' && !form.password && focusField !== 'password';
   const mood = warp ? 'happy'
     : busy ? 'thinking'
     : flash ? 'happy'
+    : party ? 'love'
     : err ? 'oops'
     : capsOn && focusField === 'password' ? 'wink'
     : pwStrong ? 'love'
     : showPw ? 'peek'
     : step === 'twofa' ? 'idle'
+    : welcomeBack ? 'greet'
     : greeting ? 'greet' : 'idle';
   const message = (() => {
     if (warp) return 'Punch it. Warping you in...';
     if (busy) return step === 'twofa' ? 'Checking your code...' : 'One sec, getting you in...';
     if (flash) return "You're in. Welcome aboard!";
+    if (party) return 'PARTY MODE UNLOCKED. You clearly know your way around. Respect.';
     if (err) return "Hmm, that didn't line up. No stress - try again, or tap Get help and I'll get you in.";
     if (capsOn && focusField === 'password') return "Heads up - Caps Lock is on, so your password is SHOUTING. Totally fine, just saying.";
     if (step === 'twofa') return "Grab the 6-digit code from your authenticator. Lost your phone? I will still get you in.";
     if (pwStrong) return "Ooh, that's a strong one. I like your style.";
     if (showPw) return "Okay, I will look away while you check it. No peeking, promise.";
+    if (welcomeBack) return `Welcome back${returning.name ? ', ' + returning.name : ''}! Great to see you - just your password and you're in.`;
     if (mode === 'signup') return "Welcome! Pick a passphrase you will actually remember - length beats symbols every time.";
     if (focusField === 'password') return "Forgot it? Don't worry, I keep backup doors so you are never locked out.";
     if (focusField === 'email' && emailValid) return `Nice - someone from ${emailDomain}. Let's get you in.`;
@@ -168,12 +221,13 @@ export default function Login() {
   const touch = () => { if (greeting) setGreeting(false); };
 
   return (
-    <div className="lg-wrap">
+    <div className={`lg-wrap${party ? ' lg-party' : ''}`}>
+      {party && !reduceMotion && <PartyConfetti />}
       <div className="lg-aside">
         <AuthBackdrop tint="teal" warp={warp} />
         <div className="lg-aside-in">
           <div className="lg-brand"><span className="lg-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} /></div>
+          <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} onPoke={onArdoPoke} /></div>
           <p className="lg-sub">Sign in to the operator that actually runs the work. And if anything gets in your way, Ardo (and a real human) are one tap away. You are never locked out.</p>
         </div>
       </div>
@@ -182,7 +236,7 @@ export default function Login() {
         <div className="lg-panel-body">
         <div className="lg-card">
           <div className="lg-logo"><span className="lg-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lg-guide-m"><AuthGuide mood={mood} message={message} size={96} compact /></div>
+          <div className="lg-guide-m"><AuthGuide mood={mood} message={message} size={96} compact onPoke={onArdoPoke} /></div>
 
           {step === 'creds' ? (
             <>
@@ -268,6 +322,29 @@ export default function Login() {
   );
 }
 
+// Full-screen confetti burst for the secret party mode. Pure CSS, self-cleans
+// when the parent unmounts it after ~4s. Colors span the neon brand spectrum.
+function PartyConfetti() {
+  const colors = ['#0e9f8f', '#14b8a6', '#7c5cf7', '#22d3ee', '#3b82f6', '#ff5d8f', '#f5b83d'];
+  const pieces = Array.from({ length: 70 });
+  return (
+    <div className="lg-confetti" aria-hidden>
+      {pieces.map((_, i) => {
+        const left = Math.random() * 100;
+        const delay = Math.random() * 0.7;
+        const dur = 2.4 + Math.random() * 1.6;
+        const size = 6 + Math.random() * 8;
+        const rot = Math.random() * 360;
+        return <span key={i} style={{
+          left: `${left}%`, width: `${size}px`, height: `${size * 0.5}px`,
+          background: colors[i % colors.length], animationDelay: `${delay}s`, animationDuration: `${dur}s`,
+          transform: `rotate(${rot}deg)`,
+        }} />;
+      })}
+    </div>
+  );
+}
+
 // The never-locked-out concierge row. Shows a real dial link the instant a
 // number is provisioned; always offers a guided help page (no dead ends).
 function HelpRow({ nav }) {
@@ -285,6 +362,9 @@ function LoginStyles() {
   return (
     <style>{`
     .lg-wrap { min-height: 100vh; display: grid; grid-template-columns: 1.05fr 1fr; background: #0b0d14; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .lg-confetti { position: fixed; inset: 0; z-index: 999; pointer-events: none; overflow: hidden; }
+    .lg-confetti span { position: absolute; top: -20px; border-radius: 2px; opacity: .95; animation-name: lgFall; animation-timing-function: cubic-bezier(.3,.6,.5,1); animation-fill-mode: forwards; }
+    @keyframes lgFall { 0% { transform: translateY(-20px) rotate(0); opacity: 1; } 100% { transform: translateY(105vh) rotate(720deg); opacity: .9; } }
     @media (max-width: 820px) { .lg-wrap { grid-template-columns: 1fr; } .lg-aside { display: none; } }
     .lg-aside { position: relative; overflow: hidden; background: radial-gradient(120% 120% at 20% 10%, #12324a, #0b0d14 55%); color: #fff; }
     .lg-aside-in { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 6vw; max-width: 640px; }

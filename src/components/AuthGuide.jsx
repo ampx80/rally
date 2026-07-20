@@ -18,7 +18,7 @@ const POKE_QUIPS = [
 ];
 const POKE_MOODS = ['wink', 'love', 'happy', 'dizzy'];
 
-export default function AuthGuide({ mood = 'idle', message = '', size = 132, compact = false }) {
+export default function AuthGuide({ mood = 'idle', message = '', size = 132, compact = false, onPoke }) {
   const rootRef = useRef(null);
   const [bubbleKey, setBubbleKey] = useState(0);
   const [override, setOverride] = useState(null); // poke reaction { mood, message }
@@ -44,6 +44,7 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
     });
     clearTimeout(pokeRef.current);
     pokeRef.current = setTimeout(() => setOverride(null), 1700);
+    try { onPoke && onPoke(); } catch {}
   };
   useEffect(() => () => clearTimeout(pokeRef.current), []);
 
