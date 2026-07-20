@@ -11,6 +11,7 @@ import { Icon } from '../components/icons.jsx';
 import AuthGuide from '../components/AuthGuide.jsx';
 import AuthBackdrop from '../components/AuthBackdrop.jsx';
 import { hasPhone, HELP_NUMBER, HELP_EMAIL, formatPhone, telHref } from '../lib/concierge.js';
+import { currentAccessory } from '../lib/ardo-flair.js';
 
 // Copy adapts to what is actually wired: when a live phone line exists we say
 // "call"; when it does not, we point at the concierge without promising a call.
@@ -26,6 +27,7 @@ export default function LoginHelp() {
   const nav = useNavigate();
   const phone = hasPhone();
   const FIXES = buildFixes(phone);
+  const accessory = currentAccessory();
   useEffect(() => {
     const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow';
     document.head.appendChild(m); const t = document.title; document.title = 'Login help - Ardovo';
@@ -38,7 +40,7 @@ export default function LoginHelp() {
         <AuthBackdrop tint="violet" />
         <div className="lh-aside-in">
           <div className="lh-brand"><span className="lh-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lh-guide"><AuthGuide mood="listening" message={phone ? "You reached login help. Tell me what's happening and we'll get you in - a real person is one call away too." : "You reached login help. Tell me what's happening and we'll get you in - fast, and never from scratch."} size={150} /></div>
+          <div className="lh-guide"><AuthGuide mood="listening" accessory={accessory} message={phone ? "You reached login help. Tell me what's happening and we'll get you in - a real person is one call away too." : "You reached login help. Tell me what's happening and we'll get you in - fast, and never from scratch."} size={150} /></div>
           <p className="lh-sub">{phone ? 'A help line for logging in. Weird, right? We think being stuck at the front door should never ruin your day. Call, email, or use a quick fix below.' : 'A help desk just for logging in. Weird, right? We think being stuck at the front door should never ruin your day. Email us or use a quick fix below - no ticket queue.'}</p>
         </div>
       </div>
@@ -46,7 +48,7 @@ export default function LoginHelp() {
       <div className="lh-panel">
         <div className="lh-card">
           <div className="lh-logo"><span className="lh-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lh-guide-m"><AuthGuide mood="listening" message={phone ? "Let's get you in. A real person is one tap away." : "Let's get you in. No lockout, ever."} size={92} compact /></div>
+          <div className="lh-guide-m"><AuthGuide mood="listening" accessory={accessory} message={phone ? "Let's get you in. A real person is one tap away." : "Let's get you in. No lockout, ever."} size={92} compact /></div>
 
           <h2 className="lh-h">Talk to login help</h2>
           <p className="lh-p">Real help getting into your account - no ticket queue, no runaround.</p>

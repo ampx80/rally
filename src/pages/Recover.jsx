@@ -15,6 +15,7 @@ import { accountFactors, loginWithRecoveryCode, setAccountPassword } from '../li
 import { grantAccessCode } from '../lib/access-mode.js';
 import { scorePassword } from '../lib/password-strength.js';
 import { hasPhone, HELP_NUMBER, formatPhone, telHref } from '../lib/concierge.js';
+import { currentAccessory } from '../lib/ardo-flair.js';
 
 export default function Recover() {
   const nav = useNavigate();
@@ -30,6 +31,7 @@ export default function Recover() {
   const [err, setErr] = useState('');
   const [flash, setFlash] = useState(false);
   const [warp, setWarp] = useState(false);
+  const [accessory] = useState(currentAccessory);
 
   useEffect(() => {
     const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow';
@@ -85,7 +87,7 @@ export default function Recover() {
         <AuthBackdrop tint="teal" warp={warp} />
         <div className="rc-aside-in">
           <div className="rc-brand"><span className="rc-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="rc-guide"><AuthGuide mood={mood} message={message} size={150} /></div>
+          <div className="rc-guide"><AuthGuide mood={mood} message={message} size={150} accessory={accessory} /></div>
           <p className="rc-sub">No password? Lost your phone? Clicked forgot-password ten times? None of that locks you out here. We will always find you a way back in.</p>
         </div>
       </div>
@@ -94,7 +96,7 @@ export default function Recover() {
         <div className="rc-panel-body">
         <div className="rc-card">
           <div className="rc-logo"><span className="rc-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="rc-guide-m"><AuthGuide mood={mood} message={message} size={92} compact /></div>
+          <div className="rc-guide-m"><AuthGuide mood={mood} message={message} size={92} compact accessory={accessory} /></div>
 
           {step === 'find' && (
             <>

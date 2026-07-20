@@ -17,6 +17,7 @@ const PATHS = {
   x: 'M18 6 6 18M6 6l12 12',
   volume2: 'M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14',
   volumeX: 'M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6',
+  flame: 'M12 2s4 4 4 8a4 4 0 0 1-8 0c0-1 .3-1.8.7-2.5C7 9 6 11 6 13.5a6 6 0 0 0 12 0C18 8 12 2 12 2z',
   plus: 'M12 5v14M5 12h14',
   chevronRight: 'M9 18l6-6-6-6',
   chevronDown: 'M6 9l6 6 6-6',

@@ -17,8 +17,10 @@ const POKE_QUIPS = [
   'You found the secret button.', 'Beep boop. That is robot for hi.',
 ];
 const POKE_MOODS = ['wink', 'love', 'happy', 'dizzy'];
+// Accessories that replace the antenna (a hat sits where the antenna would be).
+const HAT_ACCESSORIES = ['santa', 'party', 'spooky', 'night'];
 
-export default function AuthGuide({ mood = 'idle', message = '', size = 132, compact = false, onPoke }) {
+export default function AuthGuide({ mood = 'idle', message = '', size = 132, compact = false, onPoke, accessory = '' }) {
   const rootRef = useRef(null);
   const [bubbleKey, setBubbleKey] = useState(0);
   const [override, setOverride] = useState(null); // poke reaction { mood, message }
@@ -107,9 +109,13 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
           {/* aura */}
           <circle className="ag-aura" cx="80" cy="86" r="66" fill={`url(#${gGlow})`} />
 
-          {/* antenna + AI spark (violet) */}
-          <line x1="80" y1="30" x2="80" y2="14" stroke="#0b8578" strokeWidth="4" strokeLinecap="round" />
-          <circle className="ag-spark" cx="80" cy="11" r="6" fill="#7c5cf7" />
+          {/* antenna + AI spark (violet) - hidden when Ardo wears a hat */}
+          {!HAT_ACCESSORIES.includes(accessory) && (
+            <>
+              <line x1="80" y1="30" x2="80" y2="14" stroke="#0b8578" strokeWidth="4" strokeLinecap="round" />
+              <circle className="ag-spark" cx="80" cy="11" r="6" fill="#7c5cf7" />
+            </>
+          )}
 
           {/* head */}
           <rect x="24" y="30" width="112" height="98" rx="30" fill={`url(#${gBody})`} />
@@ -183,6 +189,44 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
           {/* waving hand on greet */}
           {effMood === 'greet' && (
             <g className="ag-hand"><circle cx="132" cy="96" r="11" fill={`url(#${gBody})`} stroke="rgba(255,255,255,.2)" strokeWidth="2" /></g>
+          )}
+
+          {/* seasonal outfit (drawn last so it layers on top) */}
+          {accessory === 'santa' && (
+            <g className="ag-hat">
+              <path d="M50 34 Q58 6 104 12 L108 32 Z" fill="#e23b4e" />
+              <circle cx="107" cy="11" r="7" fill="#fff" />
+              <rect x="44" y="30" width="72" height="11" rx="5.5" fill="#fff" />
+            </g>
+          )}
+          {accessory === 'party' && (
+            <g className="ag-hat">
+              <path d="M80 0 L64 34 L96 34 Z" fill="#7c5cf7" />
+              <path d="M80 4 L72 20 M84 12 L78 26" stroke="#22d3ee" strokeWidth="3" strokeLinecap="round" />
+              <circle cx="80" cy="1" r="5" fill="#f5b83d" />
+            </g>
+          )}
+          {accessory === 'spooky' && (
+            <g className="ag-hat" fill="#161227">
+              <path d="M80 -2 L64 32 L96 32 Z" />
+              <rect x="50" y="30" width="60" height="8" rx="4" />
+              <rect x="72" y="20" width="16" height="5" fill="#7c5cf7" />
+            </g>
+          )}
+          {accessory === 'night' && (
+            <g className="ag-hat">
+              <path d="M46 34 Q54 6 102 14 Q116 17 96 31 Z" fill="#3b5bdb" />
+              <rect x="42" y="30" width="72" height="10" rx="5" fill="#e8ecff" />
+              <circle cx="106" cy="15" r="6" fill="#fff" />
+            </g>
+          )}
+          {accessory === 'shades' && (
+            <g className="ag-shades">
+              <rect x="46" y="66" width="30" height="19" rx="8" fill="#0a0a12" />
+              <rect x="84" y="66" width="30" height="19" rx="8" fill="#0a0a12" />
+              <line x1="76" y1="72" x2="84" y2="72" stroke="#0a0a12" strokeWidth="4" />
+              <line x1="52" y1="70" x2="60" y2="70" stroke="#3a3a52" strokeWidth="3" strokeLinecap="round" />
+            </g>
           )}
         </svg>
 

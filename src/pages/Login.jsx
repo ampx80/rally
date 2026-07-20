@@ -15,6 +15,7 @@ import AuthBackdrop from '../components/AuthBackdrop.jsx';
 import AuthTrust from '../components/AuthTrust.jsx';
 import { scorePassword, checkPwned } from '../lib/password-strength.js';
 import { hasPhone, HELP_NUMBER, formatPhone, telHref } from '../lib/concierge.js';
+import { currentAccessory, readStreak, bumpStreak, playChime, soundEnabled, setSoundEnabled } from '../lib/ardo-flair.js';
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -37,6 +38,9 @@ export default function Login() {
   const [quip, setQuip] = useState(0);
   const [returning, setReturning] = useState(null); // { name, email } remembered locally
   const [party, setParty] = useState(false); // easter-egg celebration
+  const [streak, setStreak] = useState(0);   // consecutive-day login streak
+  const [accessory] = useState(currentAccessory);
+  const [soundOn, setSoundOn] = useState(soundEnabled);
   const gbtnRef = useRef(null);
   const pokeBurst = useRef({ n: 0, t: 0 });
   const partyTimer = useRef(0);
@@ -85,16 +89,21 @@ export default function Login() {
       const name = first ? first.charAt(0).toUpperCase() + first.slice(1) : '';
       if (form.email) localStorage.setItem(REMEMBER, JSON.stringify({ email: form.email, name }));
     } catch {}
+    bumpStreak();
+    if (soundOn) playChime();
     setFlash(true); setWarp(true); setTimeout(() => nav('/app'), 1150);
   };
 
-  // On load, welcome a returning user by name and prefill their email.
+  // On load, welcome a returning user by name, prefill email, read their streak.
   useEffect(() => {
     try {
       const r = JSON.parse(localStorage.getItem(REMEMBER) || 'null');
       if (r && r.email) { setReturning(r); setForm(f => ({ ...f, email: r.email })); }
     } catch {}
+    setStreak(readStreak());
   }, []);
+
+  const toggleSound = () => setSoundOn(v => { const n = !v; setSoundEnabled(n); if (n) playChime(); return n; });
 
   // Party mode: Konami code, or poke Ardo 5x fast. Pure delight, no side effects.
   const triggerParty = () => {
@@ -211,7 +220,7 @@ export default function Login() {
     if (step === 'twofa') return "Grab the 6-digit code from your authenticator. Lost your phone? I will still get you in.";
     if (pwStrong) return "Ooh, that's a strong one. I like your style.";
     if (showPw) return "Okay, I will look away while you check it. No peeking, promise.";
-    if (welcomeBack) return `Welcome back${returning.name ? ', ' + returning.name : ''}! Great to see you - just your password and you're in.`;
+    if (welcomeBack) return `Welcome back${returning.name ? ', ' + returning.name : ''}!${streak >= 2 ? ` That's a ${streak}-day streak - love the consistency.` : ''} Just your password and you're in.`;
     if (mode === 'signup') return "Welcome! Pick a passphrase you will actually remember - length beats symbols every time.";
     if (focusField === 'password') return "Forgot it? Don't worry, I keep backup doors so you are never locked out.";
     if (focusField === 'email' && emailValid) return `Nice - someone from ${emailDomain}. Let's get you in.`;
@@ -227,19 +236,25 @@ export default function Login() {
         <AuthBackdrop tint="teal" warp={warp} />
         <div className="lg-aside-in">
           <div className="lg-brand"><span className="lg-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} onPoke={onArdoPoke} /></div>
+          <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} onPoke={onArdoPoke} accessory={accessory} /></div>
           <p className="lg-sub">Sign in to the operator that actually runs the work. And if anything gets in your way, Ardo (and a real human) are one tap away. You are never locked out.</p>
         </div>
       </div>
 
       <div className="lg-panel">
+        <button type="button" className="lg-sound" onClick={toggleSound} title={soundOn ? 'Sound on' : 'Sound off'} aria-label={soundOn ? 'Turn login sound off' : 'Turn login sound on'}>
+          <Icon name={soundOn ? 'volume2' : 'volumeX'} size={16} />
+        </button>
         <div className="lg-panel-body">
         <div className="lg-card">
           <div className="lg-logo"><span className="lg-mark sm"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
-          <div className="lg-guide-m"><AuthGuide mood={mood} message={message} size={96} compact onPoke={onArdoPoke} /></div>
+          <div className="lg-guide-m"><AuthGuide mood={mood} message={message} size={96} compact onPoke={onArdoPoke} accessory={accessory} /></div>
 
           {step === 'creds' ? (
             <>
+              {streak >= 2 && mode === 'login' && (
+                <div className="lg-streak"><Icon name="flame" size={14} /> {streak}-day streak</div>
+              )}
               <h2 className="lg-h">{mode === 'signup' ? 'Create your account' : 'Welcome back'}</h2>
               <p className="lg-p">{mode === 'signup' ? 'Start running your revenue on Ardovo.' : 'Sign in to your workspace.'}</p>
               <form onSubmit={submit} className="lg-form" noValidate>
@@ -381,7 +396,11 @@ function LoginStyles() {
     .lg-orbs span:nth-child(2) { width: 260px; height: 260px; background: #7c5cf7; bottom: 40px; left: -60px; opacity: .35; }
     .lg-orbs span:nth-child(3) { width: 200px; height: 200px; background: #2563a8; bottom: -60px; right: 30%; opacity: .3; }
 
-    .lg-panel { display: flex; flex-direction: column; padding: 32px 32px 26px; background: var(--m-bg, #fff); }
+    .lg-panel { position: relative; display: flex; flex-direction: column; padding: 32px 32px 26px; background: var(--m-bg, #fff); }
+    .lg-sound { position: absolute; top: 16px; right: 16px; z-index: 3; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; border: 1px solid #e6eaf1; background: #fff; color: #8a92a3; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
+    .lg-sound:hover { color: #0e9f8f; border-color: #0e9f8f; background: rgba(14,159,143,.06); }
+    .lg-streak { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-bottom: 12px; padding: 5px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 800; color: #d1660a; background: linear-gradient(100deg, rgba(245,158,11,.14), rgba(232,71,57,.12)); border: 1px solid rgba(245,158,11,.35); }
+    .lg-streak svg { color: #f5900a; }
     .lg-panel-body { flex: 1; display: grid; place-items: center; width: 100%; }
     .lg-card { width: 100%; max-width: 400px; animation: lgCardIn .55s cubic-bezier(.22,1,.36,1) both; }
     @keyframes lgCardIn { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: none; } }
