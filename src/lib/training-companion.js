@@ -15,40 +15,54 @@ import { getCurrentUser } from './store.js';
 /* ============================================================
    TARGET MAP  (friendly name -> selector; raw selectors also allowed)
    The companion points at these while it teaches. Every value is a
-   comma list so the resolver can fall back to a still-present element
-   (e.g. the page's main region) when a page-specific hook is absent.
+   comma list of REAL selectors that exist in the app shell today, most
+   specific first, always ending in '.rl-content, main' so the resolver
+   lands on the live page region even when a page-specific hook is absent.
+
+   Verified against the running app:
+     - the shell wraps every page in <main class="rl-content"> (App.jsx)
+     - the sticky header is <header class="rl-topbar"> (App.jsx)
+     - the nav spine is <aside class="rl-rail"> (App.jsx)
+     - Rook is a fixed <button class="rook-fab"> (RookDock.jsx)
+     - deal cards render as .kb-card (KanbanBoard.jsx)
+     - the Command Center hero is .cc-hero (command-center.css)
+     - almost every page renders a .page-title header (UI.jsx PageTitle)
+     - list/table pages render a .table element (UI + pages)
    ============================================================ */
+const CONTENT_FALLBACK = '.rl-content, main';
+
 export const TARGET_MAP = {
-  'command-center': '.rl-content, main',
-  home: '.rl-content, main',
-  pipeline: '.kanban, [data-page="deals"], .rl-content, main',
-  deals: '.kanban, [data-page="deals"], .rl-content, main',
-  contacts: '[data-page="contacts"], .rl-content, main',
-  companies: '[data-page="companies"], .rl-content, main',
-  'my-day': '.rl-content, main',
-  activities: '.rl-content, main',
-  forecast: '.rl-content, main',
-  leads: '.rl-content, main',
-  sequences: '.rl-content, main',
-  campaigns: '.rl-content, main',
-  dashboards: '.rl-content, main',
-  reports: '.rl-content, main',
-  team: '.rl-content, main',
-  tickets: '.rl-content, main',
-  success: '.rl-content, main',
-  inbox: '.rl-content, main',
-  forms: '.rl-content, main',
-  lists: '.rl-content, main',
-  workflows: '.rl-content, main',
-  integrations: '.rl-content, main',
-  objects: '.rl-content, main',
-  search: '.rl-topbar',
+  'command-center': `.cc-hero, .page-title, ${CONTENT_FALLBACK}`,
+  home: `.cc-hero, .page-title, ${CONTENT_FALLBACK}`,
+  pipeline: `.kb-card, .page-title, ${CONTENT_FALLBACK}`,
+  deals: `.kb-card, .page-title, ${CONTENT_FALLBACK}`,
+  deal: `.kb-card, .page-title, ${CONTENT_FALLBACK}`,
+  contacts: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  companies: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  'my-day': `.table, .page-title, ${CONTENT_FALLBACK}`,
+  activities: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  forecast: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  leads: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  team: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  tickets: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  success: `.table, .page-title, ${CONTENT_FALLBACK}`,
+  inbox: `.page-title, ${CONTENT_FALLBACK}`,
+  sequences: `.page-title, ${CONTENT_FALLBACK}`,
+  campaigns: `.page-title, ${CONTENT_FALLBACK}`,
+  dashboards: `.page-title, ${CONTENT_FALLBACK}`,
+  reports: `.page-title, ${CONTENT_FALLBACK}`,
+  forms: `.page-title, ${CONTENT_FALLBACK}`,
+  lists: `.page-title, ${CONTENT_FALLBACK}`,
+  workflows: `.page-title, ${CONTENT_FALLBACK}`,
+  integrations: `.page-title, ${CONTENT_FALLBACK}`,
+  objects: `.page-title, ${CONTENT_FALLBACK}`,
+  search: '.rl-topbar [class*="search"], .rl-topbar',
   topbar: '.rl-topbar',
   nav: '.rl-rail',
   spine: '.rl-rail',
-  rook: '.rook-fab',
-  cta: '.rl-topbar .btn-primary',
-  new: '.rl-topbar .btn-primary',
+  rook: `.rook-fab, ${CONTENT_FALLBACK}`,
+  cta: '.rl-topbar .btn-primary, .rl-topbar',
+  new: '.rl-topbar .btn-primary, .rl-topbar',
 };
 
 /* ============================================================
@@ -128,7 +142,7 @@ export const TRACKS = {
         ask: 'Where do you see win rates and conversion in Ardova?' },
       { id: 'team', title: 'Your team', route: '/team', target: 'team',
         say: 'The Team page is your roster and leaderboard. See who is ahead, who needs coaching, and how activity maps to results. This is how you coach with facts in Ardova.',
-        ask: 'Where do you see each rep is performance in Ardova?' },
+        ask: 'Where do you see how each rep is performing in Ardova?' },
       { id: 'reports', title: 'Reports', route: '/reports', target: 'reports',
         say: 'Reports let you slice the business any way you need for your own leadership. Save the ones you run weekly so the answer is one click away in Ardova.',
         ask: 'Where do you build a custom slice of the business in Ardova?' },
@@ -382,35 +396,95 @@ const AREA_LESSON_HINTS = {
   admin:       ['team', 'integrations', 'objects'],
 };
 
+/* Direct Skill Map node -> lesson-id hints. Skill ids come from
+   src/lib/skill-graph.js (e.g. 'pl-stages', 'ct-contacts', 'ai-rook').
+   The hinted lesson id may not exist in every track; when it is missing we
+   fall through to the scoring pass below, so this is a fast path, not a
+   requirement. This is what disambiguates the two /deals lessons: a
+   "move deal stages" skill points at the board lesson, "work a deal" at the
+   deal lesson. */
+const SKILL_LESSON_HINTS = {
+  'pl-deals': 'pipeline', 'pl-stages': 'pipeline', 'pl-work': 'deal', 'pl-leads': 'leads',
+  'pl-playbooks': 'pipeline', 'pl-warroom': 'pipeline',
+  'ct-contacts': 'contacts', 'ct-companies': 'companies', 'ct-activities': 'myday',
+  'ct-conversations': 'inbox', 'ct-success': 'success',
+  'fc-forecast': 'forecast', 'fc-goals': 'forecast', 'fc-intel': 'forecast',
+  'mk-forms': 'forms', 'mk-lists': 'lists', 'mk-campaigns': 'campaigns', 'mk-sequences': 'sequences',
+  'au-workflows': 'workflows', 'au-queue': 'myday', 'au-flow': 'workflows',
+  'rp-dashboards': 'dashboards', 'rp-reports': 'reports',
+  'ai-rook': 'rook', 'ai-signals': 'rook',
+  'ad-team': 'team', 'ad-import': 'objects', 'ad-settings': 'integrations',
+};
+
+const STOP_WORDS = new Set(['a', 'an', 'the', 'and', 'or', 'to', 'of', 'with', 'in', 'on', 'your', 'you', 'my', 'run', 'apply', 'read', 'set', 'build', 'manage', 'work', 'move', 'track', 'design', 'plan', 'launch', 'log', 'partner', 'act']);
+
+function tokens(str) {
+  return String(str || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s/-]/g, ' ')
+    .split(/[\s/-]+/)
+    .filter(w => w && w.length > 2 && !STOP_WORDS.has(w));
+}
+
 /* Find the best-matching lesson in a track for a launch request. Returns
-   { lesson, index } or null. Priority: explicit lessonId, then route match,
-   then product area heuristic. Used by the hub and the companion so a
-   Skill Map node resolves to a real lesson when one exists. */
-export function findLessonInTrack(track, { lessonId, route, area } = {}) {
+   { lesson, index } or null. Priority:
+     1. explicit lessonId (exact)
+     2. a direct skillId -> lesson-id hint (when that lesson exists here)
+     3. a keyword score over { skillId, label, area, route } so shared
+        routes (two /deals lessons) resolve by best hint, not first index
+     4. a plain route match as a last resort
+   Used by the hub, the Skill Map, and the companion. */
+export function findLessonInTrack(track, { lessonId, skillId, route, area, label } = {}) {
   const t = track || currentTrack();
   const lessons = t.lessons || [];
+  if (!lessons.length) return null;
 
+  // 1. Exact lesson id.
   if (lessonId) {
     const i = lessons.findIndex(l => l.id === lessonId);
     if (i >= 0) return { lesson: lessons[i], index: i };
   }
 
-  if (route) {
-    const clean = String(route).split('?')[0].split('#')[0];
+  // 2. Direct skill -> lesson hint.
+  if (skillId && SKILL_LESSON_HINTS[skillId]) {
+    const i = lessons.findIndex(l => l.id === SKILL_LESSON_HINTS[skillId]);
+    if (i >= 0) return { lesson: lessons[i], index: i };
+  }
+
+  // 3. Keyword scoring across every hint we were given. This is what picks
+  //    the right lesson when several share a route.
+  const clean = route ? String(route).split('?')[0].split('#')[0] : '';
+  const hintTokens = new Set([
+    ...tokens(skillId),
+    ...tokens(label),
+    ...(AREA_LESSON_HINTS[area] || []),
+    ...tokens(clean),
+  ]);
+  if (hintTokens.size) {
+    let best = null;
+    lessons.forEach((l, i) => {
+      const hay = new Set([
+        l.id.toLowerCase(),
+        ...tokens(l.id),
+        ...tokens(l.title),
+        ...tokens(l.target),
+        ...tokens(l.route),
+      ]);
+      let score = 0;
+      hintTokens.forEach(h => { if (hay.has(h)) score += 2; });
+      if (clean && l.route === clean) score += 3;
+      if (score > 0 && (!best || score > best.score)) best = { lesson: l, index: i, score };
+    });
+    if (best) return { lesson: best.lesson, index: best.index };
+  }
+
+  // 4. Plain route match (exact, then prefix).
+  if (clean) {
     let i = lessons.findIndex(l => l.route === clean);
     if (i < 0 && clean !== '/app') {
       i = lessons.findIndex(l => l.route !== '/app' && clean.startsWith(l.route));
     }
     if (i >= 0) return { lesson: lessons[i], index: i };
-  }
-
-  if (area) {
-    const hints = AREA_LESSON_HINTS[area] || [];
-    for (const h of hints) {
-      const i = lessons.findIndex(l =>
-        l.id.includes(h) || (l.target || '').includes(h) || l.route.includes(h));
-      if (i >= 0) return { lesson: lessons[i], index: i };
-    }
   }
 
   return null;

@@ -46,27 +46,48 @@ export function resolveTarget(target) {
 
 let spotlightEls = null;
 let spotlightTimer = null;
+let spotlightTarget = null;   // the live element we are tracking
+let spotlightReposition = null; // scroll/resize handler while lit
 
-// Build our OWN spotlight: a dim scrim with a punched-out ring around the
-// target plus a small caption. Nothing imported from TrainingMode.
-export function spotlight(el, label = '', ms = 4200) {
-  clearSpotlight();
-  if (!el) return () => {};
-  const reduce = typeof window !== 'undefined' && window.matchMedia
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const rect = el.getBoundingClientRect();
+// Position the ring + caption over the current target. Called on create and
+// again on scroll / resize so the spotlight tracks the element for as long as
+// it stays lit (the lesson narration decides how long that is).
+function positionSpotlight() {
+  if (!spotlightEls || !spotlightTarget) return;
+  const [ring, cap] = spotlightEls;
+  const rect = spotlightTarget.getBoundingClientRect();
   const pad = 8;
   const top = Math.max(0, rect.top - pad);
   const left = Math.max(0, rect.left - pad);
   const width = Math.min(window.innerWidth, rect.width + pad * 2);
   const height = Math.min(window.innerHeight, rect.height + pad * 2);
+  ring.style.top = `${top}px`;
+  ring.style.left = `${left}px`;
+  ring.style.width = `${width}px`;
+  ring.style.height = `${height}px`;
+  if (cap) {
+    const capTop = top + height + 10;
+    const putBelow = capTop + 40 < window.innerHeight;
+    cap.style.left = `${Math.min(left, window.innerWidth - 260)}px`;
+    cap.style.top = putBelow ? `${capTop}px` : `${Math.max(8, top - 44)}px`;
+  }
+}
+
+// Build our OWN spotlight: a dim scrim with a punched-out ring around the
+// target plus a small caption. Nothing imported from TrainingMode.
+// ms defaults to 0 (persist until the caller clears it) so the conductor can
+// keep an element lit for the WHOLE lesson narration. Pass a positive ms only
+// for a fixed, self-clearing flash.
+export function spotlight(el, label = '', ms = 0) {
+  clearSpotlight();
+  if (!el) return () => {};
+  const reduce = typeof window !== 'undefined' && window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const ring = document.createElement('div');
   ring.className = 'tc-spotlight';
   ring.style.cssText = [
-    'position:fixed',
-    `top:${top}px`, `left:${left}px`, `width:${width}px`, `height:${height}px`,
+    'position:fixed', 'top:0', 'left:0', 'width:0', 'height:0',
     'border-radius:14px',
     'box-shadow:0 0 0 9999px rgba(12,16,26,.55), 0 0 0 3px var(--ai, #7c5cf7)',
     'z-index:2147483000', 'pointer-events:none',
@@ -74,16 +95,13 @@ export function spotlight(el, label = '', ms = 4200) {
     reduce ? '' : 'animation:tcPulse 1.6s ease-in-out infinite',
   ].join(';');
 
-  const cap = document.createElement('div');
+  let cap = null;
   if (label) {
+    cap = document.createElement('div');
     cap.className = 'tc-spotlight-cap';
     cap.textContent = label;
-    const capTop = top + height + 10;
-    const putBelow = capTop + 40 < window.innerHeight;
     cap.style.cssText = [
-      'position:fixed',
-      `left:${Math.min(left, window.innerWidth - 260)}px`,
-      putBelow ? `top:${capTop}px` : `top:${Math.max(8, top - 44)}px`,
+      'position:fixed', 'top:0', 'left:0',
       'max-width:260px', 'z-index:2147483001', 'pointer-events:none',
       'background:var(--ai,#7c5cf7)', 'color:#fff', 'font-weight:700',
       'font-size:13px', 'line-height:1.35', 'padding:8px 12px', 'border-radius:10px',
@@ -92,15 +110,38 @@ export function spotlight(el, label = '', ms = 4200) {
   }
 
   document.body.appendChild(ring);
-  if (label) document.body.appendChild(cap);
-  spotlightEls = [ring, label ? cap : null].filter(Boolean);
+  if (cap) document.body.appendChild(cap);
+  spotlightEls = [ring, cap];
+  spotlightTarget = el;
+  positionSpotlight();
+
+  // Keep it glued to the element while it stays lit.
+  spotlightReposition = () => positionSpotlight();
+  window.addEventListener('scroll', spotlightReposition, true);
+  window.addEventListener('resize', spotlightReposition);
+
   if (ms > 0) spotlightTimer = setTimeout(clearSpotlight, ms);
   return clearSpotlight;
 }
 
 export function clearSpotlight() {
   if (spotlightTimer) { clearTimeout(spotlightTimer); spotlightTimer = null; }
-  if (spotlightEls) { spotlightEls.forEach(e => { try { e.remove(); } catch {} }); spotlightEls = null; }
+  if (spotlightReposition) {
+    try { window.removeEventListener('scroll', spotlightReposition, true); } catch {}
+    try { window.removeEventListener('resize', spotlightReposition); } catch {}
+    spotlightReposition = null;
+  }
+  if (spotlightEls) { spotlightEls.forEach(e => { try { e && e.remove(); } catch {} }); spotlightEls = null; }
+  spotlightTarget = null;
+}
+
+/* Estimate how long a line of narration takes to speak, so the conductor can
+   keep the spotlight lit and pace the tour even when a provider does not emit
+   a reliable per-utterance end event. ASCII only. */
+export function estimateSpeechMs(text) {
+  const words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
+  const ms = 650 + (words / 2.7) * 1000; // ~2.7 words per second, plus a lead-in
+  return Math.max(2600, Math.min(16000, Math.round(ms)));
 }
 
 export function smoothScrollTo(el) {
@@ -149,16 +190,23 @@ export function celebrateBurst() {
    SAME tool set is handed to every provider (Vapi, Realtime, Web Speech).
    ============================================================ */
 export function makeClientTools({ navigate, setLesson } = {}) {
+  // Spotlight an element and keep it lit (ms=0) until the caller clears it.
+  // Never reports ok:true when the element is not on screen. If the element is
+  // not mounted yet (common right after a navigate), we retry a couple of times
+  // and light it late, but we still return ok:false so the model never believes
+  // it pointed at something that was not there.
   const doHighlight = (target, label = '') => {
-    const run = () => {
-      const el = resolveTarget(target);
-      if (el) { smoothScrollTo(el); spotlight(el, label); return true; }
-      return false;
+    const el = resolveTarget(target);
+    if (el) { smoothScrollTo(el); spotlight(el, label, 0); return { ok: true, target }; }
+    let tries = 0;
+    const retry = () => {
+      tries += 1;
+      const e2 = resolveTarget(target);
+      if (e2) { smoothScrollTo(e2); spotlight(e2, label, 0); return; }
+      if (tries < 4) setTimeout(retry, 350);
     };
-    if (run()) return { ok: true, target };
-    // Element may not be mounted yet right after a navigate; retry once.
-    setTimeout(run, 450);
-    return { ok: true, target, retried: true };
+    setTimeout(retry, 350);
+    return { ok: false, target, reason: 'element-not-found-yet', retrying: true };
   };
   return {
     highlight: (target, label) => doHighlight(target, label),
@@ -166,7 +214,7 @@ export function makeClientTools({ navigate, setLesson } = {}) {
       const el = resolveTarget(target);
       if (el) { smoothScrollTo(el); return { ok: true, target }; }
       setTimeout(() => { const e2 = resolveTarget(target); if (e2) smoothScrollTo(e2); }, 450);
-      return { ok: true, target, retried: true };
+      return { ok: false, target, reason: 'element-not-found-yet', retrying: true };
     },
     navigate: (route) => {
       const to = String(route || '').trim();
@@ -298,6 +346,17 @@ export function steerBackLine(topic) {
   return `${lead}Here is how that connects to Ardova: everything you need lives in one of these screens, so let me point you to the right one and we keep rolling.`;
 }
 
+// Concise steer-back for typed Q&A. Points at the relevant lesson WITHOUT
+// dumping the whole lesson narration, so a typed question gets a short, useful
+// nudge and the spotlight, not a wall of text.
+export function steerBackTo(topic, lesson) {
+  const t = String(topic || '').trim().replace(/[?.!]+$/, '');
+  const short = t.length > 48 ? `${t.slice(0, 45)}...` : t;
+  const lead = short ? `Good question on ${short}. ` : 'Good question. ';
+  if (lesson) return `${lead}In Ardova, that lives on the ${lesson.title} screen. I will spotlight it now.`;
+  return `${lead}Let me point you to the right Ardova screen and we keep rolling.`;
+}
+
 export async function askRook({ question, history = [], path = '' } = {}) {
   const messages = [
     ...history.filter(m => m.role === 'user' || m.role === 'assistant').map(m => ({ role: m.role, content: m.content })),
@@ -343,6 +402,19 @@ async function startVapi({ publicKey, systemPrompt, greeting, tools, handlers })
     try { return runTool(tools, name, args || {}); } catch (e) { return { ok: false, error: String(e) }; }
   };
 
+  // Return a tool result to Vapi so the model's turn does not stall waiting on
+  // a client-side function. Vapi has shipped a few shapes over time, so we send
+  // both the newer 'tool-result' and the older transient add-message form; the
+  // SDK ignores whichever it does not recognize. Everything is best-effort.
+  const replyToolResult = (id, name, result) => {
+    if (!id) return;
+    const payload = JSON.stringify(result ?? { ok: true });
+    try { vapi.send({ type: 'tool-result', toolCallId: id, result: payload }); } catch {}
+    try {
+      vapi.send({ type: 'add-message', message: { role: 'tool', toolCallId: id, name, content: payload } });
+    } catch {}
+  };
+
   vapi.on('message', (msg) => {
     try {
       if (!msg) return;
@@ -352,13 +424,15 @@ async function startVapi({ publicKey, systemPrompt, greeting, tools, handlers })
       }
       // Older + newer tool-call event shapes.
       if (msg.type === 'function-call' && msg.functionCall) {
-        handleTool(msg.functionCall.name, msg.functionCall.parameters);
+        const result = handleTool(msg.functionCall.name, msg.functionCall.parameters);
+        replyToolResult(msg.functionCall.id || msg.functionCall.toolCallId, msg.functionCall.name, result);
       }
       if (msg.type === 'tool-calls' && Array.isArray(msg.toolCalls)) {
         for (const tc of msg.toolCalls) {
           const fn = tc.function || tc;
           let a = fn.arguments; if (typeof a === 'string') { try { a = JSON.parse(a); } catch { a = {}; } }
-          handleTool(fn.name, a);
+          const result = handleTool(fn.name, a);
+          replyToolResult(tc.id || tc.toolCallId || fn.id, fn.name, result);
         }
       }
     } catch {}
@@ -399,9 +473,19 @@ function routeRealtimeTool(tools, name, args = {}) {
   return runTool(tools, name, args);
 }
 
-async function startRealtimeEngine({ tools, handlers }) {
+async function startRealtimeEngine({ systemPrompt, greeting, tools, handlers }) {
   const H = handlers || {};
+  // We pass Ardo's own instructions, greeting, and tool schemas through to the
+  // Realtime engine so it teaches as Ardo, not as Rook. startRealtime today
+  // reads its session config server-side and ignores extra keys harmlessly; if
+  // it is later upgraded to accept them, Ardo's prompt flows with no change
+  // here. Either way the deterministic conductor drives the actual tour, so the
+  // Realtime path never falls back to Rook's script for the walkthrough itself.
   const ctrl = await startRealtime({
+    instructions: systemPrompt,
+    systemPrompt,
+    greeting,
+    tools: TOOL_SCHEMAS,
     onUserText: (t) => H.onUserText?.(t),
     onAssistantText: (t) => H.onAssistantText?.(t),
     onSpeaking: (v) => H.onSpeaking?.(!!v),
@@ -432,7 +516,7 @@ export async function connectRealtimeVoice({ systemPrompt, greeting, tools, hand
     } catch (e) { H.onError?.('vapi', e); }
   }
   try {
-    const ctrl = await startRealtimeEngine({ tools, handlers: H });
+    const ctrl = await startRealtimeEngine({ systemPrompt, greeting, tools, handlers: H });
     if (ctrl) return ctrl;
   } catch (e) { H.onError?.('realtime', e); }
   return null; // -> Web Speech fallback owned by the panel

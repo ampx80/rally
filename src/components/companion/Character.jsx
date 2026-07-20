@@ -1,20 +1,36 @@
 // ============================================================
 // ARDO  -  the training companion mascot.
-// A lively CSS + SVG character with four states:
-//   idle      gentle float + blink
-//   talking   bounce + mouth/eyes animate while speaking
-//   thinking  head tilt + eyes look up + thought dots
-//   celebrate happy bounce + sparkles
+// A lively CSS + SVG character with states:
+//   idle       gentle float, breathe, blink, look-around, antenna sway
+//   talking    bounce + mouth flap while speaking
+//   thinking   head tilt + eyes look up + thought dots
+//   listening  attentive lean + antenna pulse (waiting on you)
+//   celebrate  happy bounce + cheeks + sparkles
+// Plus two transient gesture classes the panel toggles:
+//   ardo-pop    a quick delighted pop when a lesson is completed
+//   ardo-point  a right-arm point-at-screen when a highlight fires
+//
+// Every instance mints UNIQUE gradient ids (via useId) so multiple Ardos on
+// one page (launcher, header, stage, hero) never collide on a shared SVG id,
+// which would otherwise be invalid DOM and blank out the fills.
 // prefers-reduced-motion is honored in companion.css (animations disabled).
 // ASCII only. No em-dash / no en-dash.
 // ============================================================
-import React from 'react';
+import React, { useId } from 'react';
+
+const STATES = ['idle', 'talking', 'thinking', 'listening', 'celebrate'];
 
 export default function Character({ state = 'idle', size = 120, className = '' }) {
-  const s = ['idle', 'talking', 'thinking', 'celebrate'].includes(state) ? state : 'idle';
+  const s = STATES.includes(state) ? state : 'idle';
+
+  // Unique, DOM-safe ids for this instance's gradients.
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const bodyId = `ardoBody-${uid}`;
+  const screenId = `ardoScreen-${uid}`;
+
   return (
     <div
-      className={`ardo ardo--${s} ${className}`}
+      className={`ardo ardo--${s} ${className}`.trim()}
       style={{ width: size, height: size }}
       role="img"
       aria-label={`Ardo, your training companion (${s})`}
@@ -29,14 +45,18 @@ export default function Character({ state = 'idle', size = 120, className = '' }
       <span className="ardo__think ardo__think--2" aria-hidden />
       <span className="ardo__think ardo__think--3" aria-hidden />
 
+      {/* listening ripple */}
+      <span className="ardo__ear ardo__ear--1" aria-hidden />
+      <span className="ardo__ear ardo__ear--2" aria-hidden />
+
       <svg className="ardo__svg" viewBox="0 0 120 120" width="100%" height="100%" aria-hidden>
         <defs>
-          <radialGradient id="ardoBody" cx="35%" cy="28%" r="80%">
+          <radialGradient id={bodyId} cx="35%" cy="28%" r="80%">
             <stop offset="0%" stopColor="#8f79ff" />
             <stop offset="55%" stopColor="#6d5cf7" />
             <stop offset="100%" stopColor="#4a3ce0" />
           </radialGradient>
-          <linearGradient id="ardoScreen" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={screenId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#0d1030" />
             <stop offset="100%" stopColor="#1b1d4a" />
           </linearGradient>
@@ -53,12 +73,12 @@ export default function Character({ state = 'idle', size = 120, className = '' }
 
         {/* body */}
         <g className="ardo__bob">
-          <rect x="22" y="20" width="76" height="72" rx="26" fill="url(#ardoBody)" />
+          <rect x="22" y="20" width="76" height="72" rx="26" fill={`url(#${bodyId})`} />
           {/* glossy highlight */}
           <ellipse cx="45" cy="38" rx="16" ry="9" fill="rgba(255,255,255,.22)" />
 
           {/* face screen */}
-          <rect x="33" y="34" width="54" height="42" rx="18" fill="url(#ardoScreen)" />
+          <rect x="33" y="34" width="54" height="42" rx="18" fill={`url(#${screenId})`} />
 
           {/* eyes */}
           <g className="ardo__eyes">
@@ -75,9 +95,10 @@ export default function Character({ state = 'idle', size = 120, className = '' }
           <circle className="ardo__cheek ardo__cheek--l" cx="40" cy="62" r="4" fill="#ff7ab6" />
           <circle className="ardo__cheek ardo__cheek--r" cx="80" cy="62" r="4" fill="#ff7ab6" />
 
-          {/* little arms */}
+          {/* little arms (right arm extends for the point gesture) */}
           <path className="ardo__arm ardo__arm--l" d="M22 60 q-10 4 -12 14" stroke="#5b4bf5" strokeWidth="5" strokeLinecap="round" fill="none" />
           <path className="ardo__arm ardo__arm--r" d="M98 60 q10 4 12 14" stroke="#5b4bf5" strokeWidth="5" strokeLinecap="round" fill="none" />
+          <circle className="ardo__hand ardo__hand--r" cx="110" cy="74" r="4" fill="#5b4bf5" />
         </g>
       </svg>
     </div>

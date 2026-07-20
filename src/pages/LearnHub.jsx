@@ -39,7 +39,10 @@ import {
 import { useReplay, analyzeSession } from '../lib/replay.js';
 
 /* Open Ardo (optionally onto something specific). Matches the exact contract
-   the docked TrainingCompanion listens for. */
+   the docked TrainingCompanion listens for:
+     { open, autoStart, lessonId, skillId, prompt, route, area, label }
+   A bare { open: true } still just opens the dock (backward compatible);
+   autoStart or lessonId actually START the guided walkthrough in one click. */
 function launchArdo(detail = { open: true }) {
   try { window.dispatchEvent(new CustomEvent('ardova:companion', { detail })); } catch {}
 }
@@ -99,7 +102,7 @@ export default function LearnHub() {
       done: summary.pct >= 50,
       meta: `${summary.done}/${summary.total} lessons`,
       actionLabel: 'Start with Ardo',
-      onAction: () => launchArdo({ open: true }),
+      onAction: () => launchArdo({ open: true, autoStart: true }),
     },
     {
       title: 'Do your day-one Momentum quests',
@@ -162,7 +165,7 @@ export default function LearnHub() {
             your mastery climb. Everything you need to go from day one to dangerous is right here.
           </p>
           <div className="lh-hero__actions">
-            <button type="button" className="lh-hero__cta" onClick={() => launchArdo({ open: true })}>
+            <button type="button" className="lh-hero__cta" onClick={() => launchArdo({ open: true, autoStart: true })}>
               <Icon name="play" size={18} />
               Start with Ardo
             </button>
@@ -323,6 +326,7 @@ export default function LearnHub() {
               route={l.route}
               done={l.done}
               active={summary.nextLesson && summary.nextLesson.id === l.id}
+              lessonId={l.id}
               onStart={() => startLesson(l.id)}
             />
           ))}

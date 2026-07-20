@@ -93,6 +93,33 @@
 .ardo--celebrate .ardo__spark--2 { top: 2px; right: 12px; color: var(--ai, #7c5cf7); animation: ardoSpark 1s ease-in-out .3s infinite; }
 .ardo--celebrate .ardo__spark--3 { bottom: 18px; right: 4px; color: #0e9f8f; animation: ardoSpark 1s ease-in-out .6s infinite; }
 
+/* POINT: right arm + hand extend toward the screen when a highlight fires.
+   Toggled by the panel via the transient `ardo-point` class (~1.4s). */
+@keyframes ardoPoint {
+  0%   { transform: translate(0,0) rotate(0); }
+  28%  { transform: translate(7px,-5px) rotate(-12deg); }
+  72%  { transform: translate(7px,-5px) rotate(-12deg); }
+  100% { transform: translate(0,0) rotate(0); }
+}
+.ardo__hand { opacity: 0; transition: opacity .2s var(--ease); }
+.ardo.ardo-point .ardo__arm--r,
+.ardo.ardo-point .ardo__hand--r {
+  transform-box: fill-box; transform-origin: 96px 62px;
+  animation: ardoPoint 1.4s var(--ease);
+}
+.ardo.ardo-point .ardo__hand--r { opacity: 1; }
+
+/* LISTENING: attentive lean, softer blink, quick antenna pulse, and two sound
+   ripples off the shell so it clearly reads as "your turn, I am listening". */
+@keyframes ardoLean { 0%,100% { transform: rotate(0); } 50% { transform: rotate(-3deg); } }
+@keyframes ardoEar { 0% { opacity: 0; transform: scale(.4); } 30% { opacity: .6; } 100% { opacity: 0; transform: scale(1.6); } }
+.ardo--listening .ardo__bob { transform-box: fill-box; transform-origin: 60px 92px; animation: ardoLean 2.4s ease-in-out infinite; }
+.ardo--listening .ardo__eye { animation: ardoBlink 3.2s ease-in-out infinite; }
+.ardo--listening .ardo__antenna-tip { animation: ardoTip .9s ease-in-out infinite; }
+.ardo__ear { top: 8%; right: 4%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ai, #7c5cf7); }
+.ardo--listening .ardo__ear--1 { animation: ardoEar 1.4s ease-out infinite; }
+.ardo--listening .ardo__ear--2 { animation: ardoEar 1.4s ease-out .55s infinite; }
+
 /* ---------------- Spotlight caption pulse (overlay lives on body) ---------- */
 @keyframes tcPulse { 0%,100% { box-shadow: 0 0 0 9999px rgba(12,16,26,.55), 0 0 0 3px var(--ai,#7c5cf7); } 50% { box-shadow: 0 0 0 9999px rgba(12,16,26,.5), 0 0 0 6px var(--ai,#7c5cf7); } }
 
@@ -175,6 +202,22 @@
 .tc-icon-btn:disabled { opacity: .4; cursor: default; }
 @keyframes tcMic { 0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,.5); } 50% { box-shadow: 0 0 0 6px rgba(192,57,43,0); } }
 
+/* pause control: two little bars drawn in CSS (no pause glyph in the icon set) */
+.tc-pause__bars { display: inline-flex; gap: 3px; align-items: center; }
+.tc-pause__bars i { width: 3px; height: 13px; border-radius: 2px; background: currentColor; display: block; }
+
+/* light "check" step (surfaced from lesson.ask) - auto-advances, never dead */
+.tc-check { margin-top: 12px; text-align: left; background: var(--ai-50, #f0ecfe);
+  border: 1px solid color-mix(in srgb, var(--ai) 30%, var(--ai-50, #f0ecfe)); border-radius: 12px; padding: 10px 12px; }
+.tc-check__q { display: flex; align-items: flex-start; gap: 7px; font-size: 13px; font-weight: 700; line-height: 1.4; color: var(--ai-600, #6647e0); }
+.tc-check__q svg { flex: none; margin-top: 1px; }
+.tc-check__row { display: flex; gap: 8px; margin-top: 9px; }
+.tc-check__btn { display: inline-flex; align-items: center; gap: 5px; font-family: inherit; font-weight: 700; font-size: 12.5px;
+  cursor: pointer; border-radius: 9px; padding: 7px 12px; border: 1px solid var(--ai); background: var(--ai); color: #fff;
+  transition: filter .15s var(--ease), transform .15s var(--ease); }
+.tc-check__btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.tc-check__btn--ghost { background: var(--paper); color: var(--ai-600, #6647e0); }
+
 /* track list */
 .tc-body { flex: 1; overflow-y: auto; padding: 12px 12px 16px; background: var(--page); }
 .tc-track-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 10px; }
@@ -184,7 +227,8 @@
 .tc-lesson { border: 1px solid var(--line); background: var(--paper); border-radius: 12px; margin-bottom: 8px; overflow: hidden; transition: border-color .15s var(--ease), box-shadow .15s var(--ease); }
 .tc-lesson.is-active { border-color: var(--ai); box-shadow: 0 0 0 3px rgba(124,92,247,.14); }
 .tc-lesson__row { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; font-family: inherit; cursor: pointer; background: transparent; border: none; padding: 11px 12px; }
-.tc-lesson__check { width: 24px; height: 24px; border-radius: 50%; flex: none; display: grid; place-items: center; border: 2px solid var(--line-strong); color: transparent; background: var(--paper); transition: all .15s var(--ease); }
+.tc-lesson__row:focus-visible { outline: 2px solid var(--ai); outline-offset: -2px; border-radius: 10px; }
+.tc-lesson__check { width: 24px; height: 24px; border-radius: 50%; flex: none; display: grid; place-items: center; border: 2px solid var(--line-strong); color: transparent; background: var(--paper); padding: 0; cursor: pointer; transition: all .15s var(--ease); }
 .tc-lesson.is-done .tc-lesson__check { background: var(--ok, #1a7f52); border-color: var(--ok, #1a7f52); color: #fff; }
 .tc-lesson__main { flex: 1; min-width: 0; }
 .tc-lesson__title { font-size: 14px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -192,9 +236,15 @@
 .tc-lesson__meta { font-size: 11.5px; color: var(--n-600); margin-top: 1px; }
 .tc-lesson__num { font-size: 11px; font-weight: 800; color: var(--n-400); flex: none; }
 
-/* expand-on-hover transcript for a lesson */
+/* chevron toggle: rotates when the lesson detail is open (click to expand) */
+.tc-lesson__toggle { flex: none; border: none; background: transparent; color: var(--n-400); cursor: pointer;
+  padding: 4px; border-radius: 8px; display: grid; place-items: center; transition: transform .2s var(--ease), color .15s var(--ease), background .15s var(--ease); }
+.tc-lesson__toggle:hover { color: var(--ai); background: var(--ai-50, #f0ecfe); }
+.tc-lesson__toggle.is-open { transform: rotate(180deg); color: var(--ai); }
+
+/* expand-on-click (or when active) transcript for a lesson */
 .tc-lesson__expand { max-height: 0; overflow: hidden; transition: max-height .3s var(--ease); }
-.tc-lesson:hover .tc-lesson__expand, .tc-lesson.is-active .tc-lesson__expand, .tc-lesson:focus-within .tc-lesson__expand { max-height: 220px; }
+.tc-lesson.is-expanded .tc-lesson__expand, .tc-lesson.is-active .tc-lesson__expand { max-height: 240px; }
 .tc-lesson__say { font-size: 13px; line-height: 1.5; color: var(--ink-2, #333); padding: 0 12px 12px 46px; }
 .tc-lesson__go { display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 12.5px; font-weight: 700;
   color: var(--ai-600, #6647e0); background: var(--ai-50, #f0ecfe); border: 1px solid color-mix(in srgb, var(--ai) 35%, var(--ai-50)); border-radius: 8px;
