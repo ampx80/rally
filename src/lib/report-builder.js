@@ -801,10 +801,14 @@ export function allReports() {
 
 /* ============================================================
    SCHEDULED DELIVERY CONFIG  (localStorage + pub/sub)
-   A schedule renders a saved report on a cadence and emails it to a
-   list of recipients. Runs are executed server-side by
-   api/report-deliver.js (cron); the client owns the config + a
-   "send test now" trigger. NO em-dash / en-dash.
+   A schedule stores WHO should get a saved report, HOW OFTEN, and at
+   what hour. It is config only: it lives in localStorage in this
+   browser, and there is no recurring server-side runner yet. The
+   "send test now" trigger renders the report client-side and POSTs it
+   to /api/report-deliver, which emails via Resend only when configured
+   and otherwise no-ops. Recurring, unattended delivery activates once a
+   delivery backend + cron are connected. Do not present these schedules
+   as if they already run on their own. NO em-dash / en-dash.
    ============================================================ */
 export const CADENCES = [
   { id: 'daily', label: 'Every weekday', desc: 'Monday to Friday' },
@@ -988,11 +992,13 @@ export function setTileSize(dashboardId, tileId, size) {
 }
 
 /* ============================================================
-   SHARE LINK  (read-only, in-app)
+   SHARE LINK  (read-only, in-app, local-first)
    A saved report is shareable via /reports?share=<id>. Reports.jsx reads
    the param and renders a chrome-light, read-only view. No new route is
-   introduced (the shell owns routing); the link works for anyone who can
-   reach the app + has the report in their library.
+   introduced (the shell owns routing). Reports live in localStorage, so
+   the link only resolves for someone whose OWN library already has that
+   report id (i.e. this same workspace / browser). It is NOT a public
+   server link that shows an arbitrary viewer the same data. NO em-dash.
    ============================================================ */
 export function shareUrlForReport(id) {
   if (typeof window === 'undefined') return `/reports?share=${id}`;

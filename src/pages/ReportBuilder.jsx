@@ -175,6 +175,7 @@ function FilterRow({ source, filter, onChange, onRemove }) {
    ============================================================ */
 function BuilderTab() {
   const toast = useToast();
+  const snap = useStore(); // live CRM snapshot: new ref on every commit, keeps runReport fresh
   const [params, setParams] = useSearchParams();
   const [def, setDef] = useState(() => {
     const load = params.get('load');
@@ -191,7 +192,7 @@ function BuilderTab() {
   useEffect(() => subscribeReports(() => setLibrary(allReports())), []);
   useEffect(() => subscribeSchedules(setSchedules), []);
 
-  const computed = useMemo(() => runReport(def), [def]);
+  const computed = useMemo(() => runReport(def), [def, snap]);
   const patch = (p) => setDef(d => reconcileDefinition({ ...d, ...p }));
 
   const primaryDim = def.dimensions[0];
@@ -425,7 +426,10 @@ function BuilderTab() {
       {schedules.length > 0 && (
         <Reveal>
           <div className="col gap-2">
-            <h4 style={{ margin: 0 }}>Scheduled deliveries</h4>
+            <div className="col gap-1">
+              <h4 style={{ margin: 0 }}>Scheduled deliveries</h4>
+              <span className="rb-muted">Saved in this browser. Use "Send test now" to preview delivery; recurring delivery starts once the delivery backend is connected.</span>
+            </div>
             <div className="col gap-1">
               {schedules.map(s => (
                 <div key={s.id} className={'rb-sched' + (s.enabled ? '' : ' rb-off')}>
@@ -434,7 +438,7 @@ function BuilderTab() {
                   </span>
                   <div className="col" style={{ minWidth: 0, flex: 1 }}>
                     <span className="fw-7 clip">{s.reportTitle || 'Report'}</span>
-                    <span className="rb-muted">{s.cadence} at {String(s.hour).padStart(2, '0')}:00, {s.recipients.length} recipient(s). Next {new Date(s.nextRunAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}.</span>
+                    <span className="rb-muted">{s.cadence} at {String(s.hour).padStart(2, '0')}:00, {s.recipients.length} recipient(s). Would run {new Date(s.nextRunAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} once delivery is connected.</span>
                   </div>
                   <Button variant="quiet" size="sm" onClick={() => toggleSchedule(s.id)}>{s.enabled ? 'Pause' : 'Resume'}</Button>
                   <Button variant="quiet" size="sm" onClick={() => { const r = getReport(s.reportId); if (r) setSchedFor({ report: r, existing: s }); else toast('Report was deleted', 'warn'); }}><Icon name="edit" size={14} /></Button>
@@ -458,13 +462,13 @@ function BuilderTab() {
    COHORTS TAB
    ============================================================ */
 function CohortsTab() {
-  useStore();
+  const snap = useStore(); // live CRM snapshot so cohort math updates when data changes
   const [source, setSource] = useState('deals');
   const [metric, setMetric] = useState('conversion');
   const [maxOffset, setMaxOffset] = useState(6);
   const metrics = cohortMetricsFor(source);
   const safeMetric = metrics.some(m => m.id === metric) ? metric : metrics[0].id;
-  const computed = useMemo(() => cohortAnalysis({ source, metric: safeMetric, maxOffset }), [source, safeMetric, maxOffset]);
+  const computed = useMemo(() => cohortAnalysis({ source, metric: safeMetric, maxOffset }), [source, safeMetric, maxOffset, snap]);
   const metricMeta = metrics.find(m => m.id === safeMetric);
 
   return (
@@ -512,7 +516,7 @@ export default function ReportBuilder() {
       <SectionHeader
         eyebrow="Reports v2"
         title="Report builder"
-        sub="Drag fields to build any report, analyze cohorts, and schedule delivery to your inbox."
+        sub="Drag fields to build any report, analyze cohorts, and set up delivery (test now; scheduled delivery activates when the backend is connected)."
       />
       <Tabs
         tabs={[{ key: 'builder', label: 'Builder' }, { key: 'cohorts', label: 'Cohorts' }]}

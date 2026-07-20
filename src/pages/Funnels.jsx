@@ -14,7 +14,7 @@
 // ============================================================
 import React, { useMemo, useState } from 'react';
 import {
-  useFunnels, funnelMetrics, portfolioMetrics, resolveStep,
+  useFunnels, funnelMetrics, portfolioMetrics,
   STEP_KINDS, STEP_KIND_LIST, stepKindMeta, STATUSES, statusMeta,
   createFunnel, updateFunnel, deleteFunnel, duplicateFunnel,
   addStep, removeStep, moveStep, updateStep,
@@ -66,7 +66,7 @@ function FunnelsGrid({ funnels, onOpen }) {
       <PageTitle
         eyebrow="Marketing"
         title="Funnels"
-        sub="Chain your landing pages and forms into a step-through flow. Every conversion number here is a real tracked event, never a simulation."
+        sub="Chain your landing pages and forms into a step-through flow. Counts come from each linked asset's real tracked views and submissions. Step hand-off is derived from those per-asset counters, not per-visitor session tracking."
         action={
           <>
             <Button variant="ghost" onClick={() => askRook('Which of my funnels has the biggest conversion drop between steps, and what should I change?')}>
@@ -81,7 +81,7 @@ function FunnelsGrid({ funnels, onOpen }) {
         <KpiTile label="Live funnels" value={`${port.live}`} sub={`${port.count} total`} icon="funnel" accent="var(--accent)" />
         <KpiTile label="Visitors (tracked)" value={num(port.visitors)} sub="entered step 1" icon="users" accent="var(--accent-teal)" />
         <KpiTile label="End-to-end" value={pct(port.conv)} sub={`${num(port.converted)} completed`} icon="trendUp" accent="var(--accent-purple)" />
-        <KpiTile label="Leads captured" value={num(port.leads)} sub="across all steps" icon="inbox" accent="var(--ok)" />
+        <KpiTile label="Leads captured" value={num(port.leads)} sub="final step of each funnel" icon="inbox" accent="var(--ok)" />
       </div>
 
       <div className="col gap-2">
@@ -243,8 +243,8 @@ function FunnelEditor({ funnel, onBack }) {
               {i < m.rows.length - 1 && (
                 <div className="row center" style={{ gap: '.5rem', padding: '.15rem 0' }}>
                   <div style={{ width: 2, height: 12, background: 'var(--line-strong)' }} />
-                  <span className="t-xs muted" title="Tracked hand-off from the step above">
-                    {r.flowRate ? pct(m.rows[i + 1].flowRate) : ''}
+                  <span className="t-xs muted" title="Hand-off ratio: the next step's visitors divided by this step's conversions">
+                    {m.rows[i + 1].flowRate ? pct(m.rows[i + 1].flowRate) : ''}
                   </span>
                   <div style={{ width: 2, height: 12, background: 'var(--line-strong)' }} />
                 </div>
@@ -261,11 +261,11 @@ function FunnelEditor({ funnel, onBack }) {
         {/* summary rail */}
         <div className="col gap-2" style={{ position: 'sticky', top: 12 }}>
           <Card className="col gap-2">
-            <SectionHeader title="Funnel math" sub="From real tracked events" />
+            <SectionHeader title="Funnel math" sub="From each asset's tracked counters" />
             <SummaryRow label="Visitors (step 1)" value={num(m.topEntered)} />
-            <SummaryRow label="Completed (last step)" value={num(m.endConverted)} />
+            <SummaryRow label="Conversions (all steps)" value={num(m.stepConversions)} />
             <SummaryRow label="End-to-end conversion" value={m.hasTraffic ? pct(m.endToEnd) : '0%'} strong accent={funnel.accent} />
-            <SummaryRow label="Total leads captured" value={num(m.totalLeads)} strong accent="var(--ok)" />
+            <SummaryRow label="Leads captured (final step)" value={num(m.totalLeads)} strong accent="var(--ok)" />
             {!m.hasTraffic && <div className="t-xs muted">No tracked traffic yet. Publish the linked pages and drive visitors, and these fill in live.</div>}
             {m.missing > 0 && <div className="t-xs" style={{ color: 'var(--warn)' }}><Icon name="bell" size={12} /> {m.missing} step{m.missing === 1 ? '' : 's'} not linked to an asset.</div>}
           </Card>

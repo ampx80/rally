@@ -48,24 +48,25 @@ function GradePill({ grade, size = 'md' }) {
 }
 
 export default function MarketingHub() {
-  // Subscribe to every marketing store so the rollup stays live.
-  useStore();
-  useMarketHub();
-  useMarketing();
-  useSequenceStore();
-  useEngine();
-  useForms();
-  useLanding();
-  useFunnels();
-  useLists();
+  // Subscribe to every marketing store AND capture each snapshot so the memoized
+  // rollups recompute when any underlying store (including live CRM data) changes.
+  const store = useStore();
+  const hub = useMarketHub();
+  const mkt = useMarketing();
+  const seqSnap = useSequenceStore();
+  const engSnap = useEngine();
+  const formsSnap = useForms();
+  const landSnap = useLanding();
+  const funnelsSnap = useFunnels();
+  const listsSnap = useLists();
 
   const rules = getRules();
-  const roll = useMemo(() => hubRollup(), [rules]);
+  const roll = useMemo(() => hubRollup(), [rules, store, mkt, seqSnap, engSnap, formsSnap, landSnap, funnelsSnap, listsSnap]);
   const surfaces = roll.surfaces;
-  const activity = useMemo(() => recentActivity(12), [rules]);
-  const scored = useMemo(() => scoredContacts(rules), [rules]);
+  const activity = useMemo(() => recentActivity(12), [store, mkt, landSnap, formsSnap]);
+  const scored = useMemo(() => scoredContacts(rules), [rules, store, hub]);
   const hot = scored.slice(0, 6);
-  const segments = useMemo(() => segmentOverview(rules), [rules]);
+  const segments = useMemo(() => segmentOverview(rules), [rules, store, hub]);
 
   return (
     <div className="page-in col gap-3">

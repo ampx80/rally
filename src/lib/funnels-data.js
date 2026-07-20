@@ -94,11 +94,18 @@ export function funnelMetrics(funnel) {
   });
   const topEntered = rows.length ? rows[0].entered : 0;
   const endConverted = rows.length ? rows[rows.length - 1].converted : 0;
-  const totalLeads = rows.reduce((s, r) => s + r.converted, 0);
+  // Honest lead count for the funnel = conversions at the FINAL step. Summing
+  // every step's `converted` double-counts, because in an ordered chain an
+  // upstream conversion becomes the next step's entry, so the same person is
+  // counted again downstream. `stepConversions` keeps the raw per-step sum
+  // available (clearly labeled in the UI as an all-steps total, not unique
+  // leads); `totalLeads` is the terminal, non-double-counted figure.
+  const stepConversions = rows.reduce((s, r) => s + r.converted, 0);
+  const totalLeads = endConverted;
   const endToEnd = topEntered ? (endConverted / topEntered) * 100 : 0;
   const hasTraffic = rows.some(r => r.entered > 0 || r.converted > 0);
   const missing = rows.filter(r => !r.exists).length;
-  return { rows, topEntered, endConverted, totalLeads, endToEnd, hasTraffic, missing, stepCount: rows.length };
+  return { rows, topEntered, endConverted, totalLeads, stepConversions, endToEnd, hasTraffic, missing, stepCount: rows.length };
 }
 
 // Aggregate across a set of funnels (grid header KPIs) - all real counts.

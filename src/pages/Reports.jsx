@@ -274,7 +274,8 @@ function BuilderModal({ open, onClose, initial, onSaved }) {
 /* ---- full report view (chart + table + actions) ---- */
 function ReportView({ def, onBack, onDuplicated, onDeleted }) {
   const toast = useToast();
-  const computed = useMemo(() => computeReport(def), [def.source, def.metric, def.groupBy, def.chart]);
+  const snap = useStore(); // live CRM snapshot so the open report re-runs when data changes
+  const computed = useMemo(() => computeReport(def), [def.source, def.metric, def.groupBy, def.chart, snap]);
 
   return (
     <PageTransition className="col gap-3">
@@ -334,7 +335,8 @@ function ReportView({ def, onBack, onDuplicated, onDeleted }) {
 
 /* ---- gallery card ---- */
 function GalleryCard({ def, onOpen }) {
-  const computed = useMemo(() => computeReport(def), [def.source, def.metric, def.groupBy]);
+  const snap = useStore(); // keep the card's headline + sparkline live as data changes
+  const computed = useMemo(() => computeReport(def), [def.source, def.metric, def.groupBy, snap]);
   const spark = computed.rows.map(r => r.value);
   const headline = computed.valueFormat === 'percent'
     ? fmt(Math.round(computed.rows.reduce((s, r) => s + r.value, 0) / (computed.rows.length || 1)), 'percent')
@@ -425,7 +427,7 @@ function ShareView({ id, onClose }) {
         <Icon name="share2" size={18} style={{ color: 'var(--accent-600)' }} />
         <div className="col" style={{ minWidth: 0, flex: 1 }}>
           <span className="fw-7 clip">Shared report (read-only)</span>
-          <span className="muted t-xs">Anyone with this link who can reach Ardovo sees the same live report.</span>
+          <span className="muted t-xs">Shareable within this workspace and browser. This is a local, read-only view, not a public server link.</span>
         </div>
         <Button variant="ghost" size="sm" onClick={onCsv}><Icon name="download" size={15} /> CSV</Button>
         <Button variant="ghost" size="sm" onClick={onPdf}><Icon name="fileText" size={15} /> PDF</Button>
@@ -470,7 +472,7 @@ export default function Reports() {
 }
 
 function ReportsHome() {
-  useStore(); // subscribe for reactivity
+  const snap = useStore(); // live CRM snapshot: new ref on every commit, keeps KPIs + charts fresh
   const [view, setView] = useState(null);   // active report def or null
   const [builder, setBuilder] = useState(false);
   const [galleryVersion, bumpGallery] = useState(0); // force gallery refresh after save/delete
@@ -489,10 +491,10 @@ function ReportsHome() {
   const monthSpark = useMemo(() => {
     const r = computeReport({ source: 'deals', metric: 'sum', groupBy: 'month', chart: 'area' });
     return r.rows.map(x => x.value);
-  }, [galleryVersion]);
-  const repForecast = useMemo(() => computeReport({ source: 'deals', metric: 'sum', groupBy: 'owner', chart: 'bar' }), [galleryVersion]);
-  const winByRep = useMemo(() => computeReport({ source: 'deals', metric: 'winRate', groupBy: 'owner', chart: 'bar' }), [galleryVersion]);
-  const dealsByIndustry = useMemo(() => computeReport({ source: 'deals', metric: 'count', groupBy: 'industry', chart: 'pie' }), [galleryVersion]);
+  }, [galleryVersion, snap]);
+  const repForecast = useMemo(() => computeReport({ source: 'deals', metric: 'sum', groupBy: 'owner', chart: 'bar' }), [galleryVersion, snap]);
+  const winByRep = useMemo(() => computeReport({ source: 'deals', metric: 'winRate', groupBy: 'owner', chart: 'bar' }), [galleryVersion, snap]);
+  const dealsByIndustry = useMemo(() => computeReport({ source: 'deals', metric: 'count', groupBy: 'industry', chart: 'pie' }), [galleryVersion, snap]);
 
   if (view) {
     return (

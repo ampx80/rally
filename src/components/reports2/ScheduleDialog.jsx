@@ -135,7 +135,7 @@ export default function ScheduleDialog({ open, onClose, report, existing, onSave
         )}
         <div className="row gap-1" style={{ alignItems: 'center' }}>
           <Badge tone="accent">Cron</Badge>
-          <span className="rb-muted">Runs are executed server-side by /api/report-deliver on a schedule.</span>
+          <span className="rb-muted">Send a test now. Automatic scheduled delivery activates when the sending backend is connected.</span>
         </div>
       </div>
     </Modal>

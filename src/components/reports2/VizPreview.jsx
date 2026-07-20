@@ -24,9 +24,11 @@ const TIP_STYLE = {
 
 function CustomTip({ active, payload, label, fmt, measureLabel }) {
   if (!active || !payload || !payload.length) return null;
+  // Pie slices do not pass a category `label`; fall back to the slice name.
+  const title = (label != null && label !== '') ? label : (payload[0] && payload[0].name);
   return (
     <div style={TIP_STYLE}>
-      <div className="fw-7" style={{ marginBottom: 4 }}>{label}</div>
+      <div className="fw-7" style={{ marginBottom: 4 }}>{title}</div>
       <div className="col gap-1" style={{ minWidth: 130 }}>
         {payload.map((p) => (
           <div key={p.dataKey} className="row between gap-2">
@@ -109,18 +111,28 @@ export default function VizPreview({ def, computed, height = 320 }) {
     );
   }
 
-  /* ---- donut ---- */
+  /* ---- donut ----
+     A pie shows one dimension. When a split-by (secondary dimension) is
+     present, slice by that split series (each slice is the measure summed
+     across every primary group for that series value) so the donut reflects
+     the second dimension instead of silently ignoring it. A legend + the
+     split label keep it honest. With no split, slice by the primary rows. */
   if (viz === 'pie') {
+    const split = series.length > 0;
+    const pieData = split
+      ? series.map((k) => ({ name: k, value: rows.reduce((s, r) => s + (Number(r[k]) || 0), 0) }))
+      : rows.map((r) => ({ name: r.label, value: Number(r.value) || 0 }));
     return (
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
-          <Pie data={rows} dataKey="value" nameKey="label" cx="50%" cy="50%"
+          <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%"
             innerRadius={height * 0.19} outerRadius={height * 0.37} paddingAngle={2}
-            label={({ label, value }) => `${label}: ${formatValue(value, valueFormat)}`}
+            label={({ name, value }) => `${name}: ${formatValue(value, valueFormat)}`}
             labelLine={false} style={{ fontSize: 12 }}>
-            {rows.map((r, i) => <Cell key={r.label} fill={SERIES_COLORS[i % SERIES_COLORS.length]} />)}
+            {pieData.map((d, i) => <Cell key={d.name} fill={SERIES_COLORS[i % SERIES_COLORS.length]} />)}
           </Pie>
           <Tooltip content={<CustomTip fmt={valueFormat} measureLabel={measureLabel} />} />
+          {split && <Legend wrapperStyle={{ fontSize: 12 }} />}
         </PieChart>
       </ResponsiveContainer>
     );

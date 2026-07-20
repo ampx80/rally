@@ -250,8 +250,16 @@ export function updatePage(id, patch = {}) {
 }
 
 // Convenience: replace the page's shared-designer document.
+// The shared visual builder writes the SEO description into
+// design.settings.seoDescription, but the hosted page (HostedLanding) reads
+// page.seo.description. Bridge them here so the one field the builder writes is
+// exactly the one the hosted page renders - no divergent SEO copy.
 export function setDesign(id, design) {
-  return updatePage(id, { design: normalizeDesign(design) });
+  const doc = normalizeDesign(design);
+  const patch = { design: doc };
+  const seoDesc = doc && doc.settings ? doc.settings.seoDescription : undefined;
+  if (typeof seoDesc === 'string') patch.seo = { description: seoDesc };
+  return updatePage(id, patch);
 }
 
 // Convenience: link / unlink a real Ardovo form (forms.js id) to the page.

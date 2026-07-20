@@ -75,10 +75,16 @@ function Editor({ pageId, onBack }) {
           <Badge tone={page.published ? 'ok' : 'warn'}>{page.published ? 'Published' : 'Draft'}</Badge>
           {linkedForm && <Badge tone="accent"><Icon name="list" size={12} /> {linkedForm.name}</Badge>}
         </div>
-        <div className="row gap-1" style={{ flex: 'none', flexWrap: 'wrap' }}>
+        <div className="row gap-1" style={{ flex: 'none', flexWrap: 'wrap', alignItems: 'center' }}>
           <Button variant="quiet" size="sm" onClick={() => setSettingsOpen(true)}><Icon name="settings" size={15} /> Settings</Button>
-          <Button variant="quiet" size="sm" onClick={copyLink}><Icon name="copy" size={15} /> Copy link</Button>
-          <Button variant="quiet" size="sm" as="a" href={liveUrl} target="_blank" rel="noopener noreferrer"><Icon name="eye" size={15} /> View live</Button>
+          {page.published ? (
+            <>
+              <Button variant="quiet" size="sm" onClick={copyLink}><Icon name="copy" size={15} /> Copy link</Button>
+              <Button variant="quiet" size="sm" as="a" href={liveUrl} target="_blank" rel="noopener noreferrer"><Icon name="eye" size={15} /> View live</Button>
+            </>
+          ) : (
+            <span className="t-xs muted">Publish to get a link</span>
+          )}
           <Button variant="primary" size="sm" onClick={onPublish}>
             <Icon name={page.published ? 'eyeOff' : 'rocket'} size={15} /> {page.published ? 'Unpublish' : 'Publish'}
           </Button>
@@ -149,8 +155,9 @@ function SettingsModal({ open, onClose, page, forms }) {
         <Field label="SEO title">
           <Input value={page.seo?.title || ''} onChange={e => updatePage(page.id, { seo: { title: e.target.value } })} />
         </Field>
-        <Field label="SEO description">
-          <Textarea rows={2} value={page.seo?.description || ''} onChange={e => updatePage(page.id, { seo: { description: e.target.value } })} />
+        <Field label="SEO description" hint="Same field the visual builder edits; shown in search + social previews.">
+          <Textarea rows={2} value={page.seo?.description || ''}
+            onChange={e => setDesign(page.id, { ...(page.design || blankLandingDoc()), settings: { ...((page.design || {}).settings || {}), seoDescription: e.target.value } })} />
         </Field>
       </div>
     </Modal>

@@ -14,6 +14,17 @@
 // pub/sub pattern as the rest of Ardovo, so it is 100% alive with
 // zero backend and never white-screens on load.
 //
+// TWO KINDS OF DATA LIVE HERE, and they are NOT the same:
+//   1. LIVE rollups (surfaceRollup / hubRollup / recentActivity /
+//      scoredContacts / segmentOverview) - real counts read straight
+//      from the marketing + CRM stores. This is what the page renders.
+//   2. MODELED (demo) helpers (channelPerformance / marketingRoi /
+//      spendRevenueSeries / funnelModel / attributionModel / topContent
+//      / calendar) - deterministic SEEDED data, believable but
+//      fabricated. They are NOT imported by the page and must never be
+//      shown without a clear "Modeled (demo)" label. Each is marked
+//      MODELED below.
+//
 // TDZ-safe: every helper used anywhere is a hoisted `function`
 // declaration, and the persisted `store` is initialized at the very
 // bottom, after all declarations. No const-arrow is referenced during
@@ -85,7 +96,9 @@ const SOURCE_MIX = [
   { id: 'social', w: 10 }, { id: 'events', w: 8 }, { id: 'referral', w: 8 },
   { id: 'content', w: 8 }, { id: 'outbound', w: 22 },
 ];
-// Deterministic per-deal source (stable across reloads, no writes).
+// MODELED (demo) per-deal source. Inferred from a stable hash of the deal id,
+// not a captured acquisition event. Stable across reloads, no writes. Feeds the
+// modeled/demo rollups below only.
 export function dealSource(deal) {
   const total = SOURCE_MIX.reduce((s, m) => s + m.w, 0);
   let r = strhash('src|' + (deal?.id || '')) % total;
@@ -93,7 +106,9 @@ export function dealSource(deal) {
   return channelById('outbound');
 }
 
-// Seeded per-channel spend + leads (deterministic, believable).
+// MODELED (demo) per-channel spend + leads. These are deterministic, believable
+// SEEDS - not real ad-spend or lead data. They only feed the modeled/demo
+// helpers below, which the Marketing Hub page does not render.
 function seededSpend(id) { return 6000 + (strhash('spend|' + id) % 40) * 1000; }   // 6k..46k
 function seededLeads(id) { return 55 + (strhash('leads|' + id) % 52) * 6; }        // 55..361
 
@@ -212,10 +227,19 @@ export function scoreDistribution(scored, rules) {
 }
 
 /* ============================================================
-   MARKETING ROLLUPS (all pure, read-only over live stores)
+   MODELED (DEMO) MARKETING ROLLUPS  -  SYNTHETIC, NOT RENDERED
+   WARNING: the helpers in this section are NOT all-real. They blend the
+   real per-deal roll-up with MODELED (seeded) spend / leads / ROI /
+   attribution / calendar data. They are deterministic and believable but
+   fabricated, and the Marketing Hub page does NOT import or render any of
+   them (it renders only the live surfaceRollup / hubRollup further down).
+   Any surface that ever shows these MUST label them "Modeled (demo)".
+   Kept only for demo/prototype use. Do not present as real performance.
    ============================================================ */
 
-// Per marketing-channel performance: real deal roll-up + seeded spend/leads.
+// MODELED (demo). Per marketing-channel performance: real deal roll-up blended
+// with MODELED (seeded) spend/leads. Spend, leads, CPL, CAC, ROI and conv are
+// modeled, not measured.
 export function channelPerformance() {
   const deals = getDeals();
   const by = {};
@@ -242,7 +266,8 @@ export function channelPerformance() {
   }).sort((a, b) => b.pipeline - a.pipeline);
 }
 
-// Blended marketing spend / CAC / ROI, plus marketing-sourced pipeline share.
+// MODELED (demo). Blended marketing spend / CAC / ROI, plus marketing-sourced
+// pipeline share. Spend/CAC/ROI are modeled (seeded), not measured.
 export function marketingRoi() {
   const chans = channelPerformance();
   const spend = chans.reduce((s, c) => s + c.spend, 0);
@@ -260,7 +285,8 @@ export function marketingRoi() {
   };
 }
 
-// Deterministic 6-month spend vs marketing-sourced revenue series (for the chart).
+// MODELED (demo). Deterministic 6-month spend vs revenue series - fabricated
+// from seeds for a chart, not real month-by-month spend or revenue.
 export function spendRevenueSeries() {
   const now = new Date();
   const chans = channelPerformance();
@@ -279,7 +305,8 @@ export function spendRevenueSeries() {
   return out;
 }
 
-// Marketing funnel driven by the lead-scoring model (guaranteed descending).
+// MODELED (demo). Marketing funnel driven by the lead-scoring model. Visitor
+// count is seeded (fabricated); the other tiers derive from scored contacts.
 export function funnelModel(rules) {
   const scored = scoredContacts(rules);
   const contacts = getContacts();
@@ -304,7 +331,8 @@ export function funnelModel(rules) {
   }));
 }
 
-// First-touch / last-touch / multi-touch attribution split by channel.
+// MODELED (demo). First / last / multi-touch attribution split by channel,
+// derived from the modeled channelPerformance above (seeded leads + won rev).
 export function attributionModel() {
   const chans = channelPerformance();
   const totLeads = chans.reduce((s, c) => s + c.leads, 0) || 1;
@@ -318,7 +346,8 @@ export function attributionModel() {
   return rows.map(r => ({ ...r, multi: r.multi / totMulti })).sort((a, b) => b.multi - a.multi);
 }
 
-/* ---------- top-performing content (seeded, believable, deep-linkable) ---------- */
+/* ---------- MODELED (demo) top-performing content ----------
+   Fabricated titles + seeded views/leads. Not real content analytics. */
 const CONTENT_SEED = [
   { title: 'The 2026 Revenue Operations Benchmark Report', type: 'Guide', channel: 'organic', to: '/landing-pages' },
   { title: 'How Vertex Robotics cut forecast error by 41%', type: 'Case study', channel: 'content', to: '/landing-pages' },
@@ -341,7 +370,11 @@ export function topContent() {
 }
 
 /* ============================================================
-   CAMPAIGN CALENDAR  (deterministic per month, always "alive")
+   MODELED (DEMO) CAMPAIGN CALENDAR  -  SYNTHETIC, NOT RENDERED
+   Fabricated calendar items seeded per month so a calendar surface is
+   never empty. These are not real scheduled campaigns. The Marketing Hub
+   page does not render these; any surface that does MUST label them
+   "Modeled (demo)". Deterministic per month, always "alive".
    ============================================================ */
 export const CAL_TYPES = [
   { id: 'email',    label: 'Email',      color: '#5b4bf5', to: '/campaigns' },
@@ -434,8 +467,10 @@ export const QUICK_LAUNCH = [
 
 /* ============================================================
    UNIFIED HUB ROLLUP  (Engine 6: real counts from real stores)
-   Reads every marketing surface live. Nothing here is fabricated;
-   counts come straight from each store's own getters/stats. Guarded
+   THIS is the section the Marketing Hub page actually renders. Reads
+   every marketing surface live. Nothing in this rollup is fabricated;
+   counts come straight from each store's own getters/stats (unlike the
+   MODELED demo helpers above, which are seeded and unrendered). Guarded
    so a not-yet-seeded store never white-screens the hub.
    ============================================================ */
 function safe(fn, fallback) { try { const v = fn(); return v == null ? fallback : v; } catch { return fallback; } }
