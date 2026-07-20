@@ -331,5 +331,25 @@ begin
   end loop;
 end $$;
 
+-- ---------- qualifying leads (early release) ----------
+-- Every /get-started submission. urgency_score is a first-class column so the
+-- pipeline sorts by how badly they want out of Salesforce. Written by
+-- api/prequalify.js (service role). RLS on, no anon policy.
+create table if not exists rally_prequal (
+  id bigserial primary key,
+  name text, email text, phone text, company text,
+  urgency_score int,          -- 1-10, the hero question
+  route text,                 -- hot | nurture | waitlist
+  current_tool text,          -- salesforce | hubspot | gohighlevel | zoho | spreadsheets | other
+  seats text,
+  pain text,                  -- their words on why they want to leave (gold)
+  lead_source text,
+  source_url text,
+  status text default 'new',  -- new | booked | called | won | lost
+  created_at timestamptz not null default now()
+);
+create index if not exists rally_prequal_urgency_idx on rally_prequal(urgency_score desc, created_at desc);
+alter table rally_prequal enable row level security;
+
 -- Public hosted surfaces (hosted forms / landing pages) are served through the
 -- service-role api layer, so no anon RLS policy is granted here on purpose.
