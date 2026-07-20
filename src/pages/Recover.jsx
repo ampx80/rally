@@ -29,6 +29,7 @@ export default function Recover() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const [flash, setFlash] = useState(false);
+  const [warp, setWarp] = useState(false);
 
   useEffect(() => {
     const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow';
@@ -36,7 +37,7 @@ export default function Recover() {
     return () => { try { document.head.removeChild(m); } catch {} document.title = t; };
   }, []);
 
-  const enter = () => { grantAccessCode(); setFlash(true); setTimeout(() => nav('/app'), 720); };
+  const enter = () => { grantAccessCode(); setFlash(true); setWarp(true); setTimeout(() => nav('/app'), 1150); };
   const pwInfo = scorePassword(pw);
 
   const find = (e) => {
@@ -81,7 +82,7 @@ export default function Recover() {
   return (
     <div className="rc-wrap">
       <div className="rc-aside">
-        <AuthBackdrop tint="teal" />
+        <AuthBackdrop tint="teal" warp={warp} />
         <div className="rc-aside-in">
           <div className="rc-brand"><span className="rc-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="rc-guide"><AuthGuide mood={mood} message={message} size={150} /></div>

@@ -7,8 +7,10 @@
 // Sits absolutely behind the panel content (z-index 0). NO em-dash. ASCII only.
 import React, { useEffect, useRef } from 'react';
 
-export default function AuthBackdrop({ tint = 'teal' }) {
+export default function AuthBackdrop({ tint = 'teal', warp = false }) {
   const ref = useRef(null);
+  const warpRef = useRef(false);
+  useEffect(() => { warpRef.current = warp; }, [warp]);
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
@@ -39,17 +41,52 @@ export default function AuthBackdrop({ tint = 'teal' }) {
       }
     }
 
+    let warpV = 0; // 0..1 ramp for the hyperspace "warp to workspace" moment
     function frame() {
       if (w === 0 || h === 0) { raf = 0; return; } // paused (e.g. aside hidden on mobile)
-      ctx.clearRect(0, 0, w, h);
+      const warping = warpRef.current;
+      warpV += ((warping ? 1 : 0) - warpV) * 0.08;
+
+      if (warpV > 0.02) {
+        // Trail effect: paint a translucent wash instead of clearing.
+        ctx.fillStyle = `rgba(6,10,18,${0.16 + warpV * 0.14})`;
+        ctx.fillRect(0, 0, w, h);
+      } else {
+        ctx.clearRect(0, 0, w, h);
+      }
+
+      const cx = w / 2, cy = h / 2;
       for (const n of nodes) {
-        n.x += n.vx; n.y += n.vy;
-        if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
-        if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
-        if (pointer.active) {
-          const dx = pointer.x - n.x, dy = pointer.y - n.y, d = Math.hypot(dx, dy);
-          if (d < 150 && d > 0.5) { n.x += (dx / d) * 0.2; n.y += (dy / d) * 0.2; }
+        if (warpV > 0.02) {
+          // accelerate radially outward from center -> hyperspace streaks
+          const dx = n.x - cx, dy = n.y - cy, d = Math.hypot(dx, dy) || 1;
+          const push = warpV * warpV * (0.6 + d * 0.05);
+          n.px = n.x; n.py = n.y;
+          n.x += (dx / d) * push * 6; n.y += (dy / d) * push * 6;
+          if (n.x < -30 || n.x > w + 30 || n.y < -30 || n.y > h + 30) {
+            n.x = cx + (Math.random() - 0.5) * 40; n.y = cy + (Math.random() - 0.5) * 40; n.px = n.x; n.py = n.y;
+          }
+        } else {
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
+          if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
+          if (pointer.active) {
+            const dx = pointer.x - n.x, dy = pointer.y - n.y, d = Math.hypot(dx, dy);
+            if (d < 150 && d > 0.5) { n.x += (dx / d) * 0.2; n.y += (dy / d) * 0.2; }
+          }
         }
+      }
+
+      // During warp, draw streaks and skip the (expensive) link/pointer pass.
+      if (warpV > 0.02) {
+        for (const n of nodes) {
+          const c = n.accent ? accent : primary;
+          ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${0.5 * warpV})`;
+          ctx.lineWidth = n.r * (1 + warpV);
+          ctx.beginPath(); ctx.moveTo(n.px ?? n.x, n.py ?? n.y); ctx.lineTo(n.x, n.y); ctx.stroke();
+        }
+        if (running && !reduce) raf = requestAnimationFrame(frame);
+        return;
       }
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];

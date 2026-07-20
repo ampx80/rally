@@ -32,9 +32,25 @@ export default function Login() {
   const [flash, setFlash] = useState(false); // success celebration
   const [focusField, setFocusField] = useState('');
   const [pwned, setPwned] = useState(null); // { breached, count } | null
+  const [capsOn, setCapsOn] = useState(false);
+  const [warp, setWarp] = useState(false); // hyperspace success transition
+  const [quip, setQuip] = useState(0);
   const gbtnRef = useRef(null);
 
   const pwInfo = mode === 'signup' ? scorePassword(form.password) : null;
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+  const emailDomain = emailValid ? form.email.trim().split('@')[1] : '';
+
+  // Playful, time-aware greetings + a rotating set of idle one-liners.
+  const hour = new Date().getHours();
+  const partOfDay = hour < 5 ? 'You are up late' : hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : hour < 21 ? 'Good evening' : 'Burning the midnight oil';
+  const IDLE_QUIPS = [
+    "Hi, I'm Ardo. Let's get you signed in - I promise this won't hurt.",
+    `${partOfDay}. Ready when you are - two fields and you're in.`,
+    'Psst - you can click me. I get bored standing here.',
+    'No dark patterns here. Just you, me, and the door.',
+    'Fun fact: you can never get locked out of this place.',
+  ];
 
   // Keep this page out of the index without touching the server.
   useEffect(() => {
@@ -55,7 +71,16 @@ export default function Login() {
   }, [form.password, mode]);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
-  const enter = () => { grantAccessCode(); setFlash(true); setTimeout(() => nav('/app'), 720); };
+  const enter = () => { grantAccessCode(); setFlash(true); setWarp(true); setTimeout(() => nav('/app'), 1150); };
+
+  // Rotate idle quips every 7s (only while genuinely idle, not mid-task).
+  useEffect(() => {
+    const t = setInterval(() => setQuip(q => (q + 1) % IDLE_QUIPS.length), 7000);
+    return () => clearInterval(t);
+  }, []); // eslint-disable-line
+
+  // Caps Lock awareness so Ardo can tease gently.
+  const onKey = (e) => { try { setCapsOn(e.getModifierState && e.getModifierState('CapsLock')); } catch {} };
 
   // Google SSO (OIDC) - only mounts when VITE_GOOGLE_CLIENT_ID is configured.
   useEffect(() => {
@@ -115,16 +140,29 @@ export default function Login() {
   };
 
   // Character mood + what Ardo is saying, driven by the live UI state.
-  const mood = busy ? 'thinking' : flash ? 'happy' : err ? 'oops' : showPw ? 'peek' : step === 'twofa' ? 'idle' : greeting ? 'greet' : 'idle';
+  const pwStrong = mode === 'signup' && form.password && pwInfo && pwInfo.score >= 3 && !pwned?.breached;
+  const mood = warp ? 'happy'
+    : busy ? 'thinking'
+    : flash ? 'happy'
+    : err ? 'oops'
+    : capsOn && focusField === 'password' ? 'wink'
+    : pwStrong ? 'love'
+    : showPw ? 'peek'
+    : step === 'twofa' ? 'idle'
+    : greeting ? 'greet' : 'idle';
   const message = (() => {
+    if (warp) return 'Punch it. Warping you in...';
     if (busy) return step === 'twofa' ? 'Checking your code...' : 'One sec, getting you in...';
     if (flash) return "You're in. Welcome aboard!";
     if (err) return "Hmm, that didn't line up. No stress - try again, or tap Get help and I'll get you in.";
+    if (capsOn && focusField === 'password') return "Heads up - Caps Lock is on, so your password is SHOUTING. Totally fine, just saying.";
     if (step === 'twofa') return "Grab the 6-digit code from your authenticator. Lost your phone? I will still get you in.";
+    if (pwStrong) return "Ooh, that's a strong one. I like your style.";
     if (showPw) return "Okay, I will look away while you check it. No peeking, promise.";
     if (mode === 'signup') return "Welcome! Pick a passphrase you will actually remember - length beats symbols every time.";
     if (focusField === 'password') return "Forgot it? Don't worry, I keep backup doors so you are never locked out.";
-    return "Hi, I'm Ardo. Let's get you signed in - I promise this won't hurt.";
+    if (focusField === 'email' && emailValid) return `Nice - someone from ${emailDomain}. Let's get you in.`;
+    return IDLE_QUIPS[quip];
   })();
 
   const touch = () => { if (greeting) setGreeting(false); };
@@ -132,7 +170,7 @@ export default function Login() {
   return (
     <div className="lg-wrap">
       <div className="lg-aside">
-        <AuthBackdrop tint="teal" />
+        <AuthBackdrop tint="teal" warp={warp} />
         <div className="lg-aside-in">
           <div className="lg-brand"><span className="lg-mark"><img src="/brand/ardovo-icon.png" alt="Ardovo" /></span> Ardovo</div>
           <div className="lg-guide"><AuthGuide mood={mood} message={message} size={150} /></div>
@@ -165,7 +203,7 @@ export default function Login() {
                     {mode === 'login' && <button type="button" className="lg-forgot" onClick={() => nav('/recover')}>Forgot password?</button>}
                   </div>
                   <div className="lg-pw">
-                    <input type={showPw ? 'text' : 'password'} value={form.password} onChange={e => set('password', e.target.value)} onFocus={() => { setFocusField('password'); touch(); }}
+                    <input type={showPw ? 'text' : 'password'} value={form.password} onChange={e => set('password', e.target.value)} onFocus={() => { setFocusField('password'); touch(); }} onKeyDown={onKey} onKeyUp={onKey}
                       placeholder={mode === 'signup' ? 'A phrase you will remember' : 'Your password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} />
                     <button type="button" className="lg-eye" tabIndex={-1} onClick={() => setShowPw(v => !v)} aria-label={showPw ? 'Hide password' : 'Show password'}>
                       <Icon name={showPw ? 'eyeOff' : 'eye'} size={17} />

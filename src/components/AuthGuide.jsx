@@ -10,9 +10,19 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 
 // mood: 'greet' | 'idle' | 'peek' | 'thinking' | 'happy' | 'oops' | 'listening'
+//       | 'wink' | 'love' | 'dizzy' (the last three are poke reactions)
+const POKE_QUIPS = [
+  'Hehe, that tickles.', 'Boop! Right back at ya.', "Careful, I'm delicate hardware.",
+  'Poke me again, I dare you.', 'Whoa, hi there!', "Ow. Kidding - do it again.",
+  'You found the secret button.', 'Beep boop. That is robot for hi.',
+];
+const POKE_MOODS = ['wink', 'love', 'happy', 'dizzy'];
+
 export default function AuthGuide({ mood = 'idle', message = '', size = 132, compact = false }) {
   const rootRef = useRef(null);
   const [bubbleKey, setBubbleKey] = useState(0);
+  const [override, setOverride] = useState(null); // poke reaction { mood, message }
+  const pokeRef = useRef(0);
   // Unique gradient ids per instance. Two AuthGuides can be mounted at once
   // (desktop aside + mobile card, one hidden via display:none). Shared ids
   // would collide and a paint server inside a display:none subtree does not
@@ -22,8 +32,23 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
   const reduce = typeof window !== 'undefined' && window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Re-pop the speech bubble whenever the message changes.
-  useEffect(() => { setBubbleKey(k => k + 1); }, [message]);
+  const effMood = override?.mood || mood;
+  const effMsg = override ? override.message : message;
+
+  // Poke: click Ardo for a random playful reaction that briefly overrides state.
+  const poke = () => {
+    if (reduce) return;
+    setOverride({
+      mood: POKE_MOODS[Math.floor(Math.random() * POKE_MOODS.length)],
+      message: POKE_QUIPS[Math.floor(Math.random() * POKE_QUIPS.length)],
+    });
+    clearTimeout(pokeRef.current);
+    pokeRef.current = setTimeout(() => setOverride(null), 1700);
+  };
+  useEffect(() => () => clearTimeout(pokeRef.current), []);
+
+  // Re-pop the speech bubble whenever the (effective) message changes.
+  useEffect(() => { setBubbleKey(k => k + 1); }, [effMsg]);
 
   // Cursor-follow: set --px/--py (-1..1) on the root so pupils translate.
   useEffect(() => {
@@ -43,17 +68,21 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
     return () => { window.removeEventListener('mousemove', onMove); if (raf) cancelAnimationFrame(raf); };
   }, [reduce]);
 
-  const eyesClosed = mood === 'happy';
-  const eyesSquint = mood === 'peek';
-  const worried = mood === 'oops';
-  const think = mood === 'thinking';
-  const listen = mood === 'listening';
+  const eyesClosed = effMood === 'happy';
+  const eyesSquint = effMood === 'peek';
+  const worried = effMood === 'oops';
+  const think = effMood === 'thinking';
+  const listen = effMood === 'listening';
+  const wink = effMood === 'wink';
+  const love = effMood === 'love';
+  const dizzy = effMood === 'dizzy';
 
-  const glow = mood === 'happy' ? '#0e9f8f' : mood === 'oops' ? '#e8973a' : listen ? '#7c5cf7' : '#14b8a6';
+  const glow = effMood === 'happy' ? '#0e9f8f' : effMood === 'oops' ? '#e8973a'
+    : love ? '#ff5d8f' : listen ? '#7c5cf7' : '#14b8a6';
 
   return (
     <div ref={rootRef} className={`ag-root${reduce ? ' ag-reduce' : ''}`} style={{ '--ag-size': `${size}px`, '--ag-glow': glow }}>
-      <div className={`ag-char ag-${mood}`}>
+      <div className={`ag-char ag-${effMood}${reduce ? '' : ' ag-pokeable'}`} onClick={poke} title="Poke me">
         {!compact && !reduce && (
           <div className="ag-rings" aria-hidden><span /><span /><i /></div>
         )}
@@ -94,6 +123,24 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
               <path d="M54 82 q9 -12 18 0" />
               <path d="M88 82 q9 -12 18 0" />
             </g>
+          ) : love ? (
+            <g fill="#ff5d8f" className="ag-love">
+              <path d="M63 70 c-3 -5 -11 -3 -11 3 c0 5 7 9 11 12 c4 -3 11 -7 11 -12 c0 -6 -8 -8 -11 -3 z" />
+              <path d="M97 70 c-3 -5 -11 -3 -11 3 c0 5 7 9 11 12 c4 -3 11 -7 11 -12 c0 -6 -8 -8 -11 -3 z" />
+            </g>
+          ) : dizzy ? (
+            <g stroke="#7ff2e4" strokeWidth="4" strokeLinecap="round" fill="none">
+              <path d="M57 70 l12 12 M69 70 l-12 12" />
+              <path d="M91 70 l12 12 M103 70 l-12 12" />
+            </g>
+          ) : wink ? (
+            <g>
+              <g className="ag-eye">
+                <ellipse cx="63" cy="76" rx="12" ry="13" fill="#e8fffb" />
+                <circle className="ag-pupil" cx="63" cy="76" r="6" fill="#062b26" />
+              </g>
+              <path d="M88 80 q9 -12 18 0" stroke="#7ff2e4" strokeWidth="5" strokeLinecap="round" fill="none" />
+            </g>
           ) : think ? (
             <g fill="#7ff2e4" className="ag-think">
               <circle cx="63" cy="74" r="6" />
@@ -118,10 +165,14 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
           )}
 
           {/* mouth */}
-          {mood === 'happy' ? (
+          {(effMood === 'happy' || love) ? (
             <path d="M66 96 q14 16 28 0" fill="none" stroke="#7ff2e4" strokeWidth="5" strokeLinecap="round" />
           ) : worried ? (
             <path d="M70 100 q10 -6 20 0" fill="none" stroke="#7ff2e4" strokeWidth="4" strokeLinecap="round" />
+          ) : dizzy ? (
+            <path d="M68 99 q6 -6 12 0 q6 6 12 0" fill="none" stroke="#7ff2e4" strokeWidth="4" strokeLinecap="round" />
+          ) : wink ? (
+            <path d="M68 97 q12 9 24 -1" fill="none" stroke="#7ff2e4" strokeWidth="4" strokeLinecap="round" />
           ) : listen ? (
             <circle cx="80" cy="99" r="6" fill="none" stroke="#7ff2e4" strokeWidth="4" className="ag-mouth-o" />
           ) : (
@@ -129,27 +180,34 @@ export default function AuthGuide({ mood = 'idle', message = '', size = 132, com
           )}
 
           {/* waving hand on greet */}
-          {mood === 'greet' && (
+          {effMood === 'greet' && (
             <g className="ag-hand"><circle cx="132" cy="96" r="11" fill={`url(#${gBody})`} stroke="rgba(255,255,255,.2)" strokeWidth="2" /></g>
           )}
         </svg>
 
-        {mood === 'happy' && !reduce && (
-          <div className="ag-confetti" aria-hidden>
+        {(effMood === 'happy' || love) && !reduce && (
+          <div className={`ag-confetti${love ? ' ag-confetti-love' : ''}`} aria-hidden>
             {Array.from({ length: 10 }).map((_, i) => <span key={i} style={{ '--i': i }} />)}
           </div>
         )}
       </div>
 
-      {message && (
+      {effMsg && (
         <div key={bubbleKey} className={`ag-bubble${compact ? ' ag-bubble-c' : ''}`}>
-          {message}
+          {effMsg}
         </div>
       )}
 
       <style>{`
         .ag-root { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; --px: 0; --py: 0; }
         .ag-char { position: relative; width: var(--ag-size); height: var(--ag-size); }
+        .ag-pokeable { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        .ag-pokeable:active .ag-svg { transform: scale(.94); }
+        .ag-dizzy .ag-svg { animation: agWobble .6s ease-in-out; }
+        @keyframes agWobble { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-9deg); } 75% { transform: rotate(9deg); } }
+        .ag-love .ag-love path { animation: agBeat .5s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+        @keyframes agBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+        .ag-confetti-love span { background: #ff5d8f !important; border-radius: 50% !important; }
         .ag-svg { position: relative; z-index: 1; width: 100%; height: 100%; display: block; overflow: visible; animation: agFloat 5.5s ease-in-out infinite; }
 
         /* orbiting energy rings behind Ardo (desktop presence) */
