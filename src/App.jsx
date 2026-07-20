@@ -44,6 +44,7 @@ import QualifyConfig from './pages/QualifyConfig.jsx';
 import EmailCenter from './pages/EmailCenter.jsx';
 import OrgChart from './pages/OrgChart.jsx';
 import MigrationWizard from './pages/MigrationWizard.jsx';
+import MigrationRoom from './pages/MigrationRoom.jsx';
 import Training from './pages/Training.jsx';
 import Atlas from './pages/Atlas.jsx';
 import AgentCloud from './pages/AgentCloud.jsx';
@@ -980,6 +981,7 @@ export default function App() {
               <Route path="/email-center" element={<EmailCenter />} />
               <Route path="/org" element={<OrgChart />} />
               <Route path="/migrate" element={<MigrationWizard />} />
+              <Route path="/migrate/session/:id" element={<MigrationRoom />} />
               <Route path="/training" element={<Training />} />
               <Route path="/training-admin" element={<TrainingAdmin />} />
               <Route path="/group-training" element={<GroupTraining />} />

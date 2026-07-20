@@ -48,7 +48,7 @@ export const TARGETS = {
 
 /* Synonyms used by auto-map to guess header -> field. */
 const SYNONYMS = {
-  firstName: ['first name', 'firstname', 'first', 'fname', 'given name', 'given'],
+  firstName: ['first name', 'firstname', 'first', 'fname', 'given name', 'given', 'full name', 'fullname', 'name', 'contact name', 'contact'],
   lastName: ['last name', 'lastname', 'last', 'lname', 'surname', 'family name'],
   email: ['email', 'e-mail', 'email address', 'work email', 'mail', 'contact email'],
   phone: ['phone', 'phone number', 'mobile', 'cell', 'telephone', 'tel', 'work phone', 'direct'],
@@ -194,20 +194,132 @@ export function analyze({ headers, rows, mapping, target = 'contact' }) {
 }
 
 /* ============================================================
+   INFER TARGET  (guess contact vs company from the headers)
+   Used when a customer drops a file without telling us what it is.
+   ============================================================ */
+export function inferTarget(headers = []) {
+  const nh = headers.map(norm);
+  const has = (list) => list.some(x => nh.some(h => h === x || h.includes(x)));
+  const companyish = has(['company name', 'account name', 'industry', 'domain', 'website', 'employees', 'headcount']);
+  const personish = has(['first name', 'last name', 'email', 'e-mail', 'job title', 'phone', 'mobile']);
+  if (companyish && !personish) return 'company';
+  return 'contact';
+}
+
+/* ============================================================
+   CUSTOM FIELD SUGGESTIONS  (what to do with columns that do not map)
+   Instead of dropping an unmapped column, Mira can propose creating a custom
+   field on the target object so no data is lost. We infer a sensible type and
+   report fill rate + samples so the customer can approve at a glance.
+   ============================================================ */
+const NUM_RE = /^-?\$?\s*[\d,]+(\.\d+)?%?$/;
+const DATE_RE = /^\d{1,4}[-/.]\d{1,2}[-/.]\d{1,4}/;
+function inferType(values) {
+  const v = values.map(x => String(x || '').trim()).filter(Boolean);
+  if (!v.length) return 'text';
+  const all = (re) => v.every(x => re.test(x));
+  const most = (fn) => v.filter(fn).length / v.length > 0.7;
+  if (most(x => /^(true|false|yes|no|y|n|0|1)$/i.test(x))) return 'boolean';
+  if (all(NUM_RE) || most(x => NUM_RE.test(x))) return 'number';
+  if (most(x => DATE_RE.test(x))) return 'date';
+  const distinct = new Set(v.map(x => x.toLowerCase()));
+  if (distinct.size <= Math.max(2, Math.min(8, v.length / 4)) && distinct.size < v.length) return 'select';
+  return 'text';
+}
+function toFieldKey(label) {
+  return String(label || 'field').trim().toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40) || 'field';
+}
+
+// Return one suggestion per UNMAPPED, non-empty column.
+export function suggestCustomFields({ headers = [], rows = [], mapping = {}, target = 'contact' } = {}) {
+  const out = [];
+  for (const h of headers) {
+    if (mapping[h]) continue; // already mapped to a real field
+    const values = rows.map(r => r[h]);
+    const filled = values.filter(x => String(x || '').trim() !== '').length;
+    if (!filled) continue; // nothing there, safe to skip
+    const type = inferType(values);
+    const samples = [...new Set(values.map(x => String(x || '').trim()).filter(Boolean))].slice(0, 4);
+    const options = type === 'select'
+      ? [...new Set(values.map(x => String(x || '').trim()).filter(Boolean))].slice(0, 20)
+      : undefined;
+    out.push({
+      sourceHeader: h,
+      key: toFieldKey(h),
+      label: h.trim(),
+      type,
+      target,
+      options,
+      fillRate: rows.length ? Math.round((filled / rows.length) * 100) : 0,
+      samples,
+    });
+  }
+  return out;
+}
+
+/* ============================================================
+   CUSTOM FIELD STORE  (definitions the migration "created" per object)
+   Keyed by object type. Persisted so the wizard can show real custom fields
+   that now exist on the Contact / Company / Deal / Quote view.
+   ============================================================ */
+const CF_KEY = 'rally_custom_fields_v1';
+export const CUSTOM_TARGETS = [
+  { key: 'contact', label: 'Contact view' },
+  { key: 'company', label: 'Account view' },
+  { key: 'deal', label: 'Deal view' },
+  { key: 'quote', label: 'Quote view' },
+];
+function loadCustom() {
+  try { const raw = localStorage.getItem(CF_KEY); if (raw) { const o = JSON.parse(raw); return (o && typeof o === 'object') ? o : {}; } } catch {}
+  return {};
+}
+let customState = loadCustom();
+const customSubs = new Set();
+function commitCustom(next) {
+  customState = next && typeof next === 'object' ? next : {};
+  try { localStorage.setItem(CF_KEY, JSON.stringify(customState)); } catch {}
+  customSubs.forEach(fn => fn(customState));
+}
+export function getCustomFields(target = 'contact') {
+  return Array.isArray(customState[target]) ? customState[target] : [];
+}
+export function addCustomField(target, def) {
+  const list = getCustomFields(target);
+  const key = def.key || toFieldKey(def.label);
+  if (list.some(f => f.key === key)) return list.find(f => f.key === key);
+  const entry = { key, label: def.label || key, type: def.type || 'text', options: def.options || undefined, createdAt: new Date().toISOString(), source: 'migration' };
+  commitCustom({ ...customState, [target]: [...list, entry] });
+  return entry;
+}
+export function useCustomFields(target = 'contact') {
+  const [snap, setSnap] = useState(() => getCustomFields(target));
+  useEffect(() => { const fn = () => setSnap(getCustomFields(target)); customSubs.add(fn); fn(); return () => customSubs.delete(fn); }, [target]);
+  return snap;
+}
+
+/* ============================================================
    BUILD STAGED RECORDS  (apply cleanse options, non-destructive)
    options: { splitNames, dedupe, fixEmails, dropMissingRequired }
+   customMap: { sourceHeader: customFieldKey } - unmapped columns the customer
+   chose to keep as custom fields. Their values ride along under rec.custom.
    ============================================================ */
-export function buildStaged({ rows, mapping, target = 'contact', options = {} }) {
+export function buildStaged({ rows, mapping, target = 'contact', options = {}, customMap = {} } = {}) {
   const fieldToHeader = {};
   for (const [h, f] of Object.entries(mapping)) if (f) fieldToHeader[f] = h;
   const tfields = TARGETS[target].fields;
   const requiredKeys = tfields.filter(f => f.required).map(f => f.key);
+  const customEntries = Object.entries(customMap).filter(([, k]) => k);
 
   let records = rows.map(r => {
     const rec = {};
     for (const f of tfields) {
       const h = fieldToHeader[f.key];
       rec[f.key] = h ? String(r[h] || '').trim() : '';
+    }
+    if (customEntries.length) {
+      rec.custom = {};
+      for (const [h, k] of customEntries) rec.custom[k] = String(r[h] || '').trim();
     }
     // Split a full name into first + last.
     if (options.splitNames && target === 'contact' && rec.firstName && !rec.lastName && /\s/.test(rec.firstName)) {
@@ -252,7 +364,7 @@ export function applyToProduction({ records, target = 'contact' }) {
   let created = 0, failed = 0;
   if (target === 'company') {
     for (const rec of records) {
-      const r = createCompany({ name: rec.name, industry: rec.industry, size: rec.size, domain: rec.domain, location: rec.location });
+      const r = createCompany({ name: rec.name, industry: rec.industry, size: rec.size, domain: rec.domain, location: rec.location, custom: rec.custom });
       if (r.company) created++; else failed++;
     }
     return { created, failed };
@@ -269,7 +381,7 @@ export function applyToProduction({ records, target = 'contact' }) {
         if (cr.company) { companyId = cr.company.id; companyByName.set(key, companyId); }
       }
     }
-    const r = createContact({ firstName: rec.firstName, lastName: rec.lastName, email: rec.email, phone: rec.phone, title: rec.title, companyId });
+    const r = createContact({ firstName: rec.firstName, lastName: rec.lastName, email: rec.email, phone: rec.phone, title: rec.title, companyId, custom: rec.custom });
     if (r.contact) created++; else failed++;
   }
   return { created, failed };

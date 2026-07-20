@@ -504,6 +504,14 @@ async function startRealtimeEngine({ systemPrompt, greeting, tools, handlers }) 
    CONNECT  (Preferred -> Fallback A). Returns a live controller, or null
    when no keyed provider is available so the panel uses Web Speech (B).
    ============================================================ */
+// True only when a client-known voice key exists (Vapi public key). Realtime
+// (OpenAI) needs a server key we cannot see from the browser, so callers use
+// this to avoid probing /api/realtime-session when nothing is configured,
+// keeping the console clean and falling back to Web Speech.
+export function voiceKeyPresent() {
+  try { return !!import.meta.env?.VITE_VAPI_PUBLIC_KEY; } catch { return false; }
+}
+
 export async function connectRealtimeVoice({ systemPrompt, greeting, tools, handlers } = {}) {
   const H = handlers || {};
   let key = null;

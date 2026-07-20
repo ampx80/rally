@@ -1,0 +1,87 @@
+/* Migration Specialist panel (Mira) + wizard type scale-up.
+   Bigger, calmer, more legible. Teal is product, violet is the AI layer.
+   ASCII only. No em-dash / en-dash. */
+
+.ms-panel {
+  position: sticky; top: 84px;
+  display: flex; flex-direction: column;
+  border-radius: 18px; overflow: hidden;
+  min-height: 420px; max-height: calc(100vh - 120px);
+  border: 1px solid color-mix(in srgb, var(--ai) 26%, var(--ai-50, #efeaff));
+}
+
+.ms-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--ai) 16%, transparent), transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--ai) 18%, var(--line));
+}
+.ms-avatar { width: 54px; height: 54px; flex: none; }
+.ms-id { flex: 1; min-width: 0; }
+.ms-name { font-weight: 800; font-size: 18px; line-height: 1.1; }
+.ms-role { font-size: 13px; color: var(--n-600); font-weight: 600; }
+.ms-head-actions { display: flex; gap: 6px; }
+.ms-icbtn {
+  width: 36px; height: 36px; border-radius: 10px; flex: none; cursor: pointer;
+  display: grid; place-items: center; border: 1px solid var(--line-strong);
+  background: var(--surface, #fff); color: var(--n-600); transition: all .18s;
+}
+.ms-icbtn:hover { color: var(--ai); border-color: var(--ai); }
+.ms-icbtn.is-on { background: var(--ai); color: #fff; border-color: var(--ai); }
+
+.ms-body {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 12px;
+  scroll-behavior: smooth;
+}
+.ms-msg { display: flex; flex-direction: column; gap: 5px; max-width: 100%; animation: msRise .4s ease both; }
+@keyframes msRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ms-msg--user { align-items: flex-end; }
+.ms-bubble {
+  font-size: 15.5px; line-height: 1.55; padding: 11px 14px; border-radius: 14px;
+  color: var(--ink); background: var(--n-50, #f4f6f9); border: 1px solid var(--line);
+}
+.ms-msg--mira .ms-bubble { background: color-mix(in srgb, var(--ai) 8%, var(--surface, #fff)); border-color: color-mix(in srgb, var(--ai) 20%, var(--line)); border-bottom-left-radius: 5px; }
+.ms-msg--user .ms-bubble { background: var(--accent); color: #fff; border-color: var(--accent); border-bottom-right-radius: 5px; }
+.ms-msg.sev-risk .ms-bubble { border-left: 3px solid var(--risk); }
+.ms-msg.sev-warn .ms-bubble { border-left: 3px solid var(--warn); }
+.ms-msg.sev-ok .ms-bubble { border-left: 3px solid var(--ok); }
+.ms-show {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.5px; font-weight: 700; color: var(--ai); cursor: pointer;
+  background: transparent; border: none; padding: 2px 2px;
+}
+.ms-show:hover { text-decoration: underline; }
+
+.ms-speaking { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ai); font-weight: 600; }
+.ms-speaking span { width: 5px; height: 5px; border-radius: 50%; background: var(--ai); animation: msPulse 1s ease-in-out infinite; }
+.ms-speaking span:nth-child(2) { animation-delay: .15s; }
+.ms-speaking span:nth-child(3) { animation-delay: .3s; }
+@keyframes msPulse { 0%,100% { opacity: .3; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.3); } }
+
+.ms-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); }
+.ms-act {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px; font-weight: 700; cursor: pointer;
+  padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line-strong);
+  background: var(--surface, #fff); color: var(--ink); transition: all .16s;
+}
+.ms-act:hover { border-color: var(--ai); color: var(--ai); transform: translateY(-1px); }
+.ms-act--primary { background: var(--ai); color: #fff; border-color: var(--ai); }
+.ms-act--primary:hover { color: #fff; filter: brightness(1.06); }
+
+.ms-input { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); }
+.ms-input input {
+  flex: 1; min-width: 0; font-size: 15px; font-family: inherit; color: var(--ink);
+  padding: 10px 13px; border-radius: 11px; border: 1px solid var(--line-strong);
+  background: var(--n-25, #fafbfc); outline: none;
+}
+.ms-input input:focus { border-color: var(--ai); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ai) 16%, transparent); }
+.ms-send {
+  width: 42px; flex: none; border-radius: 11px; cursor: pointer; display: grid; place-items: center;
+  background: var(--ai); color: #fff; border: none;
+}
+.ms-send:disabled { opacity: .45; cursor: not-allowed; }
+
+@media (max-width: 900px) { .ms-panel { position: static; max-height: none; } }
+@media (prefers-reduced-motion: reduce) { .ms-msg, .ms-speaking span { animation: none !important; } }
