@@ -341,3 +341,108 @@ export function buildSystemPrompt(user, track) {
     outline,
   ].join('\n');
 }
+
+/* ============================================================
+   CROSS-LAUNCH HELPERS  (additive; the Learn Hub + Skill Map call these)
+   These fire the shared 'ardova:companion' window event so the docked
+   TrainingCompanion can jump straight into the right lesson or seed a
+   question. Every helper is a safe no-op when window is unavailable.
+   ============================================================ */
+
+/* Fire the companion launch event. Opens Ardo by default; pass any of
+   { lessonId, skillId, prompt, route, area, label } to steer it. */
+export function launchCompanion(detail = {}) {
+  try {
+    window.dispatchEvent(new CustomEvent('ardova:companion', { detail: { open: true, ...detail } }));
+  } catch {}
+  return true;
+}
+
+/* Open Ardo and start a specific lesson by id within the current track. */
+export function startLesson(lessonId) {
+  return launchCompanion({ lessonId });
+}
+
+/* Open Ardo with a seeded opening question so it starts on that topic. */
+export function startWithPrompt(prompt) {
+  return launchCompanion({ prompt: String(prompt || '').trim() });
+}
+
+/* Map a Skill Map area id to lesson keywords we can match against a
+   lesson's id / target / route. Keeps the companion and the hub in sync. */
+const AREA_LESSON_HINTS = {
+  pipeline:    ['pipeline', 'deal'],
+  contacts:    ['contacts', 'companies'],
+  forecasting: ['forecast'],
+  marketing:   ['campaigns', 'sequences', 'forms', 'lists'],
+  automation:  ['workflows'],
+  reporting:   ['reports', 'dashboards'],
+  payments:    ['deal', 'pipeline'],
+  agents:      ['rook'],
+  admin:       ['team', 'integrations', 'objects'],
+};
+
+/* Find the best-matching lesson in a track for a launch request. Returns
+   { lesson, index } or null. Priority: explicit lessonId, then route match,
+   then product area heuristic. Used by the hub and the companion so a
+   Skill Map node resolves to a real lesson when one exists. */
+export function findLessonInTrack(track, { lessonId, route, area } = {}) {
+  const t = track || currentTrack();
+  const lessons = t.lessons || [];
+
+  if (lessonId) {
+    const i = lessons.findIndex(l => l.id === lessonId);
+    if (i >= 0) return { lesson: lessons[i], index: i };
+  }
+
+  if (route) {
+    const clean = String(route).split('?')[0].split('#')[0];
+    let i = lessons.findIndex(l => l.route === clean);
+    if (i < 0 && clean !== '/app') {
+      i = lessons.findIndex(l => l.route !== '/app' && clean.startsWith(l.route));
+    }
+    if (i >= 0) return { lesson: lessons[i], index: i };
+  }
+
+  if (area) {
+    const hints = AREA_LESSON_HINTS[area] || [];
+    for (const h of hints) {
+      const i = lessons.findIndex(l =>
+        l.id.includes(h) || (l.target || '').includes(h) || l.route.includes(h));
+      if (i >= 0) return { lesson: lessons[i], index: i };
+    }
+  }
+
+  return null;
+}
+
+/* A compact, read-only snapshot the Learn Hub renders for the current
+   user: their track, per-lesson done state, completion, and the next
+   lesson to take. Pure read of the local progress store. */
+export function progressSummary() {
+  let user = null;
+  try { user = getCurrentUser(); } catch { user = null; }
+  const track = currentTrack();
+  const prog = getProgress(track.id);
+  const lessons = track.lessons.map(l => ({
+    id: l.id,
+    title: l.title,
+    route: l.route,
+    target: l.target,
+    say: l.say,
+    done: !!prog[l.id],
+  }));
+  const done = lessons.filter(l => l.done).length;
+  const total = lessons.length;
+  const nextLesson = lessons.find(l => !l.done) || null;
+  return {
+    user,
+    track,
+    firstName: firstNameOf(user),
+    lessons,
+    done,
+    total,
+    pct: total ? Math.round((done / total) * 100) : 0,
+    nextLesson,
+  };
+}

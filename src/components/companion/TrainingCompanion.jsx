@@ -20,6 +20,7 @@ import './companion.css';
 import {
   currentTrack, greetingFor, buildSystemPrompt, firstNameOf,
   trackCompletion, isLessonDone, markLessonDone, subscribeProgress,
+  findLessonInTrack,
 } from '../../lib/training-companion.js';
 import {
   makeClientTools, connectRealtimeVoice, askRook, steerBackLine,
@@ -45,6 +46,7 @@ export default function TrainingCompanion() {
   const [speaking, setSpeaking] = useState(false);
   const [thinking, setThinking] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
+  const [reacting, setReacting] = useState(false); // brief pop when a lesson completes
   const [listening, setListening] = useState(false);
 
   const [speakerOn, setSpeakerOn] = useState(true);
@@ -65,6 +67,8 @@ export default function TrainingCompanion() {
   const activeIdxRef = useRef(0);
   const recogRef = useRef(null);
   const scrollRef = useRef(null);
+  const handleLaunchRef = useRef(null);
+  const prevDoneRef = useRef(0);
   useEffect(() => { startedRef.current = started; }, [started]);
   useEffect(() => { speakerRef.current = speakerOn; }, [speakerOn]);
   useEffect(() => { micRef.current = micOn; }, [micOn]);
@@ -76,16 +80,26 @@ export default function TrainingCompanion() {
   // Re-render checkmarks + progress when the shared progress store changes.
   useEffect(() => subscribeProgress(() => forceTick(t => t + 1)), []);
 
+  // A little reaction pop whenever a lesson is newly completed (but not the
+  // final one, which triggers the full celebration). CSS-only, honors
+  // prefers-reduced-motion via companion.css.
+  useEffect(() => {
+    if (completion.done > prevDoneRef.current && completion.done < completion.total) {
+      setReacting(true);
+      const id = setTimeout(() => setReacting(false), 640);
+      prevDoneRef.current = completion.done;
+      return () => clearTimeout(id);
+    }
+    prevDoneRef.current = completion.done;
+  }, [completion.done, completion.total]);
+
   // Keep the transcript scrolled to the newest turn.
   useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [transcript, thinking]);
 
-  // Open from anywhere. detail.open === false closes.
+  // Open + cross-launch from anywhere. The rich handler lives in a ref so the
+  // listener always calls the latest closure without re-binding.
   useEffect(() => {
-    const onEvt = (e) => {
-      const d = e.detail || {};
-      if (d.open === false) { setOpen(false); return; }
-      setOpen(true); setCollapsed(false);
-    };
+    const onEvt = (e) => { handleLaunchRef.current?.(e.detail || {}); };
     window.addEventListener('ardova:companion', onEvt);
     return () => window.removeEventListener('ardova:companion', onEvt);
   }, []);
@@ -217,8 +231,11 @@ export default function TrainingCompanion() {
   }, [transcript, track, doSpeak, afterTurn]);
 
   // Begin the voice walkthrough. Preferred Vapi -> Realtime -> Web Speech.
-  const startWalkthrough = useCallback(async () => {
+  // startIdx lets a cross-launch open Ardo straight onto a specific lesson.
+  // (onClick passes a DOM event, so anything non-numeric falls back to 0.)
+  const startWalkthrough = useCallback(async (startIdx = 0) => {
     if (startedRef.current) { stopEverything(); return; }
+    const idx = typeof startIdx === 'number' ? startIdx : 0;
     setStarted(true); startedRef.current = true;
     setTranscript([]); setStatus('Warming up...');
     const greeting = greetingFor(user, track);
@@ -242,7 +259,7 @@ export default function TrainingCompanion() {
       setStatus(ctrl.provider === 'vapi' ? 'Ardo is live on voice' : 'Ardo is live');
       // Realtime cannot set a spoken first message, so greet by name ourselves.
       if (ctrl.provider === 'realtime') { pushTurn('ardo', greeting); }
-      setTimeout(() => goToLesson(0, { narrate: false }), 700);
+      setTimeout(() => goToLesson(idx, { narrate: false }), 700);
       return;
     }
 
@@ -250,8 +267,8 @@ export default function TrainingCompanion() {
     setProvider('webspeech'); providerRef.current = 'webspeech';
     setStatus(speechSupported ? 'Ardo is walking you through it' : 'Read along with Ardo');
     pushTurn('ardo', greeting);
-    doSpeak(greeting, () => goToLesson(0, { narrate: true }));
-    if (!speechSupported) { setTimeout(() => goToLesson(0, { narrate: true }), 300); }
+    doSpeak(greeting, () => goToLesson(idx, { narrate: true }));
+    if (!speechSupported) { setTimeout(() => goToLesson(idx, { narrate: true }), 300); }
   }, [user, track, tools, doSpeak, goToLesson]);
 
   const stopEverything = useCallback(() => {
@@ -261,6 +278,45 @@ export default function TrainingCompanion() {
     try { ctrlRef.current?.stop?.(); } catch {}
     ctrlRef.current = null; setProvider(null); providerRef.current = null;
   }, [stopListen]);
+
+  // Rich cross-launch handler for the 'ardova:companion' event. Accepts
+  // { open, lessonId, skillId, prompt, route, area, label }:
+  //   - open === false closes the dock (existing behavior preserved).
+  //   - lessonId jumps to and starts that exact lesson.
+  //   - skillId / route / area resolve to the best-matching lesson; if none
+  //     exists, a seeded prompt is used instead.
+  //   - prompt starts the companion on that question.
+  //   - bare { open: true } just opens (existing behavior preserved).
+  const handleLaunch = useCallback((detail) => {
+    const d = detail || {};
+    if (d.open === false) { setOpen(false); return; }
+    setOpen(true); setCollapsed(false); setPeek(false);
+
+    let target = null;
+    if (d.lessonId) target = findLessonInTrack(track, { lessonId: d.lessonId });
+    if (!target && (d.skillId || d.route || d.area)) {
+      target = findLessonInTrack(track, { route: d.route, area: d.area });
+    }
+
+    if (target) {
+      if (startedRef.current) {
+        goToLesson(target.index, { narrate: providerRef.current === 'webspeech' });
+      } else {
+        startWalkthrough(target.index);
+      }
+      return;
+    }
+
+    // No lesson matched. Seed a question if we were given one (or can build
+    // one from a Skill Map label) so the launch still lands somewhere useful.
+    const seed = d.prompt
+      || (d.label ? `Teach me the "${d.label}" skill in Ardova and walk me through it step by step.` : null);
+    if (seed) {
+      setTimeout(() => handleAsk(seed, false), startedRef.current ? 0 : 260);
+    }
+  }, [track, goToLesson, startWalkthrough, handleAsk]);
+
+  useEffect(() => { handleLaunchRef.current = handleLaunch; }, [handleLaunch]);
 
   const toggleSpeaker = () => {
     const next = !speakerOn; setSpeakerOn(next); speakerRef.current = next;
@@ -320,7 +376,7 @@ export default function TrainingCompanion() {
       {showFull && (
         <>
           <div className="tc-head">
-            <span className="tc-head__ardo"><Character state={ardoState} size={40} /></span>
+            <span className="tc-head__ardo"><Character state={ardoState} size={40} className={reacting ? 'ardo-pop' : ''} /></span>
             <div className="tc-head__title">
               <div className="tc-head__name">
                 Ardo
@@ -333,7 +389,7 @@ export default function TrainingCompanion() {
           </div>
 
           <div className="tc-stage">
-            <div className="tc-stage__ardo"><Character state={ardoState} size={104} /></div>
+            <div className="tc-stage__ardo"><Character state={ardoState} size={104} className={reacting ? 'ardo-pop' : ''} /></div>
             <div className="tc-stage__status">
               {!started
                 ? `Hey ${firstName}, ready to learn Ardova?`

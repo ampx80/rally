@@ -1,0 +1,273 @@
+/* ============================================================
+   LEARN HUB styles  (scoped under .lh-*)
+   Reuses index.css tokens (--accent, --paper, --ink, --line, --ease, ...).
+   Energetic + cohesive, and every animation honors prefers-reduced-motion.
+   ASCII only. No em-dash / no en-dash.
+   ============================================================ */
+
+.lh { --lh-radius: 18px; }
+
+/* ---------------- HERO ---------------- */
+.lh-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--lh-radius);
+  padding: 2rem 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  background: linear-gradient(120deg, #3b2fb8 0%, #5b4bf5 42%, #7c5cf7 72%, #0e9f8f 130%);
+  box-shadow: 0 24px 60px -30px rgba(60, 48, 190, .7);
+  isolation: isolate;
+}
+.lh-hero__bg {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(420px 220px at 88% -10%, rgba(255,255,255,.30), transparent 70%),
+    radial-gradient(360px 260px at 10% 120%, rgba(14,159,143,.45), transparent 70%);
+  animation: lhHeroGlow 12s ease-in-out infinite alternate;
+}
+@keyframes lhHeroGlow { 0% { opacity: .8; } 100% { opacity: 1; transform: scale(1.04); } }
+
+.lh-hero__content { position: relative; max-width: 680px; }
+.lh-hero__ardo {
+  position: absolute; right: 1.4rem; bottom: -6px; z-index: 0; opacity: .96;
+  filter: drop-shadow(0 18px 26px rgba(12,16,26,.35));
+  animation: lhArdoBob 5s ease-in-out infinite;
+}
+@keyframes lhArdoBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+.lh-hero__eyebrow {
+  font-size: .74rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.82); margin-bottom: .5rem;
+}
+.lh-hero__title {
+  margin: 0; font-size: clamp(1.7rem, 3.2vw, 2.5rem); line-height: 1.1; font-weight: 800;
+  letter-spacing: -.02em; color: #fff;
+}
+.lh-hero__title .grad, .lh-hero__title span { }
+.lh-hero__sub {
+  margin: .85rem 0 0; max-width: 560px; font-size: 1.02rem; line-height: 1.55;
+  color: rgba(255,255,255,.9);
+}
+
+.lh-hero__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.3rem; }
+.lh-hero__cta {
+  display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+  font-family: inherit; font-weight: 800; font-size: 1rem; color: #4a3ce0;
+  padding: .8rem 1.4rem; border: none; border-radius: 999px; background: #fff;
+  box-shadow: 0 12px 26px -10px rgba(12,16,26,.5);
+  transition: transform .16s var(--ease), box-shadow .16s var(--ease), filter .16s var(--ease);
+}
+.lh-hero__cta:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 18px 34px -12px rgba(12,16,26,.55); }
+.lh-hero__cta:active { transform: translateY(0); }
+
+.lh-hero__ghost {
+  display: inline-flex; align-items: center; gap: .45rem; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: .95rem; color: #fff; text-decoration: none;
+  padding: .8rem 1.15rem; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.42); background: rgba(255,255,255,.10);
+  transition: background .16s var(--ease), border-color .16s var(--ease);
+}
+.lh-hero__ghost:hover { background: rgba(255,255,255,.20); border-color: rgba(255,255,255,.7); }
+
+.lh-hero__stats { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.lh-hero__stat {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .55rem .85rem; border-radius: 12px;
+  background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(4px);
+}
+.lh-hero__statIcon { display: grid; place-items: center; opacity: .9; }
+.lh-hero__statVal { font-weight: 800; font-size: 1.02rem; }
+.lh-hero__statLabel { font-size: .78rem; color: rgba(255,255,255,.82); font-weight: 600; }
+
+@media (max-width: 720px) {
+  .lh-hero { padding: 1.5rem 1.35rem; }
+  .lh-hero__ardo { display: none; }
+}
+
+/* ---------------- LEARN IN A MORNING ---------------- */
+.lh-morning { padding: 1.35rem 1.4rem; }
+.lh-morning__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.lh-morning__ring { flex: none; }
+.lh-morning__bar { margin: 1rem 0 .4rem; }
+
+.lh-morning__steps { display: flex; flex-direction: column; margin-top: .5rem; }
+
+.lh-step {
+  display: grid; grid-template-columns: 34px 1fr auto; align-items: start; gap: .85rem;
+  padding: .85rem 0;
+}
+.lh-step__rail { position: relative; display: flex; flex-direction: column; align-items: center; }
+.lh-step__mark {
+  width: 32px; height: 32px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: .92rem; color: var(--n-600);
+  background: var(--paper); border: 2px solid var(--line-strong);
+  transition: all .18s var(--ease); z-index: 1;
+}
+.lh-step__line {
+  position: absolute; top: 32px; bottom: -18px; width: 2px; background: var(--line-strong); opacity: .7;
+}
+.lh-step.is-current .lh-step__mark {
+  border-color: var(--accent); color: var(--accent-600);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+  animation: lhPulse 1.9s ease-in-out infinite;
+}
+@keyframes lhPulse {
+  0%,100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent); }
+  50%     { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 6%, transparent); }
+}
+.lh-step.is-done .lh-step__mark { background: var(--ok); border-color: var(--ok); color: #fff; }
+.lh-step.is-done .lh-step__line { background: var(--ok); opacity: .5; }
+
+.lh-step__body { min-width: 0; }
+.lh-step__title { font-weight: 700; font-size: 1rem; color: var(--ink); display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.lh-step.is-done .lh-step__title { color: var(--n-600); }
+.lh-step__meta {
+  font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--accent-600); background: var(--accent-50, #eef0ff);
+  padding: .1rem .45rem; border-radius: 999px;
+}
+.lh-step.is-done .lh-step__meta { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, var(--paper)); }
+.lh-step__desc { margin-top: .2rem; font-size: .9rem; color: var(--n-600); line-height: 1.5; }
+
+.lh-step__action {
+  flex: none; align-self: center; display: inline-flex; align-items: center; gap: .4rem;
+  font-family: inherit; font-weight: 700; font-size: .86rem; cursor: pointer;
+  color: var(--accent-600); background: var(--accent-50, #eef0ff);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  padding: .5rem .85rem; border-radius: 10px; white-space: nowrap;
+  transition: transform .14s var(--ease), filter .14s var(--ease);
+}
+.lh-step__action:hover { transform: translateY(-1px); filter: brightness(.98); }
+.lh-step.is-done .lh-step__action { color: var(--n-600); background: var(--n-25); border-color: var(--line); }
+
+.lh-morning__win {
+  display: flex; align-items: center; gap: .5rem; margin-top: .9rem;
+  padding: .75rem 1rem; border-radius: 12px; font-weight: 700; font-size: .92rem;
+  color: var(--ok); background: color-mix(in srgb, var(--ok) 10%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--ok) 30%, transparent);
+}
+
+@media (max-width: 640px) {
+  .lh-step { grid-template-columns: 30px 1fr; }
+  .lh-step__action { grid-column: 2; justify-self: start; margin-top: .4rem; }
+}
+
+/* ---------------- JOURNEY TILES ---------------- */
+.lh-tiles {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  margin-bottom: 1.6rem;
+}
+.lh-tile {
+  --lh-accent: var(--accent);
+  position: relative; overflow: hidden; text-decoration: none;
+  display: flex; flex-direction: column; gap: .55rem;
+  padding: 1.15rem 1.2rem 1.1rem;
+  border-radius: var(--lh-radius);
+  background: var(--paper); border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
+}
+.lh-tile::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--lh-accent); opacity: .9;
+}
+.lh-tile:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--lh-accent) 45%, var(--line));
+  box-shadow: 0 22px 44px -26px color-mix(in srgb, var(--lh-accent) 60%, transparent);
+}
+.lh-tile__glow {
+  position: absolute; top: -40px; right: -40px; width: 130px; height: 130px; border-radius: 50%;
+  background: var(--lh-accent); opacity: .09; filter: blur(6px); pointer-events: none;
+}
+.lh-tile__head { display: flex; align-items: center; gap: .55rem; }
+.lh-tile__icon {
+  display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 9px;
+  color: #fff; background: var(--lh-accent);
+}
+.lh-tile__eyebrow {
+  flex: 1; min-width: 0; font-size: .74rem; font-weight: 800; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--n-600);
+}
+.lh-tile__go { color: var(--n-400); transition: color .16s var(--ease), transform .16s var(--ease); }
+.lh-tile:hover .lh-tile__go { color: var(--lh-accent); transform: translate(2px, -2px); }
+
+.lh-tile__value {
+  display: flex; align-items: baseline; gap: .4rem; margin-top: .15rem;
+  font-size: 2.15rem; font-weight: 800; line-height: 1; letter-spacing: -.02em; color: var(--ink);
+}
+.lh-tile__valueSub { font-size: .82rem; font-weight: 700; color: var(--n-600); letter-spacing: 0; }
+.lh-tile__headline {
+  font-size: .9rem; font-weight: 600; color: var(--ink); line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.lh-tile__rows { display: flex; flex-direction: column; gap: .3rem; margin-top: .2rem; }
+.lh-tile__row {
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  font-size: .82rem; padding: .12rem 0;
+}
+.lh-tile__rowLabel { color: var(--n-600); }
+.lh-tile__rowVal { font-weight: 700; color: var(--ink); text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.lh-tile__cta {
+  display: inline-flex; align-items: center; gap: .35rem; margin-top: auto; padding-top: .5rem;
+  font-size: .86rem; font-weight: 800; color: var(--lh-accent);
+}
+
+/* ---------------- ROLE LESSON TRACK ---------------- */
+.lh-track { padding: 1.35rem 1.4rem; }
+.lh-track__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.lh-track__count { flex: none; }
+.lh-track__bar { margin: 1rem 0 .9rem; }
+.lh-track__list { display: flex; flex-direction: column; gap: .5rem; }
+
+.lh-lesson {
+  display: flex; align-items: center; gap: .8rem; width: 100%; text-align: left;
+  font-family: inherit; cursor: pointer; padding: .7rem .85rem;
+  border-radius: 12px; border: 1px solid var(--line); background: var(--paper);
+  transition: transform .14s var(--ease), border-color .14s var(--ease), box-shadow .14s var(--ease), background .14s var(--ease);
+}
+.lh-lesson:hover { transform: translateX(3px); border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent); }
+.lh-lesson.is-active { border-color: var(--accent); background: var(--accent-50, #eef0ff); }
+.lh-lesson.is-done { background: var(--n-25); }
+
+.lh-lesson__check {
+  width: 26px; height: 26px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  font-size: .8rem; font-weight: 800; color: var(--n-600);
+  background: var(--paper); border: 2px solid var(--line-strong);
+}
+.lh-lesson.is-done .lh-lesson__check { background: var(--ok); border-color: var(--ok); color: #fff; }
+
+.lh-lesson__main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.lh-lesson__title { font-weight: 700; font-size: .95rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lh-lesson.is-done .lh-lesson__title { color: var(--n-600); }
+.lh-lesson__route { font-size: .76rem; color: var(--n-600); font-family: var(--font-mono, monospace); }
+
+.lh-lesson__go {
+  flex: none; display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .8rem; font-weight: 800; color: var(--accent-600);
+  padding: .35rem .6rem; border-radius: 999px; background: var(--accent-50, #eef0ff);
+  opacity: .6; transition: opacity .14s var(--ease), transform .14s var(--ease);
+}
+.lh-lesson:hover .lh-lesson__go { opacity: 1; transform: scale(1.03); }
+@media (max-width: 560px) { .lh-lesson__goLabel { display: none; } }
+
+.lh-track__foot {
+  display: flex; align-items: flex-start; gap: .5rem; margin-top: 1rem; padding-top: .9rem;
+  border-top: 1px solid var(--line); color: var(--n-600); font-size: .84rem; line-height: 1.5;
+}
+.lh-track__foot svg { color: var(--accent-600); flex: none; margin-top: 2px; }
+
+/* ---------------- REDUCED MOTION ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .lh-hero__bg, .lh-hero__ardo, .lh-step.is-current .lh-step__mark,
+  .lh-tile, .lh-tile__go, .lh-lesson, .lh-hero__cta, .lh-hero__ghost,
+  .lh-step__action {
+    animation: none !important; transition: none !important;
+  }
+  .lh-tile:hover, .lh-lesson:hover { transform: none !important; }
+}

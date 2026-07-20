@@ -21,10 +21,44 @@
 @keyframes ardoFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 @keyframes ardoShadow { 0%,100% { transform: scaleX(1); opacity: .18; } 50% { transform: scaleX(.86); opacity: .12; } }
 
-/* IDLE: gentle float + slow blink */
-.ardo--idle .ardo__bob { animation: ardoFloat 3.6s ease-in-out infinite; }
-.ardo--idle .ardo__eye { animation: ardoBlink 4s ease-in-out infinite; }
-.ardo--idle .ardo__shadow { animation: ardoShadow 3.6s ease-in-out infinite; }
+/* IDLE (alive): gentle float + breathe, a periodic double-blink, a slow
+   look-around, and a soft antenna sway. All layered on the existing SVG
+   groups so Character.jsx never has to change. */
+@keyframes ardoBreathe {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%     { transform: translateY(-5px) scale(1.018); }
+}
+@keyframes ardoBlink2 {
+  0%,40%,50%,88%,100% { transform: scaleY(1); }
+  44%,92%             { transform: scaleY(.08); }
+}
+@keyframes ardoLook {
+  0%,18%   { transform: translateX(0); }
+  28%,44%  { transform: translateX(2.4px); }
+  54%,68%  { transform: translateX(0); }
+  76%,88%  { transform: translateX(-2.4px); }
+  96%,100% { transform: translateX(0); }
+}
+@keyframes ardoAntennaSway {
+  0%,100% { transform: rotate(0deg); }
+  50%     { transform: rotate(7deg); }
+}
+.ardo--idle .ardo__bob { transform-box: fill-box; transform-origin: 60px 92px; animation: ardoBreathe 4.2s ease-in-out infinite; }
+.ardo--idle .ardo__eye { animation: ardoBlink2 6s ease-in-out infinite; }
+.ardo--idle .ardo__pupil--l,
+.ardo--idle .ardo__pupil--r { transform-box: fill-box; transform-origin: center; animation: ardoLook 7.5s ease-in-out infinite; }
+.ardo--idle .ardo__antenna { transform-box: fill-box; transform-origin: bottom center; animation: ardoAntennaSway 4s ease-in-out infinite; }
+.ardo--idle .ardo__shadow { animation: ardoShadow 4.2s ease-in-out infinite; }
+
+/* POP: a quick delighted bounce fired on the wrapper when a lesson is
+   completed (added via the `ardo-pop` className, removed after ~0.6s). */
+@keyframes ardoPop {
+  0%   { transform: scale(1) rotate(0); }
+  35%  { transform: scale(1.16) rotate(-4deg); }
+  62%  { transform: scale(.95) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.ardo.ardo-pop { animation: ardoPop .6s var(--ease); transform-origin: 50% 80%; }
 
 /* TALKING: quicker bounce + mouth flap + brighter eyes */
 @keyframes ardoTalkBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
@@ -186,7 +220,7 @@
 
 /* reduced motion: kill all companion animation */
 @media (prefers-reduced-motion: reduce) {
-  .ardo *, .tc-launcher, .tc-dock, .tc-icon-btn.is-live, .tc-spotlight {
+  .ardo, .ardo *, .tc-launcher, .tc-dock, .tc-icon-btn.is-live, .tc-spotlight {
     animation: none !important; transition: none !important;
   }
 }
