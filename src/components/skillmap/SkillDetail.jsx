@@ -62,7 +62,7 @@ export default function SkillDetail({ skill, st, state, nextItems, onSelect, onN
 
       <div className="row gap-2" style={{ margin: '.85rem 0 .3rem', alignItems: 'center' }}>
         <LevelBadge level={st.level} />
-        {st.isNext && <Badge tone="accent">Next to unlock</Badge>}
+        {st.isNext && <Badge tone="accent">Unlocks new skills</Badge>}
         {st.practiced > 0 && <span className="t-xs muted">{st.practiced} rep{st.practiced === 1 ? '' : 's'} practiced</span>}
       </div>
 
@@ -106,13 +106,19 @@ export default function SkillDetail({ skill, st, state, nextItems, onSelect, onN
           <Button variant="ghost" onClick={() => onNavigate(skill)} style={{ flex: 1 }}>
             <Icon name="arrowRight" size={16} /> Open {skill.rook ? 'Rook' : 'page'}
           </Button>
-          <Button variant="primary" onClick={() => onPractice(skill)} style={{ flex: 1 }}>
+          <Button
+            variant="primary"
+            onClick={() => onPractice(skill)}
+            disabled={locked}
+            title={locked ? 'Clear the prerequisites first' : undefined}
+            style={{ flex: 1 }}
+          >
             <Icon name="check" size={16} /> Mark practiced
           </Button>
         </div>
         {locked && (
           <div className="t-xs muted" style={{ textAlign: 'center' }}>
-            Locked skills still open so you can preview them, but clear the prerequisites above to light this star up.
+            Locked skills open for preview only. Clear the prerequisites above to unlock this star and start marking reps.
           </div>
         )}
       </div>

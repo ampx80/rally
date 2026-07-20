@@ -6,6 +6,7 @@
 import React, { useMemo, useState } from 'react';
 import { Icon } from '../icons.jsx';
 import { Avatar, Ring, Badge } from '../UI.jsx';
+import { useStore } from '../../lib/store.js';
 import {
   AREAS, LEVELS, skillsForArea, areaColor,
   teamCoverage, teamAreaAverages,
@@ -18,7 +19,16 @@ function heatStyle(pct) {
 }
 
 export default function TeamCoverage({ version, currentUserId }) {
-  const rows = useMemo(() => teamCoverage(), [version]);
+  // Subscribe to the CRM store so the heatmap recomputes live when signal
+  // sources change (deals, contacts, companies, activities), not only when a
+  // practice mark fires. The `version` prop already folds in a store + practice
+  // signature; the store snapshot in the deps is the belt-and-suspenders read.
+  const store = useStore();
+  const storeSig = useMemo(() => JSON.stringify([
+    store.deals.map(d => `${d.stage || ''}:${d.status || ''}:${d.ownerId || ''}`),
+    store.contacts.length, store.companies.length, store.activities.length,
+  ]), [store]);
+  const rows = useMemo(() => teamCoverage(), [version, storeSig]);
   const averages = useMemo(() => teamAreaAverages(rows), [rows]);
   const [cell, setCell] = useState(null); // { userId, areaId }
 

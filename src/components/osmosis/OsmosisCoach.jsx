@@ -65,6 +65,7 @@ export default function OsmosisCoach() {
   const [spot, setSpot] = useState(null);          // { sel, label }
   const [spotRect, setSpotRect] = useState(null);  // measured rect of the target
   const [popOpen, setPopOpen] = useState(false);
+  const [spotMiss, setSpotMiss] = useState(false); // "Show me" could not find a target
 
   // Keep local enabled flag in sync with the global toggle (any surface).
   useEffect(() => subscribeEnabled(setEnabledState), []);
@@ -74,11 +75,13 @@ export default function OsmosisCoach() {
     setPath(p);
     setSpot(null);
     setPopOpen(false);
+    setSpotMiss(false);
   }), []);
 
   // Decide whether to show a first-visit tip for the current route.
   useEffect(() => {
     setBubble(null);
+    setSpotMiss(false);
     if (!enabled) return undefined;
     const tip = tipForPath(path);
     if (!tip) return undefined;
@@ -125,7 +128,7 @@ export default function OsmosisCoach() {
       if (e.key === 'Escape') {
         if (spot) { setSpot(null); e.stopPropagation(); }
         else if (popOpen) { setPopOpen(false); e.stopPropagation(); }
-        else if (bubble) { setBubble(null); }
+        else if (bubble) { markSeen(bubble.key); setBubble(null); }
         return;
       }
       if (e.key === '?' && !e.metaKey && !e.ctrlKey && !e.altKey) {
@@ -153,10 +156,18 @@ export default function OsmosisCoach() {
     if (a.kind === 'spot') return openSpotlight(a.sel, a.label);
   };
 
-  const dismissBubble = () => setBubble(null);
+  // X-dismiss REMEMBERS: mark seen so the tip does not respawn next session.
+  const dismissBubble = () => { if (bubble) markSeen(bubble.key); setBubble(null); };
   const gotIt = () => { if (bubble) markSeen(bubble.key); setBubble(null); };
   const showMe = () => {
     if (!bubble) return;
+    // Fail-safe: only spend the "seen" memory if we can actually point at
+    // something. If the target (and every chrome fallback) is missing, keep the
+    // bubble up with a small note instead of silently marking it seen and
+    // vanishing into a no-op.
+    const el = resolveEl(withFallbacks(bubble.spot));
+    if (!el) { setSpotMiss(true); return; }
+    setSpotMiss(false);
     markSeen(bubble.key);
     openSpotlight(bubble.spot, bubble.spotLabel || bubble.title);
   };
@@ -180,6 +191,14 @@ export default function OsmosisCoach() {
             </button>
           </div>
           <div className="osm-bubble__body">{bubble.tip}</div>
+          {spotMiss && (
+            <div
+              role="alert"
+              style={{ marginTop: 6, fontSize: '.78rem', color: 'var(--warn, #b26a00)', lineHeight: 1.4 }}
+            >
+              That control has not loaded on this page yet. Give it a moment and try again.
+            </div>
+          )}
           <div className="osm-bubble__row">
             <button className="osm-btn osm-btn--primary" onClick={showMe}>
               <Icon name="eye" size={14} /> Show me

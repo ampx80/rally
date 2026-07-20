@@ -1,7 +1,7 @@
 // ============================================================
 // SKILL MAP  (/skills)
 // ------------------------------------------------------------
-// A game-like mastery cartography of the entire Ardova platform: a
+// A game-like mastery cartography of the entire Ardovo platform: a
 // constellation / tech-tree of every skill, grouped by area, wired
 // with prerequisites, and coloured by your mastery. You unlock
 // stars by doing (real signals from the book of business advance
@@ -19,7 +19,7 @@ import {
   PageTitle, Card, Ring, Badge, Button, Segmented, useToast,
 } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
-import { getCurrentUser } from '../lib/store.js';
+import { getCurrentUser, useStore } from '../lib/store.js';
 import {
   AREAS, SKILLS, SKILL_BY_ID, LEVELS, LEVEL_ORDER,
   useSkillmap, userSkillState, overallMastery, areaStats, nextUp,
@@ -41,16 +41,29 @@ export default function SkillMap() {
   const nav = useNavigate();
   const toast = useToast();
   const progress = useSkillmap();           // reactive: re-render on every practice mark
+  const store = useStore();                 // reactive: re-render on every CRM store change
   const user = getCurrentUser();
   const userId = user?.id;
+
+  // A cheap signature of the CRM facts the skill signals read. When any of it
+  // changes (a deal moves stage, an activity is logged, a company is added) the
+  // signal-driven mastery + the team heatmap recompute live, not just on a
+  // practice mark.
+  const storeSig = useMemo(() => JSON.stringify([
+    store.deals.map(d => `${d.stage || ''}:${d.status || ''}:${d.ownerId || ''}`),
+    store.contacts.map(c => c.ownerId || ''),
+    store.companies.map(c => c.ownerId || ''),
+    store.activities.map(a => `${a.type || ''}:${a.relatedType || ''}:${a.ownerId || ''}`),
+  ]), [store]);
 
   const [view, setView] = useState('map');   // 'map' | 'team'
   const [selectedId, setSelectedId] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
   const [activeArea, setActiveArea] = useState(null);
 
-  // Recompute the whole mastery state whenever practice marks change.
-  const state = useMemo(() => userSkillState(userId), [userId, progress]);
+  // Recompute the whole mastery state whenever practice marks OR the CRM store
+  // change (storeSig captures the signal-driving facts).
+  const state = useMemo(() => userSkillState(userId), [userId, progress, storeSig]);
   const overall = useMemo(() => overallMastery(userId, state), [userId, state]);
   const areas = useMemo(() => areaStats(userId, state), [userId, state]);
   const next = useMemo(() => nextUp(userId, state, 4), [userId, state]);
@@ -83,7 +96,7 @@ export default function SkillMap() {
       label: skill.label,
       area: skill.area,
       route: skill.route,
-      prompt: `Teach me the "${skill.label}" skill in Ardova and walk me through it step by step.`,
+      prompt: `Teach me the "${skill.label}" skill in Ardovo and walk me through it step by step.`,
     };
     // Primary hook: any coach/companion listener starts this lesson.
     try { window.dispatchEvent(new CustomEvent('ardova:companion', { detail })); } catch {}
@@ -94,6 +107,11 @@ export default function SkillMap() {
   };
 
   const handlePractice = (skill) => {
+    // Never advance a locked skill: you must clear its prerequisites first.
+    if (state[skill.id]?.level === 'locked') {
+      toast('Clear the prerequisites first to practice this skill', 'warn');
+      return;
+    }
     const n = markPracticed(skill.id, userId);
     const lvl = LEVEL_META[userSkillState(userId)[skill.id].level].label;
     toast(`Practiced ${skill.label} (${n} rep${n === 1 ? '' : 's'}, now ${lvl})`);
@@ -110,7 +128,7 @@ export default function SkillMap() {
       <PageTitle
         eyebrow="Mastery cartography"
         title="Skill Map"
-        sub="Every Ardova skill as a constellation. Unlock stars by doing, follow the paths, and grow your mastery."
+        sub="Every Ardovo skill as a constellation. Unlock stars by doing, follow the paths, and grow your mastery."
         action={
           <div className="row gap-2" style={{ alignItems: 'center' }}>
             <Segmented
@@ -153,7 +171,7 @@ export default function SkillMap() {
             ))}
             <span className="sm-legend__item">
               <span className="sm-swatch" style={{ background: 'var(--accent)', boxShadow: '0 0 0 3px rgba(14,159,143,.25)' }} />
-              Pulsing = ready to level up
+              Pulsing = unlocks new skills
             </span>
           </div>
           <div className="eyebrow" style={{ marginBottom: '.5rem' }}>Areas (click to focus)</div>
@@ -206,7 +224,7 @@ export default function SkillMap() {
           />
         </div>
       ) : (
-        <TeamCoverage version={progress} currentUserId={userId} />
+        <TeamCoverage version={`${storeSig}::${JSON.stringify(progress)}`} currentUserId={userId} />
       )}
     </div>
   );

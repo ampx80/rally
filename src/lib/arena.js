@@ -1,7 +1,8 @@
 // ============================================================
 // ARDOVO PRACTICE ARENA  (local-first: content + scoring + certification)
 //
-// "Learn by doing, graded by AI." Certification by simulation, not seat-time.
+// "Learn by doing, scored instantly." Certification by simulation, not seat-time.
+// Scoring is deterministic and offline by default; AI is an optional enhancement.
 // This module owns every Arena data shape and the deterministic engines:
 //   1) ROLE-PLAY   turn-based buyer persona sim + rubric grader
 //   2) SPEED DRILL timed checklist tasks + best-time leaderboard
@@ -542,9 +543,15 @@ export const MODE_LABEL = { roleplay: 'Role-Play', drill: 'Speed Drill', knowled
 
 export function certificationStatus(progress, roleId) {
   const best = (progress.bestScores && progress.bestScores[roleId]) || {};
-  const r = pass(best.roleplay || 0);
-  const d = pass(best.drill || 0);
-  const k = pass(best.knowledge || 0);
+  const passed = (progress.passed && progress.passed[roleId]) || {};
+  // A mode counts as passed only when a real passing ATTEMPT was recorded
+  // (result.pass). For the speed drill that means score >= PASS_MARK AND every
+  // step complete, so a high-but-incomplete run can never certify. Role-play
+  // and knowledge fall back to a score check for progress saved before this
+  // flag existed (their pass rule is score-only, so the two agree).
+  const r = !!passed.roleplay || pass(best.roleplay || 0);
+  const d = !!passed.drill;
+  const k = !!passed.knowledge || pass(best.knowledge || 0);
   return {
     roleplay: r, drill: d, knowledge: k,
     certified: r && d && k,
@@ -561,7 +568,8 @@ export function certificationStatus(progress, roleId) {
    ============================================================ */
 function defaultProgress() {
   return {
-    bestScores: {},   // { [roleId]: { roleplay, drill, knowledge } }
+    bestScores: {},   // { [roleId]: { roleplay, drill, knowledge } }  (best SCORE)
+    passed: {},       // { [roleId]: { roleplay, drill, knowledge } }  (true PASS, drill requires complete)
     badges: [],       // [{ id, kind, mode?, role, label, icon, tone, earnedAt }]
     history: [],      // [{ mode, role, score, grade, pass, at }]
     drillBest: {},    // { [drillId]: { ms, at } }
@@ -599,11 +607,21 @@ function bumpStreak() {
 export function recordResult(mode, roleId, result) {
   const now = new Date().toISOString();
   const awarded = [];
+  // Snapshot certification BEFORE this attempt is applied, so certifiedNow can
+  // tell the difference between "was already certified" and "just certified".
+  const wasCertified = certificationStatus(progress, roleId).certified;
   progress = { ...progress, bestScores: { ...progress.bestScores } };
 
   const prevBest = progress.bestScores[roleId] || {};
   const prevMode = prevBest[mode] || 0;
   progress.bestScores[roleId] = { ...prevBest, [mode]: Math.max(prevMode, result.score) };
+
+  // Latch a real PASS per mode. result.pass already encodes the mode's true
+  // pass rule (the drill requires all steps complete AND score >= PASS_MARK),
+  // so certification reads this instead of re-deriving pass from the score.
+  progress.passed = { ...progress.passed };
+  const prevPassed = progress.passed[roleId] || {};
+  progress.passed[roleId] = { ...prevPassed, [mode]: !!prevPassed[mode] || !!result.pass };
 
   progress.history = [
     { mode, role: roleId, score: result.score, grade: result.grade, pass: result.pass, at: now },
@@ -620,8 +638,6 @@ export function recordResult(mode, roleId, result) {
 
   progress.streak = bumpStreak();
   progress.passStreak = result.pass ? (progress.passStreak || 0) + 1 : 0;
-
-  const wasCertified = certificationStatus(progress, roleId).certified;
 
   // Mode badge (once per mode+role).
   if (result.pass) {

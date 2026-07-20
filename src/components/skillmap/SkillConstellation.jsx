@@ -1,4 +1,4 @@
-// The Skill Map board: a radial constellation / tech-tree of every Ardova
+// The Skill Map board: a radial constellation / tech-tree of every Ardovo
 // skill. Nodes are positioned by area sector and prereq depth, linked by
 // prerequisite edges, and coloured by the current user's mastery. It is fully
 // keyboard reachable (each node is a focusable button) and controlled by the
@@ -51,7 +51,7 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
   return (
     <div className="sm-board">
       <svg className="sm-svg" viewBox={`0 0 ${W} ${H}`} role="group"
-        aria-label="Ardova skill constellation. Use Tab to move between skills and Enter to open one.">
+        aria-label="Ardovo skill constellation. Use Tab to move between skills and Enter to open one.">
         {/* backdrop starfield */}
         <g aria-hidden="true">
           {stars.map(st => (
@@ -131,7 +131,7 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
             const showLabel = focused || selected || level === 'mastered' || level === 'proficient' || st.isNext;
             return (
               <g key={s.id} className={cls} tabIndex={0} role="button"
-                aria-label={`${s.label}. ${area.label}. ${level}${st.isNext ? ', ready to level up' : ''}.`}
+                aria-label={`${s.label}. ${area.label}. ${level}${st.isNext ? ', unlocks new skills' : ''}.`}
                 aria-pressed={selected}
                 style={{ opacity: dim ? 0.28 : 1, transition: 'opacity .2s' }}
                 onClick={() => onSelect(s.id)}
@@ -191,7 +191,7 @@ export default function SkillConstellation({ state, selectedId, hoveredId, activ
         {/* centre badge */}
         <g aria-hidden="true">
           <circle cx={cx} cy={cy} r={innerR - 14} fill="var(--paper)" stroke="var(--line)" />
-          <text x={cx} y={cy - 4} textAnchor="middle" fontSize="15" fontWeight="800" fill="var(--ink)">Ardova</text>
+          <text x={cx} y={cy - 4} textAnchor="middle" fontSize="15" fontWeight="800" fill="var(--ink)">Ardovo</text>
           <text x={cx} y={cy + 14} textAnchor="middle" fontSize="10.5" fontWeight="700" fill="var(--n-600)" letterSpacing="1">MASTERY</text>
         </g>
       </svg>

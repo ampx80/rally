@@ -1,7 +1,7 @@
 // ============================================================
 // PRACTICE ARENA  (route: /arena)
 //
-// "Learn by doing, graded by AI." A game-like training ground where reps get
+// "Learn by doing, scored instantly." A game-like training ground where reps get
 // certified by simulation, not seat-time. Three scored modes, each earning a
 // badge on pass; clearing all three for a role grants an "Ardovo Certified
 // <Role>" badge. Everything runs deterministically with zero API keys; the
@@ -14,10 +14,10 @@
 // ASCII only. NO em-dash / en-dash.
 // ============================================================
 import React, { useState } from 'react';
-import { PageTitle, Card, Button, Badge, StatCard, SectionHeader, Ring } from '../components/UI.jsx';
+import { PageTitle, Card, Button, Badge, StatCard, SectionHeader, Ring, useToast } from '../components/UI.jsx';
 import { Icon } from '../components/icons.jsx';
 import {
-  ROLES, roleById, useArena, certificationStatus, MODE_LABEL, PASS_MARK, gradeTone,
+  ROLES, roleById, useArena, certificationStatus, MODE_LABEL, PASS_MARK, gradeTone, resetArena,
 } from '../lib/arena.js';
 import RolePlay from '../components/arena/RolePlay.jsx';
 import SpeedDrill from '../components/arena/SpeedDrill.jsx';
@@ -26,8 +26,8 @@ import BadgesWall from '../components/arena/BadgesWall.jsx';
 import '../components/arena/arena.css';
 
 const MODES = [
-  { id: 'roleplay', title: 'Role-Play', icon: 'messages', accent: 'var(--accent)', blurb: 'Practice discovery, objection-handling, and closing against a live AI buyer persona.' },
-  { id: 'drill', title: 'Speed Drills', icon: 'zap', accent: 'var(--warn)', blurb: 'Beat the clock on real CRM tasks. Graded on speed and completeness, with a leaderboard.' },
+  { id: 'roleplay', title: 'Role-Play', icon: 'messages', accent: 'var(--accent)', blurb: 'Practice discovery, objection-handling, and closing against a realistic buyer persona. AI makes the replies richer when a key is connected.' },
+  { id: 'drill', title: 'Speed Drills', icon: 'zap', accent: 'var(--warn)', blurb: 'Beat the clock on everyday CRM workflows. Scored on speed and completeness, with a pace leaderboard.' },
   { id: 'knowledge', title: 'Knowledge Check', icon: 'book', accent: 'var(--accent-purple, var(--accent))', blurb: 'An adaptive quiz on Ardovo concepts that gets harder the more you get right.' },
 ];
 
@@ -39,6 +39,7 @@ function ModeStatusPill({ passed, score }) {
 
 export default function Arena() {
   const progress = useArena();
+  const toast = useToast();
   const [roleId, setRoleId] = useState('ae');
   const [view, setView] = useState('hub'); // hub | roleplay | drill | knowledge
 
@@ -77,9 +78,9 @@ export default function Arena() {
   return (
     <div className="arena-page">
       <PageTitle
-        eyebrow="Learn by doing, graded by AI"
+        eyebrow="Learn by doing, scored instantly"
         title="Practice Arena"
-        sub="Get certified by simulation, not seat-time. Three scored modes, real badges, no fluff."
+        sub="Get certified by simulation, not seat-time. Three scored modes run fully offline; connect a key and AI enriches the role-play and coaching."
         action={
           <Badge tone={certifiedRoles > 0 ? 'ok' : 'default'} className="row gap-1">
             <Icon name="roleShield" size={14} /> {certifiedRoles} of {ROLES.length} roles certified
@@ -196,6 +197,23 @@ export default function Arena() {
       <SectionHeader title="Badge wall" sub="Everything you have earned in the Arena." />
       <div style={{ marginTop: '.75rem' }}>
         <BadgesWall badges={progress.badges} />
+      </div>
+
+      {/* reset */}
+      <div className="row between wrap gap-2" style={{ marginTop: '1.5rem', alignItems: 'center' }}>
+        <span className="t-xs muted">
+          Scores, badges, and certifications are saved on this device only.
+        </span>
+        <Button
+          variant="quiet"
+          size="sm"
+          onClick={() => {
+            resetArena();
+            toast('Arena progress reset', 'warn');
+          }}
+        >
+          <Icon name="rotateCcw" size={14} /> Reset Arena progress
+        </Button>
       </div>
     </div>
   );

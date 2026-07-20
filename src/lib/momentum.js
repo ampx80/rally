@@ -300,6 +300,27 @@ export function ensureProgress(userId = currentUserId()) {
   return state.progress[userId];
 }
 
+/* ============================================================
+   TEAM BASELINE
+   The manager leaderboard must measure RAMP (new work since tracking
+   started), not absolute seeded CRM volume, or a rep with a fat seeded
+   book looks "ramped" without lifting a finger. We snapshot every rep's
+   owned counts ONCE and score each rep against their own baseline with
+   the exact same delta model the personal ramp uses. Call this from an
+   effect (never during render) so the one-time commit does not fight a
+   render pass.
+   ============================================================ */
+export function ensureTeamBaseline() {
+  if (state.teamBaseline) return state.teamBaseline;
+  const tb = {};
+  for (const u of getUsers()) {
+    if (u.role !== 'rep') continue;
+    tb[u.id] = snapshotBaseline(u.id);
+  }
+  commit({ ...state, teamBaseline: tb });
+  return tb;
+}
+
 export function getProgress(userId = currentUserId()) {
   return state.progress[userId] || blankProgress(userId);
 }
@@ -479,16 +500,24 @@ export function rampByTier(roleId = getRole(), userId = currentUserId()) {
 /* ============================================================
    MANAGER VIEW  (team ramp leaderboard)
    Scored off REAL store ownership so no one has to sit through a
-   check-in meeting. We can only read what other reps actually own
-   (not their baseline), so a rep's ramp here is the share of the
-   role's store-verifiable quests their live records satisfy.
+   check-in meeting. Ramp here is NEW work each rep has done since the
+   team baseline was captured (same per-user baseline + delta model as
+   the personal ramp), so absolute seeded CRM volume never inflates the
+   score. If a rep has no captured baseline yet we treat their current
+   counts as the baseline, which honestly starts them at zero ramp.
    ============================================================ */
 export function teamRamp(roleId = getRole()) {
   const meId = currentUserId();
+  const baseline = state.teamBaseline || {};
   const storeQuests = questsForRole(roleId).filter(q => q.metric);
   const total = storeQuests.length || 1;
   const rows = getUsers().filter(u => u.role === 'rep').map(u => {
-    const doneQuests = storeQuests.filter(q => ownedCount(u.id, q.metric) >= (q.target || 1));
+    const base = baseline[u.id] || {};
+    const doneQuests = storeQuests.filter(q => {
+      const now = ownedCount(u.id, q.metric);
+      const b = base[q.metric] != null ? base[q.metric] : now;
+      return (now - b) >= (q.delta || 1);
+    });
     const done = doneQuests.length;
     const xp = doneQuests.reduce((s, q) => s + q.xp, 0);
     const percent = Math.round((done / total) * 100);

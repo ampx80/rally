@@ -2,7 +2,7 @@
 // ARDOVA SKILL GRAPH  (local-first, pub/sub)
 // ------------------------------------------------------------
 // The data spine behind Skill Map (src/pages/SkillMap.jsx): a
-// game-like "tech tree" of every Ardova skill. Skills are grouped
+// game-like "tech tree" of every Ardovo skill. Skills are grouped
 // by product area, wired with prerequisites into a DAG, and carry
 // a per-user mastery level (locked / learning / proficient /
 // mastered).
@@ -136,7 +136,7 @@ export const SKILLS = [
   { id: 'au-flow', area: 'automation', label: 'Visual flow builder', route: '/flow', prereqs: ['au-workflows'],
     desc: 'Compose branching automations on the visual canvas.' },
   { id: 'au-nightshift', area: 'automation', label: 'Night shift ops', route: '/night-shift', prereqs: ['au-workflows'],
-    desc: 'Let Ardova run reversible operations overnight.' },
+    desc: 'Let Ardovo run reversible operations overnight.' },
   { id: 'au-autopilot', area: 'automation', label: 'Autopilot SDR', route: '/autopilot', prereqs: ['au-workflows', 'mk-sequences'],
     desc: 'Hand the SDR motion to an autonomous agent on a trust dial.' },
 
@@ -160,7 +160,7 @@ export const SKILLS = [
 
   /* ---------- Agents / AI ---------- */
   { id: 'ai-rook', area: 'agents', label: 'Partner with Rook', route: '/app', rook: true, prereqs: [],
-    desc: 'Ask Rook, Ardova\'s copilot, to do real work for you.' },
+    desc: 'Ask Rook, Ardovo\'s copilot, to do real work for you.' },
   { id: 'ai-signals', area: 'agents', label: 'Act on signals', route: '/signals', prereqs: ['fc-forecast'],
     desc: 'Work churn, expansion and intent signals as one feed.' },
   { id: 'ai-agentcloud', area: 'agents', label: 'Agent Cloud', route: '/agent-cloud', prereqs: ['ai-rook'],
@@ -171,7 +171,7 @@ export const SKILLS = [
     desc: 'Let our agent negotiate with the buyer\'s agent, deal to deal.' },
 
   /* ---------- Admin ---------- */
-  { id: 'ad-settings', area: 'admin', label: 'Configure Ardova', route: '/settings', prereqs: [],
+  { id: 'ad-settings', area: 'admin', label: 'Configure Ardovo', route: '/settings', prereqs: [],
     desc: 'Tune the workspace, modules and defaults.' },
   { id: 'ad-team', area: 'admin', label: 'Manage the team', route: '/team', prereqs: [],
     desc: 'Invite users and set up the revenue org.' },
@@ -184,6 +184,16 @@ export const SKILLS = [
 ];
 export const SKILL_BY_ID = new Map(SKILLS.map(s => [s.id, s]));
 export const skillsForArea = (areaId) => SKILLS.filter(s => s.area === areaId);
+
+/* ---------- dependents map (who lists me as a prereq) ---------- */
+// Used to compute the true "frontier": a skill only counts as "next" when
+// reaching proficient on it would unlock at least one currently-locked skill.
+export const DEPENDENTS = new Map(SKILLS.map(s => [s.id, []]));
+for (const s of SKILLS) {
+  for (const p of s.prereqs) {
+    if (DEPENDENTS.has(p)) DEPENDENTS.get(p).push(s.id);
+  }
+}
 
 /* ---------- tier (longest prereq chain depth) attached at load ---------- */
 (function computeTiers() {
@@ -309,8 +319,12 @@ export function userSkillState(userId) {
   const state = {};
   for (const s of SKILLS) {
     const unlocked = level[s.id] !== 'locked';
-    // "next to unlock": reachable now, not yet proficient. These pulse on the map.
-    const isNext = unlocked && level[s.id] === 'learning';
+    // True frontier: an unlocked, still-learning skill whose push to proficient
+    // would unlock at least one skill that is currently locked. Only these
+    // pulse on the map, so the pulse points at real forward progress instead of
+    // lighting up every learning node at once.
+    const isNext = unlocked && level[s.id] === 'learning'
+      && (DEPENDENTS.get(s.id) || []).some(dep => level[dep] === 'locked');
     state[s.id] = {
       id: s.id,
       level: level[s.id],

@@ -21,7 +21,7 @@ function Leaderboard({ drillId }) {
   const rows = drillLeaderboard(drillId, progress);
   return (
     <Card pad>
-      <SectionHeader title="Best times" sub="Beat the team. Only complete runs count." />
+      <SectionHeader title="Best times" sub="Rival times are simulated pace targets. Only your own completed runs are real." />
       <div className="col gap-1" style={{ marginTop: '.5rem' }}>
         {rows.map((r) => (
           <div key={r.name + r.rank} className="row between" style={{
@@ -49,6 +49,7 @@ export default function SpeedDrill({ roleId, onExit }) {
   const [now, setNow] = useState(0);
   const [result, setResult] = useState(null);
   const [awarded, setAwarded] = useState([]);
+  const [certifiedNow, setCertifiedNow] = useState(false);
   const timerRef = useRef(null);
 
   useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
@@ -78,6 +79,7 @@ export default function SpeedDrill({ roleId, onExit }) {
     const graded = gradeDrill(drill, elapsed, count);
     const rec = recordResult('drill', roleId, graded);
     setAwarded(rec.awarded);
+    setCertifiedNow(rec.certifiedNow);
     setResult(graded);
     setPhase('done');
   }
@@ -88,7 +90,7 @@ export default function SpeedDrill({ roleId, onExit }) {
         <ResultsScreen
           result={result}
           awarded={awarded}
-          certifiedNow={false}
+          certifiedNow={certifiedNow}
           retryLabel="Run it again"
           onRetry={() => begin(drillId)}
           onExit={onExit}

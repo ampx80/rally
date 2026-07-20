@@ -19,7 +19,7 @@ import {
   useMomentum, getRole, setRole,
   reconcile, pingStreak, markQuest, unmarkQuest, ackLevel, resetMomentum,
   getProgress, rampSummary, rampByTier, nextBestQuest,
-  questStatus, questProgress, teamRamp, questsForRole,
+  questStatus, questProgress, teamRamp, questsForRole, ensureTeamBaseline,
 } from '../lib/momentum.js';
 import {
   Button, Card, Badge, PageTitle, Tabs, Segmented,
@@ -62,14 +62,17 @@ export default function Momentum() {
     store.companies.length,
   ].join('|'), [store]);
 
-  // Count today as an active day the moment the ramp is opened.
-  useEffect(() => { pingStreak(); }, []);
+  // Count today as an active day the moment the ramp is opened, and snapshot
+  // the team baseline once so the leaderboard measures ramp, not seeded volume.
+  useEffect(() => { pingStreak(); ensureTeamBaseline(); }, []);
 
   // Re-verify whenever the role or the underlying data changes, then
   // celebrate anything that just crossed the line.
   useEffect(() => {
     const res = reconcile();
     if (res.newlyCompleted.length) {
+      // Real work landed, so this counts as an active day too (not just opening).
+      pingStreak();
       const gain = res.newlyCompleted.reduce((s, q) => s + q.xp, 0);
       toast(
         res.newlyCompleted.length === 1
@@ -101,6 +104,7 @@ export default function Momentum() {
   const handleMark = (id) => {
     const q = questsForRole(role).find(x => x.id === id);
     markQuest(id);
+    pingStreak(); // completing a quest counts as showing up today
     if (q) toast(`Quest complete: ${q.title} +${q.xp} XP`);
     const res = reconcile();
     if (res.leveledUp) fireLevelUp(res.level);
@@ -121,7 +125,7 @@ export default function Momentum() {
       <PageTitle
         eyebrow="Onboarding"
         title={<>Momentum <GradientText>ramp</GradientText></>}
-        sub="Prove you can run the platform by doing the real work. Every quest is verified by live CRM activity, not time in a seat."
+        sub="Prove you can run the platform by doing the real work. Many quests verify automatically from live CRM activity; the rest you do in the app and check off yourself."
         action={
           <div className="row gap-1" style={{ alignItems: 'center' }}>
             <span className="t-sm muted desktop-only">Ramp path</span>
@@ -226,9 +230,9 @@ export default function Momentum() {
                 <Icon name="zap" size={16} style={{ color: 'var(--accent-600)' }} /> How Momentum works
               </div>
               <ul className="col gap-1 t-sm muted" style={{ margin: 0, paddingLeft: '1.1rem' }}>
-                <li>Quests marked auto-verified light up the moment you do the real action in the CRM.</li>
-                <li>Others deep-link to the feature and let you mark them done.</li>
-                <li>XP rolls into levels. Keep a daily streak to stay sharp.</li>
+                <li>Auto-verified quests light up the moment you do the real action in the CRM.</li>
+                <li>Self-attest quests deep-link to the feature and let you mark them done.</li>
+                <li>XP rolls into levels. Your day streak counts every day you show up or finish a quest.</li>
                 <li>Switch the ramp path up top to match your role.</li>
               </ul>
             </Card>
@@ -251,7 +255,7 @@ export default function Momentum() {
           <div className="row between wrap gap-2" style={{ alignItems: 'flex-start' }}>
             <div className="col gap-1" style={{ minWidth: 0 }}>
               <h3 style={{ margin: 0 }}>Team ramp leaderboard</h3>
-              <span className="t-sm muted">Who is ramped and who needs a hand, live off the book. No status meeting required.</span>
+              <span className="t-sm muted">Ramp is new work each rep has done since tracking started, measured against their own starting point. No status meeting required.</span>
             </div>
             {me?.role === 'manager' && <Badge tone="accent"><Icon name="shield" size={12} /> Manager view</Badge>}
           </div>

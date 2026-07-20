@@ -685,6 +685,66 @@ export const TIPS = {
       { kind: 'rook', label: 'Ask Rook to draft it' },
     ],
   },
+  '/academy': {
+    title: 'Academy',
+    tip: 'Your training home base: pick a track and every lesson, drill, and quest lives one click away.',
+    spot: [H1, FIRST_CARD], spotLabel: 'Start learning here',
+    actions: [
+      { kind: 'nav', to: '/skills', label: 'See the Skill Map' },
+      { kind: 'nav', to: '/momentum', label: 'Open your ramp' },
+      { kind: 'nav', to: '/arena', label: 'Enter the Arena' },
+    ],
+  },
+  '/learn': {
+    title: 'Learn Hub',
+    tip: 'Short, focused lessons on every part of Ardovo; work a track top to bottom or jump to what you need today.',
+    spot: [H1, FIRST_CARD], spotLabel: 'Pick a lesson',
+    actions: [
+      { kind: 'nav', to: '/skills', label: 'See what to learn next' },
+      { kind: 'nav', to: '/arena', label: 'Practice in the Arena' },
+      { kind: 'rook', label: 'Ask Rook to explain a concept' },
+    ],
+  },
+  '/skills': {
+    title: 'Skill Map',
+    tip: 'Every Ardovo skill as a constellation; click a star to see how to master it, and pulsing stars unlock new skills.',
+    spot: ['.sm-board', H1, FIRST_CARD], spotLabel: 'Your mastery map',
+    actions: [
+      { kind: 'spot', sel: ['.sm-board'], label: 'Show me the constellation' },
+      { kind: 'nav', to: '/momentum', label: 'Turn skills into a ramp' },
+      { kind: 'nav', to: '/arena', label: 'Prove a skill in the Arena' },
+    ],
+  },
+  '/momentum': {
+    title: 'Momentum ramp',
+    tip: 'Prove you can run the platform by doing the real work; many quests verify automatically and the rest you check off.',
+    spot: ['.mo-hero', H1, FIRST_CARD], spotLabel: 'Your ramp progress',
+    actions: [
+      { kind: 'nav', to: '/skills', label: 'See the full Skill Map' },
+      { kind: 'nav', to: '/arena', label: 'Get certified in the Arena' },
+      { kind: 'rook', label: 'Ask Rook what to do next' },
+    ],
+  },
+  '/arena': {
+    title: 'Practice Arena',
+    tip: 'Get certified by simulation: pass role-play, speed drills, and a knowledge check to earn a role badge.',
+    spot: ['.arena-page', H1, FIRST_CARD], spotLabel: 'Pick a mode to train',
+    actions: [
+      { kind: 'nav', to: '/momentum', label: 'Back to your ramp' },
+      { kind: 'nav', to: '/skills', label: 'See the Skill Map' },
+      { kind: 'rook', label: 'Ask Rook to quiz me' },
+    ],
+  },
+  '/replay': {
+    title: 'Replay and Coach',
+    tip: 'Ardovo reviews how you worked this session and coaches you to move faster; it stays on your device and pauses anytime.',
+    spot: [H1, FIRST_CARD], spotLabel: 'Your coached session',
+    actions: [
+      { kind: 'nav', to: '/momentum', label: 'Turn insights into a ramp' },
+      { kind: 'nav', to: '/app', label: 'Back to Command Center' },
+      { kind: 'rook', label: 'Ask Rook to coach my session' },
+    ],
+  },
 };
 
 // Ordered list of prefixes, longest first, so nested paths resolve correctly.

@@ -18,12 +18,12 @@
 // Same pub/sub shape as store.js / recent-pages.js (a subs Set + notify),
 // so the Replay page re-renders live as you move around the product.
 //
-// Capture self-initializes on first import (browser only, idempotent).
-// Because src/App.jsx is intentionally untouched, capture begins the first
-// time this module loads (when you open /replay); from that point every
-// subsequent navigation in the session is recorded via popstate, the custom
+// Capture self-initializes on first import (browser only, idempotent). App.jsx
+// imports this module globally, so capture is app-wide from load: every
+// navigation in the session is recorded via popstate, the custom
 // 'ardova:navigate' event, and a lightweight interval fallback that catches
-// React Router pushState navigations (which do not fire popstate).
+// React Router pushState navigations (which do not fire popstate). The single
+// on/off toggle gates ALL writes, so pausing truly records nothing.
 //
 // NO em-dash / en-dash. ASCII hyphen only.
 // ============================================================
@@ -139,8 +139,11 @@ function pushEvent(ev) {
 }
 
 /* Record a route visit. De-duped against the last recorded path and guarded
-   by a minimum dwell so rapid redirects do not spam the log. */
+   by a minimum dwell so rapid redirects do not spam the log. When capture is
+   paused this is a hard no-op: it must never mutate the log (not even the
+   redirect-trim below), so "Pause" truly stops all writes. */
 function recordRoute(rawPath) {
+  if (!enabled) return;
   const clean = String(rawPath || '/').split('?')[0].split('#')[0] || '/';
   const last = log[log.length - 1];
   if (last && last.type === 'route' && last.path === clean) return;
@@ -158,6 +161,7 @@ function recordRoute(rawPath) {
    dispatch window 'ardova:track' with detail { kind, label }. NO PII: pass a
    short kind ('create', 'export', 'search', ...) and a human label only. */
 export function trackAction(kind, label) {
+  if (!enabled) return;
   const k = String(kind || 'action').slice(0, 40);
   const l = String(label || '').slice(0, 80);
   const path = typeof window !== 'undefined' ? window.location.pathname : '/';
@@ -297,7 +301,11 @@ export function analyzeSession(events = getEvents(), now = Date.now()) {
   // Bounce detection: quick in-and-out stops (under 4s), excluding the current.
   const bounces = timeline.filter(s => !s.isCurrent && s.dwellMs > 0 && s.dwellMs < 4000).length;
 
-  const hasSession = routeCount >= 2 || actionCount >= 1;
+  // A session is real if you visited two or more routes, fired any action, OR
+  // sat on a single route long enough to coach on. The last clause keeps one
+  // long focused stint (which records just one route event) from being hidden
+  // behind the empty state.
+  const hasSession = routeCount >= 2 || actionCount >= 1 || (routeCount >= 1 && totalMs >= 15000);
 
   const analysis = {
     hasSession,

@@ -22,6 +22,7 @@ export default function KnowledgeCheck({ roleId, onExit }) {
   const [streak, setStreak] = useState(0);
   const [result, setResult] = useState(null);
   const [awarded, setAwarded] = useState([]);
+  const [certifiedNow, setCertifiedNow] = useState(false);
 
   function choose(idx) {
     if (picked != null) return;
@@ -38,6 +39,7 @@ export default function KnowledgeCheck({ roleId, onExit }) {
       const graded = gradeKnowledge(next);
       const rec = recordResult('knowledge', roleId, graded);
       setAwarded(rec.awarded);
+      setCertifiedNow(rec.certifiedNow);
       setResult(graded);
     } else {
       setQuestion(nextQuizQuestion(next));
@@ -52,6 +54,7 @@ export default function KnowledgeCheck({ roleId, onExit }) {
     setStreak(0);
     setResult(null);
     setAwarded([]);
+    setCertifiedNow(false);
   }
 
   if (result) {
@@ -59,7 +62,7 @@ export default function KnowledgeCheck({ roleId, onExit }) {
       <ResultsScreen
         result={result}
         awarded={awarded}
-        certifiedNow={false}
+        certifiedNow={certifiedNow}
         retryLabel="New quiz"
         onRetry={restart}
         onExit={onExit}
