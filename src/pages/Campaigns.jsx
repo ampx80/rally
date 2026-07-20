@@ -29,6 +29,9 @@ import { renderEmailHtml, emailToText, blankEmailDoc } from '../lib/email-blocks
 
 const CHANNELS = ['ABM', 'Email', 'Paid ads', 'Webinar', 'Event', 'Partner'];
 
+// Mirrors the validator in api/broadcast.js for the client-side test-send check.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const STATUS_TONE = { active: 'ok', scheduled: 'info', completed: 'default', draft: 'warn' };
 // Marketing-campaign lifecycle -> badge tone.
 const MC_STATUS_TONE = { draft: 'warn', scheduled: 'info', sending: 'accent', sent: 'ok' };
@@ -58,11 +61,13 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
   const toast = useToast();
   const [d, setD] = useState(EMPTY_DRAFT);
   const [busy, setBusy] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [testEmail, setTestEmail] = useState('');
   const [showPreview, setShowPreview] = useState(false);
 
   // Seed the form whenever the modal opens (create = blank, edit = record).
   React.useEffect(() => {
-    if (open) { setD(initial ? { ...EMPTY_DRAFT, ...initial } : EMPTY_DRAFT); setShowPreview(false); }
+    if (open) { setD(initial ? { ...EMPTY_DRAFT, ...initial } : EMPTY_DRAFT); setShowPreview(false); setTestEmail(''); }
   }, [open, initial]);
 
   const set = (k, v) => setD(prev => ({ ...prev, [k]: v }));
@@ -94,32 +99,96 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
     onClose?.();
   };
 
+  const visual = d.designMode === 'visual';
+
+  // Save the draft with a scheduled marker. There is no live server scheduler
+  // wired here, so the copy stays honest: this saves a scheduled draft, it does
+  // not promise an automatic future send.
   const onSchedule = () => {
     const rec = persist();
     if (!rec) return;
     scheduleCampaign(rec.id, new Date(Date.now() + 86400000).toISOString());
-    toast('Scheduled for tomorrow');
+    toast('Saved as a scheduled draft. Live scheduling activates when the sending backend is connected.');
     onSaved?.(rec);
     onClose?.();
   };
 
-  const visual = d.designMode === 'visual';
-  const doSend = async () => {
-    if (!d.subject.trim()) { toast('Add a subject line', 'risk'); return; }
+  // Build the campaign payload the /api/broadcast route expects, from the
+  // current draft. Shared by the real send and the test send.
+  const buildPayloadCampaign = () => {
+    const p = { id: d.id || undefined, name: d.name, subject: d.subject, type: d.type };
     if (visual) {
-      if (!d.design || !(d.design.blocks || []).length) { toast('Add a block to your design', 'risk'); return; }
-    } else if (!d.body.trim()) { toast('Write a message', 'risk'); return; }
+      p.designHtml = renderEmailHtml(d.design, { subject: d.subject });
+      p.designText = emailToText(d.design);
+    } else {
+      p.body = d.body;
+    }
+    return p;
+  };
+
+  // Shared content validation used by both send and test-send.
+  const validateContent = () => {
+    if (!d.subject.trim()) { toast('Add a subject line', 'risk'); return false; }
+    if (visual) {
+      if (!d.design || !(d.design.blocks || []).length) { toast('Add a block to your design', 'risk'); return false; }
+    } else if (!d.body.trim()) { toast('Write a message', 'risk'); return false; }
+    return true;
+  };
+
+  // Light pre-send lint for visual designs: warn (allow override) when a button
+  // link is still the placeholder 'https://' or an image has no source, so a
+  // half-finished design does not silently ship.
+  const confirmDesignLint = () => {
+    if (!visual || !d.design) return true;
+    const issues = new Set();
+    for (const b of (d.design.blocks || [])) {
+      const els = b.type === 'columns' ? [b.left, b.right] : [b];
+      for (const el of els) {
+        if (!el) continue;
+        if (el.type === 'button') {
+          const href = String(el.href || '').trim();
+          if (href === '' || href === 'https://' || href === 'http://') issues.add('a button link is still a placeholder (https://)');
+        }
+        if (el.type === 'image' && !String(el.src || '').trim()) issues.add('an image block has no URL (it will not render)');
+      }
+    }
+    if (!issues.size) return true;
+    return window.confirm(`Before you send:\n- ${[...issues].join('\n- ')}\n\nSend anyway?`);
+  };
+
+  const sendTest = async () => {
+    if (!validateContent()) return;
+    const to = testEmail.trim();
+    if (!EMAIL_RE.test(to)) { toast('Enter a valid test email address', 'risk'); return; }
+    setTesting(true);
+    try {
+      const resp = await fetch('/api/broadcast', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campaign: buildPayloadCampaign(), test: true, testEmail: to }),
+      });
+      const j = await resp.json().catch(() => ({}));
+      if (j.configured === false) {
+        toast('Email sending is not configured (set RESEND_API_KEY).', 'warn');
+      } else if (j.ok) {
+        toast(`Test sent to ${to}`);
+      } else {
+        toast(j.error || 'Test send failed', 'risk');
+      }
+    } catch (e) {
+      toast('Network error sending test', 'risk');
+    } finally {
+      setTesting(false);
+    }
+  };
+
+  const doSend = async () => {
+    if (!validateContent()) return;
     if (!recipients.length) { toast('This audience is empty', 'risk'); return; }
+    if (!confirmDesignLint()) return;
     const rec = persist();
     if (!rec) return;
     setBusy(true);
-    const payloadCampaign = { id: rec.id, name: rec.name, subject: d.subject, type: d.type };
-    if (visual) {
-      payloadCampaign.designHtml = renderEmailHtml(d.design, { subject: d.subject });
-      payloadCampaign.designText = emailToText(d.design);
-    } else {
-      payloadCampaign.body = d.body;
-    }
+    const payloadCampaign = { ...buildPayloadCampaign(), id: rec.id, name: rec.name };
     try {
       const resp = await fetch('/api/broadcast', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -127,16 +196,19 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
       });
       const j = await resp.json().catch(() => ({}));
       if (j.configured === false) {
-        // Sending not wired in this environment. Keep it a draft, tell the truth.
+        // Sending not wired in this environment. Keep the modal open so the user
+        // can fix it (or copy the draft) instead of silently dismissing.
         toast('Email sending is not configured (set RESEND_API_KEY).', 'warn');
       } else if (j.ok) {
         recordSend(rec.id, { recipients: recipients.length, sent: j.sent || 0, failed: j.failed || 0 });
         toast(`Sent to ${j.sent || 0} of ${recipients.length}`);
+        onSent?.(rec);
+        onClose?.();
       } else {
+        // Real failure (e.g. 422 domain not verified). Keep the modal open so
+        // the user can fix subject / audience / Resend and retry.
         toast(j.error || 'Send failed', 'risk');
       }
-      onSent?.(rec);
-      onClose?.();
     } catch (e) {
       toast('Network error sending broadcast', 'risk');
     } finally {
@@ -156,7 +228,7 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
           <div className="row gap-2" style={{ flexWrap: 'wrap' }}>
             <Button variant="ghost" onClick={onClose} disabled={busy}>Cancel</Button>
             <Button variant="quiet" onClick={onSaveDraft} disabled={busy}>Save draft</Button>
-            <Button variant="quiet" onClick={onSchedule} disabled={busy}><Icon name="calendar" size={15} /> Schedule</Button>
+            <Button variant="quiet" onClick={onSchedule} disabled={busy}><Icon name="calendar" size={15} /> Save as scheduled draft</Button>
             <Button variant="primary" onClick={doSend} disabled={busy}>
               <Icon name="send" size={15} /> {busy ? 'Sending...' : 'Send now'}
             </Button>
@@ -211,6 +283,20 @@ function EmailBuilder({ open, onClose, initial, onSaved, onSent }) {
               <Icon name="eye" size={15} /> {showPreview ? 'Hide preview' : 'Preview'}
             </Button>
           )}
+        </div>
+
+        <div className="row gap-2" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
+          <span className="t-xs muted">Send test to me</span>
+          <Input
+            type="email"
+            placeholder="you@company.com"
+            value={testEmail}
+            onChange={e => setTestEmail(e.target.value)}
+            style={{ maxWidth: 260 }}
+          />
+          <Button variant="quiet" size="sm" onClick={sendTest} disabled={testing || busy}>
+            <Icon name="send" size={14} /> {testing ? 'Sending test...' : 'Send test'}
+          </Button>
         </div>
 
         {d.designMode === 'visual' ? (

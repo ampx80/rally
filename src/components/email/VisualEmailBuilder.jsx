@@ -5,7 +5,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { Icon } from '../icons.jsx';
 import { Button, Input, Select, Textarea } from '../UI.jsx';
-import { applyTokens } from '../../lib/marketing-campaigns.js';
+import { applyTokens, MERGE_TOKENS } from '../../lib/marketing-campaigns.js';
 import {
   BLOCK_TYPES, makeBlock, renderEmailHtml, renderDoc, EMAIL_TEMPLATES, DEFAULT_SETTINGS,
 } from '../../lib/email-blocks.js';
@@ -17,6 +17,28 @@ function LField({ label, children, wide }) {
       <span>{label}</span>
       {children}
     </label>
+  );
+}
+
+// Merge-token insert chips, so visual-mode authors can drop {firstName} /
+// {company} into a text or heading block exactly like plain-text mode allows.
+function MergeChips({ onInsert }) {
+  return (
+    <div className="row gap-2" style={{ flexWrap: 'wrap', alignItems: 'center' }}>
+      <span className="t-xs muted">Insert:</span>
+      {MERGE_TOKENS.map(t => (
+        <button
+          key={t.token}
+          type="button"
+          className="badge"
+          style={{ cursor: 'pointer' }}
+          title={`Insert ${t.label}`}
+          onClick={() => onInsert(t.token)}
+        >
+          {t.token}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -41,6 +63,7 @@ function ElementFields({ el, onPatch }) {
       return (
         <div className="eb-grid">
           <LField label="Heading text" wide><Input value={el.text} onChange={e => p('text', e.target.value)} /></LField>
+          <LField label="Insert" wide><MergeChips onInsert={(tok) => p('text', `${el.text || ''}${tok}`)} /></LField>
           <LField label="Level"><Select value={el.level} onChange={e => p('level', e.target.value)}><option value="h1">H1</option><option value="h2">H2</option></Select></LField>
           <LField label="Size"><Input type="number" value={el.size} onChange={e => p('size', +e.target.value)} /></LField>
           <LField label="Align"><AlignPicker value={el.align} onChange={v => p('align', v)} /></LField>
@@ -51,6 +74,7 @@ function ElementFields({ el, onPatch }) {
       return (
         <div className="eb-grid">
           <LField label="Text" wide><Textarea rows={4} value={el.text} onChange={e => p('text', e.target.value)} /></LField>
+          <LField label="Insert" wide><MergeChips onInsert={(tok) => p('text', `${el.text || ''}${tok}`)} /></LField>
           <LField label="Size"><Input type="number" value={el.size} onChange={e => p('size', +e.target.value)} /></LField>
           <LField label="Align"><AlignPicker value={el.align} onChange={v => p('align', v)} /></LField>
           <LField label="Color"><input type="color" value={el.color || DEFAULT_SETTINGS.textColor} onChange={e => p('color', e.target.value)} /></LField>
@@ -143,7 +167,19 @@ export default function VisualEmailBuilder({ doc, onChange, sampleVars, target =
   const patchBlock = (id, next) => setBlocks(blocks.map(b => b.id === id ? next : b));
   const addBlock = (type) => { const b = makeBlock(type); setBlocks([...blocks, b]); setSelected(b.id); setShowAdd(false); };
   const removeBlock = (id) => { setBlocks(blocks.filter(b => b.id !== id)); if (selected === id) setSelected(null); };
-  const dupBlock = (id) => { const i = blocks.findIndex(b => b.id === id); if (i < 0) return; const copy = { ...blocks[i], id: makeBlock(blocks[i].type).id }; const next = [...blocks]; next.splice(i + 1, 0, copy); setBlocks(next); };
+  // Deep-clone on duplicate. A shallow copy shares nested refs (columns
+  // left/right, social links, etc.) with the original, so editing the copy
+  // silently mutates the source. JSON round-trip fully detaches the data,
+  // then we stamp a fresh unique id.
+  const dupBlock = (id) => {
+    const i = blocks.findIndex(b => b.id === id);
+    if (i < 0) return;
+    const copy = JSON.parse(JSON.stringify(blocks[i]));
+    copy.id = makeBlock(blocks[i].type).id;
+    const next = [...blocks];
+    next.splice(i + 1, 0, copy);
+    setBlocks(next);
+  };
   const move = (i, dir) => { const j = i + dir; if (j < 0 || j >= blocks.length) return; const next = [...blocks]; const [x] = next.splice(i, 1); next.splice(j, 0, x); setBlocks(next); };
   const onDrop = (i) => { const from = dragIdx.current; dragIdx.current = null; if (from == null || from === i) return; const next = [...blocks]; const [x] = next.splice(from, 1); next.splice(i, 0, x); setBlocks(next); };
 

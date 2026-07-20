@@ -95,9 +95,10 @@ function renderElement(el, s) {
   const align = el.align || 'left';
   switch (el.type) {
     case 'heading': {
+      const tag = el.level === 'h2' ? 'h2' : 'h1';
       const size = el.level === 'h2' ? (el.size || 20) : (el.size || 26);
       const color = el.color || s.textColor;
-      return `<h1 style="margin:0;font-family:${font};font-size:${size}px;line-height:1.25;font-weight:800;color:${color};text-align:${align};letter-spacing:-0.01em;">${esc(el.text)}</h1>`;
+      return `<${tag} style="margin:0;font-family:${font};font-size:${size}px;line-height:1.25;font-weight:800;color:${color};text-align:${align};letter-spacing:-0.01em;">${esc(el.text)}</${tag}>`;
     }
     case 'text': {
       const size = el.size || 15;
@@ -113,10 +114,13 @@ function renderElement(el, s) {
       </td></tr></table>`;
     }
     case 'image': {
+      // An image with no source must render as nothing. A dashed placeholder box
+      // is fine in the editor preview but ugly + confusing if it ships to a real
+      // inbox, so we emit no markup at all when there is no src.
+      if (!el.src || !String(el.src).trim()) return '';
       const w = Math.max(10, Math.min(100, Number(el.width) || 100));
       const img = `<img src="${safeUrl(el.src)}" alt="${esc(el.alt)}" width="${Math.round((s.contentWidth - 64) * w / 100)}" style="display:block;width:${w}%;max-width:100%;height:auto;border:0;outline:none;border-radius:8px;${align === 'center' ? 'margin:0 auto;' : align === 'right' ? 'margin-left:auto;' : ''}"/>`;
       const wrapped = el.href ? `<a href="${safeUrl(el.href)}" style="text-decoration:none;">${img}</a>` : img;
-      if (!el.src) return `<div style="font-family:${font};font-size:13px;color:#9aa0b4;text-align:${align};padding:20px;border:1px dashed #cfd5e2;border-radius:8px;">Image placeholder (add an image URL)</div>`;
       return `<div style="text-align:${align};">${wrapped}</div>`;
     }
     case 'divider':
@@ -149,8 +153,8 @@ export function renderEmailHtml(doc, opts = {}) {
       const right = renderElement({ ...b.right, align: b.right?.align || 'left' }, s);
       return `<tr><td style="padding:10px ${pad}px;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
-          <td valign="top" width="50%" style="padding-right:12px;">${left}</td>
-          <td valign="top" width="50%" style="padding-left:12px;">${right}</td>
+          <td valign="top" width="50%" class="ac-col" style="padding-right:12px;">${left}</td>
+          <td valign="top" width="50%" class="ac-col" style="padding-left:12px;">${right}</td>
         </tr></table>
       </td></tr>`;
     }
@@ -172,6 +176,13 @@ export function renderEmailHtml(doc, opts = {}) {
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="color-scheme" content="light"/>
 <title>${esc(opts.subject || 'Email')}</title>
+<style>
+  /* Two-column blocks stack on narrow screens. Clients that strip <style>
+     fall back gracefully to the inline 50/50 layout. */
+  @media only screen and (max-width:600px){
+    .ac-col{display:block !important;width:100% !important;padding-left:0 !important;padding-right:0 !important;padding-bottom:12px !important;}
+  }
+</style>
 </head>
 <body style="margin:0;padding:0;background:${s.bg};font-family:${s.fontFamily};">
 ${pre}
