@@ -79,6 +79,7 @@ export const MODULES = [
   { key: 'permissions',  label: 'Permissions',      route: '/permissions',   section: 'Admin',        desc: 'Access control and sharing rules.' },
   { key: 'developers',   label: 'Developers',       route: '/developers',    section: 'Admin',        desc: 'API keys, webhooks, and SDKs.' },
   { key: 'emailCenter',  label: 'Email Center',     route: '/email-center',  section: 'Admin',        desc: 'Every transactional email, the template catalog, and executive digests.' },
+  { key: 'orgChart',     label: 'Org and Command',  route: '/org',           section: 'Admin',        desc: 'Color-ranked drag-and-drop org chart, persona views, and a management guide.' },
   { key: 'billingPlans', label: 'Plans',            route: '/billing-plans', section: 'Admin',        desc: 'Subscription plans and billing.' },
   { key: 'audit',        label: 'Audit',            route: '/audit',         section: 'Admin',        desc: 'Audit log of every change.' },
   { key: 'datasync',     label: 'Data sync',        route: '/datasync',      section: 'Data',         desc: 'Two-way data sync and data health.' },
