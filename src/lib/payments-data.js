@@ -655,12 +655,20 @@ export function reconcilePayment({ idOrSlug, sessionId, amount } = {}) {
   }
   const amt = amount != null ? amount : (link ? link.amount : 0);
 
+  // Best-effort resolution of the paying account so automations enroll against
+  // a REAL contact/company, not a synthetic lead. Payment links carry only a
+  // customer + company NAME (no ids), so match by name into the live CRM.
+  const payer = resolvePayer(link);
+
   let activity = null;
   try {
     const r = createActivity({
       type: 'note',
       subject: `Payment received: ${fmtUsd(amt)}${link ? ` - ${link.title}` : ''}`,
       body: link ? `Customer paid via Ardovo Payments link ${link.slug}.` : 'Customer payment received via Ardovo Payments.',
+      relatedType: payer.contactId ? 'contact' : (payer.companyId ? 'company' : null),
+      relatedId: payer.contactId || payer.companyId || null,
+      companyId: payer.companyId || null,
       done: true,
     });
     if (r && !r.error) activity = r.activity;
@@ -671,12 +679,37 @@ export function reconcilePayment({ idOrSlug, sessionId, amount } = {}) {
     id: link ? link.id : (idOrSlug || null),
     slug: link ? link.slug : null,
     amount: amt,
+    email: payer.email || '',
+    contactId: payer.contactId || null,
+    companyId: payer.companyId || null,
     sessionId: sessionId || null,
     transactionId: transaction ? transaction.id : null,
     at: new Date().toISOString(),
   };
   dispatchPaymentEvent(detail);
   return { ok: true, link, transaction, activity, detail };
+}
+
+/* Resolve a payment link's customer/company NAME strings into live CRM ids so
+   'rally:payment' carries { email, contactId, companyId } for automation
+   matching. Returns empty fields when nothing matches (never throws). */
+function resolvePayer(link) {
+  const out = { contactId: null, email: '', companyId: null };
+  if (!link) return out;
+  try {
+    const contacts = getContacts() || [];
+    if (link.customer) {
+      const want = String(link.customer).trim().toLowerCase();
+      const c = contacts.find(x => contactName(x).trim().toLowerCase() === want);
+      if (c) { out.contactId = c.id; out.email = c.email || ''; out.companyId = c.companyId || null; }
+    }
+    if (!out.companyId && link.company) {
+      const wantCo = String(link.company).trim().toLowerCase();
+      const co = (getCompanies() || []).find(x => (x.name || '').trim().toLowerCase() === wantCo);
+      if (co) out.companyId = co.id;
+    }
+  } catch { /* CRM read failed; leave fields empty */ }
+  return out;
 }
 
 // Read the Checkout return params (?paid=<slug|id>&session_id=...). The page

@@ -176,9 +176,16 @@ function fireOutbound(url, message, payload) {
 function fireRook(prompt, context) {
   try {
     if (typeof fetch !== 'function') return false;
+    // /api/rook consumes a `messages` conversation (it returns 400 without one)
+    // and ignores any custom `action`, so send a real single-turn user message.
+    // This is fire-and-forget: we do not await or read Rook's reply, so callers
+    // must log honestly ("queued") rather than claiming a confirmed result.
     fetch('/api/rook', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-      body: JSON.stringify({ action: 'automation_step', prompt, context }),
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: prompt }],
+        context: { source: 'automation', ...(context || {}) },
+      }),
     }).catch(() => {});
     return true;
   } catch { return false; }
@@ -229,7 +236,9 @@ export const STEP_TYPES = {
       }
       if (!to) return { ok: true, detail: `Drafted email "${subject}" (no address on file yet)` };
       fireBroadcast(to, ctx.firstName, subject, body);
-      return { ok: true, detail: `Sent "${subject}" to ${to}`, to: '/app/activities' };
+      // Fire-and-forget through /api/broadcast: we do not wait for the sender to
+      // confirm delivery, so say "queued" rather than claim it was sent.
+      return { ok: true, detail: `Queued send of "${subject}" to ${to}`, to: '/app/activities' };
     },
   },
 
@@ -293,7 +302,8 @@ export const STEP_TYPES = {
       const payload = { object, id: record?.id || en.entity?.id || null, ...(en.context || {}) };
       fireOutbound(cfg.url, interp(cfg.message || '', en.context || {}), payload);
       let host = cfg.url; try { host = new URL(cfg.url).host; } catch { /* keep raw */ }
-      return { ok: true, detail: `Sent to ${host}` };
+      // Fire-and-forget POST via /api/outbound; no delivery receipt is awaited.
+      return { ok: true, detail: `Queued POST to ${host}` };
     },
   },
 
@@ -311,7 +321,9 @@ export const STEP_TYPES = {
           relatedType: object, relatedId: record.id, companyId: record.companyId || null,
         });
       }
-      return { ok: true, detail: dispatched ? `Rook is running: "${prompt.slice(0, 48)}"` : `Rook step queued: "${prompt.slice(0, 48)}"` };
+      // Honest wording: the Rook call is fire-and-forget (we never read its
+      // reply), so we "queue" it rather than claim a finished result.
+      return { ok: true, detail: dispatched ? `Queued Rook step: "${prompt.slice(0, 48)}"` : `Logged Rook step offline: "${prompt.slice(0, 48)}"` };
     },
   },
 
@@ -745,7 +757,11 @@ export function emitRecordChanged(object, record, change = {}) {
   for (const a of activeByTrigger('record_changed')) {
     const cfg = a.trigger.config || {};
     if ((cfg.object || 'deal') !== object) continue;
-    if (cfg.stage && change.stage && change.stage !== cfg.stage) continue;
+    // Stage-targeted rule ("Deal moves to Won") must ONLY fire on that stage
+    // move, never on an unrelated field change. If cfg.stage is set and this
+    // change is not that stage transition, skip. A rule with no stage set
+    // fires on ANY watched field change for the object (widened vocabulary).
+    if (cfg.stage && change.stage !== cfg.stage) continue;
     out.push(enroll(a, { type: object, id: record.id, label: labelFor(object, record) }, { ...contextFor(object, record), ...change }));
   }
   return out.filter(Boolean);
@@ -757,8 +773,16 @@ export function fireFormSubmit(detail = {}) {
   const out = [];
   for (const a of activeByTrigger('form_submit')) {
     const want = a.trigger.config?.formName;
-    if (want && want !== 'Any form' && detail.formName && want !== detail.formName) continue;
-    out.push(enroll(a, { type: 'lead', id: newId('lead'), label: detail.name || detail.email || 'New lead' }, { ...detail }));
+    const isSpecific = want && want !== 'Any form';
+    // A rule targeting a specific form must ONLY run for that form. The old
+    // guard also required detail.formName to be present, so a specific rule
+    // would leak-fire on any submit that omitted a form name. Now: specific
+    // rules run only on an exact name match; "Any form" runs for every submit.
+    if (isSpecific && want !== detail.formName) continue;
+    const label = detail.name
+      || `${detail.firstName || ''} ${detail.lastName || ''}`.trim()
+      || detail.email || 'New lead';
+    out.push(enroll(a, { type: 'lead', id: newId('lead'), label }, { ...detail }));
   }
   return out.filter(Boolean);
 }
@@ -790,14 +814,19 @@ export function fireEmailOpen(detail = {}) {
 }
 
 /* Payment: window 'rally:payment' -> enroll payment automations + flag live
-   enrollments. detail: { email?, contactId?, amount } */
+   enrollments. detail: { source?, email?, contactId?, companyId?, amount } */
 export function firePayment(detail = {}) {
   const email = (detail.email || '').toLowerCase();
   const amount = Number(detail.amount) || 0;
+  const contactId = detail.contactId || null;
+  const companyId = detail.companyId || null;
+  // Flag any live enrollment that belongs to this payer so a downstream branch
+  // can read payment_received. Match by contactId, email, OR companyId.
   for (const e of enrollments) {
     if (e.status === 'completed' || e.status === 'failed') continue;
-    const match = (detail.contactId && e.context?.contactId === detail.contactId) ||
-      (email && (e.context?.email || '').toLowerCase() === email);
+    const match = (contactId && e.context?.contactId === contactId) ||
+      (email && (e.context?.email || '').toLowerCase() === email) ||
+      (companyId && e.context?.companyId === companyId);
     if (!match) continue;
     e.context = { ...e.context, payment_received: true, payment_amount: amount };
     e.history.push({ type: 'payment', status: 'event', at: new Date().toISOString(), detail: `Payment received: ${money(amount)}` });
@@ -808,10 +837,23 @@ export function firePayment(detail = {}) {
   const out = [];
   for (const a of activeByTrigger('payment_received')) {
     if (amount < Number(a.trigger.config?.minAmount || 0)) continue;
-    const c = detail.contactId ? getContact(detail.contactId) : getContacts().find(x => (x.email || '').toLowerCase() === email);
-    const entity = c ? { type: 'contact', id: c.id, label: `${c.firstName} ${c.lastName}`.trim() }
-      : { type: 'lead', id: newId('lead'), label: detail.email || 'Payer' };
-    out.push(enroll(a, entity, { email: detail.email || (c?.email || ''), payment_received: true, payment_amount: amount, contactId: c?.id || null }));
+    // Resolve a REAL subject so the payment enrolls against an actual account,
+    // not a throwaway lead: contactId first, then email, then any contact in
+    // the paying company, then the company itself, then a synthetic payer.
+    let contact = contactId ? getContact(contactId) : null;
+    if (!contact && email) contact = getContacts().find(x => (x.email || '').toLowerCase() === email) || null;
+    if (!contact && companyId) contact = getContacts().find(x => x.companyId === companyId) || null;
+    let entity;
+    if (contact) entity = { type: 'contact', id: contact.id, label: `${contact.firstName} ${contact.lastName}`.trim() };
+    else if (companyId) { const co = getCompany(companyId); entity = co ? { type: 'company', id: co.id, label: co.name } : null; }
+    if (!entity) entity = { type: 'lead', id: newId('lead'), label: detail.email || 'Payer' };
+    out.push(enroll(a, entity, {
+      email: detail.email || (contact?.email || ''),
+      payment_received: true, payment_amount: amount,
+      contactId: contact?.id || contactId || null,
+      companyId: companyId || contact?.companyId || null,
+      source: detail.source || null,
+    }));
   }
   return out.filter(Boolean);
 }
@@ -860,66 +902,147 @@ export function testAutomation(id, overrides = {}) {
 }
 
 /* ============================================================
-   CLIENT RUNTIME (hook)
-   Mount once on the Workflows page. It:
-   1) diffs the deal + contact snapshot to fire record_created /
-      record_changed automations for real,
-   2) listens for the form-submit / email-open / payment windows,
+   CLIENT RUNTIME (hook + global singleton)
+   The runtime:
+   1) diffs the deal + contact + company snapshot to fire
+      record_created (deals, contacts, AND companies) and
+      record_changed (stage moves plus any watched field change),
+   2) listens for the form-submit / email-open / payment / webhook
+      windows,
    3) ticks every few seconds so waits resume on their own.
-   The re-entrancy guard prevents action-driven store writes from
-   looping. onActivity(kind) lets the UI pulse when something fires.
+
+   IDEMPOTENCY: useEngineRuntime is now mounted app-wide (via
+   <AutomationRuntime/> in App.jsx) AND is still called directly by
+   the Workflows + Journeys pages. Mounting it more than once must
+   NOT double-process an event. Two mechanisms guarantee that:
+   - Window listeners + the tick loop install ONCE, reference-counted,
+     no matter how many hook instances are mounted; every instance's
+     onActivity callback is registered in a shared set and all are
+     pulsed together.
+   - The record watcher diffs against a single SHARED snapshot. The
+     first hook effect to run on a store change processes the diff and
+     updates the shared snapshot; any other instance's effect then
+     diffs against the already-updated snapshot and finds nothing, so
+     each real change enrolls exactly once.
+   The re-entrancy guard in advanceEnrollment still prevents an
+   action-driven store write from looping back through the watcher.
    ============================================================ */
+
+// Watched columns per object. A change to any of these fires record_changed
+// (consistent with the "deal moves stage or a watched field changes" copy).
+const WATCH_FIELDS = {
+  deal: ['stage', 'value', 'status', 'ownerId', 'probability', 'name', 'companyId', 'closeDate'],
+  contact: ['email', 'firstName', 'lastName', 'title', 'phone', 'companyId', 'lifecycleStage', 'status'],
+  company: ['name', 'lifecycleStage', 'health', 'industry', 'size', 'domain'],
+};
+function sigFor(r, keys) { const o = {}; for (const k of keys) o[k] = r[k]; return JSON.stringify(o); }
+function recSnap(list, keys) {
+  const ids = new Set(); const sig = new Map(); const rec = new Map();
+  for (const r of (list || [])) { ids.add(r.id); sig.set(r.id, sigFor(r, keys)); rec.set(r.id, r); }
+  return { ids, sig, rec };
+}
+function snapOf(deals, contacts, companies) {
+  return {
+    deal: recSnap(deals, WATCH_FIELDS.deal),
+    contact: recSnap(contacts, WATCH_FIELDS.contact),
+    company: recSnap(companies, WATCH_FIELDS.company),
+  };
+}
+function buildChange(object, before, after) {
+  const keys = WATCH_FIELDS[object] || [];
+  const changedFields = [];
+  const change = {};
+  for (const k of keys) {
+    if (before && after && JSON.stringify(before[k]) !== JSON.stringify(after[k])) {
+      changedFields.push(k);
+      change[k] = after[k];
+    }
+  }
+  change.changedFields = changedFields;
+  if (changedFields.includes('stage')) { change.stage = after.stage; change.from = before ? before.stage : null; }
+  return change;
+}
+
+// The single shared snapshot every hook instance diffs against.
+let sharedSnap = null;
+function processRecordSnapshot(deals, contacts, companies) {
+  const snap = snapOf(deals, contacts, companies);
+  let fired = [];
+  if (sharedSnap) {
+    for (const object of ['deal', 'contact', 'company']) {
+      const cur = snap[object];
+      const old = sharedSnap[object];
+      for (const [id, r] of cur.rec) {
+        if (!old.ids.has(id)) { fired = fired.concat(emitRecordCreated(object, r)); continue; }
+        if (cur.sig.get(id) === old.sig.get(id)) continue;
+        fired = fired.concat(emitRecordChanged(object, r, buildChange(object, old.rec.get(id), r)));
+      }
+    }
+  }
+  sharedSnap = snap;
+  return fired;
+}
+
+// Shared activity callbacks + reference-counted global listeners/tick so the
+// event surface installs exactly once regardless of how many hooks mount.
+const activityCbs = new Set();
+function notifyActivity(kind) { activityCbs.forEach(fn => { try { fn(kind); } catch { /* isolate callbacks */ } }); }
+
+let globalRefs = 0;
+let detachGlobal = null;
+function acquireGlobal() {
+  globalRefs += 1;
+  if (globalRefs > 1 || detachGlobal) return;
+  if (typeof window === 'undefined') return;
+  const onForm = (e) => { const r = fireFormSubmit(e.detail || {}); if (r.length) notifyActivity('form'); };
+  const onOpen = (e) => { const r = fireEmailOpen(e.detail || {}); if (r.length) notifyActivity('email'); };
+  const onPay = (e) => { const r = firePayment(e.detail || {}); if (r.length) notifyActivity('payment'); };
+  const onHook = (e) => { const r = fireWebhook(e.detail || {}); if (r.length) notifyActivity('webhook'); };
+  window.addEventListener('rally:form-submit', onForm);
+  window.addEventListener('rally:email-open', onOpen);
+  window.addEventListener('rally:payment', onPay);
+  window.addEventListener('rally:webhook', onHook);
+  const iv = setInterval(() => { const n = tick(); if (n) notifyActivity('tick'); }, 4000);
+  detachGlobal = () => {
+    window.removeEventListener('rally:form-submit', onForm);
+    window.removeEventListener('rally:email-open', onOpen);
+    window.removeEventListener('rally:payment', onPay);
+    window.removeEventListener('rally:webhook', onHook);
+    clearInterval(iv);
+  };
+}
+function releaseGlobal() {
+  globalRefs = Math.max(0, globalRefs - 1);
+  if (globalRefs === 0 && detachGlobal) { detachGlobal(); detachGlobal = null; }
+}
+
 export function useEngineRuntime(onActivity) {
   const deals = useStore(s => s.deals);
   const contacts = useStore(s => s.contacts);
-  const prev = useRef(null);
+  const companies = useStore(s => s.companies);
   const cb = useRef(onActivity);
   cb.current = onActivity;
 
-  // record watcher
+  // Register this instance's activity callback + share the global listeners.
   useEffect(() => {
-    const snap = {
-      dealIds: new Set(deals.map(d => d.id)),
-      dealStage: new Map(deals.map(d => [d.id, d.stage])),
-      contactIds: new Set(contacts.map(c => c.id)),
-    };
-    if (prev.current) {
-      let fired = [];
-      for (const d of deals) if (!prev.current.dealIds.has(d.id)) fired = fired.concat(emitRecordCreated('deal', d));
-      for (const c of contacts) if (!prev.current.contactIds.has(c.id)) fired = fired.concat(emitRecordCreated('contact', c));
-      for (const d of deals) {
-        const old = prev.current.dealStage.get(d.id);
-        if (old && old !== d.stage) fired = fired.concat(emitRecordChanged('deal', d, { stage: d.stage, from: old }));
-      }
-      if (fired.length && cb.current) cb.current('record');
-    }
-    prev.current = snap;
-  }, [deals, contacts]);
-
-  // window event listeners
-  useEffect(() => {
-    const onForm = (e) => { const r = fireFormSubmit(e.detail || {}); if (r.length && cb.current) cb.current('form'); };
-    const onOpen = (e) => { const r = fireEmailOpen(e.detail || {}); if (r.length && cb.current) cb.current('email'); };
-    const onPay = (e) => { const r = firePayment(e.detail || {}); if (r.length && cb.current) cb.current('payment'); };
-    const onHook = (e) => { const r = fireWebhook(e.detail || {}); if (r.length && cb.current) cb.current('webhook'); };
-    window.addEventListener('rally:form-submit', onForm);
-    window.addEventListener('rally:email-open', onOpen);
-    window.addEventListener('rally:payment', onPay);
-    window.addEventListener('rally:webhook', onHook);
-    return () => {
-      window.removeEventListener('rally:form-submit', onForm);
-      window.removeEventListener('rally:email-open', onOpen);
-      window.removeEventListener('rally:payment', onPay);
-      window.removeEventListener('rally:webhook', onHook);
-    };
+    const wrapper = (kind) => { if (cb.current) cb.current(kind); };
+    activityCbs.add(wrapper);
+    acquireGlobal();
+    return () => { activityCbs.delete(wrapper); releaseGlobal(); };
   }, []);
 
-  // tick loop
+  // Record watcher. Every mounted instance runs this effect on a store change,
+  // but the shared-snapshot diff makes the actual enrollment happen only once.
   useEffect(() => {
-    const iv = setInterval(() => { const n = tick(); if (n && cb.current) cb.current('tick'); }, 4000);
-    return () => clearInterval(iv);
-  }, []);
+    const fired = processRecordSnapshot(deals, contacts, companies);
+    if (fired.length) notifyActivity('record');
+  }, [deals, contacts, companies]);
 }
+
+/* Mountable app-wide runtime. Drop <AutomationRuntime/> once in App.jsx so
+   automations fire everywhere, not only on /workflows + /journeys. Safe to
+   mount alongside those pages: the runtime is idempotent (see above). */
+export function AutomationRuntime() { useEngineRuntime(); return null; }
 
 /* ============================================================
    ENGINE TEMPLATES  (one-click starting points for the builder)

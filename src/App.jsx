@@ -159,6 +159,8 @@ import Replay from './pages/Replay.jsx';
 import SkillMap from './pages/SkillMap.jsx';
 import TrainingCompanion from './components/companion/TrainingCompanion.jsx';
 import OsmosisCoach from './components/osmosis/OsmosisCoach.jsx';
+import { AutomationRuntime } from './lib/automation-engine.js';
+import { startReplayCapture } from './lib/replay.js';
 import LiftoffDeck from './pages/LiftoffDeck.jsx';
 // Back-office admin: signup tracking, growth metrics, filters, launch-into.
 import Admin from './pages/Admin.jsx';
@@ -1074,6 +1076,7 @@ export default function App() {
       <CoachTour />
       <TrainingCompanion />
       <OsmosisCoach />
+      <AutomationRuntime />
     </div>
   );
 }

@@ -120,7 +120,7 @@ export default function FieldEditor({ editing, priorFields = [], stepCount = 1, 
             <label className="row gap-2 t-sm fw-6" style={{ alignItems: 'center', cursor: 'pointer' }}>
               <input type="checkbox" checked={!!d.amountEditable} onChange={e => set({ amountEditable: e.target.checked })} /> Let the visitor enter their own amount
             </label>
-            <div className="t-xs muted">On submit this fires a <code>rally:form-payment</code> event so your payment engine can charge it.</div>
+            <div className="t-xs muted">On submit this captures a payment intent and fires a <code>rally:payment</code> event so automations can follow up. Connect Stripe to collect the charge.</div>
           </>
         )}
 

@@ -7,7 +7,7 @@
 // SUPABASE: rally_invoices + rally_invoice_lines tables.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { getCompanies, getDeals, getCompany, getDeal, createActivity } from './store.js';
+import { getCompanies, getDeals, getCompany, getDeal, getContacts, createActivity } from './store.js';
 
 const LS_KEY = 'rally_invoices_v1';
 
@@ -291,14 +291,73 @@ export function agingBuckets() {
 /* ============================================================
    WRITE API
    ============================================================ */
-export function markPaid(id) {
+// Mark an invoice paid. By default this is a MANUAL action (a rep clicking
+// "Mark paid" in Billing): it flips the row, logs a clearly-manual CRM
+// activity, and fires 'rally:payment' so automations enroll. The Stripe
+// reconcile path calls markPaid(id, { silent: true, reconcile: true }) to flip
+// the row WITHOUT firing here, then fires its own (non-manual) event so the
+// payment is never double-counted.
+export function markPaid(id, opts = {}) {
   const inv = getInvoice(id);
   if (!inv) return { error: 'missing' };
   const at = new Date().toISOString();
+  const label = opts.reconcile ? 'Payment received' : 'Marked paid (manual)';
   const next = { ...bill, invoices: bill.invoices.map(i =>
-    i.id === id ? { ...i, status: 'paid', paidAt: at, timeline: [...i.timeline, { label: 'Payment received', at }] } : i) };
+    i.id === id ? { ...i, status: 'paid', paidAt: at, timeline: [...i.timeline, { label, at }] } : i) };
   commit(next);
-  return { invoice: getInvoice(id) };
+  const paid = getInvoice(id);
+  if (!opts.silent) emitInvoicePaid(paid, { amount: opts.amount, manual: !opts.reconcile, sessionId: opts.sessionId || null });
+  return { invoice: paid };
+}
+
+/* Resolve an invoice's account into live CRM ids so 'rally:payment' carries
+   { email, contactId, companyId } for automation matching. */
+function resolveInvoicePayer(inv) {
+  const out = { contactId: null, email: '', companyId: inv && inv.companyId ? inv.companyId : null };
+  try {
+    if (out.companyId) {
+      const c = (getContacts() || []).find(x => x.companyId === out.companyId);
+      if (c) { out.contactId = c.id; out.email = c.email || ''; }
+    }
+  } catch { /* CRM read failed; leave contact fields empty */ }
+  return out;
+}
+
+/* Log a CRM activity + dispatch 'rally:payment' for one paid invoice. `manual`
+   distinguishes a rep-driven "Mark paid" from a reconciled Stripe charge. */
+function emitInvoicePaid(inv, { amount, manual, sessionId } = {}) {
+  if (!inv) return { activity: null, detail: null };
+  const amt = amount != null ? amount : inv.total;
+  const payer = resolveInvoicePayer(inv);
+  let activity = null;
+  try {
+    const r = createActivity({
+      type: 'note',
+      subject: `${manual ? 'Invoice marked paid (manual)' : 'Invoice payment received'}: ${inv.number} ${fmtUsd(amt)}`,
+      body: manual
+        ? `${inv.companyName} invoice ${inv.number} was marked paid manually in Ardovo Billing.`
+        : `${inv.companyName} paid invoice ${inv.number} via Ardovo Payments.`,
+      relatedType: inv.dealId ? 'deal' : (inv.companyId ? 'company' : null),
+      relatedId: inv.dealId || inv.companyId || null,
+      companyId: inv.companyId || null,
+      done: true,
+    });
+    if (r && !r.error) activity = r.activity;
+  } catch {}
+  const detail = {
+    source: 'invoice',
+    id: inv.id,
+    number: inv.number,
+    amount: amt,
+    email: payer.email || '',
+    contactId: payer.contactId || null,
+    companyId: payer.companyId || null,
+    manual: !!manual,
+    sessionId: sessionId || null,
+    at: new Date().toISOString(),
+  };
+  try { window.dispatchEvent(new CustomEvent('rally:payment', { detail })); } catch {}
+  return { activity, detail };
 }
 
 export function markSent(id) {
@@ -427,26 +486,13 @@ export function reconcileInvoicePaid(invoiceId, { sessionId, amount } = {}) {
   const key = sessionId || `inv:${invoiceId}`;
   const seen = bill.reconciled || [];
   if (seen.includes(key)) return { ok: true, already: true, invoice: inv };
-  if (inv.status !== 'paid') markPaid(invoiceId);
+  // Flip the row silently (no manual event), then fire the reconciled event
+  // once below so a Stripe return does not double-post with markPaid.
+  if (inv.status !== 'paid') markPaid(invoiceId, { silent: true, reconcile: true });
   commit({ ...bill, reconciled: [...seen, key].slice(-300) });
 
   const paid = getInvoice(invoiceId);
-  let activity = null;
-  try {
-    const r = createActivity({
-      type: 'note',
-      subject: `Invoice ${paid.number} paid: ${fmtUsd(amount != null ? amount : paid.total)}`,
-      body: `${paid.companyName} paid invoice ${paid.number} via Ardovo Payments.`,
-      relatedType: paid.dealId ? 'deal' : (paid.companyId ? 'company' : null),
-      relatedId: paid.dealId || paid.companyId || null,
-      companyId: paid.companyId || null,
-      done: true,
-    });
-    if (r && !r.error) activity = r.activity;
-  } catch {}
-
-  const detail = { source: 'invoice', id: invoiceId, number: paid.number, amount: amount != null ? amount : paid.total, sessionId: sessionId || null, at: new Date().toISOString() };
-  try { window.dispatchEvent(new CustomEvent('rally:payment', { detail })); } catch {}
+  const { activity, detail } = emitInvoicePaid(paid, { amount, manual: false, sessionId });
   return { ok: true, invoice: paid, activity, detail };
 }
 

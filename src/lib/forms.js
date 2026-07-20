@@ -694,12 +694,23 @@ export function submitForm(idOrSlug, values = {}, opts = {}) {
     }
   }
 
-  // Payment field -> hand off to the payment engine via a window event.
+  // Payment field -> hand off to the payment engine + automations via the
+  // canonical 'rally:payment' window event (renamed from the old
+  // 'rally:form-payment' so payment automations can enroll on it). This is a
+  // captured payment INTENT from the form, not a completed charge, so source
+  // is tagged 'form'; a real charge/reconcile still fires its own event.
   const payField = (form.fields || []).find(f => f.type === 'payment' && isFieldVisible(f, values));
   if (payField) {
     const amount = Number(values[payField.id]);
     if (Number.isFinite(amount) && amount > 0) {
-      dispatchWindow('rally:form-payment', { formId: form.id, amount, email: core.email || '', currency: payField.currency || 'USD' });
+      dispatchWindow('rally:payment', {
+        source: 'form',
+        formId: form.id,
+        contactId,
+        email: core.email || '',
+        amount,
+        currency: payField.currency || 'USD',
+      });
     }
   }
 
@@ -720,8 +731,19 @@ export function submitForm(idOrSlug, values = {}, opts = {}) {
   commit({ ...state, forms: state.forms.map(x => x.id === form.id ? next : x) });
   recordSubmit(form.id);
 
-  // Let automations react to the new lead.
-  dispatchWindow('rally:form-submit', { formId: form.id, contactId, values: { ...values } });
+  // Let automations react to the new lead with a RICH payload. The automation
+  // engine reads formName (to run form-specific rules), email, and firstName
+  // (for email personalization + contact matching), so send them all.
+  dispatchWindow('rally:form-submit', {
+    formId: form.id,
+    formName: form.name,
+    contactId,
+    email: (contactRec && contactRec.email) || core.email || '',
+    firstName: (contactRec && contactRec.firstName) || core.firstName || '',
+    lastName: (contactRec && contactRec.lastName) || core.lastName || '',
+    company: (contactRec && contactRec.companyName) || extra.companyName || '',
+    values: { ...values },
+  });
 
   return { ok: true, contact: contactRec, submission };
 }
