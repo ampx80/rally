@@ -11,8 +11,8 @@ import { SectionHeader, Card, Button, Badge, Select, StatCard, useToast } from '
 import { Icon } from '../components/icons.jsx';
 import { celebrate } from '../lib/celebrate.js';
 import {
-  TARGETS, CUSTOM_TARGETS, parseCsv, autoMap, analyze, buildStaged, applyToProduction,
-  recordJob, inferTarget, suggestCustomFields, addCustomField, SAMPLE_CSV,
+  TARGETS, CUSTOM_TARGETS, parseAny, autoMap, mapDetails, analyze, buildStaged, applyToProduction,
+  recordJob, inferTarget, suggestCustomFields, addCustomField, analyzeLinks, undoMigration, SAMPLE_CSV,
 } from '../lib/migration.js';
 import { createSession, updateSession } from '../lib/migration-session.js';
 import MigrationSpecialist from '../components/migration/MigrationSpecialist.jsx';
@@ -49,17 +49,20 @@ export default function MigrationWizard() {
     return suggestCustomFields({ headers: active.headers, rows: active.rows, mapping: active.mapping, target: active.target });
   }, [active]);
 
+  const links = useMemo(() => (files.length > 1 ? analyzeLinks(files) : null), [files]);
+
   const updateActive = (patch) => {
     setFiles(fs => fs.map(f => f.id === activeId ? { ...f, ...(typeof patch === 'function' ? patch(f) : patch) } : f));
   };
 
   const ingest = (name, text) => {
-    const p = parseCsv(text);
+    const p = parseAny(text, { name });
     if (!p.headers.length) { toast(`Could not read any rows in ${name}. Check the file.`, 'risk'); return null; }
     const target = inferTarget(p.headers);
+    const md = mapDetails(p.headers, target, p.rows);
     const entry = {
-      id: `f${fid++}`, name: name || 'pasted.csv', raw: text, target,
-      headers: p.headers, rows: p.rows, mapping: autoMap(p.headers, target),
+      id: `f${fid++}`, name: name || 'pasted.csv', raw: text, target, format: p.format,
+      headers: p.headers, rows: p.rows, mapping: md.mapping, mapMeta: md,
       options: defaultOptions(), customMap: {}, staged: null, result: null,
     };
     return entry;
@@ -95,7 +98,7 @@ export default function MigrationWizard() {
   const onDrop = (e) => { e.preventDefault(); setDragging(false); if (e.dataTransfer?.files?.length) onFiles(e.dataTransfer.files); };
   const loadSample = () => { const e = ingest('sample-messy-export.csv', SAMPLE_CSV); if (e) addFiles([e]); };
 
-  const setTarget = (t) => updateActive(f => ({ target: t, mapping: autoMap(f.headers, t), customMap: {} }));
+  const setTarget = (t) => updateActive(f => { const md = mapDetails(f.headers, t, f.rows); return { target: t, mapping: md.mapping, mapMeta: md, customMap: {} }; });
   const setMap = (h, v) => updateActive(f => ({ mapping: { ...f.mapping, [h]: v } }));
   const setOpt = (k, v) => updateActive(f => ({ options: { ...f.options, [k]: v } }));
 
@@ -205,6 +208,18 @@ export default function MigrationWizard() {
             </div>
           )}
 
+          {links && links.summary?.length > 0 && stage !== 'push' && (
+            <Card data-mw="links">
+              <div className="mw-h" style={{ marginBottom: '.35rem' }}>How your files connect</div>
+              <div className="mw-note">Mira matched records across your files, so relationships come over intact instead of breaking.</div>
+              <div className="col gap-2" style={{ marginTop: '.7rem' }}>
+                {links.summary.map((s, i) => (
+                  <div key={i} className="mw-link-row"><Icon name="merge" size={16} /> <span><b>{s.matched}</b> of {s.total} {relLabel(s.type)}</span></div>
+                ))}
+              </div>
+            </Card>
+          )}
+
           {stage === 'review' && active && report && (
             <ReviewStage
               active={active} report={report} suggestions={suggestions}
@@ -218,7 +233,17 @@ export default function MigrationWizard() {
           )}
 
           {stage === 'push' && active?.result && (
-            <PushStage active={active} onOpen={() => nav(active.target === 'contact' ? '/contacts' : '/companies')} onMore={() => setStage('upload')} />
+            <PushStage
+              active={active}
+              onOpen={() => nav(active.target === 'contact' ? '/contacts' : active.target === 'deal' ? '/deals' : '/companies')}
+              onMore={() => setStage('upload')}
+              onUndo={() => {
+                const r = undoMigration(active.result.batchId);
+                toast(`Rolled back ${r?.removed || 0} record${(r?.removed || 0) === 1 ? '' : 's'}. Your book is back to before this import.`);
+                updateActive({ result: null, staged: null });
+                setStage('review');
+              }}
+            />
           )}
         </div>
 
@@ -271,16 +296,26 @@ function ReviewStage({ active, report, suggestions, setTarget, setMap, setOpt, t
           </label>
         </div>
         <div className="col gap-2">
-          {active.headers.map(h => (
-            <div key={h} className={`mw-map${!active.mapping[h] ? ' is-unmapped' : ''}`}>
-              <span className="mw-map-src">{h} {!active.mapping[h] && <Badge tone="warn">unmapped</Badge>}</span>
-              <Icon name="chevronRight" size={15} className="muted" />
-              <Select value={active.mapping[h] || ''} onChange={e => setMap(h, e.target.value)} style={{ minWidth: 180 }}>
-                <option value="">Do not import</option>
-                {TARGETS[target].fields.map(f => <option key={f.key} value={f.key}>{f.label}{f.required ? ' *' : ''}</option>)}
-              </Select>
-            </div>
-          ))}
+          {active.headers.map(h => {
+            const conf = active.mapMeta?.confidence?.[h];
+            const reason = active.mapMeta?.reasons?.[h];
+            const mapped = !!active.mapping[h];
+            return (
+              <div key={h} className={`mw-map${!mapped ? ' is-unmapped' : ''}`}>
+                <span className="mw-map-src">{h} {!mapped && <Badge tone="warn">unmapped</Badge>}</span>
+                {mapped && conf != null && (
+                  <span className={`mw-conf ${conf >= 0.8 ? 'is-sure' : 'is-maybe'}`} title={reason || ''}>
+                    <Icon name={conf >= 0.8 ? 'check' : 'activity'} size={12} /> {Math.round(conf * 100)}%
+                  </span>
+                )}
+                <Icon name="chevronRight" size={15} className="muted" />
+                <Select value={active.mapping[h] || ''} onChange={e => setMap(h, e.target.value)} style={{ minWidth: 180 }}>
+                  <option value="">Do not import</option>
+                  {TARGETS[target].fields.map(f => <option key={f.key} value={f.key}>{f.label}{f.required ? ' *' : ''}</option>)}
+                </Select>
+              </div>
+            );
+          })}
         </div>
         {report.missingTargets.length > 0 && (
           <div className="mw-flag" data-mw="required-flag"><Icon name="activity" size={15} /> Required field{report.missingTargets.length > 1 ? 's' : ''} not mapped: {report.missingTargets.join(', ')}</div>
@@ -361,7 +396,7 @@ function StageStage({ active, onBack, onPush }) {
   );
 }
 
-function PushStage({ active, onOpen, onMore }) {
+function PushStage({ active, onOpen, onMore, onUndo }) {
   const target = active.target;
   return (
     <Card className="col" style={{ gap: '.9rem', alignItems: 'center', textAlign: 'center', padding: '2.6rem' }}>
@@ -374,8 +409,16 @@ function PushStage({ active, onOpen, onMore }) {
         <Button variant="primary" onClick={onOpen}><Icon name="chevronRight" size={17} /> Open {TARGETS[target].label}</Button>
         <Button variant="ghost" onClick={onMore}><Icon name="download" size={17} /> Migrate more</Button>
       </div>
+      <button className="mw-undo" onClick={onUndo}><Icon name="rotateCcw" size={14} /> Undo this migration</button>
     </Card>
   );
+}
+
+function relLabel(type) {
+  if (type === 'contact-company') return 'contacts linked to an account';
+  if (type === 'deal-company') return 'deals linked to an account';
+  if (type === 'deal-contact') return 'deals linked to a contact';
+  return 'records linked';
 }
 
 function MigrationStyles() {
@@ -436,6 +479,14 @@ function MigrationStyles() {
     .mw-table th { text-align: left; padding: 10px 13px; background: var(--n-25); color: var(--n-600); font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--line); white-space: nowrap; }
     .mw-table td { padding: 10px 13px; border-bottom: 1px solid var(--line); color: var(--ink); white-space: nowrap; }
     .mw-table tr:last-child td { border-bottom: none; }
+
+    .mw-conf { display: inline-flex; align-items: center; gap: 3px; flex: none; font-size: 11.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+    .mw-conf.is-sure { color: var(--ok); background: var(--ok-bg, #e7f6ee); }
+    .mw-conf.is-maybe { color: var(--warn); background: var(--warn-bg, #fdf3e1); }
+    .mw-link-row { display: flex; align-items: center; gap: 9px; font-size: 15px; color: var(--ink-2, #465063); }
+    .mw-link-row b { color: var(--ink); }
+    .mw-undo { margin-top: .4rem; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--n-600); background: transparent; border: none; cursor: pointer; }
+    .mw-undo:hover { color: var(--risk); text-decoration: underline; }
     `}</style>
   );
 }

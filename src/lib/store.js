@@ -572,6 +572,16 @@ export function updateDeal(id, patch) {
   return { deal: d };
 }
 
+// SUPABASE: from('rally_deals').delete().eq('id', id)
+// Additive writer. Used by the migration engine's rollback (undo a migration
+// batch). Safe no-op on unknown id.
+export function deleteDeal(id) {
+  const d = getDeal(id);
+  if (!d) return { error: 'missing', message: 'Deal not found.' };
+  commit({ ...state, deals: state.deals.filter(x => x.id !== id) });
+  return { ok: true, id };
+}
+
 // SUPABASE: update stage + probability + status; insert a system activity row.
 export function moveDealStage(id, stageId, { silent = false } = {}) {
   const d = getDeal(id);

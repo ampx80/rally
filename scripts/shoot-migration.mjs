@@ -32,7 +32,17 @@ await page.waitForTimeout(1500);
 const customCard = await page.locator('[data-mw="custom"]').count();
 const customRows = await page.locator('.mw-custom').count();
 const miraReview = await page.locator('.ms-msg--mira').count();
+const confChips = await page.locator('.mw-conf').count();
+// Add a second, semicolon-delimited companies file -> cross-file relationships
+const COMPANIES = 'Company;Industry;Website;Employees\nNorthwind;Logistics;northwind.com;120\nAtlas;Freight;atlas.com;40\nCascade;Health;cascade.com;9';
+await page.setInputFiles('input[type=file]', { name: 'accounts.csv', mimeType: 'text/csv', buffer: Buffer.from(COMPANIES) });
+await page.waitForTimeout(1200);
+const linksCard = await page.locator('[data-mw="links"]').count();
+const fileChips = await page.locator('.mw-file').count();
 await page.screenshot({ path: 'tmp/shots/mig-2-review.png', fullPage: true });
+// switch back to the contacts file to push it
+await page.locator('.mw-file', { hasText: 'contacts.csv' }).first().click().catch(() => {});
+await page.waitForTimeout(500);
 
 // 3) Keep custom fields via Mira action, then preview + push
 const keepBtn = page.locator('.ms-act--primary', { hasText: /custom field/i }).first();
@@ -45,6 +55,7 @@ await page.screenshot({ path: 'tmp/shots/mig-3-preview.png' });
 await page.locator('button', { hasText: /Push \d+ to production/ }).first().click().catch(() => {});
 await page.waitForTimeout(900);
 const complete = await page.locator('h2', { hasText: 'Migration complete' }).count();
+const undoBtn = await page.locator('.mw-undo').count();
 await page.screenshot({ path: 'tmp/shots/mig-4-complete.png' });
 
 // 4) Guided session room
@@ -61,7 +72,7 @@ await page.locator('button', { hasText: /Start session/i }).first().click().catc
 await page.waitForTimeout(1000);
 await page.screenshot({ path: 'tmp/shots/mig-6-room-live.png' });
 
-console.log(JSON.stringify({ greet, miraReview, customCard, customRows, stagedTbl, complete, inRoom, presenter, errors: errors.length }, null, 2));
+console.log(JSON.stringify({ greet, miraReview, customCard, customRows, confChips, fileChips, linksCard, stagedTbl, complete, undoBtn, inRoom, presenter, errors: errors.length }, null, 2));
 if (errors.length) { console.log('ERRORS:\n' + errors.slice(0, 8).join('\n')); }
 console.log(errors.length ? 'HAS ERRORS' : 'CLEAN');
 await browser.close();

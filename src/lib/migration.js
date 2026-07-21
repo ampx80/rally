@@ -15,7 +15,18 @@
 // a small local job store (rally_migration_v1). ASCII only. NO em-dash.
 // ============================================================
 import { useEffect, useState } from 'react';
-import { createContact, createCompany, getContacts, getCompanies } from './store.js';
+import {
+  createContact, createCompany, createDeal, getContacts, getCompanies,
+  deleteContact, deleteCompany, deleteDeal,
+} from './store.js';
+import { parseAny, fuzzyAutoMap, inferColumnType } from './migration-parse.js';
+import {
+  normalizeValue, validateRecord, fuzzyDedupe, linkAcrossDatasets,
+  beginBatch, recordCreated, commitBatch, listBatches, getBatch, undoBatch, useBatches,
+} from './migration-quality.js';
+
+// Re-export the deeper engine so the wizard imports from one place.
+export { parseAny, inferColumnType, normalizeValue, validateRecord, useBatches, listBatches, getBatch };
 
 const LS_KEY = 'rally_migration_v1';
 
@@ -26,25 +37,52 @@ export const TARGETS = {
   contact: {
     label: 'Contacts', icon: 'users',
     fields: [
-      { key: 'firstName', label: 'First name', required: true },
-      { key: 'lastName', label: 'Last name' },
-      { key: 'email', label: 'Email', required: true, type: 'email' },
-      { key: 'phone', label: 'Phone', type: 'phone' },
-      { key: 'title', label: 'Title' },
-      { key: 'company', label: 'Company' },
+      { key: 'firstName', label: 'First name', required: true, type: 'name', synonyms: ['first name', 'firstname', 'first', 'fname', 'given name', 'given', 'full name', 'fullname', 'name', 'contact name', 'contact'] },
+      { key: 'lastName', label: 'Last name', type: 'name', synonyms: ['last name', 'lastname', 'last', 'lname', 'surname', 'family name'] },
+      { key: 'email', label: 'Email', required: true, type: 'email', synonyms: ['email', 'e-mail', 'email address', 'work email', 'mail', 'contact email'] },
+      { key: 'phone', label: 'Phone', type: 'phone', synonyms: ['phone', 'phone number', 'mobile', 'cell', 'telephone', 'tel', 'work phone', 'direct'] },
+      { key: 'title', label: 'Title', type: 'text', synonyms: ['title', 'job title', 'role', 'position', 'designation'] },
+      { key: 'company', label: 'Company', type: 'text', synonyms: ['company', 'company name', 'account', 'account name', 'organization', 'organisation', 'employer', 'business'] },
     ],
   },
   company: {
     label: 'Companies', icon: 'building',
     fields: [
-      { key: 'name', label: 'Company name', required: true },
-      { key: 'industry', label: 'Industry' },
-      { key: 'size', label: 'Size' },
-      { key: 'domain', label: 'Website' },
-      { key: 'location', label: 'Location' },
+      { key: 'name', label: 'Company name', required: true, type: 'text', synonyms: ['name', 'company', 'company name', 'account', 'account name', 'organization', 'organisation', 'business'] },
+      { key: 'industry', label: 'Industry', type: 'text', synonyms: ['industry', 'sector', 'vertical'] },
+      { key: 'size', label: 'Size', type: 'text', synonyms: ['size', 'company size', 'employees', 'headcount', 'employee count'] },
+      { key: 'domain', label: 'Website', type: 'url', synonyms: ['website', 'domain', 'url', 'web', 'site'] },
+      { key: 'location', label: 'Location', type: 'text', synonyms: ['location', 'city', 'address', 'region', 'country', 'state'] },
+    ],
+  },
+  deal: {
+    label: 'Deals', icon: 'target',
+    fields: [
+      { key: 'name', label: 'Deal name', required: true, type: 'text', synonyms: ['deal', 'deal name', 'opportunity', 'opportunity name', 'name', 'title'] },
+      { key: 'company', label: 'Account', type: 'text', synonyms: ['company', 'account', 'account name', 'company name', 'organization', 'customer', 'client'] },
+      { key: 'value', label: 'Value', type: 'currency', synonyms: ['value', 'amount', 'deal value', 'deal size', 'revenue', 'acv', 'arr', 'mrr', 'price', 'total'] },
+      { key: 'stage', label: 'Stage', type: 'select', synonyms: ['stage', 'status', 'deal stage', 'pipeline stage', 'phase'] },
+      { key: 'closeDate', label: 'Close date', type: 'date', synonyms: ['close date', 'closing date', 'expected close', 'close', 'won date', 'expected close date'] },
+      { key: 'contactEmail', label: 'Primary contact email', type: 'email', synonyms: ['contact', 'contact email', 'primary contact', 'email', 'owner email'] },
     ],
   },
 };
+
+// Deal stage strings map onto Ardovo pipeline stage ids.
+const STAGE_SYNS = {
+  lead: ['lead', 'new', 'open', 'prospect', 'prospecting'],
+  qualified: ['qualified', 'sql', 'mql', 'discovery', 'demo'],
+  proposal: ['proposal', 'quote', 'proposed', 'proposal sent'],
+  negotiation: ['negotiation', 'negotiating', 'contract', 'contract sent', 'commit'],
+  won: ['won', 'closed won', 'closedwon', 'closed-won', 'win', 'closed'],
+  lost: ['lost', 'closed lost', 'closedlost', 'closed-lost', 'dead', 'no', 'churned'],
+};
+function mapStage(v) {
+  const n = norm(v);
+  if (!n) return 'lead';
+  for (const [id, list] of Object.entries(STAGE_SYNS)) if (list.some(x => n === x || n.includes(x))) return id;
+  return 'lead';
+}
 
 /* Synonyms used by auto-map to guess header -> field. */
 const SYNONYMS = {
@@ -67,58 +105,33 @@ const norm = (s) => String(s || '').trim().toLowerCase();
 /* ============================================================
    CSV PARSE  (handles quoted fields, commas, CRLF)
    ============================================================ */
+// Kept for back-compat. Now delegates to parseAny, which also handles TSV,
+// semicolon/pipe delimited, quoted fields, CRLF, and JSON arrays.
 export function parseCsv(text) {
-  const rows = [];
-  let row = [], field = '', inQ = false;
-  const s = String(text || '').replace(/\r\n?/g, '\n');
-  for (let i = 0; i < s.length; i++) {
-    const c = s[i];
-    if (inQ) {
-      if (c === '"') { if (s[i + 1] === '"') { field += '"'; i++; } else inQ = false; }
-      else field += c;
-    } else if (c === '"') inQ = true;
-    else if (c === ',') { row.push(field); field = ''; }
-    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
-    else field += c;
-  }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  const clean = rows.filter(r => r.some(x => String(x).trim() !== ''));
-  if (!clean.length) return { headers: [], rows: [] };
-  const headers = clean[0].map(h => String(h).trim());
-  const dataRows = clean.slice(1).map(r => {
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = (r[i] == null ? '' : String(r[i]).trim()); });
-    return obj;
-  });
-  return { headers, rows: dataRows };
+  const r = parseAny(text || '');
+  return { headers: r.headers, rows: r.rows };
 }
 
 /* ============================================================
    AUTO-MAP  header -> target field
    ============================================================ */
-export function autoMap(headers, target = 'contact') {
-  const fields = TARGETS[target].fields.map(f => f.key);
-  const mapping = {};
-  const used = new Set();
-  for (const h of headers) {
-    const nh = norm(h);
-    let best = '';
-    for (const f of fields) {
-      if (used.has(f)) continue;
-      const syn = SYNONYMS[f] || [f];
-      if (syn.includes(nh) || syn.some(x => nh === x)) { best = f; break; }
-    }
-    if (!best) {
-      for (const f of fields) {
-        if (used.has(f)) continue;
-        const syn = SYNONYMS[f] || [f];
-        if (syn.some(x => nh.includes(x) || x.includes(nh))) { best = f; break; }
-      }
-    }
-    if (best) { mapping[h] = best; used.add(best); }
-    else mapping[h] = '';
+export function autoMap(headers, target = 'contact', rows = []) {
+  return mapDetails(headers, target, rows).mapping;
+}
+
+// Full mapping detail: mapping + per-header confidence (0..1) + a human reason
+// + the runner-up field, powered by value-aware fuzzy matching. The wizard uses
+// confidence to show how sure Mira is and to surface "did you mean" fixes.
+export function mapDetails(headers, target = 'contact', rows = []) {
+  const fields = (TARGETS[target]?.fields || []).map(f => ({
+    key: f.key, label: f.label, required: !!f.required, type: f.type, synonyms: f.synonyms,
+  }));
+  try {
+    return fuzzyAutoMap(headers, fields, { rows });
+  } catch {
+    const mapping = {}; headers.forEach(h => { mapping[h] = ''; });
+    return { mapping, confidence: {}, reasons: {}, secondBest: {} };
   }
-  return mapping;
 }
 
 /* ============================================================
@@ -311,11 +324,24 @@ export function buildStaged({ rows, mapping, target = 'contact', options = {}, c
   const requiredKeys = tfields.filter(f => f.required).map(f => f.key);
   const customEntries = Object.entries(customMap).filter(([, k]) => k);
 
+  let normalized = 0;
   let records = rows.map(r => {
     const rec = {};
     for (const f of tfields) {
       const h = fieldToHeader[f.key];
-      rec[f.key] = h ? String(r[h] || '').trim() : '';
+      let v = h ? String(r[h] || '').trim() : '';
+      // Deep-normalize typed values (phone, url, date, currency, boolean, and
+      // email when the fix-emails toggle is on). splitNames handles names below.
+      if (v && f.type && f.type !== 'name' && f.type !== 'text' && f.type !== 'select') {
+        if (f.type !== 'email' || options.fixEmails !== false) {
+          const res = normalizeValue(f.type, v);
+          if (res && res.value !== undefined && res.value !== null) {
+            if (res.changed) normalized++;
+            v = res.value === '' ? '' : String(res.value);
+          }
+        }
+      }
+      rec[f.key] = v;
     }
     if (customEntries.length) {
       rec.custom = {};
@@ -327,48 +353,90 @@ export function buildStaged({ rows, mapping, target = 'contact', options = {}, c
       rec.firstName = parts.shift();
       rec.lastName = parts.join(' ');
     }
-    // Normalize email: take the first, lowercase.
-    if (options.fixEmails && rec.email) {
-      rec.email = rec.email.split(/[;,]/)[0].trim().toLowerCase();
-    }
     return rec;
   });
 
+  const problems = { droppedMissing: 0, droppedDupes: 0, normalized };
   // Drop rows missing a required value.
-  const problems = { droppedMissing: 0, droppedDupes: 0 };
   if (options.dropMissingRequired) {
     const before = records.length;
     records = records.filter(rec => requiredKeys.every(k => String(rec[k] || '').trim() !== ''));
     problems.droppedMissing = before - records.length;
   }
-  // Dedupe by email/name.
+  // Fuzzy-merge duplicates (same email, or close name + same account). Falls
+  // back to an exact key pass if the fuzzy engine is unavailable.
   if (options.dedupe) {
-    const key = target === 'contact' ? 'email' : 'name';
-    const seen = new Set();
-    const before = records.length;
-    records = records.filter(rec => {
-      const k = norm(rec[key]);
-      if (!k) return true;
-      if (seen.has(k)) return false;
-      seen.add(k); return true;
-    });
-    problems.droppedDupes = before - records.length;
+    try {
+      const res = fuzzyDedupe(records, { target });
+      problems.droppedDupes = (res.merged || []).length;
+      if (Array.isArray(res.unique)) records = res.unique;
+    } catch {
+      const key = target === 'contact' ? 'email' : 'name';
+      const seen = new Set(); const before = records.length;
+      records = records.filter(rec => { const k = norm(rec[key]); if (!k) return true; if (seen.has(k)) return false; seen.add(k); return true; });
+      problems.droppedDupes = before - records.length;
+    }
   }
   return { records, problems };
+}
+
+/* ============================================================
+   CROSS-FILE RELATIONSHIP LINKING
+   When several files are dropped (contacts + accounts + deals), find the real
+   relationships between them so the customer sees "312 of 340 contacts link to
+   an account". files: [{ id, name, target, headers, rows, mapping }].
+   ============================================================ */
+function mapRows(file) {
+  const fieldToHeader = {};
+  for (const [h, k] of Object.entries(file.mapping || {})) if (k) fieldToHeader[k] = h;
+  return (file.rows || []).map(r => {
+    const o = {};
+    for (const [k, h] of Object.entries(fieldToHeader)) o[k] = String(r[h] || '').trim();
+    if (o.contactEmail && !o.email) o.email = o.contactEmail;
+    return o;
+  });
+}
+export function analyzeLinks(files = []) {
+  const datasets = (files || []).map(f => ({ id: f.id, name: f.name, target: f.target, rows: mapRows(f) }));
+  try { return linkAcrossDatasets(datasets); } catch { return { links: [], summary: [] }; }
 }
 
 /* ============================================================
    APPLY TO PRODUCTION  (the only place writers fire)
    ============================================================ */
 export function applyToProduction({ records, target = 'contact' }) {
+  const batchId = beginBatch({ target, total: records.length });
   let created = 0, failed = 0;
+
   if (target === 'company') {
     for (const rec of records) {
       const r = createCompany({ name: rec.name, industry: rec.industry, size: rec.size, domain: rec.domain, location: rec.location, custom: rec.custom });
-      if (r.company) created++; else failed++;
+      if (r.company) { created++; recordCreated(batchId, 'company', r.company.id); } else failed++;
     }
-    return { created, failed };
+    commitBatch(batchId, { created, failed });
+    return { created, failed, batchId };
   }
+
+  if (target === 'deal') {
+    const companyByName = new Map(getCompanies().map(c => [norm(c.name), c.id]));
+    const contactByEmail = new Map(getContacts().filter(c => c.email).map(c => [norm(c.email), c.id]));
+    for (const rec of records) {
+      let companyId = null;
+      if (rec.company) {
+        const key = norm(rec.company);
+        companyId = companyByName.get(key) || null;
+        if (!companyId) { const cr = createCompany({ name: rec.company }); if (cr.company) { companyId = cr.company.id; companyByName.set(key, companyId); recordCreated(batchId, 'company', cr.company.id); } }
+      }
+      const contactIds = [];
+      if (rec.contactEmail) { const cid = contactByEmail.get(norm(rec.contactEmail)); if (cid) contactIds.push(cid); }
+      const value = Number(String(rec.value == null ? '' : rec.value).replace(/[^0-9.\-]/g, '')) || 0;
+      const r = createDeal({ name: rec.name, companyId, contactIds, value, stage: mapStage(rec.stage), closeDate: rec.closeDate || undefined });
+      if (r.deal) { created++; recordCreated(batchId, 'deal', r.deal.id); } else failed++;
+    }
+    commitBatch(batchId, { created, failed });
+    return { created, failed, batchId };
+  }
+
   // contacts: upsert company by name, attach.
   const companyByName = new Map(getCompanies().map(c => [norm(c.name), c.id]));
   for (const rec of records) {
@@ -378,13 +446,22 @@ export function applyToProduction({ records, target = 'contact' }) {
       companyId = companyByName.get(key) || null;
       if (!companyId) {
         const cr = createCompany({ name: rec.company });
-        if (cr.company) { companyId = cr.company.id; companyByName.set(key, companyId); }
+        if (cr.company) { companyId = cr.company.id; companyByName.set(key, companyId); recordCreated(batchId, 'company', cr.company.id); }
       }
     }
     const r = createContact({ firstName: rec.firstName, lastName: rec.lastName, email: rec.email, phone: rec.phone, title: rec.title, companyId, custom: rec.custom });
-    if (r.contact) created++; else failed++;
+    if (r.contact) { created++; recordCreated(batchId, 'contact', r.contact.id); } else failed++;
   }
-  return { created, failed };
+  commitBatch(batchId, { created, failed });
+  return { created, failed, batchId };
+}
+
+/* ============================================================
+   ROLLBACK  -  undo a whole migration batch (deletes what it created).
+   Decoupled from the store via a deleters map; the batch ledger tracks ids.
+   ============================================================ */
+export function undoMigration(batchId) {
+  return undoBatch(batchId, { contact: deleteContact, company: deleteCompany, deal: deleteDeal });
 }
 
 /* ============================================================

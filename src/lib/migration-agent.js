@@ -161,9 +161,10 @@ export function customFieldPitch(sug, target = 'contact') {
    ============================================================ */
 export function stageBriefing(staged, target = 'contact') {
   const out = [`Staged ${plur(staged.records.length, targetLabel(target).replace(/s$/, ''), targetLabel(target))}. This is the exact set that will land.`];
+  if (staged.problems?.normalized) out.push(`I cleaned up ${plur(staged.problems.normalized, 'value')} on the way in - phones, dates, emails, and money all normalized.`);
   if (staged.problems?.droppedDupes) out.push(`I merged ${plur(staged.problems.droppedDupes, 'duplicate')} for you.`);
   if (staged.problems?.droppedMissing) out.push(`I set aside ${plur(staged.problems.droppedMissing, 'row')} that were missing required data.`);
-  out.push('Scroll the preview. If it looks right, push it. Still nothing live until you do.');
+  out.push('Scroll the preview. If it looks right, push it. Still nothing live until you do, and you can undo the whole thing in one click after.');
   return out.map((text, i) => ({ id: `stage-${i}`, severity: 'ok', highlight: i === out.length - 1 ? 'push' : 'preview', text }));
 }
 
@@ -187,6 +188,9 @@ const QA = [
   { re: /(sandbox|test|preview|safe|production|go live|revert)/i, a: 'Nothing touches production until you push. You review a clean preview first, and you can start over anytime. Think of the review step as your sandbox.' },
   { re: /(security|gdpr|compliance|contract|price|pricing|cost)/i, a: 'That is one for your account executive - I keep to the data itself. I can flag it and they will follow up.' },
   { re: /(team|meeting|session|invite|together|zoom|call)/i, a: 'We can do this as a live session. Start one, share the link, and up to a handful of people join the same page. I present, we decide the mapping together, and one person pushes at the end.' },
+  { re: /(excel|xlsx|csv|tsv|json|format|delimiter|tab|semicolon|file type)/i, a: 'Drop it in whatever shape it comes out: comma, semicolon, tab, or pipe delimited, or a JSON export. I detect the format and the delimiter automatically, and I read each column by its values, not just its header.' },
+  { re: /(undo|rollback|roll back|revert|mistake|oops|delete|reverse)/i, a: 'Every push is one undo-able batch. If it does not look right after it lands, hit undo and I remove exactly what this migration created, nothing else.' },
+  { re: /(deal|opportunit|pipeline|quote|account)/i, a: 'I bring in contacts, accounts, and deals, and I link them across files so a deal keeps its account and a contact keeps its company. Columns that do not map become custom fields on the right view.' },
 ];
 export function localAnswer(question) {
   const q = String(question || '');
