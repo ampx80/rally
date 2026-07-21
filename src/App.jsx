@@ -43,6 +43,9 @@ import ImportData from './pages/ImportData.jsx';
 import QualifyConfig from './pages/QualifyConfig.jsx';
 import EmailCenter from './pages/EmailCenter.jsx';
 import OrgChart from './pages/OrgChart.jsx';
+import PersonaBar from './components/PersonaBar.jsx';
+import AtlasDock from './components/AtlasDock.jsx';
+import { useOrg, getPersona, getScoped, routeAllowed as personaRouteAllowed } from './lib/org.js';
 import MigrationWizard from './pages/MigrationWizard.jsx';
 import MigrationRoom from './pages/MigrationRoom.jsx';
 import Training from './pages/Training.jsx';
@@ -367,11 +370,16 @@ const SPINE = [
 // Resolve a spine item's peek routes to full items, honoring module toggles
 // + the admin gate - same filter every list in this file respects.
 function resolvePeek(spineItem, mods, adminAllowed) {
+  const scoped = getScoped();
+  const persona = getPersona();
   return (spineItem.peek || [])
     .map(to => ITEM_BY_ROUTE.get(to))
     .filter(Boolean)
     .filter(it => !ADMIN_ONLY_ROUTES.has(it.to) || adminAllowed)
-    .filter(it => { const k = moduleForRoute(it.to); return !k || mods[k] !== false; });
+    .filter(it => { const k = moduleForRoute(it.to); return !k || mods[k] !== false; })
+    // Focus mode: scope the daily drill-down nav to the active persona. The Apps
+    // grid stays full, so nobody loses access - this is a curated fast path.
+    .filter(it => !scoped || personaRouteAllowed(it.to, persona));
 }
 
 // Route-aware primary CTA for the topbar. Falls back to New deal.
@@ -701,6 +709,7 @@ function MobileNav({ open, onClose, onOpenApps, mods, adminAllowed }) {
 // drawer for whichever domain has secondary destinations open.
 function Rail({ open, mobile, onClose, appsOpen, onOpenApps, onCloseApps }) {
   const mods = useModules();
+  useOrg(); // re-render the rail when persona / focus mode changes
   const adminAllowed = useAdminAccess().allowed;
   const loc = useLocation();
   const [peekKey, setPeekKey] = useState(null);
@@ -787,6 +796,7 @@ function Topbar({ onOpenSearch, onBurger }) {
         <span className="badge t-xs hide-520">{isMac ? '⌘' : 'Ctrl'} K</span>
       </button>
       <div className="row gap-1" style={{ flex: 'none' }}>
+        <PersonaBar />
         <button onClick={askRook} className="ask-rook-chip hide-520" title="Ask Rook">
           <RookGlyph size={15} /><span>Ask Rook</span>
         </button>
@@ -1076,6 +1086,7 @@ export default function App() {
       <CommandK open={searchOpen} onClose={() => setSearchOpen(false)} />
       <HelpWidget />
       <RookDock />
+      <AtlasDock />
       <RecentPagesDock />
       <TrainingMode />
       <CoachTour />

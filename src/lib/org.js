@@ -55,6 +55,33 @@ export const PERSONAS = [
 ];
 export const personaById = (id) => PERSONAS.find(p => p.id === id) || PERSONAS[0];
 
+// Which rank a persona maps to, so we can auto-pick a landing persona per person.
+export function personaForRank(rankId) {
+  const r = rankById(rankId);
+  return r.persona === 'ic' ? 'manager' : (PERSONAS.some(p => p.id === r.persona) ? r.persona : 'manager');
+}
+
+// Core routes always visible in scoped ("focus") mode - nobody is ever stranded.
+export const CORE_ROUTES = new Set(['/app', '/notifications', '/settings', '/org', '/security-center']);
+
+// Broad, usable nav allowlist per persona (scoped/focus mode). Wider than the
+// handful of quick links so the focused nav is still a real workspace.
+export const PERSONA_NAV = {
+  executive: ['/dashboards', '/forecasting', '/intelligence', '/signals', '/twin', '/goals', '/reports', '/attribution', '/wind-tunnel', '/fork', '/deals', '/companies'],
+  admin: ['/team', '/roles', '/permissions', '/email-center', '/audit', '/app-manager', '/integrations', '/developers', '/workspaces', '/sandboxes', '/datasync', '/import', '/duplicates', '/objects', '/marketplace', '/billing-plans'],
+  manager: ['/deals', '/contacts', '/companies', '/forecasting', '/goals', '/reports', '/dashboards', '/territories', '/warroom', '/playbooks', '/leads', '/scheduler'],
+  support: ['/tickets', '/inbox', '/conversations', '/kb', '/surveys', '/voice', '/service'],
+  analyst: ['/reports', '/dashboards', '/attribution', '/intelligence', '/signals', '/twin', '/canvas', '/fork'],
+};
+
+export function routeAllowed(route, personaId) {
+  if (!route) return true;
+  if (CORE_ROUTES.has(route)) return true;
+  const list = PERSONA_NAV[personaId];
+  if (!list) return true;
+  return list.some(r => route === r || route.startsWith(r + '/'));
+}
+
 // ---- seed the reporting tree from the real team + a couple of function roles.
 function seedPeople() {
   let users = [];
@@ -79,7 +106,9 @@ function seedPeople() {
   return people;
 }
 
-function freshState() { return { people: seedPeople(), persona: 'executive', seeded: true }; }
+// scoped=false by default: everyone can see the whole system until they opt into
+// a focused persona view. "They have the opportunity to log into the whole system."
+function freshState() { return { people: seedPeople(), persona: 'executive', scoped: false, seeded: true }; }
 
 function load() {
   try {
@@ -142,6 +171,8 @@ export function removePerson(id) {
   commit({ ...state, people });
 }
 export function setPersona(persona) { commit({ ...state, persona }); }
+export function getScoped() { return !!state.scoped; }
+export function setScoped(on) { commit({ ...state, scoped: !!on }); }
 export function resetOrg() { commit(freshState()); }
 
 // ---- rank distribution (for the legend + insights) ----
